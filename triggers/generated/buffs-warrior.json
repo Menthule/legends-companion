@@ -1,0 +1,414 @@
+{
+  "name": "Generated buff timers — Warrior",
+  "triggers": [
+    {
+      "id": "buffs/warrior/cast/aggressive-discipline",
+      "name": "Buff timer: Aggressive Discipline",
+      "pattern": "^You begin casting Aggressive Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Aggressive Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 60."
+    },
+    {
+      "id": "buffs/warrior/cast/charge-discipline",
+      "name": "Buff timer: Charge Discipline",
+      "pattern": "^You begin casting Charge Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Charge Discipline",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Warrior level 53."
+    },
+    {
+      "id": "buffs/warrior/cast/defensive-discipline",
+      "name": "Buff timer: Defensive Discipline",
+      "pattern": "^You begin casting Defensive Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Defensive Discipline",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~3m00s at level 50 (formula 11, cap 30 ticks); the engine rescales to the profile's level; Warrior level 55."
+    },
+    {
+      "id": "buffs/warrior/cast/evasive-discipline",
+      "name": "Buff timer: Evasive Discipline",
+      "pattern": "^You begin casting Evasive Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Evasive Discipline",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~3m00s at level 50 (formula 11, cap 30 ticks); the engine rescales to the profile's level; Warrior level 52."
+    },
+    {
+      "id": "buffs/warrior/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 40."
+    },
+    {
+      "id": "buffs/warrior/cast/fellstrike-discipline",
+      "name": "Buff timer: Fellstrike Discipline",
+      "pattern": "^You begin casting Fellstrike Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fellstrike Discipline",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Warrior level 58."
+    },
+    {
+      "id": "buffs/warrior/cast/focused-will-discipline",
+      "name": "Buff timer: Focused Will Discipline",
+      "pattern": "^You begin casting Focused Will Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Focused Will Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 10."
+    },
+    {
+      "id": "buffs/warrior/cast/mighty-strike-discipline",
+      "name": "Buff timer: Mighty Strike Discipline",
+      "pattern": "^You begin casting Mighty Strike Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mighty Strike Discipline",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Warrior level 54."
+    },
+    {
+      "id": "buffs/warrior/cast/precision-discipline",
+      "name": "Buff timer: Precision Discipline",
+      "pattern": "^You begin casting Precision Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Precision Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 57."
+    },
+    {
+      "id": "buffs/warrior/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Warrior/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Warrior level 30."
+    },
+    {
+      "id": "buffs/wear-off/fearless-discipline",
+      "name": "Worn off: Fearless Discipline",
+      "pattern": "^The specter of fear returns to your mind\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Fearless Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior",
+        "Paladin",
+        "Ranger",
+        "ShadowKnight",
+        "Monk",
+        "Bard",
+        "Rogue",
+        "Beastlord",
+        "Berserker"
+      ],
+      "comments": "Wear-off message: \"The specter of fear returns to your mind.\""
+    },
+    {
+      "id": "buffs/wear-off/aggressive-discipline",
+      "name": "Worn off: Aggressive Discipline",
+      "pattern": "^You return to your normal fighting style\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Aggressive Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "Wear-off message: \"You return to your normal fighting style.\" — shared by 91 spells in spells_us_str (4 castable; also: Defensive Discipline, Evasive Discipline, Precision Discipline). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/mighty-strike-discipline",
+      "name": "Worn off: Mighty Strike Discipline",
+      "pattern": "^Your killer instinct fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Mighty Strike Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "Wear-off message: \"Your killer instinct fades.\""
+    },
+    {
+      "id": "buffs/wear-off/charge-discipline",
+      "name": "Worn off: Charge Discipline",
+      "pattern": "^Your perfect focus fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Charge Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "Wear-off message: \"Your perfect focus fades.\""
+    },
+    {
+      "id": "buffs/wear-off/resistant-discipline",
+      "name": "Worn off: Resistant Discipline",
+      "pattern": "^Your resistance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resistant Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior",
+        "Paladin",
+        "Ranger",
+        "ShadowKnight",
+        "Monk",
+        "Bard",
+        "Rogue",
+        "Beastlord",
+        "Berserker"
+      ],
+      "comments": "Wear-off message: \"Your resistance fades.\" — shared by 7 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/fellstrike-discipline",
+      "name": "Worn off: Fellstrike Discipline",
+      "pattern": "^Your weapons lose their accuracy\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Fellstrike Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior"
+      ],
+      "comments": "Wear-off message: \"Your weapons lose their accuracy.\""
+    },
+    {
+      "id": "buffs/wear-off/focused-will-discipline",
+      "name": "Worn off: Focused Will Discipline",
+      "pattern": "^Your will falters\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Focused Will Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Warrior",
+        "Monk",
+        "Rogue",
+        "Berserker"
+      ],
+      "comments": "Wear-off message: \"Your will falters.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

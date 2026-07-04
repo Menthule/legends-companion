@@ -1,0 +1,25 @@
+{
+  "name": "Curated class pack — Beastlord",
+  "triggers": [
+    {
+      "id": "class/beastlord/pet/warder-slain",
+      "name": "Warder slain",
+      "pattern": "^(.+)`s warder has been slain by (.+)!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Beastlord/Pet",
+      "classes": [
+        "Beastlord"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "warder down"
+          }
+        }
+      ],
+      "comments": "Warder naming verified in Legends log ('Torvin`s warder has been mesmerized.'); the slain line is the universal one."
+    }
+  ]
+}

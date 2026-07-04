@@ -1,0 +1,2774 @@
+{
+  "name": "Generated enemy-effect timers — Necromancer",
+  "triggers": [
+    {
+      "id": "debuffs/necromancer/cast/asystole",
+      "name": "Enemy timer: Asystole",
+      "pattern": "^You begin casting Asystole\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Asystole",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/auspice",
+      "name": "Enemy timer: Auspice",
+      "pattern": "^You begin casting Auspice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Auspice",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 8,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/beguile-undead",
+      "name": "Enemy timer: Beguile Undead",
+      "pattern": "^You begin casting Beguile Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Beguile Undead",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/boil-blood",
+      "name": "Enemy timer: Boil Blood",
+      "pattern": "^You begin casting Boil Blood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Boil Blood",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/bond-of-death",
+      "name": "Enemy timer: Bond of Death",
+      "pattern": "^You begin casting Bond of Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bond of Death",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 7,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/cajole-undead",
+      "name": "Enemy timer: Cajole Undead",
+      "pattern": "^You begin casting Cajole Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cajole Undead",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 9,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/cancelling-of-life",
+      "name": "Enemy timer: Cancelling of Life",
+      "pattern": "^You begin casting Cancelling of Life\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cancelling of Life",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/cascading-darkness",
+      "name": "Enemy timer: Cascading Darkness",
+      "pattern": "^You begin casting Cascading Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cascading Darkness",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/cessation-of-cor",
+      "name": "Enemy timer: Cessation of Cor",
+      "pattern": "^You begin casting Cessation of Cor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cessation of Cor",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/cessation-of-life",
+      "name": "Enemy timer: Cessation of Life",
+      "pattern": "^You begin casting Cessation of Life\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cessation of Life",
+            "duration_secs": 96,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/chill-bones",
+      "name": "Enemy timer: Chill Bones",
+      "pattern": "^You begin casting Chill Bones\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chill Bones",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/chilling-embrace",
+      "name": "Enemy timer: Chilling Embrace",
+      "pattern": "^You begin casting Chilling Embrace\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chilling Embrace",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m36s at level 50 (formula 3, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/clinging-darkness",
+      "name": "Enemy timer: Clinging Darkness",
+      "pattern": "^You begin casting Clinging Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Clinging Darkness",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; Necromancer level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/crippling-claudication",
+      "name": "Enemy timer: Crippling Claudication",
+      "pattern": "^You begin casting Crippling Claudication\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Crippling Claudication",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/dark-soul",
+      "name": "Enemy timer: Dark Soul",
+      "pattern": "^You begin casting Dark Soul\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dark Soul",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/degeneration",
+      "name": "Enemy timer: Degeneration",
+      "pattern": "^You begin casting Degeneration\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Degeneration",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/devouring-darkness",
+      "name": "Enemy timer: Devouring Darkness",
+      "pattern": "^You begin casting Devouring Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Devouring Darkness",
+            "duration_secs": 78,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 13,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m18s at level 50 (formula 1, cap 13 ticks); CC; the engine rescales to the profile's level; Necromancer level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/disease-cloud",
+      "name": "Enemy timer: Disease Cloud",
+      "pattern": "^You begin casting Disease Cloud\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Disease Cloud",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/dominate-undead",
+      "name": "Enemy timer: Dominate Undead",
+      "pattern": "^You begin casting Dominate Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dominate Undead",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/dooming-darkness",
+      "name": "Enemy timer: Dooming Darkness",
+      "pattern": "^You begin casting Dooming Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dooming Darkness",
+            "duration_secs": 90,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 15,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; Necromancer level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/dread-of-night",
+      "name": "Enemy timer: Dread of Night",
+      "pattern": "^You begin casting Dread of Night\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dread of Night",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/eidolon-voice",
+      "name": "Enemy timer: Eidolon Voice",
+      "pattern": "^You begin casting Eidolon Voice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Eidolon Voice",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/engulfing-darkness",
+      "name": "Enemy timer: Engulfing Darkness",
+      "pattern": "^You begin casting Engulfing Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Engulfing Darkness",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; Necromancer level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/enslave-death",
+      "name": "Enemy timer: Enslave Death",
+      "pattern": "^You begin casting Enslave Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enslave Death",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m30s at level 50 (formula 10, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/envenomed-bolt",
+      "name": "Enemy timer: Envenomed Bolt",
+      "pattern": "^You begin casting Envenomed Bolt\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Envenomed Bolt",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/eternities-torment",
+      "name": "Enemy timer: Eternities Torment",
+      "pattern": "^You begin casting Eternities Torment\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Eternities Torment",
+            "duration_secs": 126,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 21,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~2m06s at level 50 (formula 1, cap 21 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/fear",
+      "name": "Enemy timer: Fear",
+      "pattern": "^You begin casting Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fear",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/funeral-pyre-of-kelador",
+      "name": "Enemy timer: Funeral Pyre of Kelador",
+      "pattern": "^You begin casting Funeral Pyre of Kelador\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Funeral Pyre of Kelador",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/heart-flutter",
+      "name": "Enemy timer: Heart Flutter",
+      "pattern": "^You begin casting Heart Flutter\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Heart Flutter",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 13. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/heat-blood",
+      "name": "Enemy timer: Heat Blood",
+      "pattern": "^You begin casting Heat Blood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Heat Blood",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/hungry-earth",
+      "name": "Enemy timer: Hungry Earth",
+      "pattern": "^You begin casting Hungry Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Hungry Earth",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/ignite-blood",
+      "name": "Enemy timer: Ignite Blood",
+      "pattern": "^You begin casting Ignite Blood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ignite Blood",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/ignite-bones",
+      "name": "Enemy timer: Ignite Bones",
+      "pattern": "^You begin casting Ignite Bones\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ignite Bones",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 7,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/immobilize",
+      "name": "Enemy timer: Immobilize",
+      "pattern": "^You begin casting Immobilize\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Immobilize",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Necromancer level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/imprecation",
+      "name": "Enemy timer: Imprecation",
+      "pattern": "^You begin casting Imprecation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Imprecation",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/infectious-cloud",
+      "name": "Enemy timer: Infectious Cloud",
+      "pattern": "^You begin casting Infectious Cloud\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Infectious Cloud",
+            "duration_secs": 126,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 21,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~2m06s at level 50 (formula 10, cap 21 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/insidious-retrogression",
+      "name": "Enemy timer: Insidious Retrogression",
+      "pattern": "^You begin casting Insidious Retrogression\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Insidious Retrogression",
+            "duration_secs": 96,
+            "warn_at_secs": null,
+            "cast_time_secs": 7,
+            "duration_formula": 1,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/instill",
+      "name": "Enemy timer: Instill",
+      "pattern": "^You begin casting Instill\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Instill",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Necromancer level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/invoke-fear",
+      "name": "Enemy timer: Invoke Fear",
+      "pattern": "^You begin casting Invoke Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invoke Fear",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/leech",
+      "name": "Enemy timer: Leech",
+      "pattern": "^You begin casting Leech\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Leech",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/negation-of-life",
+      "name": "Enemy timer: Negation of Life",
+      "pattern": "^You begin casting Negation of Life\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Negation of Life",
+            "duration_secs": 90,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 15,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/panic-the-dead",
+      "name": "Enemy timer: Panic the Dead",
+      "pattern": "^You begin casting Panic the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Panic the Dead",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/paralyzing-earth",
+      "name": "Enemy timer: Paralyzing Earth",
+      "pattern": "^You begin casting Paralyzing Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Paralyzing Earth",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Necromancer level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/plague",
+      "name": "Enemy timer: Plague",
+      "pattern": "^You begin casting Plague\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Plague",
+            "duration_secs": 78,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 13,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m18s at level 50 (formula 10, cap 13 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/poison-bolt",
+      "name": "Enemy timer: Poison Bolt",
+      "pattern": "^You begin casting Poison Bolt\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Poison Bolt",
+            "duration_secs": 24,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 4,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m24s at level 50 (formula 2, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/pyrocruor",
+      "name": "Enemy timer: Pyrocruor",
+      "pattern": "^You begin casting Pyrocruor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pyrocruor",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/root",
+      "name": "Enemy timer: Root",
+      "pattern": "^You begin casting Root\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Root",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Necromancer level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/scent-of-darkness",
+      "name": "Enemy timer: Scent of Darkness",
+      "pattern": "^You begin casting Scent of Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scent of Darkness",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/scent-of-dusk",
+      "name": "Enemy timer: Scent of Dusk",
+      "pattern": "^You begin casting Scent of Dusk\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scent of Dusk",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/scent-of-shadow",
+      "name": "Enemy timer: Scent of Shadow",
+      "pattern": "^You begin casting Scent of Shadow\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scent of Shadow",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/scent-of-terris",
+      "name": "Enemy timer: Scent of Terris",
+      "pattern": "^You begin casting Scent of Terris\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scent of Terris",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/scourge",
+      "name": "Enemy timer: Scourge",
+      "pattern": "^You begin casting Scourge\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scourge",
+            "duration_secs": 72,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 12,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/screaming-terror",
+      "name": "Enemy timer: Screaming Terror",
+      "pattern": "^You begin casting Screaming Terror\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Screaming Terror",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/shackle-of-bone",
+      "name": "Enemy timer: Shackle of Bone",
+      "pattern": "^You begin casting Shackle of Bone\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shackle of Bone",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 17. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/shackle-of-spirit",
+      "name": "Enemy timer: Shackle of Spirit",
+      "pattern": "^You begin casting Shackle of Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shackle of Spirit",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/shadow-vortex",
+      "name": "Enemy timer: Shadow Vortex",
+      "pattern": "^You begin casting Shadow Vortex\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shadow Vortex",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/siphon-strength",
+      "name": "Enemy timer: Siphon Strength",
+      "pattern": "^You begin casting Siphon Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Siphon Strength",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/splurt",
+      "name": "Enemy timer: Splurt",
+      "pattern": "^You begin casting Splurt\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Splurt",
+            "duration_secs": 96,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/spook-the-dead",
+      "name": "Enemy timer: Spook the Dead",
+      "pattern": "^You begin casting Spook the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spook the Dead",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/succussion-of-shadows",
+      "name": "Enemy timer: Succussion of Shadows",
+      "pattern": "^You begin casting Succussion of Shadows\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Succussion of Shadows",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/surge-of-enfeeblement",
+      "name": "Enemy timer: Surge of Enfeeblement",
+      "pattern": "^You begin casting Surge of Enfeeblement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Surge of Enfeeblement",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 10, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/thrall-of-bones",
+      "name": "Enemy timer: Thrall of Bones",
+      "pattern": "^You begin casting Thrall of Bones\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Thrall of Bones",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/trepidation",
+      "name": "Enemy timer: Trepidation",
+      "pattern": "^You begin casting Trepidation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Trepidation",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/unholy-voice",
+      "name": "Enemy timer: Unholy Voice",
+      "pattern": "^You begin casting Unholy Voice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Unholy Voice",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/vampiric-curse",
+      "name": "Enemy timer: Vampiric Curse",
+      "pattern": "^You begin casting Vampiric Curse\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Vampiric Curse",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 29. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/venom-of-the-snake",
+      "name": "Enemy timer: Venom of the Snake",
+      "pattern": "^You begin casting Venom of the Snake\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Venom of the Snake",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/vexing-mordinia",
+      "name": "Enemy timer: Vexing Mordinia",
+      "pattern": "^You begin casting Vexing Mordinia\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Vexing Mordinia",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/wave-of-enfeeblement",
+      "name": "Enemy timer: Wave of Enfeeblement",
+      "pattern": "^You begin casting Wave of Enfeeblement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wave of Enfeeblement",
+            "duration_secs": 240,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 40,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/necromancer/cast/zevfeer-s-theft-of-vitae",
+      "name": "Enemy timer: Zevfeer's Theft of Vitae",
+      "pattern": "^You begin casting Zevfeer's Theft of Vitae\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Zevfeer's Theft of Vitae",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 8,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/auspice",
+      "name": "Enemy timer cleared: Auspice",
+      "pattern": "^Your Auspice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Auspice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Auspice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/beguile-undead",
+      "name": "Enemy timer cleared: Beguile Undead",
+      "pattern": "^Your Beguile Undead spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Beguile Undead"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Beguile Undead off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/bond-of-death",
+      "name": "Enemy timer cleared: Bond of Death",
+      "pattern": "^Your Bond of Death spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Bond of Death"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Bond of Death off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cajole-undead",
+      "name": "Enemy timer cleared: Cajole Undead",
+      "pattern": "^Your Cajole Undead spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cajole Undead"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cajole Undead off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cessation-of-cor",
+      "name": "Enemy timer cleared: Cessation of Cor",
+      "pattern": "^Your Cessation of Cor spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cessation of Cor"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cessation of Cor off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cessation-of-life",
+      "name": "Enemy timer cleared: Cessation of Life",
+      "pattern": "^Your Cessation of Life spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cessation of Life"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cessation of Life off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chill-bones",
+      "name": "Enemy timer cleared: Chill Bones",
+      "pattern": "^Your Chill Bones spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chill Bones"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chill Bones off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chilling-embrace",
+      "name": "Enemy timer cleared: Chilling Embrace",
+      "pattern": "^Your Chilling Embrace spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chilling Embrace"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chilling Embrace off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/crippling-claudication",
+      "name": "Enemy timer cleared: Crippling Claudication",
+      "pattern": "^Your Crippling Claudication spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Crippling Claudication"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Crippling Claudication off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dark-soul",
+      "name": "Enemy timer cleared: Dark Soul",
+      "pattern": "^Your Dark Soul spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dark Soul"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dark Soul off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/degeneration",
+      "name": "Enemy timer cleared: Degeneration",
+      "pattern": "^Your Degeneration spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Degeneration"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Degeneration off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/devouring-darkness",
+      "name": "Enemy timer cleared: Devouring Darkness",
+      "pattern": "^Your Devouring Darkness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Devouring Darkness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Devouring Darkness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dominate-undead",
+      "name": "Enemy timer cleared: Dominate Undead",
+      "pattern": "^Your Dominate Undead spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dominate Undead"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dominate Undead off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/eidolon-voice",
+      "name": "Enemy timer cleared: Eidolon Voice",
+      "pattern": "^Your Eidolon Voice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Eidolon Voice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Eidolon Voice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/enslave-death",
+      "name": "Enemy timer cleared: Enslave Death",
+      "pattern": "^Your Enslave Death spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Enslave Death"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Enslave Death off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/eternities-torment",
+      "name": "Enemy timer cleared: Eternities Torment",
+      "pattern": "^Your Eternities Torment spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Eternities Torment"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Eternities Torment off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/funeral-pyre-of-kelador",
+      "name": "Enemy timer cleared: Funeral Pyre of Kelador",
+      "pattern": "^Your Funeral Pyre of Kelador spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Funeral Pyre of Kelador"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Funeral Pyre of Kelador off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/hungry-earth",
+      "name": "Enemy timer cleared: Hungry Earth",
+      "pattern": "^Your Hungry Earth spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Hungry Earth"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Hungry Earth off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ignite-blood",
+      "name": "Enemy timer cleared: Ignite Blood",
+      "pattern": "^Your Ignite Blood spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ignite Blood"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ignite Blood off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ignite-bones",
+      "name": "Enemy timer cleared: Ignite Bones",
+      "pattern": "^Your Ignite Bones spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ignite Bones"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ignite Bones off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/imprecation",
+      "name": "Enemy timer cleared: Imprecation",
+      "pattern": "^Your Imprecation spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Imprecation"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Imprecation off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/insidious-retrogression",
+      "name": "Enemy timer cleared: Insidious Retrogression",
+      "pattern": "^Your Insidious Retrogression spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Insidious Retrogression"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Insidious Retrogression off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/leech",
+      "name": "Enemy timer cleared: Leech",
+      "pattern": "^Your Leech spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Leech"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Leech off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/poison-bolt",
+      "name": "Enemy timer cleared: Poison Bolt",
+      "pattern": "^Your Poison Bolt spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Poison Bolt"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Poison Bolt off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/pyrocruor",
+      "name": "Enemy timer cleared: Pyrocruor",
+      "pattern": "^Your Pyrocruor spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Pyrocruor"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Pyrocruor off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scent-of-darkness",
+      "name": "Enemy timer cleared: Scent of Darkness",
+      "pattern": "^Your Scent of Darkness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scent of Darkness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scent of Darkness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scent-of-dusk",
+      "name": "Enemy timer cleared: Scent of Dusk",
+      "pattern": "^Your Scent of Dusk spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scent of Dusk"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scent of Dusk off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scent-of-shadow",
+      "name": "Enemy timer cleared: Scent of Shadow",
+      "pattern": "^Your Scent of Shadow spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scent of Shadow"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scent of Shadow off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scent-of-terris",
+      "name": "Enemy timer cleared: Scent of Terris",
+      "pattern": "^Your Scent of Terris spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scent of Terris"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scent of Terris off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/screaming-terror",
+      "name": "Enemy timer cleared: Screaming Terror",
+      "pattern": "^Your Screaming Terror spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Screaming Terror"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Screaming Terror off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shackle-of-bone",
+      "name": "Enemy timer cleared: Shackle of Bone",
+      "pattern": "^Your Shackle of Bone spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shackle of Bone"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shackle of Bone off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shackle-of-spirit",
+      "name": "Enemy timer cleared: Shackle of Spirit",
+      "pattern": "^Your Shackle of Spirit spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shackle of Spirit"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shackle of Spirit off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/splurt",
+      "name": "Enemy timer cleared: Splurt",
+      "pattern": "^Your Splurt spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Splurt"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Splurt off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/succussion-of-shadows",
+      "name": "Enemy timer cleared: Succussion of Shadows",
+      "pattern": "^Your Succussion of Shadows spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Succussion of Shadows"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Succussion of Shadows off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/surge-of-enfeeblement",
+      "name": "Enemy timer cleared: Surge of Enfeeblement",
+      "pattern": "^Your Surge of Enfeeblement spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Surge of Enfeeblement"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Surge of Enfeeblement off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/thrall-of-bones",
+      "name": "Enemy timer cleared: Thrall of Bones",
+      "pattern": "^Your Thrall of Bones spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Thrall of Bones"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Thrall of Bones off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/unholy-voice",
+      "name": "Enemy timer cleared: Unholy Voice",
+      "pattern": "^Your Unholy Voice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Unholy Voice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Unholy Voice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/vexing-mordinia",
+      "name": "Enemy timer cleared: Vexing Mordinia",
+      "pattern": "^Your Vexing Mordinia spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Vexing Mordinia"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Vexing Mordinia off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/zevfeer-s-theft-of-vitae",
+      "name": "Enemy timer cleared: Zevfeer's Theft of Vitae",
+      "pattern": "^Your Zevfeer's Theft of Vitae spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Zevfeer's Theft of Vitae"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Zevfeer's Theft of Vitae off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

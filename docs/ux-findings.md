@@ -1,0 +1,38 @@
+# Naive-user UX walkthrough findings
+
+Server is down. Walkthrough complete — no repo files were touched (build went to `/tmp/claude-1000/uxreview-dist`, interaction was driven by a scratch-only harness page). All evidence is in `C:\Users\getow\Desktop\eqlogs-shots\` (`/mnt/c/Users/getow/Desktop/eqlogs-shots/`), files `uxr-00` through `uxr-10`.
+
+# Naive-user friction list (worst first)
+
+**1. The main trigger editor demands raw regex with zero help or feedback.** The Pattern field is labeled "Pattern (regex, {C} = character name)" and that's the entirety of the guidance. When I typed a plain sentence ("tells you", "You begin casting Clarity.") I had no way to know: is this substring or whole-line match? Does the trailing period mean "any character"? (It does — every seeded trigger escapes it as `\.` but mine silently doesn't.) There is no match preview, no "test against a line" box, no validation, nothing turns green or red — the quick-trigger modal HAS a live "Pattern matches this line" indicator, but the full editor, the harder tool, has none. Evidence: `uxr-04-add-empty.png`, `uxr-05-tell-filled.png`, `uxr-06-clarity-filled.png` vs the modal in `uxr-03-qt-modal.png`. Structural fix: port the modal's live preview + a sample-line test input into the editor; longer term, a "match this exact text / any number / any name" builder like the modal already has.
+
+**2. `${1}` / `{C}` are unexplainable without regex knowledge — and the app uses two different placeholder syntaxes.** The only in-app explanations are the field labels: "Speak (TTS, ${1} = capture group)" and "(regex, {C} = character name)". "Capture group" is pure regex jargon; a naive user editing "Tell received" (`uxr-08-edit-existing.png`) sees pattern `^(\w+) tells you,` and speak `tell from ${1}` and has no path to connect `(\w+)` → `${1}`. Worse, the seeded "Dangerous enemy cast" trigger speaks `${2} incoming` (`uxr-01-triggers-tab.png`) — nothing anywhere explains numbering. And `{C}` vs `${1}` are different syntaxes ({C} no dollar sign), which reads as a typo. The quick modal shows the `${1}` hint even when the pattern has no capture group at all (`uxr-03-qt-modal.png`, default pattern is fully literal). Quick win: tooltip/legend under the fields — "`${1}` = the first `(…)` part of the pattern; `{C}` = your character's name". Structural: insert-placeholder chips ("sender's name", "spell name") that write the syntax for you.
+
+**3. Trigger creation from the Live tab is invisible until you accidentally hover.** The natural first workflow ("I see the line I care about, make a trigger from it") exists — a "+ Trigger" button per row — but it only appears on row hover; the resting state shows no affordance whatsoever (`uxr-00-live-default.png` shows nothing, `uxr-02-live-hover.png` shows the pinned hover state). A first-time user will instead find the Triggers tab and land in the raw-regex editor (problem 1), never discovering the much friendlier modal. Quick win: always-visible dim "+" icon on rows, or an empty-state/toolbar hint "hover a line to make a trigger from it".
+
+**4. "Saved. Restart tailing to apply trigger changes to a live session."** (`uxr-07-clarity-saved.png`.) Double friction: (a) "tailing" is log-nerd jargon — the header button says "Stop", not "Stop tailing", so the user doesn't even know what to restart; (b) the burden is on the user, silently — my new Clarity trigger looks saved and enabled but won't fire, and the banner is easy to miss. Quick win: reword ("New triggers take effect next session — click Stop, then Start, to apply now") or add an "Apply now" button in the banner. Structural: hot-reload triggers into the running tailer.
+
+**5. The editor is one flat form of seven optional fields with no concept of "action".** (`uxr-04-add-empty.png`.) Nothing says Speak/Overlay/Sound/Timer are alternatives-or-combinable actions, that blank = off, or that clearing a field deletes that action. For "warn me when someone tells me" I couldn't tell whether I needed Speak AND Overlay text, or what happens if I fill none (answer: it saves a trigger that does nothing — no warning). The quick modal's segmented Speak/Display/Timer control (`uxr-10-qt-timer.png`) is far clearer. Quick win: group the action fields under an "Actions (fill any)" heading; warn on save when zero actions. 
+
+**6. "Sound file path (.wav / .mp3)" is a bare text field.** No Browse button, no picker (the GINA import right above it does open a native dialog, so the inconsistency stings), no "play" test. A non-technical user cannot produce a Windows path by hand. Evidence: `uxr-04-add-empty.png`. Quick win: add a Browse… button using the existing dialog plugin.
+
+**7. Delete is instant and permanent.** The Delete button on each row (`uxr-01-triggers-tab.png`) persists immediately — no confirmation, no undo toast. One misclick next to Edit destroys a hand-built regex. Quick win: undo toast (a toast mechanism already exists on the Live tab).
+
+**8. Timer durations are seconds-only.** "Timer secs" forced me to compute 35 minutes → 2100 (`uxr-06-clarity-filled.png`); buff timers in EQ are minutes-long, so this is the common case. "Warn at secs left" is also easy to misread as a timestamp. Quick win: accept "35m" / "35:00", show a "= 35 min" echo.
+
+**9. Minor: category free-text with hidden convention.** "Category (folder, e.g. Combat/Defense)" implies slash-nesting, but groups render flat ("COMBAT/CROWD CONTROL" as one literal header). Leaving it blank lands the trigger in "General" in the full editor but "Custom" in the quick modal — two different defaults for the same concept (`uxr-07` vs `uxr-03`).
+
+# Quick-trigger modal generalization toggles (`uxr-03-qt-modal.png`, `uxr-09-qt-toggles-on.png`)
+
+The labels are the right idea and mostly land for a non-programmer:
+- **"Match any numbers"** — understandable, and the pattern visibly changing `48` → `\d+` plus the green "Pattern matches this line" is genuinely good feedback. The one confusion: the pattern field fills with `\d+` gibberish the user is invited to edit but can't read.
+- **"Match any name (Torvin)"** — showing the detected name is smart, but two gaps: (a) it silently only generalizes the leading name — "Baron Telyx V`Zher" later in the line stays hard-coded, so the trigger fires for anyone piercing *that specific mob* only, which is almost never what "any name" means to a player; (b) when disabled (no leading name / line starts with "You"), the toggle is just grayed with no explanation why.
+- Suggested relabels: "Any amount of damage/numbers" and "Anyone, not just Torvin", plus a disabled-state tooltip.
+- The footer "Preview uses the browser regex engine; the app matches with Rust regex" is implementation trivia that only creates doubt for a naive user — hide or soften it.
+
+(One non-finding: in `uxr-09b-toggles-zoom.png` the toggle knobs appear not to have moved despite being ON — I verified this is a headless virtual-time transition artifact, since steady-state checked switches render correctly elsewhere, e.g. `uxr-00`.)
+
+# Summary buckets
+
+Quick wins: #2 legend/tooltips, #3 visible "+", #4 reword banner, #5 action grouping + zero-action warning, #6 Browse button, #7 undo toast, #8 duration parsing, modal relabels.
+Structural: live pattern preview/tester in the full editor (#1), placeholder-chip insertion (#2), hot-reload of triggers (#4), name-anywhere generalization in the modal.

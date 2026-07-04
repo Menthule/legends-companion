@@ -1,0 +1,911 @@
+{
+  "name": "Generated buff timers — Magician",
+  "triggers": [
+    {
+      "id": "buffs/magician/cast/aegis-of-ro",
+      "name": "Buff timer: Aegis of Ro",
+      "pattern": "^You begin casting Aegis of Ro\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Aegis of Ro",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 9,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 60."
+    },
+    {
+      "id": "buffs/magician/cast/ancient-burnout-blaze",
+      "name": "Buff timer: Ancient: Burnout Blaze",
+      "pattern": "^You begin casting Ancient: Burnout Blaze\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Burnout Blaze",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 60."
+    },
+    {
+      "id": "buffs/magician/cast/barrier-of-combustion",
+      "name": "Buff timer: Barrier of Combustion",
+      "pattern": "^You begin casting Barrier of Combustion\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Barrier of Combustion",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 38."
+    },
+    {
+      "id": "buffs/magician/cast/boon-of-immolation",
+      "name": "Buff timer: Boon of Immolation",
+      "pattern": "^You begin casting Boon of Immolation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Boon of Immolation",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 53."
+    },
+    {
+      "id": "buffs/magician/cast/burnout",
+      "name": "Buff timer: Burnout",
+      "pattern": "^You begin casting Burnout\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Burnout",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 11."
+    },
+    {
+      "id": "buffs/magician/cast/burnout-ii",
+      "name": "Buff timer: Burnout II",
+      "pattern": "^You begin casting Burnout II\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Burnout II",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 29."
+    },
+    {
+      "id": "buffs/magician/cast/burnout-iii",
+      "name": "Buff timer: Burnout III",
+      "pattern": "^You begin casting Burnout III\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Burnout III",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 47."
+    },
+    {
+      "id": "buffs/magician/cast/burnout-iv",
+      "name": "Buff timer: Burnout IV",
+      "pattern": "^You begin casting Burnout IV\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Burnout IV",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 55."
+    },
+    {
+      "id": "buffs/magician/cast/cadeau-of-flame",
+      "name": "Buff timer: Cadeau of Flame",
+      "pattern": "^You begin casting Cadeau of Flame\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cadeau of Flame",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 56."
+    },
+    {
+      "id": "buffs/magician/cast/elemental-cloak",
+      "name": "Buff timer: Elemental Cloak",
+      "pattern": "^You begin casting Elemental Cloak\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Elemental Cloak",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Magician level 54."
+    },
+    {
+      "id": "buffs/magician/cast/elemental-empathy",
+      "name": "Buff timer: Elemental Empathy",
+      "pattern": "^You begin casting Elemental Empathy\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Elemental Empathy",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 52."
+    },
+    {
+      "id": "buffs/magician/cast/expedience",
+      "name": "Buff timer: Expedience",
+      "pattern": "^You begin casting Expedience\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Expedience",
+            "duration_secs": 720,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 120,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~12m00s at level 50 (formula 3, cap 120 ticks); the engine rescales to the profile's level; Magician level 27."
+    },
+    {
+      "id": "buffs/magician/cast/eye-of-tallon",
+      "name": "Buff timer: Eye of Tallon",
+      "pattern": "^You begin casting Eye of Tallon\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Eye of Tallon",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 6,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); the engine rescales to the profile's level; Magician level 57."
+    },
+    {
+      "id": "buffs/magician/cast/eye-of-zomm",
+      "name": "Buff timer: Eye of Zomm",
+      "pattern": "^You begin casting Eye of Zomm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Eye of Zomm",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "cast_time_secs": 6,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Magician level 6."
+    },
+    {
+      "id": "buffs/magician/cast/guard-of-calliav",
+      "name": "Buff timer: Guard of Calliav",
+      "pattern": "^You begin casting Guard of Calliav\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard of Calliav",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Magician level 58."
+    },
+    {
+      "id": "buffs/magician/cast/inferno-shield",
+      "name": "Buff timer: Inferno Shield",
+      "pattern": "^You begin casting Inferno Shield\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Inferno Shield",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 28."
+    },
+    {
+      "id": "buffs/magician/cast/invisibility",
+      "name": "Buff timer: Invisibility",
+      "pattern": "^You begin casting Invisibility\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Magician level 8."
+    },
+    {
+      "id": "buffs/magician/cast/kindle",
+      "name": "Buff timer: Kindle",
+      "pattern": "^You begin casting Kindle\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Kindle",
+            "duration_secs": 1500,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 250,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~25m00s at level 50 (formula 3, cap 250 ticks); the engine rescales to the profile's level; Magician level 54."
+    },
+    {
+      "id": "buffs/magician/cast/phantasmal-armor",
+      "name": "Buff timer: Phantasmal Armor",
+      "pattern": "^You begin casting Phantasmal Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Phantasmal Armor",
+            "duration_secs": 5400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 900,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Magician level 54."
+    },
+    {
+      "id": "buffs/magician/cast/phantom-armor",
+      "name": "Buff timer: Phantom Armor",
+      "pattern": "^You begin casting Phantom Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Phantom Armor",
+            "duration_secs": 5400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 900,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Magician level 52."
+    },
+    {
+      "id": "buffs/magician/cast/primal-remedy",
+      "name": "Buff timer: Primal Remedy",
+      "pattern": "^You begin casting Primal Remedy\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Primal Remedy",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Magician level 44."
+    },
+    {
+      "id": "buffs/magician/cast/see-invisible",
+      "name": "Buff timer: See Invisible",
+      "pattern": "^You begin casting See Invisible\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "See Invisible",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Magician level 16."
+    },
+    {
+      "id": "buffs/magician/cast/shield-of-fire",
+      "name": "Buff timer: Shield of Fire",
+      "pattern": "^You begin casting Shield of Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Fire",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 7."
+    },
+    {
+      "id": "buffs/magician/cast/shield-of-flame",
+      "name": "Buff timer: Shield of Flame",
+      "pattern": "^You begin casting Shield of Flame\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Flame",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 19."
+    },
+    {
+      "id": "buffs/magician/cast/shield-of-lava",
+      "name": "Buff timer: Shield of Lava",
+      "pattern": "^You begin casting Shield of Lava\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Lava",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 45."
+    },
+    {
+      "id": "buffs/magician/cast/shield-of-the-magi",
+      "name": "Buff timer: Shield of the Magi",
+      "pattern": "^You begin casting Shield of the Magi\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of the Magi",
+            "duration_secs": 5400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 12,
+            "duration_formula": 3,
+            "duration_cap_ticks": 900,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Magician level 54."
+    },
+    {
+      "id": "buffs/magician/cast/transon-s-phantasmal-protection",
+      "name": "Buff timer: Transon's Phantasmal Protection",
+      "pattern": "^You begin casting Transon's Phantasmal Protection\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Transon's Phantasmal Protection",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Magician level 58."
+    },
+    {
+      "id": "buffs/magician/cast/valiant-companion",
+      "name": "Buff timer: Valiant Companion",
+      "pattern": "^You begin casting Valiant Companion\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Valiant Companion",
+            "duration_secs": 210,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 35,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~3m30s at level 50 (formula 3, cap 35 ticks); the engine rescales to the profile's level; Magician level 59."
+    },
+    {
+      "id": "buffs/magician/cast/veil-of-elements",
+      "name": "Buff timer: Veil of Elements",
+      "pattern": "^You begin casting Veil of Elements\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Veil of Elements",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Magician level 54."
+    },
+    {
+      "id": "buffs/magician/cast/velocity",
+      "name": "Buff timer: Velocity",
+      "pattern": "^You begin casting Velocity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Velocity",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Magician level 58."
+    },
+    {
+      "id": "buffs/magician/cast/ward-of-calliav",
+      "name": "Buff timer: Ward of Calliav",
+      "pattern": "^You begin casting Ward of Calliav\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ward of Calliav",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Magician level 46."
+    },
+    {
+      "id": "buffs/wear-off/aegis-of-ro",
+      "name": "Worn off: Aegis of Ro",
+      "pattern": "^The Aegis dies down\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Aegis of Ro gone"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Wear-off message: \"The Aegis dies down.\""
+    },
+    {
+      "id": "buffs/wear-off/barrier-of-combustion",
+      "name": "Worn off: Barrier of Combustion",
+      "pattern": "^The flames die down\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Barrier of Combustion gone"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Wear-off message: \"The flames die down.\" — shared by 146 spells in spells_us_str (8 castable; also: Boon of Immolation, Cadeau of Flame, Inferno Shield, Kindle, Shield of Fire). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/veil-of-elements",
+      "name": "Worn off: Veil of Elements",
+      "pattern": "^The veil fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Veil of Elements gone"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Wear-off message: \"The veil fades.\""
+    },
+    {
+      "id": "buffs/wear-off/phantasmal-armor",
+      "name": "Worn off: Phantasmal Armor",
+      "pattern": "^Your illusionary armor fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Phantasmal Armor gone"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Wear-off message: \"Your illusionary armor fades.\" — shared by 5 spells in spells_us_str (2 castable; also: Phantom Armor). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/transon-s-phantasmal-protection",
+      "name": "Worn off: Transon's Phantasmal Protection",
+      "pattern": "^Your phantasmal protection fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Transon's Phantasmal Protection gone"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Wear-off message: \"Your phantasmal protection fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

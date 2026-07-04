@@ -1,0 +1,82 @@
+{
+ "name": "Curated class pack — Shaman",
+ "triggers": [
+  {
+   "id": "class/shaman/cc/root-broken",
+   "name": "Root broke",
+   "pattern": "^Your root spell has worn off\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Crowd Control",
+   "classes": [
+    "Shaman",
+    "Cleric",
+    "Druid",
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "DisplayText": {
+      "template": "root broke"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/shaman/cc/walking-sleep-timer",
+   "name": "Walking Sleep duration",
+   "pattern": "^You begin casting Walking Sleep\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Crowd Control",
+   "classes": [
+    "Shaman"
+   ],
+   "actions": [
+    {
+     "StartTimer": {
+      "name": "Mez (Walking Sleep)",
+      "duration_secs": 150,
+      "warn_at_secs": 10,
+      "duration_formula": 6,
+      "duration_cap_ticks": 35,
+      "lane": "enemy"
+     }
+    }
+   ],
+   "comments": "Shaman mez (level 13; detrimental, so the generated buff packs skip it). Formula 6 cap 35: 150 s at 50, ~48 s at level 16 — the engine rescales to the profile's level. Moved here from the old default.json starter pack."
+  },
+  {
+   "id": "class/shaman/cc/walking-sleep-worn",
+   "name": "Walking Sleep worn off",
+   "pattern": "^Your Walking Sleep spell has worn off(?: of (.+))?\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Crowd Control",
+   "classes": [
+    "Shaman"
+   ],
+   "actions": [
+    {
+     "Speak": {
+      "template": "mez off"
+     }
+    },
+    {
+     "DisplayText": {
+      "template": "mez off ${1}"
+     }
+    },
+    {
+     "CancelTimer": {
+      "name": "Mez (Walking Sleep)"
+     }
+    }
+   ],
+   "comments": "Matches both the bare form and 'worn off of <target>.'. Walking Sleep is shaman-only per spell data, so it is deliberately absent from the enchanter mez-worn-target alternation (no double-fire for Ench+Shm characters). Also cancels the 'Mez (Walking Sleep)' countdown started by the curated cast timer."
+  }
+ ]
+}

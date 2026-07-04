@@ -1,0 +1,29 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capability for all Legends Companion windows (dashboard + overlays).",
+  "windows": [
+    "main",
+    "overlay-alerts",
+    "overlay-buffs",
+    "overlay-onothers",
+    "overlay-target",
+    "overlay-meter",
+    "overlay-stance"
+  ],
+  "permissions": [
+    "core:default",
+    "core:event:allow-listen",
+    "core:event:allow-unlisten",
+    "core:event:allow-emit",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:window:allow-set-ignore-cursor-events",
+    "core:window:allow-start-dragging",
+    "core:window:allow-set-position",
+    "core:window:allow-outer-position",
+    "core:window:allow-outer-size",
+    "dialog:default",
+    "updater:default"
+  ]
+}

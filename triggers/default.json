@@ -1,0 +1,5 @@
+{
+  "name": "Legends Companion starter pack (retired)",
+  "comment": "The v1 starter triggers moved into the v2 library so nothing is defined twice (duplicate patterns double-fire the moment either copy drifts). Stunned/Stun over/Tell received/Encumbered/Level up/You died/Spell resisted -> triggers/curated/universal.json; the Walking Sleep mez timers -> triggers/curated/shaman.json; 'Dangerous enemy cast' (Cancelling of Life, Engulfing Darkness) -> the enemy-casts/lifetap and enemy-casts/root-snare groups in triggers/generated/enemy-casts.json. This file stays only as the CLI's single-pack fallback for when the library directory is absent; keep it free of anything the curated/generated packs already cover.",
+  "triggers": []
+}

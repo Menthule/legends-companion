@@ -1,0 +1,26 @@
+{
+  "name": "Curated class pack — Berserker",
+  "triggers": [
+    {
+      "id": "class/berserker/melee/goes-berserk",
+      "name": "Gone berserk",
+      "pattern": "^{C} goes berserk\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Berserker/Melee",
+      "classes": [
+        "Berserker",
+        "Warrior"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "berserk"
+          }
+        }
+      ],
+      "comments": "Verified in Legends log: 'Zoxis goes berserk.' Low-HP frenzy state (warriors get it too)."
+    }
+  ]
+}

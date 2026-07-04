@@ -1,0 +1,1702 @@
+{
+  "name": "Generated buff timers — Beastlord",
+  "triggers": [
+    {
+      "id": "buffs/beastlord/cast/alacrity",
+      "name": "Buff timer: Alacrity",
+      "pattern": "^You begin casting Alacrity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Alacrity",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 110,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Beastlord level 60."
+    },
+    {
+      "id": "buffs/beastlord/cast/bestial-fury-discipline",
+      "name": "Buff timer: Bestial Fury Discipline",
+      "pattern": "^You begin casting Bestial Fury Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bestial Fury Discipline",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Beastlord level 60."
+    },
+    {
+      "id": "buffs/beastlord/cast/bond-of-the-wild",
+      "name": "Buff timer: Bond of the Wild",
+      "pattern": "^You begin casting Bond of the Wild\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bond of the Wild",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 52."
+    },
+    {
+      "id": "buffs/beastlord/cast/chloroplast",
+      "name": "Buff timer: Chloroplast",
+      "pattern": "^You begin casting Chloroplast\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chloroplast",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 55."
+    },
+    {
+      "id": "buffs/beastlord/cast/deftness",
+      "name": "Buff timer: Deftness",
+      "pattern": "^You begin casting Deftness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Deftness",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 53."
+    },
+    {
+      "id": "buffs/beastlord/cast/dexterity",
+      "name": "Buff timer: Dexterity",
+      "pattern": "^You begin casting Dexterity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dexterity",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57."
+    },
+    {
+      "id": "buffs/beastlord/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 3."
+    },
+    {
+      "id": "buffs/beastlord/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 22."
+    },
+    {
+      "id": "buffs/beastlord/cast/endure-fire",
+      "name": "Buff timer: Endure Fire",
+      "pattern": "^You begin casting Endure Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 9."
+    },
+    {
+      "id": "buffs/beastlord/cast/endure-magic",
+      "name": "Buff timer: Endure Magic",
+      "pattern": "^You begin casting Endure Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Magic",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 34."
+    },
+    {
+      "id": "buffs/beastlord/cast/endure-poison",
+      "name": "Buff timer: Endure Poison",
+      "pattern": "^You begin casting Endure Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Poison",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 18."
+    },
+    {
+      "id": "buffs/beastlord/cast/enduring-breath",
+      "name": "Buff timer: Enduring Breath",
+      "pattern": "^You begin casting Enduring Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enduring Breath",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 25."
+    },
+    {
+      "id": "buffs/beastlord/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Beastlord level 54."
+    },
+    {
+      "id": "buffs/beastlord/cast/furious-strength",
+      "name": "Buff timer: Furious Strength",
+      "pattern": "^You begin casting Furious Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Furious Strength",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 54."
+    },
+    {
+      "id": "buffs/beastlord/cast/guard-of-calliav",
+      "name": "Buff timer: Guard of Calliav",
+      "pattern": "^You begin casting Guard of Calliav\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard of Calliav",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 58."
+    },
+    {
+      "id": "buffs/beastlord/cast/health",
+      "name": "Buff timer: Health",
+      "pattern": "^You begin casting Health\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Health",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 52."
+    },
+    {
+      "id": "buffs/beastlord/cast/inner-fire",
+      "name": "Buff timer: Inner Fire",
+      "pattern": "^You begin casting Inner Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Inner Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 7."
+    },
+    {
+      "id": "buffs/beastlord/cast/invisibility",
+      "name": "Buff timer: Invisibility",
+      "pattern": "^You begin casting Invisibility\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Beastlord level 43."
+    },
+    {
+      "id": "buffs/beastlord/cast/levitate",
+      "name": "Buff timer: Levitate",
+      "pattern": "^You begin casting Levitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Levitate",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 32."
+    },
+    {
+      "id": "buffs/beastlord/cast/omakin-s-alacrity",
+      "name": "Buff timer: Omakin's Alacrity",
+      "pattern": "^You begin casting Omakin's Alacrity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Omakin's Alacrity",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 55."
+    },
+    {
+      "id": "buffs/beastlord/cast/pack-shrew",
+      "name": "Buff timer: Pack Shrew",
+      "pattern": "^You begin casting Pack Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 44."
+    },
+    {
+      "id": "buffs/beastlord/cast/protect",
+      "name": "Buff timer: Protect",
+      "pattern": "^You begin casting Protect\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protect",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 48."
+    },
+    {
+      "id": "buffs/beastlord/cast/raging-strength",
+      "name": "Buff timer: Raging Strength",
+      "pattern": "^You begin casting Raging Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Raging Strength",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41."
+    },
+    {
+      "id": "buffs/beastlord/cast/resist-disease",
+      "name": "Buff timer: Resist Disease",
+      "pattern": "^You begin casting Resist Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Disease",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51."
+    },
+    {
+      "id": "buffs/beastlord/cast/resist-poison",
+      "name": "Buff timer: Resist Poison",
+      "pattern": "^You begin casting Resist Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Poison",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 54."
+    },
+    {
+      "id": "buffs/beastlord/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Beastlord level 51."
+    },
+    {
+      "id": "buffs/beastlord/cast/savagery",
+      "name": "Buff timer: Savagery",
+      "pattern": "^You begin casting Savagery\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Savagery",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Beastlord level 60."
+    },
+    {
+      "id": "buffs/beastlord/cast/scale-skin",
+      "name": "Buff timer: Scale Skin",
+      "pattern": "^You begin casting Scale Skin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scale Skin",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 10."
+    },
+    {
+      "id": "buffs/beastlord/cast/serpent-sight",
+      "name": "Buff timer: Serpent Sight",
+      "pattern": "^You begin casting Serpent Sight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Serpent Sight",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 16."
+    },
+    {
+      "id": "buffs/beastlord/cast/sha-s-ferocity",
+      "name": "Buff timer: Sha's Ferocity",
+      "pattern": "^You begin casting Sha's Ferocity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sha's Ferocity",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 59."
+    },
+    {
+      "id": "buffs/beastlord/cast/shifting-shield",
+      "name": "Buff timer: Shifting Shield",
+      "pattern": "^You begin casting Shifting Shield\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shifting Shield",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 56."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-sight",
+      "name": "Buff timer: Spirit Sight",
+      "pattern": "^You begin casting Spirit Sight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Sight",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 29."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-strength",
+      "name": "Buff timer: Spirit Strength",
+      "pattern": "^You begin casting Spirit Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Strength",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 28."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-bear",
+      "name": "Buff timer: Spirit of Bear",
+      "pattern": "^You begin casting Spirit of Bear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Bear",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 17."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-flame",
+      "name": "Buff timer: Spirit of Flame",
+      "pattern": "^You begin casting Spirit of Flame\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Flame",
+            "duration_secs": 2880,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 480,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 56."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-inferno",
+      "name": "Buff timer: Spirit of Inferno",
+      "pattern": "^You begin casting Spirit of Inferno\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Inferno",
+            "duration_secs": 2640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~44m00s at level 50 (formula 3, cap 440 ticks); the engine rescales to the profile's level; Beastlord level 28."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-lightning",
+      "name": "Buff timer: Spirit of Lightning",
+      "pattern": "^You begin casting Spirit of Lightning\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Lightning",
+            "duration_secs": 2400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 400,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Beastlord level 13."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-monkey",
+      "name": "Buff timer: Spirit of Monkey",
+      "pattern": "^You begin casting Spirit of Monkey\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Monkey",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 38."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-ox",
+      "name": "Buff timer: Spirit of Ox",
+      "pattern": "^You begin casting Spirit of Ox\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Ox",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 37."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-snow",
+      "name": "Buff timer: Spirit of Snow",
+      "pattern": "^You begin casting Spirit of Snow\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Snow",
+            "duration_secs": 2880,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 480,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 54."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-vermin",
+      "name": "Buff timer: Spirit of Vermin",
+      "pattern": "^You begin casting Spirit of Vermin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Vermin",
+            "duration_secs": 2880,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 480,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 46."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-wind",
+      "name": "Buff timer: Spirit of Wind",
+      "pattern": "^You begin casting Spirit of Wind\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Wind",
+            "duration_secs": 2880,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 480,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 51."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-wolf",
+      "name": "Buff timer: Spirit of Wolf",
+      "pattern": "^You begin casting Spirit of Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Wolf",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 24."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-the-blizzard",
+      "name": "Buff timer: Spirit of the Blizzard",
+      "pattern": "^You begin casting Spirit of the Blizzard\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Blizzard",
+            "duration_secs": 2520,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 420,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~42m00s at level 50 (formula 3, cap 420 ticks); the engine rescales to the profile's level; Beastlord level 18."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-the-scorpion",
+      "name": "Buff timer: Spirit of the Scorpion",
+      "pattern": "^You begin casting Spirit of the Scorpion\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Scorpion",
+            "duration_secs": 2760,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 460,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Beastlord level 38."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-the-shrew",
+      "name": "Buff timer: Spirit of the Shrew",
+      "pattern": "^You begin casting Spirit of the Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 39."
+    },
+    {
+      "id": "buffs/beastlord/cast/spirit-of-the-storm",
+      "name": "Buff timer: Spirit of the Storm",
+      "pattern": "^You begin casting Spirit of the Storm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Storm",
+            "duration_secs": 2880,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 480,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 53."
+    },
+    {
+      "id": "buffs/beastlord/cast/spiritual-brawn",
+      "name": "Buff timer: Spiritual Brawn",
+      "pattern": "^You begin casting Spiritual Brawn\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spiritual Brawn",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 10,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 42."
+    },
+    {
+      "id": "buffs/beastlord/cast/spiritual-light",
+      "name": "Buff timer: Spiritual Light",
+      "pattern": "^You begin casting Spiritual Light\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spiritual Light",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~45m00s at level 50 (formula 11, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41."
+    },
+    {
+      "id": "buffs/beastlord/cast/spiritual-purity",
+      "name": "Buff timer: Spiritual Purity",
+      "pattern": "^You begin casting Spiritual Purity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spiritual Purity",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 59."
+    },
+    {
+      "id": "buffs/beastlord/cast/spiritual-radiance",
+      "name": "Buff timer: Spiritual Radiance",
+      "pattern": "^You begin casting Spiritual Radiance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spiritual Radiance",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 52."
+    },
+    {
+      "id": "buffs/beastlord/cast/spiritual-strength",
+      "name": "Buff timer: Spiritual Strength",
+      "pattern": "^You begin casting Spiritual Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spiritual Strength",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 10,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 60."
+    },
+    {
+      "id": "buffs/beastlord/cast/stamina",
+      "name": "Buff timer: Stamina",
+      "pattern": "^You begin casting Stamina\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Stamina",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57."
+    },
+    {
+      "id": "buffs/beastlord/cast/strengthen",
+      "name": "Buff timer: Strengthen",
+      "pattern": "^You begin casting Strengthen\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strengthen",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 14."
+    },
+    {
+      "id": "buffs/beastlord/cast/talisman-of-altuna",
+      "name": "Buff timer: Talisman of Altuna",
+      "pattern": "^You begin casting Talisman of Altuna\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Altuna",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 58."
+    },
+    {
+      "id": "buffs/beastlord/cast/talisman-of-tnarg",
+      "name": "Buff timer: Talisman of Tnarg",
+      "pattern": "^You begin casting Talisman of Tnarg\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Tnarg",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 53."
+    },
+    {
+      "id": "buffs/beastlord/cast/turtle-skin",
+      "name": "Buff timer: Turtle Skin",
+      "pattern": "^You begin casting Turtle Skin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Turtle Skin",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 26."
+    },
+    {
+      "id": "buffs/beastlord/cast/ultravision",
+      "name": "Buff timer: Ultravision",
+      "pattern": "^You begin casting Ultravision\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ultravision",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51."
+    },
+    {
+      "id": "buffs/beastlord/cast/ward-of-calliav",
+      "name": "Buff timer: Ward of Calliav",
+      "pattern": "^You begin casting Ward of Calliav\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ward of Calliav",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 49."
+    },
+    {
+      "id": "buffs/beastlord/cast/yekan-s-quickening",
+      "name": "Buff timer: Yekan's Quickening",
+      "pattern": "^You begin casting Yekan's Quickening\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Yekan's Quickening",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 37."
+    },
+    {
+      "id": "buffs/wear-off/spiritual-light",
+      "name": "Worn off: Spiritual Light",
+      "pattern": "^The aura of light fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spiritual Light gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The aura of light fades.\""
+    },
+    {
+      "id": "buffs/wear-off/spiritual-purity",
+      "name": "Worn off: Spiritual Purity",
+      "pattern": "^The aura of purity fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spiritual Purity gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The aura of purity fades.\" — shared by 82 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/spiritual-radiance",
+      "name": "Worn off: Spiritual Radiance",
+      "pattern": "^The aura of radiance fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spiritual Radiance gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The aura of radiance fades.\""
+    },
+    {
+      "id": "buffs/wear-off/bestial-fury-discipline",
+      "name": "Worn off: Bestial Fury Discipline",
+      "pattern": "^The bestial fury fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Bestial Fury Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The bestial fury fades.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/savagery",
+      "name": "Worn off: Savagery",
+      "pattern": "^The savagery fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Savagery gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The savagery fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/spiritual-brawn",
+      "name": "Worn off: Spiritual Brawn",
+      "pattern": "^Your spiritual brawn fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spiritual Brawn gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your spiritual brawn fades.\""
+    },
+    {
+      "id": "buffs/wear-off/spiritual-strength",
+      "name": "Worn off: Spiritual Strength",
+      "pattern": "^Your spiritual strength fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spiritual Strength gone"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your spiritual strength fades.\""
+    }
+  ]
+}

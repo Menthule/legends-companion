@@ -1,0 +1,18 @@
+[package]
+name = "eqlog-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "eqlog"
+path = "src/main.rs"
+
+[dependencies]
+eqlog-core = { path = "../eqlog-core" }
+eqlog-triggers = { path = "../eqlog-triggers" }
+eqlog-store = { path = "../eqlog-store" }
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+crossbeam-channel.workspace = true

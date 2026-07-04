@@ -1,0 +1,24 @@
+{
+  "name": "Curated class pack — Bard",
+  "triggers": [
+    {
+      "id": "class/bard/songs/missed-note",
+      "name": "Missed a note",
+      "pattern": "^You miss a note, bringing your song to a close\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Bard/Songs",
+      "classes": [
+        "Bard"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "missed note"
+          }
+        }
+      ]
+    }
+  ]
+}

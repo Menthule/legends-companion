@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/eqlog-core",
+    "crates/eqlog-triggers",
+    "crates/eqlog-store",
+    "crates/eqlog-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/getownse/eqlogs"
+
+[workspace.dependencies]
+regex = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+anyhow = "1"
+crossbeam-channel = "0.5"
+notify = "8"
+zip = "2"
+quick-xml = { version = "0.37", features = ["serialize"] }
+# `bundled` compiles SQLite in — no system library needed on any platform
+# (approved NOW-sprint dependency for fight-history persistence).
+rusqlite = { version = "0.32", features = ["bundled"] }
+# Default features = pure-Rust miniz_oxide backend; bundled-friendly, no C
+# toolchain requirement (approved dependency for sharing v1 deflate strings).
+flate2 = "1"

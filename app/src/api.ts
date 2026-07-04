@@ -1,0 +1,524 @@
+import { invoke } from "@tauri-apps/api/core";
+import { confirm as dialogConfirm } from "@tauri-apps/plugin-dialog";
+import soundManifest from "../../assets/sounds/manifest.json";
+import {
+  IS_MOCK,
+  mockDiscoverLogs,
+  mockEmit,
+  mockGetConfig,
+  mockGetFight,
+  mockGetProfile,
+  mockGetTriggers,
+  mockGetTriggerTree,
+  mockIsTailing,
+  mockListFights,
+  mockSaveTriggers,
+  mockSetConfig,
+  mockSetOverride,
+  mockSetChannelOverride,
+  mockSetProfile,
+  mockSetTailing,
+  mockShareImport,
+  mockSetActiveCharacter,
+  mockSwitchLoadout,
+} from "./mock";
+import { buildShareString } from "./lib/share";
+import { formatParse, type ParseInput } from "./lib/parseText";
+import type {
+  AppConfig,
+  CharacterProfile,
+  DiscoveredLog,
+  FightPage,
+  FightRecord,
+  GinaImportResult,
+  MeterRow,
+  ShareImportResult,
+  Trigger,
+  TriggerTreeEntry,
+} from "./types";
+
+export function getConfig(): Promise<AppConfig> {
+  if (IS_MOCK) return Promise.resolve(mockGetConfig());
+  return invoke<AppConfig>("get_config");
+}
+
+export function setConfig(config: AppConfig): Promise<void> {
+  if (IS_MOCK) {
+    mockSetConfig(config);
+    return Promise.resolve();
+  }
+  return invoke("set_config", { config });
+}
+
+export interface UpdateInfo {
+  version: string;
+  notes: string | null;
+}
+
+/** Check the release channel for a newer signed build. Resolves null when
+ *  already current, in mock, or on any error (offline/dev) — never rejects, so
+ *  the update banner stays silent instead of nagging. */
+export function checkUpdate(): Promise<UpdateInfo | null> {
+  if (IS_MOCK) return Promise.resolve(null);
+  return invoke<UpdateInfo | null>("check_update").catch(() => null);
+}
+
+/** Download + install the pending update and relaunch. */
+export function installUpdate(): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("install_update");
+}
+
+/** Size of the configured log file, for the Settings "large log" nudge.
+ *  `sizeBytes` is null when the path is unset/unreadable (or in mock mode's
+ *  absence of a real file). Never rejects — a failed invoke maps to null. */
+export function getLogStats(): Promise<{ sizeBytes: number | null }> {
+  // ~180 MB, so mock mode shows the size line without tripping the warning.
+  if (IS_MOCK) return Promise.resolve({ sizeBytes: 188_743_680 });
+  return invoke<{ sizeBytes: number | null }>("log_stats").catch(() => ({
+    sizeBytes: null,
+  }));
+}
+
+export function getTriggers(): Promise<Trigger[]> {
+  if (IS_MOCK) return Promise.resolve(mockGetTriggers());
+  return invoke<Trigger[]>("get_triggers");
+}
+
+// Trigger-pack change notifications, so views that hold trigger state (the
+// Triggers tab) refresh when another view (quick-trigger modal) saves.
+type TriggersListener = () => void;
+const triggerListeners = new Set<TriggersListener>();
+
+/** Subscribe to trigger-pack saves; returns an unsubscribe function. */
+export function onTriggersChanged(cb: TriggersListener): () => void {
+  triggerListeners.add(cb);
+  return () => {
+    triggerListeners.delete(cb);
+  };
+}
+
+function notifyTriggersChanged(): void {
+  for (const cb of [...triggerListeners]) cb();
+}
+
+export async function saveTriggers(triggers: Trigger[]): Promise<void> {
+  if (IS_MOCK) {
+    mockSaveTriggers(triggers);
+  } else {
+    await invoke("save_triggers", { triggers });
+  }
+  notifyTriggersChanged();
+}
+
+// ---- trigger library v2: profile + tree ----
+
+export function getProfile(): Promise<CharacterProfile> {
+  if (IS_MOCK) return Promise.resolve(mockGetProfile());
+  return invoke<CharacterProfile>("get_profile");
+}
+
+export async function setProfile(profile: CharacterProfile): Promise<void> {
+  if (IS_MOCK) mockSetProfile(profile);
+  else await invoke("set_profile", { profile });
+  notifyTriggersChanged();
+}
+
+/**
+ * Make a different loadout the active one (case-insensitive name). The
+ * backend persists the canonical name, hot-reloads the running engine, and
+ * emits "profile-changed"; the updated profile is also returned directly.
+ */
+export async function switchLoadout(name: string): Promise<CharacterProfile> {
+  const profile = IS_MOCK
+    ? mockSwitchLoadout(name)
+    : await invoke<CharacterProfile>("switch_loadout", { name });
+  notifyTriggersChanged();
+  return profile;
+}
+
+/**
+ * Switch the active character (server + character identity). The backend
+ * re-points the tailed log at that character's file, loads its profile
+ * (fresh default if none), rebuilds the engine if tailing, and re-emits
+ * "config-changed" / "profile-changed" — so the top bar and profile sync
+ * via those events. In mock mode we update the in-memory profile directly.
+ */
+export async function setActiveCharacter(server: string, character: string): Promise<void> {
+  if (IS_MOCK) {
+    mockSetActiveCharacter(server, character);
+    notifyTriggersChanged();
+    return;
+  }
+  await invoke("set_active_character", { server, character });
+}
+
+/** The merged bundled-packs + user-pack triggers, profile-resolved. */
+export function getTriggerTree(): Promise<TriggerTreeEntry[]> {
+  if (IS_MOCK) return Promise.resolve(mockGetTriggerTree());
+  return invoke<TriggerTreeEntry[]>("get_trigger_tree");
+}
+
+/** Set (value true/false) or clear (value null) one enable override. */
+export async function setOverride(
+  key: string,
+  value: boolean | null,
+): Promise<void> {
+  if (IS_MOCK) mockSetOverride(key, value);
+  else await invoke("set_override", { key, value });
+  notifyTriggersChanged();
+}
+
+/** Force a trigger's TTS (`speak`) and/or text-alert (`alert`) channel on/off
+ *  for the active loadout. Each is tri-state: `true`/`false` sets it, `null`
+ *  leaves it unchanged. Works for bundled pack triggers, not just user ones. */
+export async function setChannelOverride(
+  id: string,
+  speak: boolean | null,
+  alert: boolean | null,
+): Promise<void> {
+  if (IS_MOCK) mockSetChannelOverride(id, speak, alert);
+  else await invoke("set_channel_override", { id, speak, alert });
+  notifyTriggersChanged();
+}
+
+/** Guess the character's classes from spell names seen in cast lines. */
+
+/** Import a GINA .gtp package; returns count + per-trigger warnings. */
+export function importGina(path: string): Promise<GinaImportResult> {
+  if (IS_MOCK) {
+    return Promise.reject(new Error("GINA import needs the desktop app."));
+  }
+  return invoke<GinaImportResult>("import_gina", { path });
+}
+
+export function startTailing(): Promise<void> {
+  if (IS_MOCK) {
+    mockSetTailing(true);
+    return Promise.resolve();
+  }
+  return invoke("start_tailing");
+}
+
+export function stopTailing(): Promise<void> {
+  if (IS_MOCK) {
+    mockSetTailing(false);
+    return Promise.resolve();
+  }
+  return invoke("stop_tailing");
+}
+
+export function isTailing(): Promise<boolean> {
+  if (IS_MOCK) return Promise.resolve(mockIsTailing());
+  return invoke<boolean>("is_tailing");
+}
+
+/** Kill switch (item 14): drop queued TTS/sounds and cut the current
+ *  utterance. No-op in mock mode (there is no audio thread). */
+export function silenceAudio(): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("silence_audio");
+}
+
+// ---- bundled alert sounds ----
+
+/** One bundled alert sound (mirror of the planned `list_sounds` command). */
+export interface SoundInfo {
+  label: string;
+  file: string;
+  /** Resolved path to store in PlaySound.path ("assets/sounds/<file>" in
+   *  mock/fallback mode; an absolute resource path from the backend). */
+  path: string;
+  duration_ms: number;
+  description: string;
+}
+
+interface ManifestEntry {
+  file: string;
+  label: string;
+  description: string;
+  duration_ms: number;
+}
+
+const FALLBACK_SOUNDS: SoundInfo[] = (soundManifest as ManifestEntry[]).map(
+  (m) => ({
+    label: m.label,
+    file: m.file,
+    path: `assets/sounds/${m.file}`,
+    duration_ms: m.duration_ms,
+    description: m.description,
+  }),
+);
+
+/** Bundled sounds; falls back to the static manifest when the backend
+ *  command is unavailable (mock mode, or the command hasn't shipped yet). */
+export async function listSounds(): Promise<SoundInfo[]> {
+  if (!IS_MOCK) {
+    try {
+      return await invoke<SoundInfo[]>("list_sounds");
+    } catch {
+      // command not available yet — fall back to the bundled manifest
+    }
+  }
+  return FALLBACK_SOUNDS;
+}
+
+/** Play a sound once for preview. Rejects when nothing could be played so
+ *  the editor can show real feedback (a silently-broken custom sound file
+ *  is the shared-trigger failure case). */
+export async function previewSound(path: string): Promise<void> {
+  if (!IS_MOCK) {
+    try {
+      await invoke("preview_sound", { path });
+      return;
+    } catch {
+      // command not available yet — try the browser audio element below
+    }
+  }
+  // Rejects (NotSupportedError / NotAllowedError) when the file is missing
+  // or unplayable — propagate to the caller.
+  await new Audio(path).play();
+}
+
+/** Ask the user to confirm discarding unsaved work. Uses the native dialog
+ *  in the desktop app and window.confirm in mock/browser mode. */
+export async function confirmDiscard(message: string): Promise<boolean> {
+  if (!IS_MOCK) {
+    try {
+      return await dialogConfirm(message, {
+        title: "Unsaved changes",
+        kind: "warning",
+      });
+    } catch {
+      // dialog plugin unavailable — fall back to the browser dialog
+    }
+  }
+  return window.confirm(message);
+}
+
+// ---- fight history (NOW-sprint item 2) ----
+
+/** Tolerant mapper: accepts the raw store shape (snake_case FightSummary
+ *  fields, CombatantRow rows) as well as an already-camelCased payload, so
+ *  the frontend keeps working whichever the backend command settles on. */
+function normalizeFight(raw: unknown): FightRecord | null {
+  if (raw === null || typeof raw !== "object") return null;
+  const o = raw as Record<string, unknown>;
+  const summary =
+    typeof o.summary === "object" && o.summary !== null
+      ? (o.summary as Record<string, unknown>)
+      : o;
+  const num = (v: unknown): number => (typeof v === "number" ? v : 0);
+  const pick = (a: unknown, b: unknown): unknown => (a !== undefined ? a : b);
+  const isObj = (r: unknown): r is Record<string, unknown> =>
+    typeof r === "object" && r !== null;
+  const rowsRaw = Array.isArray(summary.rows) ? summary.rows : [];
+  const rows: MeterRow[] = rowsRaw
+    .filter(isObj)
+    .map((r) => ({
+      name: String(r.name ?? "?"),
+      total: num(pick(r.total, r.damage)),
+      dps: num(r.dps),
+      pct: num(pick(r.pct, r.percent)),
+      pet: num(pick(r.pet_damage, r.petDamage)) > 0 || r.pet === true,
+      hits: num(r.hits),
+      misses: num(r.misses),
+      crits: num(r.crits),
+      maxHit: num(pick(r.maxHit, r.max_hit)),
+      healing: num(r.healing),
+      overheal: num(r.overheal),
+      damageTaken: num(pick(r.damageTaken, r.damage_taken)),
+      // Per-source breakdown (item 15). Accepts the camelCased store shape
+      // and the raw snake_case FightSummary rows; older stored fights have
+      // no sources at all. misses/casts ride along for the skill table's
+      // Acc% / per-cast columns; the total>0 filter keeps the damage table
+      // (and its expand) unchanged for stored fights.
+      sources: (Array.isArray(r.sources) ? r.sources : [])
+        .filter(isObj)
+        .map((s) => ({
+          name: String(s.name ?? "?"),
+          total: num(s.total),
+          hits: num(s.hits),
+          crits: num(s.crits),
+          maxHit: num(pick(s.maxHit, s.max_hit)),
+          misses: num(s.misses),
+          casts: num(s.casts),
+        }))
+        .filter((s) => s.total > 0),
+    }))
+    .filter((r) => r.total > 0);
+  return {
+    id: num(o.id),
+    target: String(summary.target ?? "?"),
+    startTs: num(pick(summary.startTs, summary.start_ts)),
+    endTs: num(pick(summary.endTs, summary.end_ts)),
+    durationSecs: num(pick(summary.durationSecs, summary.duration_secs)),
+    totalDamage: num(pick(summary.totalDamage, summary.total_damage)),
+    targetSlain: Boolean(pick(summary.targetSlain, summary.target_slain)),
+    rows,
+  };
+}
+
+/** Page through persisted fights, newest first. */
+export async function listFights(
+  limit: number,
+  offset: number,
+): Promise<FightPage> {
+  if (IS_MOCK) return mockListFights(limit, offset);
+  const raw = await invoke<unknown>("list_fights", { limit, offset });
+  if (Array.isArray(raw)) {
+    return {
+      fights: raw.map(normalizeFight).filter((f): f is FightRecord => f !== null),
+      total: null,
+    };
+  }
+  const o = (raw ?? {}) as { fights?: unknown[]; total?: number };
+  return {
+    fights: (o.fights ?? [])
+      .map(normalizeFight)
+      .filter((f): f is FightRecord => f !== null),
+    total: typeof o.total === "number" ? o.total : null,
+  };
+}
+
+export async function getFight(id: number): Promise<FightRecord | null> {
+  if (IS_MOCK) return mockGetFight(id);
+  return normalizeFight(await invoke<unknown>("get_fight", { id }));
+}
+
+/**
+ * Paste-parse text for a fight. Persisted fights ask the backend
+ * (paste_parse command); the live fight — and any fallback — formats
+ * locally with the same "You: 2761 (38.3 DPS) | …" layout.
+ */
+export async function pasteParse(
+  fightId: number | null,
+  fallback: ParseInput,
+): Promise<string> {
+  if (!IS_MOCK && fightId !== null) {
+    try {
+      // Backend returns chat-safe 240-char chunks (Vec<String>); join them
+      // the same way formatParse does so the clipboard text is identical
+      // in shape either way.
+      const chunks = await invoke<unknown>("paste_parse", { id: fightId });
+      if (Array.isArray(chunks)) {
+        const text = chunks
+          .filter((c): c is string => typeof c === "string")
+          .join("\n");
+        if (text.length > 0) return text;
+      }
+    } catch {
+      // command not available yet — format locally below
+    }
+  }
+  return formatParse(fallback);
+}
+
+// ---- first-run log discovery (NOW-sprint item 4) ----
+
+/** Character-name guess from an eqlog_<Character>_<server>.txt path. */
+function parseLogFilename(path: string): { character: string; server: string } {
+  const file = path.split(/[\\/]/).pop() ?? "";
+  const m = /^eqlog_([^_]+)_(.+)\.txt$/i.exec(file);
+  return { character: m?.[1] ?? "", server: m?.[2] ?? "" };
+}
+
+/** Logs found in the game's default Logs folder, most recent first. */
+export async function discoverLogs(): Promise<DiscoveredLog[]> {
+  if (IS_MOCK) return mockDiscoverLogs();
+  let raw: unknown;
+  try {
+    raw = await invoke<unknown>("discover_logs");
+  } catch {
+    return []; // command not available yet — welcome card degrades gracefully
+  }
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((e): e is Record<string, unknown> => typeof e === "object" && e !== null)
+    .map((e) => {
+      const path = String(e.path ?? "");
+      const parsed = parseLogFilename(path);
+      const modified = e.modifiedTs ?? e.modified_ts ?? e.modified ?? null;
+      return {
+        path,
+        character: String(e.character ?? "") || parsed.character,
+        server: String(e.server ?? "") || parsed.server,
+        modifiedTs: typeof modified === "number" ? modified : null,
+      };
+    })
+    .filter((e) => e.path.length > 0);
+}
+
+// ---- sharing v1 (NOW-sprint item 8) ----
+
+/**
+ * Export triggers to an LCS1 share string. The backend command gets the
+ * selected trigger ids; when it is unavailable (mock mode, older backend)
+ * the string is built locally from `fallbackTriggers` — same wire format.
+ */
+export async function shareExport(
+  name: string | null,
+  ids: string[],
+  fallbackTriggers: Trigger[],
+): Promise<string> {
+  if (!IS_MOCK) {
+    try {
+      const s = await invoke<string>("share_export", { name, ids });
+      if (typeof s === "string" && s.length > 0) return s;
+    } catch {
+      // fall through to the local builder
+    }
+  }
+  return buildShareString({ name, triggers: fallbackTriggers });
+}
+
+/** Write a GINA-compatible .gtp package (desktop backend only). */
+export function shareExportGtp(
+  name: string,
+  ids: string[],
+  path: string,
+): Promise<void> {
+  if (IS_MOCK) {
+    return Promise.reject(new Error("GINA export needs the desktop app."));
+  }
+  // Tauri arg key is camelCase for the command's `package_name` parameter.
+  return invoke("share_export_gtp", { packageName: name, ids, path });
+}
+
+/** Import an LCS1 share string into the user pack (dedupes id collisions). */
+export async function shareImport(text: string): Promise<ShareImportResult> {
+  let result: ShareImportResult;
+  if (IS_MOCK) {
+    result = await mockShareImport(text);
+  } else {
+    const raw = await invoke<unknown>("share_import", { text });
+    const o = (raw ?? {}) as { imported?: number; renamed?: [string, string][] };
+    result = {
+      imported: typeof o.imported === "number" ? o.imported : 0,
+      renamed: Array.isArray(o.renamed) ? o.renamed : [],
+    };
+  }
+  notifyTriggersChanged();
+  return result;
+}
+
+export function overlayShow(label: string): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("overlay_show", { label });
+}
+
+export function overlayHide(label: string): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("overlay_hide", { label });
+}
+
+export function overlaySetClickThrough(
+  label: string,
+  ignore: boolean,
+): Promise<void> {
+  if (IS_MOCK) {
+    mockEmit("overlay-lock-changed", { label, clickThrough: ignore });
+    return Promise.resolve();
+  }
+  return invoke("overlay_set_click_through", { label, ignore });
+}

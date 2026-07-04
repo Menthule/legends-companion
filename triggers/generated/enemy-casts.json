@@ -1,0 +1,328 @@
+{
+  "name": "Generated enemy casts",
+  "triggers": [
+    {
+      "id": "enemy-casts/gate",
+      "name": "Enemy cast: Gate",
+      "pattern": "^(.+) (?:begins casting Gate|begins to cast the gate spell)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Gate",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting gate"
+          }
+        }
+      ],
+      "comments": "Matches both the Legends named form and the classic 'begins to cast the gate spell.' string (eqstr 1038)."
+    },
+    {
+      "id": "enemy-casts/heals",
+      "name": "Enemy cast: Heals",
+      "pattern": "^(.+) begins casting (Complete Heal)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Heals",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 1 spell names: Complete Heal"
+    },
+    {
+      "id": "enemy-casts/death-touch",
+      "name": "Enemy cast: Death Touch",
+      "pattern": "^(.+) begins casting (Cazic Touch)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Death Touch",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 1 spell names: Cazic Touch"
+    },
+    {
+      "id": "enemy-casts/fear",
+      "name": "Enemy cast: Fear",
+      "pattern": "^(.+) begins casting (Terrorize Animal|Chase the Moon|Panic the Dead|Inspire Fear|Wave of Fear|Dragon Roar|Invoke Fear|Panic|Fear)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Fear",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 9 spell names: Chase the Moon, Dragon Roar, Fear, Inspire Fear, Invoke Fear, Panic, Panic the Dead, Terrorize Animal, Wave of Fear"
+    },
+    {
+      "id": "enemy-casts/charm",
+      "name": "Enemy cast: Charm",
+      "pattern": "^(.+) begins casting (Boltran's Agacerie|Cajoling Whispers|Beguile Animals|Dominate Undead|Thrall of Bones|Beguile Undead|Call of Karana|Cajole Undead|Charm Animals|Enslave Death|Beguile|Dictate|Allure|Charm)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Charm",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 14 spell names: Allure, Beguile, Beguile Animals, Beguile Undead, Boltran's Agacerie, Cajole Undead, Cajoling Whispers, Call of Karana, Charm, Charm Animals, Dictate, Dominate Undead, Enslave Death, Thrall of Bones"
+    },
+    {
+      "id": "enemy-casts/mesmerize",
+      "name": "Enemy cast: Mesmerize",
+      "pattern": "^(.+) begins casting (Sathir's Mesmerization|Mesmerizing Breath|Glamour of Kintaz|Mesmerization|Walking Sleep|Mesmerize|Enthrall|Entrance|Rapture|Dazzle)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Mesmerize",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 10 spell names: Dazzle, Enthrall, Entrance, Glamour of Kintaz, Mesmerization, Mesmerize, Mesmerizing Breath, Rapture, Sathir's Mesmerization, Walking Sleep"
+    },
+    {
+      "id": "enemy-casts/dispel",
+      "name": "Enemy cast: Dispel",
+      "pattern": "^(.+) begins casting (Pillage Enchantment|Strip Enchantment|Taper Enchantment|Neutralize Magic|Nullify Magic|Cancel Magic|Recant Magic|Annul Magic)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Dispel",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 8 spell names: Annul Magic, Cancel Magic, Neutralize Magic, Nullify Magic, Pillage Enchantment, Recant Magic, Strip Enchantment, Taper Enchantment"
+    },
+    {
+      "id": "enemy-casts/breath-aoe",
+      "name": "Enemy cast: Breath AoE",
+      "pattern": "^(.+) begins casting (Frost Breath|Fire Breath|Lava Breath|Ice Breath)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Breath AoE",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 4 spell names: Fire Breath, Frost Breath, Ice Breath, Lava Breath"
+    },
+    {
+      "id": "enemy-casts/avatar",
+      "name": "Enemy cast: Avatar",
+      "pattern": "^(.+) begins casting (Avatar Power|Avatar Snare)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Avatar",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 2 spell names: Avatar Power, Avatar Snare"
+    },
+    {
+      "id": "enemy-casts/gravity-flux",
+      "name": "Enemy cast: Gravity Flux",
+      "pattern": "^(.+) begins casting (Gravity Flux)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Enemy Casts/Gravity Flux",
+      "actions": [
+        {
+          "Speak": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 1 spell names: Gravity Flux"
+    },
+    {
+      "id": "enemy-casts/heals-other",
+      "name": "Enemy cast: Heals (minor)",
+      "pattern": "^(.+) begins casting (Superior Healing|Greater Healing|Kragg's Salve|Light Healing|Minor Healing|Lay on Hands|Chloroblast|Healing)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Heals (minor)",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 8 spell names: Chloroblast, Greater Healing, Healing, Kragg's Salve, Lay on Hands, Light Healing, Minor Healing, Superior Healing"
+    },
+    {
+      "id": "enemy-casts/harm-touch",
+      "name": "Enemy cast: Harm Touch",
+      "pattern": "^(.+) begins casting (Harm Touch)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Harm Touch",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 1 spell names: Harm Touch"
+    },
+    {
+      "id": "enemy-casts/poison-breath",
+      "name": "Enemy cast: Poison Breath",
+      "pattern": "^(.+) begins casting (Tainted Breath)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Poison Breath",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 1 spell names: Tainted Breath"
+    },
+    {
+      "id": "enemy-casts/lifetap",
+      "name": "Enemy cast: Lifetap",
+      "pattern": "^(.+) begins casting (Cancelling of Life|Deadly Lifetap|Drain Spirit|Siphon Life|Drain Soul|Life Leech|Spirit Tap|Lifespike|Lifedraw|Lifetap)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Lifetap",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 10 spell names: Cancelling of Life, Deadly Lifetap, Drain Soul, Drain Spirit, Life Leech, Lifedraw, Lifespike, Lifetap, Siphon Life, Spirit Tap"
+    },
+    {
+      "id": "enemy-casts/root-snare",
+      "name": "Enemy cast: Root & Snare",
+      "pattern": "^(.+) begins casting (Atol's Spectral Shackles|Cascading Darkness|Devouring Darkness|Engulfing Darkness|Clinging Darkness|Dooming Darkness|Enveloping Roots|Paralyzing Earth|Engorging Roots|Engulfing Roots|Bonds of Force|Grasping Roots|Tangling Weeds|Ensnare|Instill|Fetter|Snare|Root)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Root & Snare",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 18 spell names: Atol's Spectral Shackles, Bonds of Force, Cascading Darkness, Clinging Darkness, Devouring Darkness, Dooming Darkness, Engorging Roots, Engulfing Darkness, Engulfing Roots, Ensnare, Enveloping Roots, Fetter, Grasping Roots, Instill, Paralyzing Earth, Root, Snare, Tangling Weeds"
+    },
+    {
+      "id": "enemy-casts/stun",
+      "name": "Enemy cast: Stun",
+      "pattern": "^(.+) begins casting (Markar's Clash|Sound of Force|Tishan's Clash|Color Shift|Color Slant|Color Flux|Color Skew|Holy Might|Force|Stun)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Stun",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 10 spell names: Color Flux, Color Shift, Color Skew, Color Slant, Force, Holy Might, Markar's Clash, Sound of Force, Stun, Tishan's Clash"
+    },
+    {
+      "id": "enemy-casts/debuff",
+      "name": "Enemy cast: Debuff",
+      "pattern": "^(.+) begins casting (Surge of Enfeeblement|Scent of Darkness|Insipid Weakness|Scent of Terris|Siphon Strength|Listless Power|Scent of Dusk|Incapacitate|Malaisement|Tashanian|Malosini|Tashania|Cripple|Malaise|Tashani|Malosi)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Debuff",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 16 spell names: Cripple, Incapacitate, Insipid Weakness, Listless Power, Malaise, Malaisement, Malosi, Malosini, Scent of Darkness, Scent of Dusk, Scent of Terris, Siphon Strength, Surge of Enfeeblement, Tashani, Tashania, Tashanian"
+    },
+    {
+      "id": "enemy-casts/self-buff",
+      "name": "Enemy cast: Self-Buff",
+      "pattern": "^(.+) begins casting (Shield of Brambles|Shield of Thistles|Skin like Diamond|Shield of Spikes|Shield of Barbs|Skin like Steel|Shield of Fire|Skin like Rock)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Self-Buff",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Merged alternation over 8 spell names: Shield of Barbs, Shield of Brambles, Shield of Fire, Shield of Spikes, Shield of Thistles, Skin like Diamond, Skin like Rock, Skin like Steel"
+    },
+    {
+      "id": "enemy-casts/any",
+      "name": "Enemy cast: anything",
+      "pattern": "^(.+) begins casting (.+)\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Enemy Casts/Other",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} casting ${2}"
+          }
+        }
+      ],
+      "comments": "Catch-all for any named cast. Overlay only; enable for recon, not for everyday play."
+    }
+  ]
+}

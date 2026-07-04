@@ -1,0 +1,3336 @@
+{
+  "name": "Generated buff timers — Shaman",
+  "triggers": [
+    {
+      "id": "buffs/shaman/cast/acumen",
+      "name": "Buff timer: Acumen",
+      "pattern": "^You begin casting Acumen\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Acumen",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 11, cap 630 ticks); the engine rescales to the profile's level; Shaman level 56."
+    },
+    {
+      "id": "buffs/shaman/cast/acumen-of-dar-khura",
+      "name": "Buff timer: Acumen of Dar Khura",
+      "pattern": "^You begin casting Acumen of Dar Khura\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Acumen of Dar Khura",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 11, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58."
+    },
+    {
+      "id": "buffs/shaman/cast/agility",
+      "name": "Buff timer: Agility",
+      "pattern": "^You begin casting Agility\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Agility",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 41."
+    },
+    {
+      "id": "buffs/shaman/cast/alacrity",
+      "name": "Buff timer: Alacrity",
+      "pattern": "^You begin casting Alacrity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Alacrity",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 110,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Shaman level 42."
+    },
+    {
+      "id": "buffs/shaman/cast/alluring-aura",
+      "name": "Buff timer: Alluring Aura",
+      "pattern": "^You begin casting Alluring Aura\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Alluring Aura",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 28."
+    },
+    {
+      "id": "buffs/shaman/cast/ancient-feral-avatar",
+      "name": "Buff timer: Ancient: Feral Avatar",
+      "pattern": "^You begin casting Ancient: Feral Avatar\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Feral Avatar",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Shaman level 60."
+    },
+    {
+      "id": "buffs/shaman/cast/assiduous-vision",
+      "name": "Buff timer: Assiduous Vision",
+      "pattern": "^You begin casting Assiduous Vision\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Assiduous Vision",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1950,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Shaman level 36."
+    },
+    {
+      "id": "buffs/shaman/cast/avatar",
+      "name": "Buff timer: Avatar",
+      "pattern": "^You begin casting Avatar\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Avatar",
+            "duration_secs": 360,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Shaman level 60."
+    },
+    {
+      "id": "buffs/shaman/cast/celerity",
+      "name": "Buff timer: Celerity",
+      "pattern": "^You begin casting Celerity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Celerity",
+            "duration_secs": 960,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 10,
+            "duration_cap_ticks": 160,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Shaman level 56."
+    },
+    {
+      "id": "buffs/shaman/cast/charisma",
+      "name": "Buff timer: Charisma",
+      "pattern": "^You begin casting Charisma\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Charisma",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 47."
+    },
+    {
+      "id": "buffs/shaman/cast/chloroplast",
+      "name": "Buff timer: Chloroplast",
+      "pattern": "^You begin casting Chloroplast\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chloroplast",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 39."
+    },
+    {
+      "id": "buffs/shaman/cast/creeping-vision",
+      "name": "Buff timer: Creeping Vision",
+      "pattern": "^You begin casting Creeping Vision\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Creeping Vision",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); the engine rescales to the profile's level; Shaman level 20."
+    },
+    {
+      "id": "buffs/shaman/cast/deftness",
+      "name": "Buff timer: Deftness",
+      "pattern": "^You begin casting Deftness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Deftness",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 39."
+    },
+    {
+      "id": "buffs/shaman/cast/deliriously-nimble",
+      "name": "Buff timer: Deliriously Nimble",
+      "pattern": "^You begin casting Deliriously Nimble\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Deliriously Nimble",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 53."
+    },
+    {
+      "id": "buffs/shaman/cast/dexterity",
+      "name": "Buff timer: Dexterity",
+      "pattern": "^You begin casting Dexterity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dexterity",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 48."
+    },
+    {
+      "id": "buffs/shaman/cast/dexterous-aura",
+      "name": "Buff timer: Dexterous Aura",
+      "pattern": "^You begin casting Dexterous Aura\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dexterous Aura",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1."
+    },
+    {
+      "id": "buffs/shaman/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1."
+    },
+    {
+      "id": "buffs/shaman/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 8."
+    },
+    {
+      "id": "buffs/shaman/cast/endure-fire",
+      "name": "Buff timer: Endure Fire",
+      "pattern": "^You begin casting Endure Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 5."
+    },
+    {
+      "id": "buffs/shaman/cast/endure-magic",
+      "name": "Buff timer: Endure Magic",
+      "pattern": "^You begin casting Endure Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Magic",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 19."
+    },
+    {
+      "id": "buffs/shaman/cast/endure-poison",
+      "name": "Buff timer: Endure Poison",
+      "pattern": "^You begin casting Endure Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Poison",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 11."
+    },
+    {
+      "id": "buffs/shaman/cast/enduring-breath",
+      "name": "Buff timer: Enduring Breath",
+      "pattern": "^You begin casting Enduring Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enduring Breath",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 12."
+    },
+    {
+      "id": "buffs/shaman/cast/everlasting-breath",
+      "name": "Buff timer: Everlasting Breath",
+      "pattern": "^You begin casting Everlasting Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Everlasting Breath",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 51."
+    },
+    {
+      "id": "buffs/shaman/cast/feet-like-cat",
+      "name": "Buff timer: Feet like Cat",
+      "pattern": "^You begin casting Feet like Cat\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Feet like Cat",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 11, cap 360 ticks); the engine rescales to the profile's level; Shaman level 3."
+    },
+    {
+      "id": "buffs/shaman/cast/focus-of-spirit",
+      "name": "Buff timer: Focus of Spirit",
+      "pattern": "^You begin casting Focus of Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Focus of Spirit",
+            "duration_secs": 6000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 13,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1000,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Shaman level 60."
+    },
+    {
+      "id": "buffs/shaman/cast/form-of-the-bear",
+      "name": "Buff timer: Form of the Bear",
+      "pattern": "^You begin casting Form of the Bear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of the Bear",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 25."
+    },
+    {
+      "id": "buffs/shaman/cast/form-of-the-great-bear",
+      "name": "Buff timer: Form of the Great Bear",
+      "pattern": "^You begin casting Form of the Great Bear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of the Great Bear",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 55."
+    },
+    {
+      "id": "buffs/shaman/cast/furious-strength",
+      "name": "Buff timer: Furious Strength",
+      "pattern": "^You begin casting Furious Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Furious Strength",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 39."
+    },
+    {
+      "id": "buffs/shaman/cast/glamour",
+      "name": "Buff timer: Glamour",
+      "pattern": "^You begin casting Glamour\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Glamour",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 37."
+    },
+    {
+      "id": "buffs/shaman/cast/guardian",
+      "name": "Buff timer: Guardian",
+      "pattern": "^You begin casting Guardian\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guardian",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 42."
+    },
+    {
+      "id": "buffs/shaman/cast/harnessing-of-spirit",
+      "name": "Buff timer: Harnessing of Spirit",
+      "pattern": "^You begin casting Harnessing of Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Harnessing of Spirit",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 10,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 46."
+    },
+    {
+      "id": "buffs/shaman/cast/health",
+      "name": "Buff timer: Health",
+      "pattern": "^You begin casting Health\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Health",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 30."
+    },
+    {
+      "id": "buffs/shaman/cast/infusion-of-spirit",
+      "name": "Buff timer: Infusion of Spirit",
+      "pattern": "^You begin casting Infusion of Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Infusion of Spirit",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 10,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 49."
+    },
+    {
+      "id": "buffs/shaman/cast/inner-fire",
+      "name": "Buff timer: Inner Fire",
+      "pattern": "^You begin casting Inner Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Inner Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1."
+    },
+    {
+      "id": "buffs/shaman/cast/invisibility",
+      "name": "Buff timer: Invisibility",
+      "pattern": "^You begin casting Invisibility\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Shaman level 27."
+    },
+    {
+      "id": "buffs/shaman/cast/invisibility-versus-animals",
+      "name": "Buff timer: Invisibility Versus Animals",
+      "pattern": "^You begin casting Invisibility Versus Animals\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility Versus Animals",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10."
+    },
+    {
+      "id": "buffs/shaman/cast/khura-s-focusing",
+      "name": "Buff timer: Khura's Focusing",
+      "pattern": "^You begin casting Khura's Focusing\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Khura's Focusing",
+            "duration_secs": 6000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 26,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1000,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Shaman level 60."
+    },
+    {
+      "id": "buffs/shaman/cast/levitate",
+      "name": "Buff timer: Levitate",
+      "pattern": "^You begin casting Levitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Levitate",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 10."
+    },
+    {
+      "id": "buffs/shaman/cast/levitation",
+      "name": "Buff timer: Levitation",
+      "pattern": "^You begin casting Levitation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Levitation",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 51."
+    },
+    {
+      "id": "buffs/shaman/cast/maniacal-strength",
+      "name": "Buff timer: Maniacal Strength",
+      "pattern": "^You begin casting Maniacal Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Maniacal Strength",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 57."
+    },
+    {
+      "id": "buffs/shaman/cast/mortal-deftness",
+      "name": "Buff timer: Mortal Deftness",
+      "pattern": "^You begin casting Mortal Deftness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mortal Deftness",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 58."
+    },
+    {
+      "id": "buffs/shaman/cast/nimble",
+      "name": "Buff timer: Nimble",
+      "pattern": "^You begin casting Nimble\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Nimble",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 31."
+    },
+    {
+      "id": "buffs/shaman/cast/pack-shrew",
+      "name": "Buff timer: Pack Shrew",
+      "pattern": "^You begin casting Pack Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 34."
+    },
+    {
+      "id": "buffs/shaman/cast/primal-avatar",
+      "name": "Buff timer: Primal Avatar",
+      "pattern": "^You begin casting Primal Avatar\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Primal Avatar",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Shaman level 60."
+    },
+    {
+      "id": "buffs/shaman/cast/primal-essence",
+      "name": "Buff timer: Primal Essence",
+      "pattern": "^You begin casting Primal Essence\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Primal Essence",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 52."
+    },
+    {
+      "id": "buffs/shaman/cast/protect",
+      "name": "Buff timer: Protect",
+      "pattern": "^You begin casting Protect\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protect",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 20."
+    },
+    {
+      "id": "buffs/shaman/cast/quickness",
+      "name": "Buff timer: Quickness",
+      "pattern": "^You begin casting Quickness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Quickness",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 110,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Shaman level 26."
+    },
+    {
+      "id": "buffs/shaman/cast/raging-strength",
+      "name": "Buff timer: Raging Strength",
+      "pattern": "^You begin casting Raging Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Raging Strength",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 28."
+    },
+    {
+      "id": "buffs/shaman/cast/regeneration",
+      "name": "Buff timer: Regeneration",
+      "pattern": "^You begin casting Regeneration\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Regeneration",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 23."
+    },
+    {
+      "id": "buffs/shaman/cast/regrowth",
+      "name": "Buff timer: Regrowth",
+      "pattern": "^You begin casting Regrowth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Regrowth",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 52."
+    },
+    {
+      "id": "buffs/shaman/cast/regrowth-of-dar-khura",
+      "name": "Buff timer: Regrowth of Dar Khura",
+      "pattern": "^You begin casting Regrowth of Dar Khura\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Regrowth of Dar Khura",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 56."
+    },
+    {
+      "id": "buffs/shaman/cast/resist-cold",
+      "name": "Buff timer: Resist Cold",
+      "pattern": "^You begin casting Resist Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Cold",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 24."
+    },
+    {
+      "id": "buffs/shaman/cast/resist-disease",
+      "name": "Buff timer: Resist Disease",
+      "pattern": "^You begin casting Resist Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Disease",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 30."
+    },
+    {
+      "id": "buffs/shaman/cast/resist-fire",
+      "name": "Buff timer: Resist Fire",
+      "pattern": "^You begin casting Resist Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Fire",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 27."
+    },
+    {
+      "id": "buffs/shaman/cast/resist-magic",
+      "name": "Buff timer: Resist Magic",
+      "pattern": "^You begin casting Resist Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Magic",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 43."
+    },
+    {
+      "id": "buffs/shaman/cast/resist-poison",
+      "name": "Buff timer: Resist Poison",
+      "pattern": "^You begin casting Resist Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Poison",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 35."
+    },
+    {
+      "id": "buffs/shaman/cast/riotous-health",
+      "name": "Buff timer: Riotous Health",
+      "pattern": "^You begin casting Riotous Health\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Riotous Health",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 54."
+    },
+    {
+      "id": "buffs/shaman/cast/rising-dexterity",
+      "name": "Buff timer: Rising Dexterity",
+      "pattern": "^You begin casting Rising Dexterity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Rising Dexterity",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 25."
+    },
+    {
+      "id": "buffs/shaman/cast/scale-skin",
+      "name": "Buff timer: Scale Skin",
+      "pattern": "^You begin casting Scale Skin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scale Skin",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 3."
+    },
+    {
+      "id": "buffs/shaman/cast/scale-of-wolf",
+      "name": "Buff timer: Scale of Wolf",
+      "pattern": "^You begin casting Scale of Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scale of Wolf",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 22."
+    },
+    {
+      "id": "buffs/shaman/cast/serpent-sight",
+      "name": "Buff timer: Serpent Sight",
+      "pattern": "^You begin casting Serpent Sight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Serpent Sight",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 6."
+    },
+    {
+      "id": "buffs/shaman/cast/shifting-shield",
+      "name": "Buff timer: Shifting Shield",
+      "pattern": "^You begin casting Shifting Shield\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shifting Shield",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 31."
+    },
+    {
+      "id": "buffs/shaman/cast/shroud-of-the-spirits",
+      "name": "Buff timer: Shroud of the Spirits",
+      "pattern": "^You begin casting Shroud of the Spirits\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shroud of the Spirits",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 54."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-quickening",
+      "name": "Buff timer: Spirit Quickening",
+      "pattern": "^You begin casting Spirit Quickening\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Quickening",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Shaman level 50."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-sight",
+      "name": "Buff timer: Spirit Sight",
+      "pattern": "^You begin casting Spirit Sight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Sight",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 7."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-strength",
+      "name": "Buff timer: Spirit Strength",
+      "pattern": "^You begin casting Spirit Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Strength",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 18."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-bear",
+      "name": "Buff timer: Spirit of Bear",
+      "pattern": "^You begin casting Spirit of Bear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Bear",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 6."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-bih-li",
+      "name": "Buff timer: Spirit of Bih`Li",
+      "pattern": "^You begin casting Spirit of Bih`Li\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Bih`Li",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 36."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-cat",
+      "name": "Buff timer: Spirit of Cat",
+      "pattern": "^You begin casting Spirit of Cat\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Cat",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 18."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-cheetah",
+      "name": "Buff timer: Spirit of Cheetah",
+      "pattern": "^You begin casting Spirit of Cheetah\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Cheetah",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 1,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Shaman level 21."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-monkey",
+      "name": "Buff timer: Spirit of Monkey",
+      "pattern": "^You begin casting Spirit of Monkey\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Monkey",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 21."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-ox",
+      "name": "Buff timer: Spirit of Ox",
+      "pattern": "^You begin casting Spirit of Ox\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Ox",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 21."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-scale",
+      "name": "Buff timer: Spirit of Scale",
+      "pattern": "^You begin casting Spirit of Scale\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Scale",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 52."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-snake",
+      "name": "Buff timer: Spirit of Snake",
+      "pattern": "^You begin casting Spirit of Snake\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Snake",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-wolf",
+      "name": "Buff timer: Spirit of Wolf",
+      "pattern": "^You begin casting Spirit of Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Wolf",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 9."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-the-jaguar",
+      "name": "Buff timer: Spirit of the Jaguar",
+      "pattern": "^You begin casting Spirit of the Jaguar\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Jaguar",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Shaman level 57."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-the-puma",
+      "name": "Buff timer: Spirit of the Puma",
+      "pattern": "^You begin casting Spirit of the Puma\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Puma",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Shaman level 50."
+    },
+    {
+      "id": "buffs/shaman/cast/spirit-of-the-shrew",
+      "name": "Buff timer: Spirit of the Shrew",
+      "pattern": "^You begin casting Spirit of the Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 29."
+    },
+    {
+      "id": "buffs/shaman/cast/stamina",
+      "name": "Buff timer: Stamina",
+      "pattern": "^You begin casting Stamina\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Stamina",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 43."
+    },
+    {
+      "id": "buffs/shaman/cast/strength",
+      "name": "Buff timer: Strength",
+      "pattern": "^You begin casting Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strength",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 46."
+    },
+    {
+      "id": "buffs/shaman/cast/strengthen",
+      "name": "Buff timer: Strengthen",
+      "pattern": "^You begin casting Strengthen\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strengthen",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-altuna",
+      "name": "Buff timer: Talisman of Altuna",
+      "pattern": "^You begin casting Talisman of Altuna\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Altuna",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 40."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-epuration",
+      "name": "Buff timer: Talisman of Epuration",
+      "pattern": "^You begin casting Talisman of Epuration\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Epuration",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Shaman level 58."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-jasinth",
+      "name": "Buff timer: Talisman of Jasinth",
+      "pattern": "^You begin casting Talisman of Jasinth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Jasinth",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 50."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-kragg",
+      "name": "Buff timer: Talisman of Kragg",
+      "pattern": "^You begin casting Talisman of Kragg\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Kragg",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 55."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-shadoo",
+      "name": "Buff timer: Talisman of Shadoo",
+      "pattern": "^You begin casting Talisman of Shadoo\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Shadoo",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 53."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-tnarg",
+      "name": "Buff timer: Talisman of Tnarg",
+      "pattern": "^You begin casting Talisman of Tnarg\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of Tnarg",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 32."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-the-beast",
+      "name": "Buff timer: Talisman of the Beast",
+      "pattern": "^You begin casting Talisman of the Beast\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of the Beast",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 8."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-the-brute",
+      "name": "Buff timer: Talisman of the Brute",
+      "pattern": "^You begin casting Talisman of the Brute\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of the Brute",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 57."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-the-cat",
+      "name": "Buff timer: Talisman of the Cat",
+      "pattern": "^You begin casting Talisman of the Cat\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of the Cat",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 57."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-the-raptor",
+      "name": "Buff timer: Talisman of the Raptor",
+      "pattern": "^You begin casting Talisman of the Raptor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of the Raptor",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 59."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-the-rhino",
+      "name": "Buff timer: Talisman of the Rhino",
+      "pattern": "^You begin casting Talisman of the Rhino\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of the Rhino",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58."
+    },
+    {
+      "id": "buffs/shaman/cast/talisman-of-the-serpent",
+      "name": "Buff timer: Talisman of the Serpent",
+      "pattern": "^You begin casting Talisman of the Serpent\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Talisman of the Serpent",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58."
+    },
+    {
+      "id": "buffs/shaman/cast/tumultuous-strength",
+      "name": "Buff timer: Tumultuous Strength",
+      "pattern": "^You begin casting Tumultuous Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tumultuous Strength",
+            "duration_secs": 2760,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 460,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Shaman level 35."
+    },
+    {
+      "id": "buffs/shaman/cast/turtle-skin",
+      "name": "Buff timer: Turtle Skin",
+      "pattern": "^You begin casting Turtle Skin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Turtle Skin",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 11."
+    },
+    {
+      "id": "buffs/shaman/cast/ultravision",
+      "name": "Buff timer: Ultravision",
+      "pattern": "^You begin casting Ultravision\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ultravision",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 26."
+    },
+    {
+      "id": "buffs/shaman/cast/unfailing-reverence",
+      "name": "Buff timer: Unfailing Reverence",
+      "pattern": "^You begin casting Unfailing Reverence\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Unfailing Reverence",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 59."
+    },
+    {
+      "id": "buffs/shaman/cast/vision",
+      "name": "Buff timer: Vision",
+      "pattern": "^You begin casting Vision\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Vision",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Shaman level 17."
+    },
+    {
+      "id": "buffs/shaman/cast/voice-of-the-berserker",
+      "name": "Buff timer: Voice of the Berserker",
+      "pattern": "^You begin casting Voice of the Berserker\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Voice of the Berserker",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 1,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 59."
+    },
+    {
+      "id": "buffs/wear-off/ancient-feral-avatar",
+      "name": "Worn off: Ancient: Feral Avatar",
+      "pattern": "^The Avatar departs\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ancient: Feral Avatar gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The Avatar departs.\" — shared by 4 spells in spells_us_str (3 castable; also: Avatar, Primal Avatar). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/talisman-of-epuration",
+      "name": "Worn off: Talisman of Epuration",
+      "pattern": "^The Talisman fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Talisman of Epuration gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The Talisman fades.\" — shared by 3 spells in spells_us_str (3 castable; also: Talisman of Jasinth, Talisman of Shadoo). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/inner-fire",
+      "name": "Worn off: Inner Fire",
+      "pattern": "^The inner fire fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Inner Fire gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The inner fire fades.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-bih-li",
+      "name": "Worn off: Spirit of Bih`Li",
+      "pattern": "^The spirit of Bih`Li leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Bih`Li gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of Bih`Li leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-bear",
+      "name": "Worn off: Spirit of Bear",
+      "pattern": "^The spirit of bear leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Bear gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The spirit of bear leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-cat",
+      "name": "Worn off: Spirit of Cat",
+      "pattern": "^The spirit of cat leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Cat gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of cat leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-monkey",
+      "name": "Worn off: Spirit of Monkey",
+      "pattern": "^The spirit of monkey leaves\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Monkey gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The spirit of monkey leaves.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-ox",
+      "name": "Worn off: Spirit of Ox",
+      "pattern": "^The spirit of ox leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Ox gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The spirit of ox leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-snake",
+      "name": "Worn off: Spirit of Snake",
+      "pattern": "^The spirit of snake leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Snake gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of snake leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-the-jaguar",
+      "name": "Worn off: Spirit of the Jaguar",
+      "pattern": "^The spirit of the jaguar departs\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of the Jaguar gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of the jaguar departs.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-the-puma",
+      "name": "Worn off: Spirit of the Puma",
+      "pattern": "^The spirit of the puma departs\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of the Puma gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of the puma departs.\""
+    },
+    {
+      "id": "buffs/wear-off/form-of-the-bear",
+      "name": "Worn off: Form of the Bear",
+      "pattern": "^You are no longer a bear\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Form of the Bear gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"You are no longer a bear.\" — shared by 20 spells in spells_us_str (2 castable; also: Form of the Great Bear). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/guardian",
+      "name": "Worn off: Guardian",
+      "pattern": "^You are no longer guarded\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Guardian gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"You are no longer guarded.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/shifting-shield",
+      "name": "Worn off: Shifting Shield",
+      "pattern": "^You are no longer shielded\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Shifting Shield gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"You are no longer shielded.\""
+    },
+    {
+      "id": "buffs/wear-off/shroud-of-the-spirits",
+      "name": "Worn off: Shroud of the Spirits",
+      "pattern": "^You are no longer shrouded\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Shroud of the Spirits gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"You are no longer shrouded.\""
+    },
+    {
+      "id": "buffs/wear-off/assiduous-vision",
+      "name": "Worn off: Assiduous Vision",
+      "pattern": "^You return to your body\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Assiduous Vision gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"You return to your body.\" — shared by 8 spells in spells_us_str (2 castable; also: Vision). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/scale-skin",
+      "name": "Worn off: Scale Skin",
+      "pattern": "^You shed your scales\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Scale Skin gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"You shed your scales.\""
+    },
+    {
+      "id": "buffs/wear-off/alluring-aura",
+      "name": "Worn off: Alluring Aura",
+      "pattern": "^Your aura fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Alluring Aura gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your aura fades.\" — shared by 6 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/talisman-of-the-brute",
+      "name": "Worn off: Talisman of the Brute",
+      "pattern": "^Your brute spirit fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Talisman of the Brute gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your brute spirit fades.\""
+    },
+    {
+      "id": "buffs/wear-off/charisma",
+      "name": "Worn off: Charisma",
+      "pattern": "^Your charisma fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Charisma gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your charisma fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Glamour, Unfailing Reverence). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/mortal-deftness",
+      "name": "Worn off: Mortal Deftness",
+      "pattern": "^Your deftness fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Mortal Deftness gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your deftness fades.\""
+    },
+    {
+      "id": "buffs/wear-off/deftness",
+      "name": "Worn off: Deftness",
+      "pattern": "^Your dexterity fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Deftness gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your dexterity fades.\" — shared by 3 spells in spells_us_str (3 castable; also: Dexterity, Rising Dexterity). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/talisman-of-the-cat",
+      "name": "Worn off: Talisman of the Cat",
+      "pattern": "^Your feline spirit fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Talisman of the Cat gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your feline spirit fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/creeping-vision",
+      "name": "Worn off: Creeping Vision",
+      "pattern": "^Your focus fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Creeping Vision gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your focus fades.\" — shared by 16 spells in spells_us_str (3 castable; also: Focus of Spirit, Khura's Focusing). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/voice-of-the-berserker",
+      "name": "Worn off: Voice of the Berserker",
+      "pattern": "^Your frenzy fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Voice of the Berserker gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your frenzy fades.\" — shared by 6 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/health",
+      "name": "Worn off: Health",
+      "pattern": "^Your health fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Health gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your health fades.\" — shared by 2 spells in spells_us_str (2 castable; also: Riotous Health). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/harnessing-of-spirit",
+      "name": "Worn off: Harnessing of Spirit",
+      "pattern": "^Your hit points fade\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Harnessing of Spirit gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your hit points fade.\" — shared by 4 spells in spells_us_str (4 castable; also: Talisman of Altuna, Talisman of Kragg, Talisman of Tnarg). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/heat-sight",
+      "name": "Worn off: Heat Sight",
+      "pattern": "^Your infravision fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Heat Sight gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Wizard",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your infravision fades.\" — shared by 3 spells in spells_us_str (2 castable; also: Serpent Sight). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/dexterous-aura",
+      "name": "Worn off: Dexterous Aura",
+      "pattern": "^Your magical dexterity fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Dexterous Aura gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your magical dexterity fades.\""
+    },
+    {
+      "id": "buffs/wear-off/infusion-of-spirit",
+      "name": "Worn off: Infusion of Spirit",
+      "pattern": "^Your power fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Infusion of Spirit gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your power fades.\" — shared by 65 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/primal-essence",
+      "name": "Worn off: Primal Essence",
+      "pattern": "^Your primal essence fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Primal Essence gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your primal essence fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/talisman-of-the-raptor",
+      "name": "Worn off: Talisman of the Raptor",
+      "pattern": "^Your raptor spirit fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Talisman of the Raptor gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your raptor spirit fades.\""
+    },
+    {
+      "id": "buffs/wear-off/talisman-of-the-rhino",
+      "name": "Worn off: Talisman of the Rhino",
+      "pattern": "^Your rhino spirit fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Talisman of the Rhino gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your rhino spirit fades.\""
+    },
+    {
+      "id": "buffs/wear-off/talisman-of-the-serpent",
+      "name": "Worn off: Talisman of the Serpent",
+      "pattern": "^Your serpent spirit fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Talisman of the Serpent gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your serpent spirit fades.\""
+    },
+    {
+      "id": "buffs/wear-off/aanya-s-quickening",
+      "name": "Worn off: Aanya's Quickening",
+      "pattern": "^Your speed returns to normal\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Aanya's Quickening gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your speed returns to normal.\" — shared by 54 spells in spells_us_str (6 castable; also: Alacrity, Celerity, Quickness, Swift Like the Wind, Wondrous Rapidity). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/stamina",
+      "name": "Worn off: Stamina",
+      "pattern": "^Your stamina fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Stamina gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your stamina fades.\""
+    },
+    {
+      "id": "buffs/wear-off/ultravision",
+      "name": "Worn off: Ultravision",
+      "pattern": "^Your ultravision fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ultravision gone"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your ultravision fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

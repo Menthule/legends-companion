@@ -1,0 +1,11 @@
+# Stable rustfmt options only. Pinned here so CI (`cargo fmt --all --check`)
+# and local runs agree.
+#
+# struct_variant_width is raised from the default (35) to match the event
+# contract in crates/eqlog-core/src/events.rs, which keeps short enum struct
+# variants on one line (e.g. `Chat { channel, speaker, text }`, field list
+# 51 chars) while longer ones (e.g. `SpellDamageTaken { ... }`, 58 chars)
+# stay vertical. The width is measured over the field list only, so any
+# value in 51..=57 works; 55 splits the difference.
+edition = "2021"
+struct_variant_width = 55

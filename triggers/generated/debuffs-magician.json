@@ -1,0 +1,262 @@
+{
+  "name": "Generated enemy-effect timers — Magician",
+  "triggers": [
+    {
+      "id": "debuffs/magician/cast/elemental-maelstrom",
+      "name": "Enemy timer: Elemental Maelstrom",
+      "pattern": "^You begin casting Elemental Maelstrom\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Elemental Maelstrom",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/magician/cast/mala",
+      "name": "Enemy timer: Mala",
+      "pattern": "^You begin casting Mala\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mala",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/magician/cast/malaise",
+      "name": "Enemy timer: Malaise",
+      "pattern": "^You begin casting Malaise\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malaise",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/magician/cast/malaisement",
+      "name": "Enemy timer: Malaisement",
+      "pattern": "^You begin casting Malaisement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malaisement",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/magician/cast/malosi",
+      "name": "Enemy timer: Malosi",
+      "pattern": "^You begin casting Malosi\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malosi",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/magician/cast/malosini",
+      "name": "Enemy timer: Malosini",
+      "pattern": "^You begin casting Malosini\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malosini",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/magician/cast/wrath-of-the-elements",
+      "name": "Enemy timer: Wrath of the Elements",
+      "pattern": "^You begin casting Wrath of the Elements\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Magician/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wrath of the Elements",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/elemental-maelstrom",
+      "name": "Enemy timer cleared: Elemental Maelstrom",
+      "pattern": "^Your Elemental Maelstrom spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Elemental Maelstrom"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Elemental Maelstrom off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/mala",
+      "name": "Enemy timer cleared: Mala",
+      "pattern": "^Your Mala spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Mala"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Mala off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/wrath-of-the-elements",
+      "name": "Enemy timer cleared: Wrath of the Elements",
+      "pattern": "^Your Wrath of the Elements spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Wrath of the Elements"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Wrath of the Elements off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

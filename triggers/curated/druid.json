@@ -1,0 +1,49 @@
+{
+  "name": "Curated class pack — Druid",
+  "triggers": [
+    {
+      "id": "class/druid/buffs/sow-landed",
+      "name": "Spirit of Wolf landed",
+      "pattern": "^You feel the spirit of wolf enter you\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs",
+      "classes": [
+        "Druid",
+        "Shaman",
+        "Ranger"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "SoW on"
+          }
+        }
+      ],
+      "comments": "Verified in Legends log."
+    },
+    {
+      "id": "class/druid/buffs/sow-gone",
+      "name": "Spirit of Wolf gone",
+      "pattern": "^The spirit of wolf leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs",
+      "classes": [
+        "Druid",
+        "Shaman",
+        "Ranger"
+      ],
+      "actions": [
+        {
+          "Speak": {
+            "template": "sow gone"
+          }
+        }
+      ],
+      "comments": "spells_us_str 278; verified in Legends log. (NOT 'You feel yourself slow down' — that line was ruled out.) Pattern is byte-identical to generated buffs/wear-off/spirit-of-wolf so the engine's fire-dedupe collapses the pair to one spoken alert — keep them in sync."
+    }
+  ]
+}

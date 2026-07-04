@@ -1,0 +1,2367 @@
+{
+  "name": "Generated buff timers — Cleric",
+  "triggers": [
+    {
+      "id": "buffs/cleric/cast/aegis",
+      "name": "Buff timer: Aegis",
+      "pattern": "^You begin casting Aegis\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Aegis",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 57."
+    },
+    {
+      "id": "buffs/cleric/cast/aegolism",
+      "name": "Buff timer: Aegolism",
+      "pattern": "^You begin casting Aegolism\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Aegolism",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 14,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Cleric level 60."
+    },
+    {
+      "id": "buffs/cleric/cast/ancient-gift-of-aegolism",
+      "name": "Buff timer: Ancient: Gift of Aegolism",
+      "pattern": "^You begin casting Ancient: Gift of Aegolism\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Gift of Aegolism",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 24,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Cleric level 60."
+    },
+    {
+      "id": "buffs/cleric/cast/ancient-high-priest-s-bulwark",
+      "name": "Buff timer: Ancient: High Priest's Bulwark",
+      "pattern": "^You begin casting Ancient: High Priest's Bulwark\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: High Priest's Bulwark",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 60."
+    },
+    {
+      "id": "buffs/cleric/cast/armor-of-faith",
+      "name": "Buff timer: Armor of Faith",
+      "pattern": "^You begin casting Armor of Faith\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Armor of Faith",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Cleric level 35."
+    },
+    {
+      "id": "buffs/cleric/cast/blessed-armor-of-the-risen",
+      "name": "Buff timer: Blessed Armor of the Risen",
+      "pattern": "^You begin casting Blessed Armor of the Risen\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessed Armor of the Risen",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 58."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-aegolism",
+      "name": "Buff timer: Blessing of Aegolism",
+      "pattern": "^You begin casting Blessing of Aegolism\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of Aegolism",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 24,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Cleric level 60."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-faith",
+      "name": "Buff timer: Blessing of Faith",
+      "pattern": "^You begin casting Blessing of Faith\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of Faith",
+            "duration_secs": 2400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 400,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Cleric level 35."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-piety",
+      "name": "Buff timer: Blessing of Piety",
+      "pattern": "^You begin casting Blessing of Piety\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of Piety",
+            "duration_secs": 2400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 400,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Cleric level 15."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-temperance",
+      "name": "Buff timer: Blessing of Temperance",
+      "pattern": "^You begin casting Blessing of Temperance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of Temperance",
+            "duration_secs": 6000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 12,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1000,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Cleric level 45."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-the-knight",
+      "name": "Buff timer: Blessing of the Knight",
+      "pattern": "^You begin casting Blessing of the Knight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of the Knight",
+            "duration_secs": 3000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 15,
+            "duration_cap_ticks": 500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~50m00s at level 50 (formula 15, cap 500 ticks); the engine rescales to the profile's level; Cleric level 34."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-the-lord-commander",
+      "name": "Buff timer: Blessing of the Lord Commander",
+      "pattern": "^You begin casting Blessing of the Lord Commander\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of the Lord Commander",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 15,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~60m00s at level 50 (formula 15, cap 600 ticks); the engine rescales to the profile's level; Cleric level 48."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-the-page",
+      "name": "Buff timer: Blessing of the Page",
+      "pattern": "^You begin casting Blessing of the Page\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of the Page",
+            "duration_secs": 1800,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 15,
+            "duration_cap_ticks": 300,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~30m00s at level 50 (formula 15, cap 300 ticks); the engine rescales to the profile's level; Cleric level 8."
+    },
+    {
+      "id": "buffs/cleric/cast/blessing-of-the-squire",
+      "name": "Buff timer: Blessing of the Squire",
+      "pattern": "^You begin casting Blessing of the Squire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of the Squire",
+            "duration_secs": 2400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 15,
+            "duration_cap_ticks": 400,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~40m00s at level 50 (formula 15, cap 400 ticks); the engine rescales to the profile's level; Cleric level 16."
+    },
+    {
+      "id": "buffs/cleric/cast/bravery",
+      "name": "Buff timer: Bravery",
+      "pattern": "^You begin casting Bravery\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bravery",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Cleric level 22."
+    },
+    {
+      "id": "buffs/cleric/cast/bulwark-of-faith",
+      "name": "Buff timer: Bulwark of Faith",
+      "pattern": "^You begin casting Bulwark of Faith\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bulwark of Faith",
+            "duration_secs": 4860,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 810,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Cleric level 57."
+    },
+    {
+      "id": "buffs/cleric/cast/calm",
+      "name": "Buff timer: Calm",
+      "pattern": "^You begin casting Calm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Calm",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Cleric level 15."
+    },
+    {
+      "id": "buffs/cleric/cast/center",
+      "name": "Buff timer: Center",
+      "pattern": "^You begin casting Center\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Center",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 7."
+    },
+    {
+      "id": "buffs/cleric/cast/courage",
+      "name": "Buff timer: Courage",
+      "pattern": "^You begin casting Courage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Courage",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Cleric level 1."
+    },
+    {
+      "id": "buffs/cleric/cast/daring",
+      "name": "Buff timer: Daring",
+      "pattern": "^You begin casting Daring\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Daring",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 17."
+    },
+    {
+      "id": "buffs/cleric/cast/death-pact",
+      "name": "Buff timer: Death Pact",
+      "pattern": "^You begin casting Death Pact\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Death Pact",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Cleric level 51."
+    },
+    {
+      "id": "buffs/cleric/cast/divine-intervention",
+      "name": "Buff timer: Divine Intervention",
+      "pattern": "^You begin casting Divine Intervention\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Divine Intervention",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Cleric level 60."
+    },
+    {
+      "id": "buffs/cleric/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 13."
+    },
+    {
+      "id": "buffs/cleric/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11."
+    },
+    {
+      "id": "buffs/cleric/cast/endure-fire",
+      "name": "Buff timer: Endure Fire",
+      "pattern": "^You begin casting Endure Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 8."
+    },
+    {
+      "id": "buffs/cleric/cast/endure-magic",
+      "name": "Buff timer: Endure Magic",
+      "pattern": "^You begin casting Endure Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Magic",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 16."
+    },
+    {
+      "id": "buffs/cleric/cast/endure-poison",
+      "name": "Buff timer: Endure Poison",
+      "pattern": "^You begin casting Endure Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Poison",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 6."
+    },
+    {
+      "id": "buffs/cleric/cast/fortitude",
+      "name": "Buff timer: Fortitude",
+      "pattern": "^You begin casting Fortitude\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fortitude",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 55."
+    },
+    {
+      "id": "buffs/cleric/cast/frenzied-strength",
+      "name": "Buff timer: Frenzied Strength",
+      "pattern": "^You begin casting Frenzied Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Frenzied Strength",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Cleric level 31."
+    },
+    {
+      "id": "buffs/cleric/cast/guard",
+      "name": "Buff timer: Guard",
+      "pattern": "^You begin casting Guard\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Cleric level 25."
+    },
+    {
+      "id": "buffs/cleric/cast/guard-of-vie",
+      "name": "Buff timer: Guard of Vie",
+      "pattern": "^You begin casting Guard of Vie\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard of Vie",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 40."
+    },
+    {
+      "id": "buffs/cleric/cast/heroic-bond",
+      "name": "Buff timer: Heroic Bond",
+      "pattern": "^You begin casting Heroic Bond\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Heroic Bond",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 52."
+    },
+    {
+      "id": "buffs/cleric/cast/heroism",
+      "name": "Buff timer: Heroism",
+      "pattern": "^You begin casting Heroism\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Heroism",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 52."
+    },
+    {
+      "id": "buffs/cleric/cast/holy-armor",
+      "name": "Buff timer: Holy Armor",
+      "pattern": "^You begin casting Holy Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Holy Armor",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 1."
+    },
+    {
+      "id": "buffs/cleric/cast/improved-invisibility-to-undead",
+      "name": "Buff timer: Improved Invisibility to Undead",
+      "pattern": "^You begin casting Improved Invisibility to Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Improved Invisibility to Undead",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Cleric level 48."
+    },
+    {
+      "id": "buffs/cleric/cast/invisibility-versus-undead",
+      "name": "Buff timer: Invisibility Versus Undead",
+      "pattern": "^You begin casting Invisibility Versus Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility Versus Undead",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11."
+    },
+    {
+      "id": "buffs/cleric/cast/lull",
+      "name": "Buff timer: Lull",
+      "pattern": "^You begin casting Lull\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Lull",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 9,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Cleric level 1."
+    },
+    {
+      "id": "buffs/cleric/cast/marzin-s-mark",
+      "name": "Buff timer: Marzin's Mark",
+      "pattern": "^You begin casting Marzin's Mark\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Marzin's Mark",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 60."
+    },
+    {
+      "id": "buffs/cleric/cast/naltron-s-mark",
+      "name": "Buff timer: Naltron's Mark",
+      "pattern": "^You begin casting Naltron's Mark\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Naltron's Mark",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 58."
+    },
+    {
+      "id": "buffs/cleric/cast/pacify",
+      "name": "Buff timer: Pacify",
+      "pattern": "^You begin casting Pacify\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pacify",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Cleric level 36."
+    },
+    {
+      "id": "buffs/cleric/cast/protection-of-vie",
+      "name": "Buff timer: Protection of Vie",
+      "pattern": "^You begin casting Protection of Vie\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of Vie",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 54."
+    },
+    {
+      "id": "buffs/cleric/cast/reckless-strength",
+      "name": "Buff timer: Reckless Strength",
+      "pattern": "^You begin casting Reckless Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Reckless Strength",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Cleric level 2."
+    },
+    {
+      "id": "buffs/cleric/cast/resist-cold",
+      "name": "Buff timer: Resist Cold",
+      "pattern": "^You begin casting Resist Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Cold",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 38."
+    },
+    {
+      "id": "buffs/cleric/cast/resist-disease",
+      "name": "Buff timer: Resist Disease",
+      "pattern": "^You begin casting Resist Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Disease",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 36."
+    },
+    {
+      "id": "buffs/cleric/cast/resist-fire",
+      "name": "Buff timer: Resist Fire",
+      "pattern": "^You begin casting Resist Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Fire",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 33."
+    },
+    {
+      "id": "buffs/cleric/cast/resist-magic",
+      "name": "Buff timer: Resist Magic",
+      "pattern": "^You begin casting Resist Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Magic",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 43."
+    },
+    {
+      "id": "buffs/cleric/cast/resist-poison",
+      "name": "Buff timer: Resist Poison",
+      "pattern": "^You begin casting Resist Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Poison",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 30."
+    },
+    {
+      "id": "buffs/cleric/cast/resolution",
+      "name": "Buff timer: Resolution",
+      "pattern": "^You begin casting Resolution\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resolution",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Cleric level 42."
+    },
+    {
+      "id": "buffs/cleric/cast/shield-of-words",
+      "name": "Buff timer: Shield of Words",
+      "pattern": "^You begin casting Shield of Words\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Words",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 45."
+    },
+    {
+      "id": "buffs/cleric/cast/soothe",
+      "name": "Buff timer: Soothe",
+      "pattern": "^You begin casting Soothe\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Soothe",
+            "duration_secs": 150,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 25,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Cleric level 5."
+    },
+    {
+      "id": "buffs/cleric/cast/spirit-armor",
+      "name": "Buff timer: Spirit Armor",
+      "pattern": "^You begin casting Spirit Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Armor",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 15."
+    },
+    {
+      "id": "buffs/cleric/cast/sunskin",
+      "name": "Buff timer: Sunskin",
+      "pattern": "^You begin casting Sunskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sunskin",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 51."
+    },
+    {
+      "id": "buffs/cleric/cast/symbol-of-marzin",
+      "name": "Buff timer: Symbol of Marzin",
+      "pattern": "^You begin casting Symbol of Marzin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Marzin",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Cleric level 54."
+    },
+    {
+      "id": "buffs/cleric/cast/symbol-of-naltron",
+      "name": "Buff timer: Symbol of Naltron",
+      "pattern": "^You begin casting Symbol of Naltron\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Naltron",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Cleric level 41."
+    },
+    {
+      "id": "buffs/cleric/cast/symbol-of-pinzarn",
+      "name": "Buff timer: Symbol of Pinzarn",
+      "pattern": "^You begin casting Symbol of Pinzarn\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Pinzarn",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Cleric level 31."
+    },
+    {
+      "id": "buffs/cleric/cast/symbol-of-ryltan",
+      "name": "Buff timer: Symbol of Ryltan",
+      "pattern": "^You begin casting Symbol of Ryltan\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Ryltan",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 21."
+    },
+    {
+      "id": "buffs/cleric/cast/symbol-of-transal",
+      "name": "Buff timer: Symbol of Transal",
+      "pattern": "^You begin casting Symbol of Transal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Transal",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11."
+    },
+    {
+      "id": "buffs/cleric/cast/temperance",
+      "name": "Buff timer: Temperance",
+      "pattern": "^You begin casting Temperance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Temperance",
+            "duration_secs": 6000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 9,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1000,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Cleric level 40."
+    },
+    {
+      "id": "buffs/cleric/cast/valor",
+      "name": "Buff timer: Valor",
+      "pattern": "^You begin casting Valor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Valor",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Cleric level 32."
+    },
+    {
+      "id": "buffs/cleric/cast/wake-of-tranquility",
+      "name": "Buff timer: Wake of Tranquility",
+      "pattern": "^You begin casting Wake of Tranquility\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wake of Tranquility",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 5,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Cleric level 55."
+    },
+    {
+      "id": "buffs/cleric/cast/ward-of-rebuke",
+      "name": "Buff timer: Ward of Rebuke",
+      "pattern": "^You begin casting Ward of Rebuke\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ward of Rebuke",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Cleric level 57."
+    },
+    {
+      "id": "buffs/cleric/cast/ward-of-vie",
+      "name": "Buff timer: Ward of Vie",
+      "pattern": "^You begin casting Ward of Vie\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ward of Vie",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 20."
+    },
+    {
+      "id": "buffs/cleric/cast/ward-of-the-divine",
+      "name": "Buff timer: Ward of the Divine",
+      "pattern": "^You begin casting Ward of the Divine\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ward of the Divine",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 13,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~20m00s at level 50 (formula 13, cap 200 ticks); the engine rescales to the profile's level; Cleric level 50."
+    },
+    {
+      "id": "buffs/wear-off/death-pact",
+      "name": "Worn off: Death Pact",
+      "pattern": "^The aura fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Death Pact gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"The aura fades.\" — shared by 7 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/ward-of-rebuke",
+      "name": "Worn off: Ward of Rebuke",
+      "pattern": "^The blessing fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ward of Rebuke gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"The blessing fades.\" — shared by 16 spells in spells_us_str (2 castable; also: Ward of the Divine). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/blessing-of-the-knight",
+      "name": "Worn off: Blessing of the Knight",
+      "pattern": "^The golden glow fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Blessing of the Knight gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"The golden glow fades.\" — shared by 4 spells in spells_us_str (4 castable; also: Blessing of the Lord Commander, Blessing of the Page, Blessing of the Squire). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/marzin-s-mark",
+      "name": "Worn off: Marzin's Mark",
+      "pattern": "^The mystic symbol fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Marzin's Mark gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"The mystic symbol fades.\" — shared by 73 spells in spells_us_str (7 castable; also: Naltron's Mark, Symbol of Marzin, Symbol of Naltron, Symbol of Pinzarn, Symbol of Ryltan). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/austerity",
+      "name": "Worn off: Austerity",
+      "pattern": "^The temperance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Austerity gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"The temperance fades.\" — shared by 5 spells in spells_us_str (4 castable; also: Blessing of Austerity, Blessing of Temperance, Temperance). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/guard-of-vie",
+      "name": "Worn off: Guard of Vie",
+      "pattern": "^The white aura fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Guard of Vie gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"The white aura fades.\" — shared by 92 spells in spells_us_str (3 castable; also: Protection of Vie, Ward of Vie). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/divine-intervention",
+      "name": "Worn off: Divine Intervention",
+      "pattern": "^You are no longer watched\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Divine Intervention gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"You are no longer watched.\" — shared by 28 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/courage",
+      "name": "Worn off: Courage",
+      "pattern": "^You feel less courageous\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Courage gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"You feel less courageous.\""
+    },
+    {
+      "id": "buffs/wear-off/frenzied-strength",
+      "name": "Worn off: Frenzied Strength",
+      "pattern": "^You feel your strength return\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Frenzied Strength gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"You feel your strength return.\" — shared by 24 spells in spells_us_str (2 castable; also: Reckless Strength). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/armor-of-faith",
+      "name": "Worn off: Armor of Faith",
+      "pattern": "^You no longer feel blessed\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Armor of Faith gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"You no longer feel blessed.\" — shared by 5 spells in spells_us_str (4 castable; also: Guard, Holy Armor, Shield of Words). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/daring",
+      "name": "Worn off: Daring",
+      "pattern": "^You no longer feel daring\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Daring gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"You no longer feel daring.\""
+    },
+    {
+      "id": "buffs/wear-off/aegis",
+      "name": "Worn off: Aegis",
+      "pattern": "^You no longer feel shielded\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Aegis gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"You no longer feel shielded.\" — shared by 2 spells in spells_us_str (2 castable; also: Bulwark of Faith). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/aegolism",
+      "name": "Worn off: Aegolism",
+      "pattern": "^Your aegolism fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Aegolism gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"Your aegolism fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Ancient: Gift of Aegolism, Blessing of Aegolism). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/bravery",
+      "name": "Worn off: Bravery",
+      "pattern": "^Your bravery fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Bravery gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"Your bravery fades.\""
+    },
+    {
+      "id": "buffs/wear-off/resist-cold",
+      "name": "Worn off: Resist Cold",
+      "pattern": "^Your cold resistance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resist Cold gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Ranger",
+        "ShadowKnight",
+        "Druid",
+        "Shaman",
+        "Necromancer"
+      ],
+      "comments": "Wear-off message: \"Your cold resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/resist-disease",
+      "name": "Worn off: Resist Disease",
+      "pattern": "^Your disease resistance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resist Disease gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Druid",
+        "Shaman",
+        "Necromancer",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your disease resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/endure-cold",
+      "name": "Worn off: Endure Cold",
+      "pattern": "^Your endurance to cold fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Endure Cold gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Ranger",
+        "ShadowKnight",
+        "Druid",
+        "Shaman",
+        "Necromancer",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your endurance to cold fades.\""
+    },
+    {
+      "id": "buffs/wear-off/endure-disease",
+      "name": "Worn off: Endure Disease",
+      "pattern": "^Your endurance to disease fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Endure Disease gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "ShadowKnight",
+        "Druid",
+        "Shaman",
+        "Necromancer",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your endurance to disease fades.\""
+    },
+    {
+      "id": "buffs/wear-off/endure-fire",
+      "name": "Worn off: Endure Fire",
+      "pattern": "^Your endurance to fire fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Endure Fire gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your endurance to fire fades.\""
+    },
+    {
+      "id": "buffs/wear-off/endure-magic",
+      "name": "Worn off: Endure Magic",
+      "pattern": "^Your endurance to magic fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Endure Magic gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Druid",
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your endurance to magic fades.\""
+    },
+    {
+      "id": "buffs/wear-off/endure-poison",
+      "name": "Worn off: Endure Poison",
+      "pattern": "^Your endurance to poison fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Endure Poison gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Druid",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your endurance to poison fades.\""
+    },
+    {
+      "id": "buffs/wear-off/resist-fire",
+      "name": "Worn off: Resist Fire",
+      "pattern": "^Your fire resistance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resist Fire gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Ranger",
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your fire resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/fortitude",
+      "name": "Worn off: Fortitude",
+      "pattern": "^Your fortitude fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Fortitude gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"Your fortitude fades.\""
+    },
+    {
+      "id": "buffs/wear-off/heroic-bond",
+      "name": "Worn off: Heroic Bond",
+      "pattern": "^Your heroism fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Heroic Bond gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"Your heroism fades.\" — shared by 3 spells in spells_us_str (2 castable; also: Heroism). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/resist-magic",
+      "name": "Worn off: Resist Magic",
+      "pattern": "^Your magic resistance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resist Magic gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Druid",
+        "Shaman",
+        "Enchanter"
+      ],
+      "comments": "Wear-off message: \"Your magic resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/resist-poison",
+      "name": "Worn off: Resist Poison",
+      "pattern": "^Your poison resistance fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resist Poison gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Druid",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your poison resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/ancient-high-priest-s-bulwark",
+      "name": "Worn off: Ancient: High Priest's Bulwark",
+      "pattern": "^Your protection fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ancient: High Priest's Bulwark gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your protection fades.\" — shared by 31 spells in spells_us_str (4 castable; also: Blessed Armor of the Risen, Group Resist Magic, Protect). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/resolution",
+      "name": "Worn off: Resolution",
+      "pattern": "^Your resolution fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Resolution gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your resolution fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/center",
+      "name": "Worn off: Center",
+      "pattern": "^Your sense of center fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Center gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your sense of center fades.\""
+    },
+    {
+      "id": "buffs/wear-off/improved-invisibility-to-undead",
+      "name": "Worn off: Improved Invisibility to Undead",
+      "pattern": "^Your skin stops tingling\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Improved Invisibility to Undead gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "ShadowKnight",
+        "Necromancer",
+        "Wizard",
+        "Enchanter"
+      ],
+      "comments": "Wear-off message: \"Your skin stops tingling.\" — shared by 21 spells in spells_us_str (4 castable; also: Invisibility Versus Undead, Invisibility to Undead, Sunskin). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/spirit-armor",
+      "name": "Worn off: Spirit Armor",
+      "pattern": "^Your spiritual armor fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit Armor gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Necromancer"
+      ],
+      "comments": "Wear-off message: \"Your spiritual armor fades.\" — shared by 15 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/blessing-of-faith",
+      "name": "Worn off: Blessing of Faith",
+      "pattern": "^Your thoughts slow\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Blessing of Faith gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Wear-off message: \"Your thoughts slow.\" — shared by 13 spells in spells_us_str (2 castable; also: Blessing of Piety). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/valor",
+      "name": "Worn off: Valor",
+      "pattern": "^Your valor fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Valor gone"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your valor fades.\""
+    }
+  ]
+}

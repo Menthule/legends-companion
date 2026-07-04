@@ -1,0 +1,924 @@
+{
+  "name": "Generated buff timers — ShadowKnight",
+  "triggers": [
+    {
+      "id": "buffs/shadowknight/cast/augment-death",
+      "name": "Buff timer: Augment Death",
+      "pattern": "^You begin casting Augment Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Augment Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 60."
+    },
+    {
+      "id": "buffs/shadowknight/cast/bobbing-corpse",
+      "name": "Buff timer: Bobbing Corpse",
+      "pattern": "^You begin casting Bobbing Corpse\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bobbing Corpse",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; ShadowKnight level 55."
+    },
+    {
+      "id": "buffs/shadowknight/cast/call-of-darkness",
+      "name": "Buff timer: Call of Darkness",
+      "pattern": "^You begin casting Call of Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Call of Darkness",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 54."
+    },
+    {
+      "id": "buffs/shadowknight/cast/cloak-of-the-akheva",
+      "name": "Buff timer: Cloak of the Akheva",
+      "pattern": "^You begin casting Cloak of the Akheva\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cloak of the Akheva",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; ShadowKnight level 60."
+    },
+    {
+      "id": "buffs/shadowknight/cast/deathly-temptation",
+      "name": "Buff timer: Deathly Temptation",
+      "pattern": "^You begin casting Deathly Temptation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Deathly Temptation",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 58."
+    },
+    {
+      "id": "buffs/shadowknight/cast/diamondskin",
+      "name": "Buff timer: Diamondskin",
+      "pattern": "^You begin casting Diamondskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Diamondskin",
+            "duration_secs": 5400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 900,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; ShadowKnight level 59."
+    },
+    {
+      "id": "buffs/shadowknight/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; ShadowKnight level 10."
+    },
+    {
+      "id": "buffs/shadowknight/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; ShadowKnight level 26."
+    },
+    {
+      "id": "buffs/shadowknight/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; ShadowKnight level 54."
+    },
+    {
+      "id": "buffs/shadowknight/cast/gather-shadows",
+      "name": "Buff timer: Gather Shadows",
+      "pattern": "^You begin casting Gather Shadows\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Gather Shadows",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 30."
+    },
+    {
+      "id": "buffs/shadowknight/cast/ichor-guard",
+      "name": "Buff timer: Ichor Guard",
+      "pattern": "^You begin casting Ichor Guard\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ichor Guard",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 8,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m30s at level 50 (formula 8, cap 5 ticks); the engine rescales to the profile's level; ShadowKnight level 56."
+    },
+    {
+      "id": "buffs/shadowknight/cast/invisibility-versus-undead",
+      "name": "Buff timer: Invisibility Versus Undead",
+      "pattern": "^You begin casting Invisibility Versus Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility Versus Undead",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; ShadowKnight level 4."
+    },
+    {
+      "id": "buffs/shadowknight/cast/mental-corruption",
+      "name": "Buff timer: Mental Corruption",
+      "pattern": "^You begin casting Mental Corruption\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mental Corruption",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 52."
+    },
+    {
+      "id": "buffs/shadowknight/cast/numb-the-dead",
+      "name": "Buff timer: Numb the Dead",
+      "pattern": "^You begin casting Numb the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Numb the Dead",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~2m00s at level 50 (formula 8, cap 20 ticks); the engine rescales to the profile's level; ShadowKnight level 9."
+    },
+    {
+      "id": "buffs/shadowknight/cast/resist-cold",
+      "name": "Buff timer: Resist Cold",
+      "pattern": "^You begin casting Resist Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Cold",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; ShadowKnight level 35."
+    },
+    {
+      "id": "buffs/shadowknight/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; ShadowKnight level 51."
+    },
+    {
+      "id": "buffs/shadowknight/cast/rest-the-dead",
+      "name": "Buff timer: Rest the Dead",
+      "pattern": "^You begin casting Rest the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Rest the Dead",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); the engine rescales to the profile's level; ShadowKnight level 52."
+    },
+    {
+      "id": "buffs/shadowknight/cast/shieldskin",
+      "name": "Buff timer: Shieldskin",
+      "pattern": "^You begin casting Shieldskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shieldskin",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; ShadowKnight level 31."
+    },
+    {
+      "id": "buffs/shadowknight/cast/shroud-of-death",
+      "name": "Buff timer: Shroud of Death",
+      "pattern": "^You begin casting Shroud of Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shroud of Death",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 55."
+    },
+    {
+      "id": "buffs/shadowknight/cast/shroud-of-undeath",
+      "name": "Buff timer: Shroud of Undeath",
+      "pattern": "^You begin casting Shroud of Undeath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shroud of Undeath",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 55."
+    },
+    {
+      "id": "buffs/shadowknight/cast/steelskin",
+      "name": "Buff timer: Steelskin",
+      "pattern": "^You begin casting Steelskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Steelskin",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; ShadowKnight level 56."
+    },
+    {
+      "id": "buffs/shadowknight/cast/strengthen-death",
+      "name": "Buff timer: Strengthen Death",
+      "pattern": "^You begin casting Strengthen Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strengthen Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 29."
+    },
+    {
+      "id": "buffs/shadowknight/cast/unholy-aura-discipline",
+      "name": "Buff timer: Unholy Aura Discipline",
+      "pattern": "^You begin casting Unholy Aura Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Unholy Aura Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; ShadowKnight level 55."
+    },
+    {
+      "id": "buffs/shadowknight/cast/voice-of-darkness",
+      "name": "Buff timer: Voice of Darkness",
+      "pattern": "^You begin casting Voice of Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Voice of Darkness",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 39."
+    },
+    {
+      "id": "buffs/shadowknight/cast/voice-of-death",
+      "name": "Buff timer: Voice of Death",
+      "pattern": "^You begin casting Voice of Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Voice of Death",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 55."
+    },
+    {
+      "id": "buffs/shadowknight/cast/voice-of-shadows",
+      "name": "Buff timer: Voice of Shadows",
+      "pattern": "^You begin casting Voice of Shadows\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Voice of Shadows",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 46."
+    },
+    {
+      "id": "buffs/shadowknight/cast/voice-of-terris",
+      "name": "Buff timer: Voice of Terris",
+      "pattern": "^You begin casting Voice of Terris\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Voice of Terris",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 60."
+    },
+    {
+      "id": "buffs/wear-off/call-of-darkness",
+      "name": "Worn off: Call of Darkness",
+      "pattern": "^The dark energy fades away\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Call of Darkness gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The dark energy fades away.\" — shared by 25 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/voice-of-darkness",
+      "name": "Worn off: Voice of Darkness",
+      "pattern": "^The dark voice fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Voice of Darkness gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The dark voice fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/mental-corruption",
+      "name": "Worn off: Mental Corruption",
+      "pattern": "^The green nimbus fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Mental Corruption gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The green nimbus fades.\""
+    },
+    {
+      "id": "buffs/wear-off/ichor-guard",
+      "name": "Worn off: Ichor Guard",
+      "pattern": "^The ichor melts away from your armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ichor Guard gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The ichor melts away from your armor.\""
+    },
+    {
+      "id": "buffs/wear-off/cloak-of-the-akheva",
+      "name": "Worn off: Cloak of the Akheva",
+      "pattern": "^The shadow departs\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Cloak of the Akheva gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The shadow departs.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/voice-of-shadows",
+      "name": "Worn off: Voice of Shadows",
+      "pattern": "^The shadowed voice fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Voice of Shadows gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The shadowed voice fades.\""
+    },
+    {
+      "id": "buffs/wear-off/unholy-aura-discipline",
+      "name": "Worn off: Unholy Aura Discipline",
+      "pattern": "^The unholy aura fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Unholy Aura Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The unholy aura fades.\""
+    },
+    {
+      "id": "buffs/wear-off/voice-of-death",
+      "name": "Worn off: Voice of Death",
+      "pattern": "^The voice of death fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Voice of Death gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The voice of death fades.\""
+    },
+    {
+      "id": "buffs/wear-off/voice-of-terris",
+      "name": "Worn off: Voice of Terris",
+      "pattern": "^The voice of nightmares fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Voice of Terris gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"The voice of nightmares fades.\" — shared by 5 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/deathly-temptation",
+      "name": "Worn off: Deathly Temptation",
+      "pattern": "^You recover\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Deathly Temptation gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Wear-off message: \"You recover.\" — shared by 12 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/gather-shadows",
+      "name": "Worn off: Gather Shadows",
+      "pattern": "^Your shadows fade\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Gather Shadows gone"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Wear-off message: \"Your shadows fade.\" — shared by 7 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

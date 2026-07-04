@@ -1,0 +1,1585 @@
+{
+  "name": "Generated buff timers — Ranger",
+  "triggers": [
+    {
+      "id": "buffs/ranger/cast/bind-sight",
+      "name": "Buff timer: Bind Sight",
+      "pattern": "^You begin casting Bind Sight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bind Sight",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Ranger level 17."
+    },
+    {
+      "id": "buffs/ranger/cast/call-of-earth",
+      "name": "Buff timer: Call of Earth",
+      "pattern": "^You begin casting Call of Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Call of Earth",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 48."
+    },
+    {
+      "id": "buffs/ranger/cast/call-of-fire",
+      "name": "Buff timer: Call of Fire",
+      "pattern": "^You begin casting Call of Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Call of Fire",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Ranger level 55."
+    },
+    {
+      "id": "buffs/ranger/cast/call-of-ice",
+      "name": "Buff timer: Call of Ice",
+      "pattern": "^You begin casting Call of Ice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Call of Ice",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Ranger level 58."
+    },
+    {
+      "id": "buffs/ranger/cast/call-of-the-predator",
+      "name": "Buff timer: Call of the Predator",
+      "pattern": "^You begin casting Call of the Predator\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Call of the Predator",
+            "duration_secs": 4500,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 750,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Ranger level 60."
+    },
+    {
+      "id": "buffs/ranger/cast/calm-animal",
+      "name": "Buff timer: Calm Animal",
+      "pattern": "^You begin casting Calm Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Calm Animal",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Ranger level 31."
+    },
+    {
+      "id": "buffs/ranger/cast/camouflage",
+      "name": "Buff timer: Camouflage",
+      "pattern": "^You begin casting Camouflage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Camouflage",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Ranger level 14."
+    },
+    {
+      "id": "buffs/ranger/cast/chloroplast",
+      "name": "Buff timer: Chloroplast",
+      "pattern": "^You begin casting Chloroplast\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chloroplast",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Ranger level 55."
+    },
+    {
+      "id": "buffs/ranger/cast/eagle-eye",
+      "name": "Buff timer: Eagle Eye",
+      "pattern": "^You begin casting Eagle Eye\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Eagle Eye",
+            "duration_secs": 4200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 700,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~70m00s at level 50 (formula 11, cap 700 ticks); the engine rescales to the profile's level; Ranger level 58."
+    },
+    {
+      "id": "buffs/ranger/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 18."
+    },
+    {
+      "id": "buffs/ranger/cast/endure-fire",
+      "name": "Buff timer: Endure Fire",
+      "pattern": "^You begin casting Endure Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 9."
+    },
+    {
+      "id": "buffs/ranger/cast/enduring-breath",
+      "name": "Buff timer: Enduring Breath",
+      "pattern": "^You begin casting Enduring Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enduring Breath",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 20."
+    },
+    {
+      "id": "buffs/ranger/cast/falcon-eye",
+      "name": "Buff timer: Falcon Eye",
+      "pattern": "^You begin casting Falcon Eye\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Falcon Eye",
+            "duration_secs": 4200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 700,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~70m00s at level 50 (formula 11, cap 700 ticks); the engine rescales to the profile's level; Ranger level 52."
+    },
+    {
+      "id": "buffs/ranger/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Ranger level 54."
+    },
+    {
+      "id": "buffs/ranger/cast/feet-like-cat",
+      "name": "Buff timer: Feet like Cat",
+      "pattern": "^You begin casting Feet like Cat\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Feet like Cat",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 11, cap 360 ticks); the engine rescales to the profile's level; Ranger level 12."
+    },
+    {
+      "id": "buffs/ranger/cast/harmony",
+      "name": "Buff timer: Harmony",
+      "pattern": "^You begin casting Harmony\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Harmony",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Ranger level 22."
+    },
+    {
+      "id": "buffs/ranger/cast/harmony-of-nature",
+      "name": "Buff timer: Harmony of Nature",
+      "pattern": "^You begin casting Harmony of Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Harmony of Nature",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Ranger level 39."
+    },
+    {
+      "id": "buffs/ranger/cast/jolting-blades",
+      "name": "Buff timer: Jolting Blades",
+      "pattern": "^You begin casting Jolting Blades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Jolting Blades",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Ranger level 54."
+    },
+    {
+      "id": "buffs/ranger/cast/levitate",
+      "name": "Buff timer: Levitate",
+      "pattern": "^You begin casting Levitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Levitate",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Ranger level 35."
+    },
+    {
+      "id": "buffs/ranger/cast/lull-animal",
+      "name": "Buff timer: Lull Animal",
+      "pattern": "^You begin casting Lull Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Lull Animal",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 9,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Ranger level 4."
+    },
+    {
+      "id": "buffs/ranger/cast/mark-of-the-predator",
+      "name": "Buff timer: Mark of the Predator",
+      "pattern": "^You begin casting Mark of the Predator\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mark of the Predator",
+            "duration_secs": 4500,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 750,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Ranger level 56."
+    },
+    {
+      "id": "buffs/ranger/cast/pack-shrew",
+      "name": "Buff timer: Pack Shrew",
+      "pattern": "^You begin casting Pack Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 49."
+    },
+    {
+      "id": "buffs/ranger/cast/resist-cold",
+      "name": "Buff timer: Resist Cold",
+      "pattern": "^You begin casting Resist Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Cold",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 55."
+    },
+    {
+      "id": "buffs/ranger/cast/resist-fire",
+      "name": "Buff timer: Resist Fire",
+      "pattern": "^You begin casting Resist Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Fire",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 46."
+    },
+    {
+      "id": "buffs/ranger/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Ranger level 51."
+    },
+    {
+      "id": "buffs/ranger/cast/riftwind-s-protection",
+      "name": "Buff timer: Riftwind's Protection",
+      "pattern": "^You begin casting Riftwind's Protection\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Riftwind's Protection",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 29."
+    },
+    {
+      "id": "buffs/ranger/cast/see-invisible",
+      "name": "Buff timer: See Invisible",
+      "pattern": "^You begin casting See Invisible\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "See Invisible",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Ranger level 32."
+    },
+    {
+      "id": "buffs/ranger/cast/shield-of-brambles",
+      "name": "Buff timer: Shield of Brambles",
+      "pattern": "^You begin casting Shield of Brambles\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Brambles",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 43."
+    },
+    {
+      "id": "buffs/ranger/cast/shield-of-spikes",
+      "name": "Buff timer: Shield of Spikes",
+      "pattern": "^You begin casting Shield of Spikes\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Spikes",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 58."
+    },
+    {
+      "id": "buffs/ranger/cast/shield-of-thistles",
+      "name": "Buff timer: Shield of Thistles",
+      "pattern": "^You begin casting Shield of Thistles\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Thistles",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 24."
+    },
+    {
+      "id": "buffs/ranger/cast/skin-like-diamond",
+      "name": "Buff timer: Skin like Diamond",
+      "pattern": "^You begin casting Skin like Diamond\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Diamond",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Ranger level 54."
+    },
+    {
+      "id": "buffs/ranger/cast/skin-like-nature",
+      "name": "Buff timer: Skin like Nature",
+      "pattern": "^You begin casting Skin like Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Nature",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Ranger level 59."
+    },
+    {
+      "id": "buffs/ranger/cast/skin-like-rock",
+      "name": "Buff timer: Skin like Rock",
+      "pattern": "^You begin casting Skin like Rock\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Rock",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 21."
+    },
+    {
+      "id": "buffs/ranger/cast/skin-like-steel",
+      "name": "Buff timer: Skin like Steel",
+      "pattern": "^You begin casting Skin like Steel\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Steel",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 38."
+    },
+    {
+      "id": "buffs/ranger/cast/skin-like-wood",
+      "name": "Buff timer: Skin like Wood",
+      "pattern": "^You begin casting Skin like Wood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Wood",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Ranger level 7."
+    },
+    {
+      "id": "buffs/ranger/cast/spirit-of-wolf",
+      "name": "Buff timer: Spirit of Wolf",
+      "pattern": "^You begin casting Spirit of Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Wolf",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 28."
+    },
+    {
+      "id": "buffs/ranger/cast/spirit-of-the-shrew",
+      "name": "Buff timer: Spirit of the Shrew",
+      "pattern": "^You begin casting Spirit of the Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 41."
+    },
+    {
+      "id": "buffs/ranger/cast/storm-strength",
+      "name": "Buff timer: Storm Strength",
+      "pattern": "^You begin casting Storm Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Storm Strength",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Ranger level 53."
+    },
+    {
+      "id": "buffs/ranger/cast/strength-of-earth",
+      "name": "Buff timer: Strength of Earth",
+      "pattern": "^You begin casting Strength of Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strength of Earth",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 26."
+    },
+    {
+      "id": "buffs/ranger/cast/strength-of-nature",
+      "name": "Buff timer: Strength of Nature",
+      "pattern": "^You begin casting Strength of Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strength of Nature",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 51."
+    },
+    {
+      "id": "buffs/ranger/cast/superior-camouflage",
+      "name": "Buff timer: Superior Camouflage",
+      "pattern": "^You begin casting Superior Camouflage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Superior Camouflage",
+            "duration_secs": 1440,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 240,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Ranger level 47."
+    },
+    {
+      "id": "buffs/ranger/cast/trueshot-discipline",
+      "name": "Buff timer: Trueshot Discipline",
+      "pattern": "^You begin casting Trueshot Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Trueshot Discipline",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~2m00s at level 50 (formula 11, cap 20 ticks); the engine rescales to the profile's level; Ranger level 55."
+    },
+    {
+      "id": "buffs/ranger/cast/warder-s-protection",
+      "name": "Buff timer: Warder's Protection",
+      "pattern": "^You begin casting Warder's Protection\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Warder's Protection",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Ranger level 60."
+    },
+    {
+      "id": "buffs/wear-off/strength-of-nature",
+      "name": "Worn off: Strength of Nature",
+      "pattern": "^Nature's strength ebbs\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Strength of Nature gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"Nature's strength ebbs.\""
+    },
+    {
+      "id": "buffs/wear-off/call-of-earth",
+      "name": "Worn off: Call of Earth",
+      "pattern": "^The Call of Earth leaves\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Call of Earth gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The Call of Earth leaves.\""
+    },
+    {
+      "id": "buffs/wear-off/call-of-fire",
+      "name": "Worn off: Call of Fire",
+      "pattern": "^The Call of Fire leaves\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Call of Fire gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The Call of Fire leaves.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/eagle-eye",
+      "name": "Worn off: Eagle Eye",
+      "pattern": "^The avian presence departs\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Eagle Eye gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The avian presence departs.\" — shared by 3 spells in spells_us_str (2 castable; also: Falcon Eye). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/ancient-legacy-of-blades",
+      "name": "Worn off: Ancient: Legacy of Blades",
+      "pattern": "^The brambles fall away\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ancient: Legacy of Blades gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"The brambles fall away.\" — shared by 22 spells in spells_us_str (8 castable; also: Legacy of Spike, Legacy of Thorn, Shield of Barbs, Shield of Brambles, Shield of Spikes). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/call-of-ice",
+      "name": "Worn off: Call of Ice",
+      "pattern": "^The call of ice leaves\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Call of Ice gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The call of ice leaves.\""
+    },
+    {
+      "id": "buffs/wear-off/jolting-blades",
+      "name": "Worn off: Jolting Blades",
+      "pattern": "^The magical aura fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Jolting Blades gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The magical aura fades.\" — shared by 31 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/trueshot-discipline",
+      "name": "Worn off: Trueshot Discipline",
+      "pattern": "^The natural energy fades from your bow\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Trueshot Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The natural energy fades from your bow.\" — shared by 13 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/call-of-the-predator",
+      "name": "Worn off: Call of the Predator",
+      "pattern": "^The predator's spirit departs\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Call of the Predator gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Wear-off message: \"The predator's spirit departs.\" — shared by 5 spells in spells_us_str (2 castable; also: Mark of the Predator). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/pack-shrew",
+      "name": "Worn off: Pack Shrew",
+      "pattern": "^The spirit of the shrew leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Pack Shrew gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The spirit of the shrew leaves you.\" — shared by 2 spells in spells_us_str (2 castable; also: Spirit of the Shrew). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-wolf",
+      "name": "Worn off: Spirit of Wolf",
+      "pattern": "^The spirit of wolf leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Wolf gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The spirit of wolf leaves you.\" — shared by 3 spells in spells_us_str (2 castable; also: Pack Spirit). Named after the community-likely spell (WEAR_OFF_LIKELY)."
+    },
+    {
+      "id": "buffs/wear-off/improved-invisibility",
+      "name": "Worn off: Improved Invisibility",
+      "pattern": "^You appear\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Improved Invisibility gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Wizard",
+        "Magician",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"You appear.\" — shared by 32 spells in spells_us_str (4 castable; also: Improved Superior Camouflage, Invisibility, Superior Camouflage). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/levitate",
+      "name": "Worn off: Levitate",
+      "pattern": "^You can no longer levitate\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Levitate gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Wizard",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"You can no longer levitate.\" — shared by 13 spells in spells_us_str (2 castable; also: Levitation). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/chloroplast",
+      "name": "Worn off: Chloroplast",
+      "pattern": "^You have stopped regenerating\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Chloroplast gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"You have stopped regenerating.\" — shared by 54 spells in spells_us_str (8 castable; also: Nature's Recovery, Pack Chloroplast, Pack Regeneration, Regeneration, Regrowth). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/enduring-breath",
+      "name": "Worn off: Enduring Breath",
+      "pattern": "^You resume breathing\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Enduring Breath gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"You resume breathing.\" — shared by 9 spells in spells_us_str (2 castable; also: Everlasting Breath). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/camouflage",
+      "name": "Worn off: Camouflage",
+      "pattern": "^You return to view\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Camouflage gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"You return to view.\" — shared by 12 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/agility",
+      "name": "Worn off: Agility",
+      "pattern": "^Your agility fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Agility gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your agility fades.\" — shared by 6 spells in spells_us_str (4 castable; also: Deliriously Nimble, Feet like Cat, Nimble). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/bind-sight",
+      "name": "Worn off: Bind Sight",
+      "pattern": "^Your binding ends\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Bind Sight gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Wizard",
+        "Enchanter"
+      ],
+      "comments": "Wear-off message: \"Your binding ends.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/acumen",
+      "name": "Worn off: Acumen",
+      "pattern": "^Your eyes stop tingling\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Acumen gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Wizard",
+        "Magician",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your eyes stop tingling.\" — shared by 17 spells in spells_us_str (4 castable; also: Acumen of Dar Khura, See Invisible, Spirit Sight). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/bladecoat",
+      "name": "Worn off: Bladecoat",
+      "pattern": "^Your skin returns to normal\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Bladecoat gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "ShadowKnight",
+        "Druid",
+        "Shaman",
+        "Necromancer",
+        "Wizard",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your skin returns to normal.\" — shared by 64 spells in spells_us_str (25 castable; also: Bobbing Corpse, Diamondskin, Leatherskin, Manasink, Manaskin). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/furious-strength",
+      "name": "Worn off: Furious Strength",
+      "pattern": "^Your strength fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Furious Strength gone"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid",
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"Your strength fades.\" — shared by 22 spells in spells_us_str (11 castable; also: Maniacal Strength, Raging Strength, Spirit Strength, Storm Strength, Strength). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

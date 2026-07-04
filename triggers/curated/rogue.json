@@ -1,0 +1,82 @@
+{
+  "name": "Curated class pack — Rogue",
+  "triggers": [
+    {
+      "id": "class/rogue/melee/backstab",
+      "name": "Backstab",
+      "pattern": "^You backstab (.+) for (\\d+) points of damage\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Rogue/Melee",
+      "classes": [
+        "Rogue"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "BS ${2}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "class/rogue/melee/backstab-miss",
+      "name": "Backstab missed",
+      "pattern": "^You try to backstab (.+), but miss!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Rogue/Melee",
+      "classes": [
+        "Rogue"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "backstab missed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "class/rogue/stealth/hide-failed",
+      "name": "Hide failed",
+      "pattern": "^You failed to hide yourself\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Rogue/Stealth",
+      "classes": [
+        "Rogue"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "hide failed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "class/rogue/stealth/evade-noticed",
+      "name": "Evade noticed",
+      "pattern": "You will not evade me, {C}!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Rogue/Stealth",
+      "classes": [
+        "Rogue"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "evade failed"
+          }
+        }
+      ],
+      "comments": "Mob emote when your evade attempt fails."
+    }
+  ]
+}

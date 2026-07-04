@@ -1,0 +1,2485 @@
+{
+  "name": "Generated enemy-effect timers — Enchanter",
+  "triggers": [
+    {
+      "id": "debuffs/enchanter/cast/allure",
+      "name": "Enemy timer: Allure",
+      "pattern": "^You begin casting Allure\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Allure",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/ancient-eternal-rapture",
+      "name": "Enemy timer: Ancient: Eternal Rapture",
+      "pattern": "^You begin casting Ancient: Eternal Rapture\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Eternal Rapture",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/asphyxiate",
+      "name": "Enemy timer: Asphyxiate",
+      "pattern": "^You begin casting Asphyxiate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Asphyxiate",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/beguile",
+      "name": "Enemy timer: Beguile",
+      "pattern": "^You begin casting Beguile\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Beguile",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/boltran-s-agacerie",
+      "name": "Enemy timer: Boltran's Agacerie",
+      "pattern": "^You begin casting Boltran's Agacerie\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Boltran's Agacerie",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/cajoling-whispers",
+      "name": "Enemy timer: Cajoling Whispers",
+      "pattern": "^You begin casting Cajoling Whispers\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cajoling Whispers",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/charm",
+      "name": "Enemy timer: Charm",
+      "pattern": "^You begin casting Charm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Charm",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/chase-the-moon",
+      "name": "Enemy timer: Chase the Moon",
+      "pattern": "^You begin casting Chase the Moon\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chase the Moon",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 2,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/choke",
+      "name": "Enemy timer: Choke",
+      "pattern": "^You begin casting Choke\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Choke",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/cripple",
+      "name": "Enemy timer: Cripple",
+      "pattern": "^You begin casting Cripple\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cripple",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/curse-of-the-simple-mind",
+      "name": "Enemy timer: Curse of the Simple Mind",
+      "pattern": "^You begin casting Curse of the Simple Mind\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Curse of the Simple Mind",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 90,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 90 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/dazzle",
+      "name": "Enemy timer: Dazzle",
+      "pattern": "^You begin casting Dazzle\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dazzle",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~1m36s at level 50 (formula 10, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/dictate",
+      "name": "Enemy timer: Dictate",
+      "pattern": "^You begin casting Dictate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dictate",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/disempower",
+      "name": "Enemy timer: Disempower",
+      "pattern": "^You begin casting Disempower\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Disempower",
+            "duration_secs": 120,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 20,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/dyn-s-dizzying-draught",
+      "name": "Enemy timer: Dyn's Dizzying Draught",
+      "pattern": "^You begin casting Dyn's Dizzying Draught\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dyn's Dizzying Draught",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m12s at level 50 (formula 1, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/ebbing-strength",
+      "name": "Enemy timer: Ebbing Strength",
+      "pattern": "^You begin casting Ebbing Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ebbing Strength",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/enfeeblement",
+      "name": "Enemy timer: Enfeeblement",
+      "pattern": "^You begin casting Enfeeblement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enfeeblement",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/eye-of-confusion",
+      "name": "Enemy timer: Eye of Confusion",
+      "pattern": "^You begin casting Eye of Confusion\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Eye of Confusion",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/fascination",
+      "name": "Enemy timer: Fascination",
+      "pattern": "^You begin casting Fascination\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fascination",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/fear",
+      "name": "Enemy timer: Fear",
+      "pattern": "^You begin casting Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fear",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/feckless-might",
+      "name": "Enemy timer: Feckless Might",
+      "pattern": "^You begin casting Feckless Might\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Feckless Might",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/fetter",
+      "name": "Enemy timer: Fetter",
+      "pattern": "^You begin casting Fetter\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fetter",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/forlorn-deeds",
+      "name": "Enemy timer: Forlorn Deeds",
+      "pattern": "^You begin casting Forlorn Deeds\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Forlorn Deeds",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/gasping-embrace",
+      "name": "Enemy timer: Gasping Embrace",
+      "pattern": "^You begin casting Gasping Embrace\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Gasping Embrace",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/glamour-of-kintaz",
+      "name": "Enemy timer: Glamour of Kintaz",
+      "pattern": "^You begin casting Glamour of Kintaz\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Glamour of Kintaz",
+            "duration_secs": 54,
+            "warn_at_secs": 8,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m54s at level 50 (formula 7, cap 9 ticks); CC; the engine rescales to the profile's level; Enchanter level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/immobilize",
+      "name": "Enemy timer: Immobilize",
+      "pattern": "^You begin casting Immobilize\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Immobilize",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Enchanter level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/incapacitate",
+      "name": "Enemy timer: Incapacitate",
+      "pattern": "^You begin casting Incapacitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Incapacitate",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/insipid-weakness",
+      "name": "Enemy timer: Insipid Weakness",
+      "pattern": "^You begin casting Insipid Weakness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Insipid Weakness",
+            "duration_secs": 180,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 39,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/instill",
+      "name": "Enemy timer: Instill",
+      "pattern": "^You begin casting Instill\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Instill",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/invoke-fear",
+      "name": "Enemy timer: Invoke Fear",
+      "pattern": "^You begin casting Invoke Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invoke Fear",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/languid-pace",
+      "name": "Enemy timer: Languid Pace",
+      "pattern": "^You begin casting Languid Pace\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Languid Pace",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/listless-power",
+      "name": "Enemy timer: Listless Power",
+      "pattern": "^You begin casting Listless Power\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Listless Power",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/mesmerization",
+      "name": "Enemy timer: Mesmerization",
+      "pattern": "^You begin casting Mesmerization\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mesmerization",
+            "duration_secs": 24,
+            "warn_at_secs": 3,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 4,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/ordinance",
+      "name": "Enemy timer: Ordinance",
+      "pattern": "^You begin casting Ordinance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ordinance",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/paralyzing-earth",
+      "name": "Enemy timer: Paralyzing Earth",
+      "pattern": "^You begin casting Paralyzing Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Paralyzing Earth",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/phobia",
+      "name": "Enemy timer: Phobia",
+      "pattern": "^You begin casting Phobia\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Phobia",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/rapture",
+      "name": "Enemy timer: Rapture",
+      "pattern": "^You begin casting Rapture\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Rapture",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/scryer-s-trespass",
+      "name": "Enemy timer: Scryer's Trespass",
+      "pattern": "^You begin casting Scryer's Trespass\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scryer's Trespass",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/shallow-breath",
+      "name": "Enemy timer: Shallow Breath",
+      "pattern": "^You begin casting Shallow Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shallow Breath",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/shiftless-deeds",
+      "name": "Enemy timer: Shiftless Deeds",
+      "pattern": "^You begin casting Shiftless Deeds\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shiftless Deeds",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/suffocate",
+      "name": "Enemy timer: Suffocate",
+      "pattern": "^You begin casting Suffocate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Suffocate",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/suffocating-sphere",
+      "name": "Enemy timer: Suffocating Sphere",
+      "pattern": "^You begin casting Suffocating Sphere\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Suffocating Sphere",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m42s at level 50 (formula 9, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/tashani",
+      "name": "Enemy timer: Tashani",
+      "pattern": "^You begin casting Tashani\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tashani",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/tashania",
+      "name": "Enemy timer: Tashania",
+      "pattern": "^You begin casting Tashania\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tashania",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/tashanian",
+      "name": "Enemy timer: Tashanian",
+      "pattern": "^You begin casting Tashanian\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tashanian",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/tashina",
+      "name": "Enemy timer: Tashina",
+      "pattern": "^You begin casting Tashina\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tashina",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/tepid-deeds",
+      "name": "Enemy timer: Tepid Deeds",
+      "pattern": "^You begin casting Tepid Deeds\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tepid Deeds",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/torment-of-argli",
+      "name": "Enemy timer: Torment of Argli",
+      "pattern": "^You begin casting Torment of Argli\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Torment of Argli",
+            "duration_secs": 120,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 20,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/trepidation",
+      "name": "Enemy timer: Trepidation",
+      "pattern": "^You begin casting Trepidation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Trepidation",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/wandering-mind",
+      "name": "Enemy timer: Wandering Mind",
+      "pattern": "^You begin casting Wandering Mind\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wandering Mind",
+            "duration_secs": 120,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 20,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~2m00s at level 50 (formula 3, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/weaken",
+      "name": "Enemy timer: Weaken",
+      "pattern": "^You begin casting Weaken\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Weaken",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/weakness",
+      "name": "Enemy timer: Weakness",
+      "pattern": "^You begin casting Weakness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Weakness",
+            "duration_secs": 180,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 2,
+            "duration_cap_ticks": 39,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/wind-of-tashani",
+      "name": "Enemy timer: Wind of Tashani",
+      "pattern": "^You begin casting Wind of Tashani\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wind of Tashani",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/enchanter/cast/wind-of-tashanian",
+      "name": "Enemy timer: Wind of Tashanian",
+      "pattern": "^You begin casting Wind of Tashanian\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Enchanter/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wind of Tashanian",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/allure",
+      "name": "Enemy timer cleared: Allure",
+      "pattern": "^Your Allure spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Allure"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Allure off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ancient-eternal-rapture",
+      "name": "Enemy timer cleared: Ancient: Eternal Rapture",
+      "pattern": "^Your Ancient: Eternal Rapture spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ancient: Eternal Rapture"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ancient: Eternal Rapture off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/asphyxiate",
+      "name": "Enemy timer cleared: Asphyxiate",
+      "pattern": "^Your Asphyxiate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Asphyxiate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Asphyxiate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/beguile",
+      "name": "Enemy timer cleared: Beguile",
+      "pattern": "^Your Beguile spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Beguile"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Beguile off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/boltran-s-agacerie",
+      "name": "Enemy timer cleared: Boltran's Agacerie",
+      "pattern": "^Your Boltran's Agacerie spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Boltran's Agacerie"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Boltran's Agacerie off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cajoling-whispers",
+      "name": "Enemy timer cleared: Cajoling Whispers",
+      "pattern": "^Your Cajoling Whispers spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cajoling Whispers"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cajoling Whispers off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/charm",
+      "name": "Enemy timer cleared: Charm",
+      "pattern": "^Your Charm spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Charm"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Charm off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chase-the-moon",
+      "name": "Enemy timer cleared: Chase the Moon",
+      "pattern": "^Your Chase the Moon spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chase the Moon"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chase the Moon off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/choke",
+      "name": "Enemy timer cleared: Choke",
+      "pattern": "^Your Choke spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Choke"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Choke off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/curse-of-the-simple-mind",
+      "name": "Enemy timer cleared: Curse of the Simple Mind",
+      "pattern": "^Your Curse of the Simple Mind spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Curse of the Simple Mind"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Curse of the Simple Mind off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dazzle",
+      "name": "Enemy timer cleared: Dazzle",
+      "pattern": "^Your Dazzle spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dazzle"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dazzle off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dictate",
+      "name": "Enemy timer cleared: Dictate",
+      "pattern": "^Your Dictate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dictate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dictate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dyn-s-dizzying-draught",
+      "name": "Enemy timer cleared: Dyn's Dizzying Draught",
+      "pattern": "^Your Dyn's Dizzying Draught spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dyn's Dizzying Draught"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dyn's Dizzying Draught off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ebbing-strength",
+      "name": "Enemy timer cleared: Ebbing Strength",
+      "pattern": "^Your Ebbing Strength spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ebbing Strength"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ebbing Strength off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/enfeeblement",
+      "name": "Enemy timer cleared: Enfeeblement",
+      "pattern": "^Your Enfeeblement spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Enfeeblement"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Enfeeblement off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/eye-of-confusion",
+      "name": "Enemy timer cleared: Eye of Confusion",
+      "pattern": "^Your Eye of Confusion spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Eye of Confusion"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Eye of Confusion off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fascination",
+      "name": "Enemy timer cleared: Fascination",
+      "pattern": "^Your Fascination spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fascination"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fascination off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/feckless-might",
+      "name": "Enemy timer cleared: Feckless Might",
+      "pattern": "^Your Feckless Might spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Feckless Might"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Feckless Might off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/forlorn-deeds",
+      "name": "Enemy timer cleared: Forlorn Deeds",
+      "pattern": "^Your Forlorn Deeds spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Forlorn Deeds"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Forlorn Deeds off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/gasping-embrace",
+      "name": "Enemy timer cleared: Gasping Embrace",
+      "pattern": "^Your Gasping Embrace spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Gasping Embrace"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Gasping Embrace off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/glamour-of-kintaz",
+      "name": "Enemy timer cleared: Glamour of Kintaz",
+      "pattern": "^Your Glamour of Kintaz spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Glamour of Kintaz"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Glamour of Kintaz off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/insipid-weakness",
+      "name": "Enemy timer cleared: Insipid Weakness",
+      "pattern": "^Your Insipid Weakness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Insipid Weakness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Insipid Weakness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/languid-pace",
+      "name": "Enemy timer cleared: Languid Pace",
+      "pattern": "^Your Languid Pace spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Languid Pace"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Languid Pace off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/mesmerization",
+      "name": "Enemy timer cleared: Mesmerization",
+      "pattern": "^Your Mesmerization spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Mesmerization"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Mesmerization off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ordinance",
+      "name": "Enemy timer cleared: Ordinance",
+      "pattern": "^Your Ordinance spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ordinance"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ordinance off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/phobia",
+      "name": "Enemy timer cleared: Phobia",
+      "pattern": "^Your Phobia spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Phobia"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Phobia off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/rapture",
+      "name": "Enemy timer cleared: Rapture",
+      "pattern": "^Your Rapture spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Rapture"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Rapture off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scryer-s-trespass",
+      "name": "Enemy timer cleared: Scryer's Trespass",
+      "pattern": "^Your Scryer's Trespass spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scryer's Trespass"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scryer's Trespass off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shallow-breath",
+      "name": "Enemy timer cleared: Shallow Breath",
+      "pattern": "^Your Shallow Breath spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shallow Breath"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shallow Breath off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shiftless-deeds",
+      "name": "Enemy timer cleared: Shiftless Deeds",
+      "pattern": "^Your Shiftless Deeds spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shiftless Deeds"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shiftless Deeds off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/suffocate",
+      "name": "Enemy timer cleared: Suffocate",
+      "pattern": "^Your Suffocate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Suffocate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Suffocate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/suffocating-sphere",
+      "name": "Enemy timer cleared: Suffocating Sphere",
+      "pattern": "^Your Suffocating Sphere spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Suffocating Sphere"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Suffocating Sphere off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tashani",
+      "name": "Enemy timer cleared: Tashani",
+      "pattern": "^Your Tashani spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tashani"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tashani off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tashania",
+      "name": "Enemy timer cleared: Tashania",
+      "pattern": "^Your Tashania spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tashania"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tashania off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tashanian",
+      "name": "Enemy timer cleared: Tashanian",
+      "pattern": "^Your Tashanian spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tashanian"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tashanian off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tashina",
+      "name": "Enemy timer cleared: Tashina",
+      "pattern": "^Your Tashina spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tashina"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tashina off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tepid-deeds",
+      "name": "Enemy timer cleared: Tepid Deeds",
+      "pattern": "^Your Tepid Deeds spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tepid Deeds"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tepid Deeds off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/torment-of-argli",
+      "name": "Enemy timer cleared: Torment of Argli",
+      "pattern": "^Your Torment of Argli spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Torment of Argli"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Torment of Argli off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/wandering-mind",
+      "name": "Enemy timer cleared: Wandering Mind",
+      "pattern": "^Your Wandering Mind spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Wandering Mind"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Wandering Mind off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/weaken",
+      "name": "Enemy timer cleared: Weaken",
+      "pattern": "^Your Weaken spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Weaken"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Weaken off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/weakness",
+      "name": "Enemy timer cleared: Weakness",
+      "pattern": "^Your Weakness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Weakness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Weakness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/wind-of-tashani",
+      "name": "Enemy timer cleared: Wind of Tashani",
+      "pattern": "^Your Wind of Tashani spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Wind of Tashani"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Wind of Tashani off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/wind-of-tashanian",
+      "name": "Enemy timer cleared: Wind of Tashanian",
+      "pattern": "^Your Wind of Tashanian spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Wind of Tashanian"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Wind of Tashanian off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

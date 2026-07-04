@@ -1,0 +1,109 @@
+{
+  "name": "Generated enemy-effect timers — Paladin",
+  "triggers": [
+    {
+      "id": "debuffs/paladin/cast/flash-of-light",
+      "name": "Enemy timer: Flash of Light",
+      "pattern": "^You begin casting Flash of Light\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Flash of Light",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Paladin level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/paladin/cast/instill",
+      "name": "Enemy timer: Instill",
+      "pattern": "^You begin casting Instill\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Instill",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Paladin level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/paladin/cast/root",
+      "name": "Enemy timer: Root",
+      "pattern": "^You begin casting Root\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Root",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Paladin level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/paladin/cast/spook-the-dead",
+      "name": "Enemy timer: Spook the Dead",
+      "pattern": "^You begin casting Spook the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spook the Dead",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Paladin level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    }
+  ]
+}

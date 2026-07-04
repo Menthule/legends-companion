@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  rust:
+    name: Rust (fmt, clippy, test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: rustfmt
+        run: cargo fmt --all --check
+      - name: clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: test
+        run: cargo test --workspace
+
+  frontend:
+    name: Frontend (build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install
+        run: npm ci || npm i
+      - name: build
+        run: npm run build
+
+  windows-app:
+    name: Windows app (compile check)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # tauri's build script needs the frontend dist/ to exist to compile the
+      # app crate, so build the frontend first (also its own smoke test).
+      - name: install frontend deps
+        working-directory: app
+        run: npm ci || npm i
+      - name: build frontend
+        working-directory: app
+        run: npm run build
+      # The whole point: compile + lint the src-tauri crate on real Windows,
+      # which WSL can't do (no webkit/webview toolchain). Catches every
+      # correct-by-inspection src-tauri change before it ships.
+      - name: clippy src-tauri
+        run: cargo clippy --manifest-path app/src-tauri/Cargo.toml --all-targets -- -D warnings

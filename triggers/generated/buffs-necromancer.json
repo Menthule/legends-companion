@@ -1,0 +1,1037 @@
+{
+  "name": "Generated buff timers — Necromancer",
+  "triggers": [
+    {
+      "id": "buffs/necromancer/cast/ancient-master-of-death",
+      "name": "Buff timer: Ancient: Master of Death",
+      "pattern": "^You begin casting Ancient: Master of Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Master of Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60."
+    },
+    {
+      "id": "buffs/necromancer/cast/arch-lich",
+      "name": "Buff timer: Arch Lich",
+      "pattern": "^You begin casting Arch Lich\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Arch Lich",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60."
+    },
+    {
+      "id": "buffs/necromancer/cast/augment-death",
+      "name": "Buff timer: Augment Death",
+      "pattern": "^You begin casting Augment Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Augment Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 35."
+    },
+    {
+      "id": "buffs/necromancer/cast/augmentation-of-death",
+      "name": "Buff timer: Augmentation of Death",
+      "pattern": "^You begin casting Augmentation of Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Augmentation of Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 55."
+    },
+    {
+      "id": "buffs/necromancer/cast/dead-man-floating",
+      "name": "Buff timer: Dead Man Floating",
+      "pattern": "^You begin casting Dead Man Floating\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dead Man Floating",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 41."
+    },
+    {
+      "id": "buffs/necromancer/cast/dead-men-floating",
+      "name": "Buff timer: Dead Men Floating",
+      "pattern": "^You begin casting Dead Men Floating\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dead Men Floating",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 9,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 45."
+    },
+    {
+      "id": "buffs/necromancer/cast/demi-lich",
+      "name": "Buff timer: Demi Lich",
+      "pattern": "^You begin casting Demi Lich\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Demi Lich",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 56."
+    },
+    {
+      "id": "buffs/necromancer/cast/diamondskin",
+      "name": "Buff timer: Diamondskin",
+      "pattern": "^You begin casting Diamondskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Diamondskin",
+            "duration_secs": 5400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 900,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 43."
+    },
+    {
+      "id": "buffs/necromancer/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 3."
+    },
+    {
+      "id": "buffs/necromancer/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 11."
+    },
+    {
+      "id": "buffs/necromancer/cast/focus-death",
+      "name": "Buff timer: Focus Death",
+      "pattern": "^You begin casting Focus Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Focus Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 11."
+    },
+    {
+      "id": "buffs/necromancer/cast/form-of-bleached-bone",
+      "name": "Buff timer: Form of Bleached Bone",
+      "pattern": "^You begin casting Form of Bleached Bone\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of Bleached Bone",
+            "duration_secs": 7200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 44."
+    },
+    {
+      "id": "buffs/necromancer/cast/form-of-chilled-bone",
+      "name": "Buff timer: Form of Chilled Bone",
+      "pattern": "^You begin casting Form of Chilled Bone\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of Chilled Bone",
+            "duration_secs": 7200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 16."
+    },
+    {
+      "id": "buffs/necromancer/cast/form-of-mottled-bone",
+      "name": "Buff timer: Form of Mottled Bone",
+      "pattern": "^You begin casting Form of Mottled Bone\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of Mottled Bone",
+            "duration_secs": 7200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 56."
+    },
+    {
+      "id": "buffs/necromancer/cast/gather-shadows",
+      "name": "Buff timer: Gather Shadows",
+      "pattern": "^You begin casting Gather Shadows\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Gather Shadows",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Necromancer level 7."
+    },
+    {
+      "id": "buffs/necromancer/cast/guard-of-calliav",
+      "name": "Buff timer: Guard of Calliav",
+      "pattern": "^You begin casting Guard of Calliav\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard of Calliav",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 58."
+    },
+    {
+      "id": "buffs/necromancer/cast/impart-strength",
+      "name": "Buff timer: Impart Strength",
+      "pattern": "^You begin casting Impart Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Impart Strength",
+            "duration_secs": 360,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Necromancer level 8."
+    },
+    {
+      "id": "buffs/necromancer/cast/improved-invisibility-to-undead",
+      "name": "Buff timer: Improved Invisibility to Undead",
+      "pattern": "^You begin casting Improved Invisibility to Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Improved Invisibility to Undead",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Necromancer level 50."
+    },
+    {
+      "id": "buffs/necromancer/cast/intensify-death",
+      "name": "Buff timer: Intensify Death",
+      "pattern": "^You begin casting Intensify Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Intensify Death",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 23."
+    },
+    {
+      "id": "buffs/necromancer/cast/invisibility-versus-undead",
+      "name": "Buff timer: Invisibility Versus Undead",
+      "pattern": "^You begin casting Invisibility Versus Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility Versus Undead",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 1."
+    },
+    {
+      "id": "buffs/necromancer/cast/leatherskin",
+      "name": "Buff timer: Leatherskin",
+      "pattern": "^You begin casting Leatherskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Leatherskin",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Necromancer level 22."
+    },
+    {
+      "id": "buffs/necromancer/cast/manaskin",
+      "name": "Buff timer: Manaskin",
+      "pattern": "^You begin casting Manaskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Manaskin",
+            "duration_secs": 7200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 52."
+    },
+    {
+      "id": "buffs/necromancer/cast/numb-the-dead",
+      "name": "Buff timer: Numb the Dead",
+      "pattern": "^You begin casting Numb the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Numb the Dead",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~2m00s at level 50 (formula 8, cap 20 ticks); the engine rescales to the profile's level; Necromancer level 2."
+    },
+    {
+      "id": "buffs/necromancer/cast/resist-cold",
+      "name": "Buff timer: Resist Cold",
+      "pattern": "^You begin casting Resist Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Cold",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 24."
+    },
+    {
+      "id": "buffs/necromancer/cast/resist-disease",
+      "name": "Buff timer: Resist Disease",
+      "pattern": "^You begin casting Resist Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Disease",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 31."
+    },
+    {
+      "id": "buffs/necromancer/cast/rest-the-dead",
+      "name": "Buff timer: Rest the Dead",
+      "pattern": "^You begin casting Rest the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Rest the Dead",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); the engine rescales to the profile's level; Necromancer level 23."
+    },
+    {
+      "id": "buffs/necromancer/cast/shield-of-the-magi",
+      "name": "Buff timer: Shield of the Magi",
+      "pattern": "^You begin casting Shield of the Magi\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of the Magi",
+            "duration_secs": 5400,
+            "warn_at_secs": 10,
+            "cast_time_secs": 12,
+            "duration_formula": 3,
+            "duration_cap_ticks": 900,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 54."
+    },
+    {
+      "id": "buffs/necromancer/cast/shieldskin",
+      "name": "Buff timer: Shieldskin",
+      "pattern": "^You begin casting Shieldskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shieldskin",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 14."
+    },
+    {
+      "id": "buffs/necromancer/cast/sight-graft",
+      "name": "Buff timer: Sight Graft",
+      "pattern": "^You begin casting Sight Graft\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sight Graft",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 9."
+    },
+    {
+      "id": "buffs/necromancer/cast/skin-of-the-shadow",
+      "name": "Buff timer: Skin of the Shadow",
+      "pattern": "^You begin casting Skin of the Shadow\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin of the Shadow",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 10, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 55."
+    },
+    {
+      "id": "buffs/necromancer/cast/spirit-armor",
+      "name": "Buff timer: Spirit Armor",
+      "pattern": "^You begin casting Spirit Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Armor",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 16."
+    },
+    {
+      "id": "buffs/necromancer/cast/steelskin",
+      "name": "Buff timer: Steelskin",
+      "pattern": "^You begin casting Steelskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Steelskin",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 32."
+    },
+    {
+      "id": "buffs/necromancer/cast/voice-graft",
+      "name": "Buff timer: Voice Graft",
+      "pattern": "^You begin casting Voice Graft\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Voice Graft",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 15."
+    },
+    {
+      "id": "buffs/necromancer/cast/ward-of-calliav",
+      "name": "Buff timer: Ward of Calliav",
+      "pattern": "^You begin casting Ward of Calliav\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Necromancer/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ward of Calliav",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 49."
+    },
+    {
+      "id": "buffs/wear-off/guard-of-calliav",
+      "name": "Worn off: Guard of Calliav",
+      "pattern": "^The guard fades away\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Guard of Calliav gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer",
+        "Magician",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The guard fades away.\""
+    },
+    {
+      "id": "buffs/wear-off/ward-of-calliav",
+      "name": "Worn off: Ward of Calliav",
+      "pattern": "^The ward fades away\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ward of Calliav gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer",
+        "Magician",
+        "Beastlord"
+      ],
+      "comments": "Wear-off message: \"The ward fades away.\""
+    },
+    {
+      "id": "buffs/wear-off/dead-man-floating",
+      "name": "Worn off: Dead Man Floating",
+      "pattern": "^You return to life\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Dead Man Floating gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Wear-off message: \"You return to life.\" — shared by 9 spells in spells_us_str (2 castable; also: Dead Men Floating). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/ancient-master-of-death",
+      "name": "Worn off: Ancient: Master of Death",
+      "pattern": "^Your flesh returns\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ancient: Master of Death gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Wear-off message: \"Your flesh returns.\" — shared by 8 spells in spells_us_str (3 castable; also: Arch Lich, Demi Lich). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/boon-of-the-garou",
+      "name": "Worn off: Boon of the Garou",
+      "pattern": "^Your illusion fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Boon of the Garou gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer",
+        "Enchanter"
+      ],
+      "comments": "Wear-off message: \"Your illusion fades.\" — shared by 462 spells in spells_us_str (189 castable; also: Form of Bleached Bone, Form of Chilled Bone, Form of Mottled Bone, Illusion: Air Elemental, Illusion: Akheva). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/shield-of-the-magi",
+      "name": "Worn off: Shield of the Magi",
+      "pattern": "^Your shielding fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Shield of the Magi gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer",
+        "Wizard",
+        "Magician",
+        "Enchanter"
+      ],
+      "comments": "Wear-off message: \"Your shielding fades.\" — shared by 10 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/impart-strength",
+      "name": "Worn off: Impart Strength",
+      "pattern": "^Your strength leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Impart Strength gone"
+          }
+        }
+      ],
+      "classes": [
+        "Necromancer"
+      ],
+      "comments": "Wear-off message: \"Your strength leaves you.\""
+    }
+  ]
+}

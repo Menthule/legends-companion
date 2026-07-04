@@ -1,0 +1,15 @@
+[package]
+name = "eqlog-triggers"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+eqlog-core = { path = "../eqlog-core" }
+regex.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+zip.workspace = true
+quick-xml.workspace = true
+flate2.workspace = true

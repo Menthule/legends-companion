@@ -1,0 +1,190 @@
+import { useEffect, useRef, useState } from "react";
+import { listen, type UnlistenFn } from "@tauri-apps/api/event";
+import { IS_MOCK, mockListen } from "./mock";
+import type { TimerLane, TimerPayload } from "./types";
+
+/**
+ * Subscribe to an app event for the lifetime of the component. In Tauri this
+ * is a real Tauri event; in mock mode it is the in-page mock bus. The handler
+ * ref is kept fresh so callers can pass inline closures without re-subscribing.
+ */
+export function useTauriEvent<T>(name: string, handler: (payload: T) => void): void {
+  const handlerRef = useRef(handler);
+  handlerRef.current = handler;
+
+  useEffect(() => {
+    if (IS_MOCK) {
+      return mockListen<T>(name, (p) => handlerRef.current(p));
+    }
+    let unlisten: UnlistenFn | null = null;
+    let cancelled = false;
+    listen<T>(name, (e) => handlerRef.current(e.payload))
+      .then((fn) => {
+        if (cancelled) fn();
+        else unlisten = fn;
+      })
+      .catch((err) => console.error(`listen(${name}) failed`, err));
+    return () => {
+      cancelled = true;
+      if (unlisten) unlisten();
+    };
+  }, [name]);
+}
+
+/** Format seconds as m:ss. */
+export function fmtDuration(secs: number): string {
+  const s = Math.max(0, Math.floor(secs));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+/** Timer countdown label: `m:ss` above a minute, `Ns` below. */
+export function fmtTimerLeft(left: number): string {
+  if (left >= 60) return fmtDuration(left);
+  return `${Math.max(0, Math.ceil(left))}s`;
+}
+
+/** Format a unix timestamp as local HH:MM:SS. */
+export function fmtClock(ts: number): string {
+  const d = new Date(ts * 1000);
+  return [d.getHours(), d.getMinutes(), d.getSeconds()]
+    .map((n) => String(n).padStart(2, "0"))
+    .join(":");
+}
+
+/** Compact number: 12345 -> 12.3k */
+export function fmtNum(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}m`;
+  if (n >= 10_000) return `${(n / 1_000).toFixed(1)}k`;
+  return String(Math.round(n));
+}
+
+// ---------------------------------------------------------------------------
+// Series color slots — assigned to a combatant on first appearance and never
+// repainted when the roster re-sorts (DESIGN.md).
+// ---------------------------------------------------------------------------
+
+export function useSeriesSlots(names: string[]): (name: string) => number {
+  const ref = useRef<Map<string, number>>(new Map());
+  for (const n of names) {
+    if (!ref.current.has(n)) ref.current.set(n, ref.current.size % 8);
+  }
+  return (name: string) => ref.current.get(name) ?? 0;
+}
+
+// ---------------------------------------------------------------------------
+// Countdown timers shared by the dashboard card and the alerts overlay.
+// ---------------------------------------------------------------------------
+
+interface InternalTimer {
+  name: string;
+  durationSecs: number;
+  warnAtSecs: number | null;
+  endsAt: number; // Date.now() ms
+  forcedWarn: boolean;
+  lane: TimerLane;
+  /** While set (Date.now() ms), the bar is in the "casting…" pending state.
+   *  Cleared by the backend "landed" event; the timestamp is a fallback so
+   *  a missed event can never leave a bar stuck pending. */
+  pendingUntil: number | null;
+}
+
+export interface TimerView {
+  name: string;
+  durationSecs: number;
+  /** Seconds remaining (>= 0). */
+  left: number;
+  /** 0..1 fraction remaining. */
+  frac: number;
+  warn: boolean;
+  expired: boolean;
+  /** Cast in progress (item 12): render dimmed/pulsing, no numerals. */
+  pending: boolean;
+  /** Overlay lane routing (buffs overlay vs target overlay). */
+  lane: TimerLane;
+}
+
+const EXPIRE_LINGER_MS = 1200; // pulse + fade before the row is removed
+
+export function useTimers(): TimerView[] {
+  const [items, setItems] = useState<InternalTimer[]>([]);
+  const [, setTick] = useState(0);
+
+  useTauriEvent<TimerPayload>("timer", (p) => {
+    if (p.kind === "started") {
+      const duration = p.durationSecs ?? 0;
+      const endsAt = Date.now() + (duration - (p.elapsedSecs ?? 0)) * 1000;
+      const pending = p.pendingSecs ?? 0;
+      setItems((prev) => [
+        ...prev.filter((x) => x.name !== p.name),
+        {
+          name: p.name,
+          durationSecs: duration,
+          warnAtSecs: p.warnAtSecs ?? null,
+          endsAt,
+          forcedWarn: false,
+          lane: p.lane ?? "other",
+          pendingUntil: pending > 0 ? Date.now() + pending * 1000 : null,
+        },
+      ]);
+    } else if (p.kind === "landed") {
+      // Cast completed: flip the pending bar to a normal countdown.
+      setItems((prev) =>
+        prev.map((x) => (x.name === p.name ? { ...x, pendingUntil: null } : x)),
+      );
+    } else if (p.kind === "warning") {
+      setItems((prev) =>
+        prev.map((x) => (x.name === p.name ? { ...x, forcedWarn: true } : x)),
+      );
+    } else if (p.kind === "cancelled") {
+      // Cancelled early (wear-off / mob death): drop the bar right away —
+      // no expiry pulse, the effect simply ended ahead of the countdown.
+      setItems((prev) => prev.filter((x) => x.name !== p.name));
+    } else {
+      // expired from the backend: snap to zero, let the pulse/fade play out
+      setItems((prev) =>
+        prev.map((x) =>
+          x.name === p.name ? { ...x, endsAt: Math.min(x.endsAt, Date.now()) } : x,
+        ),
+      );
+    }
+  });
+
+  const active = items.length > 0;
+  useEffect(() => {
+    if (!active) return;
+    const h = window.setInterval(() => {
+      const now = Date.now();
+      setItems((prev) =>
+        prev.some((x) => now > x.endsAt + EXPIRE_LINGER_MS)
+          ? prev.filter((x) => now <= x.endsAt + EXPIRE_LINGER_MS)
+          : prev,
+      );
+      setTick((t) => t + 1);
+    }, 250);
+    return () => window.clearInterval(h);
+  }, [active]);
+
+  const now = Date.now();
+  return items
+    .map((x) => {
+      const left = Math.max(0, (x.endsAt - now) / 1000);
+      const expired = left <= 0;
+      // The landed event drives the flip; the timestamp comparison is the
+      // fallback so a dropped event can't strand a bar in "casting…".
+      const pending = !expired && x.pendingUntil != null && now < x.pendingUntil;
+      return {
+        name: x.name,
+        durationSecs: x.durationSecs,
+        left,
+        frac: x.durationSecs > 0 ? left / x.durationSecs : 0,
+        warn:
+          !expired &&
+          !pending &&
+          (x.forcedWarn || (x.warnAtSecs != null && left <= x.warnAtSecs)),
+        expired,
+        pending,
+        lane: x.lane,
+      };
+    })
+    .sort((a, b) => a.left - b.left);
+}

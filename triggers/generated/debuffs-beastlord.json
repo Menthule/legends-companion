@@ -1,0 +1,391 @@
+{
+  "name": "Generated enemy-effect timers — Beastlord",
+  "triggers": [
+    {
+      "id": "debuffs/beastlord/cast/drowsy",
+      "name": "Enemy timer: Drowsy",
+      "pattern": "^You begin casting Drowsy\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Drowsy",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/envenomed-breath",
+      "name": "Enemy timer: Envenomed Breath",
+      "pattern": "^You begin casting Envenomed Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Envenomed Breath",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Beastlord level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/flash-of-light",
+      "name": "Enemy timer: Flash of Light",
+      "pattern": "^You begin casting Flash of Light\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Flash of Light",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/incapacitate",
+      "name": "Enemy timer: Incapacitate",
+      "pattern": "^You begin casting Incapacitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Incapacitate",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/languid-pace",
+      "name": "Enemy timer: Languid Pace",
+      "pattern": "^You begin casting Languid Pace\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Languid Pace",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/listless-power",
+      "name": "Enemy timer: Listless Power",
+      "pattern": "^You begin casting Listless Power\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Listless Power",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/malaria",
+      "name": "Enemy timer: Malaria",
+      "pattern": "^You begin casting Malaria\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malaria",
+            "duration_secs": 72,
+            "warn_at_secs": null,
+            "duration_formula": 10,
+            "duration_cap_ticks": 12,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/sha-s-advantage",
+      "name": "Enemy timer: Sha's Advantage",
+      "pattern": "^You begin casting Sha's Advantage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sha's Advantage",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/sha-s-lethargy",
+      "name": "Enemy timer: Sha's Lethargy",
+      "pattern": "^You begin casting Sha's Lethargy\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sha's Lethargy",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/sicken",
+      "name": "Enemy timer: Sicken",
+      "pattern": "^You begin casting Sicken\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sicken",
+            "duration_secs": 84,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 14,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~1m24s at level 50 (formula 8, cap 14 ticks); class-defining DoT; the engine rescales to the profile's level; Beastlord level 14. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/tainted-breath",
+      "name": "Enemy timer: Tainted Breath",
+      "pattern": "^You begin casting Tainted Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tainted Breath",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Beastlord level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/beastlord/cast/venom-of-the-snake",
+      "name": "Enemy timer: Venom of the Snake",
+      "pattern": "^You begin casting Venom of the Snake\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Beastlord/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Venom of the Snake",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/malaria",
+      "name": "Enemy timer cleared: Malaria",
+      "pattern": "^Your Malaria spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Malaria"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Malaria off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/sha-s-advantage",
+      "name": "Enemy timer cleared: Sha's Advantage",
+      "pattern": "^Your Sha's Advantage spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Sha's Advantage"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Sha's Advantage off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/sha-s-lethargy",
+      "name": "Enemy timer cleared: Sha's Lethargy",
+      "pattern": "^Your Sha's Lethargy spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Sha's Lethargy"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Sha's Lethargy off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

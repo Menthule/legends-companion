@@ -1,0 +1,49 @@
+{
+  "name": "Curated class pack — Warrior",
+  "triggers": [
+    {
+      "id": "class/warrior/aggro/taunt-failed",
+      "name": "Taunt failed",
+      "pattern": "^{C} failed to taunt (.+)\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Warrior/Aggro",
+      "classes": [
+        "Warrior",
+        "Paladin",
+        "ShadowKnight"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "taunt failed"
+          }
+        }
+      ],
+      "comments": "Legends third-person form, verified in log: 'Ralel failed to taunt Asaka L`Rei.' {C} expands to your character name."
+    },
+    {
+      "id": "class/warrior/aggro/taunt-success",
+      "name": "Taunt landed",
+      "pattern": "^You taunt (.+) to ignore others and attack you!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Warrior/Aggro",
+      "classes": [
+        "Warrior",
+        "Paladin",
+        "ShadowKnight"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "taunted ${1}"
+          }
+        }
+      ],
+      "comments": "Classic success string; not yet observed in the Legends verification log."
+    }
+  ]
+}

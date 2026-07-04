@@ -1,0 +1,1155 @@
+{
+  "name": "Generated buff timers — Paladin",
+  "triggers": [
+    {
+      "id": "buffs/paladin/cast/armor-of-faith",
+      "name": "Buff timer: Armor of Faith",
+      "pattern": "^You begin casting Armor of Faith\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Armor of Faith",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Paladin level 48."
+    },
+    {
+      "id": "buffs/paladin/cast/austerity",
+      "name": "Buff timer: Austerity",
+      "pattern": "^You begin casting Austerity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Austerity",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 9,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Paladin level 55."
+    },
+    {
+      "id": "buffs/paladin/cast/blessing-of-austerity",
+      "name": "Buff timer: Blessing of Austerity",
+      "pattern": "^You begin casting Blessing of Austerity\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blessing of Austerity",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 12,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Paladin level 58."
+    },
+    {
+      "id": "buffs/paladin/cast/breath-of-tunare",
+      "name": "Buff timer: Breath of Tunare",
+      "pattern": "^You begin casting Breath of Tunare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Breath of Tunare",
+            "duration_secs": 1050,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 175,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~17m30s at level 50 (formula 3, cap 175 ticks); the engine rescales to the profile's level; Paladin level 56."
+    },
+    {
+      "id": "buffs/paladin/cast/brell-s-mountainous-barrier",
+      "name": "Buff timer: Brell's Mountainous Barrier",
+      "pattern": "^You begin casting Brell's Mountainous Barrier\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Brell's Mountainous Barrier",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Paladin level 60."
+    },
+    {
+      "id": "buffs/paladin/cast/brell-s-steadfast-aegis",
+      "name": "Buff timer: Brell's Steadfast Aegis",
+      "pattern": "^You begin casting Brell's Steadfast Aegis\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Brell's Steadfast Aegis",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Paladin level 49."
+    },
+    {
+      "id": "buffs/paladin/cast/calm",
+      "name": "Buff timer: Calm",
+      "pattern": "^You begin casting Calm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Calm",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Paladin level 43."
+    },
+    {
+      "id": "buffs/paladin/cast/center",
+      "name": "Buff timer: Center",
+      "pattern": "^You begin casting Center\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Center",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 20."
+    },
+    {
+      "id": "buffs/paladin/cast/courage",
+      "name": "Buff timer: Courage",
+      "pattern": "^You begin casting Courage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Courage",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Paladin level 8."
+    },
+    {
+      "id": "buffs/paladin/cast/daring",
+      "name": "Buff timer: Daring",
+      "pattern": "^You begin casting Daring\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Daring",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 37."
+    },
+    {
+      "id": "buffs/paladin/cast/divine-favor",
+      "name": "Buff timer: Divine Favor",
+      "pattern": "^You begin casting Divine Favor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Divine Favor",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "cast_time_secs": 1,
+            "duration_formula": 3,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~5m00s at level 50 (formula 3, cap 50 ticks); the engine rescales to the profile's level; Paladin level 55."
+    },
+    {
+      "id": "buffs/paladin/cast/divine-glory",
+      "name": "Buff timer: Divine Glory",
+      "pattern": "^You begin casting Divine Glory\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Divine Glory",
+            "duration_secs": 3000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 53."
+    },
+    {
+      "id": "buffs/paladin/cast/divine-strength",
+      "name": "Buff timer: Divine Strength",
+      "pattern": "^You begin casting Divine Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Divine Strength",
+            "duration_secs": 3000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 60."
+    },
+    {
+      "id": "buffs/paladin/cast/divine-vigor",
+      "name": "Buff timer: Divine Vigor",
+      "pattern": "^You begin casting Divine Vigor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Divine Vigor",
+            "duration_secs": 3000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 35."
+    },
+    {
+      "id": "buffs/paladin/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 38."
+    },
+    {
+      "id": "buffs/paladin/cast/endure-magic",
+      "name": "Buff timer: Endure Magic",
+      "pattern": "^You begin casting Endure Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Magic",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 29."
+    },
+    {
+      "id": "buffs/paladin/cast/endure-poison",
+      "name": "Buff timer: Endure Poison",
+      "pattern": "^You begin casting Endure Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Poison",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 21."
+    },
+    {
+      "id": "buffs/paladin/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Paladin level 54."
+    },
+    {
+      "id": "buffs/paladin/cast/frenzied-strength",
+      "name": "Buff timer: Frenzied Strength",
+      "pattern": "^You begin casting Frenzied Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Frenzied Strength",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Paladin level 52."
+    },
+    {
+      "id": "buffs/paladin/cast/guard",
+      "name": "Buff timer: Guard",
+      "pattern": "^You begin casting Guard\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Paladin level 39."
+    },
+    {
+      "id": "buffs/paladin/cast/guard-of-piety",
+      "name": "Buff timer: Guard of Piety",
+      "pattern": "^You begin casting Guard of Piety\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Guard of Piety",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Paladin level 56."
+    },
+    {
+      "id": "buffs/paladin/cast/holy-armor",
+      "name": "Buff timer: Holy Armor",
+      "pattern": "^You begin casting Holy Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Holy Armor",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 15."
+    },
+    {
+      "id": "buffs/paladin/cast/holyforge-discipline",
+      "name": "Buff timer: Holyforge Discipline",
+      "pattern": "^You begin casting Holyforge Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Holyforge Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Paladin level 55."
+    },
+    {
+      "id": "buffs/paladin/cast/invisibility-versus-undead",
+      "name": "Buff timer: Invisibility Versus Undead",
+      "pattern": "^You begin casting Invisibility Versus Undead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility Versus Undead",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 17."
+    },
+    {
+      "id": "buffs/paladin/cast/lull",
+      "name": "Buff timer: Lull",
+      "pattern": "^You begin casting Lull\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Lull",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 9,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Paladin level 10."
+    },
+    {
+      "id": "buffs/paladin/cast/pacify",
+      "name": "Buff timer: Pacify",
+      "pattern": "^You begin casting Pacify\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pacify",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Paladin level 49."
+    },
+    {
+      "id": "buffs/paladin/cast/reckless-strength",
+      "name": "Buff timer: Reckless Strength",
+      "pattern": "^You begin casting Reckless Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Reckless Strength",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Paladin level 18."
+    },
+    {
+      "id": "buffs/paladin/cast/resist-disease",
+      "name": "Buff timer: Resist Disease",
+      "pattern": "^You begin casting Resist Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Disease",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 50."
+    },
+    {
+      "id": "buffs/paladin/cast/resist-magic",
+      "name": "Buff timer: Resist Magic",
+      "pattern": "^You begin casting Resist Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Magic",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 55."
+    },
+    {
+      "id": "buffs/paladin/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Paladin level 51."
+    },
+    {
+      "id": "buffs/paladin/cast/resolution",
+      "name": "Buff timer: Resolution",
+      "pattern": "^You begin casting Resolution\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resolution",
+            "duration_secs": 3780,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 630,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Paladin level 60."
+    },
+    {
+      "id": "buffs/paladin/cast/shield-of-words",
+      "name": "Buff timer: Shield of Words",
+      "pattern": "^You begin casting Shield of Words\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Words",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Paladin level 60."
+    },
+    {
+      "id": "buffs/paladin/cast/soothe",
+      "name": "Buff timer: Soothe",
+      "pattern": "^You begin casting Soothe\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Soothe",
+            "duration_secs": 150,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 25,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Paladin level 25."
+    },
+    {
+      "id": "buffs/paladin/cast/spirit-armor",
+      "name": "Buff timer: Spirit Armor",
+      "pattern": "^You begin casting Spirit Armor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit Armor",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 30."
+    },
+    {
+      "id": "buffs/paladin/cast/symbol-of-naltron",
+      "name": "Buff timer: Symbol of Naltron",
+      "pattern": "^You begin casting Symbol of Naltron\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Naltron",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Paladin level 58."
+    },
+    {
+      "id": "buffs/paladin/cast/symbol-of-pinzarn",
+      "name": "Buff timer: Symbol of Pinzarn",
+      "pattern": "^You begin casting Symbol of Pinzarn\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Pinzarn",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Paladin level 46."
+    },
+    {
+      "id": "buffs/paladin/cast/symbol-of-ryltan",
+      "name": "Buff timer: Symbol of Ryltan",
+      "pattern": "^You begin casting Symbol of Ryltan\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Ryltan",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 33."
+    },
+    {
+      "id": "buffs/paladin/cast/symbol-of-transal",
+      "name": "Buff timer: Symbol of Transal",
+      "pattern": "^You begin casting Symbol of Transal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Symbol of Transal",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 24."
+    },
+    {
+      "id": "buffs/paladin/cast/valor",
+      "name": "Buff timer: Valor",
+      "pattern": "^You begin casting Valor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Paladin/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Valor",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Paladin level 47."
+    },
+    {
+      "id": "buffs/wear-off/divine-favor",
+      "name": "Worn off: Divine Favor",
+      "pattern": "^The Divine Favor fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Divine Favor gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"The Divine Favor fades.\""
+    },
+    {
+      "id": "buffs/wear-off/holyforge-discipline",
+      "name": "Worn off: Holyforge Discipline",
+      "pattern": "^The holy light fades from your weapon\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Holyforge Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"The holy light fades from your weapon.\""
+    },
+    {
+      "id": "buffs/wear-off/breath-of-tunare",
+      "name": "Worn off: Breath of Tunare",
+      "pattern": "^You no longer feel Tunare's breath upon you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Breath of Tunare gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"You no longer feel Tunare's breath upon you.\""
+    },
+    {
+      "id": "buffs/wear-off/guard-of-piety",
+      "name": "Worn off: Guard of Piety",
+      "pattern": "^Your armor stops glowing\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Guard of Piety gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your armor stops glowing.\""
+    },
+    {
+      "id": "buffs/wear-off/divine-vigor",
+      "name": "Worn off: Divine Vigor",
+      "pattern": "^Your divine favor fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Divine Vigor gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your divine favor fades.\""
+    },
+    {
+      "id": "buffs/wear-off/divine-glory",
+      "name": "Worn off: Divine Glory",
+      "pattern": "^Your divine glory fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Divine Glory gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your divine glory fades.\""
+    },
+    {
+      "id": "buffs/wear-off/brell-s-mountainous-barrier",
+      "name": "Worn off: Brell's Mountainous Barrier",
+      "pattern": "^Your divine strength fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Brell's Mountainous Barrier gone"
+          }
+        }
+      ],
+      "classes": [
+        "Paladin"
+      ],
+      "comments": "Wear-off message: \"Your divine strength fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Brell's Steadfast Aegis, Divine Strength). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

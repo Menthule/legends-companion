@@ -1,0 +1,1747 @@
+{
+  "name": "Generated enemy-effect timers — Druid",
+  "triggers": [
+    {
+      "id": "debuffs/druid/cast/allure-of-the-wild",
+      "name": "Enemy timer: Allure of the Wild",
+      "pattern": "^You begin casting Allure of the Wild\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Allure of the Wild",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 9,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/befriend-animal",
+      "name": "Enemy timer: Befriend Animal",
+      "pattern": "^You begin casting Befriend Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Befriend Animal",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 13. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/beguile-animals",
+      "name": "Enemy timer: Beguile Animals",
+      "pattern": "^You begin casting Beguile Animals\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Beguile Animals",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 33. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/beguile-plants",
+      "name": "Enemy timer: Beguile Plants",
+      "pattern": "^You begin casting Beguile Plants\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Beguile Plants",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/bonds-of-tunare",
+      "name": "Enemy timer: Bonds of Tunare",
+      "pattern": "^You begin casting Bonds of Tunare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bonds of Tunare",
+            "duration_secs": 108,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 1,
+            "duration_cap_ticks": 18,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~1m48s at level 50 (formula 1, cap 18 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/breath-of-ro",
+      "name": "Enemy timer: Breath of Ro",
+      "pattern": "^You begin casting Breath of Ro\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Breath of Ro",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/call-of-karana",
+      "name": "Enemy timer: Call of Karana",
+      "pattern": "^You begin casting Call of Karana\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Call of Karana",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/charm-animals",
+      "name": "Enemy timer: Charm Animals",
+      "pattern": "^You begin casting Charm Animals\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Charm Animals",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/creeping-crud",
+      "name": "Enemy timer: Creeping Crud",
+      "pattern": "^You begin casting Creeping Crud\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Creeping Crud",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 24. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/drifting-death",
+      "name": "Enemy timer: Drifting Death",
+      "pattern": "^You begin casting Drifting Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Drifting Death",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/drones-of-doom",
+      "name": "Enemy timer: Drones of Doom",
+      "pattern": "^You begin casting Drones of Doom\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Drones of Doom",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/engorging-roots",
+      "name": "Enemy timer: Engorging Roots",
+      "pattern": "^You begin casting Engorging Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Engorging Roots",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Druid level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/engulfing-roots",
+      "name": "Enemy timer: Engulfing Roots",
+      "pattern": "^You begin casting Engulfing Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Engulfing Roots",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Druid level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/ensnare",
+      "name": "Enemy timer: Ensnare",
+      "pattern": "^You begin casting Ensnare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ensnare",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); CC; the engine rescales to the profile's level; Druid level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/ensnaring-roots",
+      "name": "Enemy timer: Ensnaring Roots",
+      "pattern": "^You begin casting Ensnaring Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ensnaring Roots",
+            "duration_secs": 96,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/entrapping-roots",
+      "name": "Enemy timer: Entrapping Roots",
+      "pattern": "^You begin casting Entrapping Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Entrapping Roots",
+            "duration_secs": 180,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/enveloping-roots",
+      "name": "Enemy timer: Enveloping Roots",
+      "pattern": "^You begin casting Enveloping Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enveloping Roots",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Druid level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/fire",
+      "name": "Enemy timer: Fire",
+      "pattern": "^You begin casting Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fire",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 7,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/fixation-of-ro",
+      "name": "Enemy timer: Fixation of Ro",
+      "pattern": "^You begin casting Fixation of Ro\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fixation of Ro",
+            "duration_secs": 600,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 100,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~10m00s at level 50 (formula 9, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/flame-lick",
+      "name": "Enemy timer: Flame Lick",
+      "pattern": "^You begin casting Flame Lick\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Flame Lick",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/glamour-of-tunare",
+      "name": "Enemy timer: Glamour of Tunare",
+      "pattern": "^You begin casting Glamour of Tunare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Glamour of Tunare",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/grasping-roots",
+      "name": "Enemy timer: Grasping Roots",
+      "pattern": "^You begin casting Grasping Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Grasping Roots",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Druid level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/ice",
+      "name": "Enemy timer: Ice",
+      "pattern": "^You begin casting Ice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ice",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/immolate",
+      "name": "Enemy timer: Immolate",
+      "pattern": "^You begin casting Immolate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Immolate",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/instinctual-fear",
+      "name": "Enemy timer: Instinctual Fear",
+      "pattern": "^You begin casting Instinctual Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Instinctual Fear",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/panic-animal",
+      "name": "Enemy timer: Panic Animal",
+      "pattern": "^You begin casting Panic Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Panic Animal",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/repulse-animal",
+      "name": "Enemy timer: Repulse Animal",
+      "pattern": "^You begin casting Repulse Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Repulse Animal",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m48s at level 50 (formula 8, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/ro-s-fiery-sundering",
+      "name": "Enemy timer: Ro's Fiery Sundering",
+      "pattern": "^You begin casting Ro's Fiery Sundering\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ro's Fiery Sundering",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 1,
+            "duration_cap_ticks": 50,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~2m30s at level 50 (formula 1, cap 50 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/ro-s-smoldering-disjunction",
+      "name": "Enemy timer: Ro's Smoldering Disjunction",
+      "pattern": "^You begin casting Ro's Smoldering Disjunction\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ro's Smoldering Disjunction",
+            "duration_secs": 600,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 9,
+            "duration_cap_ticks": 100,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~10m00s at level 50 (formula 9, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/share-wolf-form",
+      "name": "Enemy timer: Share Wolf Form",
+      "pattern": "^You begin casting Share Wolf Form\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Share Wolf Form",
+            "duration_secs": 2160,
+            "warn_at_secs": null,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/snare",
+      "name": "Enemy timer: Snare",
+      "pattern": "^You begin casting Snare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Snare",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 39,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); CC; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/stinging-swarm",
+      "name": "Enemy timer: Stinging Swarm",
+      "pattern": "^You begin casting Stinging Swarm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Stinging Swarm",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/sunbeam",
+      "name": "Enemy timer: Sunbeam",
+      "pattern": "^You begin casting Sunbeam\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sunbeam",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/tangle",
+      "name": "Enemy timer: Tangle",
+      "pattern": "^You begin casting Tangle\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tangle",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/tangling-weeds",
+      "name": "Enemy timer: Tangling Weeds",
+      "pattern": "^You begin casting Tangling Weeds\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tangling Weeds",
+            "duration_secs": 18,
+            "warn_at_secs": 2,
+            "cast_time_secs": 1,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); CC; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/terrorize-animal",
+      "name": "Enemy timer: Terrorize Animal",
+      "pattern": "^You begin casting Terrorize Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Terrorize Animal",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/tunare-s-request",
+      "name": "Enemy timer: Tunare's Request",
+      "pattern": "^You begin casting Tunare's Request\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tunare's Request",
+            "duration_secs": 9000,
+            "warn_at_secs": null,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1950,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/vengeance-of-nature",
+      "name": "Enemy timer: Vengeance of Nature",
+      "pattern": "^You begin casting Vengeance of Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Vengeance of Nature",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/vengeance-of-the-wild",
+      "name": "Enemy timer: Vengeance of the Wild",
+      "pattern": "^You begin casting Vengeance of the Wild\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Vengeance of the Wild",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/druid/cast/winged-death",
+      "name": "Enemy timer: Winged Death",
+      "pattern": "^You begin casting Winged Death\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Winged Death",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/allure-of-the-wild",
+      "name": "Enemy timer cleared: Allure of the Wild",
+      "pattern": "^Your Allure of the Wild spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Allure of the Wild"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Allure of the Wild off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/befriend-animal",
+      "name": "Enemy timer cleared: Befriend Animal",
+      "pattern": "^Your Befriend Animal spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Befriend Animal"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Befriend Animal off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/beguile-animals",
+      "name": "Enemy timer cleared: Beguile Animals",
+      "pattern": "^Your Beguile Animals spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Beguile Animals"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Beguile Animals off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/beguile-plants",
+      "name": "Enemy timer cleared: Beguile Plants",
+      "pattern": "^Your Beguile Plants spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Beguile Plants"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Beguile Plants off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/bonds-of-tunare",
+      "name": "Enemy timer cleared: Bonds of Tunare",
+      "pattern": "^Your Bonds of Tunare spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Bonds of Tunare"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Bonds of Tunare off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/breath-of-ro",
+      "name": "Enemy timer cleared: Breath of Ro",
+      "pattern": "^Your Breath of Ro spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Breath of Ro"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Breath of Ro off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/call-of-karana",
+      "name": "Enemy timer cleared: Call of Karana",
+      "pattern": "^Your Call of Karana spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Call of Karana"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Call of Karana off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/charm-animals",
+      "name": "Enemy timer cleared: Charm Animals",
+      "pattern": "^Your Charm Animals spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Charm Animals"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Charm Animals off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/creeping-crud",
+      "name": "Enemy timer cleared: Creeping Crud",
+      "pattern": "^Your Creeping Crud spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Creeping Crud"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Creeping Crud off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/drifting-death",
+      "name": "Enemy timer cleared: Drifting Death",
+      "pattern": "^Your Drifting Death spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Drifting Death"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Drifting Death off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/engorging-roots",
+      "name": "Enemy timer cleared: Engorging Roots",
+      "pattern": "^Your Engorging Roots spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Engorging Roots"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Engorging Roots off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/engulfing-roots",
+      "name": "Enemy timer cleared: Engulfing Roots",
+      "pattern": "^Your Engulfing Roots spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Engulfing Roots"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Engulfing Roots off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/entrapping-roots",
+      "name": "Enemy timer cleared: Entrapping Roots",
+      "pattern": "^Your Entrapping Roots spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Entrapping Roots"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Entrapping Roots off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fire",
+      "name": "Enemy timer cleared: Fire",
+      "pattern": "^Your Fire spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fire"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fire off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fixation-of-ro",
+      "name": "Enemy timer cleared: Fixation of Ro",
+      "pattern": "^Your Fixation of Ro spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fixation of Ro"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fixation of Ro off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/glamour-of-tunare",
+      "name": "Enemy timer cleared: Glamour of Tunare",
+      "pattern": "^Your Glamour of Tunare spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Glamour of Tunare"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Glamour of Tunare off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ice",
+      "name": "Enemy timer cleared: Ice",
+      "pattern": "^Your Ice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/instinctual-fear",
+      "name": "Enemy timer cleared: Instinctual Fear",
+      "pattern": "^Your Instinctual Fear spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Instinctual Fear"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Instinctual Fear off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/repulse-animal",
+      "name": "Enemy timer cleared: Repulse Animal",
+      "pattern": "^Your Repulse Animal spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Repulse Animal"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Repulse Animal off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ro-s-fiery-sundering",
+      "name": "Enemy timer cleared: Ro's Fiery Sundering",
+      "pattern": "^Your Ro's Fiery Sundering spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ro's Fiery Sundering"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ro's Fiery Sundering off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ro-s-smoldering-disjunction",
+      "name": "Enemy timer cleared: Ro's Smoldering Disjunction",
+      "pattern": "^Your Ro's Smoldering Disjunction spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ro's Smoldering Disjunction"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ro's Smoldering Disjunction off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/share-wolf-form",
+      "name": "Enemy timer cleared: Share Wolf Form",
+      "pattern": "^Your Share Wolf Form spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Share Wolf Form"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Share Wolf Form off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/sunbeam",
+      "name": "Enemy timer cleared: Sunbeam",
+      "pattern": "^Your Sunbeam spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Sunbeam"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Sunbeam off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/terrorize-animal",
+      "name": "Enemy timer cleared: Terrorize Animal",
+      "pattern": "^Your Terrorize Animal spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Terrorize Animal"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Terrorize Animal off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tunare-s-request",
+      "name": "Enemy timer cleared: Tunare's Request",
+      "pattern": "^Your Tunare's Request spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tunare's Request"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tunare's Request off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/vengeance-of-nature",
+      "name": "Enemy timer cleared: Vengeance of Nature",
+      "pattern": "^Your Vengeance of Nature spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Vengeance of Nature"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Vengeance of Nature off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/vengeance-of-the-wild",
+      "name": "Enemy timer cleared: Vengeance of the Wild",
+      "pattern": "^Your Vengeance of the Wild spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Vengeance of the Wild"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Vengeance of the Wild off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/winged-death",
+      "name": "Enemy timer cleared: Winged Death",
+      "pattern": "^Your Winged Death spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Winged Death"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Winged Death off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

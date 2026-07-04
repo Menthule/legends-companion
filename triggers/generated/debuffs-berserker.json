@@ -1,0 +1,155 @@
+{
+  "name": "Generated enemy-effect timers — Berserker",
+  "triggers": [
+    {
+      "id": "debuffs/berserker/cast/leg-cut",
+      "name": "Enemy timer: Leg Cut",
+      "pattern": "^You begin casting Leg Cut\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Berserker/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Leg Cut",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Berserker"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/berserker/cast/leg-slice",
+      "name": "Enemy timer: Leg Slice",
+      "pattern": "^You begin casting Leg Slice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Berserker/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Leg Slice",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Berserker"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/berserker/cast/leg-strike",
+      "name": "Enemy timer: Leg Strike",
+      "pattern": "^You begin casting Leg Strike\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Berserker/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Leg Strike",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Berserker"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/leg-cut",
+      "name": "Enemy timer cleared: Leg Cut",
+      "pattern": "^Your Leg Cut spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Leg Cut"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Leg Cut off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Berserker"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/leg-slice",
+      "name": "Enemy timer cleared: Leg Slice",
+      "pattern": "^Your Leg Slice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Leg Slice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Leg Slice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Berserker"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/leg-strike",
+      "name": "Enemy timer cleared: Leg Strike",
+      "pattern": "^Your Leg Strike spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Leg Strike"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Leg Strike off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Berserker"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

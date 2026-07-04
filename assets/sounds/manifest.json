@@ -1,0 +1,79 @@
+[
+  {
+    "file": "alert.wav",
+    "label": "Alert",
+    "description": "Neutral two-note ascending chime (E5 to A5, perfect fourth).",
+    "duration_ms": 440,
+    "intended_use": "Default notification for generic triggers."
+  },
+  {
+    "file": "warning.wav",
+    "label": "Warning",
+    "description": "Three quick mid pips on F#5.",
+    "duration_ms": 370,
+    "intended_use": "Timer approaching its end; pre-expiry warning."
+  },
+  {
+    "file": "danger.wav",
+    "label": "Danger",
+    "description": "Urgent low-high dissonant double hit (tritone dyad with a minor-2nd rub).",
+    "duration_ms": 600,
+    "intended_use": "Urgent events: death touch, gate, emote warnings that demand action."
+  },
+  {
+    "file": "tell.wav",
+    "label": "Tell",
+    "description": "Soft single glass ding on E6.",
+    "duration_ms": 400,
+    "intended_use": "Incoming tell / private message."
+  },
+  {
+    "file": "timer-end.wav",
+    "label": "Timer end",
+    "description": "Resolved descending two-note (B5 to E5, perfect fifth down).",
+    "duration_ms": 480,
+    "intended_use": "A tracked timer or cooldown has completed."
+  },
+  {
+    "file": "success.wav",
+    "label": "Success",
+    "description": "Bright ascending C-major arpeggio (C5-E5-G5-C6).",
+    "duration_ms": 565,
+    "intended_use": "Positive events: level up, resurrection accepted, item looted."
+  },
+  {
+    "file": "death.wav",
+    "label": "Death",
+    "description": "Low somber descending minor pair (C4 to A3, minor third down).",
+    "duration_ms": 600,
+    "intended_use": "Player or group-member death."
+  },
+  {
+    "file": "tick.wav",
+    "label": "Tick",
+    "description": "Tiny 40 ms countdown click.",
+    "duration_ms": 40,
+    "intended_use": "Per-second countdown ticks; designed to be unobtrusive when repeated."
+  },
+  {
+    "file": "gong.wav",
+    "label": "Gong",
+    "description": "Deep struck gong on A2 with inharmonic partials and a long decay.",
+    "duration_ms": 600,
+    "intended_use": "Raid-scale events: enrage, boss spawn, raid-wide calls."
+  },
+  {
+    "file": "chime2.wav",
+    "label": "Chime 2",
+    "description": "Alternate ascending chime, higher pitch (G5 to C6).",
+    "duration_ms": 440,
+    "intended_use": "Alternate alert pitch so users can tell triggers apart by ear."
+  },
+  {
+    "file": "chime3.wav",
+    "label": "Chime 3",
+    "description": "Alternate ascending chime, lower pitch (C5 to F5).",
+    "duration_ms": 440,
+    "intended_use": "Alternate alert pitch so users can tell triggers apart by ear."
+  }
+]

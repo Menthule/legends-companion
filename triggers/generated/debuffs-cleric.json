@@ -1,0 +1,1110 @@
+{
+  "name": "Generated enemy-effect timers — Cleric",
+  "triggers": [
+    {
+      "id": "debuffs/cleric/cast/blinding-luminance",
+      "name": "Enemy timer: Blinding Luminance",
+      "pattern": "^You begin casting Blinding Luminance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blinding Luminance",
+            "duration_secs": 24,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 1,
+            "duration_cap_ticks": 4,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/cower-the-dead",
+      "name": "Enemy timer: Cower the Dead",
+      "pattern": "^You begin casting Cower the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cower the Dead",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/deistic-voice",
+      "name": "Enemy timer: Deistic Voice",
+      "pattern": "^You begin casting Deistic Voice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Deistic Voice",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/dread-of-night",
+      "name": "Enemy timer: Dread of Night",
+      "pattern": "^You begin casting Dread of Night\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dread of Night",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/epitaph-of-life",
+      "name": "Enemy timer: Epitaph of Life",
+      "pattern": "^You begin casting Epitaph of Life\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Epitaph of Life",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/fear",
+      "name": "Enemy timer: Fear",
+      "pattern": "^You begin casting Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fear",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/flash-of-light",
+      "name": "Enemy timer: Flash of Light",
+      "pattern": "^You begin casting Flash of Light\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Flash of Light",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/immobilize",
+      "name": "Enemy timer: Immobilize",
+      "pattern": "^You begin casting Immobilize\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Immobilize",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Cleric level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/inspire-fear",
+      "name": "Enemy timer: Inspire Fear",
+      "pattern": "^You begin casting Inspire Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Inspire Fear",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 1,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m30s at level 50 (formula 1, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/instill",
+      "name": "Enemy timer: Instill",
+      "pattern": "^You begin casting Instill\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Instill",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Cleric level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/invoke-fear",
+      "name": "Enemy timer: Invoke Fear",
+      "pattern": "^You begin casting Invoke Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invoke Fear",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/mark-of-karn",
+      "name": "Enemy timer: Mark of Karn",
+      "pattern": "^You begin casting Mark of Karn\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mark of Karn",
+            "duration_secs": 210,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~3m30s at level 50 (formula 8, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/mark-of-retribution",
+      "name": "Enemy timer: Mark of Retribution",
+      "pattern": "^You begin casting Mark of Retribution\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mark of Retribution",
+            "duration_secs": 900,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/panic-the-dead",
+      "name": "Enemy timer: Panic the Dead",
+      "pattern": "^You begin casting Panic the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Panic the Dead",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/paralyzing-earth",
+      "name": "Enemy timer: Paralyzing Earth",
+      "pattern": "^You begin casting Paralyzing Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Paralyzing Earth",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/root",
+      "name": "Enemy timer: Root",
+      "pattern": "^You begin casting Root\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Root",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Cleric level 7. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/sermon-of-the-righteous",
+      "name": "Enemy timer: Sermon of the Righteous",
+      "pattern": "^You begin casting Sermon of the Righteous\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sermon of the Righteous",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/spook-the-dead",
+      "name": "Enemy timer: Spook the Dead",
+      "pattern": "^You begin casting Spook the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spook the Dead",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/trepidation",
+      "name": "Enemy timer: Trepidation",
+      "pattern": "^You begin casting Trepidation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Trepidation",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/turning-of-the-unnatural",
+      "name": "Enemy timer: Turning of the Unnatural",
+      "pattern": "^You begin casting Turning of the Unnatural\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Turning of the Unnatural",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/cleric/cast/wave-of-fear",
+      "name": "Enemy timer: Wave of Fear",
+      "pattern": "^You begin casting Wave of Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Cleric/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wave of Fear",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 1,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "~0m18s at level 50 (formula 1, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/blinding-luminance",
+      "name": "Enemy timer cleared: Blinding Luminance",
+      "pattern": "^Your Blinding Luminance spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Blinding Luminance"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Blinding Luminance off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cower-the-dead",
+      "name": "Enemy timer cleared: Cower the Dead",
+      "pattern": "^Your Cower the Dead spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cower the Dead"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cower the Dead off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/deistic-voice",
+      "name": "Enemy timer cleared: Deistic Voice",
+      "pattern": "^Your Deistic Voice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Deistic Voice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Deistic Voice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dread-of-night",
+      "name": "Enemy timer cleared: Dread of Night",
+      "pattern": "^Your Dread of Night spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dread of Night"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dread of Night off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/epitaph-of-life",
+      "name": "Enemy timer cleared: Epitaph of Life",
+      "pattern": "^Your Epitaph of Life spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Epitaph of Life"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Epitaph of Life off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fear",
+      "name": "Enemy timer cleared: Fear",
+      "pattern": "^Your Fear spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fear"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fear off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "ShadowKnight",
+        "Necromancer",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/flash-of-light",
+      "name": "Enemy timer cleared: Flash of Light",
+      "pattern": "^Your Flash of Light spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Flash of Light"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Flash of Light off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/immobilize",
+      "name": "Enemy timer cleared: Immobilize",
+      "pattern": "^Your Immobilize spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Immobilize"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Immobilize off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Shaman",
+        "Necromancer",
+        "Wizard",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/inspire-fear",
+      "name": "Enemy timer cleared: Inspire Fear",
+      "pattern": "^Your Inspire Fear spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Inspire Fear"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Inspire Fear off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/instill",
+      "name": "Enemy timer cleared: Instill",
+      "pattern": "^Your Instill spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Instill"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Instill off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Shaman",
+        "Necromancer",
+        "Wizard",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/invoke-fear",
+      "name": "Enemy timer cleared: Invoke Fear",
+      "pattern": "^Your Invoke Fear spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Invoke Fear"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Invoke Fear off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "ShadowKnight",
+        "Necromancer",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/mark-of-karn",
+      "name": "Enemy timer cleared: Mark of Karn",
+      "pattern": "^Your Mark of Karn spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Mark of Karn"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Mark of Karn off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/mark-of-retribution",
+      "name": "Enemy timer cleared: Mark of Retribution",
+      "pattern": "^Your Mark of Retribution spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Mark of Retribution"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Mark of Retribution off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/panic-the-dead",
+      "name": "Enemy timer cleared: Panic the Dead",
+      "pattern": "^Your Panic the Dead spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Panic the Dead"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Panic the Dead off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/paralyzing-earth",
+      "name": "Enemy timer cleared: Paralyzing Earth",
+      "pattern": "^Your Paralyzing Earth spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Paralyzing Earth"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Paralyzing Earth off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Shaman",
+        "Necromancer",
+        "Wizard",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/root",
+      "name": "Enemy timer cleared: Root",
+      "pattern": "^Your Root spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Root"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Root off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "Shaman",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/sermon-of-the-righteous",
+      "name": "Enemy timer cleared: Sermon of the Righteous",
+      "pattern": "^Your Sermon of the Righteous spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Sermon of the Righteous"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Sermon of the Righteous off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/spook-the-dead",
+      "name": "Enemy timer cleared: Spook the Dead",
+      "pattern": "^Your Spook the Dead spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Spook the Dead"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Spook the Dead off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Paladin",
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/trepidation",
+      "name": "Enemy timer cleared: Trepidation",
+      "pattern": "^Your Trepidation spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Trepidation"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Trepidation off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric",
+        "Necromancer",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/turning-of-the-unnatural",
+      "name": "Enemy timer cleared: Turning of the Unnatural",
+      "pattern": "^Your Turning of the Unnatural spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Turning of the Unnatural"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Turning of the Unnatural off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/wave-of-fear",
+      "name": "Enemy timer cleared: Wave of Fear",
+      "pattern": "^Your Wave of Fear spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Wave of Fear"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Wave of Fear off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Cleric"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

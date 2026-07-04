@@ -1,0 +1,129 @@
+{
+  "name": "Curated class pack \u2014 Monk",
+  "triggers": [
+    {
+      "id": "class/monk/fd/fallen-self",
+      "name": "Feign death FAILED",
+      "pattern": "^{C} has fallen to the ground\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Monk/Feign Death",
+      "classes": [
+        "Monk",
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "feign death failed"
+          }
+        }
+      ],
+      "comments": "The fall broadcast only appears when FD fails - a clean feign logs nothing to others."
+    },
+    {
+      "id": "class/monk/fd/fd-broken-by-spell",
+      "name": "FD broken by spell",
+      "pattern": "^You are no longer feigning death, because a spell hit you\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Monk/Feign Death",
+      "classes": [
+        "Monk",
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "feign broke"
+          }
+        }
+      ]
+    },
+    {
+      "id": "class/monk/abilities/mend-success",
+      "name": "Mend success",
+      "pattern": "^You mend your wounds and heal some damage\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Monk/Abilities",
+      "classes": [
+        "Monk"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "mended"
+          }
+        },
+        {
+          "StartTimer": {
+            "name": "Mend recast",
+            "duration_secs": 120,
+            "warn_at_secs": 10
+          }
+        }
+      ],
+      "comments": "Legends recast measured from real log gaps (successful mends 133s apart rules out classic 360s; cluster at 133-182s => 120s + reaction). Failure/worsen also burn the recast."
+    },
+    {
+      "id": "class/monk/abilities/mend-failed",
+      "name": "Mend failed",
+      "pattern": "^You have failed to mend your wounds\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Monk/Abilities",
+      "classes": [
+        "Monk"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "mend failed"
+          }
+        },
+        {
+          "StartTimer": {
+            "name": "Mend recast",
+            "duration_secs": 120,
+            "warn_at_secs": 10
+          }
+        }
+      ],
+      "comments": "Legends recast measured from real log gaps (successful mends 133s apart rules out classic 360s; cluster at 133-182s => 120s + reaction). Failure/worsen also burn the recast."
+    },
+    {
+      "id": "class/monk/abilities/mend-worsened",
+      "name": "Mend worsened wounds",
+      "pattern": "^You have worsened your wounds\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Monk/Abilities",
+      "classes": [
+        "Monk"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "mend worsened"
+          }
+        },
+        {
+          "StartTimer": {
+            "name": "Mend recast",
+            "duration_secs": 120,
+            "warn_at_secs": 10
+          }
+        }
+      ],
+      "comments": "Legends recast measured from real log gaps (successful mends 133s apart rules out classic 360s; cluster at 133-182s => 120s + reaction). Failure/worsen also burn the recast."
+    }
+  ]
+}

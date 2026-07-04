@@ -1,0 +1,355 @@
+{
+  "name": "Curated universal triggers",
+  "triggers": [
+    {
+      "id": "universal/survival/summoned",
+      "name": "Summoned",
+      "pattern": "^You have been summoned!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "eqstr 1393.",
+      "actions": [
+        { "DisplayText": { "template": "summoned" } }
+      ]
+    },
+    {
+      "id": "universal/survival/enraged",
+      "name": "Mob enraged",
+      "pattern": "^(.+) has become ENRAGED\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "eqstr 1042. Stop attacking until the enrage-over line.",
+      "actions": [
+        { "DisplayText": { "template": "${1} enraged" } }
+      ]
+    },
+    {
+      "id": "universal/survival/enrage-over",
+      "name": "Enrage over",
+      "pattern": "^(.+) is no longer enraged\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "eqstr 1043.",
+      "actions": [
+        { "DisplayText": { "template": "enrage over" } }
+      ]
+    },
+    {
+      "id": "universal/survival/you-died",
+      "name": "You died",
+      "pattern": "^You died\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "actions": [
+        { "DisplayText": { "template": "you died" } }
+      ]
+    },
+    {
+      "id": "universal/survival/slain-by",
+      "name": "Slain by",
+      "pattern": "^You have been slain by (.+)!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "actions": [
+        { "DisplayText": { "template": "slain by ${1}" } }
+      ]
+    },
+    {
+      "id": "universal/survival/ally-slain",
+      "name": "Player slain nearby",
+      "pattern": "^([A-Z][a-z]+) has been slain by (.+)!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "case_insensitive": false,
+      "category": "Universal/Survival",
+      "comments": "Groupmate/pet death awareness (research: exclude own kills — those use 'You have slain X!'). Case-sensitive single capitalized word so mob kills ('An orc raider has been slain by Kreira!', 'Baron Telyx V`Zher has been slain by...') don't flood the overlay: of 226 slain-by lines in the Legends log only the 4 real player/pet deaths match.",
+      "actions": [
+        { "DisplayText": { "template": "${1} slain by ${2}" } }
+      ]
+    },
+    {
+      "id": "universal/survival/invis-dropping",
+      "name": "Invis dropping",
+      "pattern": "^You feel yourself starting to appear\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "eqstr 275 — the early warning before invisibility breaks.",
+      "actions": [
+        { "DisplayText": { "template": "invis dropping" } }
+      ]
+    },
+    {
+      "id": "universal/survival/invis-gone",
+      "name": "Invis gone",
+      "pattern": "^You (appear\\.|become visible\\.)",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "actions": [
+        { "DisplayText": { "template": "visible" } }
+      ]
+    },
+    {
+      "id": "universal/survival/encumbered",
+      "name": "Encumbered",
+      "pattern": "^You are encumbered!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "eqstr 12392. Verified in Legends log.",
+      "actions": [
+        { "DisplayText": { "template": "encumbered" } }
+      ]
+    },
+    {
+      "id": "universal/survival/stunned",
+      "name": "Stunned",
+      "pattern": "^You are stunned!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "Overlay only: bash/kick mobs stun constantly (178 stuns in 6.3 active hours of the Legends log), so speech here makes TTS unusable.",
+      "actions": [
+        { "DisplayText": { "template": "stunned" } }
+      ]
+    },
+    {
+      "id": "universal/survival/stun-over",
+      "name": "Stun over",
+      "pattern": "^You are no longer stunned\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "Off by default: fires as often as Stunned (178x in the fixture log) and carries little information beyond it.",
+      "actions": [
+        { "DisplayText": { "template": "stun over" } }
+      ]
+    },
+    {
+      "id": "universal/cc/mez-broken",
+      "name": "Mez broken",
+      "pattern": "^(.+) has been awakened(?: by (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "eqstr 8053/9037. Legends log shows the with-attacker form: 'Baron Telyx V`Zher has been awakened by Nyasha.' TTS whitelist: your CC breaking.",
+      "actions": [
+        { "Speak": { "template": "mez broke" } },
+        { "DisplayText": { "template": "${1} awake" } }
+      ]
+    },
+    {
+      "id": "universal/social/tell",
+      "name": "Tell received",
+      "pattern": "^(\\w+) tells you,",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Social",
+      "comments": "Player tells use 'tells you,'. NPC/pet chatter uses 'told you,' (verified 382x in Legends log), which this pattern deliberately does not match.",
+      "actions": [
+        { "DisplayText": { "template": "tell from ${1}" } }
+      ]
+    },
+    {
+      "id": "universal/social/gm-tell",
+      "name": "GM tell received",
+      "pattern": "^\\[GM\\] (\\w+) tells you,",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Social",
+      "actions": [
+        { "DisplayText": { "template": "GM tell from ${1}" } }
+      ]
+    },
+    {
+      "id": "universal/progress/level-up",
+      "name": "Level up",
+      "pattern": "^You have gained a level!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Progress",
+      "comments": "Verified in Legends log.",
+      "actions": [
+        { "DisplayText": { "template": "ding" } }
+      ]
+    },
+    {
+      "id": "universal/progress/rez",
+      "name": "Resurrection experience",
+      "pattern": "^You regain some experience from resurrection\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Progress",
+      "comments": "eqstr 289.",
+      "actions": [
+        { "Speak": { "template": "rez taken" } }
+      ]
+    },
+    {
+      "id": "universal/combat/resist-out",
+      "name": "Your spell resisted",
+      "pattern": "^(.+) resisted your (.+)!",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Legends modern format: 'A willowisp resisted your Vampiric Embrace!' Speaks + overlay by default (TTS whitelist: resist). 3s refire cooldown keeps back-to-back resists from stacking speech.",
+      "actions": [
+        { "Speak": { "template": "resisted" } },
+        { "DisplayText": { "template": "Resisted: ${2}" } }
+      ]
+    },
+    {
+      "id": "universal/combat/resist-in",
+      "name": "You resisted a spell",
+      "pattern": "^You resist (.+)!",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Legends format: 'You resist a necro initiate's Clinging Darkness!'",
+      "actions": [
+        { "DisplayText": { "template": "You resisted ${1}" } }
+      ]
+    },
+    {
+      "id": "universal/combat/rampage",
+      "name": "Mob rampage",
+      "pattern": "^(.+) begins to rampage\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "actions": [
+        { "Speak": { "template": "${1} rampage" } }
+      ]
+    },
+    {
+      "id": "universal/combat/interrupt",
+      "name": "Cast interrupted (anyone)",
+      "pattern": "^(.+)'s (.+) spell is interrupted\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Legends third-person form, verified 380x in log: 'Baron Telyx V`Zher's Healing spell is interrupted.' Useful as mob-heal-stopped confirmation.",
+      "actions": [
+        { "DisplayText": { "template": "${1} interrupted (${2})" } }
+      ]
+    },
+    {
+      "id": "universal/combat/fizzle-other",
+      "name": "Cast fizzled (anyone)",
+      "pattern": "^(.+)'s (.+) spell fizzles!",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Legends named fizzle, verified in log: 'Torvin's Blast of Frost spell fizzles!'",
+      "actions": [
+        { "DisplayText": { "template": "${1} fizzled ${2}" } }
+      ]
+    },
+    {
+      "id": "universal/combat/npc-healed",
+      "name": "Target healed itself",
+      "pattern": "^(.+) healed (?:him|her|it)self for (\\d+) \\((\\d+)\\) hit points by (.+)\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Legends heal-landed line with amount and spell: 'Baron Telyx V`Zher healed himself for 1016 (1345) hit points by Lay on Hands.'",
+      "actions": [
+        { "Speak": { "template": "${1} healed" } }
+      ]
+    },
+    {
+      "id": "universal/utility/hungry",
+      "name": "Hungry",
+      "pattern": "^You are hungry\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Utility",
+      "comments": "eqstr 12487.",
+      "actions": [
+        { "Speak": { "template": "hungry" } }
+      ]
+    },
+    {
+      "id": "universal/utility/thirsty",
+      "name": "Thirsty",
+      "pattern": "^You are thirsty\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Utility",
+      "comments": "eqstr 12485.",
+      "actions": [
+        { "Speak": { "template": "thirsty" } }
+      ]
+    },
+    {
+      "id": "universal/social/fallen",
+      "name": "Someone fell down (FD social)",
+      "pattern": "^(.+) has fallen to the ground\\.",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Social",
+      "comments": "eqstr 1456; verified in Legends log. The class packs carry a self-only ({C}) copy for FD classes.",
+      "actions": [
+        { "DisplayText": { "template": "${1} fell down" } }
+      ]
+    },
+    {
+      "id": "universal/progress/skill-up",
+      "name": "Skill up",
+      "pattern": "^You have become better at (.+)!",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Progress",
+      "comments": "Verified 1075x in Legends log — overlay only to avoid speech spam.",
+      "actions": [
+        { "DisplayText": { "template": "${1} up" } }
+      ]
+    },
+    {
+      "id": "universal/social/group-invite",
+      "name": "Group invite",
+      "pattern": "^(\\w+) invites you to join a group",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Social",
+      "comments": "Community-standard string; not yet observed in the Legends verification log.",
+      "actions": [
+        { "Speak": { "template": "group invite from ${1}" } }
+      ]
+    }
+  ]
+}

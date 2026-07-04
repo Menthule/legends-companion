@@ -1,0 +1,47 @@
+{
+  "name": "Curated class pack — Paladin",
+  "triggers": [
+    {
+      "id": "class/paladin/heals/yaulp",
+      "name": "Yaulp",
+      "pattern": "^You feel a surge of strength as you let forth a mighty yaulp\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Paladin/Heals",
+      "classes": [
+        "Paladin",
+        "Cleric"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "yaulp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "class/paladin/abilities/lay-hands-recast",
+      "name": "Lay on Hands recast",
+      "pattern": "^You begin casting Lay on Hands\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Paladin/Abilities",
+      "classes": [
+        "Paladin"
+      ],
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Lay on Hands recast",
+            "duration_secs": 4320,
+            "warn_at_secs": 60
+          }
+        }
+      ],
+      "comments": "72-minute recast. Cast line verified in the Legends log (NPC paladins cast it as a named spell)."
+    }
+  ]
+}

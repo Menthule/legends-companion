@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Tag to build and (re-)publish, e.g. v0.1.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build, sign, and publish Windows release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # On manual dispatch, build the requested tag rather than the branch
+          # the workflow was dispatched from.
+          ref: ${{ inputs.tag_name || github.ref }}
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install frontend deps
+        working-directory: app
+        run: npm ci || npm i
+      # tauri-action builds the NSIS installer, signs it + the updater artifact
+      # with TAURI_SIGNING_PRIVATE_KEY, creates the GitHub release, uploads the
+      # installer, and generates + uploads latest.json (the updater manifest the
+      # app polls at releases/latest/download/latest.json).
+      - name: build, sign, publish
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: app
+          tagName: ${{ inputs.tag_name || github.ref_name }}
+          releaseName: "Legends Companion ${{ inputs.tag_name || github.ref_name }}"
+          releaseBody: |
+            Legends Companion — log-only EverQuest Legends companion (triggers, meters, overlays). No memory reading.
+
+            **Install:** download the `.exe` below and run it. Windows may warn "unknown publisher" -> **More info -> Run anyway** (the build is not cert-signed, like GINA).
+
+            The app **auto-updates** from here: when a new version ships you'll get an "Install & restart" prompt on launch.
+          releaseDraft: false
+          prerelease: false
+          includeUpdaterJson: true

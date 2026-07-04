@@ -1,0 +1,306 @@
+{
+  "name": "Generated buff timers — Monk",
+  "triggers": [
+    {
+      "id": "buffs/monk/cast/ashenhand-discipline",
+      "name": "Buff timer: Ashenhand Discipline",
+      "pattern": "^You begin casting Ashenhand Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ashenhand Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 60."
+    },
+    {
+      "id": "buffs/monk/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 40."
+    },
+    {
+      "id": "buffs/monk/cast/focused-will-discipline",
+      "name": "Buff timer: Focused Will Discipline",
+      "pattern": "^You begin casting Focused Will Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Focused Will Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 10."
+    },
+    {
+      "id": "buffs/monk/cast/hundred-fists-discipline",
+      "name": "Buff timer: Hundred Fists Discipline",
+      "pattern": "^You begin casting Hundred Fists Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Hundred Fists Discipline",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Monk level 57."
+    },
+    {
+      "id": "buffs/monk/cast/innerflame-discipline",
+      "name": "Buff timer: Innerflame Discipline",
+      "pattern": "^You begin casting Innerflame Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Innerflame Discipline",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "duration_formula": 11,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Monk level 56."
+    },
+    {
+      "id": "buffs/monk/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Monk level 30."
+    },
+    {
+      "id": "buffs/monk/cast/silentfist-discipline",
+      "name": "Buff timer: Silentfist Discipline",
+      "pattern": "^You begin casting Silentfist Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Silentfist Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 59."
+    },
+    {
+      "id": "buffs/monk/cast/thunderkick-discipline",
+      "name": "Buff timer: Thunderkick Discipline",
+      "pattern": "^You begin casting Thunderkick Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Monk/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Thunderkick Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 52."
+    },
+    {
+      "id": "buffs/wear-off/thunderkick-discipline",
+      "name": "Worn off: Thunderkick Discipline",
+      "pattern": "^The glow fades from your feet\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Thunderkick Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "Wear-off message: \"The glow fades from your feet.\""
+    },
+    {
+      "id": "buffs/wear-off/silentfist-discipline",
+      "name": "Worn off: Silentfist Discipline",
+      "pattern": "^The silent fury fades away\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Silentfist Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "Wear-off message: \"The silent fury fades away.\""
+    },
+    {
+      "id": "buffs/wear-off/ashenhand-discipline",
+      "name": "Worn off: Ashenhand Discipline",
+      "pattern": "^Your fists lose their fervor\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Ashenhand Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "Wear-off message: \"Your fists lose their fervor.\" — shared by 13 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/blinding-speed-discipline",
+      "name": "Worn off: Blinding Speed Discipline",
+      "pattern": "^Your hands slow down\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Blinding Speed Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Monk",
+        "Rogue"
+      ],
+      "comments": "Wear-off message: \"Your hands slow down.\" — shared by 11 spells in spells_us_str (2 castable; also: Hundred Fists Discipline). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/innerflame-discipline",
+      "name": "Worn off: Innerflame Discipline",
+      "pattern": "^Your strength of will fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Innerflame Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Monk"
+      ],
+      "comments": "Wear-off message: \"Your strength of will fades.\" — shared by 16 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    }
+  ]
+}

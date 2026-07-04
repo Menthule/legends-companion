@@ -1,0 +1,27 @@
+{
+  "name": "Curated class pack — Necromancer",
+  "triggers": [
+    {
+      "id": "class/necromancer/fd/fd-over",
+      "name": "Feign death ended",
+      "pattern": "^You no longer appear dead\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Necromancer/Feign Death",
+      "classes": [
+        "Necromancer",
+        "ShadowKnight",
+        "Monk"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "feign over"
+          }
+        }
+      ],
+      "comments": "Wear-off of the necro Feign Death spell (id 366); also fires when standing from spell FD."
+    }
+  ]
+}

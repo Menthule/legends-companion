@@ -1,0 +1,48 @@
+{
+  "name": "Curated class pack — Shadow Knight",
+  "triggers": [
+    {
+      "id": "class/shadowknight/abilities/harm-touch-recast",
+      "name": "Harm Touch recast",
+      "pattern": "^You begin casting Harm Touch\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/ShadowKnight/Abilities",
+      "classes": [
+        "ShadowKnight"
+      ],
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Harm Touch recast",
+            "duration_secs": 4320,
+            "warn_at_secs": 60
+          }
+        }
+      ],
+      "comments": "72-minute recast. 'begins casting Harm Touch.' verified 116x in the Legends log."
+    },
+    {
+      "id": "class/shadowknight/cc/darkness-landed",
+      "name": "Clinging Darkness landed",
+      "pattern": "^(.+) has been instilled with the dread of night\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/ShadowKnight/Crowd Control",
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} darkness"
+          }
+        }
+      ],
+      "comments": "Cast-on-other message for the Clinging Darkness snare line."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "Curated class pack — Cleric",
+  "triggers": [
+    {
+      "id": "class/cleric/heals/ch-self-timer",
+      "name": "Complete Heal cast timer",
+      "pattern": "^You begin casting Complete Heal\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Heals",
+      "classes": [
+        "Cleric"
+      ],
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Complete Heal",
+            "duration_secs": 10,
+            "warn_at_secs": null
+          }
+        }
+      ],
+      "comments": "~10 s cast — chain-heal countdown from your own cast."
+    },
+    {
+      "id": "class/cleric/heals/ch-chain",
+      "name": "Complete Heal chain (others)",
+      "pattern": "^(\\w+) begins casting Complete Heal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Heals",
+      "classes": [
+        "Cleric"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} CH"
+          }
+        }
+      ],
+      "comments": "Legends names other players' casts ('Boza begins casting Invisibility.'), so CH chains are log-driven."
+    }
+  ]
+}

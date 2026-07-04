@@ -1,0 +1,45 @@
+{
+  "name": "Curated class pack — Ranger",
+  "triggers": [
+    {
+      "id": "class/ranger/cc/snare-landed",
+      "name": "Snare landed",
+      "pattern": "^(.+) has been ensnared\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Ranger/Crowd Control",
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} snared"
+          }
+        }
+      ]
+    },
+    {
+      "id": "class/ranger/cc/snare-off-self",
+      "name": "Snare off you",
+      "pattern": "^You are no longer ensnared\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Ranger/Crowd Control",
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "snare off"
+          }
+        }
+      ]
+    }
+  ]
+}

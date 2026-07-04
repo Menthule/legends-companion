@@ -1,0 +1,11 @@
+[package]
+name = "eqlog-store"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+eqlog-core = { path = "../eqlog-core" }
+rusqlite.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true

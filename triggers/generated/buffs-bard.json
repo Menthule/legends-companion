@@ -1,0 +1,264 @@
+{
+  "name": "Generated buff timers — Bard",
+  "triggers": [
+    {
+      "id": "buffs/bard/cast/amplification",
+      "name": "Buff timer: Amplification",
+      "pattern": "^You begin casting Amplification\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Amplification",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m30s at level 50 (formula 6, cap 5 ticks); the engine rescales to the profile's level; Bard level 30."
+    },
+    {
+      "id": "buffs/bard/cast/fearless-discipline",
+      "name": "Buff timer: Fearless Discipline",
+      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fearless Discipline",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "duration_formula": 11,
+            "duration_cap_ticks": 10,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Bard level 54."
+    },
+    {
+      "id": "buffs/bard/cast/kelin-s-lugubrious-lament",
+      "name": "Buff timer: Kelin's Lugubrious Lament",
+      "pattern": "^You begin casting Kelin's Lugubrious Lament\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Kelin's Lugubrious Lament",
+            "duration_secs": 30,
+            "warn_at_secs": 4,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Bard level 8."
+    },
+    {
+      "id": "buffs/bard/cast/puretone-discipline",
+      "name": "Buff timer: Puretone Discipline",
+      "pattern": "^You begin casting Puretone Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Puretone Discipline",
+            "duration_secs": 240,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 40,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~4m00s at level 50 (formula 11, cap 40 ticks); the engine rescales to the profile's level; Bard level 60."
+    },
+    {
+      "id": "buffs/bard/cast/resistant-discipline",
+      "name": "Buff timer: Resistant Discipline",
+      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resistant Discipline",
+            "duration_secs": 300,
+            "warn_at_secs": 10,
+            "duration_formula": 11,
+            "duration_cap_ticks": 50,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Bard level 51."
+    },
+    {
+      "id": "buffs/bard/cast/selo-s-accelerating-chorus",
+      "name": "Buff timer: Selo's Accelerating Chorus",
+      "pattern": "^You begin casting Selo's Accelerating Chorus\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Selo's Accelerating Chorus",
+            "duration_secs": 150,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 4,
+            "duration_cap_ticks": 25,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~2m30s at level 50 (formula 4, cap 25 ticks); the engine rescales to the profile's level; Bard level 49."
+    },
+    {
+      "id": "buffs/bard/cast/song-of-sustenance",
+      "name": "Buff timer: Song of Sustenance",
+      "pattern": "^You begin casting Song of Sustenance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Song of Sustenance",
+            "duration_secs": 90,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 15,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~1m30s at level 50 (formula 6, cap 15 ticks); the engine rescales to the profile's level; Bard level 15."
+    },
+    {
+      "id": "buffs/wear-off/kelin-s-lugubrious-lament",
+      "name": "Worn off: Kelin's Lugubrious Lament",
+      "pattern": "^You no longer feel sad\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Kelin's Lugubrious Lament gone"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Wear-off message: \"You no longer feel sad.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/selo-s-accelerating-chorus",
+      "name": "Worn off: Selo's Accelerating Chorus",
+      "pattern": "^You slow down\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Selo's Accelerating Chorus gone"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Wear-off message: \"You slow down.\" — shared by 17 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/song-of-sustenance",
+      "name": "Worn off: Song of Sustenance",
+      "pattern": "^Your hunger returns\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Song of Sustenance gone"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Wear-off message: \"Your hunger returns.\""
+    },
+    {
+      "id": "buffs/wear-off/puretone-discipline",
+      "name": "Worn off: Puretone Discipline",
+      "pattern": "^Your voice loses its perfection\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Puretone Discipline gone"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Wear-off message: \"Your voice loses its perfection.\""
+    }
+  ]
+}

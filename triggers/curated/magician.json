@@ -1,0 +1,27 @@
+{
+  "name": "Curated class pack — Magician",
+  "triggers": [
+    {
+      "id": "class/magician/pet/ally-slain-watch",
+      "name": "Slain-line watch (pet death)",
+      "pattern": "^(.+) has been slain by (.+)!",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Class/Magician/Pet",
+      "classes": [
+        "Magician",
+        "Necromancer",
+        "Beastlord"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} slain"
+          }
+        }
+      ],
+      "comments": "There is no native pet-death line — enable this and watch for your pet's name in the overlay."
+    }
+  ]
+}

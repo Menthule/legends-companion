@@ -1,0 +1,1733 @@
+{
+  "name": "Generated enemy-effect timers — Bard",
+  "triggers": [
+    {
+      "id": "debuffs/bard/cast/ancient-lullaby-of-shadow",
+      "name": "Enemy timer: Ancient: Lullaby of Shadow",
+      "pattern": "^You begin casting Ancient: Lullaby of Shadow\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Lullaby of Shadow",
+            "duration_secs": 24,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 4,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m24s at level 50 (formula 7, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/angstlich-s-appalling-screech",
+      "name": "Enemy timer: Angstlich's Appalling Screech",
+      "pattern": "^You begin casting Angstlich's Appalling Screech\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Angstlich's Appalling Screech",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/angstlich-s-assonance",
+      "name": "Enemy timer: Angstlich's Assonance",
+      "pattern": "^You begin casting Angstlich's Assonance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Angstlich's Assonance",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/cassindra-s-insipid-ditty",
+      "name": "Enemy timer: Cassindra's Insipid Ditty",
+      "pattern": "^You begin casting Cassindra's Insipid Ditty\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cassindra's Insipid Ditty",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chant-of-chaos",
+      "name": "Enemy timer: Chant of Chaos",
+      "pattern": "^You begin casting Chant of Chaos\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chant of Chaos",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chant-of-flame",
+      "name": "Enemy timer: Chant of Flame",
+      "pattern": "^You begin casting Chant of Flame\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chant of Flame",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chant-of-frost",
+      "name": "Enemy timer: Chant of Frost",
+      "pattern": "^You begin casting Chant of Frost\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chant of Frost",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chant-of-magic",
+      "name": "Enemy timer: Chant of Magic",
+      "pattern": "^You begin casting Chant of Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chant of Magic",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chant-of-plague",
+      "name": "Enemy timer: Chant of Plague",
+      "pattern": "^You begin casting Chant of Plague\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chant of Plague",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chant-of-venom",
+      "name": "Enemy timer: Chant of Venom",
+      "pattern": "^You begin casting Chant of Venom\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chant of Venom",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/chords-of-dissonance",
+      "name": "Enemy timer: Chords of Dissonance",
+      "pattern": "^You begin casting Chords of Dissonance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chords of Dissonance",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/crission-s-pixie-strike",
+      "name": "Enemy timer: Crission's Pixie Strike",
+      "pattern": "^You begin casting Crission's Pixie Strike\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Crission's Pixie Strike",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/denon-s-bereavement",
+      "name": "Enemy timer: Denon's Bereavement",
+      "pattern": "^You begin casting Denon's Bereavement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Denon's Bereavement",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/denon-s-disruptive-discord",
+      "name": "Enemy timer: Denon's Disruptive Discord",
+      "pattern": "^You begin casting Denon's Disruptive Discord\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Denon's Disruptive Discord",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/dreams-of-ayonae",
+      "name": "Enemy timer: Dreams of Ayonae",
+      "pattern": "^You begin casting Dreams of Ayonae\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dreams of Ayonae",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/fufil-s-curtailing-chant",
+      "name": "Enemy timer: Fufil's Curtailing Chant",
+      "pattern": "^You begin casting Fufil's Curtailing Chant\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fufil's Curtailing Chant",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/fufil-s-diminishing-dirge",
+      "name": "Enemy timer: Fufil's Diminishing Dirge",
+      "pattern": "^You begin casting Fufil's Diminishing Dirge\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fufil's Diminishing Dirge",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/jaxan-s-jig-o-vigor",
+      "name": "Enemy timer: Jaxan's Jig o` Vigor",
+      "pattern": "^You begin casting Jaxan's Jig o` Vigor\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Jaxan's Jig o` Vigor",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/kelin-s-lucid-lullaby",
+      "name": "Enemy timer: Kelin's Lucid Lullaby",
+      "pattern": "^You begin casting Kelin's Lucid Lullaby\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Kelin's Lucid Lullaby",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/largo-s-assonant-binding",
+      "name": "Enemy timer: Largo's Assonant Binding",
+      "pattern": "^You begin casting Largo's Assonant Binding\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Largo's Assonant Binding",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/largo-s-melodic-binding",
+      "name": "Enemy timer: Largo's Melodic Binding",
+      "pattern": "^You begin casting Largo's Melodic Binding\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Largo's Melodic Binding",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/occlusion-of-sound",
+      "name": "Enemy timer: Occlusion of Sound",
+      "pattern": "^You begin casting Occlusion of Sound\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Occlusion of Sound",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/selo-s-assonant-strain",
+      "name": "Enemy timer: Selo's Assonant Strain",
+      "pattern": "^You begin casting Selo's Assonant Strain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Selo's Assonant Strain",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/selo-s-chords-of-cessation",
+      "name": "Enemy timer: Selo's Chords of Cessation",
+      "pattern": "^You begin casting Selo's Chords of Cessation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Selo's Chords of Cessation",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 7, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/selo-s-consonant-chain",
+      "name": "Enemy timer: Selo's Consonant Chain",
+      "pattern": "^You begin casting Selo's Consonant Chain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Selo's Consonant Chain",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/sionachie-s-dreams",
+      "name": "Enemy timer: Sionachie's Dreams",
+      "pattern": "^You begin casting Sionachie's Dreams\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sionachie's Dreams",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/solon-s-bewitching-bravura",
+      "name": "Enemy timer: Solon's Bewitching Bravura",
+      "pattern": "^You begin casting Solon's Bewitching Bravura\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Solon's Bewitching Bravura",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/solon-s-song-of-the-sirens",
+      "name": "Enemy timer: Solon's Song of the Sirens",
+      "pattern": "^You begin casting Solon's Song of the Sirens\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Solon's Song of the Sirens",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/song-of-midnight",
+      "name": "Enemy timer: Song of Midnight",
+      "pattern": "^You begin casting Song of Midnight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Song of Midnight",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/song-of-twilight",
+      "name": "Enemy timer: Song of Twilight",
+      "pattern": "^You begin casting Song of Twilight\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Song of Twilight",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/tuyen-s-chant-of-disease",
+      "name": "Enemy timer: Tuyen's Chant of Disease",
+      "pattern": "^You begin casting Tuyen's Chant of Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tuyen's Chant of Disease",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/tuyen-s-chant-of-flame",
+      "name": "Enemy timer: Tuyen's Chant of Flame",
+      "pattern": "^You begin casting Tuyen's Chant of Flame\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tuyen's Chant of Flame",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/tuyen-s-chant-of-frost",
+      "name": "Enemy timer: Tuyen's Chant of Frost",
+      "pattern": "^You begin casting Tuyen's Chant of Frost\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tuyen's Chant of Frost",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/bard/cast/tuyen-s-chant-of-poison",
+      "name": "Enemy timer: Tuyen's Chant of Poison",
+      "pattern": "^You begin casting Tuyen's Chant of Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Bard/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tuyen's Chant of Poison",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/ancient-lullaby-of-shadow",
+      "name": "Enemy timer cleared: Ancient: Lullaby of Shadow",
+      "pattern": "^Your Ancient: Lullaby of Shadow spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ancient: Lullaby of Shadow"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ancient: Lullaby of Shadow off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/angstlich-s-appalling-screech",
+      "name": "Enemy timer cleared: Angstlich's Appalling Screech",
+      "pattern": "^Your Angstlich's Appalling Screech spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Angstlich's Appalling Screech"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Angstlich's Appalling Screech off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/angstlich-s-assonance",
+      "name": "Enemy timer cleared: Angstlich's Assonance",
+      "pattern": "^Your Angstlich's Assonance spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Angstlich's Assonance"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Angstlich's Assonance off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cassindra-s-insipid-ditty",
+      "name": "Enemy timer cleared: Cassindra's Insipid Ditty",
+      "pattern": "^Your Cassindra's Insipid Ditty spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cassindra's Insipid Ditty"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cassindra's Insipid Ditty off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chant-of-chaos",
+      "name": "Enemy timer cleared: Chant of Chaos",
+      "pattern": "^Your Chant of Chaos spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chant of Chaos"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chant of Chaos off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chant-of-flame",
+      "name": "Enemy timer cleared: Chant of Flame",
+      "pattern": "^Your Chant of Flame spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chant of Flame"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chant of Flame off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chant-of-frost",
+      "name": "Enemy timer cleared: Chant of Frost",
+      "pattern": "^Your Chant of Frost spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chant of Frost"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chant of Frost off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chant-of-magic",
+      "name": "Enemy timer cleared: Chant of Magic",
+      "pattern": "^Your Chant of Magic spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chant of Magic"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chant of Magic off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chant-of-plague",
+      "name": "Enemy timer cleared: Chant of Plague",
+      "pattern": "^Your Chant of Plague spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chant of Plague"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chant of Plague off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chant-of-venom",
+      "name": "Enemy timer cleared: Chant of Venom",
+      "pattern": "^Your Chant of Venom spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chant of Venom"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chant of Venom off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/chords-of-dissonance",
+      "name": "Enemy timer cleared: Chords of Dissonance",
+      "pattern": "^Your Chords of Dissonance spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Chords of Dissonance"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Chords of Dissonance off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/crission-s-pixie-strike",
+      "name": "Enemy timer cleared: Crission's Pixie Strike",
+      "pattern": "^Your Crission's Pixie Strike spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Crission's Pixie Strike"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Crission's Pixie Strike off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/denon-s-bereavement",
+      "name": "Enemy timer cleared: Denon's Bereavement",
+      "pattern": "^Your Denon's Bereavement spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Denon's Bereavement"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Denon's Bereavement off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/denon-s-disruptive-discord",
+      "name": "Enemy timer cleared: Denon's Disruptive Discord",
+      "pattern": "^Your Denon's Disruptive Discord spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Denon's Disruptive Discord"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Denon's Disruptive Discord off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dreams-of-ayonae",
+      "name": "Enemy timer cleared: Dreams of Ayonae",
+      "pattern": "^Your Dreams of Ayonae spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dreams of Ayonae"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dreams of Ayonae off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fufil-s-curtailing-chant",
+      "name": "Enemy timer cleared: Fufil's Curtailing Chant",
+      "pattern": "^Your Fufil's Curtailing Chant spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fufil's Curtailing Chant"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fufil's Curtailing Chant off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fufil-s-diminishing-dirge",
+      "name": "Enemy timer cleared: Fufil's Diminishing Dirge",
+      "pattern": "^Your Fufil's Diminishing Dirge spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fufil's Diminishing Dirge"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fufil's Diminishing Dirge off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/jaxan-s-jig-o-vigor",
+      "name": "Enemy timer cleared: Jaxan's Jig o` Vigor",
+      "pattern": "^Your Jaxan's Jig o` Vigor spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Jaxan's Jig o` Vigor"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Jaxan's Jig o` Vigor off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/kelin-s-lucid-lullaby",
+      "name": "Enemy timer cleared: Kelin's Lucid Lullaby",
+      "pattern": "^Your Kelin's Lucid Lullaby spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Kelin's Lucid Lullaby"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Kelin's Lucid Lullaby off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/largo-s-assonant-binding",
+      "name": "Enemy timer cleared: Largo's Assonant Binding",
+      "pattern": "^Your Largo's Assonant Binding spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Largo's Assonant Binding"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Largo's Assonant Binding off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/largo-s-melodic-binding",
+      "name": "Enemy timer cleared: Largo's Melodic Binding",
+      "pattern": "^Your Largo's Melodic Binding spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Largo's Melodic Binding"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Largo's Melodic Binding off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/occlusion-of-sound",
+      "name": "Enemy timer cleared: Occlusion of Sound",
+      "pattern": "^Your Occlusion of Sound spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Occlusion of Sound"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Occlusion of Sound off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/selo-s-assonant-strain",
+      "name": "Enemy timer cleared: Selo's Assonant Strain",
+      "pattern": "^Your Selo's Assonant Strain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Selo's Assonant Strain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Selo's Assonant Strain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/selo-s-chords-of-cessation",
+      "name": "Enemy timer cleared: Selo's Chords of Cessation",
+      "pattern": "^Your Selo's Chords of Cessation spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Selo's Chords of Cessation"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Selo's Chords of Cessation off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/selo-s-consonant-chain",
+      "name": "Enemy timer cleared: Selo's Consonant Chain",
+      "pattern": "^Your Selo's Consonant Chain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Selo's Consonant Chain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Selo's Consonant Chain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/sionachie-s-dreams",
+      "name": "Enemy timer cleared: Sionachie's Dreams",
+      "pattern": "^Your Sionachie's Dreams spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Sionachie's Dreams"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Sionachie's Dreams off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/solon-s-bewitching-bravura",
+      "name": "Enemy timer cleared: Solon's Bewitching Bravura",
+      "pattern": "^Your Solon's Bewitching Bravura spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Solon's Bewitching Bravura"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Solon's Bewitching Bravura off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/solon-s-song-of-the-sirens",
+      "name": "Enemy timer cleared: Solon's Song of the Sirens",
+      "pattern": "^Your Solon's Song of the Sirens spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Solon's Song of the Sirens"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Solon's Song of the Sirens off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/song-of-midnight",
+      "name": "Enemy timer cleared: Song of Midnight",
+      "pattern": "^Your Song of Midnight spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Song of Midnight"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Song of Midnight off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/song-of-twilight",
+      "name": "Enemy timer cleared: Song of Twilight",
+      "pattern": "^Your Song of Twilight spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Song of Twilight"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Song of Twilight off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tuyen-s-chant-of-disease",
+      "name": "Enemy timer cleared: Tuyen's Chant of Disease",
+      "pattern": "^Your Tuyen's Chant of Disease spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tuyen's Chant of Disease"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tuyen's Chant of Disease off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tuyen-s-chant-of-flame",
+      "name": "Enemy timer cleared: Tuyen's Chant of Flame",
+      "pattern": "^Your Tuyen's Chant of Flame spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tuyen's Chant of Flame"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tuyen's Chant of Flame off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tuyen-s-chant-of-frost",
+      "name": "Enemy timer cleared: Tuyen's Chant of Frost",
+      "pattern": "^Your Tuyen's Chant of Frost spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tuyen's Chant of Frost"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tuyen's Chant of Frost off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tuyen-s-chant-of-poison",
+      "name": "Enemy timer cleared: Tuyen's Chant of Poison",
+      "pattern": "^Your Tuyen's Chant of Poison spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tuyen's Chant of Poison"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tuyen's Chant of Poison off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Bard"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

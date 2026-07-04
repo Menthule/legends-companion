@@ -1,0 +1,2389 @@
+{
+  "name": "Generated buff timers — Druid",
+  "triggers": [
+    {
+      "id": "buffs/druid/cast/ancient-legacy-of-blades",
+      "name": "Buff timer: Ancient: Legacy of Blades",
+      "pattern": "^You begin casting Ancient: Legacy of Blades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Legacy of Blades",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 60."
+    },
+    {
+      "id": "buffs/druid/cast/bladecoat",
+      "name": "Buff timer: Bladecoat",
+      "pattern": "^You begin casting Bladecoat\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bladecoat",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1950,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 56."
+    },
+    {
+      "id": "buffs/druid/cast/calm-animal",
+      "name": "Buff timer: Calm Animal",
+      "pattern": "^You begin casting Calm Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Calm Animal",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Druid level 15."
+    },
+    {
+      "id": "buffs/druid/cast/camouflage",
+      "name": "Buff timer: Camouflage",
+      "pattern": "^You begin casting Camouflage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Camouflage",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 4."
+    },
+    {
+      "id": "buffs/druid/cast/chloroplast",
+      "name": "Buff timer: Chloroplast",
+      "pattern": "^You begin casting Chloroplast\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Chloroplast",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 42."
+    },
+    {
+      "id": "buffs/druid/cast/circle-of-seasons",
+      "name": "Buff timer: Circle of Seasons",
+      "pattern": "^You begin casting Circle of Seasons\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Circle of Seasons",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1500,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Druid level 58."
+    },
+    {
+      "id": "buffs/druid/cast/circle-of-summer",
+      "name": "Buff timer: Circle of Summer",
+      "pattern": "^You begin casting Circle of Summer\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Circle of Summer",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 52."
+    },
+    {
+      "id": "buffs/druid/cast/circle-of-winter",
+      "name": "Buff timer: Circle of Winter",
+      "pattern": "^You begin casting Circle of Winter\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Circle of Winter",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 51."
+    },
+    {
+      "id": "buffs/druid/cast/endure-cold",
+      "name": "Buff timer: Endure Cold",
+      "pattern": "^You begin casting Endure Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Cold",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 9."
+    },
+    {
+      "id": "buffs/druid/cast/endure-disease",
+      "name": "Buff timer: Endure Disease",
+      "pattern": "^You begin casting Endure Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Disease",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19."
+    },
+    {
+      "id": "buffs/druid/cast/endure-fire",
+      "name": "Buff timer: Endure Fire",
+      "pattern": "^You begin casting Endure Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Fire",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 1."
+    },
+    {
+      "id": "buffs/druid/cast/endure-magic",
+      "name": "Buff timer: Endure Magic",
+      "pattern": "^You begin casting Endure Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Magic",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 34."
+    },
+    {
+      "id": "buffs/druid/cast/endure-poison",
+      "name": "Buff timer: Endure Poison",
+      "pattern": "^You begin casting Endure Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Endure Poison",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19."
+    },
+    {
+      "id": "buffs/druid/cast/enduring-breath",
+      "name": "Buff timer: Enduring Breath",
+      "pattern": "^You begin casting Enduring Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enduring Breath",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 6."
+    },
+    {
+      "id": "buffs/druid/cast/everlasting-breath",
+      "name": "Buff timer: Everlasting Breath",
+      "pattern": "^You begin casting Everlasting Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Everlasting Breath",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 50."
+    },
+    {
+      "id": "buffs/druid/cast/feral-pack",
+      "name": "Buff timer: Feral Pack",
+      "pattern": "^You begin casting Feral Pack\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Feral Pack",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 52."
+    },
+    {
+      "id": "buffs/druid/cast/feral-spirit",
+      "name": "Buff timer: Feral Spirit",
+      "pattern": "^You begin casting Feral Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Feral Spirit",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 18."
+    },
+    {
+      "id": "buffs/druid/cast/foliage-shield",
+      "name": "Buff timer: Foliage Shield",
+      "pattern": "^You begin casting Foliage Shield\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Foliage Shield",
+            "duration_secs": 1200,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 200,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 52."
+    },
+    {
+      "id": "buffs/druid/cast/form-of-the-howler",
+      "name": "Buff timer: Form of the Howler",
+      "pattern": "^You begin casting Form of the Howler\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of the Howler",
+            "duration_secs": 8640,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1440,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 54."
+    },
+    {
+      "id": "buffs/druid/cast/form-of-the-hunter",
+      "name": "Buff timer: Form of the Hunter",
+      "pattern": "^You begin casting Form of the Hunter\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Form of the Hunter",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1950,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60."
+    },
+    {
+      "id": "buffs/druid/cast/girdle-of-karana",
+      "name": "Buff timer: Girdle of Karana",
+      "pattern": "^You begin casting Girdle of Karana\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Girdle of Karana",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 55."
+    },
+    {
+      "id": "buffs/druid/cast/harmony",
+      "name": "Buff timer: Harmony",
+      "pattern": "^You begin casting Harmony\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Harmony",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Druid level 5."
+    },
+    {
+      "id": "buffs/druid/cast/harmony-of-nature",
+      "name": "Buff timer: Harmony of Nature",
+      "pattern": "^You begin casting Harmony of Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Harmony of Nature",
+            "duration_secs": 42,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 7,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Druid level 29."
+    },
+    {
+      "id": "buffs/druid/cast/improved-superior-camouflage",
+      "name": "Buff timer: Improved Superior Camouflage",
+      "pattern": "^You begin casting Improved Superior Camouflage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Improved Superior Camouflage",
+            "duration_secs": 600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Druid level 48."
+    },
+    {
+      "id": "buffs/druid/cast/invisibility-versus-animals",
+      "name": "Buff timer: Invisibility Versus Animals",
+      "pattern": "^You begin casting Invisibility Versus Animals\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invisibility Versus Animals",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 8."
+    },
+    {
+      "id": "buffs/druid/cast/legacy-of-spike",
+      "name": "Buff timer: Legacy of Spike",
+      "pattern": "^You begin casting Legacy of Spike\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Legacy of Spike",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 49."
+    },
+    {
+      "id": "buffs/druid/cast/legacy-of-thorn",
+      "name": "Buff timer: Legacy of Thorn",
+      "pattern": "^You begin casting Legacy of Thorn\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Legacy of Thorn",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 59."
+    },
+    {
+      "id": "buffs/druid/cast/levitate",
+      "name": "Buff timer: Levitate",
+      "pattern": "^You begin casting Levitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Levitate",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 14."
+    },
+    {
+      "id": "buffs/druid/cast/levitation",
+      "name": "Buff timer: Levitation",
+      "pattern": "^You begin casting Levitation\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Levitation",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 50."
+    },
+    {
+      "id": "buffs/druid/cast/lull-animal",
+      "name": "Buff timer: Lull Animal",
+      "pattern": "^You begin casting Lull Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Lull Animal",
+            "duration_secs": 120,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 9,
+            "duration_cap_ticks": 20,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Druid level 1."
+    },
+    {
+      "id": "buffs/druid/cast/mask-of-the-hunter",
+      "name": "Buff timer: Mask of the Hunter",
+      "pattern": "^You begin casting Mask of the Hunter\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mask of the Hunter",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1950,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60."
+    },
+    {
+      "id": "buffs/druid/cast/mask-of-the-stalker",
+      "name": "Buff timer: Mask of the Stalker",
+      "pattern": "^You begin casting Mask of the Stalker\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mask of the Stalker",
+            "duration_secs": 9000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1950,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60."
+    },
+    {
+      "id": "buffs/druid/cast/nature-s-recovery",
+      "name": "Buff timer: Nature's Recovery",
+      "pattern": "^You begin casting Nature's Recovery\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Nature's Recovery",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 4,
+            "duration_cap_ticks": 30,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~3m00s at level 50 (formula 4, cap 30 ticks); the engine rescales to the profile's level; Druid level 60."
+    },
+    {
+      "id": "buffs/druid/cast/natureskin",
+      "name": "Buff timer: Natureskin",
+      "pattern": "^You begin casting Natureskin\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Natureskin",
+            "duration_secs": 4860,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 810,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Druid level 57."
+    },
+    {
+      "id": "buffs/druid/cast/pack-chloroplast",
+      "name": "Buff timer: Pack Chloroplast",
+      "pattern": "^You begin casting Pack Chloroplast\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Chloroplast",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 9,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 45."
+    },
+    {
+      "id": "buffs/druid/cast/pack-regeneration",
+      "name": "Buff timer: Pack Regeneration",
+      "pattern": "^You begin casting Pack Regeneration\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Regeneration",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 39."
+    },
+    {
+      "id": "buffs/druid/cast/pack-shrew",
+      "name": "Buff timer: Pack Shrew",
+      "pattern": "^You begin casting Pack Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35."
+    },
+    {
+      "id": "buffs/druid/cast/pack-spirit",
+      "name": "Buff timer: Pack Spirit",
+      "pattern": "^You begin casting Pack Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pack Spirit",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-diamond",
+      "name": "Buff timer: Protection of Diamond",
+      "pattern": "^You begin casting Protection of Diamond\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of Diamond",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 8,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 39."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-nature",
+      "name": "Buff timer: Protection of Nature",
+      "pattern": "^You begin casting Protection of Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of Nature",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 9,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 49."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-rock",
+      "name": "Buff timer: Protection of Rock",
+      "pattern": "^You begin casting Protection of Rock\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of Rock",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-steel",
+      "name": "Buff timer: Protection of Steel",
+      "pattern": "^You begin casting Protection of Steel\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of Steel",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 27."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-wood",
+      "name": "Buff timer: Protection of Wood",
+      "pattern": "^You begin casting Protection of Wood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of Wood",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 9."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-the-cabbage",
+      "name": "Buff timer: Protection of the Cabbage",
+      "pattern": "^You begin casting Protection of the Cabbage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of the Cabbage",
+            "duration_secs": 6000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1000,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 59."
+    },
+    {
+      "id": "buffs/druid/cast/protection-of-the-glades",
+      "name": "Buff timer: Protection of the Glades",
+      "pattern": "^You begin casting Protection of the Glades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Protection of the Glades",
+            "duration_secs": 6000,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 1000,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 60."
+    },
+    {
+      "id": "buffs/druid/cast/regeneration",
+      "name": "Buff timer: Regeneration",
+      "pattern": "^You begin casting Regeneration\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Regeneration",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 34."
+    },
+    {
+      "id": "buffs/druid/cast/regrowth",
+      "name": "Buff timer: Regrowth",
+      "pattern": "^You begin casting Regrowth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Regrowth",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 54."
+    },
+    {
+      "id": "buffs/druid/cast/regrowth-of-the-grove",
+      "name": "Buff timer: Regrowth of the Grove",
+      "pattern": "^You begin casting Regrowth of the Grove\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Regrowth of the Grove",
+            "duration_secs": 1230,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 58."
+    },
+    {
+      "id": "buffs/druid/cast/resist-cold",
+      "name": "Buff timer: Resist Cold",
+      "pattern": "^You begin casting Resist Cold\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Cold",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30."
+    },
+    {
+      "id": "buffs/druid/cast/resist-disease",
+      "name": "Buff timer: Resist Disease",
+      "pattern": "^You begin casting Resist Disease\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Disease",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44."
+    },
+    {
+      "id": "buffs/druid/cast/resist-fire",
+      "name": "Buff timer: Resist Fire",
+      "pattern": "^You begin casting Resist Fire\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Fire",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 20."
+    },
+    {
+      "id": "buffs/druid/cast/resist-magic",
+      "name": "Buff timer: Resist Magic",
+      "pattern": "^You begin casting Resist Magic\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Magic",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 49."
+    },
+    {
+      "id": "buffs/druid/cast/resist-poison",
+      "name": "Buff timer: Resist Poison",
+      "pattern": "^You begin casting Resist Poison\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Resist Poison",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44."
+    },
+    {
+      "id": "buffs/druid/cast/savage-spirit",
+      "name": "Buff timer: Savage Spirit",
+      "pattern": "^You begin casting Savage Spirit\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Savage Spirit",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 11,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 41."
+    },
+    {
+      "id": "buffs/druid/cast/scale-of-wolf",
+      "name": "Buff timer: Scale of Wolf",
+      "pattern": "^You begin casting Scale of Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scale of Wolf",
+            "duration_secs": 2700,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 450,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Druid level 26."
+    },
+    {
+      "id": "buffs/druid/cast/see-invisible",
+      "name": "Buff timer: See Invisible",
+      "pattern": "^You begin casting See Invisible\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "See Invisible",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 13."
+    },
+    {
+      "id": "buffs/druid/cast/share-form-of-the-great-wolf",
+      "name": "Buff timer: Share Form of the Great Wolf",
+      "pattern": "^You begin casting Share Form of the Great Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Share Form of the Great Wolf",
+            "duration_secs": 21600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3600,
+            "duration_cap_ticks": 3600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~360m00s at level 50 (formula 3600, cap 3600 ticks); the engine rescales to the profile's level; Druid level 45."
+    },
+    {
+      "id": "buffs/druid/cast/shield-of-barbs",
+      "name": "Buff timer: Shield of Barbs",
+      "pattern": "^You begin casting Shield of Barbs\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Barbs",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 17."
+    },
+    {
+      "id": "buffs/druid/cast/shield-of-blades",
+      "name": "Buff timer: Shield of Blades",
+      "pattern": "^You begin casting Shield of Blades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Blades",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 58."
+    },
+    {
+      "id": "buffs/druid/cast/shield-of-brambles",
+      "name": "Buff timer: Shield of Brambles",
+      "pattern": "^You begin casting Shield of Brambles\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Brambles",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 27."
+    },
+    {
+      "id": "buffs/druid/cast/shield-of-spikes",
+      "name": "Buff timer: Shield of Spikes",
+      "pattern": "^You begin casting Shield of Spikes\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Spikes",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 37."
+    },
+    {
+      "id": "buffs/druid/cast/shield-of-thistles",
+      "name": "Buff timer: Shield of Thistles",
+      "pattern": "^You begin casting Shield of Thistles\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Thistles",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 7."
+    },
+    {
+      "id": "buffs/druid/cast/shield-of-thorns",
+      "name": "Buff timer: Shield of Thorns",
+      "pattern": "^You begin casting Shield of Thorns\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shield of Thorns",
+            "duration_secs": 900,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 150,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 47."
+    },
+    {
+      "id": "buffs/druid/cast/skin-like-diamond",
+      "name": "Buff timer: Skin like Diamond",
+      "pattern": "^You begin casting Skin like Diamond\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Diamond",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 36."
+    },
+    {
+      "id": "buffs/druid/cast/skin-like-nature",
+      "name": "Buff timer: Skin like Nature",
+      "pattern": "^You begin casting Skin like Nature\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Nature",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 46."
+    },
+    {
+      "id": "buffs/druid/cast/skin-like-rock",
+      "name": "Buff timer: Skin like Rock",
+      "pattern": "^You begin casting Skin like Rock\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Rock",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 14."
+    },
+    {
+      "id": "buffs/druid/cast/skin-like-steel",
+      "name": "Buff timer: Skin like Steel",
+      "pattern": "^You begin casting Skin like Steel\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Steel",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 6,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 24."
+    },
+    {
+      "id": "buffs/druid/cast/skin-like-wood",
+      "name": "Buff timer: Skin like Wood",
+      "pattern": "^You begin casting Skin like Wood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Skin like Wood",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 11,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 1."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-ash",
+      "name": "Buff timer: Spirit of Ash",
+      "pattern": "^You begin casting Spirit of Ash\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Ash",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 36."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-cheetah",
+      "name": "Buff timer: Spirit of Cheetah",
+      "pattern": "^You begin casting Spirit of Cheetah\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Cheetah",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 1,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Druid level 21."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-eagle",
+      "name": "Buff timer: Spirit of Eagle",
+      "pattern": "^You begin casting Spirit of Eagle\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Eagle",
+            "duration_secs": 3600,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 600,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Druid level 54."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-oak",
+      "name": "Buff timer: Spirit of Oak",
+      "pattern": "^You begin casting Spirit of Oak\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Oak",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 59."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-scale",
+      "name": "Buff timer: Spirit of Scale",
+      "pattern": "^You begin casting Spirit of Scale\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Scale",
+            "duration_secs": 4320,
+            "warn_at_secs": 10,
+            "cast_time_secs": 7,
+            "duration_formula": 3,
+            "duration_cap_ticks": 720,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 53."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-wolf",
+      "name": "Buff timer: Spirit of Wolf",
+      "pattern": "^You begin casting Spirit of Wolf\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of Wolf",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 10."
+    },
+    {
+      "id": "buffs/druid/cast/spirit-of-the-shrew",
+      "name": "Buff timer: Spirit of the Shrew",
+      "pattern": "^You begin casting Spirit of the Shrew\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spirit of the Shrew",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30."
+    },
+    {
+      "id": "buffs/druid/cast/storm-strength",
+      "name": "Buff timer: Storm Strength",
+      "pattern": "^You begin casting Storm Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Storm Strength",
+            "duration_secs": 3240,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 540,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 44."
+    },
+    {
+      "id": "buffs/druid/cast/strength-of-earth",
+      "name": "Buff timer: Strength of Earth",
+      "pattern": "^You begin casting Strength of Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strength of Earth",
+            "duration_secs": 1620,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 270,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 7."
+    },
+    {
+      "id": "buffs/druid/cast/strength-of-stone",
+      "name": "Buff timer: Strength of Stone",
+      "pattern": "^You begin casting Strength of Stone\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Strength of Stone",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 34."
+    },
+    {
+      "id": "buffs/druid/cast/superior-camouflage",
+      "name": "Buff timer: Superior Camouflage",
+      "pattern": "^You begin casting Superior Camouflage\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Superior Camouflage",
+            "duration_secs": 1440,
+            "warn_at_secs": 10,
+            "cast_time_secs": 5,
+            "duration_formula": 3,
+            "duration_cap_ticks": 240,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Druid level 18."
+    },
+    {
+      "id": "buffs/druid/cast/treeform",
+      "name": "Buff timer: Treeform",
+      "pattern": "^You begin casting Treeform\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Druid/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Treeform",
+            "duration_secs": 2160,
+            "warn_at_secs": 10,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 360,
+            "lane": "buff"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 6."
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-eagle",
+      "name": "Worn off: Spirit of Eagle",
+      "pattern": "^The avian spirit departs\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Eagle gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"The avian spirit departs.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/shield-of-blades",
+      "name": "Worn off: Shield of Blades",
+      "pattern": "^The blades fall away\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Shield of Blades gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"The blades fall away.\""
+    },
+    {
+      "id": "buffs/wear-off/foliage-shield",
+      "name": "Worn off: Foliage Shield",
+      "pattern": "^The mystical foliage vanishes\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Foliage Shield gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"The mystical foliage vanishes.\""
+    },
+    {
+      "id": "buffs/wear-off/scale-of-wolf",
+      "name": "Worn off: Scale of Wolf",
+      "pattern": "^The scale of wolf leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Scale of Wolf gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The scale of wolf leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/circle-of-seasons",
+      "name": "Worn off: Circle of Seasons",
+      "pattern": "^The seasonal haze clears\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Circle of Seasons gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"The seasonal haze clears.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-cheetah",
+      "name": "Worn off: Spirit of Cheetah",
+      "pattern": "^The spirit of cheetah fades\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Cheetah gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of cheetah fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-scale",
+      "name": "Worn off: Spirit of Scale",
+      "pattern": "^The spirit of scale leaves you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Scale gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"The spirit of scale leaves you.\""
+    },
+    {
+      "id": "buffs/wear-off/spirit-of-ash",
+      "name": "Worn off: Spirit of Ash",
+      "pattern": "^You are no longer a tree\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Spirit of Ash gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"You are no longer a tree.\" — shared by 5 spells in spells_us_str (3 castable; also: Spirit of Oak, Treeform). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/form-of-the-howler",
+      "name": "Worn off: Form of the Howler",
+      "pattern": "^You are no longer a wolf\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Form of the Howler gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"You are no longer a wolf.\" — shared by 8 spells in spells_us_str (3 castable; also: Form of the Hunter, Share Form of the Great Wolf). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/feral-pack",
+      "name": "Worn off: Feral Pack",
+      "pattern": "^You return to your true form\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Feral Pack gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"You return to your true form.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/girdle-of-karana",
+      "name": "Worn off: Girdle of Karana",
+      "pattern": "^Your Karanic strength fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Girdle of Karana gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"Your Karanic strength fades.\""
+    },
+    {
+      "id": "buffs/wear-off/mask-of-the-hunter",
+      "name": "Worn off: Mask of the Hunter",
+      "pattern": "^Your features return to normal\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Mask of the Hunter gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"Your features return to normal.\" — shared by 47 spells in spells_us_str (2 castable; also: Mask of the Stalker). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/invisibility-versus-animals",
+      "name": "Worn off: Invisibility Versus Animals",
+      "pattern": "^Your image returns\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Invisibility Versus Animals gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid",
+        "Shaman"
+      ],
+      "comments": "Wear-off message: \"Your image returns.\" — shared by 9 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+    },
+    {
+      "id": "buffs/wear-off/circle-of-summer",
+      "name": "Worn off: Circle of Summer",
+      "pattern": "^Your summer haze clears\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Circle of Summer gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"Your summer haze clears.\""
+    },
+    {
+      "id": "buffs/wear-off/circle-of-winter",
+      "name": "Worn off: Circle of Winter",
+      "pattern": "^Your winter haze clears\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Buffs/Wear-off",
+      "actions": [
+        {
+          "Speak": {
+            "template": "Circle of Winter gone"
+          }
+        }
+      ],
+      "classes": [
+        "Druid"
+      ],
+      "comments": "Wear-off message: \"Your winter haze clears.\""
+    }
+  ]
+}

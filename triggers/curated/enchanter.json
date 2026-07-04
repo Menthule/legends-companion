@@ -1,0 +1,277 @@
+{
+ "name": "Curated class pack — Enchanter",
+ "triggers": [
+  {
+   "id": "class/enchanter/cc/mez-landed",
+   "name": "Mez landed",
+   "pattern": "^(.+) has been mesmerized\\.$",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter",
+    "Bard"
+   ],
+   "actions": [
+    {
+     "DisplayText": {
+      "template": "${1} mezzed"
+     }
+    }
+   ],
+   "comments": "Verified in Legends log: 'Torvin has been mesmerized.'"
+  },
+  {
+   "id": "class/enchanter/cc/mesmerize-timer",
+   "name": "Mesmerize duration",
+   "pattern": "^You begin casting Mesmerize\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "StartTimer": {
+      "name": "Mez (Mesmerize)",
+      "duration_secs": 24,
+      "warn_at_secs": 6,
+      "lane": "enemy"
+     }
+    }
+   ],
+   "comments": "~24 s. Dazzle shares the landing message, so time from your own cast."
+  },
+  {
+   "id": "class/enchanter/cc/enthrall-timer",
+   "name": "Enthrall duration",
+   "pattern": "^You begin casting Enthrall\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "StartTimer": {
+      "name": "Mez (Enthrall)",
+      "duration_secs": 48,
+      "warn_at_secs": 6,
+      "lane": "enemy"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/enchanter/cc/entrance-timer",
+   "name": "Entrance duration",
+   "pattern": "^You begin casting Entrance\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "StartTimer": {
+      "name": "Mez (Entrance)",
+      "duration_secs": 74,
+      "warn_at_secs": 10,
+      "lane": "enemy"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/enchanter/cc/mez-worn-target",
+   "name": "Mez worn off target",
+   "pattern": "^Your (Mesmerize|Enthrall|Entrance|Dazzle) spell has worn off(?: of (.+))?\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter",
+    "Bard"
+   ],
+   "actions": [
+    {
+     "Speak": {
+      "template": "mez off"
+     }
+    },
+    {
+     "DisplayText": {
+      "template": "mez off ${2}"
+     }
+    },
+    {
+     "CancelTimer": {
+      "name": "Mez (${1})"
+     }
+    }
+   ],
+   "comments": "Legends wear-off includes the target: 'Your Mesmerize spell has worn off of Baron Telyx V`Zher.' Also matches the bare form. Walking Sleep is shaman-only and lives in class/shaman/cc/walking-sleep-worn. Also cancels the 'Mez (<Spell>)' countdown started by the curated cast timers."
+  },
+  {
+   "id": "class/enchanter/cc/charm-broken",
+   "name": "Charm broke",
+   "pattern": "^Your charm spell has worn off\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter",
+    "Bard",
+    "Druid",
+    "Necromancer"
+   ],
+   "actions": [
+    {
+     "Speak": {
+      "template": "charm broke"
+     }
+    },
+    {
+     "DisplayText": {
+      "template": "charm broke"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/enchanter/cc/root-landed",
+   "name": "Root landed",
+   "pattern": "^(.+)'s feet adhere to the ground\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Crowd Control",
+   "classes": [
+    "Enchanter",
+    "Wizard"
+   ],
+   "actions": [
+    {
+     "DisplayText": {
+      "template": "${1} rooted"
+     }
+    },
+    {
+     "StartTimer": {
+      "name": "Root — ${1}",
+      "duration_secs": 48,
+      "warn_at_secs": 10,
+      "lane": "enemy"
+     }
+    }
+   ],
+   "comments": "Verified 15x in Legends log. Base Root runs ~48 s at cap; higher-rank roots last longer — damage breaks are silent, so the countdown matters. Timer name carries the target ('Root — <mob>') so the target overlay groups it under the mob."
+  },
+  {
+   "id": "class/enchanter/debuffs/tash-landed",
+   "name": "Tash landed",
+   "pattern": "^(.+) glances nervously about\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Debuffs",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "DisplayText": {
+      "template": "${1} tashed"
+     }
+    }
+   ],
+   "comments": "Verified in Legends log."
+  },
+  {
+   "id": "class/enchanter/buffs/clarity-on",
+   "name": "Clarity on you",
+   "pattern": "^A soft breeze slips through your mind\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Buffs",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "DisplayText": {
+      "template": "clarity on"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/enchanter/buffs/clarity-fading",
+   "name": "Clarity fading",
+   "pattern": "^The soft breeze fades\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Buffs",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "Speak": {
+      "template": "clarity fading"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/enchanter/buffs/rune-fading",
+   "name": "Rune gone",
+   "pattern": "^Your shielding fades\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Buffs",
+   "classes": [
+    "Enchanter"
+   ],
+   "actions": [
+    {
+     "Speak": {
+      "template": "rune down"
+     }
+    }
+   ]
+  },
+  {
+   "id": "class/enchanter/buffs/haste-landed",
+   "name": "Haste landed",
+   "pattern": "^(.+) begins to move with wonderous rapidity\\.",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Enchanter/Buffs",
+   "classes": [
+    "Enchanter",
+    "Shaman"
+   ],
+   "actions": [
+    {
+     "DisplayText": {
+      "template": "${1} hasted"
+     }
+    }
+   ]
+  }
+ ]
+}

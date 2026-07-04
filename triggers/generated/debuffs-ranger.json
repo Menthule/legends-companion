@@ -1,0 +1,731 @@
+{
+  "name": "Generated enemy-effect timers — Ranger",
+  "triggers": [
+    {
+      "id": "debuffs/ranger/cast/drones-of-doom",
+      "name": "Enemy timer: Drones of Doom",
+      "pattern": "^You begin casting Drones of Doom\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Drones of Doom",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/ensnare",
+      "name": "Enemy timer: Ensnare",
+      "pattern": "^You begin casting Ensnare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ensnare",
+            "duration_secs": 660,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); CC; the engine rescales to the profile's level; Ranger level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/ensnaring-roots",
+      "name": "Enemy timer: Ensnaring Roots",
+      "pattern": "^You begin casting Ensnaring Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ensnaring Roots",
+            "duration_secs": 96,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/enveloping-roots",
+      "name": "Enemy timer: Enveloping Roots",
+      "pattern": "^You begin casting Enveloping Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enveloping Roots",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Ranger level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/fire-swarm",
+      "name": "Enemy timer: Fire Swarm",
+      "pattern": "^You begin casting Fire Swarm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fire Swarm",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/flame-lick",
+      "name": "Enemy timer: Flame Lick",
+      "pattern": "^You begin casting Flame Lick\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Flame Lick",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/grasping-roots",
+      "name": "Enemy timer: Grasping Roots",
+      "pattern": "^You begin casting Grasping Roots\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Grasping Roots",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Ranger level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/immolate",
+      "name": "Enemy timer: Immolate",
+      "pattern": "^You begin casting Immolate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Immolate",
+            "duration_secs": 48,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/panic-animal",
+      "name": "Enemy timer: Panic Animal",
+      "pattern": "^You begin casting Panic Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Panic Animal",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/snare",
+      "name": "Enemy timer: Snare",
+      "pattern": "^You begin casting Snare\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Snare",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 39,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); CC; the engine rescales to the profile's level; Ranger level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/stinging-swarm",
+      "name": "Enemy timer: Stinging Swarm",
+      "pattern": "^You begin casting Stinging Swarm\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Stinging Swarm",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/swarm-of-pain",
+      "name": "Enemy timer: Swarm of Pain",
+      "pattern": "^You begin casting Swarm of Pain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Swarm of Pain",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/tangle",
+      "name": "Enemy timer: Tangle",
+      "pattern": "^You begin casting Tangle\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tangle",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/ranger/cast/tangling-weeds",
+      "name": "Enemy timer: Tangling Weeds",
+      "pattern": "^You begin casting Tangling Weeds\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Ranger/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tangling Weeds",
+            "duration_secs": 18,
+            "warn_at_secs": 2,
+            "cast_time_secs": 1,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); CC; the engine rescales to the profile's level; Ranger level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/drones-of-doom",
+      "name": "Enemy timer cleared: Drones of Doom",
+      "pattern": "^Your Drones of Doom spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Drones of Doom"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Drones of Doom off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ensnare",
+      "name": "Enemy timer cleared: Ensnare",
+      "pattern": "^Your Ensnare spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ensnare"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ensnare off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ensnaring-roots",
+      "name": "Enemy timer cleared: Ensnaring Roots",
+      "pattern": "^Your Ensnaring Roots spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ensnaring Roots"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ensnaring Roots off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/enveloping-roots",
+      "name": "Enemy timer cleared: Enveloping Roots",
+      "pattern": "^Your Enveloping Roots spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Enveloping Roots"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Enveloping Roots off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/fire-swarm",
+      "name": "Enemy timer cleared: Fire Swarm",
+      "pattern": "^Your Fire Swarm spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Fire Swarm"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Fire Swarm off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/flame-lick",
+      "name": "Enemy timer cleared: Flame Lick",
+      "pattern": "^Your Flame Lick spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Flame Lick"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Flame Lick off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/grasping-roots",
+      "name": "Enemy timer cleared: Grasping Roots",
+      "pattern": "^Your Grasping Roots spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Grasping Roots"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Grasping Roots off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/immolate",
+      "name": "Enemy timer cleared: Immolate",
+      "pattern": "^Your Immolate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Immolate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Immolate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/panic-animal",
+      "name": "Enemy timer cleared: Panic Animal",
+      "pattern": "^Your Panic Animal spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Panic Animal"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Panic Animal off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/snare",
+      "name": "Enemy timer cleared: Snare",
+      "pattern": "^Your Snare spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Snare"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Snare off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/stinging-swarm",
+      "name": "Enemy timer cleared: Stinging Swarm",
+      "pattern": "^Your Stinging Swarm spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Stinging Swarm"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Stinging Swarm off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/swarm-of-pain",
+      "name": "Enemy timer cleared: Swarm of Pain",
+      "pattern": "^Your Swarm of Pain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Swarm of Pain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Swarm of Pain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tangle",
+      "name": "Enemy timer cleared: Tangle",
+      "pattern": "^Your Tangle spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tangle"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tangle off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tangling-weeds",
+      "name": "Enemy timer cleared: Tangling Weeds",
+      "pattern": "^Your Tangling Weeds spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tangling Weeds"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tangling Weeds off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Ranger",
+        "Druid"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

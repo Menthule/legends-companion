@@ -1,0 +1,1916 @@
+{
+  "name": "Generated enemy-effect timers — Shaman",
+  "triggers": [
+    {
+      "id": "debuffs/shaman/cast/affliction",
+      "name": "Enemy timer: Affliction",
+      "pattern": "^You begin casting Affliction\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Affliction",
+            "duration_secs": 84,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 14,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m24s at level 50 (formula 10, cap 14 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/anathema",
+      "name": "Enemy timer: Anathema",
+      "pattern": "^You begin casting Anathema\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Anathema",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/ancient-scourge-of-nife",
+      "name": "Enemy timer: Ancient: Scourge of Nife",
+      "pattern": "^You begin casting Ancient: Scourge of Nife\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Ancient: Scourge of Nife",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/bane-of-nife",
+      "name": "Enemy timer: Bane of Nife",
+      "pattern": "^You begin casting Bane of Nife\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Bane of Nife",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/befriend-animal",
+      "name": "Enemy timer: Befriend Animal",
+      "pattern": "^You begin casting Befriend Animal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Befriend Animal",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/blinding-luminance",
+      "name": "Enemy timer: Blinding Luminance",
+      "pattern": "^You begin casting Blinding Luminance\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blinding Luminance",
+            "duration_secs": 24,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 1,
+            "duration_cap_ticks": 4,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/charm-animals",
+      "name": "Enemy timer: Charm Animals",
+      "pattern": "^You begin casting Charm Animals\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Charm Animals",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/cripple",
+      "name": "Enemy timer: Cripple",
+      "pattern": "^You begin casting Cripple\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cripple",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/curse",
+      "name": "Enemy timer: Curse",
+      "pattern": "^You begin casting Curse\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Curse",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/disempower",
+      "name": "Enemy timer: Disempower",
+      "pattern": "^You begin casting Disempower\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Disempower",
+            "duration_secs": 120,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 20,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/drowsy",
+      "name": "Enemy timer: Drowsy",
+      "pattern": "^You begin casting Drowsy\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Drowsy",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/envenomed-bolt",
+      "name": "Enemy timer: Envenomed Bolt",
+      "pattern": "^You begin casting Envenomed Bolt\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Envenomed Bolt",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/envenomed-breath",
+      "name": "Enemy timer: Envenomed Breath",
+      "pattern": "^You begin casting Envenomed Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Envenomed Breath",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 24. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/flash-of-light",
+      "name": "Enemy timer: Flash of Light",
+      "pattern": "^You begin casting Flash of Light\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Flash of Light",
+            "duration_secs": 12,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 5,
+            "duration_cap_ticks": 2,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/immobilize",
+      "name": "Enemy timer: Immobilize",
+      "pattern": "^You begin casting Immobilize\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Immobilize",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Shaman level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/incapacitate",
+      "name": "Enemy timer: Incapacitate",
+      "pattern": "^You begin casting Incapacitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Incapacitate",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/infectious-cloud",
+      "name": "Enemy timer: Infectious Cloud",
+      "pattern": "^You begin casting Infectious Cloud\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Infectious Cloud",
+            "duration_secs": 126,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 21,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m06s at level 50 (formula 10, cap 21 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/insidious-decay",
+      "name": "Enemy timer: Insidious Decay",
+      "pattern": "^You begin casting Insidious Decay\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Insidious Decay",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/insidious-fever",
+      "name": "Enemy timer: Insidious Fever",
+      "pattern": "^You begin casting Insidious Fever\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Insidious Fever",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 17. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/insidious-malady",
+      "name": "Enemy timer: Insidious Malady",
+      "pattern": "^You begin casting Insidious Malady\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Insidious Malady",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 1,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/instill",
+      "name": "Enemy timer: Instill",
+      "pattern": "^You begin casting Instill\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Instill",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Shaman level 33. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/listless-power",
+      "name": "Enemy timer: Listless Power",
+      "pattern": "^You begin casting Listless Power\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Listless Power",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 29. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/malaise",
+      "name": "Enemy timer: Malaise",
+      "pattern": "^You begin casting Malaise\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malaise",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/malaisement",
+      "name": "Enemy timer: Malaisement",
+      "pattern": "^You begin casting Malaisement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malaisement",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/malo",
+      "name": "Enemy timer: Malo",
+      "pattern": "^You begin casting Malo\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malo",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/malosi",
+      "name": "Enemy timer: Malosi",
+      "pattern": "^You begin casting Malosi\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malosi",
+            "duration_secs": 660,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 9,
+            "duration_cap_ticks": 140,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/malosini",
+      "name": "Enemy timer: Malosini",
+      "pattern": "^You begin casting Malosini\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Malosini",
+            "duration_secs": 1230,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 205,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/odium",
+      "name": "Enemy timer: Odium",
+      "pattern": "^You begin casting Odium\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Odium",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/paralyzing-earth",
+      "name": "Enemy timer: Paralyzing Earth",
+      "pattern": "^You begin casting Paralyzing Earth\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Paralyzing Earth",
+            "duration_secs": 180,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 30,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Shaman level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/plague",
+      "name": "Enemy timer: Plague",
+      "pattern": "^You begin casting Plague\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Plague",
+            "duration_secs": 78,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 13,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m18s at level 50 (formula 10, cap 13 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/plague-of-insects",
+      "name": "Enemy timer: Plague of Insects",
+      "pattern": "^You begin casting Plague of Insects\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Plague of Insects",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 7,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/pox-of-bertoxxulous",
+      "name": "Enemy timer: Pox of Bertoxxulous",
+      "pattern": "^You begin casting Pox of Bertoxxulous\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Pox of Bertoxxulous",
+            "duration_secs": 84,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 14,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m24s at level 50 (formula 7, cap 14 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/root",
+      "name": "Enemy timer: Root",
+      "pattern": "^You begin casting Root\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Root",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Shaman level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/scourge",
+      "name": "Enemy timer: Scourge",
+      "pattern": "^You begin casting Scourge\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scourge",
+            "duration_secs": 72,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 10,
+            "duration_cap_ticks": 12,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/sicken",
+      "name": "Enemy timer: Sicken",
+      "pattern": "^You begin casting Sicken\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Sicken",
+            "duration_secs": 84,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 14,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~1m24s at level 50 (formula 8, cap 14 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/tagar-s-insects",
+      "name": "Enemy timer: Tagar's Insects",
+      "pattern": "^You begin casting Tagar's Insects\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tagar's Insects",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/tainted-breath",
+      "name": "Enemy timer: Tainted Breath",
+      "pattern": "^You begin casting Tainted Breath\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tainted Breath",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/tigir-s-insects",
+      "name": "Enemy timer: Tigir's Insects",
+      "pattern": "^You begin casting Tigir's Insects\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Tigir's Insects",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/togor-s-insects",
+      "name": "Enemy timer: Togor's Insects",
+      "pattern": "^You begin casting Togor's Insects\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Togor's Insects",
+            "duration_secs": 150,
+            "warn_at_secs": null,
+            "cast_time_secs": 5,
+            "duration_formula": 6,
+            "duration_cap_ticks": 35,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/turgur-s-insects",
+      "name": "Enemy timer: Turgur's Insects",
+      "pattern": "^You begin casting Turgur's Insects\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Turgur's Insects",
+            "duration_secs": 300,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 65,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shaman/cast/venom-of-the-snake",
+      "name": "Enemy timer: Venom of the Snake",
+      "pattern": "^You begin casting Venom of the Snake\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Shaman/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Venom of the Snake",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/affliction",
+      "name": "Enemy timer cleared: Affliction",
+      "pattern": "^Your Affliction spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Affliction"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Affliction off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/anathema",
+      "name": "Enemy timer cleared: Anathema",
+      "pattern": "^Your Anathema spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Anathema"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Anathema off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/ancient-scourge-of-nife",
+      "name": "Enemy timer cleared: Ancient: Scourge of Nife",
+      "pattern": "^Your Ancient: Scourge of Nife spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Ancient: Scourge of Nife"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Ancient: Scourge of Nife off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/bane-of-nife",
+      "name": "Enemy timer cleared: Bane of Nife",
+      "pattern": "^Your Bane of Nife spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Bane of Nife"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Bane of Nife off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cripple",
+      "name": "Enemy timer cleared: Cripple",
+      "pattern": "^Your Cripple spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cripple"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cripple off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/curse",
+      "name": "Enemy timer cleared: Curse",
+      "pattern": "^Your Curse spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Curse"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Curse off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/disempower",
+      "name": "Enemy timer cleared: Disempower",
+      "pattern": "^Your Disempower spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Disempower"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Disempower off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Enchanter"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/drowsy",
+      "name": "Enemy timer cleared: Drowsy",
+      "pattern": "^Your Drowsy spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Drowsy"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Drowsy off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/envenomed-bolt",
+      "name": "Enemy timer cleared: Envenomed Bolt",
+      "pattern": "^Your Envenomed Bolt spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Envenomed Bolt"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Envenomed Bolt off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/envenomed-breath",
+      "name": "Enemy timer cleared: Envenomed Breath",
+      "pattern": "^Your Envenomed Breath spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Envenomed Breath"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Envenomed Breath off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/incapacitate",
+      "name": "Enemy timer cleared: Incapacitate",
+      "pattern": "^Your Incapacitate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Incapacitate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Incapacitate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/infectious-cloud",
+      "name": "Enemy timer cleared: Infectious Cloud",
+      "pattern": "^Your Infectious Cloud spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Infectious Cloud"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Infectious Cloud off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/insidious-decay",
+      "name": "Enemy timer cleared: Insidious Decay",
+      "pattern": "^Your Insidious Decay spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Insidious Decay"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Insidious Decay off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/insidious-fever",
+      "name": "Enemy timer cleared: Insidious Fever",
+      "pattern": "^Your Insidious Fever spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Insidious Fever"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Insidious Fever off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/insidious-malady",
+      "name": "Enemy timer cleared: Insidious Malady",
+      "pattern": "^Your Insidious Malady spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Insidious Malady"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Insidious Malady off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/listless-power",
+      "name": "Enemy timer cleared: Listless Power",
+      "pattern": "^Your Listless Power spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Listless Power"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Listless Power off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Enchanter",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/malaise",
+      "name": "Enemy timer cleared: Malaise",
+      "pattern": "^Your Malaise spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Malaise"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Malaise off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/malaisement",
+      "name": "Enemy timer cleared: Malaisement",
+      "pattern": "^Your Malaisement spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Malaisement"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Malaisement off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/malo",
+      "name": "Enemy timer cleared: Malo",
+      "pattern": "^Your Malo spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Malo"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Malo off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/malosi",
+      "name": "Enemy timer cleared: Malosi",
+      "pattern": "^Your Malosi spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Malosi"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Malosi off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/malosini",
+      "name": "Enemy timer cleared: Malosini",
+      "pattern": "^Your Malosini spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Malosini"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Malosini off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Magician"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/odium",
+      "name": "Enemy timer cleared: Odium",
+      "pattern": "^Your Odium spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Odium"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Odium off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/plague",
+      "name": "Enemy timer cleared: Plague",
+      "pattern": "^Your Plague spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Plague"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Plague off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/plague-of-insects",
+      "name": "Enemy timer cleared: Plague of Insects",
+      "pattern": "^Your Plague of Insects spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Plague of Insects"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Plague of Insects off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/pox-of-bertoxxulous",
+      "name": "Enemy timer cleared: Pox of Bertoxxulous",
+      "pattern": "^Your Pox of Bertoxxulous spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Pox of Bertoxxulous"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Pox of Bertoxxulous off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scourge",
+      "name": "Enemy timer cleared: Scourge",
+      "pattern": "^Your Scourge spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scourge"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scourge off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/sicken",
+      "name": "Enemy timer cleared: Sicken",
+      "pattern": "^Your Sicken spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Sicken"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Sicken off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tagar-s-insects",
+      "name": "Enemy timer cleared: Tagar's Insects",
+      "pattern": "^Your Tagar's Insects spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tagar's Insects"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tagar's Insects off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tainted-breath",
+      "name": "Enemy timer cleared: Tainted Breath",
+      "pattern": "^Your Tainted Breath spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tainted Breath"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tainted Breath off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/tigir-s-insects",
+      "name": "Enemy timer cleared: Tigir's Insects",
+      "pattern": "^Your Tigir's Insects spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Tigir's Insects"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Tigir's Insects off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/togor-s-insects",
+      "name": "Enemy timer cleared: Togor's Insects",
+      "pattern": "^Your Togor's Insects spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Togor's Insects"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Togor's Insects off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/turgur-s-insects",
+      "name": "Enemy timer cleared: Turgur's Insects",
+      "pattern": "^Your Turgur's Insects spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Turgur's Insects"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Turgur's Insects off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/venom-of-the-snake",
+      "name": "Enemy timer cleared: Venom of the Snake",
+      "pattern": "^Your Venom of the Snake spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Venom of the Snake"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Venom of the Snake off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "Shaman",
+        "Necromancer",
+        "Beastlord"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}

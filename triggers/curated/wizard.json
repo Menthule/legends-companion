@@ -1,0 +1,26 @@
+{
+  "name": "Curated class pack — Wizard",
+  "triggers": [
+    {
+      "id": "class/wizard/offense/resist-alert",
+      "name": "Nuke resisted",
+      "pattern": "^(.+) resisted your (.+)!",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Wizard/Offense",
+      "classes": [
+        "Wizard",
+        "Magician"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Resisted: ${2}"
+          }
+        }
+      ],
+      "comments": "Legends modern resist format (verified in log). Class-tagged copy of the universal tier-2 resist alert, on by default for nukers."
+    }
+  ]
+}

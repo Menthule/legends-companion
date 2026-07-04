@@ -1,0 +1,1501 @@
+{
+  "name": "Generated enemy-effect timers — ShadowKnight",
+  "triggers": [
+    {
+      "id": "debuffs/shadowknight/cast/abduction-of-strength",
+      "name": "Enemy timer: Abduction of Strength",
+      "pattern": "^You begin casting Abduction of Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Abduction of Strength",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/asystole",
+      "name": "Enemy timer: Asystole",
+      "pattern": "^You begin casting Asystole\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Asystole",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/blood-of-pain",
+      "name": "Enemy timer: Blood of Pain",
+      "pattern": "^You begin casting Blood of Pain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Blood of Pain",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/boil-blood",
+      "name": "Enemy timer: Boil Blood",
+      "pattern": "^You begin casting Boil Blood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Boil Blood",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/cancelling-of-life",
+      "name": "Enemy timer: Cancelling of Life",
+      "pattern": "^You begin casting Cancelling of Life\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cancelling of Life",
+            "duration_secs": 60,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/cascading-darkness",
+      "name": "Enemy timer: Cascading Darkness",
+      "pattern": "^You begin casting Cascading Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Cascading Darkness",
+            "duration_secs": 96,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 16,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/clinging-darkness",
+      "name": "Enemy timer: Clinging Darkness",
+      "pattern": "^You begin casting Clinging Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Clinging Darkness",
+            "duration_secs": 48,
+            "warn_at_secs": 7,
+            "cast_time_secs": 2,
+            "duration_formula": 1,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/despair",
+      "name": "Enemy timer: Despair",
+      "pattern": "^You begin casting Despair\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Despair",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/disease-cloud",
+      "name": "Enemy timer: Disease Cloud",
+      "pattern": "^You begin casting Disease Cloud\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Disease Cloud",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/dooming-darkness",
+      "name": "Enemy timer: Dooming Darkness",
+      "pattern": "^You begin casting Dooming Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Dooming Darkness",
+            "duration_secs": 90,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 15,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/engulfing-darkness",
+      "name": "Enemy timer: Engulfing Darkness",
+      "pattern": "^You begin casting Engulfing Darkness\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Engulfing Darkness",
+            "duration_secs": 60,
+            "warn_at_secs": 9,
+            "cast_time_secs": 2,
+            "duration_formula": 7,
+            "duration_cap_ticks": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/fear",
+      "name": "Enemy timer: Fear",
+      "pattern": "^You begin casting Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Fear",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 7,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/heart-flutter",
+      "name": "Enemy timer: Heart Flutter",
+      "pattern": "^You begin casting Heart Flutter\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Heart Flutter",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/heat-blood",
+      "name": "Enemy timer: Heat Blood",
+      "pattern": "^You begin casting Heat Blood\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Heat Blood",
+            "duration_secs": 36,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 6,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/invoke-fear",
+      "name": "Enemy timer: Invoke Fear",
+      "pattern": "^You begin casting Invoke Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Invoke Fear",
+            "duration_secs": 42,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 2,
+            "duration_cap_ticks": 7,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/negation-of-life",
+      "name": "Enemy timer: Negation of Life",
+      "pattern": "^You begin casting Negation of Life\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Negation of Life",
+            "duration_secs": 90,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 1,
+            "duration_cap_ticks": 15,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/panic-the-dead",
+      "name": "Enemy timer: Panic the Dead",
+      "pattern": "^You begin casting Panic the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Panic the Dead",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/scream-of-hate",
+      "name": "Enemy timer: Scream of Hate",
+      "pattern": "^You begin casting Scream of Hate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scream of Hate",
+            "duration_secs": 600,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/scream-of-pain",
+      "name": "Enemy timer: Scream of Pain",
+      "pattern": "^You begin casting Scream of Pain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Scream of Pain",
+            "duration_secs": 600,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/shadow-voice",
+      "name": "Enemy timer: Shadow Voice",
+      "pattern": "^You begin casting Shadow Voice\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shadow Voice",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/shadow-vortex",
+      "name": "Enemy timer: Shadow Vortex",
+      "pattern": "^You begin casting Shadow Vortex\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shadow Vortex",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 8,
+            "duration_cap_ticks": 75,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/shroud-of-hate",
+      "name": "Enemy timer: Shroud of Hate",
+      "pattern": "^You begin casting Shroud of Hate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shroud of Hate",
+            "duration_secs": 600,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/shroud-of-pain",
+      "name": "Enemy timer: Shroud of Pain",
+      "pattern": "^You begin casting Shroud of Pain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Shroud of Pain",
+            "duration_secs": 600,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 100,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/siphon-strength",
+      "name": "Enemy timer: Siphon Strength",
+      "pattern": "^You begin casting Siphon Strength\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Siphon Strength",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/soulless-fear",
+      "name": "Enemy timer: Soulless Fear",
+      "pattern": "^You begin casting Soulless Fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Soulless Fear",
+            "duration_secs": 30,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 7,
+            "duration_cap_ticks": 5,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/spook-the-dead",
+      "name": "Enemy timer: Spook the Dead",
+      "pattern": "^You begin casting Spook the Dead\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Spook the Dead",
+            "duration_secs": 18,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 2,
+            "duration_cap_ticks": 3,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/torrent-of-fatigue",
+      "name": "Enemy timer: Torrent of Fatigue",
+      "pattern": "^You begin casting Torrent of Fatigue\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Torrent of Fatigue",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/torrent-of-hate",
+      "name": "Enemy timer: Torrent of Hate",
+      "pattern": "^You begin casting Torrent of Hate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Torrent of Hate",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/torrent-of-pain",
+      "name": "Enemy timer: Torrent of Pain",
+      "pattern": "^You begin casting Torrent of Pain\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Torrent of Pain",
+            "duration_secs": 360,
+            "warn_at_secs": null,
+            "cast_time_secs": 2,
+            "duration_formula": 3,
+            "duration_cap_ticks": 60,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/vampiric-curse",
+      "name": "Enemy timer: Vampiric Curse",
+      "pattern": "^You begin casting Vampiric Curse\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Vampiric Curse",
+            "duration_secs": 54,
+            "warn_at_secs": null,
+            "cast_time_secs": 4,
+            "duration_formula": 2,
+            "duration_cap_ticks": 9,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/shadowknight/cast/wave-of-enfeeblement",
+      "name": "Enemy timer: Wave of Enfeeblement",
+      "pattern": "^You begin casting Wave of Enfeeblement\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/ShadowKnight/Timers",
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Wave of Enfeeblement",
+            "duration_secs": 240,
+            "warn_at_secs": null,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 40,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+    },
+    {
+      "id": "debuffs/worn/abduction-of-strength",
+      "name": "Enemy timer cleared: Abduction of Strength",
+      "pattern": "^Your Abduction of Strength spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Abduction of Strength"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Abduction of Strength off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/asystole",
+      "name": "Enemy timer cleared: Asystole",
+      "pattern": "^Your Asystole spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Asystole"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Asystole off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/blood-of-pain",
+      "name": "Enemy timer cleared: Blood of Pain",
+      "pattern": "^Your Blood of Pain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Blood of Pain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Blood of Pain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/boil-blood",
+      "name": "Enemy timer cleared: Boil Blood",
+      "pattern": "^Your Boil Blood spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Boil Blood"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Boil Blood off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cancelling-of-life",
+      "name": "Enemy timer cleared: Cancelling of Life",
+      "pattern": "^Your Cancelling of Life spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cancelling of Life"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cancelling of Life off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/cascading-darkness",
+      "name": "Enemy timer cleared: Cascading Darkness",
+      "pattern": "^Your Cascading Darkness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Cascading Darkness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Cascading Darkness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/clinging-darkness",
+      "name": "Enemy timer cleared: Clinging Darkness",
+      "pattern": "^Your Clinging Darkness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Clinging Darkness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Clinging Darkness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/despair",
+      "name": "Enemy timer cleared: Despair",
+      "pattern": "^Your Despair spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Despair"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Despair off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/disease-cloud",
+      "name": "Enemy timer cleared: Disease Cloud",
+      "pattern": "^Your Disease Cloud spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Disease Cloud"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Disease Cloud off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/dooming-darkness",
+      "name": "Enemy timer cleared: Dooming Darkness",
+      "pattern": "^Your Dooming Darkness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Dooming Darkness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Dooming Darkness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/engulfing-darkness",
+      "name": "Enemy timer cleared: Engulfing Darkness",
+      "pattern": "^Your Engulfing Darkness spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Engulfing Darkness"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Engulfing Darkness off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/heart-flutter",
+      "name": "Enemy timer cleared: Heart Flutter",
+      "pattern": "^Your Heart Flutter spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Heart Flutter"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Heart Flutter off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/heat-blood",
+      "name": "Enemy timer cleared: Heat Blood",
+      "pattern": "^Your Heat Blood spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Heat Blood"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Heat Blood off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/negation-of-life",
+      "name": "Enemy timer cleared: Negation of Life",
+      "pattern": "^Your Negation of Life spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Negation of Life"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Negation of Life off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scream-of-hate",
+      "name": "Enemy timer cleared: Scream of Hate",
+      "pattern": "^Your Scream of Hate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scream of Hate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scream of Hate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/scream-of-pain",
+      "name": "Enemy timer cleared: Scream of Pain",
+      "pattern": "^Your Scream of Pain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Scream of Pain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Scream of Pain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shadow-voice",
+      "name": "Enemy timer cleared: Shadow Voice",
+      "pattern": "^Your Shadow Voice spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shadow Voice"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shadow Voice off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shadow-vortex",
+      "name": "Enemy timer cleared: Shadow Vortex",
+      "pattern": "^Your Shadow Vortex spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shadow Vortex"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shadow Vortex off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shroud-of-hate",
+      "name": "Enemy timer cleared: Shroud of Hate",
+      "pattern": "^Your Shroud of Hate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shroud of Hate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shroud of Hate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/shroud-of-pain",
+      "name": "Enemy timer cleared: Shroud of Pain",
+      "pattern": "^Your Shroud of Pain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Shroud of Pain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Shroud of Pain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/siphon-strength",
+      "name": "Enemy timer cleared: Siphon Strength",
+      "pattern": "^Your Siphon Strength spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Siphon Strength"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Siphon Strength off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/soulless-fear",
+      "name": "Enemy timer cleared: Soulless Fear",
+      "pattern": "^Your Soulless Fear spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Soulless Fear"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Soulless Fear off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/torrent-of-fatigue",
+      "name": "Enemy timer cleared: Torrent of Fatigue",
+      "pattern": "^Your Torrent of Fatigue spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Torrent of Fatigue"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Torrent of Fatigue off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/torrent-of-hate",
+      "name": "Enemy timer cleared: Torrent of Hate",
+      "pattern": "^Your Torrent of Hate spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Torrent of Hate"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Torrent of Hate off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/torrent-of-pain",
+      "name": "Enemy timer cleared: Torrent of Pain",
+      "pattern": "^Your Torrent of Pain spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Torrent of Pain"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Torrent of Pain off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/vampiric-curse",
+      "name": "Enemy timer cleared: Vampiric Curse",
+      "pattern": "^Your Vampiric Curse spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Vampiric Curse"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Vampiric Curse off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    },
+    {
+      "id": "debuffs/worn/wave-of-enfeeblement",
+      "name": "Enemy timer cleared: Wave of Enfeeblement",
+      "pattern": "^Your Wave of Enfeeblement spell has worn off(?: of (.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "generated",
+      "category": "Debuffs/Wear-off",
+      "actions": [
+        {
+          "CancelTimer": {
+            "name": "Wave of Enfeeblement"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Wave of Enfeeblement off ${1}"
+          }
+        }
+      ],
+      "classes": [
+        "ShadowKnight",
+        "Necromancer"
+      ],
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+    }
+  ]
+}
