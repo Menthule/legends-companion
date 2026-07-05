@@ -376,7 +376,7 @@
       "actions": [
         {
           "StartTimer": {
-            "name": "Gather Shadows",
+            "name": "Invisibility",
             "duration_secs": 1200,
             "warn_at_secs": 10,
             "cast_time_secs": 5,
@@ -389,7 +389,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Necromancer level 7."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Necromancer level 7. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/necromancer/cast/guard-of-calliav",
@@ -454,7 +454,7 @@
       "actions": [
         {
           "StartTimer": {
-            "name": "Improved Invisibility to Undead",
+            "name": "Invisibility",
             "duration_secs": 600,
             "warn_at_secs": 10,
             "cast_time_secs": 4,
@@ -467,7 +467,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Necromancer level 50."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Necromancer level 50. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/necromancer/cast/intensify-death",
@@ -506,7 +506,7 @@
       "actions": [
         {
           "StartTimer": {
-            "name": "Invisibility Versus Undead",
+            "name": "Invisibility",
             "duration_secs": 1620,
             "warn_at_secs": 10,
             "cast_time_secs": 4,
@@ -519,7 +519,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 1."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 1. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/necromancer/cast/leatherskin",

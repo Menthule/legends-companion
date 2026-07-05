@@ -909,7 +909,7 @@
       "classes": [
         "Shaman"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Shaman level 27."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Shaman level 27. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/shaman/cast/invisibility-versus-animals",
@@ -922,7 +922,7 @@
       "actions": [
         {
           "StartTimer": {
-            "name": "Invisibility Versus Animals",
+            "name": "Invisibility",
             "duration_secs": 2160,
             "warn_at_secs": 10,
             "cast_time_secs": 3,
@@ -935,7 +935,7 @@
       "classes": [
         "Shaman"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/shaman/cast/khura-s-focusing",

@@ -896,7 +896,7 @@
       "actions": [
         {
           "StartTimer": {
-            "name": "Improved Invisibility to Undead",
+            "name": "Invisibility",
             "duration_secs": 600,
             "warn_at_secs": 10,
             "cast_time_secs": 4,
@@ -909,7 +909,7 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Cleric level 48."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Cleric level 48. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/cleric/cast/invisibility-versus-undead",
@@ -922,7 +922,7 @@
       "actions": [
         {
           "StartTimer": {
-            "name": "Invisibility Versus Undead",
+            "name": "Invisibility",
             "duration_secs": 1620,
             "warn_at_secs": 10,
             "cast_time_secs": 4,
@@ -935,7 +935,7 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
     },
     {
       "id": "buffs/cleric/cast/lull",
@@ -2277,16 +2277,16 @@
     },
     {
       "id": "buffs/wear-off/improved-invisibility-to-undead",
-      "name": "Worn off: Improved Invisibility to Undead",
+      "name": "Invis cleared: Improved Invisibility to Undead",
       "pattern": "^Your skin stops tingling\\.$",
       "enabled": true,
-      "default_enabled": false,
+      "default_enabled": true,
       "source": "generated",
       "category": "Buffs/Wear-off",
       "actions": [
         {
-          "Speak": {
-            "template": "Improved Invisibility to Undead gone"
+          "CancelTimer": {
+            "name": "Invisibility"
           }
         }
       ],
@@ -2298,7 +2298,7 @@
         "Wizard",
         "Enchanter"
       ],
-      "comments": "Wear-off message: \"Your skin stops tingling.\" — shared by 21 spells in spells_us_str (4 castable; also: Invisibility Versus Undead, Invisibility to Undead, Sunskin). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your skin stops tingling.\" — shared by 21 spells in spells_us_str (4 castable; also: Invisibility Versus Undead, Invisibility to Undead, Sunskin). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer."
     },
     {
       "id": "buffs/wear-off/spirit-armor",

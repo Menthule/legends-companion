@@ -612,6 +612,42 @@ fn scaled_short_durations_clamp_the_warning_lead() {
     );
 }
 
+#[test]
+fn invis_buffs_share_one_timer_that_clears_on_drop() {
+    // Every classic invis is random-duration, so the generated invis buffs all
+    // drive ONE shared "Invisibility" bar that clears on the actual drop line
+    // rather than running a per-spell countdown that lies.
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Necromancer".into()];
+    profile.level = 20;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    // Casting Gather Shadows (necro invis) starts the shared bar.
+    engine.process(&line(0, "You begin casting Gather Shadows."), &mut sink);
+    assert!(
+        engine
+            .active_timers(1)
+            .iter()
+            .any(|(n, _)| n == "Invisibility"),
+        "invis cast should start the shared Invisibility bar: {:?}",
+        engine.active_timers(1)
+    );
+
+    // Its wear-off line ("Your shadows fade.") clears the shared bar — even
+    // though that message differs from the universal "You appear." line.
+    engine.process(&line(2, "Your shadows fade."), &mut sink);
+    assert!(
+        !engine
+            .active_timers(3)
+            .iter()
+            .any(|(n, _)| n == "Invisibility"),
+        "the Invisibility bar must clear when invis drops: {:?}",
+        engine.active_timers(3)
+    );
+    assert!(sink.cancels.contains(&"Invisibility".to_string()));
+}
+
 // --- real-fixture pass with the shipped trigger library ----------------------
 
 fn load_library() -> Vec<Trigger> {

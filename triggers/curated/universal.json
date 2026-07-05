@@ -86,9 +86,10 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Universal/Survival",
-      "comments": "eqstr 275 — the early warning before invisibility breaks.",
+      "comments": "eqstr 275 — the early warning before invisibility breaks. Also clears the shared 'Invisibility' buff bar (generated invis timers all use that name).",
       "actions": [
-        { "DisplayText": { "template": "invis dropping" } }
+        { "DisplayText": { "template": "invis dropping" } },
+        { "CancelTimer": { "name": "Invisibility" } }
       ]
     },
     {
@@ -99,8 +100,10 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Universal/Survival",
+      "comments": "Fully visible again — belt-and-suspenders clear of the shared 'Invisibility' buff bar.",
       "actions": [
-        { "DisplayText": { "template": "visible" } }
+        { "DisplayText": { "template": "visible" } },
+        { "CancelTimer": { "name": "Invisibility" } }
       ]
     },
     {

@@ -94,6 +94,28 @@ WEAR_OFF_LIKELY = {
     "The spirit of wolf leaves you.": "Spirit of Wolf",
 }
 
+# Invisibility-type buffs all share ONE timer named "Invisibility". Every
+# classic invis is a random-duration effect (duration formula 3), so a
+# per-spell countdown lies — invis breaks whenever the game decides. A single
+# shared bar that CANCELS on the drop lines ("You feel yourself starting to
+# appear." / "You appear." and each variant's own wear-off message) is far more
+# useful; losing the exact variant name on the bar is an acceptable tradeoff.
+# "See Invisible" is detection of OTHER players' invis, NOT self-invis — it must
+# never be grouped or renamed.
+INVIS_TIMER_NAME = "Invisibility"
+INVIS_RX = re.compile(
+    r"invisib|camouflage|gather shadows|cloak of shadow|shroud of stealth|"
+    r"natural invisibility|vampyre invisibility",
+    re.I,
+)
+SEE_INVIS_RX = re.compile(r"see invis", re.I)
+
+
+def is_invis_spell(name):
+    """True for self-invisibility buffs (which share the 'Invisibility' timer),
+    excluding the 'See Invisible' detection line."""
+    return bool(INVIS_RX.search(name)) and not SEE_INVIS_RX.search(name)
+
 # ---------------------------------------------------------------------------
 # Enemy-cast danger taxonomy (curated name lists, intersected with the spell
 # data so typos fail loudly). Sources: docs/research-triggers.md digest +
@@ -405,27 +427,35 @@ def build_buff_packs(spells):
     for (cls, name), s in sorted(best.items()):
         dur = s["duration_secs_estimate"]
         warn = min(10, int(dur * 0.15))
+        invis = is_invis_spell(name)
+        # Invis buffs all drive ONE shared "Invisibility" bar (random duration).
+        timer_name = INVIS_TIMER_NAME if invis else name
         base = f"buffs/{cls}/cast/{slugify(name)}"
         tid, n = base, 2
         while tid in used_ids:
             tid, n = f"{base}-{n}", n + 1
         used_ids.add(tid)
+        comments = (f"~{dur // 60}m{dur % 60:02d}s at level 50 "
+                    f"(formula {s['duration_formula']}, "
+                    f"cap {s['duration_cap_ticks']} ticks); the engine "
+                    f"rescales to the profile's level; "
+                    f"{CLASS_NAME[cls]} level {s['classes'][cls]}.")
+        if invis:
+            comments += (" Shares the 'Invisibility' timer (all invis is "
+                         "random-duration); the bar clears on the appear / "
+                         "wear-off line, not on this countdown.")
         per_class_triggers[cls].append(trigger(
             tid,
             f"Buff timer: {name}",
             rf"^You begin casting {rx_escape(name)}\.$",
-            [start_timer(name, dur, warn,
+            [start_timer(timer_name, dur, warn,
                          s["duration_formula"], s["duration_cap_ticks"],
                          lane="buff",
                          cast_time_secs=s.get("cast_time_secs"))],
             f"Buffs/{CLASS_NAME[cls]}/Timers",
             classes=[CLASS_NAME[cls]],
             default_enabled=True,
-            comments=f"~{dur // 60}m{dur % 60:02d}s at level 50 "
-                     f"(formula {s['duration_formula']}, "
-                     f"cap {s['duration_cap_ticks']} ticks); the engine "
-                     f"rescales to the profile's level; "
-                     f"{CLASS_NAME[cls]} level {s['classes'][cls]}.",
+            comments=comments,
         ))
 
     # --- wear-off Speak triggers, one per distinct message.
@@ -444,6 +474,7 @@ def build_buff_packs(spells):
     n_wear = 0
     for msg, group in sorted(by_msg.items()):
         names = sorted({g["name"] for g in group})
+        group_invis = any(is_invis_spell(g["name"]) for g in group)
         first = names[0]                # alphabetically-first castable spell
         likely = WEAR_OFF_LIKELY.get(msg)
         if likely is not None:
@@ -471,14 +502,27 @@ def build_buff_packs(spells):
             comments += (f" — shared by {shared} spells in spells_us_str "
                          f"({len(names)} castable; also: {others}). Named "
                          f"after {named_how}.")
+        if group_invis:
+            # Invis dropped: clear the shared "Invisibility" bar. Each invis
+            # variant has its OWN wear-off line ("Your shadows fade.", "Your
+            # skin stops tingling.", …) that the curated "You appear." triggers
+            # don't all cover, so cancel here for full coverage. Default ON.
+            wear_name = f"Invis cleared: {first}"
+            actions = [cancel_timer(INVIS_TIMER_NAME)]
+            default_en = True
+            comments += " — invis wear-off: cancels the shared Invisibility timer."
+        else:
+            wear_name = f"Worn off: {first}"
+            actions = [speak(f"{first} gone")]
+            default_en = shared <= WEAR_OFF_AMBIGUOUS_ABOVE
         per_class_triggers[home].append(trigger(
             tid,
-            f"Worn off: {first}",
+            wear_name,
             rf"^{rx_escape(msg)}$",
-            [speak(f"{first} gone")],
+            actions,
             "Buffs/Wear-off",
             classes=[CLASS_NAME[c] for c in union],
-            default_enabled=shared <= WEAR_OFF_AMBIGUOUS_ABOVE,
+            default_enabled=default_en,
             comments=comments,
         ))
         n_wear += 1
