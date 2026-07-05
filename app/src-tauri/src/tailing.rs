@@ -646,6 +646,10 @@ fn run_loop(
         }
 
         for fire in engine.due(clock.now()) {
+            // Restarted fires (repeating timers) carry the new cycle's
+            // duration so the frontend can draw a replacement bar.
+            let mut duration_secs = None;
+            let mut warn_at_secs = None;
             let kind = match fire.kind {
                 TimerFireKind::Landed => {
                     // The cast completed: the bar flips from "casting…" to a
@@ -659,19 +663,44 @@ fn run_loop(
                     // Muted during catch-up: replayed timers expiring in
                     // bulk must not narrate.
                     if !catchup.is_active() {
-                        sink.audio.speak(format!("{} ending", fire.name));
+                        sink.audio
+                            .speak(fire.text.clone().unwrap_or_else(|| format!("{} ending", fire.name)));
+                        if let Some(sound) = &fire.sound {
+                            sink.audio
+                                .play(crate::sounds::resolve_in(sink.sounds_dir.as_deref(), sound));
+                        }
                     }
                     "warning"
                 }
-                TimerFireKind::Expire => "expired",
+                TimerFireKind::Expire => {
+                    if !catchup.is_active() {
+                        if let Some(text) = &fire.text {
+                            sink.audio.speak(text.clone());
+                        }
+                        if let Some(sound) = &fire.sound {
+                            sink.audio
+                                .play(crate::sounds::resolve_in(sink.sounds_dir.as_deref(), sound));
+                        }
+                    }
+                    "expired"
+                }
+                TimerFireKind::Restarted => {
+                    // Visual-only: the Expire fire in the same batch already
+                    // spoke/played anything the timer defines. The payload's
+                    // warn field is doubly optional (outer = include in the
+                    // JSON at all), hence the Some wrap.
+                    duration_secs = fire.duration_secs;
+                    warn_at_secs = Some(fire.warn_secs);
+                    "started"
+                }
             };
             let _ = app.emit(
                 "timer",
                 TimerPayload {
                     name: fire.name,
                     kind,
-                    duration_secs: None,
-                    warn_at_secs: None,
+                    duration_secs,
+                    warn_at_secs,
                     lane: Some(fire.lane.as_str()),
                     pending_secs: None,
                 },

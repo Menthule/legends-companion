@@ -11,7 +11,7 @@
 
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::mpsc::{channel, Receiver, Sender};
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 use std::thread;
 
 pub enum AudioCmd {
@@ -22,6 +22,9 @@ pub enum AudioCmd {
     /// Cut the current utterance (the generation bump that preceded this
     /// command already invalidated everything queued behind it).
     Silence,
+    /// Switch the TTS voice by display name; "" restores the voice the
+    /// synthesizer started with (the system default).
+    SetVoice(String),
 }
 
 /// Cloneable handle to the audio thread. Every enqueue stamps the current
@@ -30,6 +33,7 @@ pub enum AudioCmd {
 pub struct AudioHandle {
     tx: Sender<AudioCmd>,
     generation: Arc<AtomicU64>,
+    dictionary: Arc<RwLock<Vec<(String, String)>>>,
 }
 
 impl AudioHandle {
@@ -37,6 +41,7 @@ impl AudioHandle {
     /// caller can act on mid-fight.
     pub fn speak(&self, text: String) {
         let generation = self.generation.load(Ordering::SeqCst);
+        let text = self.apply_dictionary(text);
         let _ = self.tx.send(AudioCmd::Speak(text, generation));
     }
 
@@ -54,18 +59,47 @@ impl AudioHandle {
             .send(AudioCmd::Silence)
             .map_err(|_| "audio thread has ended".to_string())
     }
+
+    /// Switch the TTS voice ("" = system default). Best-effort, like speak.
+    pub fn set_voice(&self, name: String) {
+        let _ = self.tx.send(AudioCmd::SetVoice(name));
+    }
+
+    pub fn set_dictionary(&self, entries: Vec<(String, String)>) {
+        if let Ok(mut dictionary) = self.dictionary.write() {
+            *dictionary = entries
+                .into_iter()
+                .filter(|(from, to)| !from.is_empty() && !to.is_empty())
+                .collect();
+        }
+    }
+
+    fn apply_dictionary(&self, mut text: String) -> String {
+        let Ok(dictionary) = self.dictionary.read() else {
+            return text;
+        };
+        for (from, to) in dictionary.iter() {
+            text = text.replace(from, to);
+        }
+        text
+    }
 }
 
 /// Spawn the audio thread; drop every clone of the handle to stop it.
 pub fn spawn() -> AudioHandle {
     let (tx, rx) = channel();
     let generation = Arc::new(AtomicU64::new(0));
+    let dictionary = Arc::new(RwLock::new(Vec::new()));
     let thread_generation = generation.clone();
     thread::Builder::new()
         .name("eqlogs-audio".into())
         .spawn(move || run(rx, thread_generation))
         .expect("spawn audio thread");
-    AudioHandle { tx, generation }
+    AudioHandle {
+        tx,
+        generation,
+        dictionary,
+    }
 }
 
 /// True when a queued entry was enqueued before the latest silence bump.
@@ -78,6 +112,8 @@ fn run(rx: Receiver<AudioCmd>, generation: Arc<AtomicU64>) {
     let mut tts = tts::Tts::default()
         .map_err(|e| eprintln!("eqlogs: TTS unavailable: {e}"))
         .ok();
+    // Remembered so SetVoice("") can restore the out-of-the-box voice.
+    let default_voice = tts.as_ref().and_then(|t| t.voice().ok().flatten());
     // OutputStream must stay alive for playback; it is created (and kept) on
     // this thread because it is not Send on every platform.
     let stream = rodio::OutputStream::try_default()
@@ -127,6 +163,30 @@ fn run(rx: Receiver<AudioCmd>, generation: Arc<AtomicU64>) {
                     }
                 }
             }
+            AudioCmd::SetVoice(name) => {
+                let Some(t) = tts.as_mut() else { continue };
+                if name.is_empty() {
+                    if let Some(v) = default_voice.as_ref() {
+                        if let Err(e) = t.set_voice(v) {
+                            eprintln!("eqlogs: TTS default voice failed: {e}");
+                        }
+                    }
+                    continue;
+                }
+                match t.voices() {
+                    Ok(voices) => match voices.iter().find(|v| v.name() == name) {
+                        Some(v) => {
+                            if let Err(e) = t.set_voice(v) {
+                                eprintln!("eqlogs: TTS set_voice failed: {e}");
+                            }
+                        }
+                        // Voice uninstalled since it was saved: keep the
+                        // current voice rather than going silent.
+                        None => eprintln!("eqlogs: TTS voice not found: {name}"),
+                    },
+                    Err(e) => eprintln!("eqlogs: TTS voices() failed: {e}"),
+                }
+            }
         }
     }
 }
@@ -147,6 +207,7 @@ fn run(rx: Receiver<AudioCmd>, generation: Arc<AtomicU64>) {
                 }
             }
             AudioCmd::Silence => eprintln!("eqlogs[no-audio] silence"),
+            AudioCmd::SetVoice(name) => eprintln!("eqlogs[no-audio] voice: {name}"),
         }
     }
 }

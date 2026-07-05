@@ -10,7 +10,7 @@ use regex::{Captures, Regex, RegexSet};
 
 use crate::model::{
     duration_ticks_at_level, infer_timer_lane, Action, ChannelOverride, CharacterProfile,
-    TimerLane, Trigger,
+    TimerLane, TimerStartMode, Trigger,
 };
 use crate::profile::effective_enabled;
 use eqlog_core::events::{Entity, Event, ParsedLine};
@@ -52,6 +52,10 @@ pub enum TimerFireKind {
     Warn,
     /// The timer reached its expiry.
     Expire,
+    /// A repeating timer began its next cycle: the sink must show a fresh
+    /// bar (the frontend prunes a bar shortly after its "expired" event,
+    /// so without this the audio keeps cycling with no visible timer).
+    Restarted,
 }
 
 /// A timer event returned from [`TriggerEngine::due`].
@@ -61,6 +65,15 @@ pub struct TimerFire {
     pub kind: TimerFireKind,
     /// Overlay lane of the timer that fired (see [`TimerLane`]).
     pub lane: TimerLane,
+    /// Optional custom text from the timer definition.
+    pub text: Option<String>,
+    /// Optional custom sound from the timer definition.
+    pub sound: Option<String>,
+    /// [`TimerFireKind::Restarted`] only: the new cycle's length, so the
+    /// sink can draw the replacement bar.
+    pub duration_secs: Option<u64>,
+    /// [`TimerFireKind::Restarted`] only: the new cycle's warn lead.
+    pub warn_secs: Option<u64>,
 }
 
 /// Identity of a trigger that fired on a line, returned by
@@ -76,18 +89,27 @@ pub struct TriggerFireInfo {
 
 struct ActiveTimer {
     name: String,
+    duration_secs: u64,
     expires_at: i64,
+    warn_at_secs: Option<u64>,
     warn_at: Option<i64>,
     warned: bool,
     lane: TimerLane,
     /// When the cast completes and the pending phase ends; `None` once
     /// landed (or when the timer never had a cast-time lead-in).
     lands_at: Option<i64>,
+    repeat_secs: Option<u64>,
+    stopwatch: bool,
+    warn_text: Option<String>,
+    expire_text: Option<String>,
+    warn_sound: Option<String>,
+    expire_sound: Option<String>,
 }
 
 struct CompiledTrigger {
     trigger: Trigger,
     regex: Regex,
+    numeric_constraints: Vec<NumericConstraint>,
     /// Fire-dedupe group: triggers with an identical expanded pattern share a
     /// key, and at most one of them fires per line (the first).
     dedupe_key: usize,
@@ -118,24 +140,105 @@ pub struct TriggerEngine {
 /// are case-insensitive (`{c}`, `{s1}` also work); a repeated token expands
 /// to a non-capturing wildcard so the pattern still compiles.
 pub fn expand_pattern(pattern: &str, character: &str) -> String {
+    expand_pattern_with_constraints(pattern, character).0
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum NumericOp {
+    Lt,
+    Le,
+    Eq,
+    Ge,
+    Gt,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+struct NumericConstraint {
+    name: String,
+    op: NumericOp,
+    value: i64,
+}
+
+fn numeric_constraints_pass(caps: &Captures, constraints: &[NumericConstraint]) -> bool {
+    constraints.iter().all(|c| {
+        let Some(value) = caps
+            .name(&c.name)
+            .and_then(|m| m.as_str().parse::<i64>().ok())
+        else {
+            return false;
+        };
+        match c.op {
+            NumericOp::Lt => value < c.value,
+            NumericOp::Le => value <= c.value,
+            NumericOp::Eq => value == c.value,
+            NumericOp::Ge => value >= c.value,
+            NumericOp::Gt => value > c.value,
+        }
+    })
+}
+
+fn expand_pattern_with_constraints(
+    pattern: &str,
+    character: &str,
+) -> (String, Vec<NumericConstraint>) {
     // Tokens: {C}, {S}, {S<digits>}, {N}, {N<digits>}, any case.
-    static TOKEN: &str = r"\{([CcSsNn]\d*)\}";
+    static TOKEN: &str = r"\{([CcSsNn]\d*)(?:(<=|>=|<|>|=)(-?\d+))?\}";
     let token_re = Regex::new(TOKEN).expect("token regex is valid");
     let mut seen: HashSet<String> = HashSet::new();
-    token_re
+    let mut constraints = Vec::new();
+    let expanded = token_re
         .replace_all(pattern, |caps: &Captures| {
             let raw = &caps[1];
             let upper = raw.to_ascii_uppercase();
             match upper.as_bytes()[0] {
-                b'C' => regex::escape(character),
+                // A numeric-constraint suffix only makes sense on {N} tokens.
+                // On {C}/{S} it is a user mistake — keep the raw token text so
+                // the pattern FAILS to compile (an unescaped `{` is a regex
+                // error) and the trigger surfaces in warnings, instead of
+                // silently compiling without the gate.
+                b'C' => {
+                    if caps.get(2).is_some() {
+                        caps[0].to_string()
+                    } else {
+                        regex::escape(character)
+                    }
+                }
                 b'S' => {
-                    if seen.insert(upper.clone()) {
+                    if caps.get(2).is_some() {
+                        caps[0].to_string()
+                    } else if seen.insert(upper.clone()) {
                         format!("(?P<{upper}>.+)")
                     } else {
                         "(?:.+)".to_string()
                     }
                 }
                 _ => {
+                    if let (Some(op), Some(value)) = (caps.get(2), caps.get(3)) {
+                        let op = match op.as_str() {
+                            "<" => NumericOp::Lt,
+                            "<=" => NumericOp::Le,
+                            "=" => NumericOp::Eq,
+                            ">=" => NumericOp::Ge,
+                            ">" => NumericOp::Gt,
+                            _ => unreachable!("token regex limits ops"),
+                        };
+                        // Register the constraint EVEN on a repeated token:
+                        // same token = same named group, and the constraint
+                        // checks that group's captured value ("{N} of
+                        // {N<=20}" gates on the first capture). Dropping it
+                        // silently disarmed low-health-style gates.
+                        if let Ok(value) = value.as_str().parse::<i64>() {
+                            constraints.push(NumericConstraint {
+                                name: upper.clone(),
+                                op,
+                                value,
+                            });
+                        }
+                        if seen.insert(upper.clone()) {
+                            return format!(r"(?P<{upper}>\d+)");
+                        }
+                        return r"(?:\d+)".to_string();
+                    }
                     if seen.insert(upper.clone()) {
                         format!(r"(?P<{upper}>\d+)")
                     } else {
@@ -144,7 +247,8 @@ pub fn expand_pattern(pattern: &str, character: &str) -> String {
                 }
             }
         })
-        .into_owned()
+        .into_owned();
+    (expanded, constraints)
 }
 
 /// True when `name` is `base` itself or a numbered instance of it —
@@ -191,6 +295,19 @@ fn buff_land_map() -> &'static HashMap<&'static str, &'static str> {
     })
 }
 
+/// Same lookup for detrimental spells (their CASTEDOTHERTXT, e.g.
+/// `A dar ghoul knight yawns.` for Togor's Insects). Binds bare enemy-lane
+/// timers — slows/malos have no damage tick to bind on.
+fn debuff_land_map() -> &'static HashMap<&'static str, &'static str> {
+    static MAP: OnceLock<HashMap<&'static str, &'static str>> = OnceLock::new();
+    MAP.get_or_init(|| {
+        crate::buff_lands::DEBUFF_LAND_SUFFIXES
+            .iter()
+            .copied()
+            .collect()
+    })
+}
+
 /// Strip a trailing `" (n)"` instance suffix, returning the family base
 /// name; names without one are returned unchanged.
 fn instance_base(name: &str) -> &str {
@@ -214,6 +331,24 @@ fn next_instance_name(timers: &[ActiveTimer], base: &str) -> String {
     loop {
         let candidate = format!("{base} ({n})");
         if !timers.iter().any(|t| t.name == candidate) {
+            return candidate;
+        }
+        n += 1;
+    }
+}
+
+fn next_instance_name_among<'a, I>(timers: I, base: &str) -> String
+where
+    I: IntoIterator<Item = &'a ActiveTimer>,
+{
+    let names: Vec<&str> = timers.into_iter().map(|t| t.name.as_str()).collect();
+    if !names.iter().any(|name| *name == base) {
+        return base.to_string();
+    }
+    let mut n: u32 = 2;
+    loop {
+        let candidate = format!("{base} ({n})");
+        if !names.iter().any(|name| *name == candidate) {
             return candidate;
         }
         n += 1;
@@ -346,8 +481,15 @@ impl TriggerEngine {
         let mut patterns = Vec::new();
         let mut warnings = Vec::new();
         let mut dedupe_keys: HashMap<String, usize> = HashMap::new();
-        for trigger in triggers.into_iter().filter(|t| t.enabled) {
-            let mut expanded = expand_pattern(&trigger.pattern, character_name);
+        let mut triggers: Vec<Trigger> = triggers.into_iter().filter(|t| t.enabled).collect();
+        triggers.sort_by(|a, b| {
+            b.priority
+                .cmp(&a.priority)
+                .then_with(|| a.effective_id().cmp(&b.effective_id()))
+        });
+        for trigger in triggers {
+            let (mut expanded, numeric_constraints) =
+                expand_pattern_with_constraints(&trigger.pattern, character_name);
             if trigger.case_insensitive {
                 expanded = format!("(?i){expanded}");
             }
@@ -359,6 +501,7 @@ impl TriggerEngine {
                     compiled.push(CompiledTrigger {
                         trigger,
                         regex,
+                        numeric_constraints,
                         dedupe_key,
                     });
                 }
@@ -475,19 +618,20 @@ impl TriggerEngine {
     ///   expiry, in cast order.
     /// - "Your S spell has worn off of T.": the OLDEST instance of `S — T`
     ///   is popped (FIFO).
-    /// - `T` slain: the OLDEST instance of EVERY spell bound to `T` is
-    ///   popped; younger instances (same-named twins still alive) keep
-    ///   running.
+    /// - `T` slain: EVERY instance of EVERY spell bound to `T` clears — a
+    ///   dead mob must never keep a bar counting down. With same-named
+    ///   twins this also clears a surviving twin's bars (the log cannot
+    ///   say which mob died); re-dotting the survivor starts a fresh bar.
     /// - You die: all timers clear (death strips buffs; fights are over).
     ///
     /// TWIN-ATTRIBUTION APPROXIMATION: the log names mobs but does not
     /// identify them. With two identically named mobs each carrying your
-    /// DoT, ticks/wear-offs/deaths cannot be matched to a specific mob, so
+    /// DoT, ticks/wear-offs cannot be matched to a specific mob, so
     /// instances form a FIFO queue per (spell, name): the first bound is
-    /// assumed to be the first to wear off or die (you dotted it first, so
-    /// it has been taking damage longest). A tick from the *first* mob
-    /// arriving right after a fresh cast can be the one that binds the new
-    /// bare timer — indistinguishable in the log, and harmless: because the
+    /// assumed to be the first to wear off (you dotted it first, so it has
+    /// been taking damage longest). A tick from the *first* mob arriving
+    /// right after a fresh cast can be the one that binds the new bare
+    /// timer — indistinguishable in the log, and harmless: because the
     /// names are identical, the instance set and its FIFO order come out
     /// the same either way.
     fn bind_and_reap_timers(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
@@ -511,6 +655,7 @@ impl TriggerEngine {
                 else {
                     return;
                 };
+                let target = self.canonical_target(target);
                 let base = format!("{spell} — {target}");
                 let new_name = next_instance_name(&self.timers, &base);
                 let t = &mut self.timers[idx];
@@ -550,20 +695,21 @@ impl TriggerEngine {
                         cancelled.extend(self.timers.drain(..).map(|t| t.name));
                     }
                     Entity::Named(name) => {
-                        // One mob died: pop the oldest instance of every
-                        // spell bound to that name (the dead mob's dots were
-                        // the oldest — see the twin approximation above).
+                        // One mob died: clear EVERY instance of every spell
+                        // bound to that name, so a dead mob never keeps a
+                        // bar counting down. With identically named twins
+                        // the log cannot say which one died, so a surviving
+                        // twin's bar clears too — a missing bar on a live
+                        // mob beats a phantom bar on a dead one, and
+                        // re-dotting the survivor starts a fresh bar.
                         let suffix = format!(" — {name}");
-                        let mut popped_families: HashSet<String> = HashSet::new();
                         let mut i = 0;
                         while i < self.timers.len() {
                             let family = instance_base(&self.timers[i].name);
                             // Case-insensitive: "You have slain a hill
                             // giant!" names the mob in lowercase while the
                             // binding tick capitalized it at line start.
-                            if ends_with_ci(family, &suffix)
-                                && popped_families.insert(family.to_ascii_lowercase())
-                            {
+                            if ends_with_ci(family, &suffix) {
                                 cancelled.push(self.timers.remove(i).name);
                             } else {
                                 i += 1;
@@ -588,18 +734,33 @@ impl TriggerEngine {
     /// proves *I* cast it and pins the exact spell name (which the wear-off
     /// line will later match to reap the bar). Self-casts print a different
     /// ("You feel…") message and never match, so they stay in the buff lane.
-    /// If two pending buffs would match the same land line, none is bound — no
-    /// mislabel.
+    /// If two pending spells would match the same land line, none is bound —
+    /// no mislabel. Re-buffing a target who already carries the bar replaces
+    /// it (buffs never stack with themselves on one person), so there is at
+    /// most one bar per (spell, target) — never a numbered "(2)" duplicate.
+    ///
+    /// The same pass binds bare ENEMY-lane timers on their detrimental land
+    /// line (`A dar ghoul knight yawns.` for Togor's Insects): non-damaging
+    /// debuffs — slows, malos — never produce the damage tick the DoT binder
+    /// keys on, so without this they'd sit target-less under the "(target)"
+    /// group and survive the mob's death. Enemy binds keep their lane and
+    /// use numbered instances (a debuff CAN run on two same-named twins).
     fn bind_buff_on_other(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
         let msg = parsed.line.message.as_str();
-        let map = buff_land_map();
         let mut hit: Option<(usize, String)> = None;
         for (idx, t) in self.timers.iter().enumerate() {
-            // Only unbound (bare) buff-lane timers can be promoted; a bound
-            // name already contains the " — <target>" separator.
-            if t.lane != TimerLane::Buff || t.name.contains(" — ") {
+            // Only unbound (bare) buff- or enemy-lane timers can be
+            // promoted; a bound name already contains the " — <target>"
+            // separator. Buff timers match the beneficial land table,
+            // enemy timers the detrimental one.
+            if t.name.contains(" — ") {
                 continue;
             }
+            let map = match t.lane {
+                TimerLane::Buff => buff_land_map(),
+                TimerLane::Enemy => debuff_land_map(),
+                _ => continue,
+            };
             let Some(&suffix) = map.get(t.name.as_str()) else {
                 continue;
             };
@@ -609,27 +770,90 @@ impl TriggerEngine {
                     continue;
                 }
                 if hit.is_some() {
-                    return; // ambiguous: two pending buffs match this line
+                    return; // ambiguous: two pending spells match this line
                 }
                 hit = Some((idx, target.to_string()));
             }
         }
         let Some((idx, target)) = hit else { return };
         let now = parsed.line.timestamp;
+        let target = self.canonical_target(&target);
         let spell = self.timers[idx].name.clone();
         let base = format!("{spell} — {target}");
-        let new_name = next_instance_name(&self.timers, &base);
-        let t = &mut self.timers[idx];
-        let old = std::mem::replace(&mut t.name, new_name.clone());
-        t.lane = TimerLane::OnOthers;
-        t.lands_at = None;
-        let remaining = (t.expires_at - now).max(1) as u64;
-        let warn_left = t
-            .warn_at
-            .filter(|w| *w > now && !t.warned)
-            .map(|w| (t.expires_at - w).max(0) as u64);
-        sink.cancel_timer(&old);
-        sink.start_timer(&new_name, remaining, warn_left, TimerLane::OnOthers, 0);
+        match self.timers[idx].lane {
+            TimerLane::Buff => {
+                // Re-buffing the same target REPLACES the running buff (a
+                // buff never stacks with itself on one person), so drop any
+                // bar already bound to this (spell, target) instead of
+                // numbering a duplicate instance.
+                let mut idx = idx;
+                let mut replaced: Vec<String> = Vec::new();
+                let mut i = 0;
+                while i < self.timers.len() {
+                    if i != idx && is_instance_of(&self.timers[i].name, &base) {
+                        replaced.push(self.timers.remove(i).name);
+                        if i < idx {
+                            idx -= 1;
+                        }
+                    } else {
+                        i += 1;
+                    }
+                }
+                let t = &mut self.timers[idx];
+                let old = std::mem::replace(&mut t.name, base.clone());
+                t.lane = TimerLane::OnOthers;
+                t.lands_at = None;
+                let remaining = (t.expires_at - now).max(1) as u64;
+                let warn_left = t
+                    .warn_at
+                    .filter(|w| *w > now && !t.warned)
+                    .map(|w| (t.expires_at - w).max(0) as u64);
+                sink.cancel_timer(&old);
+                for name in replaced {
+                    sink.cancel_timer(&name);
+                }
+                sink.start_timer(&base, remaining, warn_left, TimerLane::OnOthers, 0);
+            }
+            TimerLane::Enemy => {
+                // Enemy lane: bind in place (lane unchanged) with numbered
+                // instances — the same debuff CAN run on two same-named
+                // twins, matching the damage-tick binding semantics. This
+                // is how non-damaging debuffs (slows, malos) get a target
+                // header on the overlay and get reaped when the mob dies.
+                let new_name = next_instance_name(&self.timers, &base);
+                let t = &mut self.timers[idx];
+                let old = std::mem::replace(&mut t.name, new_name.clone());
+                t.lands_at = None;
+                let remaining = (t.expires_at - now).max(1) as u64;
+                let warn_left = t
+                    .warn_at
+                    .filter(|w| *w > now && !t.warned)
+                    .map(|w| (t.expires_at - w).max(0) as u64);
+                let lane = t.lane;
+                sink.cancel_timer(&old);
+                sink.start_timer(&new_name, remaining, warn_left, lane, 0);
+            }
+            _ => {}
+        }
+    }
+
+    /// The casing an already-bound timer uses for `target`, else `target`
+    /// as given. The log capitalizes the same mob differently by sentence
+    /// position ("A kor ghoul wizard has taken…" at line start vs "…of
+    /// a kor ghoul wizard"), and mixed-case bindings would split the mob
+    /// across overlay groups and dodge instance numbering.
+    fn canonical_target(&self, target: &str) -> String {
+        const SEP: &str = " — ";
+        for t in &self.timers {
+            let base = instance_base(&t.name);
+            if let Some(pos) = base.find(SEP) {
+                let existing = &base[pos + SEP.len()..];
+                if existing.eq_ignore_ascii_case(target) {
+                    return existing.to_string();
+                }
+            }
+        }
+        target.to_string()
     }
 
     /// You, your configured pets, and your possessive pets ("nyasha's pet",
@@ -771,6 +995,12 @@ impl TriggerEngine {
             let Some(caps) = ct.regex.captures(message) else {
                 continue; // set-path: unreachable in practice; fallback: filter
             };
+            if !numeric_constraints_pass(&caps, &ct.numeric_constraints) {
+                continue;
+            }
+            if ct.trigger.suppress {
+                break;
+            }
             // Refire cooldown: after a fire, matching lines stay silent for
             // `cooldown_secs` (measured on line timestamps, so replays are
             // faithful). Throttled matches don't slide the window and don't
@@ -805,9 +1035,16 @@ impl TriggerEngine {
                         warn_at_secs,
                         lane,
                         cast_time_secs,
+                        mode,
+                        repeat_secs,
+                        stopwatch,
+                        warn_text,
+                        expire_text,
+                        warn_sound,
+                        expire_sound,
                         ..
                     } => {
-                        let name = expand_template(name, &caps, &self.character, ts);
+                        let mut name = expand_template(name, &caps, &self.character, ts);
                         // The trigger fires at cast START; the buff only
                         // exists once the cast completes. Lead the timer in
                         // by the cast time so expiry lands on the truth.
@@ -825,16 +1062,40 @@ impl TriggerEngine {
                                 &ct.trigger.effective_id(),
                             )
                         });
+                        let mode = mode.unwrap_or_default();
+                        let exists = self.timers.iter().any(|t| t.name == name)
+                            || new_timers.iter().any(|t| t.name == name);
+                        if mode == TimerStartMode::IgnoreIfRunning && exists {
+                            continue;
+                        }
+                        if mode == TimerStartMode::StartNewInstance && exists {
+                            name = next_instance_name_among(
+                                self.timers.iter().chain(new_timers.iter()),
+                                &name,
+                            );
+                        }
                         sink.start_timer(&name, shown_duration, *warn_at_secs, lane, lead_in);
                         new_timers.push(ActiveTimer {
                             name,
+                            duration_secs: shown_duration,
                             expires_at,
+                            warn_at_secs: *warn_at_secs,
                             warn_at,
                             warned: false,
                             lane,
                             // A cast-time lead-in starts the timer pending
                             // ("casting…"); due() fires Landed once it ends.
                             lands_at: (lead_in > 0).then(|| ts + lead_in as i64),
+                            repeat_secs: repeat_secs.filter(|s| *s > 0),
+                            stopwatch: *stopwatch,
+                            warn_text: warn_text
+                                .as_deref()
+                                .map(|s| expand_template(s, &caps, &self.character, ts)),
+                            expire_text: expire_text
+                                .as_deref()
+                                .map(|s| expand_template(s, &caps, &self.character, ts)),
+                            warn_sound: warn_sound.clone(),
+                            expire_sound: expire_sound.clone(),
                         });
                     }
                     Action::CancelTimer { name } => {
@@ -849,7 +1110,8 @@ impl TriggerEngine {
             }
         }
         for timer in new_timers {
-            // Re-match restarts the same-named timer.
+            // Re-match restarts the same-named timer unless StartTimer opted
+            // into ignore-if-running or start-new-instance above.
             self.timers.retain(|t| t.name != timer.name);
             self.timers.push(timer);
         }
@@ -871,6 +1133,10 @@ impl TriggerEngine {
                         name: timer.name.clone(),
                         kind: TimerFireKind::Landed,
                         lane: timer.lane,
+                        duration_secs: None,
+                        warn_secs: None,
+                        text: None,
+                        sound: None,
                     });
                 }
             }
@@ -881,18 +1147,48 @@ impl TriggerEngine {
                         name: timer.name.clone(),
                         kind: TimerFireKind::Warn,
                         lane: timer.lane,
+                        duration_secs: None,
+                        warn_secs: None,
+                        text: timer.warn_text.clone(),
+                        sound: timer.warn_sound.clone(),
                     });
                 }
             }
-            if now_ts >= timer.expires_at {
+            if !timer.stopwatch && now_ts >= timer.expires_at {
                 fires.push(TimerFire {
                     name: timer.name.clone(),
                     kind: TimerFireKind::Expire,
                     lane: timer.lane,
+                    text: timer.expire_text.clone(),
+                    sound: timer.expire_sound.clone(),
+                    duration_secs: None,
+                    warn_secs: None,
                 });
+                if let Some(repeat_secs) = timer.repeat_secs {
+                    let step = repeat_secs as i64;
+                    while now_ts >= timer.expires_at {
+                        timer.expires_at += step;
+                    }
+                    timer.duration_secs = repeat_secs;
+                    timer.warn_at = timer
+                        .warn_at_secs
+                        .map(|w| timer.expires_at - w as i64)
+                        .filter(|w| *w > now_ts);
+                    timer.warned = false;
+                    fires.push(TimerFire {
+                        name: timer.name.clone(),
+                        kind: TimerFireKind::Restarted,
+                        lane: timer.lane,
+                        text: None,
+                        sound: None,
+                        duration_secs: Some((timer.expires_at - now_ts).max(1) as u64),
+                        warn_secs: timer.warn_at_secs,
+                    });
+                }
             }
         }
-        self.timers.retain(|t| now_ts < t.expires_at);
+        self.timers
+            .retain(|t| t.stopwatch || t.repeat_secs.is_some() || now_ts < t.expires_at);
         fires
     }
 
@@ -921,6 +1217,35 @@ mod tests {
         let out = expand_pattern("{S1} tells you, '{S2}' x{N}", "Nyasha");
         assert_eq!(out, r"(?P<S1>.+) tells you, '(?P<S2>.+)' x(?P<N>\d+)");
         assert!(Regex::new(&out).is_ok());
+    }
+
+    #[test]
+    fn constraint_on_repeated_numeric_token_still_registers() {
+        // "{N} of {N<=20}": the second occurrence must register its gate
+        // against the shared named group instead of silently dropping it.
+        let (expanded, constraints) =
+            expand_pattern_with_constraints("You have {N} of {N<=20} hit points", "Nyasha");
+        assert!(Regex::new(&expanded).is_ok(), "{expanded}");
+        assert_eq!(constraints.len(), 1);
+        assert_eq!(constraints[0].name, "N");
+        assert_eq!(constraints[0].op, NumericOp::Le);
+        assert_eq!(constraints[0].value, 20);
+    }
+
+    #[test]
+    fn constraint_suffix_on_s_or_c_token_fails_compilation_visibly() {
+        // Numeric gates only exist for {N}; on {S}/{C} the raw token is kept
+        // so the regex fails to compile and the trigger lands in warnings
+        // (the pre-constraint behavior) instead of silently losing the gate.
+        for pattern in ["hit for {S>=1000} damage", "{C<5} says"] {
+            let (expanded, constraints) =
+                expand_pattern_with_constraints(pattern, "Nyasha");
+            assert!(constraints.is_empty());
+            assert!(
+                Regex::new(&expanded).is_err(),
+                "must not compile silently: {expanded}"
+            );
+        }
     }
 
     #[test]
@@ -983,11 +1308,19 @@ mod tests {
     fn next_instance_name_takes_lowest_free_slot() {
         let timer = |name: &str| ActiveTimer {
             name: name.to_string(),
+            duration_secs: 100,
             expires_at: 100,
+            warn_at_secs: None,
             warn_at: None,
             warned: false,
             lane: TimerLane::Enemy,
             lands_at: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
         };
         let base = "Boil Blood — a bat";
         assert_eq!(next_instance_name(&[], base), base);
@@ -1054,9 +1387,54 @@ mod tests {
                 duration_cap_ticks: None,
                 lane: Some(TimerLane::Buff),
                 cast_time_secs: Some(cast),
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
             }],
         );
         TriggerEngine::new(vec![trigger], "Nyasha")
+    }
+
+    #[test]
+    fn repeating_timer_reemits_a_bar_each_cycle() {
+        let trigger = Trigger::new(
+            "pulse",
+            "^You begin your pulse\\.",
+            vec![Action::StartTimer {
+                name: "Pulse".into(),
+                duration_secs: 30,
+                warn_at_secs: None,
+                duration_formula: None,
+                duration_cap_ticks: None,
+                lane: Some(TimerLane::Other),
+                cast_time_secs: None,
+                mode: None,
+                repeat_secs: Some(30),
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
+            }],
+        );
+        let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+        let mut sink = PendingSink::default();
+        engine.process(&cast_line(100, "You begin your pulse."), &mut sink);
+        // First cycle expires: the fire list must carry BOTH the expiry and
+        // a Restarted fire with the next cycle's duration, so the sink can
+        // draw a fresh bar (the UI prunes bars after "expired").
+        let fires = engine.due(130);
+        let kinds: Vec<TimerFireKind> = fires.iter().map(|f| f.kind).collect();
+        assert_eq!(kinds, vec![TimerFireKind::Expire, TimerFireKind::Restarted]);
+        assert_eq!(fires[1].duration_secs, Some(30));
+        // And again next cycle.
+        let fires = engine.due(160);
+        assert_eq!(fires.len(), 2);
+        assert_eq!(fires[1].kind, TimerFireKind::Restarted);
     }
 
     #[test]
@@ -1113,6 +1491,13 @@ mod tests {
                 duration_cap_ticks: None,
                 lane: Some(TimerLane::Buff),
                 cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
             }],
         );
         let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");

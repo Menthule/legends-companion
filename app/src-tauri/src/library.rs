@@ -20,10 +20,25 @@ use crate::logging;
 
 // ---------- pack + profile loading ----------
 
-/// The bundled trigger pack directory: the `triggers/` resource in installed
-/// builds, falling back to the repo's `triggers/` tree for dev runs (where
-/// the resource dir may not exist yet).
+/// The trigger pack directory, by precedence:
+/// 1. a downloaded data update (`<data_root>/refdata-update/triggers/`,
+///    installed by the `data_update_install` command) — only when it exists
+///    AND holds at least one entry, so a botched/cleared update can never
+///    silently blank out every bundled trigger,
+/// 2. the bundled `triggers/` resource in installed builds,
+/// 3. the repo's `triggers/` tree for dev runs (where the resource dir may
+///    not exist yet).
 pub fn packs_dir(app: &AppHandle) -> Option<PathBuf> {
+    let updated = crate::data_root::resolve(app)
+        .refdata_update_dir()
+        .join("triggers");
+    if updated.is_dir()
+        && std::fs::read_dir(&updated)
+            .map(|mut d| d.next().is_some())
+            .unwrap_or(false)
+    {
+        return Some(updated);
+    }
     if let Ok(dir) = app.path().resolve("triggers", BaseDirectory::Resource) {
         if dir.is_dir() {
             return Some(dir);

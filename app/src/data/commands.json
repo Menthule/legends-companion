@@ -1,0 +1,618 @@
+[
+  {
+    "command": "/afk",
+    "syntax": "/afk [message]",
+    "category": "Chat",
+    "description": "Toggles AFK status; anyone sending you a tell gets an automatic reply with your optional message.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/anonymous",
+    "syntax": "/anon",
+    "category": "Toggles",
+    "description": "Hides your class, level, location, and guild from /who queries.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/assist",
+    "syntax": "/assist [name | on | off]",
+    "category": "Combat",
+    "description": "Changes your target to your target's (or the named player's) target. In macros, follow with a short /pause before /attack or /cast so the new target resolves. Legends adds /assist group|raid|main. /assist on|off toggles auto-attack-on-assist.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/attack",
+    "syntax": "/attack [on | off]",
+    "category": "Combat",
+    "description": "Toggles melee autoattack. Macro best practice is the explicit '/attack on' (or off) form so a double-press never leaves you idle mid-fight.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/auction",
+    "syntax": "/auction <text>",
+    "category": "Chat",
+    "description": "Zone-wide buy/sell channel; the classic WTS/WTB medium in trade hubs.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/autofire",
+    "syntax": "/autofire [on | off]",
+    "category": "Combat",
+    "description": "Toggles automatic ranged-weapon firing at your target. Present in EQ Legends; not part of strict classic-era EQ (rangers held the ranged-attack key).",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/autoinventory",
+    "syntax": "/autoinventory",
+    "category": "Utility",
+    "description": "Puts the item on your cursor into the first free inventory slot. Essential in forage/fishing/summon macros.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/autosplit",
+    "syntax": "/autosplit [on | off]",
+    "category": "Group/Raid",
+    "description": "Automatically splits looted coin among group members.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/bandolier",
+    "syntax": "/bandolier [add | delete | activate] <SetName>",
+    "category": "Combat",
+    "description": "Saves and swaps whole weapon sets in one command. EQ Legends feature; classic-era EQ had no bandolier.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/book",
+    "syntax": "/book [1-50]",
+    "category": "Utility",
+    "description": "Opens your spellbook to the given page.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/bug",
+    "syntax": "/bug",
+    "category": "Utility",
+    "description": "Opens the bug-report screen (non-functional on P99; behavior in Legends TBD).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/camp",
+    "syntax": "/camp [desktop]",
+    "category": "Utility",
+    "description": "Begins the 30-second logout (must be sitting); 'desktop' exits the game entirely.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/cast",
+    "syntax": "/cast <1-8>",
+    "category": "Combat",
+    "description": "Casts the spell memorized in the given gem slot. Legends also accepts a spell name (/cast <slot# | spellname>). Repeated /cast lines in a macro act as fizzle insurance -- extra lines fail silently while you are already casting.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/charinfo",
+    "syntax": "/charinfo",
+    "category": "Utility",
+    "description": "Displays the zone your soul is currently bound in.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/clear",
+    "syntax": "/clear",
+    "category": "Utility",
+    "description": "Clears the current chat window.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/consent",
+    "syntax": "/consent <name>",
+    "category": "Group/Raid",
+    "description": "Grants the named player permission to drag your corpse with /corpse.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/consider",
+    "syntax": "/con",
+    "category": "Combat",
+    "description": "Reports the target's relative level (con color) and faction standing toward you.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/corpse",
+    "syntax": "/corpse [name]",
+    "category": "Utility",
+    "description": "Drags your own (or a consented player's) corpse toward you; works within roughly 50 feet. Spammed in macros for corpse dragging.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/decline",
+    "syntax": "/decline",
+    "category": "Utility",
+    "description": "Declines a duel challenge.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/deny",
+    "syntax": "/deny <name>",
+    "category": "Group/Raid",
+    "description": "Revokes a player's corpse-dragging consent.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/disband",
+    "syntax": "/disband [name]",
+    "category": "Group/Raid",
+    "description": "Leaves your group, or (as leader, with a name/target) removes that member.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/disc",
+    "syntax": "/disc <discipline name>",
+    "category": "Combat",
+    "description": "Performs the named melee discipline. Confirmed in Legends; in classic timelines discs arrived with Kunark-era levels, so availability at Legends' level-50 cap may differ per class.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/doability",
+    "syntax": "/doability <1-10>",
+    "category": "Combat",
+    "description": "Executes a skill/ability by hotkey slot. Classic numbering: 1-6 are the Abilities (A) tab, 7-10 the Combat (C) tab. Legends maps 1-10 from the Actions window.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/duel",
+    "syntax": "/duel",
+    "category": "Utility",
+    "description": "Challenges the targeted player to a duel.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/emote",
+    "syntax": "/em <text>",
+    "category": "Chat",
+    "description": "Displays a custom roleplay action ('Soandso <text>') to nearby players. Also /e or a leading colon.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/exit",
+    "syntax": "/exit",
+    "category": "Utility",
+    "description": "Immediately exits to desktop, leaving your character linkdead in-world briefly. /quit does the same to the main menu.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/feedback",
+    "syntax": "/feedback",
+    "category": "Utility",
+    "description": "Opens the feedback screen (unused on emulators; era command).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/filter",
+    "syntax": "/filter",
+    "category": "Toggles",
+    "description": "Opens the text-filtering menu (profanity, spell messages, etc.).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/follow",
+    "syntax": "/follow",
+    "category": "Movement",
+    "description": "Auto-follows the targeted group member; any movement input breaks it. Only works on group members.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/friend",
+    "syntax": "/friend [name]",
+    "category": "Chat",
+    "description": "Lists your friends, or adds/removes the named player from the list.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/gsay",
+    "syntax": "/g <text>",
+    "category": "Chat",
+    "description": "Sends a message to group chat. The default channel for macro announces (heals, mezzes, inc calls).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/guildsay",
+    "syntax": "/gu <text>",
+    "category": "Guild",
+    "description": "Sends a message to guild chat; used for raid CH rotations on classic servers without raid chat.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/guildinvite",
+    "syntax": "/guildinvite",
+    "category": "Guild",
+    "description": "Invites the targeted player to your guild (officer/leader only).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/guildremove",
+    "syntax": "/guildremove [name]",
+    "category": "Guild",
+    "description": "Leaves your guild, or removes the named member (officer/leader only).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/guildmotd",
+    "syntax": "/guildmotd <text>",
+    "category": "Guild",
+    "description": "Sets the guild message of the day; /get retrieves the current one.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/guildstatus",
+    "syntax": "/guildstatus",
+    "category": "Guild",
+    "description": "Reports the targeted player's guild affiliation, even if they are anon.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/help",
+    "syntax": "/help [class]",
+    "category": "Utility",
+    "description": "Displays the in-game command help by category.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/hidecorpse",
+    "syntax": "/hidecorpse <all | allbutgroup | looted | none>",
+    "category": "Utility",
+    "description": "Hides corpses client-side to reduce clutter and lag; 'none' restores them.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/hotbutton",
+    "syntax": "/hotbutton <name>",
+    "category": "Macro",
+    "description": "Creates a named hotbutton from the command line that can be dragged to a hotbar.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/ignore",
+    "syntax": "/ignore [name]",
+    "category": "Chat",
+    "description": "Blocks communications from the named player; alone, lists your ignores.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/invite",
+    "syntax": "/invite [name]",
+    "category": "Group/Raid",
+    "description": "Invites the targeted (or named) player to your group.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/lfg",
+    "syntax": "/lfg [on | off]",
+    "category": "Group/Raid",
+    "description": "Toggles your Looking For Group flag, visible in /who searches.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/loc",
+    "syntax": "/loc",
+    "category": "Utility",
+    "description": "Prints your coordinates as (y, x, z). A staple of camp checks, corpse runs, and log timestamping.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/log",
+    "syntax": "/log [on | off]",
+    "category": "Utility",
+    "description": "Toggles writing all chat/combat text to a per-character log file -- required for any log-parsing companion app.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/loot",
+    "syntax": "/loot",
+    "category": "Utility",
+    "description": "Opens the loot window on the targeted corpse without right-clicking.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/makeleader",
+    "syntax": "/makeleader <name>",
+    "category": "Group/Raid",
+    "description": "Transfers group leadership to the named member.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/melody",
+    "syntax": "/melody [gem#] [gem#] ...",
+    "category": "Combat",
+    "description": "Bard only: auto-twists the listed song gems in order, repeating until stopped. EQ Legends feature -- classic-era EQ had no /melody (manual twisting).",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/queuemelody",
+    "syntax": "/queuemelody <song> [song] ...",
+    "category": "Combat",
+    "description": "Bard only (Legends): plays songs by priority based on recast time and active buffs rather than a fixed order.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/stopsong",
+    "syntax": "/stopsong",
+    "category": "Combat",
+    "description": "Stops the bard song currently being sung (and halts a melody).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/memspellset",
+    "syntax": "/memspellset <name>",
+    "category": "Macro",
+    "description": "Memorizes an entire saved spell set (Legends convenience command; classic re-memmed gem by gem).",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "/note",
+    "syntax": "/note",
+    "category": "Utility",
+    "description": "Opens a notepad window for per-character notes.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/ooc",
+    "syntax": "/ooc <text>",
+    "category": "Chat",
+    "description": "Zone-wide out-of-character channel; the port-taxi and general-chatter medium.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/outputfile",
+    "syntax": "/outputfile <inventory | spellbook> <file.txt>",
+    "category": "Utility",
+    "description": "Exports your inventory or spellbook to a text file in the EQ directory -- companion apps can ingest these.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/pause",
+    "syntax": "/pause <1-600> [, /command]",
+    "category": "Macro",
+    "description": "Macro-only delay in tenths of a second (/pause 10 = 1s; Legends caps at 600 = 60s). On its own line it delays before the NEXT line. Written pause-first on a shared line ('/pause 40, /cast 1'), the other command executes FIRST and the pause runs after it; a line may hold at most two commands and one must be /pause.",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "/pet",
+    "syntax": "/pet <attack | back off | guard here | follow | sit | as you were | get lost | report health | who leader>",
+    "category": "Combat",
+    "description": "Issues pet orders. Key macro verbs: attack (current target), back off (stop fighting), guard here (anchor), follow. Legends adds hold and swarm. Pet commands do not register while you are mid-cast.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/petition",
+    "syntax": "/petition <message>",
+    "category": "Utility",
+    "description": "Files a request for GM assistance.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/played",
+    "syntax": "/played",
+    "category": "Utility",
+    "description": "Shows character creation date and total time played.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/random",
+    "syntax": "/random [low] [high]",
+    "category": "Utility",
+    "description": "Rolls a visible random number (default 0-100) that nearby players can see -- the loot-roll standard.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/reply",
+    "syntax": "/r <text>",
+    "category": "Chat",
+    "description": "Sends a tell to the last person who sent you one.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/roleplay",
+    "syntax": "/role",
+    "category": "Toggles",
+    "description": "Toggles roleplay flag: purple name, class/level hidden from /who.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/rsay",
+    "syntax": "/rsay <text>",
+    "category": "Chat",
+    "description": "Sends a message to raid chat. Confirmed in Legends; on classic-era servers without a raid window, guilds used /gu or /shout instead.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/rt",
+    "syntax": "/rt",
+    "category": "Combat",
+    "description": "Targets the last person who sent you a tell -- the raid buffer's best friend, pairing with /tt for reply-and-buff macros. Verify presence in Legends.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/say",
+    "syntax": "/say <text>",
+    "category": "Chat",
+    "description": "Speaks aloud to nearby players and NPCs; plain text lines in a macro are said this way. Used to trigger NPC dialogue keywords.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/shield",
+    "syntax": "/shield <playername>",
+    "category": "Combat",
+    "description": "Warrior only: intercepts a portion of incoming damage for the named player for a short duration; you must stay in melee range of them.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/shout",
+    "syntax": "/shout <text>",
+    "category": "Chat",
+    "description": "Zone-wide red-text broadcast -- train warnings and raid-critical calls.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/shownames",
+    "syntax": "/shownames [0-6]",
+    "category": "Toggles",
+    "description": "Controls how much of player names/titles render over heads.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/sit",
+    "syntax": "/sit [on | off]",
+    "category": "Utility",
+    "description": "Sits (meditate/regen) or stands. Sitting mid-macro is the standard 'med after cast' finisher; sitting also stands you up from feign death.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/split",
+    "syntax": "/split <plat> <gold> <silver> <copper>",
+    "category": "Group/Raid",
+    "description": "Splits the stated coin from your purse evenly among nearby group members.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/stand",
+    "syntax": "/stand",
+    "category": "Utility",
+    "description": "Stands up -- breaks meditate, feign death, and camp timers. Used in canni-dance and FD-split macros.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/surname",
+    "syntax": "/surname <lastname>",
+    "category": "Utility",
+    "description": "Sets your permanent last name (level 20+ in classic).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/target",
+    "syntax": "/target <name | name's corpse>",
+    "category": "Combat",
+    "description": "Targets the named player, NPC, or corpse. In macros, pair with a short pause before acting on the new target.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/targetgroupbuff",
+    "syntax": "/tgb [on | off]",
+    "category": "Toggles",
+    "description": "Lets single-target group buffs land on non-group targets. Era-uncertain for strict classic (disabled on P99); check Legends behavior.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/tell",
+    "syntax": "/t <name> <text>",
+    "category": "Chat",
+    "description": "Sends a private message to the named player.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/tt",
+    "syntax": "/tt <text>",
+    "category": "Chat",
+    "description": "Sends a tell to your current target -- perfect in buff and rez macros where the target is already selected.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/time",
+    "syntax": "/time",
+    "category": "Utility",
+    "description": "Shows Norrath game time and real-world time.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/timer",
+    "syntax": "/timer <tenths>",
+    "category": "Macro",
+    "description": "Legends-only: paints a visual cooldown sweep on the macro's hotbutton (tenths of a second). Cosmetic -- it runs whether or not the commands succeeded.",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "/toggleinspect",
+    "syntax": "/toggleinspect [on | off]",
+    "category": "Toggles",
+    "description": "Enables/disables right-click inspection of other players.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/useitem",
+    "syntax": "/useitem <slot | \"item name\">",
+    "category": "Combat",
+    "description": "Activates an item's click effect from the command line. EQ Legends feature; classic-era required manually right-clicking the item.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "command": "/viewport",
+    "syntax": "/viewport <x> <y> <width> <height>",
+    "category": "Toggles",
+    "description": "Restricts the 3D world rendering to part of the screen (classic UI trick for chat real estate).",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/who",
+    "syntax": "/who [all] [name | class | level range | zone | lfg | gm]",
+    "category": "Utility",
+    "description": "Lists players matching filters; '/who all gm' is the classic GM check, '/who all lfg' finds groupmates.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/whotarget",
+    "syntax": "/whotarget",
+    "category": "Utility",
+    "description": "Runs a /who on your current target, revealing info even for anon/roleplay players.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "/yell",
+    "syntax": "/yell",
+    "category": "Utility",
+    "description": "Yells for help -- nearby players see your name and the direction you are in. Doubles as a locator during trains and corpse runs.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "command": "%t",
+    "syntax": "%t",
+    "category": "Variables",
+    "description": "Expands to your current target's name in any spoken/chat macro line, evaluated when that line executes (so lines after /assist name the new target). Case-insensitive (%T works).",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "%m",
+    "syntax": "%m",
+    "category": "Variables",
+    "description": "Expands to your pet's name.",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "%s",
+    "syntax": "%s",
+    "category": "Variables",
+    "description": "Target's subjective pronoun (he/she/it).",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "%o",
+    "syntax": "%o",
+    "category": "Variables",
+    "description": "Target's objective pronoun (him/her/it).",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "%p",
+    "syntax": "%p",
+    "category": "Variables",
+    "description": "Target's possessive pronoun (his/her/its).",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "command": "%r",
+    "syntax": "%r",
+    "category": "Variables",
+    "description": "Target's race.",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  }
+]

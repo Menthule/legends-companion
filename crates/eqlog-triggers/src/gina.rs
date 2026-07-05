@@ -10,7 +10,7 @@ use quick_xml::Reader;
 use regex::Regex;
 
 use crate::engine::expand_pattern;
-use crate::model::{Action, Trigger};
+use crate::model::{Action, TimerStartMode, Trigger};
 
 #[derive(Debug, thiserror::Error)]
 pub enum GinaImportError {
@@ -139,7 +139,10 @@ fn parse_share_xml(xml: &str, import: &mut GinaImport) -> Result<(), GinaImportE
                         Some(category.join("/"))
                     };
                     match build_trigger(&fields, category) {
-                        Ok(trigger) => import.triggers.push(trigger),
+                        Ok((trigger, warnings)) => {
+                            import.warnings.extend(warnings);
+                            import.triggers.push(trigger);
+                        }
                         Err(warning) => import.warnings.push(warning),
                     }
                 } else if name == "TriggerGroup" {
@@ -162,6 +165,10 @@ fn field<'a>(fields: &'a [(String, String)], key: &str) -> Option<&'a str> {
         .iter()
         .find(|(k, _)| k == key)
         .map(|(_, v)| v.as_str())
+}
+
+fn has_field(fields: &[(String, String)], key: &str) -> bool {
+    fields.iter().any(|(k, v)| k == key && !v.trim().is_empty())
 }
 
 fn is_true(value: Option<&str>) -> bool {
@@ -187,7 +194,10 @@ fn gina_template(text: &str) -> String {
         .into_owned()
 }
 
-fn build_trigger(fields: &[(String, String)], category: Option<String>) -> Result<Trigger, String> {
+fn build_trigger(
+    fields: &[(String, String)],
+    category: Option<String>,
+) -> Result<(Trigger, Vec<String>), String> {
     let name = field(fields, "Name")
         .filter(|n| !n.is_empty())
         .ok_or_else(|| "trigger skipped: missing Name".to_string())?
@@ -228,21 +238,45 @@ fn build_trigger(fields: &[(String, String)], category: Option<String>) -> Resul
             path: path.to_string(),
         });
     }
+    let mut warnings = Vec::new();
     let timer_type = field(fields, "TimerType").unwrap_or("");
-    if !timer_type.is_empty()
-        && !timer_type.eq_ignore_ascii_case("NoTimer")
-        && !timer_type.eq_ignore_ascii_case("Stopwatch")
-    {
+    if has_field(fields, "TimerEarlyEnders") || has_field(fields, "TimerEarlyEnder") {
+        warnings.push(format!(
+            "trigger '{name}': GINA timer early enders are not imported yet; add CancelTimer triggers manually if needed"
+        ));
+    }
+    if has_field(fields, "TimerEndedTrigger") || has_field(fields, "TimerEndingTrigger") {
+        warnings.push(format!(
+            "trigger '{name}': GINA nested timer-ending/ended trigger actions were reduced to timer labels where possible"
+        ));
+    }
+    if !timer_type.is_empty() && !timer_type.eq_ignore_ascii_case("NoTimer") {
         let duration = field(fields, "TimerDuration")
             .and_then(|d| d.trim().parse::<u64>().ok())
             .unwrap_or(0);
-        if duration > 0 {
+        let stopwatch = timer_type.eq_ignore_ascii_case("Stopwatch");
+        if duration > 0 || stopwatch {
             let timer_name = field(fields, "TimerName")
                 .filter(|n| !n.is_empty())
                 .unwrap_or(&name);
             let warn = field(fields, "TimerEndingTime")
                 .and_then(|w| w.trim().parse::<u64>().ok())
                 .filter(|w| *w > 0 && *w < duration);
+            let behavior = field(fields, "TimerStartBehavior")
+                .or_else(|| field(fields, "TimerStartMode"))
+                .unwrap_or("");
+            let mode = if behavior.to_ascii_lowercase().contains("ignore")
+                || behavior.to_ascii_lowercase().contains("do not")
+            {
+                Some(TimerStartMode::IgnoreIfRunning)
+            } else if behavior.to_ascii_lowercase().contains("new") {
+                Some(TimerStartMode::StartNewInstance)
+            } else {
+                None
+            };
+            let repeating = timer_type.to_ascii_lowercase().contains("repeat")
+                || is_true(field(fields, "TimerRepeats"))
+                || is_true(field(fields, "TimerRepeat"));
             actions.push(Action::StartTimer {
                 name: gina_template(timer_name),
                 duration_secs: duration,
@@ -251,7 +285,29 @@ fn build_trigger(fields: &[(String, String)], category: Option<String>) -> Resul
                 duration_cap_ticks: None,
                 cast_time_secs: None,
                 lane: None,
+                mode,
+                repeat_secs: repeating.then_some(duration).filter(|s| *s > 0),
+                stopwatch,
+                warn_text: field(fields, "TimerEndingDisplayText")
+                    .or_else(|| field(fields, "TimerEndingTextToVoiceText"))
+                    .filter(|v| !v.is_empty())
+                    .map(gina_template),
+                expire_text: field(fields, "TimerEndedDisplayText")
+                    .or_else(|| field(fields, "TimerEndedTextToVoiceText"))
+                    .filter(|v| !v.is_empty())
+                    .map(gina_template),
+                warn_sound: field(fields, "TimerEndingMediaFileName")
+                    .filter(|v| !v.is_empty())
+                    .map(str::to_string),
+                expire_sound: field(fields, "TimerEndedMediaFileName")
+                    .filter(|v| !v.is_empty())
+                    .map(str::to_string),
             });
+            if stopwatch {
+                warnings.push(format!(
+                    "trigger '{name}': imported GINA stopwatch as a zero-duration timer; overlay elapsed-time display is limited"
+                ));
+            }
         }
     }
 
@@ -259,20 +315,25 @@ fn build_trigger(fields: &[(String, String)], category: Option<String>) -> Resul
         .filter(|c| !c.is_empty())
         .map(str::to_string);
 
-    Ok(Trigger {
-        name,
-        pattern,
-        enabled: true,
-        actions,
-        category,
-        comments,
-        case_insensitive: true,
-        id: None,
-        classes: Vec::new(),
-        default_enabled: true,
-        source: crate::model::TriggerSource::Gina,
-        cooldown_secs: None,
-    })
+    Ok((
+        Trigger {
+            name,
+            pattern,
+            enabled: true,
+            actions,
+            category,
+            comments,
+            case_insensitive: true,
+            id: None,
+            classes: Vec::new(),
+            default_enabled: true,
+            source: crate::model::TriggerSource::Gina,
+            cooldown_secs: None,
+            priority: 0,
+            suppress: false,
+        },
+        warnings,
+    ))
 }
 
 #[cfg(test)]

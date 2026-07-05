@@ -1,0 +1,927 @@
+[
+  {
+    "name": "Assist & Attack",
+    "category": "Combat",
+    "classes": [],
+    "lines": [
+      "/pause 3, /assist Tankname",
+      "/attack on"
+    ],
+    "description": "One-button engage for melee: assists the main assist, waits a beat for the target to land, then turns autoattack on. The single most important macro in the game for staying on the right kill target.",
+    "tips": "Replace Tankname with your main assist. The pause fires AFTER /assist (comma semantics), so the new target is locked before /attack. Raise to /pause 10-20 to give the tank time to build aggro before you swing.",
+    "source": "https://almarsguides.com/eq/gettingstarted/boxing/No3rdPartySoftwareBoxingGuides/Macros/"
+  },
+  {
+    "name": "Assist Check (No Attack)",
+    "category": "Combat",
+    "classes": [],
+    "lines": [
+      "/assist Tankname",
+      "/g Assisting -- on %t"
+    ],
+    "description": "Caster-safe assist: acquires the main assist's target and announces it to group without turning melee on. Use before every nuke, mez, or debuff.",
+    "tips": "%t evaluates after the assist, so the announce names the mob you actually targeted -- a built-in sanity check against nuking the mez target.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "Camp Check",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/consider",
+      "/loc",
+      "/time"
+    ],
+    "description": "Cons the current target and stamps your coordinates and game time into chat (and your log file). Standard camp-check and respawn-timing button.",
+    "tips": "With /log on, every press timestamps the camp state in your log -- useful data for a log-parsing companion app.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Corpse Drag",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/pause 10, /corpse",
+      "/pause 10, /corpse",
+      "/pause 10, /corpse",
+      "/pause 10, /corpse",
+      "/corpse"
+    ],
+    "description": "Hold-and-run corpse dragger: tugs your (or a consented) corpse toward you every second for five seconds per press.",
+    "tips": "/corpse only works within about 50 feet of the corpse. To drag someone else's corpse they must /consent you first.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Double Corpse Drag",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/pause 2, /target Alice's corpse",
+      "/pause 2, /corpse",
+      "/pause 2, /target Bob's corpse",
+      "/corpse"
+    ],
+    "description": "Leapfrogs two corpses at once by alternating target and drag. The wipe-recovery workhorse.",
+    "tips": "Replace Alice and Bob with the actual names; both players must /consent you. Spam the button while running to the graveyard or zone line.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Consent Group",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/consent Dragger",
+      "/g Consented -- Dragger can pull my corpse"
+    ],
+    "description": "Grants a named player permission to drag your corpse and tells the group it is done. Make one per regular corpse-dragger in your crew.",
+    "tips": "Revoke later with /deny Name. Consent before risky pulls, not after you are dead and running back naked.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Incoming!",
+    "category": "Pulling",
+    "classes": [],
+    "lines": [
+      "/g INC -- %t -- to camp"
+    ],
+    "description": "Puller announce: names the mob you are dragging home so the group knows what is coming. Press while the pull mob is targeted.",
+    "tips": "Add a second line like '/g Sit NOW to grab aggro-free med time' or '/g CASTERS STAND' to fit your group's habits. Keep it one line if you pull with sows on -- fast fingers matter.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Train Warning",
+    "category": "Social",
+    "classes": [],
+    "lines": [
+      "/shout TRAIN TO ZONE -- sorry!!",
+      "/yell"
+    ],
+    "description": "Zone-wide train apology plus a /yell, which broadcasts your direction to nearby players so they know which way death is coming from.",
+    "tips": "The classic courtesy button. Do not be the person who trains silently.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Auto-Follow",
+    "category": "Movement",
+    "classes": [],
+    "lines": [
+      "/pause 5, /target Leadername",
+      "/follow"
+    ],
+    "description": "Targets your group's runner and locks on auto-follow. Re-press whenever follow breaks on turns or zone lines.",
+    "tips": "Straight from Almar's guide. Follow only works on group members; any movement key breaks it. Swap Leadername per session.",
+    "source": "https://almarsguides.com/eq/gettingstarted/boxing/No3rdPartySoftwareBoxingGuides/Macros/"
+  },
+  {
+    "name": "AFK Toggle",
+    "category": "Social",
+    "classes": [],
+    "lines": [
+      "/afk Back in 5 -- auto-reply on",
+      "/sit"
+    ],
+    "description": "Flags you AFK with an auto-reply to tells and sits you down. Press again to clear AFK when you return.",
+    "tips": "Pair with a 'Back' macro: /afk then /g Back! Pet classes: add /pet guard here so the pet does not wander.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Who's That? (GM/Anon Check)",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/whotarget",
+      "/guildstatus"
+    ],
+    "description": "Reveals a targeted player's /who line and guild affiliation even if they are anon or roleplay-flagged. Handy before group invites or when checking a suspicious name.",
+    "tips": "From the P99 'useful hotkeys' thread -- veterans keep this bound at all times.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=12949"
+  },
+  {
+    "name": "Loot Roll Call",
+    "category": "Social",
+    "classes": [],
+    "lines": [
+      "/g Rolling for the drop -- /random 100, highest wins",
+      "/random 100"
+    ],
+    "description": "Announces the roll rules and immediately rolls 0-100 in front of the group. Everyone else presses their own /random 100.",
+    "tips": "/random alone rolls 0-100; /random 333 500 rolls a custom range for tie-breaks.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Bind Wound Chain",
+    "category": "Healing",
+    "classes": [],
+    "lines": [
+      "/pause 95, /doability 3",
+      "/pause 95, /doability 3",
+      "/pause 95, /doability 3",
+      "/pause 95, /doability 3",
+      "/doability 3"
+    ],
+    "description": "Chains five Bind Wound attempts with the ~10s re-bind delay between each. Free HP between pulls and passive skill-ups.",
+    "tips": "Set 3 to whatever Ability-tab slot holds Bind Wound (slots 1-6 on the classic A tab). Requires bandages in inventory; taking a hit or moving interrupts. Target yourself or a hurt groupmate.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Fishing Loop",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/pause 130, /doability 1",
+      "/pause 10, /autoinventory",
+      "/pause 130, /doability 1",
+      "/pause 10, /autoinventory"
+    ],
+    "description": "Casts your line twice per press, auto-bagging whatever you reel in. Face water with a fishing pole equipped and bait in inventory.",
+    "tips": "P99 wiki verbatim. The 13s pause covers the reel-in time; the /autoinventory stops fish from sitting on your cursor.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Forage & Stash",
+    "category": "Utility",
+    "classes": [
+      "Ranger",
+      "Druid",
+      "Bard"
+    ],
+    "lines": [
+      "/doability 2",
+      "/pause 5, /autoinventory",
+      "/autoinventory",
+      "/timer 600"
+    ],
+    "description": "Forages and auto-bags the result (two autoinventory calls in case of stacked cursor items), then paints a 60s visual cooldown on the button.",
+    "tips": "/timer is a Legends-only visual cooldown (tenths of a second, cosmetic only) -- delete that line on classic emulators. Any race/class with the Forage skill can use this; set 2 to your Forage slot.",
+    "source": "https://eqlwiki.com/Macro_Guide_by_Mazirian"
+  },
+  {
+    "name": "Session Log Start",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/log on",
+      "/loc",
+      "/time",
+      "/played"
+    ],
+    "description": "Turns on the text log file and stamps location, game time, and /played into it. Press at the start of every session -- log parsers (like Legends Companion) need /log on to see anything.",
+    "tips": "Logging persists per character. /outputfile inventory Filename.txt is a companion trick for exporting your inventory to a file.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Insta-Camp",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/afk Camping -- gone in 30",
+      "/sit",
+      "/camp"
+    ],
+    "description": "Flags AFK, sits, and starts the 30-second camp timer in one press.",
+    "tips": "Use /camp desktop to exit straight to Windows. Standing or taking damage cancels the camp.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Hide Corpses",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/hidecorpse allbutgroup"
+    ],
+    "description": "Hides every corpse except your group's -- massive clutter and lag reduction at raid wipes and heavily-farmed camps.",
+    "tips": "/hidecorpse none restores visibility; /hidecorpse looted hides corpses as you loot them. Newly spawned corpses still appear until you re-press.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=12949"
+  },
+  {
+    "name": "Taunt & Report",
+    "category": "Combat",
+    "classes": [
+      "Warrior",
+      "Paladin",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/doability 7",
+      "/g Taunting %t -- feed me a second to lock aggro"
+    ],
+    "description": "Fires Taunt from the Combat tab and tells the group who you are peeling. Spam it when a caster catches aggro.",
+    "tips": "Classic /doability numbering: 1-6 = Abilities tab, 7-10 = Combat tab; put Taunt in slot 7. Drop the announce line if you prefer a silent spam button.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Kick + Attack Safety",
+    "category": "Combat",
+    "classes": [
+      "Warrior",
+      "Ranger",
+      "Monk",
+      "Beastlord"
+    ],
+    "lines": [
+      "/attack on",
+      "/doability 8"
+    ],
+    "description": "Guarantees autoattack is on and fires Kick (or Flying Kick) in one press. Spam it as your main melee button and you will never stand there not swinging.",
+    "tips": "Set 8 to your kick's Combat-tab slot. The /attack on guard is the classic fix for 'why am I not attacking' -- it never toggles attack off.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=130629"
+  },
+  {
+    "name": "Shield Bash",
+    "category": "Combat",
+    "classes": [
+      "Warrior",
+      "Paladin",
+      "Shadow Knight",
+      "Cleric"
+    ],
+    "lines": [
+      "/attack on",
+      "/doability 9"
+    ],
+    "description": "Autoattack guard plus Bash. Time it against enemy casters -- a landed bash interrupts their cast.",
+    "tips": "Requires a shield equipped. Put Bash in Combat slot 9 and spam; it simply fails silently while on cooldown.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Backstab Spam",
+    "category": "Combat",
+    "classes": [
+      "Rogue"
+    ],
+    "lines": [
+      "/attack on",
+      "/doability 7"
+    ],
+    "description": "The rogue bread-and-butter: keeps autoattack on and fires Backstab every time it refreshes.",
+    "tips": "Needs a piercing weapon in the main hand and you must be behind the target. Spam freely -- failed attempts cost nothing.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=130629"
+  },
+  {
+    "name": "Rogue Evade",
+    "category": "Combat",
+    "classes": [
+      "Rogue"
+    ],
+    "lines": [
+      "/attack off",
+      "/pause 5, /doability 3",
+      "/attack on"
+    ],
+    "description": "The aggro-dump: flips attack off, Hides mid-combat (evade), and resumes attacking. Use whenever you rip aggro off the tank.",
+    "tips": "Set 3 to your Hide slot. Evade only works while the mob is engaged on someone else and you are stationary for the instant of the Hide. Repeat every big backstab chain.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=130629"
+  },
+  {
+    "name": "Monk FD Drop",
+    "category": "Pulling",
+    "classes": [
+      "Monk"
+    ],
+    "lines": [
+      "/attack off",
+      "/doability 1"
+    ],
+    "description": "Instant feign death: kills autoattack (a swing cancels FD) then flops. Kept to two lines so nothing can delay the feign.",
+    "tips": "P99 monk consensus: keep the FD button minimal -- no pauses, no announces. Put Feign Death in Ability slot 1 on every monk you make.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=130629"
+  },
+  {
+    "name": "Monk FD Split",
+    "category": "Pulling",
+    "classes": [
+      "Monk"
+    ],
+    "lines": [
+      "/attack off",
+      "/doability 1",
+      "/pause 100",
+      "/doability 2",
+      "/stand"
+    ],
+    "description": "The pull-splitting sequence: feign, wait 10 seconds while the extra mobs path home, Sneak, then stand. Sneak-standing keeps mobs behind you from re-aggroing, so only the near mob comes back.",
+    "tips": "Set 1=Feign Death, 2=Sneak. Tune the standalone /pause to the camp's pathing -- longer for deep splits. Stand only when the mob you want is closest; abort by not pressing at all and flopping manually.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=130629"
+  },
+  {
+    "name": "Mend & Report",
+    "category": "Healing",
+    "classes": [
+      "Monk"
+    ],
+    "lines": [
+      "/doability 4",
+      "/g Mend used -- next in ~6 min"
+    ],
+    "description": "Fires Mend and tells the healer it is spent, so they know your self-heal is down.",
+    "tips": "Mend can critically fail at low skill and hurt you instead -- do not lean on it below 50% HP at low levels.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Ranger Bow Assist",
+    "category": "Combat",
+    "classes": [
+      "Ranger"
+    ],
+    "lines": [
+      "/pause 3, /assist Tankname",
+      "/autofire on"
+    ],
+    "description": "Assists the tank and opens up with auto-firing ranged attacks -- perfect while mobs are inbound or when you are told to stay at range.",
+    "tips": "/autofire exists in EQ Legends; on strict classic-era servers you hold the ranged-attack key instead. Turn it off (/autofire off) before closing to melee, and use /bandolier to swap to melee weapons.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Shield Ally",
+    "category": "Combat",
+    "classes": [
+      "Warrior"
+    ],
+    "lines": [
+      "/shield Clericname",
+      "/g Shielding Clericname -- I eat their hits, keep me up"
+    ],
+    "description": "Warrior /shield: intercepts a chunk of incoming damage for the named player for a short duration. Use on the CH cleric or a training caster.",
+    "tips": "You must stay in melee range of the shielded player for the duration. Syntax per the Legends wiki is /shield <playername>.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Defensive Disc Call",
+    "category": "Combat",
+    "classes": [
+      "Warrior"
+    ],
+    "lines": [
+      "/disc defensive",
+      "/rs DEFENSIVE UP -- max heals for the duration, call when it drops"
+    ],
+    "description": "Pops a mitigation discipline and tells the raid so healers adjust. The announce is the whole point -- silent discs waste healer mana.",
+    "tips": "/disc <name> performs the named discipline (confirmed in Legends). Which discs exist at Legends' level-50 cap may differ from classic (Defensive was 55 in old EQ) -- swap in whatever your class has.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Berserker Frenzy Spam",
+    "category": "Combat",
+    "classes": [
+      "Berserker"
+    ],
+    "lines": [
+      "/attack on",
+      "/doability 7"
+    ],
+    "description": "Berserker main button: autoattack guard plus Frenzy every time it refreshes.",
+    "tips": "Berserker is new to Legends (never existed in classic), so slot numbers and ability names come from the Legends Actions window -- put Frenzy in a Combat slot and spam. Add /autofire on for throwing-axe openers.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Weapon Set Swap",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/bandolier activate Mainhand"
+    ],
+    "description": "Swaps to a saved weapon set in one press -- bow to melee, epic to bash shield, proc weapons to pacify-safe fists.",
+    "tips": "Create sets first with /bandolier add <SetName> while holding the gear. Legends feature: classic-era EQ had no bandolier, swaps were manual inventory drags.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "CH Rotation Call",
+    "category": "Healing",
+    "classes": [
+      "Cleric"
+    ],
+    "lines": [
+      "/rs CH -- %t -- casting NOW",
+      "/cast 1",
+      "/cast 1",
+      "/pause 95",
+      "/rs NextCleric GO"
+    ],
+    "description": "Raid Complete Heal chain: announce your CH with the target's name, double-tap the cast to eat one fizzle, ride out the 10s cast, then call the next cleric in rotation.",
+    "tips": "The second /cast 1 only fires if the first fizzled (you cannot double-cast mid-cast). Replace NextCleric and tune the pause to your chain interval -- tighter chains use a shorter pause so the call lands early. Classic convention writes it 'CH -- %t -- 007' with each cleric's number.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=19032"
+  },
+  {
+    "name": "Complete Heal Announce",
+    "category": "Healing",
+    "classes": [
+      "Cleric"
+    ],
+    "lines": [
+      "/g Casting Complete Heal on %t",
+      "/cast 1",
+      "/pause 110",
+      "/sit"
+    ],
+    "description": "Group CH: announces the heal target, casts, waits out the full cast, and sits to med. The announce stops the tank from wasting a potion and the group from panicking.",
+    "tips": "P99 forum verbatim. Pause 110 covers the 10s cast plus recovery; shorten if you want to move sooner and sit manually.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=19032"
+  },
+  {
+    "name": "Mez -- DO NOT TOUCH",
+    "category": "Crowd Control",
+    "classes": [
+      "Enchanter",
+      "Bard"
+    ],
+    "lines": [
+      "/g Mezzing %t << DO NOT TOUCH -- no DoTs, no pets, no AEs",
+      "/cast 3"
+    ],
+    "description": "The mez announce every enchanter runs: names the add, warns the group off it, then casts. Any damage breaks mez, so the warning IS the crowd control.",
+    "tips": "Announce first so the mob's name is spoken even if it dies or resists. Bards: point the cast line at your mez song gem. Pair with a Tash macro ('/g Tashing %t' + /cast 2) for resist fights.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "Charm Warning",
+    "category": "Crowd Control",
+    "classes": [
+      "Enchanter",
+      "Druid",
+      "Necromancer"
+    ],
+    "lines": [
+      "/g Charming %t -- if my pet turns on me it BROKE: assist and kill it, do NOT scatter",
+      "/cast 4"
+    ],
+    "description": "Announces the charm target and the break plan before casting. Charm is the strongest and most dangerous spell in classic -- the group must know the drill in advance.",
+    "tips": "Druids charm animals only, necros undead only. Keep the mob debuffed (Tash/Malo) and always have the break plan macro'd, not typed in a panic.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "CHARM BROKE -- Remez",
+    "category": "Crowd Control",
+    "classes": [
+      "Enchanter"
+    ],
+    "lines": [
+      "/g CHARM BROKE -- remezzing, get OFF it",
+      "/cast 3"
+    ],
+    "description": "Panic button for charm breaks: warns the group and mezzes your ex-pet in one press.",
+    "tips": "Bind a 'cycle nearest NPC' key next to this -- the broken pet is usually the closest NPC to you. Rebuff rune on yourself after it is locked down.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "Root Park",
+    "category": "Crowd Control",
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Shaman",
+      "Wizard"
+    ],
+    "lines": [
+      "/g Rooting %t -- PARKED, stay out of its melee range",
+      "/cast 5"
+    ],
+    "description": "Roots an add in place and tells the group it is parked. Cheap crowd control for camps without an enchanter.",
+    "tips": "Root can break on any damage tick -- re-announce on breaks. Park mobs away from the med circle; rooted mobs still melee whatever stands next to them.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Snare Call",
+    "category": "Crowd Control",
+    "classes": [
+      "Ranger",
+      "Druid",
+      "Necromancer",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/g %t SNARED -- no runners, burn it down",
+      "/cast 2"
+    ],
+    "description": "Snares the kill target and announces it, so the group knows it cannot flee at low HP and bring friends.",
+    "tips": "Snare first, then DoT/nuke -- classic pulling discipline. Necro/SK Darkness lines double as aggro tools; announce prevents double-snaring.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Evac Countdown",
+    "category": "Movement",
+    "classes": [
+      "Wizard",
+      "Druid"
+    ],
+    "lines": [
+      "/rs EVAC IN 5 SECONDS -- stack on me NOW",
+      "/pause 50",
+      "/rs CASTING EVAC",
+      "/cast 8"
+    ],
+    "description": "The camp-saver: five-second warning, then casts Evacuate/Succor. Only group members in range go -- the countdown is what saves lives.",
+    "tips": "Tune the standalone pause to your group's discipline (raise to /pause 100 for a 10s warning). Keep evac memmed in the same gem slot forever so the macro never lies.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Gate Out",
+    "category": "Movement",
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Shaman",
+      "Necromancer",
+      "Wizard",
+      "Magician",
+      "Enchanter"
+    ],
+    "lines": [
+      "/g Gating -- see you at my bind, safe hunting",
+      "/cast 8"
+    ],
+    "description": "Announces and casts Gate so the group is not left wondering where their healer went.",
+    "tips": "Keep Gate in the same gem slot on every spell set. For emergencies make a no-announce copy -- one line, /cast 8.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "OOM Call",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/g OOM -- hold pulls, medding"
+    ],
+    "description": "Tells the puller you are out of mana before the next pull, not during it.",
+    "tips": "Classic and Legends have no mana variable for macros -- the 'Mana: 47%' convention is typed by hand (or tracked by a log companion). Make LOW MANA (30%) and OOM variants.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=19032"
+  },
+  {
+    "name": "Mana Check",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/g MANA CHECK -- casters reply with your %"
+    ],
+    "description": "Group-leader button: polls caster mana between pulls. The replies pace the puller.",
+    "tips": "Raid version: swap /g for /rs. Companion apps can automate the replies by watching the log for this line.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=19032"
+  },
+  {
+    "name": "Assist Nuke",
+    "category": "Combat",
+    "classes": [
+      "Wizard"
+    ],
+    "lines": [
+      "/pause 10, /assist Tankname",
+      "/g Nuking %t",
+      "/cast 1"
+    ],
+    "description": "Assist, announce, nuke -- with a one-second pause after the assist so the target resolves and you never nuke the mez target.",
+    "tips": "Raise the pause to /pause 30-50 early in fights to let the tank build aggro; classic wizard aggro is unforgiving. Swap gem numbers for your nuke ladder.",
+    "source": "https://almarsguides.com/eq/gettingstarted/boxing/No3rdPartySoftwareBoxingGuides/Macros/"
+  },
+  {
+    "name": "Caster Feign Death",
+    "category": "Pulling",
+    "classes": [
+      "Necromancer",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pet back off",
+      "/cast 5"
+    ],
+    "description": "Calls the pet off and casts Feign Death to dump aggro. The pet line matters -- an attacking pet keeps you on the hate list.",
+    "tips": "Keep FD in a fixed gem slot. After the camp settles, stand and rebuff (necros: re-lich, re-darkness the split target). SKs get FD as a spell later than monks get the skill.",
+    "source": "https://wiki.project1999.com/Pet_Guide"
+  },
+  {
+    "name": "Pet Assist",
+    "category": "Pet",
+    "classes": [
+      "Magician",
+      "Necromancer",
+      "Enchanter",
+      "Shaman",
+      "Beastlord",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pause 3, /assist Tankname",
+      "/pet attack",
+      "/g %m is on %t"
+    ],
+    "description": "Assists the tank, sends the pet at that target, and announces which mob the pet is eating. Prevents the classic disaster of the pet peeling the mez target.",
+    "tips": "%m speaks your pet's name. The pause fires after the assist so /pet attack goes at the right mob. Never send pets before the tank has aggro.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "Pet Recall",
+    "category": "Pet",
+    "classes": [
+      "Magician",
+      "Necromancer",
+      "Enchanter",
+      "Shaman",
+      "Beastlord",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pause 2, /pet back off",
+      "/pet follow"
+    ],
+    "description": "Yanks the pet off its target and puts it back on follow. Press early and often when a pull goes wrong.",
+    "tips": "P99 wiki verbatim. Pet commands will not register while you are mid-cast -- press again after your cast finishes if the pet ignores you.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Pet Switch Target",
+    "category": "Pet",
+    "classes": [
+      "Magician",
+      "Necromancer",
+      "Enchanter",
+      "Shaman",
+      "Beastlord",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pause 2, /pet back off",
+      "/pet attack"
+    ],
+    "description": "Recalls the pet and immediately re-sends it at your current target -- the clean way to retarget a pet mid-fight.",
+    "tips": "From the P99 enchanter macro thread. Target the new mob first (or lead with /assist Tankname on line 1).",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "Park Pet",
+    "category": "Pet",
+    "classes": [
+      "Magician",
+      "Necromancer",
+      "Enchanter",
+      "Shaman",
+      "Beastlord",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pet back off",
+      "/pet guard here"
+    ],
+    "description": "Stops the pet and anchors it at its current spot -- pre-pull discipline so it cannot leash onto inbound mobs.",
+    "tips": "Legends also supports /pet hold. Re-park after every fight; a following pet is an accidental-aggro machine in dungeons.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Mage Pet Arsenal",
+    "category": "Pet",
+    "classes": [
+      "Magician"
+    ],
+    "lines": [
+      "/pause 60, /cast 5",
+      "/autoinventory",
+      "/pause 60, /cast 5",
+      "/autoinventory",
+      "/g Pet weapons up -- arming %m"
+    ],
+    "description": "Summons two pet weapons (dagger/sword line), bagging each, then announces the handoff. Give both to the pet for the damage and proc upgrade.",
+    "tips": "Tune /pause to the summon's cast time plus recovery (60 = 6s). You still hand weapons to the pet manually via trade. Rebuild after every pet death -- an armed mage pet is a different class.",
+    "source": "https://wiki.project1999.com/Pet_Guide"
+  },
+  {
+    "name": "Canni Dance",
+    "category": "Utility",
+    "classes": [
+      "Shaman"
+    ],
+    "lines": [
+      "/pause 2, /stand",
+      "/pause 14, /cast 1",
+      "/sit"
+    ],
+    "description": "The shaman engine: stand, Cannibalize HP into mana, sit back down to med. Spam between every pull.",
+    "tips": "P99 wiki verbatim; a popular variant is '/cast 7' + '/pause 24' + '/sit' -- tune to your Canni rank's cast time. Watch your HP and keep a heal ready; do not canni during AE fights.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Heal Incoming",
+    "category": "Healing",
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Shaman",
+      "Paladin"
+    ],
+    "lines": [
+      "/g Healing %t -- hang on",
+      "/cast 2"
+    ],
+    "description": "Fast-heal announce: tells the group (and the target) that help is casting, so melee do not disengage and the tank does not burn cooldowns.",
+    "tips": "Make one per heal rank in different gems. The announce doubles as an anti-overheal signal to a second healer.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=19032"
+  },
+  {
+    "name": "Rez Announce",
+    "category": "Healing",
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "lines": [
+      "/g Rezzing %t -- take it, then loot your corpse before it rots",
+      "/cast 6"
+    ],
+    "description": "Targets a corpse, announces the rez, and casts. %t speaks the corpse's name so the right player releases and takes it.",
+    "tips": "For raids swap /g for /shout or a /tell to the dead player's name. State the rez percent in the text if you carry multiple ranks ('96% rez inc').",
+    "source": "https://www.project1999.com/forums/showthread.php?t=19032"
+  },
+  {
+    "name": "Buff Tell Reply",
+    "category": "Social",
+    "classes": [],
+    "lines": [
+      "/pause 2, /rt",
+      "/tt Buffs incoming -- stand still",
+      "/cast 4"
+    ],
+    "description": "Answers a buff-beg in one press: targets whoever last sent you a tell (/rt), tells them to hold still (/tt goes to your target), and casts.",
+    "tips": "From P99 raid-cleric practice. /rt and /tt are on the P99 command list; verify they exist in Legends before shipping as default. Swap the gem per buff (Clarity, SoW, Temperance...).",
+    "source": "https://www.project1999.com/forums/showthread.php?t=12949"
+  },
+  {
+    "name": "Port Taxi Call",
+    "category": "Movement",
+    "classes": [
+      "Druid",
+      "Wizard"
+    ],
+    "lines": [
+      "/ooc PORTING out shortly -- /tell me for a spot, donations appreciated"
+    ],
+    "description": "The classic port-taxi advertisement. Press in the commons tunnel or at the spires and watch the tells roll in.",
+    "tips": "Keep one per destination ('Porting to NK/Ro/Butcher'). Pair with the Port Cast Warning macro when the group is assembled.",
+    "source": "https://wiki.project1999.com/Druid_all-in-one_guide_by_Gaviilan"
+  },
+  {
+    "name": "Port Cast Warning",
+    "category": "Movement",
+    "classes": [
+      "Druid",
+      "Wizard"
+    ],
+    "lines": [
+      "/g PORT INC -- click YES on the box or wave goodbye",
+      "/pause 40",
+      "/cast 8"
+    ],
+    "description": "Warns the group to accept the translocate/port confirm, waits four seconds, then casts the port.",
+    "tips": "Group ports only take group members in range -- the pause is your straggler grace period. Tune it per group.",
+    "source": "https://wiki.project1999.com/Druid_all-in-one_guide_by_Gaviilan"
+  },
+  {
+    "name": "Main Assist Call",
+    "category": "Social",
+    "classes": [],
+    "lines": [
+      "/rs MAIN ASSIST: %t -- make an /assist hotkey on this name NOW",
+      "/g All damage through the MA -- /assist before you swing"
+    ],
+    "description": "Raid-leader button: target the MA player and press. Names the main assist to the raid and reminds everyone to build their assist hotkey.",
+    "tips": "Legends also supports /assist main if the raid tool designates an MA -- mention it in the announce if your raid uses it.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "CC Assignments",
+    "category": "Crowd Control",
+    "classes": [
+      "Enchanter",
+      "Bard"
+    ],
+    "lines": [
+      "/rs CC: I handle adds -- kill MY TARGET LAST, no AEs or pets without my GO"
+    ],
+    "description": "Pre-fight crowd-control contract with the raid. One press before every multi-pull event saves three broken mezzes.",
+    "tips": "Customize per event ('mez order: caster adds first'). Repeat it after wipes -- new joiners never saw the first one.",
+    "source": "https://www.project1999.com/forums/showthread.php?t=225770"
+  },
+  {
+    "name": "Loot Rules",
+    "category": "Social",
+    "classes": [],
+    "lines": [
+      "/rs LOOT: need-before-greed -- /random 100 on contested drops, tells to the loot master for rares"
+    ],
+    "description": "Raid/group loot-rules announce. Stating rules before the first kill prevents every argument after it.",
+    "tips": "Make group (/g) and raid (/rs) versions. Turn on /autosplit at group formation so coin never needs discussing.",
+    "source": "https://wiki.project1999.com/Commands"
+  },
+  {
+    "name": "Pull Timer",
+    "category": "Pulling",
+    "classes": [],
+    "lines": [
+      "/g Camp ready? Pulling in 10 -- med up and call OOM now",
+      "/pause 100",
+      "/g PULLING NOW"
+    ],
+    "description": "Puller courtesy clock: ten-second warning, then the commit call. Gives casters a fair chance to object before the mob is inbound.",
+    "tips": "The standalone /pause 100 (10s) runs before line 3 fires. Cancel by just... not pulling; the macro only talks.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Bard Melody",
+    "category": "Combat",
+    "classes": [
+      "Bard"
+    ],
+    "lines": [
+      "/melody 1 2 3 4"
+    ],
+    "description": "Auto-twists the songs in gems 1-4 in order, repeating until stopped. The Legends bard's default combat state.",
+    "tips": "Legends-only: classic-era EQ had NO /melody -- bards twisted by hand. /stopsong halts; /queuemelody <song> arranges by recast priority. Make one melody macro per situation (pull, burn, med).",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Clicky Item",
+    "category": "Utility",
+    "classes": [],
+    "lines": [
+      "/useitem \"Journeyman's Boots\"",
+      "/g SoW clicked -- moving out"
+    ],
+    "description": "Activates an item's effect from a macro by name or inventory slot -- clicky buffs, epic effects, instrument swaps.",
+    "tips": "Legends-only command (/useitem <slot> or /useitem \"<name>\"); classic-era required opening inventory and right-clicking. Swap the item name for your clicky of choice.",
+    "source": "https://eqlwiki.com/Commands"
+  },
+  {
+    "name": "Feign Death Skill-Up",
+    "category": "Utility",
+    "classes": [
+      "Monk"
+    ],
+    "lines": [
+      "/pause 20, /doability 1",
+      "/pause 80, /sit",
+      "/pause 20, /doability 1",
+      "/pause 80, /sit",
+      "/doability 1"
+    ],
+    "description": "Downtime FD skill trainer: flop, sit (which stands you up from feign), flop again. Run it while medding at camp to cap Feign Death skill.",
+    "tips": "P99 wiki verbatim (slot 1 = FD). Only do this at a safe camp -- a failed feign at the wrong moment says your name to the whole room.",
+    "source": "https://wiki.project1999.com/Macro"
+  },
+  {
+    "name": "Casting Skill Grinder",
+    "category": "Utility",
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Shaman",
+      "Necromancer",
+      "Wizard",
+      "Magician",
+      "Enchanter"
+    ],
+    "lines": [
+      "/pause 60, /cast 1",
+      "/pause 60, /cast 1",
+      "/pause 60, /cast 1",
+      "/pause 60, /cast 1",
+      "/cast 1"
+    ],
+    "description": "Chain-casts gem 1 five times per press -- the standard way to grind up a new specialization or casting skill on a cheap spell.",
+    "tips": "P99 wiki verbatim. Mem the cheapest spell of the school you are skilling and sit-med between presses. Tune pause to cast time + recovery.",
+    "source": "https://wiki.project1999.com/Macro"
+  }
+]

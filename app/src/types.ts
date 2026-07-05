@@ -10,11 +10,15 @@ export interface AppConfig {
   /** Named pets/charmed mobs (exact in-game names). Friendly casters for
    *  the trigger engine; folded into the character on the damage meter. */
   pets: string[];
+  ttsDictionary?: { from: string; to: string }[];
+  /** Windows TTS voice display name; "" or absent = system default. */
+  ttsVoice?: string;
 }
 
 /** Overlay lane a timer routes to (eqlog-triggers TimerLane, lowercase).
  *  "on-others" = buffs YOU cast on OTHER people (its own overlay lane). */
 export type TimerLane = "buff" | "enemy" | "on-others" | "other";
+export type TimerStartMode = "restart" | "ignore-if-running" | "start-new-instance";
 
 /** eqlog-triggers Action enum, serde externally-tagged. */
 export type TriggerAction =
@@ -34,6 +38,13 @@ export type TriggerAction =
         duration_cap_ticks?: number | null;
         /** Overlay lane; absent = engine infers from the trigger category. */
         lane?: TimerLane | null;
+        mode?: TimerStartMode | null;
+        repeat_secs?: number | null;
+        stopwatch?: boolean;
+        warn_text?: string | null;
+        expire_text?: string | null;
+        warn_sound?: string | null;
+        expire_sound?: string | null;
       };
     };
 
@@ -61,6 +72,8 @@ export interface Trigger {
   /** Refire cooldown in seconds — after firing, matching lines stay silent
    *  this long (anti-spam throttle). Absent/0 = fire on every match. */
   cooldown_secs?: number | null;
+  priority?: number;
+  suppress?: boolean;
 }
 
 /** The 16 Legends classes, exact names as used in pack `classes` arrays. */
@@ -324,6 +337,7 @@ export const OVERLAY_TARGET = "overlay-target";
 export const OVERLAY_METER = "overlay-meter";
 export const OVERLAY_STANCE = "overlay-stance";
 export const OVERLAY_ONOTHERS = "overlay-onothers";
+export const OVERLAY_XP = "overlay-xp";
 
 /** All overlay window labels, in top-bar/Settings display order. */
 export const OVERLAY_LABELS = [
@@ -332,6 +346,7 @@ export const OVERLAY_LABELS = [
   OVERLAY_ONOTHERS,
   OVERLAY_TARGET,
   OVERLAY_METER,
+  OVERLAY_XP,
   OVERLAY_STANCE,
 ] as const;
 
@@ -357,3 +372,306 @@ export function displayPath(p: string): string {
 
 export const DEFAULT_LOG_DIR =
   "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest Legends/Logs";
+
+// ---------------------------------------------------------------------------
+// Drops research database (bundled classic-era PEQ reference data).
+// ---------------------------------------------------------------------------
+
+export interface DropItemRow {
+  id: number;
+  name: string;
+  itemtype: number;
+  slots: number;
+  classes: number;
+  races: number;
+  ac: number;
+  hp: number;
+  mana: number;
+  astr: number;
+  asta: number;
+  aagi: number;
+  adex: number;
+  awis: number;
+  aint: number;
+  acha: number;
+  damage: number;
+  delay: number;
+  magic: number;
+  noDrop: number;
+  noRent: number;
+  loregroup: number;
+  weight: number;
+  reqlevel: number;
+  haste: number;
+  procName: string | null;
+  clickName: string | null;
+  wornName: string | null;
+  focusName: string | null;
+  /** Distinct dropping NPCs within the era filter. */
+  sources: number;
+  /** Highest-chance dropping mob (zone-filter preferred), and its zone. */
+  topNpc: string | null;
+  topZone: string | null;
+}
+
+export interface DropSearchResult {
+  total: number;
+  rows: DropItemRow[];
+}
+
+export interface DropEffect {
+  name: string;
+  /** "proc" | "click" | "worn" | "focus" */
+  kind: string;
+  items: number;
+}
+
+export interface DropZone {
+  shortName: string;
+  longName: string;
+  era: number;
+}
+
+export interface DropSource {
+  npc: string;
+  level: number;
+  zone: string | null;
+  zoneLong: string | null;
+  era: number | null;
+  chance: number;
+  spawns: number | null;
+}
+
+/** Result of refdb_respawn_for: reference respawn data for a slain NPC
+ *  (bundled classic-era database). Null from the command = unknown NPC. */
+export interface RespawnInfo {
+  npcId: number;
+  name: string;
+  /** 1 = named/rare spawn, 0 = trash. */
+  named: number;
+  respawnSecs: number;
+  zoneLong: string | null;
+}
+
+// ---------------------------------------------------------------------------
+// Spell/ability reference database (same bundled sqlite as drops).
+// ---------------------------------------------------------------------------
+
+export interface SpellRow {
+  id: number;
+  name: string;
+  /** 1 = endurance-costed combat ability, 0 = spell. */
+  isAbility: number;
+  mana: number;
+  endurance: number;
+  castTimeMs: number;
+  recastMs: number;
+  durationSecs: number;
+  spellRange: number;
+  targetType: number;
+  resistType: number;
+  skill: number;
+  beneficial: number;
+  castOnYou: string | null;
+  castOnOther: string | null;
+  wearOff: string | null;
+  /** "Enchanter 12, Necromancer 16" — full class names with levels. */
+  classesStr: string | null;
+  /** The filtered class's level (null when no class filter is set). */
+  classLevel: number | null;
+}
+
+export interface SpellSearchResult {
+  total: number;
+  rows: SpellRow[];
+}
+
+// ---------------------------------------------------------------------------
+// Reference DB v2: mobs, vendors, recipes, zone info (same bundled sqlite).
+// All payloads are serde camelCase from the refdb_* commands.
+// ---------------------------------------------------------------------------
+
+/** One merchant selling an item (refdb_item_vendors). */
+export interface ItemVendor {
+  npc: string;
+  level: number;
+  zone: string | null;
+  zoneLong: string | null;
+  era: number | null;
+}
+
+/** One NPC row from refdb_mob_search. */
+export interface MobRow {
+  id: number;
+  name: string;
+  level: number;
+  /** 1 = named/rare spawn. */
+  named: number;
+  /** 1 = merchant (sells items). */
+  merchant: number;
+  topZone: string | null;
+  lootCount: number;
+  /** 0 = unknown. */
+  respawnSecs: number;
+}
+
+export interface MobSearchResult {
+  total: number;
+  rows: MobRow[];
+}
+
+export interface MobZone {
+  zone: string;
+  zoneLong: string | null;
+  era: number | null;
+  spawns: number;
+  respawnSecs: number;
+}
+
+export interface MobLootRow {
+  itemId: number;
+  item: string;
+  chance: number;
+  /** Optional item-type/slot hints if the backend ever provides them
+   *  (drive the item-type icon; absent = generic icon). */
+  itemtype?: number | null;
+  slots?: number | null;
+}
+
+export interface MobSellRow {
+  itemId: number;
+  item: string;
+}
+
+/** Full NPC detail (refdb_mob_detail). */
+export interface MobDetail {
+  id: number;
+  name: string;
+  level: number;
+  named: number;
+  faction: string | null;
+  zones: MobZone[];
+  loot: MobLootRow[];
+  sells: MobSellRow[];
+}
+
+/** One scribeable scroll teaching a spell (refdb_spell_scrolls). */
+export interface SpellScroll {
+  itemId: number;
+  item: string;
+  dropCount: number;
+  vendorCount: number;
+  /** Preformatted "best drop" / "best vendor" hint strings; null = none. */
+  topDrop: string | null;
+  topVendor: string | null;
+}
+
+/** Recipe reference row (refdb_recipe_search rows, refdb_item_recipes). */
+export interface RecipeRef {
+  id: number;
+  name: string;
+  tradeskill: number;
+  trivial: number;
+}
+
+/** Recipes an item participates in (refdb_item_recipes). */
+export interface ItemRecipes {
+  /** Recipes consuming this item as a component. */
+  usedIn: RecipeRef[];
+  /** Recipes producing this item. */
+  makes: RecipeRef[];
+}
+
+export interface RecipeComponent {
+  itemId: number;
+  item: string;
+  count: number;
+  /** Preformatted farming hints; null = none known. */
+  topDrop: string | null;
+  topVendor: string | null;
+}
+
+export interface RecipeResult {
+  itemId: number;
+  item: string;
+  count: number;
+}
+
+/** Full recipe detail (refdb_recipe_detail). */
+export interface RecipeDetail {
+  id: number;
+  name: string;
+  tradeskill: number;
+  trivial: number;
+  noFail: number | boolean;
+  components: RecipeComponent[];
+  results: RecipeResult[];
+}
+
+export interface RecipeSearchResult {
+  total: number;
+  rows: RecipeRef[];
+}
+
+/** EQ tradeskill ids → display names. Ids outside the map render as the
+ *  raw number (tradeskillName) — the data is the source of truth. */
+export const TRADESKILL_NAMES: Record<number, string> = {
+  55: "Fishing",
+  56: "Make Poison",
+  57: "Tinkering",
+  58: "Research",
+  59: "Alchemy",
+  60: "Baking",
+  61: "Tailoring",
+  63: "Blacksmithing",
+  64: "Fletching",
+  65: "Brewing",
+  68: "Jewelry Making",
+  69: "Pottery",
+};
+
+export function tradeskillName(id: number): string {
+  return TRADESKILL_NAMES[id] ?? `Tradeskill #${id}`;
+}
+
+export interface ZoneConnection {
+  zone: string;
+  zoneLong: string | null;
+  era: number | null;
+}
+
+/** One forage/fishing yield row in refdb_zone_info. */
+export interface ZoneGatherRow {
+  itemId: number;
+  item: string;
+  chance: number;
+}
+
+export interface ZoneNamedMob {
+  id: number;
+  name: string;
+  level: number;
+  respawnSecs: number;
+}
+
+/** Zone almanac (refdb_zone_info). */
+export interface ZoneInfo {
+  shortName: string;
+  longName: string;
+  era: number;
+  connections: ZoneConnection[];
+  forage: ZoneGatherRow[];
+  fishing: ZoneGatherRow[];
+  namedMobs: ZoneNamedMob[];
+}
+
+/** Reference-data update channel state (data_update_check). */
+export interface DataUpdateInfo {
+  /** Installed data version (version.txt); null = bundled data only. */
+  current: string | null;
+  /** Latest version published on the data-latest release. */
+  latest: string;
+  updateAvailable: boolean;
+  /** Total download size of the data pack, in bytes. */
+  totalBytes: number;
+}

@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { useTauriEvent, useTimers } from "../hooks";
+import {
+  underBuffThreshold,
+  useBuffThresholdMins,
+  useTauriEvent,
+  useTimers,
+} from "../hooks";
 import { IS_MOCK } from "../mock";
 import { OVERLAY_BUFFS, type OverlayLockPayload } from "../types";
 import TimerBars from "../components/TimerBars";
@@ -17,8 +22,13 @@ export default function OverlayBuffs() {
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
   // Your own buffs + generic "other" timers. Enemy timers go to the target
   // overlay; buffs you cast on OTHER people go to the "on others" overlay.
+  // Long buffs stay hidden until under the show threshold (Settings).
+  const thresholdMins = useBuffThresholdMins();
   const timers = useTimers().filter(
-    (t) => t.lane !== "enemy" && t.lane !== "on-others",
+    (t) =>
+      t.lane !== "enemy" &&
+      t.lane !== "on-others" &&
+      underBuffThreshold(t, thresholdMins),
   );
 
   useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {

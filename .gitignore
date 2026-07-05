@@ -2,4 +2,6 @@
 fixtures/local/
 node_modules/
 dist/
+dist-data/
 app/src-tauri/target
+__pycache__/

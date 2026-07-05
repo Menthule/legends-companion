@@ -201,6 +201,8 @@ pub fn run(args: &[String]) -> anyhow::Result<()> {
                 TimerFireKind::Landed => {}
                 TimerFireKind::Warn => warns += 1,
                 TimerFireKind::Expire => expires += 1,
+                // Repeat restarts are visual-only (no audio) — not audited.
+                TimerFireKind::Restarted => {}
             }
         }
         Ok(())

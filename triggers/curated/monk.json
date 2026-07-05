@@ -1,5 +1,5 @@
 {
-  "name": "Curated class pack \u2014 Monk",
+  "name": "Curated class pack — Monk",
   "triggers": [
     {
       "id": "class/monk/fd/fallen-self",
@@ -25,8 +25,8 @@
     },
     {
       "id": "class/monk/fd/fd-broken-by-spell",
-      "name": "FD broken by spell",
-      "pattern": "^You are no longer feigning death, because a spell hit you\\.",
+      "name": "FD broken",
+      "pattern": "^You are no longer feigning death(?:, .*)?\\.",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -42,7 +42,8 @@
             "template": "feign broke"
           }
         }
-      ]
+      ],
+      "comments": "Broad self FD-break prefix catches spell, movement, casting, standing and sitting variants instead of only the spell-hit line. ID kept as fd-broken-by-spell even though the pattern now covers all FD-break variants: curated trigger ids are a stable API — users' loadout overrides and channel overrides are keyed by id, and a rename silently orphans them."
     },
     {
       "id": "class/monk/abilities/mend-success",

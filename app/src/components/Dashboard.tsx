@@ -29,46 +29,101 @@ import {
   type SessionEndedPayload,
   type TailStatsPayload,
 } from "../types";
-import { loadOverlayVisibility, saveOverlayVisibility } from "../overlayState";
+import {
+  loadOverlayVisibility,
+  saveOverlayArrange,
+  saveOverlayVisibility,
+} from "../overlayState";
 import LiveTab from "./LiveTab";
 import MetersTab from "./MetersTab";
+import DropsTab from "./DropsTab";
+import MobsTab from "./MobsTab";
+import RecipesTab from "./RecipesTab";
+import SpellsTab from "./SpellsTab";
 import FightsTab from "./FightsTab";
+import MacrosTab from "./MacrosTab";
 import TriggersTab from "./TriggersTab";
 import SettingsTab from "./SettingsTab";
 import WelcomeCard from "./WelcomeCard";
 import {
+  IconAbilities,
   IconEye,
   IconEyeOff,
   IconFights,
   IconLive,
   IconLock,
+  IconMacros,
   IconMeters,
+  IconMobs,
   IconPlay,
+  IconRecipes,
   IconSettings,
   IconSpeakerOff,
+  IconSpells,
   IconStop,
   IconTriggers,
+  IconDrops,
   IconUnlock,
   IconWarn,
 } from "./Icons";
 
 const OVERLAYS = OVERLAY_LABELS;
 
-type TabId = "live" | "meters" | "fights" | "triggers" | "settings";
+type TabId =
+  | "live"
+  | "meters"
+  | "fights"
+  | "drops"
+  | "mobs"
+  | "recipes"
+  | "spells"
+  | "abilities"
+  | "macros"
+  | "triggers"
+  | "settings";
 
-const TABS: { id: TabId; label: string; icon: (props: { size?: number }) => JSX.Element }[] = [
-  { id: "live", label: "Live", icon: IconLive },
-  { id: "meters", label: "Meters", icon: IconMeters },
-  { id: "fights", label: "Fights", icon: IconFights },
-  { id: "triggers", label: "Triggers", icon: IconTriggers },
-  { id: "settings", label: "Settings", icon: IconSettings },
+interface NavTab {
+  id: TabId;
+  label: string;
+  icon: (props: { size?: number }) => JSX.Element;
+}
+
+/** Sidebar sections: live-log tooling, reference databases, then Settings
+ *  standalone (no group label). */
+const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
+  {
+    label: "Log",
+    tabs: [
+      { id: "live", label: "Live", icon: IconLive },
+      { id: "meters", label: "Meters", icon: IconMeters },
+      { id: "fights", label: "Fights", icon: IconFights },
+      { id: "triggers", label: "Triggers", icon: IconTriggers },
+    ],
+  },
+  {
+    label: "Database",
+    tabs: [
+      { id: "drops", label: "Drops", icon: IconDrops },
+      { id: "mobs", label: "Mobs", icon: IconMobs },
+      { id: "recipes", label: "Recipes", icon: IconRecipes },
+      { id: "spells", label: "Spells", icon: IconSpells },
+      { id: "abilities", label: "Abilities", icon: IconAbilities },
+      { id: "macros", label: "Macros", icon: IconMacros },
+    ],
+  },
+  {
+    label: null,
+    tabs: [{ id: "settings", label: "Settings", icon: IconSettings }],
+  },
 ];
+
+const TAB_IDS: readonly string[] = NAV_GROUPS.flatMap((g) =>
+  g.tabs.map((t) => t.id),
+);
 
 function initialTab(): TabId {
   const t = new URLSearchParams(window.location.search).get("tab");
-  return t === "meters" || t === "fights" || t === "triggers" || t === "settings"
-    ? t
-    : "live";
+  return t && TAB_IDS.includes(t) ? (t as TabId) : "live";
 }
 
 /** Patch-day canary threshold: % of recent lines the parser can't classify. */
@@ -76,13 +131,58 @@ const CANARY_PCT = 3;
 
 /** Shipped app version (mirror of app/package.json "version"); shown in the
  *  sidebar and compared against the latest GitHub release. */
-const APP_VERSION = "0.1.0";
+const APP_VERSION = "0.2.0";
 
 /** localStorage key remembering the update version the user dismissed. */
 const UPDATE_DISMISSED_KEY = "eqlogs.updateDismissed";
 
 export default function Dashboard() {
   const [tab, setTab] = useState<TabId>(initialTab);
+  // Deep-link from the session loot log: open Drops pre-searched for an item.
+  const [dropsRequest, setDropsRequest] = useState<{
+    query: string;
+    seq: number;
+  } | null>(null);
+  useEffect(() => {
+    const onOpenDrops = (e: Event) => {
+      const query = String((e as CustomEvent).detail ?? "").trim();
+      if (!query) return;
+      setDropsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+      setTab("drops");
+    };
+    window.addEventListener("eqlogs-open-drops", onOpenDrops);
+    return () => window.removeEventListener("eqlogs-open-drops", onOpenDrops);
+  }, []);
+  // Deep-link from the Drops crafting chips: open Recipes pre-searched.
+  const [recipesRequest, setRecipesRequest] = useState<{
+    query: string;
+    seq: number;
+  } | null>(null);
+  const [mobsRequest, setMobsRequest] = useState<{
+    query: string;
+    seq: number;
+  } | null>(null);
+  useEffect(() => {
+    const onOpenMobs = (e: Event) => {
+      const query = String((e as CustomEvent).detail ?? "").trim();
+      if (!query) return;
+      setMobsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+      setTab("mobs");
+    };
+    window.addEventListener("eqlogs-open-mobs", onOpenMobs);
+    return () => window.removeEventListener("eqlogs-open-mobs", onOpenMobs);
+  }, []);
+  useEffect(() => {
+    const onOpenRecipes = (e: Event) => {
+      const query = String((e as CustomEvent).detail ?? "").trim();
+      if (!query) return;
+      setRecipesRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+      setTab("recipes");
+    };
+    window.addEventListener("eqlogs-open-recipes", onOpenRecipes);
+    return () =>
+      window.removeEventListener("eqlogs-open-recipes", onOpenRecipes);
+  }, []);
   const [tailing, setTailing] = useState(false);
   const [character, setCharacter] = useState("");
   /** Discovered eqlog_* characters for the quiet top-bar switcher. */
@@ -355,6 +455,7 @@ export default function Dashboard() {
   const toggleOverlayLock = useCallback(async () => {
     const nextLocked = !overlaysLocked;
     setOverlaysLocked(nextLocked);
+    saveOverlayArrange(!nextLocked);
     setError(null);
     try {
       if (!nextLocked) {
@@ -384,15 +485,20 @@ export default function Dashboard() {
           <span className="brand-sub">for EverQuest Legends</span>
         </div>
         <nav className="nav" aria-label="Main">
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              className={tab === t.id ? "active" : ""}
-              onClick={() => setTab(t.id)}
-            >
-              <t.icon />
-              {t.label}
-            </button>
+          {NAV_GROUPS.map((g, gi) => (
+            <div className="nav-group" key={g.label ?? `group-${gi}`}>
+              {g.label && <div className="nav-group-label">{g.label}</div>}
+              {g.tabs.map((t) => (
+                <button
+                  key={t.id}
+                  className={tab === t.id ? "active" : ""}
+                  onClick={() => setTab(t.id)}
+                >
+                  <t.icon />
+                  {t.label}
+                </button>
+              ))}
+            </div>
           ))}
         </nav>
         <div className="sidebar-foot">v{APP_VERSION}</div>
@@ -564,6 +670,24 @@ export default function Dashboard() {
           </section>
           <section className={`page${tab === "fights" ? "" : " hidden"}`}>
             <FightsTab character={character} />
+          </section>
+          <section className={`page${tab === "drops" ? "" : " hidden"}`}>
+            <DropsTab searchRequest={dropsRequest} />
+          </section>
+          <section className={`page${tab === "mobs" ? "" : " hidden"}`}>
+            <MobsTab searchRequest={mobsRequest} />
+          </section>
+          <section className={`page${tab === "recipes" ? "" : " hidden"}`}>
+            <RecipesTab searchRequest={recipesRequest} />
+          </section>
+          <section className={`page${tab === "spells" ? "" : " hidden"}`}>
+            <SpellsTab kind="spells" />
+          </section>
+          <section className={`page${tab === "abilities" ? "" : " hidden"}`}>
+            <SpellsTab kind="abilities" />
+          </section>
+          <section className={`page${tab === "macros" ? "" : " hidden"}`}>
+            <MacrosTab />
           </section>
           <section className={`page${tab === "triggers" ? "" : " hidden"}`}>
             <TriggersTab character={character} />

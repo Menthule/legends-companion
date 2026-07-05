@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTauriEvent } from "../hooks";
+import { ALERT_SIZE_KEY, loadAlertSizePx } from "../overlayState";
 import { IS_MOCK } from "../mock";
 import { classifySeverity } from "../lib/severity";
 import {
@@ -32,6 +33,16 @@ const initiallyUnlocked =
 export default function OverlayAlerts() {
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
+  const [sizePx, setSizePx] = useState(() => loadAlertSizePx());
+
+  // The Settings window writes the size; the storage event carries it here.
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === ALERT_SIZE_KEY) setSizePx(loadAlertSizePx());
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
   useTauriEvent<TriggerFiredPayload>("trigger-fired", (p) => {
     if (p.action.kind !== "displayText") return;
@@ -67,7 +78,7 @@ export default function OverlayAlerts() {
           Alerts overlay — drag to arrange, then lock
         </div>
       )}
-      <div className="ov-alert-stack">
+      <div className="ov-alert-stack" style={{ fontSize: sizePx }}>
         {alerts.map((a) => {
           // Tier the pill so a Death Touch never reads like a tell (X6).
           const severity = classifySeverity(a.trigger?.id, a.trigger?.name);

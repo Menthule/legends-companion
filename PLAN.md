@@ -1,3 +1,5 @@
+> **Historical** — original design pitch, superseded where stale by [docs/architecture-0.2.md](docs/architecture-0.2.md).
+
 # Legends Companion (formerly EQLogs) — EverQuest Legends log companion
 
 A log-only (no memory reading, zero ban risk) companion app for EverQuest Legends:

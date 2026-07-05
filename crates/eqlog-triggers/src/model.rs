@@ -71,6 +71,16 @@ pub struct Trigger {
     /// every match.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cooldown_secs: Option<u64>,
+    /// Higher-priority triggers are evaluated before lower-priority triggers.
+    /// This lets curated packs put specific "quiet" matches ahead of generic
+    /// noisy matches without depending on file order.
+    #[serde(default, skip_serializing_if = "is_zero_i32")]
+    pub priority: i32,
+    /// Match this trigger and then stop processing the line without firing its
+    /// actions. Useful for null/suppression triggers that prevent broad catch-
+    /// alls from speaking on known-benign lines.
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub suppress: bool,
 }
 
 impl Trigger {
@@ -89,6 +99,8 @@ impl Trigger {
             default_enabled: true,
             source: TriggerSource::User,
             cooldown_secs: None,
+            priority: 0,
+            suppress: false,
         }
     }
 
@@ -106,6 +118,14 @@ impl Trigger {
             None => slugify(&self.name),
         }
     }
+}
+
+fn is_zero_i32(value: &i32) -> bool {
+    *value == 0
+}
+
+fn is_false(value: &bool) -> bool {
+    !*value
 }
 
 /// Lowercase a string into a slug: alphanumerics kept, every other run of
@@ -157,6 +177,21 @@ pub enum TimerLane {
     OnOthers,
     #[default]
     Other,
+}
+
+/// What to do when a `StartTimer` action starts a timer whose name is already
+/// running. Serialized lowercase in JSON.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum TimerStartMode {
+    /// Replace the existing timer with the new countdown. This is the legacy
+    /// behavior and matches most buff/debuff timers.
+    #[default]
+    Restart,
+    /// Leave the existing timer alone and ignore this start.
+    IgnoreIfRunning,
+    /// Start another instance, suffixing the overlay name as "(2)", "(3)", …
+    StartNewInstance,
 }
 
 impl TimerLane {
@@ -239,6 +274,28 @@ pub enum Action {
         /// Additive: absent = 0.
         #[serde(default, skip_serializing_if = "Option::is_none")]
         cast_time_secs: Option<u64>,
+        /// Duplicate-name behavior. Absent = restart, preserving legacy packs.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        mode: Option<TimerStartMode>,
+        /// Repeat the timer every N seconds after expiry. Absent/0 = one-shot.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        repeat_secs: Option<u64>,
+        /// Start a stopwatch-style bar. The current overlay protocol has no
+        /// elapsed-only timer primitive yet, so hosts may display this as a
+        /// zero-duration running timer until cancelled.
+        #[serde(default, skip_serializing_if = "is_false")]
+        stopwatch: bool,
+        /// Optional host-rendered timer warning/expiry labels. These preserve
+        /// imported GINA timer-ending/ended text without adding nested action
+        /// execution to timer polling.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        warn_text: Option<String>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        expire_text: Option<String>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        warn_sound: Option<String>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        expire_sound: Option<String>,
     },
     /// Cancel any active timer with this (template-expanded) name — e.g. a
     /// wear-off line killing the countdown started by the matching cast.
@@ -541,6 +598,8 @@ mod tests {
                     default_enabled: false,
                     source: TriggerSource::Curated,
                     cooldown_secs: Some(5),
+                    priority: 0,
+                    suppress: false,
                 },
                 Trigger::new(
                     "timer",
@@ -552,6 +611,13 @@ mod tests {
                         duration_formula: Some(3),
                         duration_cap_ticks: Some(360),
                         cast_time_secs: None,
+                        mode: None,
+                        repeat_secs: None,
+                        stopwatch: false,
+                        warn_text: None,
+                        expire_text: None,
+                        warn_sound: None,
+                        expire_sound: None,
                         lane: Some(TimerLane::Buff),
                     }],
                 ),
@@ -643,6 +709,13 @@ mod tests {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
                 lane: None,
             }
         );
@@ -673,6 +746,13 @@ mod tests {
             a,
             Action::StartTimer {
                 cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
                 lane: Some(TimerLane::Enemy),
                 ..
             }

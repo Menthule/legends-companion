@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 import { IS_MOCK, mockListen } from "./mock";
 import type { TimerLane, TimerPayload } from "./types";
+import {
+  BUFF_THRESHOLD_EVENT,
+  BUFF_THRESHOLD_KEY,
+  loadBuffThresholdMins,
+} from "./overlayState";
 
 /**
  * Subscribe to an app event for the lifetime of the component. In Tauri this
@@ -187,4 +192,54 @@ export function useTimers(): TimerView[] {
       };
     })
     .sort((a, b) => a.left - b.left);
+}
+
+/**
+ * Wall-clock ms, re-rendering every `intervalMs` — for live rates (XP/hour)
+ * that must keep moving between events.
+ */
+export function useNowMs(intervalMs = 15_000): number {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const h = window.setInterval(() => setNow(Date.now()), intervalMs);
+    return () => window.clearInterval(h);
+  }, [intervalMs]);
+  return now;
+}
+
+/**
+ * The buff-bar show threshold (minutes, 0 = always show), kept live across
+ * windows: the Settings control writes localStorage, overlay windows hear
+ * the cross-window "storage" event, and the Settings window itself hears
+ * the custom same-window event.
+ */
+export function useBuffThresholdMins(): number {
+  const [mins, setMins] = useState(() => loadBuffThresholdMins());
+  useEffect(() => {
+    const refresh = () => setMins(loadBuffThresholdMins());
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === BUFF_THRESHOLD_KEY) refresh();
+    };
+    window.addEventListener("storage", onStorage);
+    window.addEventListener(BUFF_THRESHOLD_EVENT, refresh);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener(BUFF_THRESHOLD_EVENT, refresh);
+    };
+  }, []);
+  return mins;
+}
+
+/**
+ * Buff-bar show-threshold filter: bars in the buff and on-others lanes stay
+ * hidden until under `mins` minutes remaining (a 1-hour buff shouldn't hold
+ * a bar for its whole run). Pending ("casting…") bars always show — the
+ * brief flash confirms the timer registered before it goes dormant. Enemy
+ * and "other" lane timers (DoTs, CC, recasts) are never filtered, and
+ * `mins <= 0` disables the filter entirely.
+ */
+export function underBuffThreshold(t: TimerView, mins: number): boolean {
+  if (mins <= 0) return true;
+  if (t.lane !== "buff" && t.lane !== "on-others") return true;
+  return t.pending || t.left <= mins * 60;
 }

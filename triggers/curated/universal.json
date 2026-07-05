@@ -11,7 +11,11 @@
       "category": "Universal/Survival",
       "comments": "eqstr 1393.",
       "actions": [
-        { "DisplayText": { "template": "summoned" } }
+        {
+          "DisplayText": {
+            "template": "summoned"
+          }
+        }
       ]
     },
     {
@@ -24,7 +28,11 @@
       "category": "Universal/Survival",
       "comments": "eqstr 1042. Stop attacking until the enrage-over line.",
       "actions": [
-        { "DisplayText": { "template": "${1} enraged" } }
+        {
+          "DisplayText": {
+            "template": "${1} enraged"
+          }
+        }
       ]
     },
     {
@@ -37,7 +45,11 @@
       "category": "Universal/Survival",
       "comments": "eqstr 1043.",
       "actions": [
-        { "DisplayText": { "template": "enrage over" } }
+        {
+          "DisplayText": {
+            "template": "enrage over"
+          }
+        }
       ]
     },
     {
@@ -49,7 +61,11 @@
       "source": "curated",
       "category": "Universal/Survival",
       "actions": [
-        { "DisplayText": { "template": "you died" } }
+        {
+          "DisplayText": {
+            "template": "you died"
+          }
+        }
       ]
     },
     {
@@ -61,7 +77,11 @@
       "source": "curated",
       "category": "Universal/Survival",
       "actions": [
-        { "DisplayText": { "template": "slain by ${1}" } }
+        {
+          "DisplayText": {
+            "template": "slain by ${1}"
+          }
+        }
       ]
     },
     {
@@ -75,7 +95,11 @@
       "category": "Universal/Survival",
       "comments": "Groupmate/pet death awareness (research: exclude own kills — those use 'You have slain X!'). Case-sensitive single capitalized word so mob kills ('An orc raider has been slain by Kreira!', 'Baron Telyx V`Zher has been slain by...') don't flood the overlay: of 226 slain-by lines in the Legends log only the 4 real player/pet deaths match.",
       "actions": [
-        { "DisplayText": { "template": "${1} slain by ${2}" } }
+        {
+          "DisplayText": {
+            "template": "${1} slain by ${2}"
+          }
+        }
       ]
     },
     {
@@ -88,8 +112,16 @@
       "category": "Universal/Survival",
       "comments": "eqstr 275 — the early warning before invisibility breaks. Also clears the shared 'Invisibility' buff bar (generated invis timers all use that name).",
       "actions": [
-        { "DisplayText": { "template": "invis dropping" } },
-        { "CancelTimer": { "name": "Invisibility" } }
+        {
+          "DisplayText": {
+            "template": "invis dropping"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "Invisibility"
+          }
+        }
       ]
     },
     {
@@ -102,8 +134,64 @@
       "category": "Universal/Survival",
       "comments": "Fully visible again — belt-and-suspenders clear of the shared 'Invisibility' buff bar.",
       "actions": [
-        { "DisplayText": { "template": "visible" } },
-        { "CancelTimer": { "name": "Invisibility" } }
+        {
+          "DisplayText": {
+            "template": "visible"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "Invisibility"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/survival/levitate-dropping",
+      "name": "Levitate dropping",
+      "pattern": "^You feel as if you are going to lose your balance!$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "Legends spell string warning before levitate fades.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "levitate dropping"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "levitate dropping"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/survival/levitate-gone",
+      "name": "Levitate gone",
+      "pattern": "^You can no longer levitate\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "levitate gone"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "Levitate"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "Levitation"
+          }
+        }
       ]
     },
     {
@@ -116,7 +204,11 @@
       "category": "Universal/Survival",
       "comments": "eqstr 12392. Verified in Legends log.",
       "actions": [
-        { "DisplayText": { "template": "encumbered" } }
+        {
+          "DisplayText": {
+            "template": "encumbered"
+          }
+        }
       ]
     },
     {
@@ -127,9 +219,13 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Universal/Survival",
-      "comments": "Overlay only: bash/kick mobs stun constantly (178 stuns in 6.3 active hours of the Legends log), so speech here makes TTS unusable.",
+      "comments": "Melee bash/kick stuns are constant (152 fires in 6.3 active hours even with a 10 s cooldown), so this stays overlay-only. Spell stuns speak via universal/cc/spell-stunned. Turn the TTS chip on here if you want spoken melee stuns anyway.",
       "actions": [
-        { "DisplayText": { "template": "stunned" } }
+        {
+          "DisplayText": {
+            "template": "stunned"
+          }
+        }
       ]
     },
     {
@@ -137,12 +233,16 @@
       "name": "Stun over",
       "pattern": "^You are no longer stunned\\.",
       "enabled": true,
-      "default_enabled": false,
+      "default_enabled": true,
       "source": "curated",
       "category": "Universal/Survival",
-      "comments": "Off by default: fires as often as Stunned (178x in the fixture log) and carries little information beyond it.",
+      "comments": "On by default, overlay-only: a 2-6 s stun is over before TTS could say so.",
       "actions": [
-        { "DisplayText": { "template": "stun over" } }
+        {
+          "DisplayText": {
+            "template": "stun over"
+          }
+        }
       ]
     },
     {
@@ -155,8 +255,16 @@
       "category": "Universal/Crowd Control",
       "comments": "eqstr 8053/9037. Legends log shows the with-attacker form: 'Baron Telyx V`Zher has been awakened by Nyasha.' TTS whitelist: your CC breaking.",
       "actions": [
-        { "Speak": { "template": "mez broke" } },
-        { "DisplayText": { "template": "${1} awake" } }
+        {
+          "Speak": {
+            "template": "mez broke"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "${1} awake"
+          }
+        }
       ]
     },
     {
@@ -169,7 +277,11 @@
       "category": "Universal/Social",
       "comments": "Player tells use 'tells you,'. NPC/pet chatter uses 'told you,' (verified 382x in Legends log), which this pattern deliberately does not match.",
       "actions": [
-        { "DisplayText": { "template": "tell from ${1}" } }
+        {
+          "DisplayText": {
+            "template": "tell from ${1}"
+          }
+        }
       ]
     },
     {
@@ -181,7 +293,11 @@
       "source": "curated",
       "category": "Universal/Social",
       "actions": [
-        { "DisplayText": { "template": "GM tell from ${1}" } }
+        {
+          "DisplayText": {
+            "template": "GM tell from ${1}"
+          }
+        }
       ]
     },
     {
@@ -194,7 +310,11 @@
       "category": "Universal/Progress",
       "comments": "Verified in Legends log.",
       "actions": [
-        { "DisplayText": { "template": "ding" } }
+        {
+          "DisplayText": {
+            "template": "ding"
+          }
+        }
       ]
     },
     {
@@ -207,7 +327,11 @@
       "category": "Universal/Progress",
       "comments": "eqstr 289.",
       "actions": [
-        { "Speak": { "template": "rez taken" } }
+        {
+          "Speak": {
+            "template": "rez taken"
+          }
+        }
       ]
     },
     {
@@ -221,8 +345,16 @@
       "category": "Universal/Combat",
       "comments": "Legends modern format: 'A willowisp resisted your Vampiric Embrace!' Speaks + overlay by default (TTS whitelist: resist). 3s refire cooldown keeps back-to-back resists from stacking speech.",
       "actions": [
-        { "Speak": { "template": "resisted" } },
-        { "DisplayText": { "template": "Resisted: ${2}" } }
+        {
+          "Speak": {
+            "template": "resisted"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "Resisted: ${2}"
+          }
+        }
       ]
     },
     {
@@ -235,7 +367,123 @@
       "category": "Universal/Combat",
       "comments": "Legends format: 'You resist a necro initiate's Clinging Darkness!'",
       "actions": [
-        { "DisplayText": { "template": "You resisted ${1}" } }
+        {
+          "DisplayText": {
+            "template": "You resisted ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/combat/out-of-mana",
+      "name": "Out of mana",
+      "pattern": "^Insufficient Mana to cast this spell!$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 5,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "actions": [
+        {
+          "Speak": {
+            "template": "out of mana"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "out of mana"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/combat/fizzle-self",
+      "name": "Your spell fizzled",
+      "pattern": "^Your (?:(.+) )?spell fizzles!$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 2,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Covers both 'Your <spell> spell fizzles!' and the generic self fizzle line.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "fizzle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/combat/interrupt-self",
+      "name": "Your spell interrupted",
+      "pattern": "^Your (?:(.+) )?spell is interrupted\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 2,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "comments": "Covers both 'Your <spell> spell is interrupted.' and the generic self interrupt line.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "interrupted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/combat/spell-did-not-take-hold",
+      "name": "Spell did not take hold",
+      "pattern": "^Your (.+) spell did not take hold(?: on (.+))?\\.(?: \\(Blocked by (.+)\\.\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} blocked"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/combat/dispelled-self",
+      "name": "You were dispelled",
+      "pattern": "^(?:You feel (?:a bit |very )?dispelled\\.|You feel annulled\\.|Your body is dispelled\\.)$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "actions": [
+        {
+          "Speak": {
+            "template": "dispelled"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "dispelled"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/combat/cannot-see-target",
+      "name": "Cannot see target",
+      "pattern": "^You cannot see your target\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "cooldown_secs": 10,
+      "source": "curated",
+      "category": "Universal/Combat",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "can't see target"
+          }
+        }
       ]
     },
     {
@@ -247,7 +495,11 @@
       "source": "curated",
       "category": "Universal/Combat",
       "actions": [
-        { "Speak": { "template": "${1} rampage" } }
+        {
+          "Speak": {
+            "template": "${1} rampage"
+          }
+        }
       ]
     },
     {
@@ -260,7 +512,11 @@
       "category": "Universal/Combat",
       "comments": "Legends third-person form, verified 380x in log: 'Baron Telyx V`Zher's Healing spell is interrupted.' Useful as mob-heal-stopped confirmation.",
       "actions": [
-        { "DisplayText": { "template": "${1} interrupted (${2})" } }
+        {
+          "DisplayText": {
+            "template": "${1} interrupted (${2})"
+          }
+        }
       ]
     },
     {
@@ -273,7 +529,11 @@
       "category": "Universal/Combat",
       "comments": "Legends named fizzle, verified in log: 'Torvin's Blast of Frost spell fizzles!'",
       "actions": [
-        { "DisplayText": { "template": "${1} fizzled ${2}" } }
+        {
+          "DisplayText": {
+            "template": "${1} fizzled ${2}"
+          }
+        }
       ]
     },
     {
@@ -286,7 +546,11 @@
       "category": "Universal/Combat",
       "comments": "Legends heal-landed line with amount and spell: 'Baron Telyx V`Zher healed himself for 1016 (1345) hit points by Lay on Hands.'",
       "actions": [
-        { "Speak": { "template": "${1} healed" } }
+        {
+          "Speak": {
+            "template": "${1} healed"
+          }
+        }
       ]
     },
     {
@@ -299,7 +563,11 @@
       "category": "Universal/Utility",
       "comments": "eqstr 12487.",
       "actions": [
-        { "Speak": { "template": "hungry" } }
+        {
+          "Speak": {
+            "template": "hungry"
+          }
+        }
       ]
     },
     {
@@ -312,7 +580,11 @@
       "category": "Universal/Utility",
       "comments": "eqstr 12485.",
       "actions": [
-        { "Speak": { "template": "thirsty" } }
+        {
+          "Speak": {
+            "template": "thirsty"
+          }
+        }
       ]
     },
     {
@@ -325,7 +597,11 @@
       "category": "Universal/Social",
       "comments": "eqstr 1456; verified in Legends log. The class packs carry a self-only ({C}) copy for FD classes.",
       "actions": [
-        { "DisplayText": { "template": "${1} fell down" } }
+        {
+          "DisplayText": {
+            "template": "${1} fell down"
+          }
+        }
       ]
     },
     {
@@ -338,7 +614,11 @@
       "category": "Universal/Progress",
       "comments": "Verified 1075x in Legends log — overlay only to avoid speech spam.",
       "actions": [
-        { "DisplayText": { "template": "${1} up" } }
+        {
+          "DisplayText": {
+            "template": "${1} up"
+          }
+        }
       ]
     },
     {
@@ -351,8 +631,296 @@
       "category": "Universal/Social",
       "comments": "Speaks + shows when someone invites you to a group or raid. Community-standard string; not yet observed in the Legends verification log.",
       "actions": [
-        { "Speak": { "template": "${2} invite from ${1}" } },
-        { "DisplayText": { "template": "${2} invite from ${1}" } }
+        {
+          "Speak": {
+            "template": "${2} invite from ${1}"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "${2} invite from ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/rooted",
+      "name": "You are rooted",
+      "pattern": "^(Your feet (adhere to|sink into) the ground|Your feet become entwined|You are unable to move|(Spectral shackles|Tendrilmists|Bonds of force|Etherroots|Nethermists|Murkmists|Shademists) bind your feet to the ground)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Cast-on-you texts of the root family per spell data — Legends verified 'Your feet sink into the ground.' live (2026-07-05); the adhere/entwined/shackle/mist variants cover the rest of the classic root lines.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "rooted"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "ROOTED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/root-free",
+      "name": "Root wore off you",
+      "pattern": "^Your feet come free\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Wear-off text of the root family.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "root off"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "root off"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/snared",
+      "name": "You are snared",
+      "pattern": "^(You are ensnared|You slow down as your feet are covered in tangling weeds|Your feet become tangled by a blast of hypergrowth)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Movement-snare cast-on-you texts (spoken). The bare 'You slow down.' is mostly ATTACK-slow debuffs (74 fires in the reference log) and lives in universal/cc/slowed as overlay-only.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "snared"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "SNARED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/snare-free",
+      "name": "Snare wore off you",
+      "pattern": "^You are no longer ensnared\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Speak": {
+            "template": "snare off"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "snare off"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/mezzed",
+      "name": "You are mesmerized",
+      "pattern": "^You (are mesmerized( by the Glamour of Kintaz)?|have been enthralled|have been entranced)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Cast-on-you texts of the mez family (Mesmerize/Dazzle/Enthrall/Entrance/Glamour of Kintaz) per spell data.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "mezzed"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "MEZZED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/mez-free",
+      "name": "Mez wore off you",
+      "pattern": "^You are no longer (mesmerized|enthralled|entranced)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Speak": {
+            "template": "mez off"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "mez off"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/feared",
+      "name": "You are feared",
+      "pattern": "^Your mind fills with fear\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Cast-on-you text of the fear family (Fear, Invoke Fear, Wave of Fear, Inspire Fear) per spell data.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "feared"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "FEARED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/fear-free",
+      "name": "Fear wore off you",
+      "pattern": "^You are no longer afraid\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Speak": {
+            "template": "fear over"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "fear over"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/charmed",
+      "name": "You are charmed",
+      "pattern": "^You have been charmed\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Cast-on-you text of the charm family (Charm, Beguile, Allure, Cajoling Whispers) per spell data.",
+      "actions": [
+        {
+          "Speak": {
+            "template": "charmed"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "CHARMED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/charm-free",
+      "name": "Charm wore off you",
+      "pattern": "^You are no longer charmed\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Speak": {
+            "template": "charm over"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "charm over"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/spell-stunned",
+      "name": "Spell-stunned",
+      "pattern": "^You are struck by a sudden force\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 5,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Cast-on-you text of the caster stun family. Audit: 78 fires in 6.3 active hours of the reference log (low-level mobs spam stun procs), so overlay-only like melee stuns — turn the TTS chip on if your content makes these rare.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "SPELL STUNNED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/root-landed-other",
+      "name": "Rooted (someone nearby)",
+      "pattern": "^([A-Z][\\w`' ]*) adheres to the ground\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 5,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Legends third-person root land, verified live: 'Sliq adheres to the ground.' (the player's pet). Capitalized-name guard keeps generic mob roots from most spam; overlay-only because it also fires for mobs other players root.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} rooted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/slowed",
+      "name": "You are slowed",
+      "pattern": "^(You slow down|Your arms slow down)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 5,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Generic slow cast-on-you texts (movement or attack speed — the log can't tell). Overlay-only: fires constantly from mob shamans.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "SLOWED"
+          }
+        }
       ]
     }
   ]

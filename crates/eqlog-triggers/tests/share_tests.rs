@@ -37,6 +37,13 @@ fn sample_triggers() -> Vec<Trigger> {
             duration_formula: Some(3),
             duration_cap_ticks: Some(7),
             cast_time_secs: Some(2),
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Enemy),
         }],
     );

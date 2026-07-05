@@ -311,6 +311,21 @@ label.field,
   font-size: 12px;
   margin-bottom: 4px;
 }
+.settings-textarea {
+  font: inherit;
+  width: 100%;
+  min-height: 84px;
+  resize: vertical;
+  background: var(--page);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+.settings-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
 
 .check-row {
   display: flex;
@@ -402,6 +417,22 @@ label.field,
 }
 .nav button.active svg {
   color: var(--accent);
+}
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-group + .nav-group {
+  margin-top: 14px;
+}
+.nav-group-label {
+  padding: 2px 10px 3px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
 }
 .sidebar-foot {
   margin-top: auto;
@@ -517,6 +548,18 @@ label.field,
   font-size: 12px;
   padding: 0 2px;
 }
+.inline-banner {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
 
 /* ----------------------------------------------------------------- cards */
 
@@ -564,6 +607,17 @@ label.field,
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+}
+.stat-tiles.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.stat-tiles.compact .stat-tile {
+  padding: 10px 12px;
+}
+.stat-tiles.compact .stat-value {
+  font-size: 18px;
 }
 .stat-tile {
   background: var(--surface);
@@ -1184,6 +1238,44 @@ label.field,
   border-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
+/* ------------------------------------------------------------ live archive */
+
+.archive-panel {
+  flex: none;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.archive-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.archive-search {
+  max-width: 240px;
+}
+.archive-results {
+  margin-top: 8px;
+  max-height: 220px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.archive-row {
+  display: grid;
+  grid-template-columns: 58px auto 1fr;
+  gap: 8px;
+  align-items: baseline;
+  min-width: 0;
+  font-size: 12px;
+  padding: 2px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.archive-row:last-child {
+  border-bottom: none;
+}
+
 /* ------------------------------- live feed: row affordance, pause, toast */
 
 /* Always visible (dim "+") so the affordance is discoverable at rest;
@@ -1415,7 +1507,6 @@ label.field,
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 720px;
 }
 .path-row {
   display: flex;
@@ -1460,6 +1551,26 @@ label.field,
   cursor: move;
   user-select: none;
 }
+.ov-xp-drag {
+  align-self: stretch;
+  text-align: center;
+}
+.ov-resize-grip {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 4px 0 6px 0;
+  background:
+    linear-gradient(135deg, transparent 46%, rgba(255, 255, 255, 0.95) 48%, transparent 52%),
+    linear-gradient(135deg, transparent 62%, rgba(255, 255, 255, 0.75) 64%, transparent 68%),
+    rgba(0, 0, 0, 0.45);
+  cursor: nwse-resize;
+  z-index: 5;
+}
 
 .pill {
   background: rgba(13, 13, 13, 0.72);
@@ -1482,9 +1593,11 @@ label.field,
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 8px;
-  padding: 8px 15px;
+  padding: 0.35em 0.7em;
   color: #ffffff;
-  font-size: 21px;
+  /* Size flows from the stack's inline font-size (Settings: alert text
+     size); 21px is only the no-JS fallback. */
+  font-size: inherit;
   font-weight: 700;
   line-height: 1.15;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
@@ -1643,6 +1756,56 @@ label.field,
 .om-sub-val {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+/* compact XP overlay */
+.oxp {
+  width: 240px;
+  max-width: 100%;
+  padding: 8px 10px 10px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+.oxp-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  padding-bottom: 6px;
+}
+.oxp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.oxp-val {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.oxp-label {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.72);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.oxp-last,
+.oxp-empty {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.82);
+}
+.oxp-last {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 /* mock-only arrange toggle so the unlocked state can be screenshotted */
@@ -2814,6 +2977,34 @@ textarea.share-str:focus {
   white-space: nowrap;
 }
 
+/* Death recap */
+.death-recaps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.death-recap {
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 8px;
+}
+.death-recap:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.death-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.death-line {
+  display: grid;
+  grid-template-columns: 64px auto 1fr;
+  gap: 8px;
+  align-items: baseline;
+  min-width: 0;
+  font-size: 12px;
+}
+
 /* Roll tracker */
 .roll-group {
   padding: 6px 0;
@@ -2909,31 +3100,68 @@ textarea.share-str:focus {
 
 .ov-stance {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
   background: color-mix(in srgb, var(--surface) 82%, transparent);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 8px 12px;
-  min-width: 190px;
+  padding: 8px 18px;
+  min-width: 220px;
   backdrop-filter: blur(4px);
 }
-.ov-stance-row {
+.ov-stance-cell {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+}
+.ov-stance-cell.changing .ov-stance-icon {
+  animation: stance-pulse 1.1s ease-in-out infinite;
+}
+@keyframes stance-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ov-stance-cell.changing .ov-stance-icon {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+.ov-stance-icon {
+  display: flex;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+/* Baseline states (Balanced stance / Recovery invocation) are the resting
+   default — muted, so an accent-colored glyph always means "special". */
+.ov-stance-icon.baseline {
+  color: var(--ink-muted);
+}
+.ov-stance-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.ov-stance-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--hairline);
 }
 .ov-stance-label {
-  flex: none;
-  width: 82px;
   color: var(--ink-muted);
-  font-size: 11px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 .ov-stance-val {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 600;
   text-transform: capitalize;
 }
 .ov-stance-val.changing {
@@ -2943,4 +3171,885 @@ textarea.share-str:focus {
 }
 .ov-stance-val.unknown {
   color: var(--ink-muted);
+}
+
+/* ---- Drops research tab ------------------------------------------------ */
+
+.drops-card .card-head {
+  align-items: baseline;
+  gap: 12px;
+}
+.drops-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.drops-controls select {
+  max-width: 180px;
+}
+.drops-controls input[type="search"] {
+  flex: 1;
+  min-width: 200px;
+}
+.drops-sourced {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--ink-2);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.drops-table {
+  border-top: 1px solid var(--hairline);
+}
+.drops-row {
+  display: grid;
+  gap: 8px;
+  align-items: baseline;
+  width: 100%;
+  padding: 5px 4px;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+}
+.drops-row > * {
+  /* fr tracks default to min-content minimums: long cell text would widen
+     its own row's track and break cross-row alignment. Clip instead. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drops-row .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.drops-head {
+  padding: 2px 4px;
+}
+.drops-col-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  text-align: left;
+}
+.drops-col-btn.num {
+  text-align: right;
+}
+.drops-col-btn.active {
+  color: var(--accent);
+}
+button.drops-item {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+button.drops-item:hover,
+button.drops-item.active {
+  background: var(--surface-raised);
+}
+.drops-name {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drops-badge {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+.drops-badge.warn {
+  color: var(--warning, #fab219);
+  border-color: currentColor;
+}
+.drops-detail {
+  padding: 8px 12px 12px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--surface-raised);
+}
+.drops-statline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  color: var(--ink-2);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.drops-sources {
+  border-top: 1px solid var(--hairline);
+}
+.drops-source-row {
+  display: grid;
+  grid-template-columns: 1fr 48px 1.2fr 64px;
+  gap: 8px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12.5px;
+}
+.drops-source-row:last-child {
+  border-bottom: none;
+}
+.drops-source-head {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.drops-source-row .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.drops-topsource {
+  color: var(--ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.drops-more {
+  color: var(--ink-muted);
+}
+.drops-source-row.hit {
+  color: var(--accent);
+}
+
+.drops-colpick {
+  position: relative;
+}
+.drops-colpick-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+.drops-colpick-menu label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.drops-pager {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+/* Loot-log item deep link into the Drops tab. */
+.session-item-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: underline dotted var(--ink-muted);
+  text-underline-offset: 3px;
+}
+.session-item-link:hover {
+  color: var(--accent);
+}
+
+/* ---- Drops smart search: suggestions, chips, filters popover ----------- */
+
+.drops-search {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+}
+.drops-search input {
+  width: 100%;
+}
+.drops-suggest {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.drops-suggest-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 6px 10px;
+  background: none;
+  border: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.drops-suggest-row.active,
+.drops-suggest-row:hover {
+  background: var(--surface);
+}
+.drops-suggest-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drops-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -4px 0 10px;
+}
+.drops-chip {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 2px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: none;
+  color: var(--accent);
+  font-size: 12px;
+  cursor: pointer;
+}
+.drops-chip:hover {
+  background: var(--surface-raised);
+}
+.drops-filter-menu {
+  min-width: 220px;
+}
+.drops-filter-menu label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.drops-filter-menu select {
+  max-width: 150px;
+}
+
+/* ---- Settings sub-tabs -------------------------------------------------- */
+
+.settings .card.hidden {
+  display: none;
+}
+.settings-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--hairline);
+}
+.settings-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 6px 14px 8px;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.settings-tab:hover {
+  color: var(--ink);
+}
+.settings-tab.active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* ---- SearchSelect: type-to-filter combobox for long option lists -------- */
+
+.sselect {
+  position: relative;
+  width: 100%;
+}
+.sselect input {
+  width: 100%;
+}
+.sselect-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 40;
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+.sselect-row {
+  /* The menu is a capped flex column: without this, hundreds of rows
+     shrink to slivers and overlap instead of scrolling. */
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sselect-row.active,
+.sselect-row:hover {
+  background: var(--surface);
+}
+.sselect-row.selected {
+  color: var(--accent);
+}
+.sselect-more {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+
+/* Sectioned filter panel: it will keep growing, so group related controls. */
+.drops-filter-menu {
+  min-width: 280px;
+}
+.drops-filter-section {
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-top: 6px;
+  border-top: 1px solid var(--hairline);
+}
+.drops-filter-section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ---- Item-detail spec grid: labeled pairs beat an unlabeled run-on ------ */
+
+.drops-spec {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 3px 28px;
+  margin-bottom: 10px;
+}
+.drops-spec-row {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 12.5px;
+  min-width: 0;
+}
+.drops-spec-label {
+  width: 68px;
+  flex-shrink: 0;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.drops-spec-value {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Drops filter: multi-select class checkbox grid --------------------- */
+
+.drops-filter-classes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.drops-filter-mini {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.drops-class-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 12px;
+}
+.drops-class-opt {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.drops-class-opt input {
+  margin: 0;
+}
+
+/* ---- Spells / Abilities tabs (shared .drops-* table styling) ------------ */
+
+.spells-maxlevel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-2);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.spells-maxlevel input {
+  width: 56px;
+}
+.spells-classlist {
+  color: var(--ink-2);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.spells-msgs {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+.spells-msg-label {
+  display: inline-block;
+  min-width: 68px;
+  margin-right: 8px;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Macros tab: cards with guided per-line copy ------------------------ */
+
+.macro-view-toggle {
+  display: flex;
+  gap: 2px;
+  border-bottom: none;
+}
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 12px;
+}
+.macro-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.macro-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+.macro-name {
+  font-weight: 600;
+  color: var(--ink);
+  margin-right: 2px;
+}
+.macro-desc {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.macro-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.macro-line {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: var(--page);
+  border: 1px solid var(--hairline);
+}
+.macro-line.next {
+  border-color: var(--accent);
+}
+.macro-line.done .macro-line-text {
+  color: var(--ink-muted);
+}
+.macro-line-no {
+  color: var(--ink-muted);
+  font-size: 10px;
+  width: 12px;
+  flex-shrink: 0;
+  text-align: right;
+}
+.macro-line-text {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--ink);
+}
+.macro-actions {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.macro-tips {
+  flex-basis: 100%;
+  line-height: 1.35;
+}
+
+/* Command reference table */
+.cmd-table {
+  border-top: 1px solid var(--hairline);
+}
+.cmd-row {
+  display: grid;
+  grid-template-columns: 110px 200px 90px 1fr;
+  gap: 12px;
+  padding: 5px 4px;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12.5px;
+  align-items: baseline;
+}
+.cmd-row > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cmd-row > span:last-child {
+  white-space: normal;
+}
+.cmd-syntax {
+  color: var(--ink-2);
+}
+.cmd-head {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Fights tab: wishlist / camp timers / session kills ----------------- */
+
+/* Wishlist rows: item name + remove button. */
+.session-loot-row.wishlist-row {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+/* Camp timers: name/zone, live countdown, dismiss, full-width progress. */
+.camp-list {
+  display: flex;
+  flex-direction: column;
+}
+.camp-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 4px 10px;
+  align-items: center;
+  padding: 6px 0 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.camp-row:last-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+.camp-main {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  overflow: hidden;
+}
+.camp-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.camp-zone {
+  color: var(--ink-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.camp-left {
+  font-size: 13px;
+  white-space: nowrap;
+}
+.camp-progress {
+  grid-column: 1 / -1;
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--surface-2, rgba(255, 255, 255, 0.06));
+  overflow: hidden;
+}
+.camp-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 1s linear;
+}
+/* Due (respawn hit zero): highlight until dismissed or re-killed. */
+.camp-due .camp-name,
+.camp-due .camp-left {
+  color: var(--accent);
+}
+
+/* Session kills: Mob | Kills | Kills/hr | Respawn. */
+.kills-row {
+  display: grid;
+  grid-template-columns: 1fr 44px 56px 60px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.kills-row:last-child {
+  border-bottom: none;
+}
+
+/* ---- Reference DB v2: item-type icons, mobs, recipes, zone info --------- */
+
+/* Item-family glyph before item names (result rows, loot lists). */
+.item-type-icon {
+  flex: none;
+  align-self: center;
+  color: var(--ink-muted);
+}
+
+/* Small labeled sub-section header inside expanded detail rows. */
+.refdb-subhead {
+  margin: 12px 0 4px;
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.refdb-rows {
+  border-top: 1px solid var(--hairline);
+}
+.refdb-row {
+  display: grid;
+  gap: 8px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12.5px;
+}
+.refdb-row:last-child {
+  border-bottom: none;
+}
+.refdb-row > * {
+  min-width: 0;
+}
+.refdb-row .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.refdb-row-head {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.refdb-hint-str {
+  color: var(--ink-2);
+}
+/* Icon + clickable item name, kept on one line. */
+.refdb-item {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-width: 0;
+}
+.refdb-item .session-item-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* "Used in" / "Made by" recipe chip rows (Drops item detail). */
+.refdb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 4px 0;
+}
+.refdb-chiplabel {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 2px;
+}
+
+/* ---- Mobs tab ------------------------------------------------------------ */
+
+.mob-star {
+  color: var(--warning, #fab219);
+}
+.mobs-level {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-2);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.mobs-level input {
+  width: 52px;
+}
+.mobs-zone {
+  flex: 1;
+  min-width: 180px;
+  max-width: 280px;
+}
+
+/* Expandable zone almanac header (shown when a zone filter is set). */
+.zoneinfo {
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+.zoneinfo-head {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.zoneinfo-caret {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.zoneinfo-name {
+  font-weight: 600;
+}
+.zoneinfo-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px 28px;
+  margin-top: 8px;
+}
+.zoneinfo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12.5px;
+}
+.zoneinfo-gather {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* SearchSelect affordances: in-field clear (×) + dropdown chevron. */
+.sselect input {
+  padding-right: 42px;
+}
+.sselect-clear {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0 4px;
+  color: var(--ink-muted);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+.sselect-clear:hover {
+  color: var(--ink);
+}
+.sselect-chev {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-muted);
+  font-size: 9px;
+  pointer-events: none;
+}
+
+.drops-filter-reset {
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+/* Shared class-filter button: accent ring while a selection is active. */
+.ref-filter-active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Voice picker row: fight .field > span's block/muted default. */
+.field > .settings-voice-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: var(--ink);
+}
+.settings-voice-row select {
+  flex: 0 1 300px;
+  min-width: 180px;
+}
+.settings-voice-row button {
+  flex: none;
+  padding: 5px 16px;
 }

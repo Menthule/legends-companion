@@ -408,6 +408,13 @@ fn drain_due(engine: &mut TriggerEngine, now_ts: i64) {
             TimerFireKind::Expire => {
                 println!("{MAGENTA}{BOLD}[TIMER]{RESET} `{}` expired", fire.name);
             }
+            TimerFireKind::Restarted => {
+                println!(
+                    "{MAGENTA}{BOLD}[TIMER]{RESET} `{}` repeating ({}s)",
+                    fire.name,
+                    fire.duration_secs.unwrap_or(0)
+                );
+            }
         }
     }
 }

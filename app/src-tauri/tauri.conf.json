@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Legends Companion",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "identifier": "com.legendscompanion.app",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -91,8 +91,8 @@
         "label": "overlay-stance",
         "title": "Legends Companion Stance",
         "url": "index.html?overlay=stance",
-        "width": 240,
-        "height": 110,
+        "width": 320,
+        "height": 96,
         "x": 380,
         "y": 460,
         "transparent": true,
@@ -111,6 +111,22 @@
         "height": 150,
         "x": 80,
         "y": 460,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": false,
+        "resizable": true,
+        "visible": true
+      },
+      {
+        "label": "overlay-xp",
+        "title": "Legends Companion XP",
+        "url": "index.html?overlay=xp",
+        "width": 260,
+        "height": 120,
+        "x": 380,
+        "y": 600,
         "transparent": true,
         "decorations": false,
         "alwaysOnTop": true,
@@ -137,7 +153,8 @@
     ],
     "resources": {
       "../../triggers/": "triggers/",
-      "../../assets/sounds/": "sounds/"
+      "../../assets/sounds/": "sounds/",
+      "../../assets/data/": "refdata/"
     },
     "icon": [
       "icons/32x32.png",

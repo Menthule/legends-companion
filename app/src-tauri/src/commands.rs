@@ -17,12 +17,13 @@ use crate::discover::{self, DiscoveredLog};
 use crate::library::{self, Library};
 use crate::tailing::{self, TailSession};
 
-pub const OVERLAY_LABELS: [&str; 6] = [
+pub const OVERLAY_LABELS: [&str; 7] = [
     "overlay-alerts",
     "overlay-buffs",
     "overlay-onothers",
     "overlay-target",
     "overlay-meter",
+    "overlay-xp",
     "overlay-stance",
 ];
 
@@ -48,6 +49,31 @@ impl AppState {
             store: Arc::new(Mutex::new(None)),
         }
     }
+}
+
+fn apply_audio_dictionary(audio: &AudioHandle, config: &AppConfig) {
+    audio.set_dictionary(
+        config
+            .tts_dictionary
+            .iter()
+            .map(|p| (p.from.clone(), p.to.clone()))
+            .collect(),
+    );
+    audio.set_voice(config.tts_voice.clone());
+}
+
+/// Installed Windows TTS voice display names, for the Settings picker.
+/// A separate throwaway synthesizer keeps this off the audio thread.
+#[tauri::command]
+pub fn list_tts_voices() -> Result<Vec<String>, String> {
+    #[cfg(windows)]
+    {
+        let t = tts::Tts::default().map_err(|e| format!("TTS unavailable: {e}"))?;
+        let voices = t.voices().map_err(|e| format!("voices: {e}"))?;
+        Ok(voices.iter().map(|v| v.name()).collect())
+    }
+    #[cfg(not(windows))]
+    Ok(Vec::new())
 }
 
 pub(crate) fn lock<'a, T>(
@@ -88,6 +114,9 @@ pub fn set_config(
     // profile so a Settings edit survives a restart (startup hydrate reads
     // them back from the profile, not from settings.json).
     crate::library::persist_active_overrides(&app, &config);
+    if let Ok(audio) = state.audio.lock() {
+        apply_audio_dictionary(&audio, &config);
+    }
     *lock(&state.config, "config")? = config;
     Ok(())
 }
@@ -385,6 +414,19 @@ pub fn stop_tailing(app: AppHandle, state: State<'_, AppState>) -> Result<(), St
 #[tauri::command]
 pub fn silence_audio(state: State<'_, AppState>) -> Result<(), String> {
     lock(&state.audio, "audio")?.silence()
+}
+
+/// Speak arbitrary frontend-supplied text through the app audio thread —
+/// the same queue trigger Speak actions use, so it shares the TTS voice,
+/// the pronunciation dictionary, and the silence kill-switch.
+#[tauri::command]
+pub fn speak_text(state: State<'_, AppState>, text: String) -> Result<(), String> {
+    let text = text.trim().to_string();
+    if text.is_empty() {
+        return Ok(());
+    }
+    lock(&state.audio, "audio")?.speak(text);
+    Ok(())
 }
 
 #[tauri::command]

@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
 import {
+  checkUpdate,
+  dataUpdateCheck,
+  dataUpdateInstall,
+  dataVersion,
   getConfig,
   getLogStats,
+  installUpdate,
+  listTtsVoices,
+  speakText,
   getProfile,
   getTriggers,
   getTriggerTree,
@@ -13,13 +20,18 @@ import {
   setConfig,
   setProfile,
   switchLoadout,
+  type UpdateInfo,
 } from "../api";
 import { ShareDialog, type ShareRequest } from "./ShareDialogs";
 import { useTauriEvent } from "../hooks";
 import { IS_MOCK } from "../mock";
 import {
+  loadAlertSizePx,
+  loadBuffThresholdMins,
   loadMeterSources,
   loadOverlayVisibility,
+  saveAlertSizePx,
+  saveBuffThresholdMins,
   saveMeterSources,
   saveOverlayVisibility,
 } from "../overlayState";
@@ -35,9 +47,11 @@ import {
   OVERLAY_METER,
   OVERLAY_STANCE,
   OVERLAY_TARGET,
+  OVERLAY_XP,
   displayPath,
   type AppConfig,
   type CharacterProfile,
+  type DataUpdateInfo,
   type Loadout,
   type Trigger,
   type TriggerTreeEntry,
@@ -45,6 +59,10 @@ import {
 
 /** Warn above this size: EQ's own log writer slows as the file grows. */
 const LARGE_LOG_BYTES = 500 * 1024 * 1024;
+
+/** Shipped app version (mirror of app/package.json "version"; the same
+ *  const lives in Dashboard.tsx for the sidebar footer). */
+const APP_VERSION = "0.2.0";
 
 /** Human-readable byte size, e.g. "1.2 GB" / "512.0 MB" / "947 B". */
 function formatBytes(bytes: number): string {
@@ -76,13 +94,112 @@ export default function SettingsTab({
   const [meterSources, setMeterSources] = useState<boolean>(() =>
     loadMeterSources()
   );
+  const [buffThreshold, setBuffThreshold] = useState<number>(() =>
+    loadBuffThresholdMins()
+  );
+  const [alertSize, setAlertSize] = useState<number>(() => loadAlertSizePx());
+  const [voices, setVoices] = useState<string[]>([]);
+  useEffect(() => {
+    listTtsVoices().then(setVoices).catch(() => {});
+  }, []);
   const [profile, setProfileState] = useState<CharacterProfile | null>(null);
   const [entries, setEntries] = useState<TriggerTreeEntry[] | null>(null);
   const [userTriggers, setUserTriggers] = useState<Trigger[]>([]);
   const [share, setShare] = useState<ShareRequest | null>(null);
+  // Settings grew past one screen: sectioned sub-tabs, last one remembered.
+  const [section, setSectionState] = useState<string>(() => {
+    try {
+      return localStorage.getItem("eqlogs.settings.section") ?? "general";
+    } catch {
+      return "general";
+    }
+  });
+  function setSection(id: string) {
+    setSectionState(id);
+    try {
+      localStorage.setItem("eqlogs.settings.section", id);
+    } catch {
+      // localStorage unavailable — selection just won't persist.
+    }
+  }
   const [renaming, setRenaming] = useState<{ from: string; text: string } | null>(
     null,
   );
+
+  // ---- Updates section state (app channel + reference-data channel) ----
+  const [appUpdate, setAppUpdate] = useState<UpdateInfo | null>(null);
+  const [appUpdateStatus, setAppUpdateStatus] = useState<string | null>(null);
+  const [appUpdateBusy, setAppUpdateBusy] = useState(false);
+  const [dataCurrent, setDataCurrent] = useState<string | null>(null);
+  const [dataInfo, setDataInfo] = useState<DataUpdateInfo | null>(null);
+  const [dataStatus, setDataStatus] = useState<string | null>(null);
+  const [dataBusy, setDataBusy] = useState(false);
+  useEffect(() => {
+    dataVersion().then(setDataCurrent).catch(() => {});
+  }, []);
+
+  /** App channel: checkUpdate() never rejects (errors resolve null), so a
+   *  quiet "up to date" doubles as the offline/dev-build answer. */
+  async function checkAppUpdate() {
+    setAppUpdateBusy(true);
+    setAppUpdateStatus(null);
+    const u = await checkUpdate();
+    setAppUpdate(u);
+    setAppUpdateBusy(false);
+    setAppUpdateStatus(
+      u
+        ? `Version ${u.version} is available.`
+        : `You're up to date (v${APP_VERSION}).`,
+    );
+  }
+
+  /** The backend relaunches the app on success, so this promise typically
+   *  never resolves; a failure re-enables the buttons with the error. */
+  async function installAppUpdate() {
+    setAppUpdateBusy(true);
+    setAppUpdateStatus("Downloading and installing…");
+    try {
+      await installUpdate();
+    } catch (e) {
+      setAppUpdateBusy(false);
+      setAppUpdateStatus(`Update failed: ${String(e)}`);
+    }
+  }
+
+  async function checkDataUpdate() {
+    setDataBusy(true);
+    setDataStatus(null);
+    setDataInfo(null);
+    try {
+      const info = await dataUpdateCheck();
+      setDataInfo(info);
+      setDataCurrent(info.current);
+      setDataStatus(
+        info.updateAvailable
+          ? `Data version ${info.latest} is available.`
+          : `Reference data is up to date (${info.latest}).`,
+      );
+    } catch (e) {
+      setDataStatus(`Check failed: ${String(e)}`);
+    } finally {
+      setDataBusy(false);
+    }
+  }
+
+  async function installDataUpdate() {
+    setDataBusy(true);
+    setDataStatus("Downloading and installing data…");
+    try {
+      const v = await dataUpdateInstall();
+      setDataCurrent(v);
+      setDataInfo(null);
+      setDataStatus(`Reference data updated to ${v}.`);
+    } catch (e) {
+      setDataStatus(`Data update failed: ${String(e)}`);
+    } finally {
+      setDataBusy(false);
+    }
+  }
 
   const refreshLogStats = () =>
     getLogStats().then((s) => setLogSize(s.sizeBytes));
@@ -252,6 +369,25 @@ export default function SettingsTab({
     }
   }
 
+  function commitAlertSize(raw: string) {
+    // Clamp on COMMIT (blur/Enter), never per keystroke — mid-typing "2"
+    // of "24" must not snap to 10 and persist.
+    const n = parseInt(raw, 10);
+    if (!Number.isFinite(n)) return;
+    const px = Math.max(10, Math.min(72, n));
+    setAlertSize(px);
+    saveAlertSizePx(px);
+  }
+
+  function commitBuffThreshold(raw: string) {
+    const n = parseInt(raw, 10);
+    if (!Number.isFinite(n)) return;
+    const mins = Math.max(0, n);
+    setBuffThreshold(mins);
+    // Overlay windows hear the storage event; this window the custom event.
+    saveBuffThresholdMins(mins);
+  }
+
   /** Entries that would be ON under this loadout (pack switch included). */
   function onEntries(l: Loadout): TriggerTreeEntry[] {
     if (!entries) return [];
@@ -373,6 +509,22 @@ export default function SettingsTab({
       .filter((n) => n.length > 0);
   }
 
+  function formatDictionary(config: AppConfig): string {
+    return (config.ttsDictionary ?? [])
+      .map((row) => `${row.from}\t${row.to}`)
+      .join("\n");
+  }
+
+  function parseDictionary(raw: string): { from: string; to: string }[] {
+    return raw
+      .split(/\r?\n/)
+      .map((line) => {
+        const [from, ...rest] = line.split(/\t|=>/);
+        return { from: from.trim(), to: rest.join(" ").trim() };
+      })
+      .filter((row) => row.from.length > 0 && row.to.length > 0);
+  }
+
   if (!config) {
     return <div className="hint">{error ?? "Loading settings…"}</div>;
   }
@@ -382,7 +534,25 @@ export default function SettingsTab({
       {error && <div className="error-banner">{error}</div>}
       {status && !error && <div className="status-banner">{status}</div>}
 
-      <section className="card">
+      <nav className="settings-tabs" aria-label="Settings sections">
+        {[
+          ["general", "General"],
+          ["loadouts", "Loadouts"],
+          ["overlays", "Overlays"],
+          ["appearance", "Appearance"],
+          ["updates", "Updates"],
+        ].map(([id, label]) => (
+          <button
+            key={id}
+            className={`settings-tab${section === id ? " active" : ""}`}
+            onClick={() => setSection(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
+
+      <section className={`card${section === "general" ? "" : " hidden"}`}>
         <div className="card-head">
           <span className="section-title">Log</span>
         </div>
@@ -453,9 +623,54 @@ export default function SettingsTab({
             onBlur={() => void save(config)}
           />
         </label>
+        <label className="field">
+          <span>Trigger voice (Windows text-to-speech)</span>
+          <span className="settings-voice-row">
+            <select
+              value={config.ttsVoice ?? ""}
+              onChange={(e) => void save({ ...config, ttsVoice: e.target.value })}
+            >
+              <option value="">System default</option>
+              {voices.map((v) => (
+                <option key={v} value={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              className="ghost small"
+              onClick={() =>
+                void speakText(
+                  "A frenzied ghoul begins casting Gate. This is your trigger voice.",
+                )
+              }
+            >
+              ▶ Test voice
+            </button>
+          </span>
+        </label>
+        <label className="field">
+          <span>TTS pronunciation dictionary (one from-to pair per line)</span>
+          <textarea
+            className="settings-textarea"
+            placeholder={"Cazic\tKaz-ick\nVeeshan\tVee-shan"}
+            defaultValue={formatDictionary(config)}
+            key={formatDictionary(config)}
+            onBlur={(e) => {
+              const ttsDictionary = parseDictionary(e.target.value);
+              if (
+                JSON.stringify(ttsDictionary) !==
+                JSON.stringify(config.ttsDictionary ?? [])
+              ) {
+                void save({ ...config, ttsDictionary });
+              }
+            }}
+          />
+        </label>
       </section>
 
-      <section className="card">
+      <section className={`card${section === "loadouts" ? "" : " hidden"}`}>
         <div className="card-head">
           <span className="section-title">Loadouts</span>
           <span className="hint">
@@ -594,7 +809,7 @@ export default function SettingsTab({
         )}
       </section>
 
-      <section className="card">
+      <section className={`card${section === "appearance" ? "" : " hidden"}`}>
         <div className="card-head">
           <span className="section-title">Appearance</span>
         </div>
@@ -620,7 +835,7 @@ export default function SettingsTab({
         </div>
       </section>
 
-      <section className="card">
+      <section className={`card${section === "overlays" ? "" : " hidden"}`}>
         <div className="card-head">
           <span className="section-title">Overlays</span>
         </div>
@@ -682,6 +897,16 @@ export default function SettingsTab({
         </div>
         <div className="check-row">
           <input
+            id="ov-xp"
+            type="checkbox"
+            className="switch"
+            checked={shown[OVERLAY_XP]}
+            onChange={(e) => void toggleOverlay(OVERLAY_XP, e.target.checked)}
+          />
+          <label htmlFor="ov-xp">XP rate overlay</label>
+        </div>
+        <div className="check-row">
+          <input
             id="ov-stance"
             type="checkbox"
             className="switch"
@@ -711,6 +936,42 @@ export default function SettingsTab({
             micro-rows under your bar)
           </label>
         </div>
+        <label className="field ov-buff-threshold">
+          <span>
+            Alert text size in pixels (the on-screen text alerts over the
+            game)
+          </span>
+          <input
+            type="number"
+            min={10}
+            max={72}
+            defaultValue={alertSize}
+            key={alertSize}
+            onBlur={(e) => commitAlertSize(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter")
+                commitAlertSize((e.target as HTMLInputElement).value);
+            }}
+          />
+        </label>
+        <label className="field ov-buff-threshold">
+          <span>
+            Overlay buff bars appear only in their last N minutes (your buffs
+            and buffs on others; the dashboard buff list always shows
+            everything; 0 = always show, the default)
+          </span>
+          <input
+            type="number"
+            min={0}
+            defaultValue={buffThreshold}
+            key={buffThreshold}
+            onBlur={(e) => commitBuffThreshold(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter")
+                commitBuffThreshold((e.target as HTMLInputElement).value);
+            }}
+          />
+        </label>
         <div className="check-row">
           <input
             id="ov-unlock"
@@ -727,6 +988,74 @@ export default function SettingsTab({
         <p className="hint">
           Locked overlays ignore the mouse entirely. Unlock, drag them into
           position, then lock again before playing.
+        </p>
+      </section>
+
+      <section className={`card${section === "updates" ? "" : " hidden"}`}>
+        <div className="card-head">
+          <span className="section-title">App</span>
+          <span className="hint">Signed builds from GitHub releases</span>
+        </div>
+        <div className="field">
+          <span>Current version: v{APP_VERSION}</span>
+          <div className="path-row">
+            <button
+              className="ghost"
+              onClick={() => void checkAppUpdate()}
+              disabled={appUpdateBusy}
+            >
+              {appUpdateBusy ? "Working…" : "Check for app update"}
+            </button>
+            {appUpdate && (
+              <button
+                className="ghost"
+                onClick={() => void installAppUpdate()}
+                disabled={appUpdateBusy}
+              >
+                Install v{appUpdate.version} & restart
+              </button>
+            )}
+          </div>
+        </div>
+        {appUpdateStatus && <p className="hint">{appUpdateStatus}</p>}
+      </section>
+
+      <section className={`card${section === "updates" ? "" : " hidden"}`}>
+        <div className="card-head">
+          <span className="section-title">Reference data</span>
+          <span className="hint">
+            Drops/spells database + bundled trigger packs
+          </span>
+        </div>
+        <div className="field">
+          <span>
+            Installed data version:{" "}
+            {dataCurrent ?? "bundled with the app (no update installed)"}
+          </span>
+          <div className="path-row">
+            <button
+              className="ghost"
+              onClick={() => void checkDataUpdate()}
+              disabled={dataBusy}
+            >
+              {dataBusy ? "Working…" : "Check for data update"}
+            </button>
+            {dataInfo?.updateAvailable && (
+              <button
+                className="ghost"
+                onClick={() => void installDataUpdate()}
+                disabled={dataBusy}
+              >
+                Update data ({formatBytes(dataInfo.totalBytes)})
+              </button>
+            )}
+          </div>
+        </div>
+        {dataStatus && <p className="hint">{dataStatus}</p>}
+        <p className="hint">
+          The Drops and reference tabs use updated data immediately. A running
+          tailing session picks up new triggers the next time you press Start
+          (or when a loadout/trigger change rebuilds the engine).
         </p>
       </section>
       {share && <ShareDialog request={share} onClose={() => setShare(null)} />}

@@ -27,14 +27,29 @@ import { formatParse, type ParseInput } from "./lib/parseText";
 import type {
   AppConfig,
   CharacterProfile,
+  DataUpdateInfo,
   DiscoveredLog,
+  DropEffect,
+  DropSearchResult,
+  DropSource,
+  DropZone,
   FightPage,
   FightRecord,
   GinaImportResult,
+  ItemRecipes,
+  ItemVendor,
   MeterRow,
+  MobDetail,
+  MobSearchResult,
+  RecipeDetail,
+  RecipeSearchResult,
+  RespawnInfo,
   ShareImportResult,
+  SpellScroll,
+  SpellSearchResult,
   Trigger,
   TriggerTreeEntry,
+  ZoneInfo,
 } from "./types";
 
 export function getConfig(): Promise<AppConfig> {
@@ -67,6 +82,41 @@ export function checkUpdate(): Promise<UpdateInfo | null> {
 export function installUpdate(): Promise<void> {
   if (IS_MOCK) return Promise.resolve();
   return invoke("install_update");
+}
+
+// ---- reference-data update channel (drops.sqlite + trigger packs) ----
+
+/** Installed reference-data version (version.txt in refdata-update/).
+ *  Resolves null when only the bundled data is present, in mock mode, or on
+ *  any error — never rejects. */
+export function dataVersion(): Promise<string | null> {
+  if (IS_MOCK) return Promise.resolve(null);
+  return invoke<string | null>("data_version").catch(() => null);
+}
+
+/** Compare the installed data version against the rolling data-latest
+ *  release. Rejects on network/manifest errors — the Updates section shows
+ *  the failure quietly in its status line. */
+export function dataUpdateCheck(): Promise<DataUpdateInfo> {
+  if (IS_MOCK) {
+    return Promise.resolve({
+      current: null,
+      latest: "",
+      updateAvailable: false,
+      totalBytes: 0,
+    });
+  }
+  return invoke<DataUpdateInfo>("data_update_check");
+}
+
+/** Download, verify, and install the data pack; resolves to the installed
+ *  version. A tailing session picks up new trigger packs on its next Start
+ *  (or hot rebuild); drops queries use the new database immediately. */
+export function dataUpdateInstall(): Promise<string> {
+  if (IS_MOCK) {
+    return Promise.reject(new Error("Data updates need the desktop app."));
+  }
+  return invoke<string>("data_update_install");
 }
 
 /** Size of the configured log file, for the Settings "large log" nudge.
@@ -215,9 +265,33 @@ export function isTailing(): Promise<boolean> {
 
 /** Kill switch (item 14): drop queued TTS/sounds and cut the current
  *  utterance. No-op in mock mode (there is no audio thread). */
+/** Installed Windows TTS voice names for the Settings picker. */
+export function listTtsVoices(): Promise<string[]> {
+  if (IS_MOCK) return Promise.resolve(["Microsoft David", "Microsoft Zira"]);
+  return invoke<string[]>("list_tts_voices").catch(() => []);
+}
+
 export function silenceAudio(): Promise<void> {
   if (IS_MOCK) return Promise.resolve();
   return invoke("silence_audio");
+}
+
+/** Speak text through the app TTS queue — same voice, pronunciation
+ *  dictionary, and silence kill-switch as trigger speech. Best-effort:
+ *  no-op in mock mode, never rejects. */
+export function speakText(text: string): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke<void>("speak_text", { text }).catch(() => {});
+}
+
+/** Reference respawn data for a slain NPC (bundled classic-era database).
+ *  Resolves null for unknown NPCs, in mock mode, or when the backend
+ *  command is unavailable — never rejects. */
+export function refdbRespawnFor(name: string): Promise<RespawnInfo | null> {
+  if (IS_MOCK) return Promise.resolve(null);
+  return invoke<RespawnInfo | null>("refdb_respawn_for", { name }).catch(
+    () => null,
+  );
 }
 
 // ---- bundled alert sounds ----
@@ -521,4 +595,169 @@ export function overlaySetClickThrough(
     return Promise.resolve();
   }
   return invoke("overlay_set_click_through", { label, ignore });
+}
+
+// ---------------------------------------------------------------------------
+// Drops research database (bundled classic-era reference data).
+// ---------------------------------------------------------------------------
+
+export function dropsSearchItems(args: {
+  query: string;
+  eraMax: number;
+  onlySourced: boolean;
+  slotMask: number;
+  classMask: number;
+  zone: string;
+  effectType: string;
+  effectName: string;
+  sort: string;
+  descending: boolean;
+  limit: number;
+  offset: number;
+}): Promise<DropSearchResult> {
+  if (IS_MOCK) return Promise.resolve({ total: 0, rows: [] });
+  return invoke<DropSearchResult>("drops_search_items", args);
+}
+
+export function dropsEffects(eraMax: number): Promise<DropEffect[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<DropEffect[]>("drops_effects", { eraMax });
+}
+
+export function dropsZones(): Promise<DropZone[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<DropZone[]>("drops_zones");
+}
+
+export function dropsItemSources(
+  itemId: number,
+  eraMax: number,
+): Promise<DropSource[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<DropSource[]>("drops_item_sources", { itemId, eraMax });
+}
+
+// ---------------------------------------------------------------------------
+// Spell/ability reference database (same bundled sqlite as drops).
+// ---------------------------------------------------------------------------
+
+export function spellsSearch(args: {
+  query: string;
+  isAbility: boolean;
+  /** Comma-wrapped full class names (",Cleric,Wizard,"); "" = any. */
+  classes: string;
+  /** 0 = any; caps the castable level within the class selection. */
+  maxLevel: number;
+  sort: string;
+  descending: boolean;
+  limit: number;
+  offset: number;
+}): Promise<SpellSearchResult> {
+  if (IS_MOCK) return Promise.resolve({ total: 0, rows: [] });
+  return invoke<SpellSearchResult>("spells_search", args);
+}
+
+// ---------------------------------------------------------------------------
+// Reference DB v2: mobs, vendors, recipes, zone info (same bundled sqlite).
+// ---------------------------------------------------------------------------
+
+/** Merchants selling an item within the era filter. */
+export function refdbItemVendors(
+  itemId: number,
+  eraMax: number,
+): Promise<ItemVendor[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<ItemVendor[]>("refdb_item_vendors", { itemId, eraMax });
+}
+
+/** Search NPCs by name/level/zone. 0 for minLevel/maxLevel = unbounded;
+ *  "" zone = any. */
+export function refdbMobSearch(args: {
+  query: string;
+  eraMax: number;
+  minLevel: number;
+  maxLevel: number;
+  zone: string;
+  limit: number;
+  offset: number;
+}): Promise<MobSearchResult> {
+  if (IS_MOCK) return Promise.resolve({ total: 0, rows: [] });
+  return invoke<MobSearchResult>("refdb_mob_search", args);
+}
+
+export function refdbMobDetail(npcId: number): Promise<MobDetail> {
+  if (IS_MOCK) {
+    return Promise.resolve({
+      id: npcId,
+      name: "",
+      level: 0,
+      named: 0,
+      faction: null,
+      zones: [],
+      loot: [],
+      sells: [],
+    });
+  }
+  return invoke<MobDetail>("refdb_mob_detail", { npcId });
+}
+
+/** Scribeable scroll items that teach a spell, with sourcing hints. */
+export function refdbSpellScrolls(
+  spellId: number,
+  eraMax: number,
+): Promise<SpellScroll[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<SpellScroll[]>("refdb_spell_scrolls", { spellId, eraMax });
+}
+
+/** Recipes that consume (usedIn) or produce (makes) an item. */
+export function refdbItemRecipes(itemId: number): Promise<ItemRecipes> {
+  if (IS_MOCK) return Promise.resolve({ usedIn: [], makes: [] });
+  return invoke<ItemRecipes>("refdb_item_recipes", { itemId });
+}
+
+export function refdbRecipeDetail(
+  recipeId: number,
+  eraMax: number,
+): Promise<RecipeDetail> {
+  if (IS_MOCK) {
+    return Promise.resolve({
+      id: recipeId,
+      name: "",
+      tradeskill: 0,
+      trivial: 0,
+      noFail: 0,
+      components: [],
+      results: [],
+    });
+  }
+  return invoke<RecipeDetail>("refdb_recipe_detail", { recipeId, eraMax });
+}
+
+/** Search recipes by name. tradeskill 0 = any; maxTrivial 0 = any. */
+export function refdbRecipeSearch(args: {
+  query: string;
+  tradeskill: number;
+  maxTrivial: number;
+  limit: number;
+  offset: number;
+}): Promise<RecipeSearchResult> {
+  if (IS_MOCK) return Promise.resolve({ total: 0, rows: [] });
+  return invoke<RecipeSearchResult>("refdb_recipe_search", args);
+}
+
+/** Zone almanac: connections, forage/fishing tables, named mobs. */
+export function refdbZoneInfo(shortName: string): Promise<ZoneInfo> {
+  if (IS_MOCK) {
+    return Promise.resolve({
+      shortName,
+      longName: shortName,
+      era: 0,
+      connections: [],
+      forage: [],
+      fishing: [],
+      namedMobs: [],
+    });
+  }
+  return invoke<ZoneInfo>("refdb_zone_info", { shortName });
 }

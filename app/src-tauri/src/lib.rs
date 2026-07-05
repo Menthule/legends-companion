@@ -6,11 +6,15 @@ mod audio;
 mod commands;
 mod config;
 mod data_root;
+mod datapack;
 mod discover;
+mod dropdb;
 mod library;
 mod logging;
 mod meters;
+mod refdb;
 mod sounds;
+mod spelldb;
 mod store;
 mod tailing;
 mod update;
@@ -124,6 +128,15 @@ pub fn run() {
             if let Ok(mut guard) = app.state::<commands::AppState>().config.lock() {
                 *guard = cfg.clone();
             }
+            if let Ok(audio) = app.state::<commands::AppState>().audio.lock() {
+                audio.set_dictionary(
+                    cfg.tts_dictionary
+                        .iter()
+                        .map(|p| (p.from.clone(), p.to.clone()))
+                        .collect(),
+                );
+                audio.set_voice(cfg.tts_voice.clone());
+            }
             // The webview can query get_config before this setup ran and see
             // the blank default (=> spurious first-run welcome card). Push
             // the loaded config so the frontend re-derives its state.
@@ -175,6 +188,20 @@ pub fn run() {
             store::list_fights,
             store::get_fight,
             store::paste_parse,
+            dropdb::drops_search_items,
+            dropdb::drops_item_sources,
+            dropdb::drops_zones,
+            dropdb::drops_effects,
+            refdb::refdb_item_vendors,
+            refdb::refdb_mob_search,
+            refdb::refdb_mob_detail,
+            refdb::refdb_spell_scrolls,
+            refdb::refdb_item_recipes,
+            refdb::refdb_recipe_detail,
+            refdb::refdb_recipe_search,
+            refdb::refdb_zone_info,
+            refdb::refdb_respawn_for,
+            spelldb::spells_search,
             library::get_profile,
             library::set_profile,
             library::set_active_character,
@@ -188,11 +215,16 @@ pub fn run() {
             commands::stop_tailing,
             commands::is_tailing,
             commands::silence_audio,
+            commands::speak_text,
+            commands::list_tts_voices,
             commands::overlay_show,
             commands::overlay_hide,
             commands::overlay_set_click_through,
             update::check_update,
             update::install_update,
+            datapack::data_update_check,
+            datapack::data_update_install,
+            datapack::data_version,
         ])
         .run(tauri::generate_context!())
         .expect("error while running Legends Companion");

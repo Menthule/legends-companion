@@ -29,6 +29,13 @@ pub struct AppConfig {
     /// Additive: absent in older config files.
     #[serde(default)]
     pub pets: Vec<String>,
+    /// TTS pronunciation substitutions, applied in order before speech is
+    /// queued. Example: `{"from":"Cazic","to":"Kaz-ick"}`.
+    #[serde(default)]
+    pub tts_dictionary: Vec<Pronunciation>,
+    /// Windows TTS voice display name; "" = system default. Additive.
+    #[serde(default)]
+    pub tts_voice: String,
     /// Whether tailing was running when the app last changed it — Start
     /// persists true, Stop persists false, launch resumes accordingly so
     /// the user never re-clicks Start after a restart. Additive.
@@ -40,6 +47,13 @@ pub struct AppConfig {
     /// configs — resolved then from `log_path`/`character_name`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub active_character: Option<ActiveCharacter>,
+}
+
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Pronunciation {
+    pub from: String,
+    pub to: String,
 }
 
 /// Global pointer to the active character (persisted in `settings.json`).

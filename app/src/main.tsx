@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import OverlayAlerts from "./overlay/OverlayAlerts";
 import OverlayBuffs from "./overlay/OverlayBuffs";
 import OverlayMeter from "./overlay/OverlayMeter";
+import OverlayXp from "./overlay/OverlayXp";
 import OverlayStance from "./overlay/OverlayStance";
 import OverlayOnOthers from "./overlay/OverlayOnOthers";
 import OverlayTarget from "./overlay/OverlayTarget";
@@ -45,6 +46,9 @@ switch (overlay) {
     break;
   case "meter":
     view = <OverlayMeter />;
+    break;
+  case "xp":
+    view = <OverlayXp />;
     break;
   case "stance":
     view = <OverlayStance />;

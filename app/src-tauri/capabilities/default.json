@@ -9,6 +9,7 @@
     "overlay-onothers",
     "overlay-target",
     "overlay-meter",
+    "overlay-xp",
     "overlay-stance"
   ],
   "permissions": [
@@ -20,6 +21,8 @@
     "core:window:allow-hide",
     "core:window:allow-set-ignore-cursor-events",
     "core:window:allow-start-dragging",
+    "core:window:allow-start-resize-dragging",
+    "core:window:allow-set-size",
     "core:window:allow-set-position",
     "core:window:allow-outer-position",
     "core:window:allow-outer-size",

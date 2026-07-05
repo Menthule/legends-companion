@@ -1,3 +1,5 @@
+> **Historical** — this sprint shipped; see [architecture-0.2.md](architecture-0.2.md) for current state.
+
 # NOW sprint — pre-launch hardening + ecosystem v1
 
 Scope = the NOW tier of docs/APP_REVIEW.md (read it; file:line citations there

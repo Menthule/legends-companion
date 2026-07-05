@@ -75,6 +75,8 @@ export default function MetersTab({ character }: { character: string }) {
   const timers = useTimers();
   // Lane split (overlay-lanes spec): "buff" + "other" stack under Buffs so
   // recast/user timers aren't orphaned; "enemy" lands under On enemies.
+  // Unlike the in-game overlays, this dashboard list shows every buff — the
+  // show threshold only declutters the overlays.
   const buffTimers = timers.filter((t) => t.lane !== "enemy");
   const enemyTimers = timers.filter((t) => t.lane === "enemy");
   const rows = fight?.rows ?? [];

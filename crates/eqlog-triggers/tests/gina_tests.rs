@@ -108,6 +108,13 @@ fn import_from_zip_maps_all_three_trigger_kinds() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }]
     );

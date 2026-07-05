@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { setOverride } from "../api";
+import { setOverride, shareImport } from "../api";
 import { fmtClock, useTauriEvent } from "../hooks";
 import {
   eventKind,
@@ -13,6 +13,9 @@ import Empty from "./Empty";
 import QuickTriggerModal from "./QuickTriggerModal";
 
 const MAX_ROWS = 500;
+const MAX_ARCHIVE_ROWS = 5000;
+const ARCHIVE_PREVIEW_ROWS = 120;
+const SHARE_RE = /LCS1:[A-Za-z0-9+/_=-]+/;
 
 interface Row extends LogLinePayload {
   id: number;
@@ -194,6 +197,9 @@ const MUTE_DEMO: boolean = IS_MOCK
 
 export default function LiveTab({ character }: { character: string }) {
   const [rows, setRows] = useState<Row[]>([]);
+  const [archiveRows, setArchiveRows] = useState<Row[]>([]);
+  const [archiveOpen, setArchiveOpen] = useState(false);
+  const [archiveQuery, setArchiveQuery] = useState("");
   const [filter, setFilter] = useState("");
   const [autoScroll, setAutoScroll] = useState<boolean>(
     () => loadStoredFilters().autoScroll,
@@ -210,6 +216,7 @@ export default function LiveTab({ character }: { character: string }) {
   const [toast, setToast] = useState<{ message: string; undo?: () => void } | null>(
     null,
   );
+  const [shareCandidate, setShareCandidate] = useState<string | null>(null);
   /** Right-click context menu on an alert row ("Mute this trigger"). */
   const [ctxMenu, setCtxMenu] = useState<{
     x: number;
@@ -225,7 +232,17 @@ export default function LiveTab({ character }: { character: string }) {
     });
   };
 
-  useTauriEvent<LogLinePayload>("log-line", (p) => pushRow(p));
+  useTauriEvent<LogLinePayload>("log-line", (p) => {
+    const match = SHARE_RE.exec(p.message);
+    if (match) setShareCandidate(match[0]);
+    setArchiveRows((prev) => {
+      const next = [...prev, { ...p, id: nextId++ }];
+      return next.length > MAX_ARCHIVE_ROWS
+        ? next.slice(next.length - MAX_ARCHIVE_ROWS)
+        : next;
+    });
+    pushRow(p);
+  });
 
   // Trigger identity (NOW-sprint item 7): fired alerts appear inline in the
   // feed, named, so "what was that?!" is answerable — and right-click mutes.
@@ -287,6 +304,17 @@ export default function LiveTab({ character }: { character: string }) {
     }
   }
 
+  async function importShareCandidate() {
+    if (!shareCandidate) return;
+    try {
+      const result = await shareImport(shareCandidate);
+      setToast({ message: `Imported ${result.imported} shared trigger${result.imported === 1 ? "" : "s"}` });
+      setShareCandidate(null);
+    } catch (e) {
+      setToast({ message: `Share import failed: ${String(e)}` });
+    }
+  }
+
   const paused = pausedAt !== null;
 
   useEffect(() => {
@@ -341,6 +369,20 @@ export default function LiveTab({ character }: { character: string }) {
   );
   const shown = paused ? filtered.filter((r) => r.id < pausedAt!) : filtered;
   const newCount = filtered.length - shown.length;
+  const archiveNeedle = archiveQuery.trim().toLowerCase();
+  const archiveFiltered = useMemo(
+    () =>
+      archiveRows.filter((r) => {
+        if (!archiveNeedle) return true;
+        const kind = eventKind(r.event).toLowerCase();
+        return (
+          r.message.toLowerCase().includes(archiveNeedle) ||
+          kind.includes(archiveNeedle)
+        );
+      }),
+    [archiveRows, archiveNeedle],
+  );
+  const archivePreview = archiveFiltered.slice(-ARCHIVE_PREVIEW_ROWS);
 
   // Mock-only: pin one row's "+ Trigger" affordance visible for screenshots.
   const demoHoverId =
@@ -369,6 +411,18 @@ export default function LiveTab({ character }: { character: string }) {
       });
     } else {
       setPausedAt(nextId);
+    }
+  }
+
+  async function copyArchive() {
+    const text = archiveFiltered
+      .map((r) => `[${fmtClock(r.ts)}] ${eventKind(r.event)} ${r.message}`)
+      .join("\n");
+    try {
+      await navigator.clipboard.writeText(text);
+      setToast({ message: `Copied ${archiveFiltered.length} archived line${archiveFiltered.length === 1 ? "" : "s"}` });
+    } catch {
+      setToast({ message: "Could not copy archive results" });
     }
   }
 
@@ -417,6 +471,17 @@ export default function LiveTab({ character }: { character: string }) {
           {shown.length}/{rows.length} lines
         </span>
       </div>
+      {shareCandidate && (
+        <div className="inline-banner">
+          <span>Shared trigger detected</span>
+          <button className="primary small" onClick={() => void importShareCandidate()}>
+            Import
+          </button>
+          <button className="ghost small" onClick={() => setShareCandidate(null)}>
+            Dismiss
+          </button>
+        </div>
+      )}
       <div className="chip-row" role="group" aria-label="Event kind filters">
         {GROUPS.map((g) => (
           <button
@@ -435,6 +500,56 @@ export default function LiveTab({ character }: { character: string }) {
           >
             Show all
           </button>
+        )}
+      </div>
+      <div className={`archive-panel${archiveOpen ? " open" : ""}`}>
+        <div className="archive-head">
+          <button
+            type="button"
+            className="collapsible-toggle"
+            onClick={() => setArchiveOpen((v) => !v)}
+            aria-expanded={archiveOpen}
+          >
+            <span className="collapsible-chevron" aria-hidden="true">
+              {archiveOpen ? "▾" : "▸"}
+            </span>
+            <span className="section-title">Session archive</span>
+            <span className="collapsible-count num">{archiveRows.length}</span>
+          </button>
+          {archiveOpen && (
+            <>
+              <input
+                type="text"
+                className="archive-search"
+                placeholder="Search archived lines"
+                value={archiveQuery}
+                onChange={(e) => setArchiveQuery(e.target.value)}
+              />
+              <button className="ghost small" onClick={() => void copyArchive()}>
+                Copy results
+              </button>
+            </>
+          )}
+        </div>
+        {archiveOpen && (
+          <div className="archive-results">
+            {archivePreview.length === 0 ? (
+              <div className="hint">No archived lines match.</div>
+            ) : (
+              archivePreview.map((r) => (
+                <div className="archive-row" key={r.id}>
+                  <span className="feed-time">{fmtClock(r.ts)}</span>
+                  <span className="chip chip-muted">{eventKind(r.event).toLowerCase()}</span>
+                  <span>{r.message}</span>
+                </div>
+              ))
+            )}
+            {archiveFiltered.length > archivePreview.length && (
+              <div className="hint">
+                Showing latest {archivePreview.length} of {archiveFiltered.length} matches.
+              </div>
+            )}
+          </div>
         )}
       </div>
       <div className="feed" ref={feedRef}>

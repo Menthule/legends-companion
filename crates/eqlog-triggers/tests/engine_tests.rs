@@ -5,8 +5,8 @@
 
 use eqlog_core::events::{ChatChannel, Entity, Event, LogLine, ParsedLine};
 use eqlog_triggers::{
-    Action, ActionSink, ChannelOverride, CharacterProfile, TimerFireKind, TimerLane, Trigger,
-    TriggerEngine,
+    Action, ActionSink, ChannelOverride, CharacterProfile, TimerFireKind, TimerLane,
+    TimerStartMode, Trigger, TriggerEngine,
 };
 
 /// Records every sink call for assertions.
@@ -65,6 +65,30 @@ fn line(ts: i64, message: &str) -> ParsedLine {
     }
 }
 
+fn start_timer_action(
+    name: &str,
+    duration_secs: u64,
+    mode: Option<TimerStartMode>,
+    repeat_secs: Option<u64>,
+) -> Action {
+    Action::StartTimer {
+        name: name.into(),
+        duration_secs,
+        warn_at_secs: None,
+        duration_formula: None,
+        duration_cap_ticks: None,
+        cast_time_secs: None,
+        mode,
+        repeat_secs,
+        stopwatch: false,
+        warn_text: None,
+        expire_text: None,
+        warn_sound: None,
+        expire_sound: None,
+        lane: None,
+    }
+}
+
 #[test]
 fn character_token_with_regex_metachars_matches_literally() {
     // A pathological character name full of regex metacharacters must be
@@ -87,6 +111,95 @@ fn character_token_with_regex_metachars_matches_literally() {
     let mut sink2 = RecordingSink::default();
     engine.process(&line(0, "Nyaaasha has reached level 16!"), &mut sink2);
     assert_eq!(sink2.total_calls(), 0);
+}
+
+#[test]
+fn numeric_token_conditions_gate_matches() {
+    let trigger = Trigger::new(
+        "big hit",
+        "^You were hit for {N>=100} damage\\.$",
+        vec![Action::DisplayText {
+            template: "big ${N}".into(),
+        }],
+    );
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+    engine.process(&line(1, "You were hit for 99 damage."), &mut sink);
+    assert!(sink.displayed.is_empty());
+    engine.process(&line(2, "You were hit for 100 damage."), &mut sink);
+    assert_eq!(sink.displayed, vec!["big 100"]);
+}
+
+#[test]
+fn suppress_trigger_stops_later_generic_matches() {
+    let mut suppress = Trigger::new("ignore merchant", "^That'll be.*", Vec::new());
+    suppress.priority = 10;
+    suppress.suppress = true;
+    let generic = Trigger::new(
+        "generic",
+        "^(.+)$",
+        vec![Action::DisplayText {
+            template: "generic".into(),
+        }],
+    );
+    let mut engine = TriggerEngine::new(vec![generic, suppress], "Nyasha");
+    let mut sink = RecordingSink::default();
+    engine.process(&line(1, "That'll be 5 gold."), &mut sink);
+    assert_eq!(sink.total_calls(), 0);
+}
+
+#[test]
+fn timer_start_modes_ignore_or_create_instances() {
+    let ignore = Trigger::new(
+        "ignore",
+        "^start ignore$",
+        vec![start_timer_action(
+            "Recast",
+            30,
+            Some(TimerStartMode::IgnoreIfRunning),
+            None,
+        )],
+    );
+    let multi = Trigger::new(
+        "multi",
+        "^start multi$",
+        vec![start_timer_action(
+            "DoT",
+            30,
+            Some(TimerStartMode::StartNewInstance),
+            None,
+        )],
+    );
+    let mut engine = TriggerEngine::new(vec![ignore, multi], "Nyasha");
+    let mut sink = RecordingSink::default();
+    engine.process(&line(1, "start ignore"), &mut sink);
+    engine.process(&line(2, "start ignore"), &mut sink);
+    engine.process(&line(3, "start multi"), &mut sink);
+    engine.process(&line(4, "start multi"), &mut sink);
+    assert_eq!(
+        sink.timers.iter().map(|t| t.0.as_str()).collect::<Vec<_>>(),
+        vec!["Recast", "DoT", "DoT (2)"]
+    );
+}
+
+#[test]
+fn repeating_timer_reschedules_after_expiry() {
+    let trigger = Trigger::new(
+        "repeat",
+        "^pulse$",
+        vec![start_timer_action("Pulse", 10, None, Some(10))],
+    );
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+    engine.process(&line(100, "pulse"), &mut sink);
+    let fires = engine.due(110);
+    // Expiry PLUS a Restarted fire carrying the next cycle's length, so the
+    // sink can draw a replacement bar (the UI prunes bars after "expired").
+    assert_eq!(fires.len(), 2);
+    assert_eq!(fires[0].kind, TimerFireKind::Expire);
+    assert_eq!(fires[1].kind, TimerFireKind::Restarted);
+    assert_eq!(fires[1].duration_secs, Some(10));
+    assert_eq!(engine.active_timers(110), vec![("Pulse".to_string(), 10)]);
 }
 
 #[test]
@@ -212,6 +325,13 @@ fn timer_warn_then_expire_ordering() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -253,6 +373,13 @@ fn timer_big_jump_yields_warn_before_expire() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -277,6 +404,13 @@ fn rematch_restarts_same_named_timer() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -316,6 +450,13 @@ fn cancel_timer_end_to_end() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -375,6 +516,13 @@ fn timer_lanes_flow_from_action_or_category_to_sink_and_fires() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Buff),
         }],
     );
@@ -391,6 +539,13 @@ fn timer_lanes_flow_from_action_or_category_to_sink_and_fires() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -406,6 +561,13 @@ fn timer_lanes_flow_from_action_or_category_to_sink_and_fires() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -524,6 +686,13 @@ fn profile_level_scales_generated_timer_durations() {
                 duration_formula: Some(3), // level * 30 ticks
                 duration_cap_ticks: Some(360),
                 cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
                 lane: None,
             }],
         )
@@ -539,6 +708,13 @@ fn profile_level_scales_generated_timer_durations() {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
                 lane: None,
             }],
         )
@@ -598,6 +774,13 @@ fn scaled_short_durations_clamp_the_warning_lead() {
             duration_formula: Some(6),
             duration_cap_ticks: Some(35),
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: None,
         }],
     );
@@ -754,9 +937,12 @@ fn library_fires_on_real_fixture_lines_for_a_profile() {
         }
         engine.process(&line(i as i64, &raw[27..]), &mut sink);
     }
-    // Default TTS policy: only buff-ending, resist, and enemy-cast dangers
-    // speak. Universal survival/progress (stun, encumbered, level-up "ding")
-    // show text but no longer speak.
+    // Default TTS policy: buff-ending, resist, enemy-cast dangers, and CC
+    // on YOU (root/snare/mez/fear/charm/SPELL stuns, throttled by
+    // cooldowns) speak. Melee bash stuns are far too frequent to speak
+    // (152 fires in this fixture even with a 10 s cooldown) so "You are
+    // stunned!" stays overlay-only, as do other survival/progress lines
+    // (encumbered, level-up "ding").
     assert!(sink.displayed.contains(&"stunned".to_string()));
     assert!(!sink.spoken.contains(&"stunned".to_string()));
     assert!(sink.displayed.contains(&"encumbered".to_string()));
@@ -909,6 +1095,13 @@ fn failed_casts_cancel_their_dot_timers() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Enemy),
         }],
     );
@@ -1037,6 +1230,13 @@ fn dot_timers_bind_to_tick_target_and_die_with_it() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Enemy),
         }],
     );
@@ -1146,6 +1346,13 @@ fn overlapping_casts_on_identical_names_get_numbered_instances() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Enemy),
         }],
     );
@@ -1210,7 +1417,9 @@ fn overlapping_casts_on_identical_names_get_numbered_instances() {
         .collect();
     assert_eq!(remaining, vec![1000 + 42 - 1016, 1010 + 42 - 1016]);
 
-    // Twin #1 dies: only the OLDEST instance pops; (2) keeps running.
+    // A twin dies: EVERY instance bound to the name clears — the log can't
+    // say which mob died, and a dead mob must never keep a bar counting
+    // down (re-dotting the survivor starts a fresh bar).
     engine.process(
         &line(
             1020,
@@ -1222,35 +1431,127 @@ fn overlapping_casts_on_identical_names_get_numbered_instances() {
         ),
         &mut sink,
     );
-    let names: Vec<String> = engine
-        .active_timers(1020)
-        .into_iter()
-        .map(|(n, _)| n)
-        .collect();
-    assert_eq!(
-        names,
-        vec!["Boil Blood — A zol ghoul knight (2)".to_string()]
-    );
     assert!(
-        sink.cancels
-            .contains(&"Boil Blood — A zol ghoul knight".to_string()),
-        "sink told to clear the popped oldest instance: {:?}",
-        sink.cancels
+        engine.active_timers(1020).is_empty(),
+        "death clears every instance bound to the name"
     );
+    for name in [
+        "Boil Blood — A zol ghoul knight",
+        "Boil Blood — A zol ghoul knight (2)",
+    ] {
+        assert!(
+            sink.cancels.contains(&name.to_string()),
+            "sink told to clear {name}: {:?}",
+            sink.cancels
+        );
+    }
+}
 
-    // Twin #2 dies: the remaining instance pops too.
+#[test]
+fn mixed_case_target_binds_reuse_the_first_seen_casing() {
+    // The log capitalizes the same mob differently by sentence position;
+    // a second bind must reuse the casing of the already-bound timer so
+    // the mob doesn't split into two overlay groups.
+    let dot = |spell: &str| {
+        let mut t = Trigger::new(
+            format!("{spell} timer"),
+            format!(r"^You begin casting {spell}\.$"),
+            vec![Action::StartTimer {
+                name: spell.into(),
+                duration_secs: 60,
+                warn_at_secs: None,
+                duration_formula: None,
+                duration_cap_ticks: None,
+                cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
+                lane: Some(TimerLane::Enemy),
+            }],
+        );
+        t.category = Some("Class/Necromancer/DoTs".into());
+        t
+    };
+    let mut engine = TriggerEngine::new(
+        vec![dot("Venom of the Snake"), dot("Dooming Darkness")],
+        "Nyasha",
+    );
+    let mut sink = RecordingSink::default();
+    let line = |ts: i64, msg: &str, event: Event| ParsedLine {
+        line: LogLine {
+            timestamp: ts,
+            message: msg.into(),
+        },
+        event,
+    };
+    // First DoT binds with the line-start capitalization.
     engine.process(
         &line(
-            1024,
-            "You have slain a zol ghoul knight!",
-            Event::Slain {
-                victim: Entity::Named("A zol ghoul knight".into()),
-                killer: Some(Entity::You),
+            1000,
+            "You begin casting Venom of the Snake.",
+            Event::CastBegin {
+                caster: Entity::You,
+                spell: "Venom of the Snake".into(),
             },
         ),
         &mut sink,
     );
-    assert!(engine.active_timers(1024).is_empty());
+    engine.process(
+        &line(
+            1003,
+            "A kor ghoul wizard has taken 9 damage from Venom of the Snake by Nyasha.",
+            Event::SpellDamageTaken {
+                target: Entity::Named("A kor ghoul wizard".into()),
+                source: Entity::You,
+                spell: "Venom of the Snake".into(),
+                amount: 9,
+            },
+        ),
+        &mut sink,
+    );
+    // Second DoT's tick names the mob in lowercase (mid-sentence form).
+    engine.process(
+        &line(
+            1010,
+            "You begin casting Dooming Darkness.",
+            Event::CastBegin {
+                caster: Entity::You,
+                spell: "Dooming Darkness".into(),
+            },
+        ),
+        &mut sink,
+    );
+    engine.process(
+        &line(
+            1013,
+            "a kor ghoul wizard has taken 4 damage from Dooming Darkness by Nyasha.",
+            Event::SpellDamageTaken {
+                target: Entity::Named("a kor ghoul wizard".into()),
+                source: Entity::You,
+                spell: "Dooming Darkness".into(),
+                amount: 4,
+            },
+        ),
+        &mut sink,
+    );
+    let mut names: Vec<String> = engine
+        .active_timers(1013)
+        .into_iter()
+        .map(|(n, _)| n)
+        .collect();
+    names.sort();
+    assert_eq!(
+        names,
+        vec![
+            "Dooming Darkness — A kor ghoul wizard".to_string(),
+            "Venom of the Snake — A kor ghoul wizard".to_string(),
+        ],
+        "second bind reuses the first bind's casing"
+    );
 }
 
 #[test]
@@ -1265,6 +1566,13 @@ fn targeted_wear_off_pops_oldest_instance_fifo() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Enemy),
         }],
     );
@@ -1340,10 +1648,10 @@ fn targeted_wear_off_pops_oldest_instance_fifo() {
 }
 
 #[test]
-fn death_pops_oldest_instance_of_every_spell_bound_to_the_victim() {
+fn death_clears_every_instance_of_every_spell_bound_to_the_victim() {
     // Two different DoTs, each cast twice on identically named twins: one
-    // death pops exactly the oldest instance of EACH spell (the dead mob
-    // carried both), leaving the younger twin's pair running.
+    // death clears ALL instances of EACH spell bound to that name — no bar
+    // may survive a matching death, even a younger twin's.
     let dot = |spell: &str| {
         let mut t = Trigger::new(
             format!("{spell} timer"),
@@ -1355,6 +1663,13 @@ fn death_pops_oldest_instance_of_every_spell_bound_to_the_victim() {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                mode: None,
+                repeat_secs: None,
+                stopwatch: false,
+                warn_text: None,
+                expire_text: None,
+                warn_sound: None,
+                expire_sound: None,
                 lane: Some(TimerLane::Enemy),
             }],
         );
@@ -1414,20 +1729,22 @@ fn death_pops_oldest_instance_of_every_spell_bound_to_the_victim() {
         ),
         &mut sink,
     );
-    let mut names: Vec<String> = engine
-        .active_timers(ts)
-        .into_iter()
-        .map(|(n, _)| n)
-        .collect();
-    names.sort();
-    assert_eq!(
-        names,
-        vec![
-            "Boil Blood — A gnoll (2)".to_string(),
-            "Heat Blood — A gnoll (2)".to_string(),
-        ],
-        "one death pops the oldest instance of every spell bound to the name"
+    assert!(
+        engine.active_timers(ts).is_empty(),
+        "one death clears every instance of every spell bound to the name"
     );
+    for name in [
+        "Boil Blood — A gnoll",
+        "Boil Blood — A gnoll (2)",
+        "Heat Blood — A gnoll",
+        "Heat Blood — A gnoll (2)",
+    ] {
+        assert!(
+            sink.cancels.contains(&name.to_string()),
+            "sink told to clear {name}: {:?}",
+            sink.cancels
+        );
+    }
 }
 
 #[test]
@@ -1442,6 +1759,13 @@ fn cast_time_leads_the_timer_so_expiry_matches_landing() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: Some(5),
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Buff),
         }],
     );
@@ -1492,6 +1816,13 @@ fn dot_reaping_survives_log_case_differences() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Enemy),
         }],
     );
@@ -1758,6 +2089,13 @@ fn sow_trigger() -> Trigger {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Buff),
         }],
     )
@@ -1798,6 +2136,121 @@ fn buff_on_two_targets_makes_two_independent_bars() {
         .filter(|(_, _, _, lane)| *lane == TimerLane::OnOthers)
         .count();
     assert_eq!(on_others, 2, "{:?}", sink.timers);
+}
+
+#[test]
+fn non_damaging_debuff_binds_on_land_line_and_dies_with_the_mob() {
+    // Togor's Insects (a slow) never deals damage, so the damage-tick DoT
+    // binder can't attach it to a mob. Its land emote ("<mob> yawns.")
+    // binds the bar instead — target header on the overlay, and the mob's
+    // death reaps it.
+    let mut t = Trigger::new(
+        "Togor's Insects timer",
+        r"^You begin casting Togor's Insects\.$",
+        vec![Action::StartTimer {
+            name: "Togor's Insects".into(),
+            duration_secs: 150,
+            warn_at_secs: None,
+            duration_formula: None,
+            duration_cap_ticks: None,
+            cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
+            lane: Some(TimerLane::Enemy),
+        }],
+    );
+    t.category = Some("Class/Shaman/Debuffs".into());
+    let mut engine = TriggerEngine::new(vec![t], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(1000, "You begin casting Togor's Insects."), &mut sink);
+    // Land emote binds the bare enemy timer to the mob, lane unchanged.
+    engine.process(&line(1003, "A dar ghoul knight yawns."), &mut sink);
+    let names: Vec<String> = engine
+        .active_timers(1003)
+        .into_iter()
+        .map(|(n, _)| n)
+        .collect();
+    assert_eq!(
+        names,
+        vec!["Togor's Insects — A dar ghoul knight".to_string()],
+        "land line binds the slow to its target"
+    );
+    assert!(
+        sink.timers
+            .iter()
+            .any(|(n, _, _, lane)| n == "Togor's Insects — A dar ghoul knight"
+                && *lane == TimerLane::Enemy),
+        "bound bar stays in the enemy lane: {:?}",
+        sink.timers
+    );
+
+    // The mob dies -> the slow bar dies with it.
+    engine.process(
+        &ParsedLine {
+            line: LogLine {
+                timestamp: 1010,
+                message: "You have slain a dar ghoul knight!".into(),
+            },
+            event: Event::Slain {
+                victim: Entity::Named("A dar ghoul knight".into()),
+                killer: Some(Entity::You),
+            },
+        },
+        &mut sink,
+    );
+    assert!(
+        engine.active_timers(1010).is_empty(),
+        "death reaps the land-bound debuff bar"
+    );
+}
+
+#[test]
+fn rebuffing_same_target_replaces_the_bar_instead_of_numbering() {
+    let mut engine = TriggerEngine::new(vec![sow_trigger()], "Nyasha");
+    let mut sink = RecordingSink::default();
+    // First SoW on Torvin binds the on-others bar.
+    engine.process(&line(0, "You begin casting Spirit of Wolf."), &mut sink);
+    engine.process(
+        &line(1, "Torvin is surrounded by a brief lupine aura."),
+        &mut sink,
+    );
+    // Re-buff the SAME target 600 s later: the old bar is replaced — same
+    // base name, fresh duration, no "Spirit of Wolf — Torvin (2)".
+    engine.process(&line(600, "You begin casting Spirit of Wolf."), &mut sink);
+    engine.process(
+        &line(601, "Torvin is surrounded by a brief lupine aura."),
+        &mut sink,
+    );
+
+    let timers = engine.active_timers(601);
+    let names: Vec<&str> = timers.iter().map(|(n, _)| n.as_str()).collect();
+    assert_eq!(
+        names,
+        vec!["Spirit of Wolf — Torvin"],
+        "one bar, base name, no numbered duplicate"
+    );
+    // The bar carries the SECOND cast's expiry, not the first's.
+    assert_eq!(timers[0].1, 600 + 1800 - 601);
+    assert!(
+        sink.cancels
+            .contains(&"Spirit of Wolf — Torvin".to_string()),
+        "old bar cancelled on replace: {:?}",
+        sink.cancels
+    );
+    assert!(
+        !sink
+            .timers
+            .iter()
+            .any(|(n, _, _, _)| n.contains("(2)")),
+        "no numbered instance ever started: {:?}",
+        sink.timers
+    );
 }
 
 #[test]
@@ -1912,6 +2365,13 @@ fn ambiguous_land_line_binds_nothing() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
             lane: Some(TimerLane::Buff),
         }],
     );

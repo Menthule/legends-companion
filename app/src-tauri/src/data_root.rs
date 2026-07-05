@@ -99,4 +99,12 @@ impl DataRoot {
     pub fn sounds_dir(&self) -> PathBuf {
         self.path.join("sounds")
     }
+
+    /// Downloaded reference-data updates (`datapack` commands): a newer
+    /// `drops.sqlite` and an extracted `triggers/` pack tree, plus the
+    /// `version.txt` marker. When present these override the bundled
+    /// resources (see `dropdb::db_path` / `library::packs_dir`).
+    pub fn refdata_update_dir(&self) -> PathBuf {
+        self.path.join("refdata-update")
+    }
 }
