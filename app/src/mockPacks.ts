@@ -251,11 +251,11 @@ export const MOCK_PACK_TRIGGERS: MockPackTrigger[] = [
   },
   {
     "id": "universal/social/group-invite",
-    "name": "Group invite",
-    "pattern": "^(\\w+) invites you to join a group",
+    "name": "Group/raid invite",
+    "pattern": "^(\\w+) invites you to join a (group|raid)",
     "category": "Universal/Social",
     "classes": [],
-    "defaultEnabled": false,
+    "defaultEnabled": true,
     "source": "curated"
   },
   {

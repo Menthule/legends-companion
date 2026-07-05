@@ -343,15 +343,16 @@
     },
     {
       "id": "universal/social/group-invite",
-      "name": "Group invite",
-      "pattern": "^(\\w+) invites you to join a group",
+      "name": "Group/raid invite",
+      "pattern": "^(\\w+) invites you to join a (group|raid)",
       "enabled": true,
-      "default_enabled": false,
+      "default_enabled": true,
       "source": "curated",
       "category": "Universal/Social",
-      "comments": "Community-standard string; not yet observed in the Legends verification log.",
+      "comments": "Speaks + shows when someone invites you to a group or raid. Community-standard string; not yet observed in the Legends verification log.",
       "actions": [
-        { "Speak": { "template": "group invite from ${1}" } }
+        { "Speak": { "template": "${2} invite from ${1}" } },
+        { "DisplayText": { "template": "${2} invite from ${1}" } }
       ]
     }
   ]
