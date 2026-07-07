@@ -815,6 +815,46 @@ mod tests {
     }
 
     #[test]
+    fn duration_ticks_full_table_matches_python_reference() {
+        // Byte-sync contract with calc_duration_ticks in
+        // tools/spelldata/extract_spells.py (P13): assert EVERY formula branch
+        // uncapped at level 20 so a divergence in either implementation trips a
+        // test rather than silently mis-scaling generated timers.
+        let at20 = |f| duration_ticks_at_level(f, 0, 20);
+        assert_eq!(at20(0), 0);
+        assert_eq!(at20(1), 10); // max(20/2, 1)
+        assert_eq!(at20(2), 15); // max(20/2 + 5, 6)
+        assert_eq!(at20(3), 600); // 20*30
+        assert_eq!(at20(4), 50);
+        assert_eq!(at20(5), 2);
+        assert_eq!(at20(6), 10); // 20/2
+        assert_eq!(at20(7), 20);
+        assert_eq!(at20(8), 30); // 20+10
+        assert_eq!(at20(9), 50); // 20*2+10
+        assert_eq!(at20(10), 610); // 20*30+10
+        assert_eq!(at20(11), 690); // (20+3)*30
+        assert_eq!(at20(12), 10); // max(20/2, 1)
+        assert_eq!(at20(13), 90); // 20*4+10
+        assert_eq!(at20(14), 110); // 20*5+10
+        assert_eq!(at20(15), 300); // (20*5+50)*2
+        assert_eq!(at20(50), 72_000); // "permanent"
+        assert_eq!(at20(3600), 3600);
+        assert_eq!(at20(42), 0); // unknown -> cap (0 = uncapped)
+
+        // The max() floors on formulas 1/2/12 bite at level 1; formula 6 has
+        // no floor and reaches 0.
+        assert_eq!(duration_ticks_at_level(1, 0, 1), 1);
+        assert_eq!(duration_ticks_at_level(2, 0, 1), 6);
+        assert_eq!(duration_ticks_at_level(6, 0, 1), 0);
+        assert_eq!(duration_ticks_at_level(12, 0, 1), 1);
+
+        // Cap clamps only when non-zero and exceeded.
+        assert_eq!(duration_ticks_at_level(3, 100, 20), 100); // 600 -> 100
+        assert_eq!(duration_ticks_at_level(3, 100, 3), 90); // 90 < 100, kept
+        assert_eq!(duration_ticks_at_level(42, 250, 20), 250); // unknown -> cap
+    }
+
+    #[test]
     fn profile_defaults_when_fields_absent() {
         // Bare legacy shape: migrates to one empty "Default" loadout.
         let p: CharacterProfile = serde_json::from_str(r#"{"character":"Nyasha"}"#).unwrap();
