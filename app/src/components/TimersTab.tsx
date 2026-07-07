@@ -434,7 +434,7 @@ export default function TimersTab() {
     if (IS_MOCK) return;
     const check = () => {
       const now = Date.now();
-      let changed = false;
+      const poppedIds = new Set<string>();
       for (const t of timers) {
         const dueAt = t.startedAt + t.durationSecs * 1000;
         if (t.announced || now < dueAt) continue;
@@ -445,16 +445,28 @@ export default function TimersTab() {
         } else {
           void announceCampRespawn(t.label);
         }
-        changed = true;
+        poppedIds.add(t.id);
       }
-      if (changed) {
+      if (poppedIds.size > 0) {
         setTimers((prev) => {
           const now2 = Date.now();
-          const next = prev.map((t) =>
-            !t.announced && now2 >= t.startedAt + t.durationSecs * 1000
-              ? { ...t, announced: true }
-              : t,
-          );
+          const next = prev.map((t) => {
+            if (!poppedIds.has(t.id)) return t;
+            if (t.kind === "custom" && t.repeat) {
+              // Re-arm a repeating timer from its pop instant (P7), skipping
+              // any cycles missed while the app was closed so it doesn't
+              // machine-gun on reopen. Clearing the announce guard lets the
+              // next cycle speak again.
+              let started = t.startedAt + t.durationSecs * 1000;
+              while (started + t.durationSecs * 1000 <= now2) {
+                started += t.durationSecs * 1000;
+              }
+              announced.current.delete(t.id);
+              return { ...t, startedAt: started, announced: false };
+            }
+            // One-shot: mark announced so it reads "UP" and never re-speaks.
+            return { ...t, announced: true };
+          });
           saveTimers(next);
           return next;
         });
