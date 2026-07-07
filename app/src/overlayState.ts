@@ -262,14 +262,29 @@ export interface XpStats {
  * span between gains plus the wall-clock duration since the newest one.
  * Floored at one minute so the first gain doesn't print an absurd rate.
  */
+// Gaps longer than this between consecutive gains are treated as downtime
+// (AFK, medding, camp-move, or the game being closed while the session
+// persists in localStorage) and don't count toward the rate window. Normal
+// pull-to-pull gaps stay well under it, so active grinding is measured
+// honestly instead of being diluted by idle time.
+const XP_IDLE_CAP_SECS = 300;
+
 export function computeXpStats(rows: SharedXpRow[], nowMs: number): XpStats {
   if (rows.length === 0) return { total: 0, perHour: null, perLevelHours: null };
   const total = rows.reduce((sum, row) => sum + row.percent, 0);
   const newest = rows[0];
-  const oldest = rows[rows.length - 1];
   const sinceNewest =
     newest.at != null ? Math.max(0, (nowMs - newest.at) / 1000) : 0;
-  const windowSecs = Math.max(60, newest.ts - oldest.ts + sinceNewest);
+  // Active-time window: sum the log-domain gaps between consecutive gains
+  // (rows are newest-first), each capped so a long idle stretch counts as at
+  // most XP_IDLE_CAP_SECS. Add the (also capped) time since the last gain so
+  // the rate still decays for a few minutes after a kill, then settles.
+  let activeSecs = Math.min(sinceNewest, XP_IDLE_CAP_SECS);
+  for (let i = 0; i < rows.length - 1; i++) {
+    const gap = rows[i].ts - rows[i + 1].ts;
+    activeSecs += Math.min(Math.max(0, gap), XP_IDLE_CAP_SECS);
+  }
+  const windowSecs = Math.max(60, activeSecs);
   const perHour = total / (windowSecs / 3600);
   // Time to earn ONE full level (100%) at the current rate. We can't compute
   // "time to YOUR next level" — the log reports xp as a per-level percentage
