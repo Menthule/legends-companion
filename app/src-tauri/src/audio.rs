@@ -120,6 +120,16 @@ fn run(rx: Receiver<AudioCmd>, generation: Arc<AtomicU64>) {
         .map_err(|e| eprintln!("eqlogs: audio output unavailable: {e}"))
         .ok();
 
+    // One-time init line so a future "no TTS" report can be split into
+    // init-failure vs downstream without re-instrumenting. (Logged after the
+    // synth/output are constructed; harmless if it lands before logging::init
+    // in which case it is simply dropped.)
+    crate::logging::info(&format!(
+        "audio thread up: tts_init={} output_init={}",
+        tts.is_some(),
+        stream.is_some()
+    ));
+
     for cmd in rx {
         match cmd {
             AudioCmd::Speak(text, entry_generation) => {
@@ -128,8 +138,10 @@ fn run(rx: Receiver<AudioCmd>, generation: Arc<AtomicU64>) {
                 }
                 if let Some(t) = tts.as_mut() {
                     // interrupt=false: queue utterances instead of clipping.
+                    // Failures go to app.log (an installed windowed build has
+                    // no stderr) so a silent-TTS report has a breadcrumb.
                     if let Err(e) = t.speak(text, false) {
-                        eprintln!("eqlogs: TTS speak failed: {e}");
+                        crate::logging::warn(&format!("TTS speak failed: {e}"));
                     }
                 }
             }
