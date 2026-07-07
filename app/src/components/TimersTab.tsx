@@ -35,6 +35,7 @@ import {
   TIMER_CAP,
   type Timer,
   type TimerView,
+  windowRemainingSecs,
 } from "../lib/timers";
 
 /** ss / m:ss / h:mm:ss — compact countdown. */
@@ -143,6 +144,8 @@ const MOCK_TIMERS: Timer[] = IS_MOCK
         startedAt: Date.now() - 913_000,
         durationSecs: 1680,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: false,
         announced: false,
@@ -157,6 +160,8 @@ const MOCK_TIMERS: Timer[] = IS_MOCK
         startedAt: Date.now() - 2_362_000,
         durationSecs: 2400,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: true,
         announced: false,
@@ -171,6 +176,8 @@ const MOCK_TIMERS: Timer[] = IS_MOCK
         startedAt: Date.now() - 3_680_000,
         durationSecs: 4320,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: true,
         ttsOnPop: true,
         announced: false,
@@ -229,6 +236,8 @@ export default function TimersTab() {
   const zoneDefaultRef = useRef(0);
   const catchingUp = useRef(false);
   const announced = useRef(new Set<string>());
+  // In-session guard for the pre-pop heads-up (P41), mirroring `announced`.
+  const warned = useRef(new Set<string>());
   const killSeq = useRef(0);
   // Bumped when a lazy respawn lookup resolves, so kill rows re-render.
   const [, setLookupTick] = useState(0);
@@ -273,14 +282,26 @@ export default function TimersTab() {
    *  countdown); custom timers are always distinct. */
   const upsertTimer = useCallback(
     (t: Timer) => {
-      // A re-armed timer reuses its id; clear the pop-announce guard so it can
-      // announce again when it next expires.
+      // A re-armed timer reuses its id; clear the pop-announce AND pre-pop
+      // warn guards so it can announce/warn again when it next expires.
       announced.current.delete(t.id);
+      warned.current.delete(t.id);
       setTimers((prev) => {
+        // A re-kill rebuilds a respawn timer with warnSecs:0 — carry the user's
+        // pre-pop warn preference across the re-arm so it isn't silently lost.
+        const prior = prev.find(
+          (x) =>
+            x.kind === t.kind &&
+            x.label.toLowerCase() === t.label.toLowerCase(),
+        );
+        const armed =
+          prior && prior.warnSecs > 0 && t.warnSecs === 0
+            ? { ...t, warnSecs: prior.warnSecs }
+            : t;
         const next =
           t.kind === "respawn"
             ? [
-                t,
+                armed,
                 ...prev.filter(
                   (x) =>
                     !(
@@ -289,7 +310,7 @@ export default function TimersTab() {
                     ),
                 ),
               ]
-            : [t, ...prev];
+            : [armed, ...prev];
         const capped = next.slice(0, TIMER_CAP);
         saveTimers(capped);
         return capped;
@@ -297,6 +318,22 @@ export default function TimersTab() {
     },
     [],
   );
+
+  /** Cycle a timer's pre-pop warning: off → 30s → 60s → off (P41). */
+  const cycleWarn = useCallback((id: string) => {
+    warned.current.delete(id);
+    setTimers((prev) => {
+      const steps = [0, 30, 60];
+      const next = prev.map((t) => {
+        if (t.id !== id) return t;
+        const i = steps.indexOf(t.warnSecs);
+        const warnSecs = i < 0 ? 30 : steps[(i + 1) % steps.length];
+        return { ...t, warnSecs, warnAnnounced: false };
+      });
+      saveTimers(next);
+      return next;
+    });
+  }, []);
 
   const startRespawnTimer = useCallback(
     (
@@ -324,6 +361,8 @@ export default function TimersTab() {
         startedAt: Date.now(),
         durationSecs: info.respawnSecs,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: false,
         announced: false,
@@ -436,8 +475,22 @@ export default function TimersTab() {
     const check = () => {
       const now = Date.now();
       const poppedIds = new Set<string>();
+      const warnedIds = new Set<string>();
       for (const t of timers) {
         const dueAt = t.startedAt + t.durationSecs * 1000;
+        // Pre-pop heads-up (P41): speak once when we cross into the warn
+        // window (opt-in per timer, so it's alert-budget-safe).
+        if (
+          t.warnSecs > 0 &&
+          !t.warnAnnounced &&
+          !warned.current.has(t.id) &&
+          now < dueAt &&
+          dueAt - now <= t.warnSecs * 1000
+        ) {
+          warned.current.add(t.id);
+          void speakText(`${t.label} in ${t.warnSecs} seconds`);
+          warnedIds.add(t.id);
+        }
         if (t.announced || now < dueAt) continue;
         if (announced.current.has(t.id)) continue;
         announced.current.add(t.id);
@@ -456,18 +509,29 @@ export default function TimersTab() {
             if (t.kind === "custom" && t.repeat) {
               // Re-arm a repeating timer from its pop instant (P7), skipping
               // any cycles missed while the app was closed so it doesn't
-              // machine-gun on reopen. Clearing the announce guard lets the
-              // next cycle speak again.
+              // machine-gun on reopen. Clearing the announce guards lets the
+              // next cycle speak (and re-warn) again.
               announced.current.delete(t.id);
+              warned.current.delete(t.id);
               return {
                 ...t,
                 startedAt: nextRepeatStart(t.startedAt, t.durationSecs, now2),
                 announced: false,
+                warnAnnounced: false,
               };
             }
             // One-shot: mark announced so it reads "UP" and never re-speaks.
             return { ...t, announced: true };
           });
+          saveTimers(next);
+          return next;
+        });
+      } else if (warnedIds.size > 0) {
+        // Persist the pre-pop warning so a reload mid-window doesn't re-speak.
+        setTimers((prev) => {
+          const next = prev.map((t) =>
+            warnedIds.has(t.id) ? { ...t, warnAnnounced: true } : t,
+          );
           saveTimers(next);
           return next;
         });
@@ -501,6 +565,8 @@ export default function TimersTab() {
           startedAt: atMs,
           durationSecs: secs,
           varianceSecs: 0,
+          warnSecs: 0,
+          warnAnnounced: false,
           repeat: false,
           ttsOnPop: false,
           announced: false,
@@ -526,6 +592,8 @@ export default function TimersTab() {
         startedAt: Date.now(),
         durationSecs: secs,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: false,
         announced: false,
@@ -551,6 +619,8 @@ export default function TimersTab() {
       startedAt: Date.now(),
       durationSecs: secs,
       varianceSecs: 0,
+      warnSecs: 0,
+      warnAnnounced: false,
       repeat,
       ttsOnPop: tts,
       announced: false,
@@ -583,12 +653,15 @@ export default function TimersTab() {
   const resetTimer = useCallback((id: string) => {
     setTimers((prev) => {
       const next = prev.map((x) =>
-        x.id === id ? { ...x, startedAt: Date.now(), announced: false } : x,
+        x.id === id
+          ? { ...x, startedAt: Date.now(), announced: false, warnAnnounced: false }
+          : x,
       );
       saveTimers(next);
       return next;
     });
     announced.current.delete(id);
+    warned.current.delete(id);
   }, []);
 
   // --- Derived --------------------------------------------------------------
@@ -703,9 +776,11 @@ export default function TimersTab() {
                     <ActiveRow
                       key={t.id}
                       t={t}
+                      now={nowMs}
                       inZone={t.zoneShort === zoneShort}
                       onReset={() => resetTimer(t.id)}
                       onDismiss={() => dismiss(t.id)}
+                      onCycleWarn={() => cycleWarn(t.id)}
                     />
                   ))}
                 </div>
@@ -723,9 +798,11 @@ export default function TimersTab() {
                     <ActiveRow
                       key={t.id}
                       t={t}
+                      now={nowMs}
                       inZone={false}
                       onReset={() => resetTimer(t.id)}
                       onDismiss={() => dismiss(t.id)}
+                      onCycleWarn={() => cycleWarn(t.id)}
                     />
                   ))}
                 </div>
@@ -937,16 +1014,23 @@ export default function TimersTab() {
 /** One active-timer row with a draining bar and color-state. */
 function ActiveRow({
   t,
+  now,
   inZone,
   onReset,
   onDismiss,
+  onCycleWarn,
 }: {
   t: TimerView;
+  now: number;
   inZone: boolean;
   onReset: () => void;
   onDismiss: () => void;
+  onCycleWarn: () => void;
 }) {
   const width = t.state === "up" ? 100 : (t.progress * 100).toFixed(2);
+  // Variance targets stay "UP" for their whole spawn window; show how much of
+  // that window is left so a camper knows the spawn could still be coming (P41).
+  const windowLeft = windowRemainingSecs(t, now);
   const warnGlyph = t.state === "warn" || t.state === "urgent";
   // A respawn countdown starts at the KILL and ends at the pop, so the
   // re-anchor action is "I just killed it", not a vague "reset".
@@ -979,8 +1063,21 @@ function ActiveRow({
         )}
         <span className="tmr-t-time num">
           {warnGlyph && <span className="tmr-warn">&#9888;</span>}
-          {fmtCountdown(t.remainingSecs)}
+          {t.state === "up" && windowLeft !== null
+            ? `UP · window ${fmtCountdown(windowLeft)}`
+            : fmtCountdown(t.remainingSecs)}
         </span>
+        <button
+          className={`tmr-bell${t.warnSecs > 0 ? " on" : ""}`}
+          title={
+            t.warnSecs > 0
+              ? `Speaks ${t.warnSecs}s before pop — click to change`
+              : "Warn before pop (off) — click to enable"
+          }
+          onClick={onCycleWarn}
+        >
+          {t.warnSecs > 0 ? `\u{1F514} ${t.warnSecs}s` : "\u{1F514}"}
+        </button>
         <button className="tmr-reset" title={resetTitle} onClick={onReset}>
           {resetLabel}
         </button>

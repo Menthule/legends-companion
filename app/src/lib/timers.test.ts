@@ -4,6 +4,7 @@ import {
   nextRepeatStart,
   parseDuration,
   type Timer,
+  windowRemainingSecs,
 } from "./timers";
 
 describe("parseDuration", () => {
@@ -63,6 +64,8 @@ describe("activeTimers", () => {
     startedAt: 0,
     durationSecs: 100,
     varianceSecs: 0,
+    warnSecs: 0,
+    warnAnnounced: false,
     repeat: false,
     ttsOnPop: true,
     announced: false,
@@ -92,5 +95,41 @@ describe("activeTimers", () => {
     const later = { ...base, id: "t2", durationSecs: 200 };
     const rows = activeTimers([later, base], 10_000);
     expect(rows.map((r) => r.id)).toEqual(["t1", "t2"]);
+  });
+});
+
+describe("windowRemainingSecs (P41)", () => {
+  // A variance target: due at 100s, ±60s window (closes at 160s).
+  const variance: Timer = {
+    id: "v1",
+    kind: "respawn",
+    label: "Phinigel",
+    zoneShort: null,
+    zoneLong: null,
+    startedAt: 0,
+    durationSecs: 100,
+    varianceSecs: 60,
+    warnSecs: 0,
+    warnAnnounced: false,
+    repeat: false,
+    ttsOnPop: false,
+    announced: false,
+    source: "manual",
+  };
+
+  it("is null before the timer is due", () => {
+    const [v] = activeTimers([variance], 90_000);
+    expect(windowRemainingSecs(v, 90_000)).toBeNull();
+  });
+
+  it("counts down the window once UP", () => {
+    const [v] = activeTimers([variance], 120_000); // 20s into the window
+    expect(windowRemainingSecs(v, 120_000)).toBe(40); // 160s - 120s
+  });
+
+  it("is null for a fixed (no-variance) timer", () => {
+    const fixed = { ...variance, varianceSecs: 0 };
+    const [v] = activeTimers([fixed], 110_000);
+    expect(windowRemainingSecs(v, 110_000)).toBeNull();
   });
 });

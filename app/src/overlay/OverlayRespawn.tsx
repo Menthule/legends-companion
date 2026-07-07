@@ -9,6 +9,7 @@ import {
   loadTimers,
   TIMERS_KEY,
   type Timer,
+  windowRemainingSecs,
 } from "../lib/timers";
 import {
   loadOverlayArrange,
@@ -41,6 +42,8 @@ const MOCK_TIMERS: Timer[] = IS_MOCK
         startedAt: Date.now() - 200_000,
         durationSecs: 1680,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: false,
         announced: false,
@@ -55,6 +58,8 @@ const MOCK_TIMERS: Timer[] = IS_MOCK
         startedAt: Date.now() - 30_000,
         durationSecs: 200,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: true,
         ttsOnPop: true,
         announced: false,
@@ -69,6 +74,8 @@ const MOCK_TIMERS: Timer[] = IS_MOCK
         startedAt: Date.now() - 6_000,
         durationSecs: 12,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: true,
         announced: false,
@@ -125,6 +132,8 @@ export default function OverlayRespawn() {
         ) : (
           active.map((t) => {
             const up = t.remainingSecs <= 0;
+            // Show the remaining spawn window for variance targets (P41).
+            const windowLeft = windowRemainingSecs(t, nowMs);
             return (
               <div
                 className={`orsp-row s-${t.state} k-${t.kind}${up ? " up" : ""}`}
@@ -140,7 +149,9 @@ export default function OverlayRespawn() {
                     {t.label}
                   </span>
                   <span className="orsp-count num">
-                    {fmtCountdown(t.remainingSecs)}
+                    {up && windowLeft !== null
+                      ? `UP · ${fmtCountdown(windowLeft)}`
+                      : fmtCountdown(t.remainingSecs)}
                   </span>
                 </div>
               </div>

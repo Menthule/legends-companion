@@ -4642,6 +4642,29 @@ button.drops-item.active {
   cursor: pointer;
   white-space: nowrap;
 }
+/* Pre-pop warning toggle (P41): dim when off, warning-tinted when armed. */
+.tmr-bell {
+  flex: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.55;
+}
+.tmr-bell:hover {
+  opacity: 1;
+  border-color: var(--border);
+}
+.tmr-bell.on {
+  opacity: 1;
+  color: var(--warning);
+  border-color: color-mix(in srgb, var(--warning) 40%, var(--border));
+}
 .tmr-reset:hover {
   color: var(--ink);
   border-color: var(--accent);

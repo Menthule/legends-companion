@@ -26,6 +26,10 @@ export interface Timer {
   durationSecs: number;
   /** ± window in seconds (raid targets); 0 = fixed (dungeon rares, customs). */
   varianceSecs: number;
+  /** Speak a heads-up this many seconds BEFORE pop (P41); 0 = off (default). */
+  warnSecs: number;
+  /** Pre-pop warning already spoken (persisted; re-armed like `announced`). */
+  warnAnnounced: boolean;
   /** Custom repeating timer re-arms itself on pop. */
   repeat: boolean;
   /** Speak at pop? Respawn timers default false (visual only per DESIGN.md);
@@ -73,6 +77,9 @@ function coerceTimer(e: Record<string, unknown>): Timer | null {
       typeof e.varianceSecs === "number" && e.varianceSecs > 0
         ? e.varianceSecs
         : 0,
+    warnSecs:
+      typeof e.warnSecs === "number" && e.warnSecs > 0 ? e.warnSecs : 0,
+    warnAnnounced: e.warnAnnounced === true,
     repeat: e.repeat === true,
     ttsOnPop: e.ttsOnPop === true,
     announced: e.announced === true,
@@ -108,6 +115,8 @@ function migrateLegacyCamps(now: number): Timer[] {
         startedAt: diedAt,
         durationSecs: respawnSecs,
         varianceSecs: 0,
+        warnSecs: 0,
+        warnAnnounced: false,
         repeat: false,
         ttsOnPop: false,
         announced: c.announced === true || diedAt + respawnSecs * 1000 <= now,
@@ -215,6 +224,16 @@ export function activeTimers(
     })
     .filter((t) => now < t.windowEndsAt + graceSecs * 1000)
     .sort((a, b) => a.remainingSecs - b.remainingSecs);
+}
+
+/** For a variance timer that's UP but still inside its spawn window, the
+ *  seconds left in that window; null for a fixed timer or once the window
+ *  closes. Drives the "UP · window 4m" display so a camper knows the spawn
+ *  could still be coming (P41). */
+export function windowRemainingSecs(t: TimerView, now: number): number | null {
+  if (t.varianceSecs <= 0 || now < t.dueAt) return null;
+  const left = Math.round((t.windowEndsAt - now) / 1000);
+  return left > 0 ? left : null;
 }
 
 /** Next `startedAt` for a repeating timer after it pops at `now` (P7). Anchored
