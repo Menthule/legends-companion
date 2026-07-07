@@ -4,12 +4,14 @@
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  analyzeLog,
   confirmDiscard,
   deleteFight,
   exportFight,
   getFight,
   listFights,
   pasteParse,
+  pickLogFile,
   pruneFights,
   refdbRespawnFor,
   speakText,
@@ -242,6 +244,13 @@ export default function FightsTab({ character }: { character: string }) {
   const [selected, setSelected] = useState<FightRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  // Offline log import / raid replay (P26): a read-only set of fights parsed
+  // from a chosen file, shown in place of live history until closed.
+  const [imported, setImported] = useState<{
+    file: string;
+    fights: FightRecord[];
+  } | null>(null);
+  const [importing, setImporting] = useState(false);
   const prevActive = useRef(false);
   const demoSeeded = useRef(false);
   // Session-scope loot + rolls (newest first). Captured for the whole app run
@@ -468,7 +477,8 @@ export default function FightsTab({ character }: { character: string }) {
 
   async function copyParse(f: FightRecord) {
     try {
-      const text = await pasteParse(f.id, {
+      // Imported fights carry negative ids and aren't stored — format locally.
+      const text = await pasteParse(f.id >= 0 ? f.id : null, {
         character,
         target: f.target,
         durationSecs: f.durationSecs,
@@ -527,13 +537,38 @@ export default function FightsTab({ character }: { character: string }) {
     }
   }
 
+  async function importLog() {
+    let path: string | null = null;
+    try {
+      path = await pickLogFile();
+    } catch (e) {
+      setToast(`Could not open the file picker: ${e}`);
+      return;
+    }
+    if (!path) return;
+    setImporting(true);
+    try {
+      const parsed = await analyzeLog(path);
+      const file = path.split(/[\\/]/).pop() ?? path;
+      setSelected(null);
+      setImported({ file, fights: parsed });
+      setToast(
+        `Imported ${parsed.length} fight${parsed.length === 1 ? "" : "s"} from ${file}`,
+      );
+    } catch (e) {
+      setToast(`Import failed: ${e}`);
+    } finally {
+      setImporting(false);
+    }
+  }
+
   async function copyTellParse(f: FightRecord) {
     const target = window.prompt("Send parse to player");
     if (!target) return;
     const who = target.trim();
     if (!who) return;
     try {
-      const text = await pasteParse(f.id, {
+      const text = await pasteParse(f.id >= 0 ? f.id : null, {
         character,
         target: f.target,
         durationSecs: f.durationSecs,
@@ -621,12 +656,89 @@ export default function FightsTab({ character }: { character: string }) {
   return (
     <>
       {error && <div className="error-banner">{error}</div>}
+      {imported && (
+        <div className="import-review">
+          <div className="import-banner">
+            <span>
+              Reviewing <strong>{imported.file}</strong> —{" "}
+              {imported.fights.length} fight
+              {imported.fights.length === 1 ? "" : "s"} (read-only)
+            </span>
+            <button className="ghost small" onClick={() => setImported(null)}>
+              Close
+            </button>
+          </div>
+          {imported.fights.length === 0 ? (
+            <Empty
+              title="No fights found"
+              body="No completed fights were parsed from that log file."
+            />
+          ) : (
+            <div className="fight-list">
+              <div className="fight-row fight-head" aria-hidden="true">
+                <span>When</span>
+                <span>Target</span>
+                <span className="num">Duration</span>
+                <span className="num">Your DPS</span>
+                <span />
+              </div>
+              {imported.fights.map((f) => {
+                const dps = yourDps(f);
+                return (
+                  <div
+                    className="fight-row"
+                    key={f.id}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelected(f)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") setSelected(f);
+                    }}
+                  >
+                    <span className="fight-when num">{fmtWhen(f.startTs)}</span>
+                    <span className="fight-target">
+                      {f.target}
+                      {f.targetSlain && <span className="slain-chip">slain</span>}
+                    </span>
+                    <span className="num fight-num">
+                      {fmtDuration(f.durationSecs)}
+                    </span>
+                    <span className="num fight-num">
+                      {dps === null ? "—" : fmtNum(dps)}
+                    </span>
+                    <span className="fight-btns">
+                      <button
+                        className="ghost small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          void copyParse(f);
+                        }}
+                        title="Copy this fight as chat-ready text"
+                      >
+                        Copy parse
+                      </button>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
       <Collapsible
         title="Fight history"
         count={total}
         storageKey="history"
         headerAside={
           <span className="history-actions">
+            <button
+              className="ghost small"
+              onClick={() => void importLog()}
+              disabled={importing}
+              title="Analyze a past log file (raid replay) — read-only"
+            >
+              {importing ? "Importing…" : "Import log"}
+            </button>
             <button className="ghost small" onClick={() => load(page)}>
               Refresh
             </button>

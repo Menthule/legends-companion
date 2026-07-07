@@ -252,6 +252,7 @@ pub fn run() {
             store::delete_fight,
             store::prune_fights,
             store::export_fight,
+            store::analyze_log,
             dropdb::drops_search_items,
             dropdb::drops_item_sources,
             dropdb::drops_zones,

@@ -1,5 +1,8 @@
 import { invoke } from "@tauri-apps/api/core";
-import { confirm as dialogConfirm } from "@tauri-apps/plugin-dialog";
+import {
+  confirm as dialogConfirm,
+  open as dialogOpen,
+} from "@tauri-apps/plugin-dialog";
 import soundManifest from "../../assets/sounds/manifest.json";
 import {
   IS_MOCK,
@@ -516,6 +519,26 @@ export async function pruneFights(opts: {
 export async function exportFight(id: number): Promise<string> {
   if (IS_MOCK) return JSON.stringify({ id, mock: true }, null, 2);
   return await invoke<string>("export_fight", { id });
+}
+
+/** Offline log import (P26): replay a past log file and return its fights,
+ *  read-only. Ids are positional — these are not stored. */
+export async function analyzeLog(path: string): Promise<FightRecord[]> {
+  if (IS_MOCK) return [];
+  const raw = await invoke<unknown>("analyze_log", { path });
+  if (!Array.isArray(raw)) return [];
+  return raw.map(normalizeFight).filter((f): f is FightRecord => f !== null);
+}
+
+/** Native file picker for a log to import; null if cancelled. */
+export async function pickLogFile(): Promise<string | null> {
+  if (IS_MOCK) return null;
+  const sel = await dialogOpen({
+    multiple: false,
+    directory: false,
+    filters: [{ name: "EverQuest log", extensions: ["txt", "log"] }],
+  });
+  return typeof sel === "string" ? sel : null;
 }
 
 /**

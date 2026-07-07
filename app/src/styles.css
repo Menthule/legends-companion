@@ -2771,6 +2771,29 @@ input[type="text"].ted-duration {
   gap: 8px;
 }
 
+/* Offline log import / raid replay (P26): read-only review section. */
+.import-review {
+  margin-bottom: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  border-radius: 8px;
+  overflow: hidden;
+}
+.import-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-size: 13px;
+}
+.import-banner strong {
+  font-weight: 600;
+}
+.import-review .fight-list {
+  padding: 0 4px 4px;
+}
+
 /* Ding digest (P8): floating dismissible "what you just unlocked" card. */
 .ding-card {
   position: fixed;

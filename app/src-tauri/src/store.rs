@@ -7,7 +7,8 @@
 
 use std::sync::{Arc, Mutex};
 
-use eqlog_core::fights::FightSummary;
+use eqlog_core::fights::{FightConfig, FightSummary, FightTracker};
+use eqlog_core::parser::Parser;
 use eqlog_store::FightStore;
 use serde::Serialize;
 use tauri::{AppHandle, State};
@@ -163,6 +164,47 @@ pub fn prune_fights(
         removed += store.prune_before(ts).map_err(|e| e.to_string())?;
     }
     Ok(removed)
+}
+
+/// Offline log import / raid replay (P26): parse a past log file end-to-end
+/// through a fresh FightTracker (no engine, no audio, no persistence) and
+/// return its completed fights for a read-only review. The character/pets come
+/// from the current config so "You" attribution and pet folding match live.
+/// Ids are positional (0-based) — these fights are NOT stored, so `get_fight`
+/// won't resolve them; the frontend renders the returned list directly.
+#[tauri::command]
+pub fn analyze_log(state: State<'_, AppState>, path: String) -> Result<Vec<FightRecord>, String> {
+    let (character, pets) = {
+        let cfg = lock(&state.config, "config")?;
+        (cfg.character_name.clone(), cfg.pets.clone())
+    };
+    let text = std::fs::read_to_string(&path).map_err(|e| {
+        format!("cannot read log file: {e}")
+    })?;
+    let parser = Parser::new();
+    let mut cfg = FightConfig::new(character.clone());
+    for pet in &pets {
+        cfg.pet_owners.insert(pet.clone(), character.clone());
+    }
+    let mut tracker = FightTracker::new(cfg);
+    let mut summaries: Vec<FightSummary> = Vec::new();
+    for line in text.lines() {
+        if let Some(parsed) = parser.parse_line(line) {
+            tracker.ingest(&parsed);
+            summaries.append(&mut tracker.completed_fights());
+        }
+    }
+    // Flush any fight still open at end-of-file.
+    tracker.close_all();
+    summaries.append(&mut tracker.completed_fights());
+    // Negative, 1-based ids so an imported fight can never collide with a
+    // stored fight's id (paste/export then knows to format locally).
+    let records = summaries
+        .iter()
+        .enumerate()
+        .map(|(i, s)| record(-(i as i64 + 1), s))
+        .collect();
+    Ok(records)
 }
 
 /// Export one stored fight's full summary as pretty JSON (the Fights-tab
