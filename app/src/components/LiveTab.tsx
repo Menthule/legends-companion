@@ -604,7 +604,19 @@ export default function LiveTab({ character }: { character: string }) {
                 e.preventDefault();
                 if (isAlert) {
                   if (r.trigger) {
-                    setCtxMenu({ x: e.clientX, y: e.clientY, trigger: r.trigger });
+                    // Clamp to the viewport so a right-click near an edge
+                    // doesn't open the menu partly off-screen (P35).
+                    const MENU_W = 240;
+                    const MENU_H = 48;
+                    const x = Math.max(
+                      4,
+                      Math.min(e.clientX, window.innerWidth - MENU_W),
+                    );
+                    const y = Math.max(
+                      4,
+                      Math.min(e.clientY, window.innerHeight - MENU_H),
+                    );
+                    setCtxMenu({ x, y, trigger: r.trigger });
                   }
                 } else {
                   setQuickLine(r);
@@ -633,6 +645,18 @@ export default function LiveTab({ character }: { character: string }) {
                   onClick={() => setQuickLine(r)}
                 >
                   +<span className="row-trig-label"> Trigger</span>
+                </button>
+              )}
+              {/* Alert rows get a keyboard-focusable Mute pill mirroring the
+                  "+ Trigger" affordance — right-click alone was undiscoverable
+                  and unreachable without a mouse (P35). */}
+              {isAlert && r.trigger && (
+                <button
+                  className="row-trig row-mute"
+                  title={`Mute “${r.trigger.name}”`}
+                  onClick={() => void muteTrigger(r.trigger!)}
+                >
+                  Mute
                 </button>
               )}
             </div>

@@ -65,11 +65,21 @@ export default function OverlayMeter() {
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
-  const rows = (fight?.rows ?? []).slice(0, TOP_N);
-  const slotOf = useSeriesSlots(rows.map((r) => r.name));
-  const maxTotal = rows.reduce((m, r) => Math.max(m, r.total), 0);
   const isYou = (name: string) =>
     character.length > 0 && name.toLowerCase() === character.toLowerCase();
+  const allRows = fight?.rows ?? [];
+  const topRows = allRows.slice(0, TOP_N);
+  // Always pin the local player's row (P27): in a full group/raid where the
+  // player isn't top-5, a personal meter that drops their own bar and "my
+  // sources" micro-rows is useless. Append them as an extra row tagged with
+  // their true rank.
+  const youIdx = allRows.findIndex((r) => isYou(r.name));
+  const pinnedYou = youIdx >= TOP_N ? allRows[youIdx] : null;
+  const displayRows = pinnedYou
+    ? [...topRows.map((r) => ({ r, rank: 0 })), { r: pinnedYou, rank: youIdx + 1 }]
+    : topRows.map((r) => ({ r, rank: 0 }));
+  const slotOf = useSeriesSlots(displayRows.map((d) => d.r.name));
+  const maxTotal = topRows.reduce((m, r) => Math.max(m, r.total), 0);
 
   return (
     <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
@@ -83,7 +93,7 @@ export default function OverlayMeter() {
             {fight ? fmtDuration(fight.durationSecs) : "—"}
           </span>
         </div>
-        {rows.map((r) => {
+        {displayRows.map(({ r, rank }) => {
           const slot = slotOf(r.name);
           // Sub-rows under this bar: the player gets their full top-4 (when
           // "my sources" is on); everyone else gets the configurable top-N
@@ -91,7 +101,10 @@ export default function OverlayMeter() {
           const subN = isYou(r.name) ? (sourcesOn ? MY_SOURCES_N : 0) : otherN;
           const subRows = subN > 0 ? (r.sources ?? []).slice(0, subN) : [];
           return (
-            <div className="om-group" key={r.name}>
+            <div
+              className={`om-group${rank > 0 ? " om-group--pinned" : ""}`}
+              key={r.name}
+            >
               <div className="om-row">
                 <div
                   className="om-fill"
@@ -102,6 +115,7 @@ export default function OverlayMeter() {
                 />
                 <div className="om-text">
                   <span className="om-name">
+                    {rank > 0 && <span className="om-rank">#{rank}</span>}
                     {r.name}
                     {r.pet && <span className="om-pet">+pet</span>}
                   </span>
@@ -131,7 +145,7 @@ export default function OverlayMeter() {
             </div>
           );
         })}
-        {rows.length === 0 && (
+        {displayRows.length === 0 && (
           <div className="om-empty">Waiting for combat</div>
         )}
       </div>
