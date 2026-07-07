@@ -4,12 +4,14 @@
 //! Subcommands:
 //!   eqlog parse <file> [--json]
 //!   eqlog fights <file> [--char NAME] [--pet PET=OWNER]... [--db PATH] [--sources]
+//!   eqlog casts <file> [--char NAME] [--min N] [--mine]
 //!   eqlog tail <file> [--char NAME] [--triggers PATH] [--profile PATH | --classes A,B,C] [--level N]
 //!   eqlog triggers <logfile> [--classes A,B,C] [--level N] [--top N]
 //!   eqlog detect <logfile> [--spells PATH]
 //!   eqlog share export <pack.json> [--name LABEL] [--gtp OUT.gtp]
 //!   eqlog share import <STRING|FILE> [--out PACK.json]
 
+mod cmd_casts;
 mod cmd_detect;
 mod cmd_fights;
 mod cmd_parse;
@@ -36,6 +38,13 @@ USAGE:
         --db also persists every completed fight into a SQLite fight-store
         file (created if missing), the same store the app's Fights history
         reads.
+
+    eqlog casts <file> [--char NAME] [--min N] [--mine]
+        Replay a log through the cast-outcome aggregator and print per-caster,
+        per-spell attempts, fizzles, resists, interrupts, and an inferred land
+        rate (attempts minus observed failures). --min hides spells cast fewer
+        than N times (default 1); --mine restricts output to the character's
+        own casts. Default character Nyasha.
 
     eqlog tail <file> [--char NAME] [--triggers PATH]
                [--profile PATH | --classes A,B,C] [--level N] [--spells PATH]
@@ -78,6 +87,7 @@ fn main() -> ExitCode {
     let result = match cmd.as_str() {
         "parse" => cmd_parse::run(rest),
         "fights" => cmd_fights::run(rest),
+        "casts" => cmd_casts::run(rest),
         "tail" => cmd_tail::run(rest),
         "triggers" => cmd_triggers::run(rest),
         "detect" => cmd_detect::run(rest),
