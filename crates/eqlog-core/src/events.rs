@@ -146,6 +146,16 @@ pub enum Event {
     Resisted { target: Entity, caster: Entity, spell: String },
     /// `Your Tangling Weeds spell has worn off.` (owner is whoever's buff)
     WornOff { spell: String, owner: Option<Entity> },
+    /// A buff that failed to land because a conflicting buff already held the
+    /// slot — the game's own authoritative stacking verdict (P11).
+    /// `Your Protect spell did not take hold. (Blocked by Spirit Armor.)` /
+    /// `Your Protect spell did not take hold on Vibarn. (Blocked by Spirit Armor.)`
+    BuffBlocked {
+        spell: String,
+        blocker: String,
+        /// You (self-buff) or the ally the buff was cast on.
+        target: Entity,
+    },
     /// `X has been slain by Y!` / `You have slain X!` / `You died.`
     Slain { victim: Entity, killer: Option<Entity> },
     /// `--You have looted a Backpack from a greater skeleton's corpse.--`

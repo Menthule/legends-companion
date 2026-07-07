@@ -80,6 +80,9 @@ function classify(kind: string, message: string): ChipInfo {
       return { label: "cast", cls: "cast", dealt: false };
     case "SpellResist":
       return { label: "resist", cls: "cast", dealt: false };
+    case "BuffBlocked":
+      // A stacking conflict (P11) — informative, not spam.
+      return { label: "blocked", cls: "cast", dealt: false };
     case "System":
     case "Loading":
     case "Unclassified":

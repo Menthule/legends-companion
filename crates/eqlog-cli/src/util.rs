@@ -57,6 +57,7 @@ pub fn event_kind(event: &Event) -> &'static str {
         Event::CastFizzled { .. } => "CastFizzled",
         Event::Resisted { .. } => "Resisted",
         Event::WornOff { .. } => "WornOff",
+        Event::BuffBlocked { .. } => "BuffBlocked",
         Event::Slain { .. } => "Slain",
         Event::Loot { .. } => "Loot",
         Event::Roll { .. } => "Roll",

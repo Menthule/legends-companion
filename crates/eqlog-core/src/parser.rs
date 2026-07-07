@@ -43,6 +43,7 @@ struct Regexes {
     resisted: Regex,
     resist_you: Regex,
     worn_off: Regex,
+    buff_blocked: Regex,
     // Deaths
     slain_by: Regex,
     slain_you: Regex,
@@ -146,6 +147,11 @@ impl Parser {
             resist_you: Regex::new(r"^You resist (?P<c>.+?)'s (?P<s>.+)!$").unwrap(),
             worn_off: Regex::new(
                 r"^Your (?P<pet>pet's )?(?P<s>.+?) spell has worn off(?: of (?P<w>[^.]+))?\.$",
+            )
+            .unwrap(),
+            // Optional " on <target>" (buff cast on an ally); no lookarounds.
+            buff_blocked: Regex::new(
+                r"^Your (?P<s>.+?) spell did not take hold(?: on (?P<t>.+?))?\. \(Blocked by (?P<b>.+?)\.\)$",
             )
             .unwrap(),
             slain_by: Regex::new(r"^(?P<v>.+?) ha(?:s|ve) been slain by (?P<k>.+)!$").unwrap(),
@@ -440,6 +446,21 @@ impl Parser {
                 return Event::WornOff {
                     spell: c["s"].to_string(),
                     owner,
+                };
+            }
+        }
+
+        // --- Buff blocked (stacking conflict; the game's own verdict) (P11).
+        if m.contains("did not take hold") {
+            if let Some(c) = self.re.buff_blocked.captures(m) {
+                let target = match c.name("t") {
+                    Some(t) => entity(t.as_str()),
+                    None => Entity::You,
+                };
+                return Event::BuffBlocked {
+                    spell: c["s"].to_string(),
+                    blocker: c["b"].to_string(),
+                    target,
                 };
             }
         }

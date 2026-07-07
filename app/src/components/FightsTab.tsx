@@ -21,6 +21,7 @@ import {
   useNowMs,
   useTauriEvent,
 } from "../hooks";
+import { recordConflict } from "../lib/buffConflicts";
 import {
   type DamageSummary,
   incomingDamage,
@@ -410,6 +411,18 @@ export default function FightsTab({ character }: { character: string }) {
           // NPC kill: tally it and (when the refdb knows the mob) start
           // or reset its camp timer.
           handleNamedSlain(victim);
+        }
+      }
+    } else if ("BuffBlocked" in ev) {
+      // The game's own stacking verdict (P11): learn the conflicting pair so
+      // the Spells tab can warn about it. Toast only on a NEW pair, live only.
+      const d = ev.BuffBlocked as Record<string, unknown>;
+      const spell = String(d.spell ?? "").trim();
+      const blocker = String(d.blocker ?? "").trim();
+      if (spell && blocker) {
+        const learned = recordConflict(spell, blocker);
+        if (learned && !catchingUp.current) {
+          setToast(`Learned: ${spell} won't stack with ${blocker}`);
         }
       }
     }

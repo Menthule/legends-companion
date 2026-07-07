@@ -325,6 +325,17 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
                 .unwrap_or_default();
             (DIM, format!("{spell} worn off{who}"))
         }
+        Event::BuffBlocked {
+            spell,
+            blocker,
+            target,
+        } => (
+            DIM,
+            format!(
+                "{spell} blocked on {} by {blocker}",
+                entity(target, you)
+            ),
+        ),
         Event::Slain { victim, killer } => {
             let by = killer
                 .as_ref()

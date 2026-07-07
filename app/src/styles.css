@@ -3530,6 +3530,13 @@ button.drops-item.active {
   color: var(--warning, #fab219);
   border-color: currentColor;
 }
+/* "conflicts" chip: a learned non-stacking buff pair (P11). */
+.drops-badge.conflict {
+  color: var(--danger, #e5484d);
+  border-color: currentColor;
+  text-transform: none;
+  cursor: help;
+}
 .drops-detail {
   padding: 8px 12px 12px;
   border-bottom: 1px solid var(--hairline);

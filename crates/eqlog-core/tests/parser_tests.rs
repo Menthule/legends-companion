@@ -892,3 +892,54 @@ fn unique_patterns_coverage_stat() {
         println!("{n:>6}  {shape}");
     }
 }
+
+// ---------------------------------------------------------------------------
+// Buff blocked (stacking conflict) — P11
+// ---------------------------------------------------------------------------
+
+#[test]
+fn buff_blocked_self_form() {
+    let ev = parse(
+        "[Fri Jul 03 09:33:40 2026] Your Protect spell did not take hold. (Blocked by Spirit Armor.)",
+    );
+    assert_eq!(
+        ev,
+        Event::BuffBlocked {
+            spell: "Protect".to_string(),
+            blocker: "Spirit Armor".to_string(),
+            target: you(),
+        }
+    );
+}
+
+#[test]
+fn buff_blocked_on_other_form() {
+    let ev = parse(
+        "[Fri Jul 03 09:33:40 2026] Your Protect spell did not take hold on Vibarn. (Blocked by Spirit Armor.)",
+    );
+    assert_eq!(
+        ev,
+        Event::BuffBlocked {
+            spell: "Protect".to_string(),
+            blocker: "Spirit Armor".to_string(),
+            target: named("Vibarn"),
+        }
+    );
+}
+
+#[test]
+fn buff_blocked_on_other_with_possessive_target() {
+    // "Sliq`s warder" (a pet) as the on-other target must not swallow the
+    // blocker clause.
+    let ev = parse(
+        "[Fri Jul 03 09:33:40 2026] Your Protect spell did not take hold on Sliq`s warder. (Blocked by Spirit Armor.)",
+    );
+    assert_eq!(
+        ev,
+        Event::BuffBlocked {
+            spell: "Protect".to_string(),
+            blocker: "Spirit Armor".to_string(),
+            target: named("Sliq`s warder"),
+        }
+    );
+}

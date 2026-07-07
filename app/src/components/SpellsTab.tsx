@@ -10,10 +10,15 @@
 // with the cast/wear-off messages and the full class/level list. Table
 // styling reuses the .drops-* grid classes.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { refdbSpellScrolls, spellsSearch } from "../api";
 import type { SpellRow, SpellScroll } from "../types";
 import Empty from "./Empty";
+import {
+  BUFF_CONFLICTS_EVENT,
+  conflictsForMap,
+  loadConflicts,
+} from "../lib/buffConflicts";
 import { classMaskToParam, useClassMask } from "../lib/refFilters";
 import { ClassFilterButton } from "./RefFilters";
 
@@ -134,6 +139,20 @@ export default function SpellsTab({
   useEffect(() => {
     if (searchRequest && searchRequest.query) setQuery(searchRequest.query);
   }, [searchRequest?.seq]);
+
+  // Learned buff conflicts (P11) — refreshed on the same-window notify and on
+  // cross-window storage writes.
+  const [conflictVer, setConflictVer] = useState(0);
+  useEffect(() => {
+    const bump = () => setConflictVer((v) => v + 1);
+    window.addEventListener(BUFF_CONFLICTS_EVENT, bump);
+    window.addEventListener("storage", bump);
+    return () => {
+      window.removeEventListener(BUFF_CONFLICTS_EVENT, bump);
+      window.removeEventListener("storage", bump);
+    };
+  }, []);
+  const conflictMap = useMemo(() => loadConflicts(), [conflictVer]);
   const [classMask, setClassMask] = useClassMask();
   const classes = classMaskToParam(classMask);
   const [maxLevel, setMaxLevel] = useState(0);
@@ -323,6 +342,14 @@ export default function SpellsTab({
                     {r.name}
                     {r.beneficial ? null : (
                       <span className="drops-badge warn">DET</span>
+                    )}
+                    {conflictsForMap(conflictMap, r.name).length > 0 && (
+                      <span
+                        className="drops-badge conflict"
+                        title={`Won't stack with: ${conflictsForMap(conflictMap, r.name).join(", ")}`}
+                      >
+                        conflicts
+                      </span>
                     )}
                   </span>
                   <span
