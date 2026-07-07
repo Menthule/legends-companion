@@ -40,6 +40,11 @@ import {
 import { ClassFilterButton, EraSelect } from "./RefFilters";
 import Empty from "./Empty";
 import { ItemTypeIcon } from "./ItemIcons";
+import {
+  isWishlisted,
+  onWishlistChanged,
+  toggleWishlist,
+} from "../lib/wishlist";
 
 const PAGE_SIZE = 50;
 const COLUMNS_KEY = "eqlogs.drops.columns.v2";
@@ -433,6 +438,10 @@ export default function DropsTab({
   const inputRef = useRef<HTMLInputElement>(null);
   const filtersRef = useRef<HTMLDivElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
+  // Re-render the star column whenever the wishlist changes — including
+  // removals from the Fights-tab panel (localStorage + custom-event sync).
+  const [, bumpWishlist] = useState(0);
+  useEffect(() => onWishlistChanged(() => bumpWishlist((n) => n + 1)), []);
 
   // Clicking anywhere outside a popover closes it (matching every other
   // dropdown's behavior) — the toggle button alone shouldn't be the only
@@ -1041,6 +1050,37 @@ export default function DropsTab({
                   onClick={() => toggleExpand(it.id)}
                 >
                   <span className="drops-name">
+                    <span
+                      className={`drops-star${
+                        isWishlisted(it.name) ? " on" : ""
+                      }`}
+                      role="button"
+                      tabIndex={0}
+                      aria-pressed={isWishlisted(it.name)}
+                      aria-label={
+                        isWishlisted(it.name)
+                          ? `Stop tracking drops for ${it.name}`
+                          : `Track drops for ${it.name}`
+                      }
+                      title={
+                        isWishlisted(it.name)
+                          ? "Tracking drops — click to remove"
+                          : "Track drops for this item"
+                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleWishlist(it.name);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleWishlist(it.name);
+                        }
+                      }}
+                    >
+                      {isWishlisted(it.name) ? "★" : "☆"}
+                    </span>
                     <ItemTypeIcon itemtype={it.itemtype} slots={it.slots} />
                     {it.name}
                     {it.loregroup !== 0 ? (
