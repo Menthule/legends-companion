@@ -279,14 +279,26 @@ pub fn save_character(
     let loadouts_dir = dir.join("loadouts");
     std::fs::create_dir_all(&loadouts_dir).map_err(io_err(&loadouts_dir))?;
 
-    // Write each loadout; track the filenames we expect to keep.
+    // Write each loadout; track the filenames we expect to keep. Two loadout
+    // names can slugify identically ("PvP" vs "pvp", "Raid!" vs "Raid"), so
+    // disambiguate colliding slugs with a numeric suffix — otherwise the
+    // second write clobbers the first file and that loadout is silently lost
+    // on the next load. The display name lives in the file body, so a suffixed
+    // filename never changes what the user sees.
     let mut keep: Vec<String> = Vec::new();
+    let mut used: std::collections::HashSet<String> = std::collections::HashSet::new();
     for loadout in &profile.loadouts {
-        let mut fname = slugify(&loadout.name);
-        if fname.is_empty() {
-            fname = "loadout".to_string();
+        let mut base = slugify(&loadout.name);
+        if base.is_empty() {
+            base = "loadout".to_string();
         }
-        fname.push_str(".json");
+        let mut fname = format!("{base}.json");
+        let mut n = 2;
+        while used.contains(&fname) {
+            fname = format!("{base}-{n}.json");
+            n += 1;
+        }
+        used.insert(fname.clone());
         keep.push(fname.clone());
         let json = serde_json::to_string_pretty(loadout).expect("loadout serialization infallible");
         write_atomic(&loadouts_dir.join(&fname), &json)?;

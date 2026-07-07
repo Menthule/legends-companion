@@ -141,6 +141,42 @@ fn round_trip_splits_loadouts_into_files_and_reassembles() {
 }
 
 #[test]
+fn colliding_loadout_slugs_do_not_overwrite_each_other() {
+    // P19: two loadout names that slugify identically ("Raid" and "Raid!")
+    // must not share a filename — otherwise the second write clobbers the
+    // first and that loadout silently vanishes on the next load.
+    let root = scratch("slug-collision");
+    let id = CharacterId::new("Torvin", "oggok");
+
+    let a = loadout_with("Raid", &["Warrior"], &[("a/one", true)]);
+    let b = loadout_with("Raid!", &["Cleric"], &[("b/two", false)]);
+    let profile = CharacterProfile {
+        character: "Torvin".into(),
+        level: 40,
+        active_loadout: "Raid".into(),
+        loadouts: vec![a, b],
+    };
+    storage::save_character(&root, &id, &profile, &CharacterOverrides::default()).unwrap();
+
+    // Distinct files: the second colliding slug gets a numeric suffix.
+    let dir = id.dir(&root);
+    assert!(dir.join("loadouts/raid.json").is_file());
+    assert!(dir.join("loadouts/raid-2.json").is_file());
+
+    // Both loadouts survive the round-trip with their display names intact.
+    let loaded = storage::load_character(&root, &id).unwrap();
+    assert_eq!(loaded.profile.loadouts.len(), 2);
+    let names: std::collections::BTreeSet<&str> = loaded
+        .profile
+        .loadouts
+        .iter()
+        .map(|l| l.name.as_str())
+        .collect();
+    assert!(names.contains("Raid"), "names: {names:?}");
+    assert!(names.contains("Raid!"), "names: {names:?}");
+}
+
+#[test]
 fn deleting_a_loadout_prunes_its_file() {
     let root = scratch("prune");
     let id = CharacterId::new("Torvin", "oggok");
