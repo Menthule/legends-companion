@@ -29,6 +29,7 @@ import {
   loadCampRaresOnly,
   loadLearnedRares,
   loadTimers,
+  nextRepeatStart,
   parseDuration,
   saveTimers,
   TIMER_CAP,
@@ -457,12 +458,12 @@ export default function TimersTab() {
               // any cycles missed while the app was closed so it doesn't
               // machine-gun on reopen. Clearing the announce guard lets the
               // next cycle speak again.
-              let started = t.startedAt + t.durationSecs * 1000;
-              while (started + t.durationSecs * 1000 <= now2) {
-                started += t.durationSecs * 1000;
-              }
               announced.current.delete(t.id);
-              return { ...t, startedAt: started, announced: false };
+              return {
+                ...t,
+                startedAt: nextRepeatStart(t.startedAt, t.durationSecs, now2),
+                announced: false,
+              };
             }
             // One-shot: mark announced so it reads "UP" and never re-speaks.
             return { ...t, announced: true };

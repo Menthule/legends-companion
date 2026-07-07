@@ -217,6 +217,22 @@ export function activeTimers(
     .sort((a, b) => a.remainingSecs - b.remainingSecs);
 }
 
+/** Next `startedAt` for a repeating timer after it pops at `now` (P7). Anchored
+ *  to the original cadence (not `now`) to avoid per-cycle drift, but skips any
+ *  whole cycles missed while the app was closed so a reopen re-arms once for
+ *  the current cycle instead of firing the whole backlog. */
+export function nextRepeatStart(
+  startedAt: number,
+  durationSecs: number,
+  now: number,
+): number {
+  const step = durationSecs * 1000;
+  if (step <= 0) return now;
+  let started = startedAt + step;
+  while (started + step <= now) started += step;
+  return started;
+}
+
 // ---------------------------------------------------------------------------
 // Learned rares — mob names the game conned as "a rare creature". Overrides
 // the mob DB's naming-convention `named` guess (Legends has lowercase-article
