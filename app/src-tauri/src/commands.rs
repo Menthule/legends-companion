@@ -77,11 +77,23 @@ pub fn list_tts_voices() -> Result<Vec<String>, String> {
     Ok(Vec::new())
 }
 
+/// Lock a state mutex, recovering from poisoning instead of failing forever
+/// (P30). A single panic while some other command held the lock used to poison
+/// it permanently, so every later call returned "state poisoned" and that whole
+/// subsystem (config, session, audio) was bricked until the user restarted the
+/// app. The guarded data may be mildly inconsistent after such a panic, but for
+/// these small state cells recovering and carrying on beats a dead subsystem —
+/// we log the recovery once so it isn't invisible.
 pub(crate) fn lock<'a, T>(
     m: &'a Mutex<T>,
     what: &str,
 ) -> Result<std::sync::MutexGuard<'a, T>, String> {
-    m.lock().map_err(|_| format!("{what} state poisoned"))
+    Ok(m.lock().unwrap_or_else(|poisoned| {
+        crate::logging::warn(&format!(
+            "{what} mutex was poisoned by an earlier panic; recovering"
+        ));
+        poisoned.into_inner()
+    }))
 }
 
 /// Snapshot of running trigger timers (recasts, buffs, DoTs, CC) so a window

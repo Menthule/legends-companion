@@ -224,11 +224,28 @@ export default function LiveTab({ character }: { character: string }) {
     trigger: TriggerIdentity;
   } | null>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  // Mirror pausedAt into a ref so the log-line handler's setRows updater reads
+  // the current watermark without a stale closure.
+  const pausedAtRef = useRef<number | null>(null);
+  pausedAtRef.current = pausedAt;
 
   const pushRow = (row: Omit<Row, "id">): void => {
     setRows((prev) => {
       const next = [...prev, { ...row, id: nextId++ }];
-      return next.length > MAX_ROWS ? next.slice(next.length - MAX_ROWS) : next;
+      if (next.length <= MAX_ROWS) return next;
+      // While paused, never evict the frozen (pre-pause) rows the user is
+      // reading — trim only the post-pause overflow so a burst of log spam
+      // can't scroll the snapshot out of the buffer (P16). The frozen set is
+      // bounded (the watermark is fixed while paused), so the buffer still
+      // stays capped at MAX_ROWS overall.
+      const cutoff = pausedAtRef.current;
+      if (cutoff !== null) {
+        const frozen = next.filter((r) => r.id < cutoff);
+        const fresh = next.filter((r) => r.id >= cutoff);
+        const keepFresh = Math.max(0, MAX_ROWS - frozen.length);
+        return [...frozen, ...fresh.slice(fresh.length - keepFresh)];
+      }
+      return next.slice(next.length - MAX_ROWS);
     });
   };
 
