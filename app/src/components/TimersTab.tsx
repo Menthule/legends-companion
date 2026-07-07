@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useNowMs, useTauriEvent } from "../hooks";
+import {
+  useNowMs,
+  useTauriEvent,
+  useTimers,
+  type TimerView as BarTimer,
+} from "../hooks";
 import { IS_MOCK } from "../mock";
 import { SearchSelect } from "./DropsTab";
 import {
@@ -14,6 +19,7 @@ import type {
   DropZone,
   LogLinePayload,
   RespawnInfo,
+  TimerLane,
   ZoneNamedMob,
 } from "../types";
 import {
@@ -39,6 +45,48 @@ function fmtCountdown(secs: number): string {
   if (m < 60) return `${m}:${String(s).padStart(2, "0")}`;
   const h = Math.floor(m / 60);
   return `${h}:${String(m % 60).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+/** Backend trigger-engine timers (recasts, buffs, DoTs, CC) grouped into the
+ *  Active list by their overlay lane, so the Timers window shows EVERY live
+ *  timer — not just the respawn/custom ones this tab owns. Order = display
+ *  order. `dot` reuses the legend dot palette. */
+const BAR_CATEGORIES: {
+  lane: TimerLane;
+  title: string;
+  dot: string;
+}[] = [
+  { lane: "other", title: "Recasts & abilities", dot: "k-recast" },
+  { lane: "buff", title: "Buffs", dot: "k-buff" },
+  { lane: "on-others", title: "Buffs · on others", dot: "k-onothers" },
+  { lane: "enemy", title: "Enemy · DoTs & CC", dot: "k-enemy" },
+];
+
+/** Read-only row for a backend trigger timer (the engine owns its lifecycle —
+ *  no reset/dismiss). Reuses the respawn/custom row visuals. */
+function BarRow({ t }: { t: BarTimer }) {
+  const state = t.expired
+    ? "up"
+    : t.warn
+      ? "urgent"
+      : t.frac <= 0.33
+        ? "warn"
+        : "calm";
+  // Fill grows with elapsed time (frac is the fraction REMAINING).
+  const width = t.expired ? 100 : Math.max(0, Math.min(100, (1 - t.frac) * 100));
+  return (
+    <div className={`tmr-t s-${state} k-bar${t.pending ? " pending" : ""}`}>
+      <div className="tmr-t-fill" style={{ width: `${width}%` }} />
+      <div className="tmr-t-main">
+        <span className="tmr-t-name">{t.name}</span>
+        <span className="tmr-t-grow" />
+        <span className="tmr-t-time num">
+          {t.warn && !t.expired && <span className="tmr-warn">&#9888;</span>}
+          {t.pending ? "casting…" : fmtCountdown(Math.ceil(t.left))}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 /** m:ss / h:mm — respawn length for list rows. */
@@ -537,6 +585,19 @@ export default function TimersTab() {
     () => activeTimers(timers, nowMs),
     [timers, nowMs],
   );
+  // Backend trigger-engine timers (recasts, buffs, DoTs, CC) — live-ticking,
+  // read-only. Folded into the Active list below so this window shows EVERY
+  // running timer, not just the respawn/custom ones it owns.
+  const barTimers = useTimers();
+  const respawns = useMemo(
+    () => active.filter((t) => t.kind === "respawn"),
+    [active],
+  );
+  const customs = useMemo(
+    () => active.filter((t) => t.kind === "custom"),
+    [active],
+  );
+  const totalActive = active.length + barTimers.length;
 
   const trackedLabels = useMemo(
     () =>
@@ -581,32 +642,82 @@ export default function TimersTab() {
         <div className="card-head">
           <span className="section-title">Active</span>
           <span className="tmr-legend">
-            <span><i className="tmr-dot k-respawn" /> Respawn</span>
-            <span><i className="tmr-dot k-custom" /> Custom</span>
             <span><i className="tmr-dot s-warn" /> Soon</span>
             <span><i className="tmr-dot s-urgent" /> Imminent</span>
             <span><i className="tmr-dot s-up" /> Up</span>
           </span>
         </div>
-        {active.length === 0 ? (
+        {totalActive === 0 ? (
           <div className="empty">
             <div className="empty-title">No active timers</div>
             <div className="empty-body">
-              Kill a rare and its respawn countdown starts automatically. Track a
-              placeholder from Recent kills, or add a custom timer below.
+              Recast, buff, and DoT timers from your triggers show up here the
+              moment they fire. Kill a rare to start a respawn countdown, or add
+              a custom timer below.
             </div>
           </div>
         ) : (
-          <div className="tmr-list">
-            {active.map((t) => (
-              <ActiveRow
-                key={t.id}
-                t={t}
-                inZone={t.kind === "respawn" && t.zoneShort === zoneShort}
-                onReset={() => resetTimer(t.id)}
-                onDismiss={() => dismiss(t.id)}
-              />
-            ))}
+          <div className="tmr-groups">
+            {BAR_CATEGORIES.map((cat) => {
+              const rows = barTimers.filter(
+                (b) => (b.lane ?? "other") === cat.lane,
+              );
+              if (rows.length === 0) return null;
+              return (
+                <div className="tmr-group" key={cat.lane}>
+                  <div className="tmr-group-head">
+                    <i className={`tmr-dot ${cat.dot}`} />
+                    <span>{cat.title}</span>
+                    <span className="tmr-count num">{rows.length}</span>
+                  </div>
+                  <div className="tmr-list">
+                    {rows.map((b) => (
+                      <BarRow key={`bar:${b.name}`} t={b} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+            {respawns.length > 0 && (
+              <div className="tmr-group">
+                <div className="tmr-group-head">
+                  <i className="tmr-dot k-respawn" />
+                  <span>Respawns</span>
+                  <span className="tmr-count num">{respawns.length}</span>
+                </div>
+                <div className="tmr-list">
+                  {respawns.map((t) => (
+                    <ActiveRow
+                      key={t.id}
+                      t={t}
+                      inZone={t.zoneShort === zoneShort}
+                      onReset={() => resetTimer(t.id)}
+                      onDismiss={() => dismiss(t.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            {customs.length > 0 && (
+              <div className="tmr-group">
+                <div className="tmr-group-head">
+                  <i className="tmr-dot k-custom" />
+                  <span>Custom</span>
+                  <span className="tmr-count num">{customs.length}</span>
+                </div>
+                <div className="tmr-list">
+                  {customs.map((t) => (
+                    <ActiveRow
+                      key={t.id}
+                      t={t}
+                      inZone={false}
+                      onReset={() => resetTimer(t.id)}
+                      onDismiss={() => dismiss(t.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
