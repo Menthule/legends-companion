@@ -571,12 +571,78 @@ impl Parser {
             }
         }
 
+        // --- Consider ("con") lines carry a `(Lvl: N)` suffix. Intercept
+        // them BEFORE is_system() swallows every `(Lvl: )` line, so the rare
+        // tag survives. Non-con `(Lvl: )` lines return None here and fall
+        // through to is_system() unchanged (no regression).
+        if m.contains("(Lvl: ") {
+            if let Some(ev) = self.try_consider(m) {
+                return ev;
+            }
+        }
+
         // --- Recognized system noise.
         if self.is_system(m) {
             return Event::System;
         }
 
         Event::Unclassified
+    }
+
+    /// Parse a consider line into `Event::Consider`. The rare form is
+    /// unambiguous — split on the "- a rare creature -" tag; the name is
+    /// everything before it. The non-rare form has no tag, so the name ends at
+    /// the first known con phrase. Returns None when neither shape matches (the
+    /// caller then treats the line as system noise). The `regex` crate has no
+    /// lookarounds, so this is deliberately split/scan based.
+    fn try_consider(&self, m: &str) -> Option<Event> {
+        // `(Lvl: 42)` → Some(42). Absent/garbled → None (still a valid con).
+        let level = m.rsplit_once("(Lvl: ").and_then(|(_, rest)| {
+            let digits: String = rest.chars().take_while(|c| c.is_ascii_digit()).collect();
+            digits.parse::<u32>().ok()
+        });
+
+        // Rare: the tag replaces the gap between name and con phrase.
+        if let Some((name, _)) = m.split_once("- a rare creature -") {
+            let name = name.trim();
+            if !name.is_empty() {
+                return Some(Event::Consider {
+                    target: name.to_string(),
+                    rare: true,
+                    level,
+                });
+            }
+        }
+
+        // Non-rare: the name ends at the first con/difficulty phrase. Keep this
+        // list conservative — an unmatched phrase just falls through to System,
+        // which is the pre-existing behavior.
+        const CON_PHRASES: &[&str] = &[
+            " scowls at you, ready to attack",
+            " glares at you threateningly",
+            " glowers at you dubiously",
+            " regards you indifferently",
+            " looks your way apprehensively",
+            " looks at you warily",
+            " judges you amiably",
+            " kindly considers you",
+            " regards you as an ally",
+            " looks upon you warmly",
+            " considers you as an ally",
+        ];
+        for phrase in CON_PHRASES {
+            if let Some((name, _)) = m.split_once(phrase) {
+                let name = name.trim();
+                if !name.is_empty() {
+                    return Some(Event::Consider {
+                        target: name.to_string(),
+                        rare: false,
+                        level,
+                    });
+                }
+            }
+        }
+        None
     }
 
     fn try_chat(&self, m: &str) -> Option<Event> {
@@ -1179,5 +1245,57 @@ mod unit {
         let (_, f) = strip_flags("X shoots Y for 9 points of damage. (Critical Double Bow Shot)");
         assert!(f.critical);
         assert_eq!(f.other, vec!["Double Bow Shot".to_string()]);
+    }
+
+    #[test]
+    fn consider_rare() {
+        let p = Parser::new();
+        // Real Legends line: a lowercase-article mob that IS a rare — the
+        // classic naming convention would miss it, the tag catches it.
+        let ev = p
+            .parse_line(
+                "[Thu Jul 02 23:32:46 2026] A ghoul sentinel - a rare creature - scowls at you, ready to attack -- it appears to be quite formidable. (Lvl: 42)",
+            )
+            .unwrap()
+            .event;
+        assert_eq!(
+            ev,
+            Event::Consider {
+                target: "A ghoul sentinel".to_string(),
+                rare: true,
+                level: Some(42),
+            }
+        );
+    }
+
+    #[test]
+    fn consider_non_rare() {
+        let p = Parser::new();
+        let ev = p
+            .parse_line(
+                "[Thu Jul 02 23:32:46 2026] a froglok guard glares at you threateningly -- it looks like an even fight. (Lvl: 40)",
+            )
+            .unwrap()
+            .event;
+        assert_eq!(
+            ev,
+            Event::Consider {
+                target: "a froglok guard".to_string(),
+                rare: false,
+                level: Some(40),
+            }
+        );
+    }
+
+    #[test]
+    fn lvl_line_without_con_stays_system() {
+        // A `(Lvl: )` line that is not a consider phrase must not regress into
+        // a Consider — it stays System as before.
+        let p = Parser::new();
+        let ev = p
+            .parse_line("[Thu Jul 02 23:32:46 2026] Your target is too far away, get closer! (Lvl: 42)")
+            .unwrap()
+            .event;
+        assert_eq!(ev, Event::System);
     }
 }

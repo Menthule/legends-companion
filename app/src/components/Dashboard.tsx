@@ -41,6 +41,7 @@ import MobsTab from "./MobsTab";
 import RecipesTab from "./RecipesTab";
 import SpellsTab from "./SpellsTab";
 import FightsTab from "./FightsTab";
+import TimersTab from "./TimersTab";
 import MacrosTab from "./MacrosTab";
 import TriggersTab from "./TriggersTab";
 import SettingsTab from "./SettingsTab";
@@ -61,6 +62,7 @@ import {
   IconSpeakerOff,
   IconSpells,
   IconStop,
+  IconTimers,
   IconTriggers,
   IconDrops,
   IconUnlock,
@@ -73,6 +75,7 @@ type TabId =
   | "live"
   | "meters"
   | "fights"
+  | "timers"
   | "drops"
   | "mobs"
   | "recipes"
@@ -97,6 +100,7 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
       { id: "live", label: "Live", icon: IconLive },
       { id: "meters", label: "Meters", icon: IconMeters },
       { id: "fights", label: "Fights", icon: IconFights },
+      { id: "timers", label: "Timers", icon: IconTimers },
       { id: "triggers", label: "Triggers", icon: IconTriggers },
     ],
   },
@@ -670,6 +674,9 @@ export default function Dashboard() {
           </section>
           <section className={`page${tab === "fights" ? "" : " hidden"}`}>
             <FightsTab character={character} />
+          </section>
+          <section className={`page${tab === "timers" ? "" : " hidden"}`}>
+            <TimersTab />
           </section>
           <section className={`page${tab === "drops" ? "" : " hidden"}`}>
             <DropsTab searchRequest={dropsRequest} />

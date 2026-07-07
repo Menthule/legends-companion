@@ -47,6 +47,16 @@ export function IconFights({ size = 16 }: IconProps) {
   );
 }
 
+/** Timers: a stopwatch — crown button + hand, distinct from the Fights clock. */
+export function IconTimers({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <circle cx="8" cy="9" r="5" />
+      <path d="M8 9V6M6.4 2.2h3.2M8 2.2v1.8M12.4 5.2l1-1" />
+    </svg>
+  );
+}
+
 export function IconTriggers({ size = 16 }: IconProps) {
   return (
     <svg {...svgProps(size)}>

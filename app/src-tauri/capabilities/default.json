@@ -10,6 +10,7 @@
     "overlay-target",
     "overlay-meter",
     "overlay-xp",
+    "overlay-respawn",
     "overlay-stance"
   ],
   "permissions": [

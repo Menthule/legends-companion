@@ -3,12 +3,17 @@
 
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { getFight, listFights, pasteParse, refdbRespawnFor, speakText } from "../api";
+import {
+  getFight,
+  listFights,
+  pasteParse,
+  refdbRespawnFor,
+  speakText,
+} from "../api";
 import {
   fmtClock,
   fmtDuration,
   fmtNum,
-  fmtTimerLeft,
   useNowMs,
   useTauriEvent,
 } from "../hooks";
@@ -100,17 +105,6 @@ const PAGE_SIZE = 25;
 // Camp timers (kill → respawn countdown) + session kill tallies.
 // ---------------------------------------------------------------------------
 
-interface CampTimer {
-  name: string;
-  zoneLong: string | null;
-  /** Wall-clock ms of the kill — remaining time recomputes from this, so a
-   *  reload keeps the countdown honest. */
-  diedAt: number;
-  respawnSecs: number;
-  /** "respawning" already spoken (persisted so a reload never re-speaks). */
-  announced: boolean;
-}
-
 /** Per-mob session kill tally (camp efficiency v1). */
 interface KillTally {
   name: string;
@@ -119,51 +113,7 @@ interface KillTally {
   firstAtMs: number;
 }
 
-const CAMP_TIMERS_KEY = "eqlogs.campTimers.v1";
-const CAMP_TIMER_CAP = 20;
 const KILL_ROW_CAP = 30;
-
-function loadCampTimers(): CampTimer[] {
-  try {
-    const raw = localStorage.getItem(CAMP_TIMERS_KEY);
-    if (!raw) return [];
-    const parsed: unknown = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    const now = Date.now();
-    return parsed
-      .filter(
-        (e): e is Record<string, unknown> => typeof e === "object" && e !== null,
-      )
-      .map((e) => {
-        const diedAt = typeof e.diedAt === "number" ? e.diedAt : 0;
-        const respawnSecs = typeof e.respawnSecs === "number" ? e.respawnSecs : 0;
-        return {
-          name: String(e.name ?? ""),
-          zoneLong: e.zoneLong == null ? null : String(e.zoneLong),
-          diedAt,
-          respawnSecs,
-          // Anything already due on load counts as announced — the app
-          // shouldn't narrate stale camps at startup.
-          announced: e.announced === true || diedAt + respawnSecs * 1000 <= now,
-        };
-      })
-      .filter((t) => t.name.length > 0 && t.respawnSecs > 0)
-      .slice(0, CAMP_TIMER_CAP);
-  } catch {
-    return []; // localStorage unavailable / corrupt — start empty
-  }
-}
-
-function saveCampTimers(timers: CampTimer[]): void {
-  try {
-    localStorage.setItem(
-      CAMP_TIMERS_KEY,
-      JSON.stringify(timers.slice(0, CAMP_TIMER_CAP)),
-    );
-  } catch {
-    // localStorage unavailable — timers just won't survive a reload.
-  }
-}
 
 /** "14:22" today, "Jul 1, 14:22" otherwise. */
 function fmtWhen(ts: number): string {
@@ -285,109 +235,38 @@ export default function FightsTab({ character }: { character: string }) {
   const [wishlist, setWishlist] = useState<WishlistEntry[]>(() => loadWishlist());
   useEffect(() => onWishlistChanged(() => setWishlist(loadWishlist())), []);
 
-  // Camp timers + session kill tallies. Respawn reference data is fetched
-  // once per mob name per app run (cached in a ref) and shared by both the
-  // camp-timers card and the session-kills card.
-  const [campTimers, setCampTimers] = useState<CampTimer[]>(() => loadCampTimers());
+  // Session kill tallies (camp efficiency v1). Respawn reference data is
+  // fetched once per mob name per app run (cached in a ref) for the kills
+  // card's Respawn column. Camp/respawn TIMERS themselves now live entirely
+  // in the Timers tab (lib/timers.ts) — this component only tallies kills.
   const [kills, setKills] = useState<Record<string, KillTally>>({});
   const respawnCache = useRef(new Map<string, RespawnInfo | null>());
   const respawnPending = useRef(new Set<string>());
-  const campAnnounced = useRef(new Set<string>());
   // Bumped when a lazy respawn lookup resolves so the kills card re-renders.
   const [, setRespawnTick] = useState(0);
 
-  const startCampTimer = useCallback(
-    (victim: string, info: RespawnInfo | null) => {
-      if (!info || info.respawnSecs <= 0) return;
-      // Only camps worth watching: named spawns, or 5-minute-plus respawns.
-      if (info.named !== 1 && info.respawnSecs < 300) return;
-      const name = info.name || victim;
-      const key = name.toLowerCase();
-      setCampTimers((prev) => {
-        // Re-kill of the same mob resets its countdown (dedupe by name).
-        const next: CampTimer[] = [
-          {
-            name,
-            zoneLong: info.zoneLong,
-            diedAt: Date.now(),
-            respawnSecs: info.respawnSecs,
-            announced: false,
-          },
-          ...prev.filter((t) => t.name.toLowerCase() !== key),
-        ].slice(0, CAMP_TIMER_CAP);
-        saveCampTimers(next);
-        return next;
-      });
-    },
-    [],
-  );
-
-  const handleNamedSlain = useCallback(
-    (victim: string) => {
-      const key = victim.toLowerCase();
-      // Session kill tally (camp efficiency v1).
-      setKills((prev) => {
-        const cur = prev[key];
-        return {
-          ...prev,
-          [key]: cur
-            ? { ...cur, kills: cur.kills + 1 }
-            : { name: victim, kills: 1, firstAtMs: Date.now() },
-        };
-      });
-      // Respawn lookup once per name; every kill (re)starts the camp timer.
-      if (respawnCache.current.has(key)) {
-        startCampTimer(victim, respawnCache.current.get(key) ?? null);
-      } else if (!respawnPending.current.has(key)) {
-        respawnPending.current.add(key);
-        void refdbRespawnFor(victim).then((info) => {
-          respawnPending.current.delete(key);
-          respawnCache.current.set(key, info);
-          setRespawnTick((t) => t + 1);
-          startCampTimer(victim, info);
-        });
-      }
-    },
-    [startCampTimer],
-  );
-
-  const dismissCampTimer = useCallback((name: string) => {
-    setCampTimers((prev) => {
-      const next = prev.filter((t) => t.name !== name);
-      saveCampTimers(next);
-      return next;
+  const handleNamedSlain = useCallback((victim: string) => {
+    const key = victim.toLowerCase();
+    // Session kill tally (camp efficiency v1).
+    setKills((prev) => {
+      const cur = prev[key];
+      return {
+        ...prev,
+        [key]: cur
+          ? { ...cur, kills: cur.kills + 1 }
+          : { name: victim, kills: 1, firstAtMs: Date.now() },
+      };
     });
+    // Respawn lookup once per name for the kills card's Respawn column.
+    if (!respawnCache.current.has(key) && !respawnPending.current.has(key)) {
+      respawnPending.current.add(key);
+      void refdbRespawnFor(victim).then((info) => {
+        respawnPending.current.delete(key);
+        respawnCache.current.set(key, info);
+        setRespawnTick((t) => t + 1);
+      });
+    }
   }, []);
-
-  // Speak "<name> respawning" once per timer when it hits zero — done here
-  // (not in the card) so it fires even while the Collapsible is collapsed
-  // (a collapsed Collapsible unmounts its body). The ref guard makes the
-  // announcement idempotent across effect re-runs.
-  useEffect(() => {
-    if (!campTimers.some((t) => !t.announced)) return;
-    const check = () => {
-      const now = Date.now();
-      for (const t of campTimers) {
-        if (t.announced || now < t.diedAt + t.respawnSecs * 1000) continue;
-        const key = `${t.name.toLowerCase()}@${t.diedAt}`;
-        if (campAnnounced.current.has(key)) continue;
-        campAnnounced.current.add(key);
-        void speakText(`${t.name} respawning`);
-        setCampTimers((prev) => {
-          const next = prev.map((x) =>
-            x.name === t.name && x.diedAt === t.diedAt
-              ? { ...x, announced: true }
-              : x,
-          );
-          saveCampTimers(next);
-          return next;
-        });
-      }
-    };
-    check();
-    const h = window.setInterval(check, 1000);
-    return () => window.clearInterval(h);
-  }, [campTimers]);
 
   useTauriEvent<CatchUpPayload>("catch-up", (p) => {
     catchingUp.current = p.active;
@@ -727,10 +606,8 @@ export default function FightsTab({ character }: { character: string }) {
         xp={xp}
         recaps={recaps}
         wishlist={wishlist}
-        campTimers={campTimers}
         kills={kills}
         respawnFor={(name) => respawnCache.current.get(name.toLowerCase()) ?? null}
-        onDismissCamp={dismissCampTimer}
         onResetXp={() => {
           clearXpSession();
           setXp([]);
@@ -812,10 +689,8 @@ function SessionSection({
   xp,
   recaps,
   wishlist,
-  campTimers,
   kills,
   respawnFor,
-  onDismissCamp,
   onResetXp,
 }: {
   loot: LootEntry[];
@@ -823,11 +698,9 @@ function SessionSection({
   xp: XpEntry[];
   recaps: DeathRecap[];
   wishlist: WishlistEntry[];
-  campTimers: CampTimer[];
   kills: Record<string, KillTally>;
   /** Cached refdb lookup (null/absent = unknown mob or not fetched yet). */
   respawnFor: (name: string) => RespawnInfo | null;
-  onDismissCamp: (name: string) => void;
   onResetXp: () => void;
 }) {
   const [lootQuery, setLootQuery] = useState("");
@@ -888,11 +761,11 @@ function SessionSection({
               />
               <StatTile
                 value={
-                  xpStats.ttlHours === null
+                  xpStats.perLevelHours === null
                     ? "—"
-                    : fmtDuration(Math.round(xpStats.ttlHours * 3600))
+                    : fmtDuration(Math.round(xpStats.perLevelHours * 3600))
                 }
-                label="Time to level"
+                label="Per level"
               />
             </div>
             <div className="session-loot">
@@ -910,21 +783,6 @@ function SessionSection({
               ))}
             </div>
           </>
-        )}
-      </Collapsible>
-
-      <Collapsible
-        title="Camp timers"
-        count={campTimers.length}
-        storageKey="camps"
-      >
-        {campTimers.length === 0 ? (
-          <Empty
-            title="No camp timers"
-            body="Kill a named mob (or anything with a 5-minute-plus respawn) and its respawn countdown appears here."
-          />
-        ) : (
-          <CampTimersBody timers={campTimers} onDismiss={onDismissCamp} />
         )}
       </Collapsible>
 
@@ -1143,68 +1001,6 @@ function SessionSection({
           </>
         )}
       </Collapsible>
-    </div>
-  );
-}
-
-/** Camp-timer rows with a live 1-second countdown. Only mounted while the
- *  card is expanded, so the tick doesn't run for a collapsed card (the
- *  respawn announcement itself lives in FightsTab and always fires). */
-function CampTimersBody({
-  timers,
-  onDismiss,
-}: {
-  timers: CampTimer[];
-  onDismiss: (name: string) => void;
-}) {
-  const nowMs = useNowMs(1000);
-  // Soonest-to-respawn first; already-due rows sort to the top.
-  const rows = useMemo(
-    () =>
-      [...timers].sort(
-        (a, b) =>
-          a.diedAt + a.respawnSecs * 1000 - (b.diedAt + b.respawnSecs * 1000),
-      ),
-    [timers],
-  );
-  return (
-    <div className="camp-list">
-      {rows.map((t) => {
-        const dueAt = t.diedAt + t.respawnSecs * 1000;
-        const left = Math.max(0, (dueAt - nowMs) / 1000);
-        const due = left <= 0;
-        const frac =
-          t.respawnSecs > 0
-            ? Math.min(1, Math.max(0, 1 - left / t.respawnSecs))
-            : 1;
-        return (
-          <div
-            className={`camp-row${due ? " camp-due" : ""}`}
-            key={`${t.name.toLowerCase()}-${t.diedAt}`}
-          >
-            <span className="camp-main">
-              <span className="camp-name">{t.name}</span>
-              {t.zoneLong && <span className="camp-zone">{t.zoneLong}</span>}
-            </span>
-            <span className="camp-left num">
-              {due ? "up!" : fmtTimerLeft(left)}
-            </span>
-            <button
-              className="ghost small"
-              onClick={() => onDismiss(t.name)}
-              title="Dismiss this camp timer"
-            >
-              Dismiss
-            </button>
-            <span className="camp-progress" aria-hidden="true">
-              <span
-                className="camp-progress-fill"
-                style={{ width: `${(frac * 100).toFixed(1)}%` }}
-              />
-            </span>
-          </div>
-        );
-      })}
     </div>
   );
 }

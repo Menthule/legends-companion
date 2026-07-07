@@ -65,6 +65,7 @@ pub fn event_kind(event: &Event) -> &'static str {
         Event::LevelUp { .. } => "LevelUp",
         Event::Faction { .. } => "Faction",
         Event::ZoneEnter { .. } => "ZoneEnter",
+        Event::Consider { .. } => "Consider",
         Event::Loading => "Loading",
         Event::Stunned { .. } => "Stunned",
         Event::Location { .. } => "Location",

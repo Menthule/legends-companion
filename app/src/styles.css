@@ -1542,11 +1542,14 @@ label.field,
 }
 .ov-drag-tag {
   align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 11px;
   font-weight: 600;
   color: #fff;
   background: color-mix(in srgb, var(--accent) 82%, #000);
-  padding: 3px 10px;
+  padding: 3px 6px 3px 10px;
   border-radius: 6px;
   cursor: move;
   user-select: none;
@@ -3117,6 +3120,12 @@ textarea.share-str:focus {
   flex: 1;
   min-width: 0;
 }
+/* Invocation is the cell after the divider (right side): give its content
+   internal breathing room on the right so the value doesn't crowd the pill
+   edge — padding INSIDE the cell, not extra pill padding. */
+.ov-stance-divider + .ov-stance-cell {
+  padding-right: 8px;
+}
 .ov-stance-cell.changing .ov-stance-icon {
   animation: stance-pulse 1.1s ease-in-out infinite;
 }
@@ -4052,4 +4061,529 @@ button.drops-item.active {
 .settings-voice-row button {
   flex: none;
   padding: 5px 16px;
+}
+
+/* ---- Camp respawn overlay (dedicated window) ---------------------------- */
+.orsp {
+  width: 240px;
+  max-width: 100%;
+  padding: 8px 10px 10px;
+}
+.orsp-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  padding: 0 2px 6px;
+  cursor: default;
+}
+.orsp-row {
+  position: relative;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.orsp-row + .orsp-row {
+  margin-top: 3px;
+}
+.orsp-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  /* Bar FILLS as respawn approaches; amber while counting down. */
+  background: var(--series-3, #e0a13a);
+  opacity: 0.55;
+  border-radius: 3px;
+  transition: width 0.9s linear;
+}
+/* Soonest-to-spawn (top row) reads a touch hotter. */
+.orsp-row:first-of-type .orsp-fill {
+  opacity: 0.7;
+}
+/* Up now: full green bar + pulse. */
+.orsp-row.up .orsp-fill {
+  width: 100% !important;
+  background: var(--ok, #3fb950);
+  opacity: 0.85;
+  animation: orsp-pulse 1.1s ease-in-out infinite;
+}
+@keyframes orsp-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 0.45; }
+}
+.orsp-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 7px;
+  font-size: 11px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+.orsp-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.orsp-count {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.orsp-row.up .orsp-count {
+  letter-spacing: 0.5px;
+}
+.orsp-empty {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  padding: 2px;
+}
+
+/* Indented sub-option under a parent check-row (e.g. camp rares-only). */
+.check-row.check-sub {
+  margin-left: 26px;
+}
+.check-row.check-sub label {
+  color: var(--ink-2);
+}
+
+/* ---- Overlay edit chrome: enable/disable toggle + disabled dim ---------- */
+.ov-drag-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ov-enable-toggle {
+  flex: none;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.ov-enable-toggle.on {
+  background: color-mix(in srgb, var(--ok, #3fb950) 22%, transparent);
+  border-color: color-mix(in srgb, var(--ok, #3fb950) 55%, transparent);
+  color: var(--ok, #3fb950);
+}
+.ov-enable-toggle.off {
+  background: color-mix(in srgb, #fff 8%, transparent);
+  border-color: color-mix(in srgb, #fff 22%, transparent);
+  color: rgba(255, 255, 255, 0.65);
+}
+/* Disabled overlay while arranging: ghosted so you can still see and re-enable
+   it, with a clear "will hide when locked" cue. It fully hides on lock. */
+.ov-shell.ov-disabled > :not(.ov-drag-tag):not(.ov-resize-grip) {
+  opacity: 0.32;
+  filter: grayscale(0.6);
+}
+
+/* --------------------------------------------------------------- Timers tab */
+
+.tmr-page {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tmr-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  .tmr-cols {
+    grid-template-columns: 1fr;
+  }
+}
+.tmr-count {
+  color: var(--ink-2);
+  font-weight: 400;
+}
+
+/* Legend on the Active card head. */
+.tmr-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.tmr-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.tmr-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+  background: var(--ink-muted);
+}
+.tmr-dot.k-respawn { background: var(--accent); }
+.tmr-dot.k-custom { background: var(--ink-muted); }
+.tmr-dot.s-warn { background: var(--warning); }
+.tmr-dot.s-urgent { background: var(--critical); }
+.tmr-dot.s-up { background: var(--good); }
+.tmr-pin {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  margin-right: 5px;
+}
+
+/* Active timer rows (draining bar + color-state). */
+.tmr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.tmr-t {
+  position: relative;
+  height: 34px;
+  border-radius: 6px;
+  background: var(--surface-raised);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+.tmr-t-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-right: 2px solid var(--accent);
+  transition: width 0.9s linear;
+}
+.tmr-t.s-warn .tmr-t-fill {
+  background: color-mix(in srgb, var(--warning) 22%, transparent);
+  border-right-color: var(--warning);
+}
+.tmr-t.s-urgent .tmr-t-fill {
+  background: color-mix(in srgb, var(--critical) 24%, transparent);
+  border-right-color: var(--critical);
+}
+.tmr-t.s-up .tmr-t-fill {
+  width: 100% !important;
+  background: color-mix(in srgb, var(--good) 26%, transparent);
+  border-right: none;
+  animation: tmr-pulse 1.2s ease-in-out infinite;
+}
+@keyframes tmr-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tmr-t.s-up .tmr-t-fill { animation: none; }
+  .tmr-t-fill { transition: none; }
+}
+.tmr-t-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 0 11px;
+}
+.tmr-t-kind {
+  width: 5px;
+  height: 18px;
+  border-radius: 2px;
+  flex: none;
+  background: var(--accent);
+}
+.tmr-t-kind.k-custom { background: var(--ink-muted); }
+.tmr-t-name {
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tmr-t-meta {
+  color: var(--ink-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.tmr-t-grow { flex: 1; }
+.tmr-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex: none;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+.tmr-badge.repeat {
+  background: color-mix(in srgb, var(--ink-muted) 22%, transparent);
+  color: var(--ink-2);
+}
+.tmr-t-time {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+.tmr-t.s-up .tmr-t-time { color: var(--good); }
+.tmr-t.s-urgent .tmr-t-time { color: var(--critical); }
+.tmr-warn {
+  color: var(--ink);
+  font-size: 12px;
+  margin-right: 2px;
+}
+.tmr-reset {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tmr-reset:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+/* When a timer is UP the reset button becomes the primary "it spawned" action. */
+.tmr-t.s-up .tmr-reset {
+  color: var(--good);
+  border-color: color-mix(in srgb, var(--good) 45%, transparent);
+  background: color-mix(in srgb, var(--good) 12%, transparent);
+}
+.tmr-t.s-up .tmr-reset:hover {
+  background: color-mix(in srgb, var(--good) 20%, transparent);
+}
+.tmr-x {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 11px;
+  line-height: 1;
+}
+.tmr-x:hover {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+/* Zone rares / recent kills list rows. */
+.tmr-rows {
+  display: flex;
+  flex-direction: column;
+}
+.tmr-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+  border-top: 1px solid var(--hairline);
+}
+.tmr-row:first-child { border-top: none; }
+.tmr-row-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.tmr-row-name {
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tmr-row-sub {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.tmr-row-val {
+  color: var(--ink-2);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Manual zone picker in the "This zone" card head — reuses the SearchSelect
+   combobox (type-to-filter) from the Database tabs. */
+.tmr-zone-pick {
+  width: 240px;
+  max-width: 60%;
+}
+
+/* Buttons (Arm / Track / Start). */
+.tmr-btn {
+  padding: 4px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface-raised);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex: none;
+}
+.tmr-btn:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+.tmr-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tmr-btn.primary {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent);
+}
+.tmr-btn.primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* Custom quick-add. */
+.tmr-add {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.tmr-add-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tmr-fld {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--ink);
+  font: inherit;
+  padding: 7px 10px;
+}
+.tmr-fld:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.tmr-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-2);
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+}
+.tmr-sw {
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: background 0.15s;
+  flex: none;
+}
+.tmr-sw::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+  transition: transform 0.15s, background 0.15s;
+}
+.tmr-toggle.on .tmr-sw {
+  background: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.tmr-toggle.on .tmr-sw::after {
+  transform: translateX(13px);
+  background: #fff;
+}
+.tmr-add-hint {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.tmr-add-err {
+  color: var(--critical);
+}
+
+/* --------------------------------------- Timer overlay: kind + color states */
+/* Bars FILL as a timer approaches pop (width grows). The fill hue tracks
+   urgency; the kind marker distinguishes respawn vs custom. Overlay text is
+   always white-on-shadow for readability over game footage. */
+.orsp-kind {
+  display: inline-block;
+  width: 4px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  background: var(--accent, #3987e5);
+}
+.orsp-kind.k-custom {
+  background: rgba(255, 255, 255, 0.55);
+}
+.orsp-row.k-respawn .orsp-fill {
+  background: var(--accent, #3987e5);
+}
+.orsp-row.k-custom .orsp-fill {
+  background: rgba(255, 255, 255, 0.5);
+}
+.orsp-row.s-warn .orsp-fill {
+  background: var(--warning, #fab219);
+}
+.orsp-row.s-urgent .orsp-fill {
+  background: var(--critical, #d03b3b);
+}
+/* Up now: full green bar + pulse (overrides kind/state hue). */
+.orsp-row.up .orsp-fill,
+.orsp-row.s-up .orsp-fill {
+  width: 100% !important;
+  background: var(--good, #0ca30c);
+  opacity: 0.85;
+  animation: orsp-pulse 1.1s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orsp-row.up .orsp-fill,
+  .orsp-row.s-up .orsp-fill { animation: none; }
 }

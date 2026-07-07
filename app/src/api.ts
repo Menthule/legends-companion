@@ -284,6 +284,16 @@ export function speakText(text: string): Promise<void> {
   return invoke<void>("speak_text", { text }).catch(() => {});
 }
 
+/** A camp timer's mob is back up. Shown on the alerts overlay (visual only —
+ *  respawn is glanceable info, not worth speaking over combat). Broadcast to
+ *  every window via the Tauri event bus; OverlayAlerts renders it. */
+export function announceCampRespawn(name: string): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return import("@tauri-apps/api/event")
+    .then((m) => m.emit("camp-respawn", { name }))
+    .catch(() => {});
+}
+
 /** Reference respawn data for a slain NPC (bundled classic-era database).
  *  Resolves null for unknown NPCs, in mock mode, or when the backend
  *  command is unavailable — never rejects. */
@@ -756,7 +766,12 @@ export function refdbZoneInfo(shortName: string): Promise<ZoneInfo> {
       connections: [],
       forage: [],
       fishing: [],
-      namedMobs: [],
+      namedMobs: [
+        { id: 1, name: "a ghoul sentinel", level: 42, respawnSecs: 1680 },
+        { id: 2, name: "a ghoul knight commander", level: 45, respawnSecs: 1680 },
+        { id: 3, name: "Frenzied Ghoul", level: 40, respawnSecs: 1320 },
+        { id: 4, name: "Ghoul Lord Maltavis", level: 48, respawnSecs: 21600 },
+      ],
     });
   }
   return invoke<ZoneInfo>("refdb_zone_info", { shortName });

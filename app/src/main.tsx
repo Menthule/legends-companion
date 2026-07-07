@@ -8,6 +8,7 @@ import OverlayXp from "./overlay/OverlayXp";
 import OverlayStance from "./overlay/OverlayStance";
 import OverlayOnOthers from "./overlay/OverlayOnOthers";
 import OverlayTarget from "./overlay/OverlayTarget";
+import OverlayRespawn from "./overlay/OverlayRespawn";
 import { initTheme } from "./theme";
 import { IS_MOCK, startMockDriver } from "./mock";
 import "./styles.css";
@@ -55,6 +56,9 @@ switch (overlay) {
     break;
   case "onothers":
     view = <OverlayOnOthers />;
+    break;
+  case "respawn":
+    view = <OverlayRespawn />;
     break;
   default:
     view = <Dashboard />;

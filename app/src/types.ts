@@ -338,6 +338,7 @@ export const OVERLAY_METER = "overlay-meter";
 export const OVERLAY_STANCE = "overlay-stance";
 export const OVERLAY_ONOTHERS = "overlay-onothers";
 export const OVERLAY_XP = "overlay-xp";
+export const OVERLAY_RESPAWN = "overlay-respawn";
 
 /** All overlay window labels, in top-bar/Settings display order. */
 export const OVERLAY_LABELS = [
@@ -348,6 +349,7 @@ export const OVERLAY_LABELS = [
   OVERLAY_METER,
   OVERLAY_XP,
   OVERLAY_STANCE,
+  OVERLAY_RESPAWN,
 ] as const;
 
 /** Timer-name convention for per-target enemy effects: "<Effect> — <target>"

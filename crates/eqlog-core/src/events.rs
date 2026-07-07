@@ -173,6 +173,18 @@ pub enum Event {
     Stunned { active: bool },
     /// `Your Location is -2006.63, -622.13, 93.81`
     Location { x: f64, y: f64, z: f64 },
+    /// Consider ("con") line: `<name> - a rare creature - scowls at you, ready
+    /// to attack -- ... (Lvl: 42)`. `rare` is true when the "- a rare creature
+    /// -" tag is present — the game's authoritative rare/named marker. Legends
+    /// breaks the classic naming convention (lowercase-article mobs like "a
+    /// ghoul sentinel" can be rare), so this tag is the reliable signal. The
+    /// leading sentence-capitalized article on `target` is left as-is; match
+    /// case-insensitively downstream.
+    Consider {
+        target: String,
+        rare: bool,
+        level: Option<u32>,
+    },
     /// Recognized but uninteresting (e.g. "Auto attack is on.") — kept
     /// distinct from Unclassified so coverage stats stay honest.
     System,

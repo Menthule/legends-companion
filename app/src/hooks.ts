@@ -5,7 +5,10 @@ import type { TimerLane, TimerPayload } from "./types";
 import {
   BUFF_THRESHOLD_EVENT,
   BUFF_THRESHOLD_KEY,
+  isOverlayEnabled,
   loadBuffThresholdMins,
+  OVERLAY_VIS_EVENT,
+  OVERLAY_VIS_KEY,
 } from "./overlayState";
 
 /**
@@ -242,4 +245,27 @@ export function underBuffThreshold(t: TimerView, mins: number): boolean {
   if (mins <= 0) return true;
   if (t.lane !== "buff" && t.lane !== "on-others") return true;
   return t.pending || t.left <= mins * 60;
+}
+
+/**
+ * Live enabled/disabled state of one overlay, kept in sync with the shared
+ * visibility store across windows ("storage") and within a window
+ * (OVERLAY_VIS_EVENT). Overlays use this to dim themselves when disabled in
+ * arrange mode; the toggle lives in the overlay edit chrome.
+ */
+export function useOverlayEnabled(label: string): boolean {
+  const [enabled, setEnabled] = useState(() => isOverlayEnabled(label));
+  useEffect(() => {
+    const update = () => setEnabled(isOverlayEnabled(label));
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === OVERLAY_VIS_KEY) update();
+    };
+    window.addEventListener("storage", onStorage);
+    window.addEventListener(OVERLAY_VIS_EVENT, update);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener(OVERLAY_VIS_EVENT, update);
+    };
+  }, [label]);
+  return enabled;
 }

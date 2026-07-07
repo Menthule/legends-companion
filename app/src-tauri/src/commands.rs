@@ -17,7 +17,7 @@ use crate::discover::{self, DiscoveredLog};
 use crate::library::{self, Library};
 use crate::tailing::{self, TailSession};
 
-pub const OVERLAY_LABELS: [&str; 7] = [
+pub const OVERLAY_LABELS: [&str; 8] = [
     "overlay-alerts",
     "overlay-buffs",
     "overlay-onothers",
@@ -25,6 +25,7 @@ pub const OVERLAY_LABELS: [&str; 7] = [
     "overlay-meter",
     "overlay-xp",
     "overlay-stance",
+    "overlay-respawn",
 ];
 
 pub struct AppState {

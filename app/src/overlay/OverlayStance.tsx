@@ -7,7 +7,9 @@
 import { useEffect, useRef, useState } from "react";
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { useTauriEvent } from "../hooks";
+import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
+import OverlayEditChrome from "./OverlayEditChrome";
 import {
   applyStanceLine,
   EMPTY_STANCE_STATE,
@@ -195,6 +197,7 @@ function Cell({
 
 export default function OverlayStance() {
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
+  const enabled = useOverlayEnabled(OVERLAY_STANCE);
   const [state, setState] = useState<StanceState>(EMPTY_STANCE_STATE);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -240,11 +243,9 @@ export default function OverlayStance() {
   });
 
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}`}>
+    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
       {unlocked && (
-        <div className="ov-drag-tag" data-tauri-drag-region>
-          Stance overlay — drag to arrange, then lock
-        </div>
+        <OverlayEditChrome label={OVERLAY_STANCE} name="Stance overlay" />
       )}
       <div className="ov-stance" ref={cardRef}>
         <Cell

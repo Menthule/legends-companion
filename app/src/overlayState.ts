@@ -3,7 +3,12 @@
 
 import { OVERLAY_LABELS } from "./types";
 
-const KEY = "eqlogs.overlays.visible";
+/** localStorage key for overlay visibility — exported so overlay windows can
+ *  filter cross-window "storage" events. */
+export const OVERLAY_VIS_KEY = "eqlogs.overlays.visible";
+/** Same-window event: "storage" only fires in OTHER windows, so a window that
+ *  writes visibility dispatches this to nudge its own listeners. */
+export const OVERLAY_VIS_EVENT = "eqlogs-overlay-visibility-changed";
 
 export type OverlayVisibility = Record<string, boolean>;
 
@@ -11,7 +16,7 @@ export function loadOverlayVisibility(): OverlayVisibility {
   const defaults: OverlayVisibility = {};
   for (const label of OVERLAY_LABELS) defaults[label] = true;
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(OVERLAY_VIS_KEY);
     if (!raw) return defaults;
     return { ...defaults, ...(JSON.parse(raw) as OverlayVisibility) };
   } catch {
@@ -21,10 +26,24 @@ export function loadOverlayVisibility(): OverlayVisibility {
 
 export function saveOverlayVisibility(v: OverlayVisibility): void {
   try {
-    localStorage.setItem(KEY, JSON.stringify(v));
+    localStorage.setItem(OVERLAY_VIS_KEY, JSON.stringify(v));
   } catch {
     // localStorage unavailable — visibility just won't persist.
   }
+  window.dispatchEvent(new Event(OVERLAY_VIS_EVENT));
+}
+
+/** Is one overlay enabled? (absent = on, matching the default-visible model.) */
+export function isOverlayEnabled(label: string): boolean {
+  return loadOverlayVisibility()[label] !== false;
+}
+
+/** Flip one overlay's enabled flag and persist. Returns the new value. */
+export function toggleOverlayEnabled(label: string): boolean {
+  const vis = loadOverlayVisibility();
+  const next = !(vis[label] !== false);
+  saveOverlayVisibility({ ...vis, [label]: next });
+  return next;
 }
 
 // ---------------------------------------------------------------------------
@@ -39,9 +58,12 @@ export const METER_SOURCES_KEY = "eqlogs.overlay.meterSources";
 /** Whether the meter overlay shows the player's top damage sources. */
 export function loadMeterSources(): boolean {
   try {
-    return localStorage.getItem(METER_SOURCES_KEY) === "1";
+    // Default ON: the damage-type/source micro-rows under the player's bar
+    // show unless the user has explicitly turned them off ("0"). An absent
+    // key (never toggled) counts as on.
+    return localStorage.getItem(METER_SOURCES_KEY) !== "0";
   } catch {
-    return false;
+    return true;
   }
 }
 
@@ -50,6 +72,33 @@ export function saveMeterSources(on: boolean): void {
     localStorage.setItem(METER_SOURCES_KEY, on ? "1" : "0");
   } catch {
     // localStorage unavailable — the toggle just won't persist.
+  }
+}
+
+/** localStorage key — how many damage-source micro-rows to show under OTHER
+ *  players' bars on the meter overlay. */
+export const METER_OTHER_SOURCES_KEY = "eqlogs.overlay.meterOtherSources";
+export const DEFAULT_METER_OTHER_SOURCES = 3;
+export const MAX_METER_OTHER_SOURCES = 3;
+
+/** Top-N damage sources shown under each non-player bar (0 = off). Default 3. */
+export function loadMeterOtherSources(): number {
+  try {
+    const raw = localStorage.getItem(METER_OTHER_SOURCES_KEY);
+    if (raw == null) return DEFAULT_METER_OTHER_SOURCES;
+    const n = parseInt(raw, 10);
+    if (!Number.isFinite(n)) return DEFAULT_METER_OTHER_SOURCES;
+    return Math.max(0, Math.min(MAX_METER_OTHER_SOURCES, n));
+  } catch {
+    return DEFAULT_METER_OTHER_SOURCES;
+  }
+}
+
+export function saveMeterOtherSources(n: number): void {
+  try {
+    localStorage.setItem(METER_OTHER_SOURCES_KEY, String(n));
+  } catch {
+    // localStorage unavailable — the setting just won't persist.
   }
 }
 
@@ -200,7 +249,9 @@ export function clearXpSession(): void {
 export interface XpStats {
   total: number;
   perHour: number | null;
-  ttlHours: number | null;
+  /** Hours to earn a FULL level (100%) at the current rate — NOT time to
+   *  your next level (the log never reveals your position within a level). */
+  perLevelHours: number | null;
 }
 
 /**
@@ -212,7 +263,7 @@ export interface XpStats {
  * Floored at one minute so the first gain doesn't print an absurd rate.
  */
 export function computeXpStats(rows: SharedXpRow[], nowMs: number): XpStats {
-  if (rows.length === 0) return { total: 0, perHour: null, ttlHours: null };
+  if (rows.length === 0) return { total: 0, perHour: null, perLevelHours: null };
   const total = rows.reduce((sum, row) => sum + row.percent, 0);
   const newest = rows[0];
   const oldest = rows[rows.length - 1];
@@ -220,7 +271,10 @@ export function computeXpStats(rows: SharedXpRow[], nowMs: number): XpStats {
     newest.at != null ? Math.max(0, (nowMs - newest.at) / 1000) : 0;
   const windowSecs = Math.max(60, newest.ts - oldest.ts + sinceNewest);
   const perHour = total / (windowSecs / 3600);
-  const remaining = Math.max(0, 100 - total);
-  const ttlHours = perHour > 0 ? remaining / perHour : null;
-  return { total, perHour, ttlHours };
+  // Time to earn ONE full level (100%) at the current rate. We can't compute
+  // "time to YOUR next level" — the log reports xp as a per-level percentage
+  // but never your absolute level or starting position within it, so the
+  // session total isn't "progress into a level".
+  const perLevelHours = perHour > 0 ? 100 / perHour : null;
+  return { total, perHour, perLevelHours };
 }

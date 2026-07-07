@@ -377,6 +377,15 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
         Event::LevelUp { level } => (GREEN, format!("LEVEL UP -> {level}")),
         Event::Faction { faction, delta } => (BLUE, format!("{faction} {delta:+}")),
         Event::ZoneEnter { zone } => (BLUE, format!("entered {zone}")),
+        Event::Consider {
+            target,
+            rare,
+            level,
+        } => {
+            let lvl = level.map(|l| format!(" L{l}")).unwrap_or_default();
+            let tag = if *rare { " [rare]" } else { "" };
+            (BLUE, format!("con {target}{lvl}{tag}"))
+        }
         Event::Loading => (DIM, "loading...".into()),
         Event::Stunned { active } => (
             RED,

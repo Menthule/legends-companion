@@ -37,8 +37,26 @@ data in the UI.
 Run:  python3 tools/dropdata/build_drops_db.py <path-to-load_system.sql>
 """
 import os
+import re
 import sqlite3
 import sys
+
+# Trash mobs read as "a/an/the <thing>" (lowercase article); rares are
+# proper-named ("Lord Bergurgle"). This is the reliable EQ "named" signal —
+# PEQ's own data only '#'-prefixes a handful of mobs, so the naming
+# convention is what actually distinguishes rares. Computed ONCE here so the
+# app reads a clean `named` boolean from the DB instead of guessing at runtime.
+_ARTICLE_RE = re.compile(r"^(an?|the|some|several|a group of)\s", re.IGNORECASE)
+
+
+def is_named_mob(raw: str) -> bool:
+    """True when a raw npc_types.name denotes a named/rare spawn."""
+    if raw.startswith("#"):  # PEQ's explicit named marker — keep it
+        return True
+    n = raw.lstrip("#!").replace("_", " ").strip()
+    if not n or _ARTICLE_RE.match(n):
+        return False
+    return n[0].isupper()
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT = os.path.join(REPO_ROOT, "assets", "data", "drops.sqlite")
@@ -364,7 +382,7 @@ def main() -> int:
     db.executemany(
         "INSERT OR REPLACE INTO npcs VALUES (?,?,?,?,?,?,?)",
         [(i, clean_npc_name(n), lvl, lt,
-          1 if n.startswith("#") else 0, m, faction_name(f))
+          1 if is_named_mob(n) else 0, m, faction_name(f))
          for i, (n, lvl, lt, m, f) in npcs.items() if i in keep_npcs],
     )
     db.executemany(

@@ -6,9 +6,13 @@ import {
   useSeriesSlots,
   useTauriEvent,
 } from "../hooks";
+import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
+import OverlayEditChrome from "./OverlayEditChrome";
 import {
+  METER_OTHER_SOURCES_KEY,
   METER_SOURCES_KEY,
+  loadMeterOtherSources,
   loadMeterSources,
 } from "../overlayState";
 import {
@@ -30,10 +34,13 @@ const forceSources =
 export default function OverlayMeter() {
   const [fight, setFight] = useState<FightUpdatePayload | null>(null);
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
+  const enabled = useOverlayEnabled(OVERLAY_METER);
   const [character, setCharacter] = useState("");
   const [sourcesOn, setSourcesOn] = useState(
     () => forceSources || loadMeterSources(),
   );
+  // How many damage-source micro-rows to show under OTHER players' bars.
+  const [otherN, setOtherN] = useState(() => loadMeterOtherSources());
 
   useTauriEvent<FightUpdatePayload>("fight-update", setFight);
   useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
@@ -44,11 +51,14 @@ export default function OverlayMeter() {
     getConfig()
       .then((c) => setCharacter(c.characterName))
       .catch(() => setCharacter(""));
-    // The locked overlay is click-through, so its toggle lives in Settings
-    // (another window); the storage event carries the change across.
+    // The locked overlay is click-through, so these toggles live in Settings
+    // (another window); the storage event carries the changes across.
     const onStorage = (e: StorageEvent) => {
       if (e.key === METER_SOURCES_KEY) {
         setSourcesOn(forceSources || loadMeterSources());
+      }
+      if (e.key === METER_OTHER_SOURCES_KEY) {
+        setOtherN(loadMeterOtherSources());
       }
     };
     window.addEventListener("storage", onStorage);
@@ -62,11 +72,9 @@ export default function OverlayMeter() {
     character.length > 0 && name.toLowerCase() === character.toLowerCase();
 
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}`}>
+    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
       {unlocked && (
-        <div className="ov-drag-tag" data-tauri-drag-region>
-          Meter overlay — drag to arrange, then lock
-        </div>
+        <OverlayEditChrome label={OVERLAY_METER} name="Meter overlay" />
       )}
       <div className="om pill">
         <div className="om-title" data-tauri-drag-region>
@@ -77,10 +85,11 @@ export default function OverlayMeter() {
         </div>
         {rows.map((r) => {
           const slot = slotOf(r.name);
-          const mySources =
-            sourcesOn && isYou(r.name)
-              ? (r.sources ?? []).slice(0, MY_SOURCES_N)
-              : [];
+          // Sub-rows under this bar: the player gets their full top-4 (when
+          // "my sources" is on); everyone else gets the configurable top-N
+          // (default 3, 0 = off).
+          const subN = isYou(r.name) ? (sourcesOn ? MY_SOURCES_N : 0) : otherN;
+          const subRows = subN > 0 ? (r.sources ?? []).slice(0, subN) : [];
           return (
             <div className="om-group" key={r.name}>
               <div className="om-row">
@@ -101,9 +110,10 @@ export default function OverlayMeter() {
                   </span>
                 </div>
               </div>
-              {/* Only the player's bar expands on the overlay; everyone
-                  else stays single-row (full breakdown on the dashboard). */}
-              {mySources.map((s) => (
+              {/* Damage-source breakdown under the bar: player = top 4,
+                  others = configurable top-N (full breakdown on the
+                  dashboard). */}
+              {subRows.map((s) => (
                 <div className="om-sub-row" key={s.name}>
                   <div
                     className="om-sub-fill"

@@ -22,17 +22,26 @@ import {
   switchLoadout,
   type UpdateInfo,
 } from "../api";
+import {
+  loadCampRaresOnly,
+  saveCampRaresOnly,
+} from "../lib/timers";
 import { ShareDialog, type ShareRequest } from "./ShareDialogs";
 import { useTauriEvent } from "../hooks";
 import { IS_MOCK } from "../mock";
 import {
   loadAlertSizePx,
   loadBuffThresholdMins,
+  loadMeterOtherSources,
   loadMeterSources,
   loadOverlayVisibility,
+  OVERLAY_VIS_EVENT,
+  OVERLAY_VIS_KEY,
   saveAlertSizePx,
   saveBuffThresholdMins,
+  saveMeterOtherSources,
   saveMeterSources,
+  saveOverlayArrange,
   saveOverlayVisibility,
 } from "../overlayState";
 import { effectiveEnabledInLoadout } from "../resolution";
@@ -45,6 +54,7 @@ import {
   OVERLAY_ONOTHERS,
   OVERLAY_LABELS,
   OVERLAY_METER,
+  OVERLAY_RESPAWN,
   OVERLAY_STANCE,
   OVERLAY_TARGET,
   OVERLAY_XP,
@@ -93,6 +103,12 @@ export default function SettingsTab({
   );
   const [meterSources, setMeterSources] = useState<boolean>(() =>
     loadMeterSources()
+  );
+  const [meterOtherSources, setMeterOtherSources] = useState<number>(() =>
+    loadMeterOtherSources()
+  );
+  const [campRaresOnly, setCampRaresOnly] = useState<boolean>(() =>
+    loadCampRaresOnly()
   );
   const [buffThreshold, setBuffThreshold] = useState<number>(() =>
     loadBuffThresholdMins()
@@ -227,6 +243,22 @@ export default function SettingsTab({
   }, []);
 
   useTauriEvent<CharacterProfile>("profile-changed", setProfileState);
+
+  // Keep the overlay checkboxes in sync when an overlay is toggled from its
+  // own edit chrome (in-arrange). Cross-window via "storage", same-window via
+  // OVERLAY_VIS_EVENT.
+  useEffect(() => {
+    const sync = () => setShown(loadOverlayVisibility());
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === OVERLAY_VIS_KEY) sync();
+    };
+    window.addEventListener("storage", onStorage);
+    window.addEventListener(OVERLAY_VIS_EVENT, sync);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener(OVERLAY_VIS_EVENT, sync);
+    };
+  }, []);
 
   async function save(next: AppConfig) {
     setConfigState(next);
@@ -491,10 +523,28 @@ export default function SettingsTab({
   async function toggleUnlock(next: boolean) {
     setUnlocked(next);
     setError(null);
+    saveOverlayArrange(next);
     try {
-      // Unlocked = NOT click-through, so overlays can be dragged into place.
-      for (const label of OVERLAY_LABELS) {
-        await overlaySetClickThrough(label, !next);
+      if (next) {
+        // Enter arrange: reveal EVERY overlay (even disabled ones) so all can
+        // be positioned and toggled on/off in place, and make them draggable.
+        for (const label of OVERLAY_LABELS) {
+          await overlayShow(label);
+          await overlaySetClickThrough(label, false);
+        }
+      } else {
+        // Lock: realize each overlay's enabled flag (hide the disabled ones)
+        // and restore click-through so the shown overlays ignore the mouse.
+        const vis = loadOverlayVisibility();
+        setShown(vis);
+        for (const label of OVERLAY_LABELS) {
+          if (vis[label] === false) {
+            await overlayHide(label);
+          } else {
+            await overlayShow(label);
+            await overlaySetClickThrough(label, true);
+          }
+        }
       }
     } catch (e) {
       setError(String(e));
@@ -920,6 +970,37 @@ export default function SettingsTab({
         </div>
         <div className="check-row">
           <input
+            id="ov-respawn"
+            type="checkbox"
+            className="switch"
+            checked={shown[OVERLAY_RESPAWN]}
+            onChange={(e) =>
+              void toggleOverlay(OVERLAY_RESPAWN, e.target.checked)
+            }
+          />
+          <label htmlFor="ov-respawn">
+            Timer overlay (respawn + custom countdowns, soonest on top — hidden
+            when no timers are running)
+          </label>
+        </div>
+        <div className="check-row check-sub">
+          <input
+            id="ov-respawn-rares"
+            type="checkbox"
+            className="switch"
+            checked={campRaresOnly}
+            onChange={(e) => {
+              setCampRaresOnly(e.target.checked);
+              saveCampRaresOnly(e.target.checked);
+            }}
+          />
+          <label htmlFor="ov-respawn-rares">
+            Auto-track rare spawns only — off also auto-tracks any 5-minute-plus
+            respawn (manual Track/Arm always work)
+          </label>
+        </div>
+        <div className="check-row">
+          <input
             id="ov-meter-sources"
             type="checkbox"
             className="switch"
@@ -936,6 +1017,25 @@ export default function SettingsTab({
             micro-rows under your bar)
           </label>
         </div>
+        <label className="field">
+          <span>
+            Damage sources shown under other players' bars on the meter
+            overlay
+          </span>
+          <select
+            value={meterOtherSources}
+            onChange={(e) => {
+              const n = parseInt(e.target.value, 10);
+              setMeterOtherSources(n);
+              saveMeterOtherSources(n);
+            }}
+          >
+            <option value={0}>Off (single row each)</option>
+            <option value={1}>Top 1</option>
+            <option value={2}>Top 2</option>
+            <option value={3}>Top 3</option>
+          </select>
+        </label>
         <label className="field ov-buff-threshold">
           <span>
             Alert text size in pixels (the on-screen text alerts over the

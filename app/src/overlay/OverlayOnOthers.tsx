@@ -5,7 +5,9 @@ import {
   useTauriEvent,
   useTimers,
 } from "../hooks";
+import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
+import OverlayEditChrome from "./OverlayEditChrome";
 import { OVERLAY_ONOTHERS, type OverlayLockPayload } from "../types";
 import TimerBars from "../components/TimerBars";
 
@@ -21,6 +23,7 @@ const initiallyUnlocked =
  */
 export default function OverlayOnOthers() {
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
+  const enabled = useOverlayEnabled(OVERLAY_ONOTHERS);
   // Long buffs stay hidden until under the show threshold (Settings).
   const thresholdMins = useBuffThresholdMins();
   const timers = useTimers().filter(
@@ -32,11 +35,9 @@ export default function OverlayOnOthers() {
   });
 
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}`}>
+    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
       {unlocked && (
-        <div className="ov-drag-tag" data-tauri-drag-region>
-          On-others overlay — drag to arrange, then lock
-        </div>
+        <OverlayEditChrome label={OVERLAY_ONOTHERS} name="On-others overlay" />
       )}
       {timers.length > 0 && (
         <div className="ov-timer-stack">

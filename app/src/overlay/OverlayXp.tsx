@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { getCurrentWindow } from "@tauri-apps/api/window";
 import { fmtClock, fmtDuration, useNowMs, useTauriEvent } from "../hooks";
+import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
+import OverlayEditChrome from "./OverlayEditChrome";
 import {
   OVERLAY_XP,
   type OverlayLockPayload,
@@ -21,6 +22,7 @@ const initiallyUnlocked =
 export default function OverlayXp() {
   const [rows, setRows] = useState<SharedXpRow[]>(() => loadXpSession());
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
+  const enabled = useOverlayEnabled(OVERLAY_XP);
 
   useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
     if (p.label === OVERLAY_XP) setUnlocked(!p.clickThrough);
@@ -43,25 +45,11 @@ export default function OverlayXp() {
     [rows, nowMs],
   );
 
-  function startResize() {
-    getCurrentWindow().startResizeDragging("SouthEast").catch(() => {});
-  }
 
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}`}>
+    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
       {unlocked && (
-        <>
-          <div className="ov-drag-tag ov-xp-drag" data-tauri-drag-region>
-            XP overlay - drag here
-          </div>
-          <button
-            type="button"
-            className="ov-resize-grip"
-            onMouseDown={startResize}
-            title="Resize XP overlay"
-            aria-label="Resize XP overlay"
-          />
-        </>
+        <OverlayEditChrome label={OVERLAY_XP} name="XP overlay" />
       )}
       <div className="oxp pill" data-tauri-drag-region>
         <div className="oxp-title">
@@ -77,11 +65,11 @@ export default function OverlayXp() {
           </div>
           <div>
             <span className="oxp-val num">
-              {stats.ttlHours === null
+              {stats.perLevelHours === null
                 ? "--"
-                : fmtDuration(Math.round(stats.ttlHours * 3600))}
+                : fmtDuration(Math.round(stats.perLevelHours * 3600))}
             </span>
-            <span className="oxp-label">to level</span>
+            <span className="oxp-label">per level</span>
           </div>
         </div>
         {stats.last ? (
