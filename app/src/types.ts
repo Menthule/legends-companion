@@ -212,6 +212,18 @@ export interface TimerPayload {
   elapsedSecs?: number;
 }
 
+/** One running timer from the `get_active_timers` resync command (P3): a
+ *  window reopened mid-session, or the whole app restarted, seeds its timer
+ *  state from these so live countdowns survive a reload. */
+export interface ActiveTimerSnapshot {
+  name: string;
+  durationSecs: number;
+  elapsedSecs: number;
+  warnAtSecs: number | null;
+  lane: TimerLane;
+  pendingSecs: number;
+}
+
 /** One damage source under a meter row (item 15): melee verb, spell name,
  *  or "<effect> (damage shield)"; pet sources carry a "(pet)" suffix. */
 export interface MeterSourceRow {

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 import { IS_MOCK, mockListen } from "./mock";
+import { getActiveTimers } from "./api";
 import type { TimerLane, TimerPayload } from "./types";
 import {
   BUFF_THRESHOLD_EVENT,
@@ -165,6 +166,37 @@ export function useTimers(): TimerView[] {
       );
     }
   });
+
+  // Resync on mount (P3): a window reopened mid-session — or the whole app
+  // after a restart — asks the backend for its running timers and seeds them,
+  // so live buff/DoT/recast countdowns survive the reload instead of vanishing
+  // until they next fire. Names already present (an event beat us here) win.
+  useEffect(() => {
+    let cancelled = false;
+    getActiveTimers().then((seed) => {
+      if (cancelled || seed.length === 0) return;
+      const now = Date.now();
+      setItems((prev) => {
+        const have = new Set(prev.map((x) => x.name));
+        const add = seed
+          .filter((s) => !have.has(s.name))
+          .map((s) => ({
+            name: s.name,
+            durationSecs: s.durationSecs,
+            warnAtSecs: s.warnAtSecs,
+            endsAt: now + (s.durationSecs - s.elapsedSecs) * 1000,
+            forcedWarn: false,
+            lane: s.lane,
+            pendingUntil:
+              s.pendingSecs > 0 ? now + s.pendingSecs * 1000 : null,
+          }));
+        return add.length ? [...prev, ...add] : prev;
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const active = items.length > 0;
   useEffect(() => {

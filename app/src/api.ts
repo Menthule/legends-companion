@@ -25,6 +25,7 @@ import {
 import { buildShareString } from "./lib/share";
 import { formatParse, type ParseInput } from "./lib/parseText";
 import type {
+  ActiveTimerSnapshot,
   AppConfig,
   CharacterProfile,
   DataUpdateInfo,
@@ -133,6 +134,13 @@ export function getLogStats(): Promise<{ sizeBytes: number | null }> {
 export function getTriggers(): Promise<Trigger[]> {
   if (IS_MOCK) return Promise.resolve(mockGetTriggers());
   return invoke<Trigger[]>("get_triggers");
+}
+
+/** Running timers snapshot for UI resync after a window reload (P3). Mock mode
+ *  drives timers via events, so no seed is needed there. */
+export function getActiveTimers(): Promise<ActiveTimerSnapshot[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<ActiveTimerSnapshot[]>("get_active_timers").catch(() => []);
 }
 
 // Trigger-pack change notifications, so views that hold trigger state (the

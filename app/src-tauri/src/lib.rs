@@ -244,6 +244,7 @@ pub fn run() {
             commands::start_tailing,
             commands::stop_tailing,
             commands::is_tailing,
+            commands::get_active_timers,
             commands::silence_audio,
             commands::speak_text,
             commands::list_tts_voices,

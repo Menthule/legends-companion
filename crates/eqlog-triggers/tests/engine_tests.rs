@@ -203,6 +203,36 @@ fn repeating_timer_reschedules_after_expiry() {
 }
 
 #[test]
+fn timer_snapshots_capture_elapsed_for_ui_resync() {
+    // P3: a running timer must survive a window reload. The snapshot reports
+    // duration + elapsed (durations, not timestamps) so the frontend rebuilds
+    // the countdown from its own wall clock; expired timers are omitted.
+    let trigger = Trigger::new(
+        "recast",
+        "^start$",
+        vec![start_timer_action("Recast", 30, None, None)],
+    );
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+    engine.process(&line(100, "start"), &mut sink);
+
+    // Immediately after start: the full duration remains.
+    let snap = engine.timer_snapshots(100);
+    assert_eq!(snap.len(), 1);
+    assert_eq!(snap[0].name, "Recast");
+    assert_eq!(snap[0].duration_secs, 30);
+    assert_eq!(snap[0].elapsed_secs, 0);
+    assert_eq!(snap[0].pending_secs, 0);
+
+    // Partway through: elapsed advances, timer still live.
+    assert_eq!(engine.timer_snapshots(112)[0].elapsed_secs, 12);
+
+    // At and past expiry: nothing to restore.
+    assert!(engine.timer_snapshots(130).is_empty());
+    assert!(engine.timer_snapshots(131).is_empty());
+}
+
+#[test]
 fn captures_substitute_into_speak_text() {
     let trigger = Trigger::new(
         "tell",
@@ -945,6 +975,8 @@ fn library_fires_on_real_fixture_lines_for_a_profile() {
     // (encumbered, level-up "ding").
     assert!(sink.displayed.contains(&"stunned".to_string()));
     assert!(!sink.spoken.contains(&"stunned".to_string()));
+    assert!(sink.displayed.contains(&"SPELL STUNNED".to_string()));
+    assert!(sink.spoken.contains(&"spell stunned".to_string()));
     assert!(sink.displayed.contains(&"encumbered".to_string()));
     assert!(!sink.spoken.contains(&"encumbered".to_string()));
     assert!(sink.displayed.contains(&"ding".to_string()));

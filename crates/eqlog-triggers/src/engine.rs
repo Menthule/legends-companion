@@ -76,6 +76,22 @@ pub struct TimerFire {
     pub warn_secs: Option<u64>,
 }
 
+/// A running timer captured by [`TriggerEngine::timer_snapshots`] for UI
+/// resync after a reload. All fields are durations (seconds), not timestamps,
+/// so they survive a log-vs-wall timezone mismatch.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TimerSnapshot {
+    pub name: String,
+    pub duration_secs: u64,
+    /// Seconds already elapsed; the frontend derives remaining = duration
+    /// − elapsed and rebuilds its countdown from its own clock.
+    pub elapsed_secs: u64,
+    pub warn_at_secs: Option<u64>,
+    pub lane: TimerLane,
+    /// Remaining cast-time lead-in ("casting…"); 0 once the effect has landed.
+    pub pending_secs: u64,
+}
+
 /// Identity of a trigger that fired on a line, returned by
 /// [`TriggerEngine::process_traced`] so replay tools (e.g. the CLI spam
 /// auditor) can attribute fires to triggers and categories.
@@ -1116,6 +1132,38 @@ impl TriggerEngine {
             self.timers.push(timer);
         }
         fired
+    }
+
+    /// Snapshot every live countdown timer as of `now_ts` (same clock domain
+    /// as [`Self::due`]), for rehydrating the UI after a window reload or app
+    /// restart — the frontend's timer state lives only in the webview, so
+    /// without this a reload silently drops every running buff/DoT/recast
+    /// countdown. Durations are domain-independent (elapsed/remaining seconds),
+    /// so the frontend rebuilds its own `endsAt` from the wall clock regardless
+    /// of the log's timezone. Expired timers and count-up stopwatches are
+    /// omitted (a stopwatch has no meaningful remaining to restore).
+    pub fn timer_snapshots(&self, now_ts: i64) -> Vec<TimerSnapshot> {
+        self.timers
+            .iter()
+            .filter(|t| !t.stopwatch)
+            .filter_map(|t| {
+                let remaining = t.expires_at - now_ts;
+                if remaining <= 0 {
+                    return None;
+                }
+                Some(TimerSnapshot {
+                    name: t.name.clone(),
+                    duration_secs: t.duration_secs,
+                    elapsed_secs: t.duration_secs.saturating_sub(remaining as u64),
+                    warn_at_secs: t.warn_at_secs,
+                    lane: t.lane,
+                    pending_secs: t
+                        .lands_at
+                        .map(|l| (l - now_ts).max(0) as u64)
+                        .unwrap_or(0),
+                })
+            })
+            .collect()
     }
 
     /// Poll for timer events as of `now_ts` (a line timestamp, or the same

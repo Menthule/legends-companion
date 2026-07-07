@@ -8,7 +8,7 @@ use std::panic::AssertUnwindSafe;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{self, Receiver, Sender};
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::thread::{self, JoinHandle};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
@@ -93,6 +93,21 @@ struct TimerPayload {
     /// or 0 = the timer starts live.
     #[serde(skip_serializing_if = "Option::is_none")]
     pending_secs: Option<u64>,
+}
+
+/// Full snapshot of a live timer, returned by the `get_active_timers` command
+/// so a reopened window or restarted app rehydrates running countdowns instead
+/// of losing them (P3). Mirrors a "started" event plus `elapsedSecs`, which the
+/// frontend feeds through its normal timer-start path.
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ActiveTimerPayload {
+    pub name: String,
+    pub duration_secs: u64,
+    pub elapsed_secs: u64,
+    pub warn_at_secs: Option<u64>,
+    pub lane: &'static str,
+    pub pending_secs: u64,
 }
 
 /// Patch-day canary payload, emitted every [`STATS_EMIT_MS`].
@@ -366,6 +381,9 @@ pub struct TailSession {
     stop: Arc<AtomicBool>,
     handle: Option<JoinHandle<()>>,
     engine_tx: Sender<EngineBuild>,
+    /// Live timer snapshot, refreshed each tick by the loop; read by the
+    /// `get_active_timers` command so a reloaded window can rehydrate (P3).
+    snapshots: Arc<Mutex<Vec<ActiveTimerPayload>>>,
 }
 
 impl TailSession {
@@ -374,6 +392,15 @@ impl TailSession {
         if let Some(handle) = self.handle.take() {
             let _ = handle.join();
         }
+    }
+
+    /// Current running timers, for UI resync after a window reload (P3).
+    /// Empty if the snapshot lock is poisoned rather than propagating panic.
+    pub fn active_timers(&self) -> Vec<ActiveTimerPayload> {
+        self.snapshots
+            .lock()
+            .map(|s| s.clone())
+            .unwrap_or_default()
     }
 
     /// Replace the live trigger engine (profile/override change while
@@ -415,6 +442,8 @@ pub fn start(
     };
     let stop = Arc::new(AtomicBool::new(false));
     let stop_flag = stop.clone();
+    let snapshots: Arc<Mutex<Vec<ActiveTimerPayload>>> = Arc::new(Mutex::new(Vec::new()));
+    let loop_snapshots = snapshots.clone();
     let (engine_tx, engine_rx) = mpsc::channel();
     let handle = thread::Builder::new()
         .name("legends-tail".into())
@@ -424,6 +453,7 @@ pub fn start(
             let result = std::panic::catch_unwind(AssertUnwindSafe(move || {
                 run_loop(
                     loop_app, config, build, engine_rx, tailer, loop_stop, sink, store,
+                    loop_snapshots,
                 )
             }));
             let reason = match result {
@@ -454,6 +484,7 @@ pub fn start(
         stop,
         handle: Some(handle),
         engine_tx,
+        snapshots,
     })
 }
 
@@ -506,6 +537,7 @@ fn run_loop(
     stop: Arc<AtomicBool>,
     mut sink: EmitSink,
     store: SharedStore,
+    snapshots: Arc<Mutex<Vec<ActiveTimerPayload>>>,
 ) -> Option<String> {
     let mut engine = build.engine;
     sink.set_counts(build.action_counts);
@@ -705,6 +737,24 @@ fn run_loop(
                     pending_secs: None,
                 },
             );
+        }
+
+        // Refresh the resync snapshot (P3) on the same clock the due() poll
+        // just used, so a reopened window's get_active_timers call restores
+        // live countdowns. Cheap: a handful of timers cloned per tick.
+        if let Ok(mut snap) = snapshots.lock() {
+            *snap = engine
+                .timer_snapshots(clock.now())
+                .into_iter()
+                .map(|t| ActiveTimerPayload {
+                    name: t.name,
+                    duration_secs: t.duration_secs,
+                    elapsed_secs: t.elapsed_secs,
+                    warn_at_secs: t.warn_at_secs,
+                    lane: t.lane.as_str(),
+                    pending_secs: t.pending_secs,
+                })
+                .collect();
         }
 
         if fights_dirty && last_fight_emit.elapsed() >= Duration::from_millis(FIGHT_EMIT_MS) {

@@ -84,6 +84,20 @@ pub(crate) fn lock<'a, T>(
     m.lock().map_err(|_| format!("{what} state poisoned"))
 }
 
+/// Snapshot of running trigger timers (recasts, buffs, DoTs, CC) so a window
+/// reopened mid-session — or the whole app after a restart — rehydrates live
+/// countdowns instead of losing them (P3). Empty when nothing is tailing.
+#[tauri::command]
+pub fn get_active_timers(
+    state: State<'_, AppState>,
+) -> Result<Vec<crate::tailing::ActiveTimerPayload>, String> {
+    let session = lock(&state.session, "session")?;
+    Ok(session
+        .as_ref()
+        .map(|s| s.active_timers())
+        .unwrap_or_default())
+}
+
 // ---------- config ----------
 
 #[tauri::command]
