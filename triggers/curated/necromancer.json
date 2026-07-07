@@ -22,6 +22,31 @@
         }
       ],
       "comments": "Wear-off of the necro Feign Death spell (id 366); also fires when standing from spell FD."
+    },
+    {
+      "id": "class/necromancer/pet/pet-root-broke",
+      "name": "Pet root broke",
+      "pattern": "^Your pet's (Ghoul Root|Root) spell has worn off\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Necromancer/Pet",
+      "classes": [
+        "Necromancer"
+      ],
+      "actions": [
+        {
+          "Speak": {
+            "template": "pet root broke"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "pet root broke"
+          }
+        }
+      ],
+      "comments": "Verified in Legends log: 'Your pet's Ghoul Root spell has worn off.' (necro pet Ghoul Root — 154 hits in fixtures/local/eqlog_Nyasha_oggok; the plain pet 'Root' form also appears). Spoken because a broken pet-root means the mob is now loose and a pet-CC necro must react. The existing class/shaman/cc/root-broken only matches the player's own '^Your root spell has worn off.' and excludes the \"pet's\"-prefixed line, so pet roots were previously unalerted. Spam audit: bursts during grinding but ~a few/hr sustained; keep speak on for the pet-tank necro playstyle."
     }
   ]
 }
