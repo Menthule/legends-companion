@@ -134,6 +134,50 @@ pub fn paste_parse(state: State<'_, AppState>, id: Option<i64>) -> Result<Vec<St
     Ok(paste_lines(&stored.summary, &character))
 }
 
+/// Delete one stored fight (the Fights-tab row × button). Returns whether a
+/// row was actually removed.
+#[tauri::command]
+pub fn delete_fight(state: State<'_, AppState>, id: i64) -> Result<bool, String> {
+    let mut guard = lock(&state.store, "fight store")?;
+    let store = guard.as_mut().ok_or(NO_STORE)?;
+    store.delete(id).map_err(|e| e.to_string())
+}
+
+/// Prune history: keep the newest `keep_last_n` fights and/or drop everything
+/// started before `before_ts` (log-domain unix seconds). Both are optional —
+/// applies whichever is provided. Returns the total rows removed. Used by the
+/// "Clear history" button (keep_last_n: 0) and the retention sweep at startup.
+#[tauri::command]
+pub fn prune_fights(
+    state: State<'_, AppState>,
+    keep_last_n: Option<u32>,
+    before_ts: Option<i64>,
+) -> Result<u64, String> {
+    let mut guard = lock(&state.store, "fight store")?;
+    let store = guard.as_mut().ok_or(NO_STORE)?;
+    let mut removed = 0;
+    if let Some(n) = keep_last_n {
+        removed += store.prune_keep_last(n).map_err(|e| e.to_string())?;
+    }
+    if let Some(ts) = before_ts {
+        removed += store.prune_before(ts).map_err(|e| e.to_string())?;
+    }
+    Ok(removed)
+}
+
+/// Export one stored fight's full summary as pretty JSON (the Fights-tab
+/// Export button; the frontend offers it as a download).
+#[tauri::command]
+pub fn export_fight(state: State<'_, AppState>, id: i64) -> Result<String, String> {
+    let guard = lock(&state.store, "fight store")?;
+    let store = guard.as_ref().ok_or(NO_STORE)?;
+    let stored = store
+        .get(id)
+        .map_err(|e| e.to_string())?
+        .ok_or_else(|| format!("no stored fight with id {id}"))?;
+    serde_json::to_string_pretty(&stored.summary).map_err(|e| e.to_string())
+}
+
 // ---------- paste formatting ----------
 
 /// EQ chat input safety limit per pasted line.

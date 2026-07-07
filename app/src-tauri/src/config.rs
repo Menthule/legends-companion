@@ -47,6 +47,10 @@ pub struct AppConfig {
     /// configs — resolved then from `log_path`/`character_name`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub active_character: Option<ActiveCharacter>,
+    /// Fight-history retention: drop stored fights older than this many days at
+    /// startup. `0` (default) keeps history forever. Additive.
+    #[serde(default)]
+    pub fight_retention_days: u32,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]

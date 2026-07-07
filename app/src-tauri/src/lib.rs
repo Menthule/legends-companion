@@ -179,6 +179,36 @@ pub fn run() {
             if let Ok(mut guard) = app.state::<commands::AppState>().store.lock() {
                 *guard = store::open(app.handle());
             }
+            // Fight-history retention sweep (P28): drop fights older than the
+            // configured number of days. 0 = keep forever (the default).
+            {
+                let state = app.state::<commands::AppState>();
+                let days = state
+                    .config
+                    .lock()
+                    .map(|c| c.fight_retention_days)
+                    .unwrap_or(0);
+                if days > 0 {
+                    let now = SystemTime::now()
+                        .duration_since(UNIX_EPOCH)
+                        .map(|d| d.as_secs() as i64)
+                        .unwrap_or(0);
+                    let before_ts = now - (days as i64) * 86_400;
+                    if let Ok(mut guard) = state.store.lock() {
+                        if let Some(store) = guard.as_mut() {
+                            match store.prune_before(before_ts) {
+                                Ok(n) if n > 0 => logging::info(&format!(
+                                    "fight retention: pruned {n} fight(s) older than {days} day(s)"
+                                )),
+                                Ok(_) => {}
+                                Err(e) => logging::warn(&format!(
+                                    "fight retention sweep failed: {e}"
+                                )),
+                            }
+                        }
+                    }
+                }
+            }
             // Resume tailing if it was on when the app last ran — the user
             // shouldn't re-click Start after every restart. Best-effort:
             // a missing log file just leaves the app idle.
@@ -219,6 +249,9 @@ pub fn run() {
             store::list_fights,
             store::get_fight,
             store::paste_parse,
+            store::delete_fight,
+            store::prune_fights,
+            store::export_fight,
             dropdb::drops_search_items,
             dropdb::drops_item_sources,
             dropdb::drops_zones,

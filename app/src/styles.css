@@ -2748,10 +2748,27 @@ input[type="text"].ted-duration {
 }
 .fight-btns {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   visibility: hidden;
 }
 .fight-row:hover .fight-btns {
   visibility: visible;
+}
+/* Square icon button (Fights-tab delete ×) — P28. */
+.icon-btn {
+  padding: 2px 8px;
+  line-height: 1.2;
+  font-size: 14px;
+}
+.icon-btn:hover {
+  color: var(--danger, #e5484d);
+  border-color: color-mix(in srgb, var(--danger, #e5484d) 45%, var(--border));
+}
+.history-actions {
+  display: flex;
+  gap: 8px;
 }
 .slain-chip {
   display: inline-block;

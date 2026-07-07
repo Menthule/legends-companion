@@ -13,6 +13,9 @@ export interface AppConfig {
   ttsDictionary?: { from: string; to: string }[];
   /** Windows TTS voice display name; "" or absent = system default. */
   ttsVoice?: string;
+  /** Drop stored fights older than this many days at startup. 0/absent =
+   *  keep history forever. */
+  fightRetentionDays?: number;
 }
 
 /** Overlay lane a timer routes to (eqlog-triggers TimerLane, lowercase).

@@ -490,6 +490,33 @@ export async function getFight(id: number): Promise<FightRecord | null> {
   return normalizeFight(await invoke<unknown>("get_fight", { id }));
 }
 
+/** Delete one stored fight (Fights-tab × button). Returns whether a row went. */
+export async function deleteFight(id: number): Promise<boolean> {
+  if (IS_MOCK) return true;
+  return (await invoke<boolean>("delete_fight", { id })) === true;
+}
+
+/** Prune history: keep the newest N and/or drop everything before a timestamp.
+ *  "Clear history" passes keepLastN: 0. Returns rows removed. */
+export async function pruneFights(opts: {
+  keepLastN?: number;
+  beforeTs?: number;
+}): Promise<number> {
+  if (IS_MOCK) return 0;
+  return (
+    (await invoke<number>("prune_fights", {
+      keepLastN: opts.keepLastN ?? null,
+      beforeTs: opts.beforeTs ?? null,
+    })) ?? 0
+  );
+}
+
+/** Export one stored fight's full summary as pretty JSON. */
+export async function exportFight(id: number): Promise<string> {
+  if (IS_MOCK) return JSON.stringify({ id, mock: true }, null, 2);
+  return await invoke<string>("export_fight", { id });
+}
+
 /**
  * Paste-parse text for a fight. Persisted fights ask the backend
  * (paste_parse command); the live fight — and any fallback — formats

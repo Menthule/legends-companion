@@ -674,6 +674,24 @@ export default function SettingsTab({
           />
         </label>
         <label className="field">
+          <span>
+            Fight history retention (days, 0 = keep forever) — pruned at startup
+          </span>
+          <input
+            type="number"
+            min={0}
+            step={1}
+            value={config.fightRetentionDays ?? 0}
+            onChange={(e) =>
+              setConfigState({
+                ...config,
+                fightRetentionDays: Math.max(0, Math.floor(Number(e.target.value) || 0)),
+              })
+            }
+            onBlur={() => void save(config)}
+          />
+        </label>
+        <label className="field">
           <span>Trigger voice (Windows text-to-speech)</span>
           <span className="settings-voice-row">
             <select

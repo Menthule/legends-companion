@@ -4,9 +4,13 @@
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  confirmDiscard,
+  deleteFight,
+  exportFight,
   getFight,
   listFights,
   pasteParse,
+  pruneFights,
   refdbRespawnFor,
   speakText,
 } from "../api";
@@ -441,6 +445,52 @@ export default function FightsTab({ character }: { character: string }) {
     }
   }
 
+  async function deleteOne(f: FightRecord) {
+    try {
+      await deleteFight(f.id);
+      if (selected?.id === f.id) setSelected(null);
+      load(page);
+      setToast(`Deleted “${f.target}”`);
+    } catch {
+      setToast("Could not delete that fight");
+    }
+  }
+
+  async function clearHistory() {
+    if (
+      !(await confirmDiscard(
+        "Delete ALL saved fights? This can't be undone.",
+      ))
+    ) {
+      return;
+    }
+    try {
+      const n = await pruneFights({ keepLastN: 0 });
+      setSelected(null);
+      setPage(0);
+      load(0);
+      setToast(`Cleared ${n} fight${n === 1 ? "" : "s"} from history`);
+    } catch {
+      setToast("Could not clear history");
+    }
+  }
+
+  async function exportOne(f: FightRecord) {
+    try {
+      const json = await exportFight(f.id);
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const stamp = fmtWhen(f.startTs).replace(/[^\w-]+/g, "_");
+      a.download = `fight-${f.target.replace(/[^\w-]+/g, "_")}-${stamp}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      setToast("Could not export that fight");
+    }
+  }
+
   async function copyTellParse(f: FightRecord) {
     const target = window.prompt("Send parse to player");
     if (!target) return;
@@ -540,9 +590,16 @@ export default function FightsTab({ character }: { character: string }) {
         count={total}
         storageKey="history"
         headerAside={
-          <button className="ghost small" onClick={() => load(page)}>
-            Refresh
-          </button>
+          <span className="history-actions">
+            <button className="ghost small" onClick={() => load(page)}>
+              Refresh
+            </button>
+            {fights && fights.length > 0 && (
+              <button className="ghost small" onClick={() => void clearHistory()}>
+                Clear history
+              </button>
+            )}
+          </span>
         }
       >
         {fights === null ? (
@@ -603,6 +660,27 @@ export default function FightsTab({ character }: { character: string }) {
                       title="Copy this fight as /tell lines"
                     >
                       Tell
+                    </button>
+                    <button
+                      className="ghost small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        void exportOne(f);
+                      }}
+                      title="Download this fight as JSON"
+                    >
+                      Export
+                    </button>
+                    <button
+                      className="ghost small icon-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        void deleteOne(f);
+                      }}
+                      title="Delete this fight"
+                      aria-label={`Delete ${f.target}`}
+                    >
+                      ×
                     </button>
                   </span>
                 </div>

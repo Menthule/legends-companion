@@ -160,6 +160,32 @@ impl FightStore {
             .execute("DELETE FROM fights WHERE id = ?1", params![id])?;
         Ok(n > 0)
     }
+
+    /// Delete every fight that STARTED strictly before `before_ts` (a log-domain
+    /// unix timestamp). Returns how many rows were removed. Used by the
+    /// "keep last N days" retention sweep at startup.
+    pub fn prune_before(&mut self, before_ts: i64) -> Result<u64, StoreError> {
+        let n = self
+            .conn
+            .execute("DELETE FROM fights WHERE start_ts < ?1", params![before_ts])?;
+        Ok(n as u64)
+    }
+
+    /// Keep the `keep_last_n` most recent fights (by start_ts, then id) and
+    /// delete the rest. `keep_last_n == 0` clears the whole table. Returns how
+    /// many rows were removed.
+    pub fn prune_keep_last(&mut self, keep_last_n: u32) -> Result<u64, StoreError> {
+        // Rows NOT among the newest N (ordered the same way `list` pages them)
+        // are pruned. The subquery is empty when the table has ≤ N rows, so
+        // nothing is deleted.
+        let n = self.conn.execute(
+            "DELETE FROM fights WHERE id NOT IN (
+                 SELECT id FROM fights ORDER BY start_ts DESC, id DESC LIMIT ?1
+             )",
+            params![keep_last_n],
+        )?;
+        Ok(n as u64)
+    }
 }
 
 fn parse_summary(id: i64, json: &str) -> Result<FightSummary, StoreError> {
@@ -378,6 +404,46 @@ mod tests {
         let id = store.insert(&summary("x", 1)).unwrap();
         assert!(store.delete(id).unwrap());
         assert!(!store.delete(id).unwrap());
+        assert_eq!(store.count().unwrap(), 0);
+    }
+
+    #[test]
+    fn prune_before_removes_only_older_fights() {
+        let mut store = FightStore::open_in_memory().unwrap();
+        for (i, target) in ["old1", "old2", "keep1", "keep2"].iter().enumerate() {
+            store.insert(&summary(target, 1_000 + i as i64 * 100)).unwrap();
+        }
+        // start_ts: old1=1000 old2=1100 keep1=1200 keep2=1300.
+        let removed = store.prune_before(1_200).unwrap();
+        assert_eq!(removed, 2);
+        let names: Vec<String> = store
+            .list(10, 0)
+            .unwrap()
+            .into_iter()
+            .map(|f| f.summary.target)
+            .collect();
+        assert_eq!(names, ["keep2", "keep1"]);
+    }
+
+    #[test]
+    fn prune_keep_last_keeps_the_newest_n() {
+        let mut store = FightStore::open_in_memory().unwrap();
+        for (i, target) in ["a", "b", "c", "d", "e"].iter().enumerate() {
+            store.insert(&summary(target, 1_000 + i as i64 * 60)).unwrap();
+        }
+        let removed = store.prune_keep_last(2).unwrap();
+        assert_eq!(removed, 3);
+        let names: Vec<String> = store
+            .list(10, 0)
+            .unwrap()
+            .into_iter()
+            .map(|f| f.summary.target)
+            .collect();
+        assert_eq!(names, ["e", "d"]);
+        // keep_last_n greater than the row count is a no-op.
+        assert_eq!(store.prune_keep_last(10).unwrap(), 0);
+        // keep_last_n == 0 clears the table.
+        assert_eq!(store.prune_keep_last(0).unwrap(), 2);
         assert_eq!(store.count().unwrap(), 0);
     }
 
