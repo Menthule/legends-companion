@@ -84,7 +84,21 @@ impl CatchUpGuard {
             self.max_seen_ts = line_ts;
         }
         if self.active {
-            if now_ts - line_ts <= self.exit_lag_secs {
+            // Exit when the line is back at the live edge. Two independent
+            // signals, either suffices:
+            //  - `now_ts - line_ts`: proximity to the wall clock. Requires
+            //    `now_ts` in the SAME domain as `line_ts`; if the caller's
+            //    wall clock is a different domain (e.g. true-UTC seconds while
+            //    log timestamps are naive-local), this is a constant offset
+            //    that never falls within the threshold.
+            //  - `lag_behind_seen`: how far this line is below the newest line
+            //    already seen. Purely relative, so timezone-independent — the
+            //    replay climbs back toward the pre-jump live edge and this
+            //    shrinks to ~0. This is the signal that survives a wall-clock
+            //    domain mismatch, so a non-UTC host can't get stuck replaying.
+            if now_ts - line_ts <= self.exit_lag_secs
+                || lag_behind_seen <= self.exit_lag_secs
+            {
                 // This line is (close enough to) live: the replay is over
                 // and this line's own actions go through normally.
                 return self.exit();
@@ -214,6 +228,36 @@ mod tests {
         assert_eq!(g.suppressed_lines(), 1);
         g.observe_line(NOW - 399, NOW);
         assert_eq!(g.suppressed_lines(), 2);
+    }
+
+    #[test]
+    fn exits_replay_when_wall_clock_is_a_different_domain() {
+        // Regression: log timestamps are naive-local seconds but the caller's
+        // `now_ts` is true-UTC seconds, so `now_ts - line_ts` is a constant
+        // ~7h offset that NEVER falls within exit_lag. Before the fix the
+        // guard could never exit on a live line and, under continuous play
+        // (no idle gap), stayed stuck in catch-up forever — suppressing all
+        // TTS. Exit must still fire once replay climbs back to the seen edge.
+        const OFFSET: i64 = 25_200; // e.g. PDT (UTC-7)
+        let mut g = CatchUpGuard::new();
+        g.observe_line(1000, 1000 + OFFSET); // live at the edge
+        // A false rotation replays from 100 s before the edge.
+        assert_eq!(
+            g.observe_line(900, 1000 + OFFSET),
+            CatchUpTransition::Entered
+        );
+        // Mid-replay, still below the edge by more than exit_lag: suppressed.
+        assert_eq!(g.observe_line(950, 1000 + OFFSET), CatchUpTransition::None);
+        assert!(g.is_active());
+        // Within exit_lag of the newest-seen line -> exit, even though
+        // now_ts - line_ts == OFFSET + 4 is nowhere near the threshold.
+        assert_eq!(
+            g.observe_line(996, 1000 + OFFSET),
+            CatchUpTransition::Exited {
+                suppressed_lines: 2
+            }
+        );
+        assert!(!g.is_active());
     }
 
     #[test]
