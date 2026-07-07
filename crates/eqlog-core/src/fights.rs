@@ -219,8 +219,13 @@ impl Combatant {
         }
     }
 
-    fn to_row(&self, name: &str, total_damage: u64) -> CombatantRow {
-        let window = (self.last_ts - self.first_ts).max(1) as f64;
+    /// `window_secs` is the ENCOUNTER window (fight start→end), shared by every
+    /// combatant — not each combatant's own first→last-hit span. Dividing by a
+    /// personal span inflated burst casters (2 nukes 3 s apart read as if the
+    /// whole fight lasted 3 s) and made a combatant's DPS jump when a single
+    /// fight got merged into a pull (merge_pull already divides by the pull
+    /// window). One denominator keeps per-row DPS believable and summable.
+    fn to_row(&self, name: &str, total_damage: u64, window_secs: f64) -> CombatantRow {
         let percent = if total_damage > 0 {
             self.damage as f64 * 100.0 / total_damage as f64
         } else {
@@ -251,7 +256,7 @@ impl Combatant {
             damage_taken: self.damage_taken,
             healing: self.healing,
             overheal: self.overheal,
-            dps: self.damage as f64 / window,
+            dps: self.damage as f64 / window_secs,
             percent,
             sources,
         }
@@ -346,10 +351,12 @@ impl Fight {
 
     fn summary(&self, end_ts: i64) -> FightSummary {
         let total_damage: u64 = self.combatants.values().map(|c| c.damage).sum();
+        // Shared encounter window for every combatant's DPS (see to_row).
+        let window = (end_ts - self.start_ts).max(1) as f64;
         let mut rows: Vec<CombatantRow> = self
             .combatants
             .iter()
-            .map(|(name, c)| c.to_row(name, total_damage))
+            .map(|(name, c)| c.to_row(name, total_damage, window))
             .collect();
         rows.sort_by(|a, b| b.damage.cmp(&a.damage).then_with(|| a.name.cmp(&b.name)));
         FightSummary {

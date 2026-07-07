@@ -352,12 +352,18 @@ fn heal_with_no_active_fight_is_dropped() {
 }
 
 #[test]
-fn dps_with_known_numbers() {
+fn dps_divides_by_shared_encounter_window() {
+    // Regression (P1): every combatant's DPS divides by the encounter window
+    // (fight start->end), not their own first->last-hit span. A one-shot burst
+    // combatant must not read as if the whole fight lasted a single second.
     let mut t = FightTracker::new(config());
     let mob = || named("a gnoll champion");
-    // Nyasha: 100 at t=0 and 100 at t=10 -> 200 dmg over a 10s window = 20.
+    // Encounter runs t=0..10 (a 10 s window).
+    // Nyasha: 100 at t=0 and 100 at t=10 -> 200 dmg / 10 s = 20.
     t.ingest(&pl(0, melee(Entity::You, mob(), 100, HitFlags::default())));
-    // Single-event combatant: window clamps to 1s -> dps == damage.
+    // Torvin`s warder lands one 50 hit at t=5 (personal span clamps to ~1 s).
+    // DPS must still divide by the 10 s encounter window -> 50 / 10 = 5. Before
+    // the fix this read as 50 (divided by the clamped personal window).
     t.ingest(&pl(
         5,
         melee(named("Torvin`s warder"), mob(), 50, HitFlags::default()),
@@ -377,7 +383,13 @@ fn dps_with_known_numbers() {
     assert_eq!(nyasha.damage, 200);
     assert!((nyasha.dps - 20.0).abs() < 1e-9);
     let torvin = row(f, "Torvin");
-    assert!((torvin.dps - 50.0).abs() < 1e-9);
+    assert!(
+        (torvin.dps - 5.0).abs() < 1e-9,
+        "one-shot combatant must divide by the encounter window, got {}",
+        torvin.dps
+    );
+    // Per-combatant DPS sums to the encounter DPS (250 dmg / 10 s = 25).
+    assert!(((nyasha.dps + torvin.dps) - 25.0).abs() < 1e-9);
 }
 
 #[test]
