@@ -197,9 +197,15 @@ fn expand_pattern_with_constraints(
     pattern: &str,
     character: &str,
 ) -> (String, Vec<NumericConstraint>) {
-    // Tokens: {C}, {S}, {S<digits>}, {N}, {N<digits>}, any case.
-    static TOKEN: &str = r"\{([CcSsNn]\d*)(?:(<=|>=|<|>|=)(-?\d+))?\}";
-    let token_re = Regex::new(TOKEN).expect("token regex is valid");
+    // Tokens: {C}, {S}, {S<digits>}, {N}, {N<digits>}, any case. Compiled once
+    // and reused — this expansion runs for every trigger on every engine
+    // (re)build, so recompiling the fixed token regex each call was pure waste
+    // (P32).
+    static TOKEN_RE: std::sync::OnceLock<Regex> = std::sync::OnceLock::new();
+    let token_re = TOKEN_RE.get_or_init(|| {
+        Regex::new(r"\{([CcSsNn]\d*)(?:(<=|>=|<|>|=)(-?\d+))?\}")
+            .expect("token regex is valid")
+    });
     let mut seen: HashSet<String> = HashSet::new();
     let mut constraints = Vec::new();
     let expanded = token_re

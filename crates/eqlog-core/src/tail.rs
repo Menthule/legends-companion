@@ -26,7 +26,7 @@ use std::sync::Arc;
 use std::thread::{self, JoinHandle};
 use std::time::{Duration, Instant};
 
-use crossbeam_channel::{Receiver, Sender};
+use crossbeam_channel::{Receiver, SendTimeoutError, Sender};
 
 /// Configuration for [`Tailer::spawn`].
 #[derive(Debug, Clone)]
@@ -68,7 +68,11 @@ impl Tailer {
             file.seek(SeekFrom::End(0))?
         };
 
-        let (tx, rx) = crossbeam_channel::unbounded();
+        // Bounded so a full-log replay (from_start, or a big catch-up after a
+        // rotation) can't outrun the consumer and balloon memory with millions
+        // of queued lines — the reader blocks with backpressure when the buffer
+        // is full (P31). The cap is generous enough to absorb normal bursts.
+        let (tx, rx) = crossbeam_channel::bounded(LINE_BUFFER_CAP);
         let stop = Arc::new(AtomicBool::new(false));
         let thread_stop = Arc::clone(&stop);
         let poll = Duration::from_millis(config.poll_interval_ms.max(1));
@@ -187,8 +191,8 @@ fn read_loop(
             Ok(n) => {
                 pos += n as u64;
                 partial.extend_from_slice(&buf[..n]);
-                if !emit_complete_lines(&mut partial, &tx) {
-                    return; // receiver dropped
+                if !emit_complete_lines(&mut partial, &tx, &stop) {
+                    return; // receiver dropped or stop requested
                 }
             }
             Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
@@ -258,18 +262,39 @@ fn windows_path_swapped(handle: (u64, u64), path: (u64, u64)) -> bool {
     handle_created != path_created
 }
 
+/// Max lines buffered between the reader thread and the consumer. Bounds
+/// memory during a full-log replay; large enough to absorb normal live bursts
+/// without the reader ever blocking in steady state.
+const LINE_BUFFER_CAP: usize = 8192;
+
 /// Drain every complete (newline-terminated) line out of `partial`, strip
-/// CRLF/LF, and send it. Returns `false` if the receiver is gone.
-fn emit_complete_lines(partial: &mut Vec<u8>, tx: &Sender<String>) -> bool {
+/// CRLF/LF, and send it. On a full bounded channel the send blocks with
+/// backpressure, re-checking `stop` on a short timeout so shutdown is never
+/// wedged behind a full queue. Returns `false` if the receiver is gone or a
+/// stop was requested mid-send.
+fn emit_complete_lines(
+    partial: &mut Vec<u8>,
+    tx: &Sender<String>,
+    stop: &AtomicBool,
+) -> bool {
     while let Some(nl) = partial.iter().position(|&b| b == b'\n') {
         let mut line: Vec<u8> = partial.drain(..=nl).collect();
         line.pop(); // '\n'
         if line.last() == Some(&b'\r') {
             line.pop();
         }
-        let text = String::from_utf8_lossy(&line).into_owned();
-        if tx.send(text).is_err() {
-            return false;
+        let mut text = String::from_utf8_lossy(&line).into_owned();
+        loop {
+            match tx.send_timeout(text, Duration::from_millis(100)) {
+                Ok(()) => break,
+                Err(SendTimeoutError::Timeout(returned)) => {
+                    if stop.load(Ordering::Relaxed) {
+                        return false;
+                    }
+                    text = returned; // consumer is slow; keep applying backpressure
+                }
+                Err(SendTimeoutError::Disconnected(_)) => return false,
+            }
         }
     }
     true
