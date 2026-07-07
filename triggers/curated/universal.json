@@ -219,7 +219,7 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Universal/Survival",
-      "comments": "Melee bash/kick stuns are constant (152 fires in 6.3 active hours even with a 10 s cooldown), so this stays overlay-only. Spell stuns speak via universal/cc/spell-stunned. Turn the TTS chip on here if you want spoken melee stuns anyway.",
+      "comments": "Melee bash/kick stuns are constant (152 fires in 6.3 active hours even with a 10 s cooldown), so this stays overlay-only. Spell stuns (universal/cc/spell-stunned) are likewise overlay-only for the same alert-budget reason. Turn the TTS chip on here if you want spoken melee stuns anyway.",
       "actions": [
         {
           "DisplayText": {
@@ -872,13 +872,13 @@
     {
       "id": "universal/cc/spell-stunned",
       "name": "Spell-stunned",
-      "pattern": "^You are struck by a sudden force\\.$",
+      "pattern": "^You are struck by a sudden (?:burst of )?force\\.$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 5,
       "source": "curated",
       "category": "Universal/Crowd Control",
-      "comments": "Cast-on-you text of the caster stun family. Audit: 78 fires in 6.3 active hours of the reference log (low-level mobs spam stun procs), so overlay-only like melee stuns — turn the TTS chip on if your content makes these rare.",
+      "comments": "Cast-on-you text of the caster stun family, both the sudden-force and sudden-burst-of-force variants seen in Legends logs. Overlay-only: audit shows 97 fires in 6.3 active hours of the reference log, so speaking it would push spoken alerts from ~19 to ~34/active hour — turn the TTS chip on if your content makes spell stuns rare.",
       "actions": [
         {
           "DisplayText": {
