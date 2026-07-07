@@ -42,7 +42,16 @@ export function useTauriEvent<T>(name: string, handler: (payload: T) => void): v
 /** Format seconds as m:ss. */
 export function fmtDuration(secs: number): string {
   const s = Math.max(0, Math.floor(secs));
-  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const sec = String(s % 60).padStart(2, "0");
+  const h = Math.floor(s / 3600);
+  // Roll minutes into hours once we cross 60 min, so long spans (per-level
+  // ETA, multi-hour respawns, session length) read as H:MM:SS instead of a
+  // runaway minute count like "988:09". Sub-hour output is unchanged (M:SS).
+  if (h > 0) {
+    const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
+    return `${h}:${m}:${sec}`;
+  }
+  return `${Math.floor(s / 60)}:${sec}`;
 }
 
 /** Timer countdown label: `m:ss` above a minute, `Ns` below. */
