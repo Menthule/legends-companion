@@ -8,11 +8,14 @@ import {
   type OverlayLockPayload,
 } from "../types";
 import {
+  computeLevelEta,
   computeXpStats,
+  loadLevelProgress,
   loadOverlayArrange,
   loadXpSession,
   OVERLAY_ARRANGE_KEY,
   type XpSession,
+  XP_LEVEL_PROGRESS_KEY,
   XP_SESSION_KEY,
 } from "../overlayState";
 
@@ -21,6 +24,9 @@ const initiallyUnlocked =
   loadOverlayArrange();
 export default function OverlayXp() {
   const [session, setSession] = useState<XpSession>(() => loadXpSession());
+  const [levelProgress, setLevelProgress] = useState<number>(() =>
+    loadLevelProgress(),
+  );
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
   const enabled = useOverlayEnabled(OVERLAY_XP);
 
@@ -31,6 +37,7 @@ export default function OverlayXp() {
   useEffect(() => {
     const onStorage = (e: StorageEvent) => {
       if (e.key === XP_SESSION_KEY) setSession(loadXpSession());
+      if (e.key === XP_LEVEL_PROGRESS_KEY) setLevelProgress(loadLevelProgress());
       if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
     };
     window.addEventListener("storage", onStorage);
@@ -43,6 +50,10 @@ export default function OverlayXp() {
   const stats = useMemo(
     () => ({ ...computeXpStats(session, nowMs), last: session.rows[0] ?? null }),
     [session, nowMs],
+  );
+  const eta = useMemo(
+    () => computeLevelEta(session, levelProgress, stats.perHour),
+    [session, levelProgress, stats.perHour],
   );
 
 
@@ -72,6 +83,15 @@ export default function OverlayXp() {
             <span className="oxp-label">per level</span>
           </div>
         </div>
+        {eta.kills !== null && (
+          <div className="oxp-tolevel">
+            <span className="oxp-label">to level</span>
+            <span className="num">
+              ~{eta.kills} kill{eta.kills === 1 ? "" : "s"}
+              {eta.mins !== null && ` · ~${fmtDuration(Math.round(eta.mins * 60))}`}
+            </span>
+          </div>
+        )}
         {stats.last ? (
           <div className="oxp-last">
             <span className="num">+{stats.last.percent.toFixed(2)}%</span>

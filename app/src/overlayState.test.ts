@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  computeLevelEta,
   computeXpStats,
   type SharedXpRow,
   type XpSession,
@@ -81,5 +82,30 @@ describe("computeXpStats (P-XP active-time window)", () => {
     expect(s.total).toBe(250);
     // The rate window still comes from the surviving rows.
     expect(s.perHour).toBeCloseTo(600, 5); // 10% / (60/3600 h)
+  });
+});
+
+describe("computeLevelEta (P9)", () => {
+  it("derives kills and minutes to level from progress + rate", () => {
+    // 60% into the level; 200% earned over 50 kills => 4%/kill; rate 120%/h.
+    const eta = computeLevelEta({ total: 200, count: 50, rows: [] }, 60, 120);
+    expect(eta.toLevelPct).toBe(40);
+    expect(eta.avgPerKill).toBeCloseTo(4, 5);
+    expect(eta.kills).toBe(10); // ceil(40 / 4)
+    expect(eta.mins).toBeCloseTo(20, 5); // 40 / 120 * 60
+  });
+
+  it("returns null estimates without a rate or any gains", () => {
+    expect(
+      computeLevelEta({ total: 0, count: 0, rows: [] }, 50, null),
+    ).toMatchObject({ kills: null, mins: null, avgPerKill: null });
+  });
+
+  it("clamps progress over 100 and floors the remainder at 0", () => {
+    const eta = computeLevelEta({ total: 100, count: 10, rows: [] }, 150, 60);
+    expect(eta.progressPct).toBe(100);
+    expect(eta.toLevelPct).toBe(0);
+    expect(eta.kills).toBe(0);
+    expect(eta.mins).toBe(0);
   });
 });

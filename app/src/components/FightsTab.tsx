@@ -28,8 +28,11 @@ import { IS_MOCK } from "../mock";
 import {
   appendXpSession,
   clearXpSession,
+  computeLevelEta,
   computeXpStats,
+  loadLevelProgress,
   loadXpSession,
+  saveLevelProgress,
   type XpSession,
 } from "../overlayState";
 import type {
@@ -232,6 +235,10 @@ export default function FightsTab({ character }: { character: string }) {
   const [loot, setLoot] = useState<LootEntry[]>([]);
   const [rolls, setRolls] = useState<RollEntry[]>([]);
   const [xp, setXp] = useState<XpSession>(() => loadXpSession());
+  // Position within the current level (P9): reset on a ding, grows per gain.
+  const [levelProgress, setLevelProgress] = useState<number>(() =>
+    loadLevelProgress(),
+  );
   const [recaps, setRecaps] = useState<DeathRecap[]>([]);
   const sessionSeq = useRef(0);
   const recentLines = useRef<{ ts: number; message: string; kind: string }[]>([]);
@@ -335,6 +342,21 @@ export default function FightsTab({ character }: { character: string }) {
       // Replayed gains skip the stamp — anchoring an old gain at "now"
       // would corrupt the live XP/hour rate.
       setXp(appendXpSession(entry, { stampNow: !catchingUp.current }));
+      // Advance level position on live gains only — replaying old gains would
+      // double-count against the persisted position (P9).
+      if (!catchingUp.current) {
+        setLevelProgress((prev) => {
+          const next = Math.min(100, prev + percent);
+          saveLevelProgress(next);
+          return next;
+        });
+      }
+    } else if ("LevelUp" in ev) {
+      // Ding: you're at 0% of the new level. Live only, for the same reason.
+      if (!catchingUp.current) {
+        setLevelProgress(0);
+        saveLevelProgress(0);
+      }
     } else if ("Slain" in ev) {
       const d = ev.Slain as Record<string, unknown>;
       if (entityName(d.victim) === "You") {
@@ -615,6 +637,12 @@ export default function FightsTab({ character }: { character: string }) {
         loot={loot}
         rolls={rolls}
         xp={xp}
+        levelProgress={levelProgress}
+        onSetLevelProgress={(pct) => {
+          const c = Math.min(100, Math.max(0, pct));
+          setLevelProgress(c);
+          saveLevelProgress(c);
+        }}
         recaps={recaps}
         wishlist={wishlist}
         kills={kills}
@@ -698,6 +726,8 @@ function SessionSection({
   loot,
   rolls,
   xp,
+  levelProgress,
+  onSetLevelProgress,
   recaps,
   wishlist,
   kills,
@@ -707,6 +737,8 @@ function SessionSection({
   loot: LootEntry[];
   rolls: RollEntry[];
   xp: XpSession;
+  levelProgress: number;
+  onSetLevelProgress: (pct: number) => void;
   recaps: DeathRecap[];
   wishlist: WishlistEntry[];
   kills: Record<string, KillTally>;
@@ -733,6 +765,10 @@ function SessionSection({
   // rate decays between kills instead of freezing at the last gain.
   const nowMs = useNowMs();
   const xpStats = useMemo(() => computeXpStats(xp, nowMs), [xp, nowMs]);
+  const levelEta = useMemo(
+    () => computeLevelEta(xp, levelProgress, xpStats.perHour),
+    [xp, levelProgress, xpStats.perHour],
+  );
 
   // Session kills, most-killed first (camp efficiency v1).
   const killRows = useMemo(
@@ -778,6 +814,43 @@ function SessionSection({
                 }
                 label="Per level"
               />
+            </div>
+            <div className="xp-tolevel">
+              <div className="xp-tolevel-head">
+                <span className="xp-tolevel-label">To level</span>
+                <span className="xp-tolevel-vals num">
+                  {levelEta.kills === null
+                    ? "—"
+                    : `~${levelEta.kills} kill${levelEta.kills === 1 ? "" : "s"}`}
+                  {levelEta.mins !== null &&
+                    ` · ~${fmtDuration(Math.round(levelEta.mins * 60))}`}
+                </span>
+              </div>
+              <div
+                className="xp-progress"
+                role="progressbar"
+                aria-valuenow={Math.round(levelEta.progressPct)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label="Progress into current level"
+              >
+                <div
+                  className="xp-progress-fill"
+                  style={{ width: `${levelEta.progressPct}%` }}
+                />
+              </div>
+              <label className="xp-setlevel">
+                At
+                <input
+                  type="number"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={Math.round(levelProgress)}
+                  onChange={(e) => onSetLevelProgress(Number(e.target.value))}
+                />
+                % into level — set this once; dings track it after.
+              </label>
             </div>
             <div className="session-loot">
               <div className="session-loot-row session-loot-head" aria-hidden="true">

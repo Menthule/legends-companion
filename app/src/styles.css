@@ -1810,6 +1810,20 @@ label.field,
   justify-content: space-between;
   gap: 8px;
 }
+/* "to level" ETA line (P9) — sits between the grid and the last-gain row. */
+.oxp-tolevel {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.82);
+}
+.oxp-tolevel .oxp-label {
+  display: inline;
+  margin-top: 0;
+}
 
 /* mock-only arrange toggle so the unlocked state can be screenshotted */
 .ov-mock-toggle {
@@ -2940,6 +2954,58 @@ textarea.share-str:focus {
 }
 
 /* Loot log */
+/* XP "to level" panel (P9): position bar + kills/ETA + a set-once control. */
+.xp-tolevel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 4px;
+}
+.xp-tolevel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.xp-tolevel-label {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.xp-tolevel-vals {
+  font-size: 13px;
+}
+.xp-progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.xp-progress-fill {
+  height: 100%;
+  background: var(--series-1);
+  border-radius: 3px 0 0 3px;
+  transition: width 0.3s ease;
+}
+.xp-setlevel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.xp-setlevel input {
+  width: 52px;
+  padding: 2px 6px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--ink);
+  font: inherit;
+  text-align: right;
+}
+
 .session-loot {
   display: flex;
   flex-direction: column;

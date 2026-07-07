@@ -354,3 +354,61 @@ export function computeXpStats(session: XpSession, nowMs: number): XpStats {
   const perLevelHours = perHour > 0 ? 100 / perHour : null;
   return { total, perHour, perLevelHours };
 }
+
+// --- Position within the current level & ETA-to-level (P9) -------------------
+// The log never reports your absolute level or position within it, so we track
+// it from events: reset to 0 on a LevelUp ding, accumulate each XpGain%. Until
+// the first ding of a session the position is unknown, so the user can set it
+// (persisted) to get an accurate kills/ETA-to-level.
+export const XP_LEVEL_PROGRESS_KEY = "eqlogs.session.levelProgress";
+
+export function loadLevelProgress(): number {
+  try {
+    const raw = localStorage.getItem(XP_LEVEL_PROGRESS_KEY);
+    const n = raw == null ? 0 : Number(raw);
+    return Number.isFinite(n) ? Math.min(100, Math.max(0, n)) : 0;
+  } catch {
+    return 0;
+  }
+}
+
+export function saveLevelProgress(pct: number): void {
+  try {
+    localStorage.setItem(
+      XP_LEVEL_PROGRESS_KEY,
+      String(Math.min(100, Math.max(0, pct))),
+    );
+  } catch {
+    // localStorage unavailable — progress just won't persist.
+  }
+}
+
+export interface LevelEta {
+  /** Position within the current level, 0-100. */
+  progressPct: number;
+  /** Remaining % to ding. */
+  toLevelPct: number;
+  /** Mean % per kill this session (null if no gains yet). */
+  avgPerKill: number | null;
+  /** Estimated kills to level (null if unknown). */
+  kills: number | null;
+  /** Estimated minutes to level at the current rate (null if unknown). */
+  mins: number | null;
+}
+
+/** Kills- and time-to-level from the tracked level position, the session's
+ *  mean %/kill, and the live %/hour rate. All null-guarded: no rate or no
+ *  gains yet ⇒ no estimate rather than a bogus one. */
+export function computeLevelEta(
+  session: XpSession,
+  progressPct: number,
+  perHour: number | null,
+): LevelEta {
+  const progress = Math.min(100, Math.max(0, progressPct));
+  const toLevelPct = Math.max(0, 100 - progress);
+  const avgPerKill = session.count > 0 ? session.total / session.count : null;
+  const kills =
+    avgPerKill && avgPerKill > 0 ? Math.ceil(toLevelPct / avgPerKill) : null;
+  const mins = perHour && perHour > 0 ? (toLevelPct / perHour) * 60 : null;
+  return { progressPct: progress, toLevelPct, avgPerKill, kills, mins };
+}
