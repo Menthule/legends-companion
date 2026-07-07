@@ -2352,6 +2352,47 @@ input[type="text"].ted-duration {
 .ted-test .qt-preview {
   margin: 0;
 }
+/* Multi-line test box + batch hit/miss list (P34). */
+.ted-test-input {
+  width: 100%;
+  resize: vertical;
+  font: inherit;
+  line-height: 1.5;
+}
+.ted-batch-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+.ted-batch-row {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 6px;
+  align-items: baseline;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+.ted-batch-row + .ted-batch-row {
+  border-top: 1px solid var(--hairline);
+}
+.ted-batch-mark {
+  text-align: center;
+  font-weight: 700;
+}
+.ted-batch-row.hit .ted-batch-mark {
+  color: var(--good);
+}
+.ted-batch-row.miss {
+  color: var(--ink-muted);
+}
+.ted-batch-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .ted-test-toggle {
   border: none;
   background: transparent;

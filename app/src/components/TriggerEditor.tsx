@@ -601,7 +601,17 @@ export default function TriggerEditor({
     return existing.find((x) => x.pattern === pattern) ?? null;
   }, [existing, pattern]);
 
-  // Live test evaluation.
+  // Non-empty test lines, timestamp stripped per line (P34: batch paste).
+  const testLines = useMemo(
+    () =>
+      testLine
+        .split(/\r?\n/)
+        .map((l) => stripTimestamp(l))
+        .filter((l) => l.trim().length > 0),
+    [testLine],
+  );
+
+  // Live test evaluation of the FIRST line (drives captures + will-do preview).
   const test = useMemo(() => {
     let re: RegExp;
     try {
@@ -613,8 +623,9 @@ export default function TriggerEditor({
         match: null,
       };
     }
-    if (!testLine) return null;
-    const match = re.exec(testLine) as RegExpExecArray | null;
+    const first = testLines[0];
+    if (!first) return null;
+    const match = re.exec(first) as RegExpExecArray | null;
     return match
       ? { state: "ok" as const, text: "Pattern matches this line", match }
       : {
@@ -622,7 +633,23 @@ export default function TriggerEditor({
           text: "Pattern does not match this line",
           match: null,
         };
-  }, [pattern, character, caseIns, testLine]);
+  }, [pattern, character, caseIns, testLines]);
+
+  // Batch evaluation across all pasted lines (P34) — a match count + per-line
+  // hit/miss list, so anti-spam generalization can be tuned on real volume.
+  const batch = useMemo(() => {
+    if (testLines.length <= 1) return null;
+    let re: RegExp;
+    try {
+      re = compilePreviewRegex(expandPatternJs(pattern, character), caseIns);
+    } catch {
+      return null; // the single-line `test` already surfaces the error
+    }
+    // Strip any global flag so `.test()` doesn't advance lastIndex between lines.
+    const one = new RegExp(re.source, re.flags.replace("g", ""));
+    const results = testLines.map((line) => ({ line, hit: one.test(line) }));
+    return { results, matched: results.filter((r) => r.hit).length };
+  }, [pattern, character, caseIns, testLines]);
 
   const nowSecs = Math.floor(Date.now() / 1000);
 
@@ -1450,17 +1477,42 @@ export default function TriggerEditor({
         </div>
         {testOpen && (
           <div className="ted-test">
-            <input
-              type="text"
+            <textarea
+              className="ted-test-input"
+              rows={testLines.length > 1 ? 4 : 1}
               value={testLine}
-              placeholder="paste a log line here to try the trigger"
-              aria-label="Test line"
+              placeholder="paste one or more log lines here to try the trigger"
+              aria-label="Test lines"
               onChange={(e) => {
                 testTouched.current = true;
-                setTestLine(stripTimestamp(e.target.value));
+                setTestLine(e.target.value);
               }}
             />
-            {test && (
+            {batch && (
+              <div
+                className={`qt-preview ${batch.matched > 0 ? "ok" : "miss"}`}
+                role="status"
+              >
+                <span className="dot" />
+                {batch.matched} / {batch.results.length} lines match
+              </div>
+            )}
+            {batch && (
+              <div className="ted-batch-list">
+                {batch.results.map((r, i) => (
+                  <div
+                    className={`ted-batch-row ${r.hit ? "hit" : "miss"}`}
+                    key={i}
+                  >
+                    <span className="ted-batch-mark" aria-hidden="true">
+                      {r.hit ? "✓" : "·"}
+                    </span>
+                    <span className="ted-batch-line">{r.line}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {!batch && test && (
               <div className={`qt-preview ${test.state}`} role="status">
                 <span className="dot" />
                 {test.text}
