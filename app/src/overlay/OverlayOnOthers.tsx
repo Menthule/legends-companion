@@ -10,6 +10,7 @@ import { IS_MOCK } from "../mock";
 import OverlayEditChrome from "./OverlayEditChrome";
 import { OVERLAY_ONOTHERS, type OverlayLockPayload } from "../types";
 import TimerBars from "../components/TimerBars";
+import { sampleTimers } from "../lib/overlaySamples";
 
 const initiallyUnlocked =
   new URLSearchParams(window.location.search).get("unlocked") === "1";
@@ -42,6 +43,12 @@ export default function OverlayOnOthers() {
       {timers.length > 0 && (
         <div className="ov-timer-stack">
           <TimerBars timers={timers} overlay />
+        </div>
+      )}
+      {/* Arrange aid (P10): sample bars while unlocked & empty. */}
+      {unlocked && timers.length === 0 && (
+        <div className="ov-timer-stack ov-sample">
+          <TimerBars timers={sampleTimers("on-others")} overlay />
         </div>
       )}
       {IS_MOCK && (

@@ -1626,6 +1626,12 @@ label.field,
   }
 }
 
+/* Sample bars shown only while arranging an empty overlay (P10) — dimmed and
+   non-interactive so they read as placeholders, not live timers. */
+.ov-timer-stack.ov-sample {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .ov-timer-stack {
   width: 280px;
   max-width: 100%;
