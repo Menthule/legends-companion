@@ -143,6 +143,18 @@ const UPDATE_DISMISSED_KEY = "eqlogs.updateDismissed";
 
 export default function Dashboard() {
   const [tab, setTab] = useState<TabId>(initialTab);
+  // Lazy-mount the query-heavy Database tabs (P23): each fires its sqlite
+  // queries on mount, so mounting all of them at boot did a pile of work no
+  // one asked for. Render one only after it's first visited, then keep it
+  // mounted so re-visits are instant. Live tabs (meters/fights/timers) stay
+  // always-mounted — they accumulate session state from log events while
+  // hidden and must not be deferred.
+  const [visited, setVisited] = useState<Set<TabId>>(
+    () => new Set([initialTab()]),
+  );
+  useEffect(() => {
+    setVisited((prev) => (prev.has(tab) ? prev : new Set(prev).add(tab)));
+  }, [tab]);
   // Deep-link from the session loot log: open Drops pre-searched for an item.
   const [dropsRequest, setDropsRequest] = useState<{
     query: string;
@@ -704,32 +716,40 @@ export default function Dashboard() {
             <TimersTab />
           </section>
           <section className={`page${tab === "drops" ? "" : " hidden"}`}>
-            <DropsTab searchRequest={dropsRequest} />
+            {visited.has("drops") && <DropsTab searchRequest={dropsRequest} />}
           </section>
           <section className={`page${tab === "mobs" ? "" : " hidden"}`}>
-            <MobsTab searchRequest={mobsRequest} />
+            {visited.has("mobs") && <MobsTab searchRequest={mobsRequest} />}
           </section>
           <section className={`page${tab === "recipes" ? "" : " hidden"}`}>
-            <RecipesTab searchRequest={recipesRequest} />
+            {visited.has("recipes") && (
+              <RecipesTab searchRequest={recipesRequest} />
+            )}
           </section>
           <section className={`page${tab === "spells" ? "" : " hidden"}`}>
-            <SpellsTab
-              kind="spells"
-              searchRequest={
-                spellsRequest && !spellsRequest.isAbility ? spellsRequest : null
-              }
-            />
+            {visited.has("spells") && (
+              <SpellsTab
+                kind="spells"
+                searchRequest={
+                  spellsRequest && !spellsRequest.isAbility
+                    ? spellsRequest
+                    : null
+                }
+              />
+            )}
           </section>
           <section className={`page${tab === "abilities" ? "" : " hidden"}`}>
-            <SpellsTab
-              kind="abilities"
-              searchRequest={
-                spellsRequest && spellsRequest.isAbility ? spellsRequest : null
-              }
-            />
+            {visited.has("abilities") && (
+              <SpellsTab
+                kind="abilities"
+                searchRequest={
+                  spellsRequest && spellsRequest.isAbility ? spellsRequest : null
+                }
+              />
+            )}
           </section>
           <section className={`page${tab === "macros" ? "" : " hidden"}`}>
-            <MacrosTab />
+            {visited.has("macros") && <MacrosTab />}
           </section>
           <section className={`page${tab === "triggers" ? "" : " hidden"}`}>
             <TriggersTab character={character} />
