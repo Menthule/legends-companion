@@ -98,7 +98,8 @@ function fmtLen(secs: number): string {
   const s = secs % 60;
   if (m < 60) return `${m}:${String(s).padStart(2, "0")}`;
   const h = Math.floor(m / 60);
-  return `${h}:${String(m % 60).padStart(2, "0")}:00`;
+  // Use the real seconds — hour+ respawns aren't always whole minutes (P43).
+  return `${h}:${String(m % 60).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
 function fmtAgo(ms: number): string {

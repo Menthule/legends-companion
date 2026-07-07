@@ -56,5 +56,17 @@ export function applyStanceLine(
   if (message === "You begin to change your invocation.") {
     return { ...state, invocationChanging: true };
   }
+  // A death or zone change aborts any in-progress transition — without this the
+  // overlay sticks on "changing…" forever when no completion line arrives
+  // (interrupted cast, death, zoning) (P43). Resolved stance/invocation values
+  // are kept (their death/zone semantics are unverified).
+  if (
+    (state.stanceChanging || state.invocationChanging) &&
+    (message === "You died." ||
+      message.startsWith("You have been slain by ") ||
+      message.startsWith("You have entered "))
+  ) {
+    return { ...state, stanceChanging: false, invocationChanging: false };
+  }
   return null;
 }

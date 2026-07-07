@@ -611,7 +611,10 @@ export default function DropsTab({
         label: full,
         badge: "class",
         apply: () => {
-          setClassMask(classMask | (1 << CLASS_NAME_TO_BIT[full]));
+          // Functional update: the closure's `classMask` can be stale when
+          // this suggestion is applied, which would drop a concurrent class
+          // selection by OR-ing onto an old mask (P43).
+          setClassMask((m) => m | (1 << CLASS_NAME_TO_BIT[full]));
           setQuery("");
           resetPaging();
         },

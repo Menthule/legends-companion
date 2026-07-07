@@ -45,7 +45,12 @@ function saveNum(key: string, value: number): void {
   window.dispatchEvent(new Event(EVENT));
 }
 
-function useGlobalNum(key: string, dflt: number): [number, (n: number) => void] {
+type NumUpdater = number | ((prev: number) => number);
+
+function useGlobalNum(
+  key: string,
+  dflt: number,
+): [number, (n: NumUpdater) => void] {
   const [value, setValue] = useState(() => loadNum(key, dflt));
   useEffect(() => {
     const refresh = () => setValue(loadNum(key, dflt));
@@ -59,16 +64,23 @@ function useGlobalNum(key: string, dflt: number): [number, (n: number) => void] 
       window.removeEventListener("storage", onStorage);
     };
   }, [key, dflt]);
-  return [value, (n: number) => saveNum(key, n)];
+  // Functional updaters read the freshest PERSISTED value (localStorage is the
+  // cross-tab source of truth), so a setter called from a stale render closure
+  // still composes onto the current mask instead of dropping a concurrent
+  // selection (P43).
+  const set = (n: NumUpdater) =>
+    saveNum(key, typeof n === "function" ? n(loadNum(key, dflt)) : n);
+  return [value, set];
 }
 
 /** Global era ceiling: 0 classic, 1 +kunark, 2 +velious, 3 everything. */
-export function useEraMax(): [number, (n: number) => void] {
+export function useEraMax(): [number, (n: NumUpdater) => void] {
   return useGlobalNum(ERA_KEY, 0);
 }
 
-/** Global class selection bitmask (0 = any). */
-export function useClassMask(): [number, (n: number) => void] {
+/** Global class selection bitmask (0 = any). Setter accepts a functional
+ *  updater for compose-onto-current writes (see useGlobalNum). */
+export function useClassMask(): [number, (n: NumUpdater) => void] {
   return useGlobalNum(CLASS_KEY, 0);
 }
 
