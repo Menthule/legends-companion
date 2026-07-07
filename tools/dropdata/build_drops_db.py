@@ -247,6 +247,18 @@ def main() -> int:
         CREATE TABLE zone_connections(
             from_zone TEXT, to_zone TEXT,
             PRIMARY KEY(from_zone, to_zone));
+        -- Secondary indexes on the NON-leading join columns. The composite PKs
+        -- above only autoindex their leading column, so app queries that filter
+        -- the other side (who-drops-this, sold-by, npcs-in-zone, recipe lookups)
+        -- otherwise full-scan 150k+/33k/21k/32k-row tables on every keystroke.
+        -- recipe_components/recipe_results have no PK at all -> index both cols.
+        CREATE INDEX drops_npc ON drops(npc_id);
+        CREATE INDEX vendor_items_item ON vendor_items(item_id);
+        CREATE INDEX npc_zones_zone ON npc_zones(zone);
+        CREATE INDEX recipe_components_recipe ON recipe_components(recipe_id);
+        CREATE INDEX recipe_components_item ON recipe_components(item_id);
+        CREATE INDEX recipe_results_recipe ON recipe_results(recipe_id);
+        CREATE INDEX recipe_results_item ON recipe_results(item_id);
         """
     )
 
