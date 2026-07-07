@@ -28,15 +28,14 @@ pub fn sounds_dir(app: &AppHandle) -> Option<PathBuf> {
     }
 }
 
-/// Resolve a PlaySound path: a path that exists is used as-is; a bare
-/// filename (no directory component) that doesn't exist in the cwd is looked
-/// up in the bundled sounds dir. Anything else passes through unchanged so
-/// the audio thread reports the real open error.
+/// Resolve a PlaySound path. A path WITH a directory component (or absolute)
+/// is honored literally — the audio thread opens it and reports any real error.
+/// A bare filename (no directory component) is looked up in the bundled sounds
+/// dir; it is NOT resolved against the process cwd, so a same-named file in
+/// whatever directory the app happened to launch from can't shadow a bundled
+/// sound (P43).
 pub(crate) fn resolve_in(dir: Option<&Path>, path: &str) -> String {
     let p = Path::new(path);
-    if p.exists() {
-        return path.to_string();
-    }
     let is_bare = p.file_name().is_some_and(|f| f == p.as_os_str());
     if !is_bare {
         return path.to_string();

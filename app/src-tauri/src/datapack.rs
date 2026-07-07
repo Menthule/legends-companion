@@ -182,10 +182,16 @@ fn install_drops(dir: &Path, new: &Path) -> Result<(), String> {
         }
     }
     match std::fs::rename(new, &live) {
-        Ok(()) => Ok(()),
+        Ok(()) => {
+            // Install succeeded — the ~17MB backup is no longer needed; leaving
+            // it wastes disk after every update (P43).
+            let _ = std::fs::remove_file(&bak);
+            Ok(())
+        }
         Err(rename_err) => match std::fs::copy(new, &live) {
             Ok(_) => {
                 let _ = std::fs::remove_file(new);
+                let _ = std::fs::remove_file(&bak);
                 Ok(())
             }
             Err(copy_err) => {
