@@ -22,6 +22,12 @@ import {
   useTauriEvent,
 } from "../hooks";
 import {
+  type DamageSummary,
+  incomingDamage,
+  type IncomingHit,
+  summarizeDamage,
+} from "../lib/deathRecap";
+import {
   isWishlisted,
   loadWishlist,
   onWishlistChanged,
@@ -91,6 +97,8 @@ interface DeathRecap {
   ts: number;
   killer: string;
   lines: { ts: number; message: string; kind: string }[];
+  /** Structured incoming-damage summary for the recap window (P25). */
+  damage: DamageSummary;
 }
 
 /** Read a serde-encoded eqlog-core Entity: "You" (bare string) or
@@ -106,6 +114,7 @@ function entityName(e: unknown): string {
 const SESSION_CAP = 200;
 const RECAP_WINDOW_SECS = 15;
 const RECAP_LINE_CAP = 25;
+const RECAP_DAMAGE_CAP = 60;
 
 const PAGE_SIZE = 25;
 
@@ -246,6 +255,8 @@ export default function FightsTab({ character }: { character: string }) {
   const [recaps, setRecaps] = useState<DeathRecap[]>([]);
   const sessionSeq = useRef(0);
   const recentLines = useRef<{ ts: number; message: string; kind: string }[]>([]);
+  // Structured incoming-damage ring for the death recap (P25).
+  const recentDamage = useRef<({ ts: number } & IncomingHit)[]>([]);
   // Replay catch-up (item 13): the backend suppresses trigger audio for
   // replayed lines; side-effectful features here must stay quiet too — no
   // late "X dropped!" speech, no camp timers anchored at Date.now() for
@@ -303,6 +314,15 @@ export default function FightsTab({ character }: { character: string }) {
       { ts: p.ts, message: p.message, kind },
     ].slice(-RECAP_LINE_CAP);
     if (typeof ev !== "object" || ev === null) return;
+    // Track incoming damage for the death recap (P25) — any damage event
+    // aimed at You, kept to the recap window.
+    const hit = incomingDamage(ev);
+    if (hit && hit.amount > 0) {
+      recentDamage.current = [
+        ...recentDamage.current.filter((h) => p.ts - h.ts <= RECAP_WINDOW_SECS),
+        { ts: p.ts, ...hit },
+      ].slice(-RECAP_DAMAGE_CAP);
+    }
     if ("Loot" in ev) {
       const d = ev.Loot as Record<string, unknown>;
       const entry: LootEntry = {
@@ -369,6 +389,9 @@ export default function FightsTab({ character }: { character: string }) {
           ts: p.ts,
           killer: d.killer == null ? "Unknown" : entityName(d.killer),
           lines: recentLines.current.filter((l) => p.ts - l.ts <= RECAP_WINDOW_SECS),
+          damage: summarizeDamage(
+            recentDamage.current.filter((h) => p.ts - h.ts <= RECAP_WINDOW_SECS),
+          ),
         };
         setRecaps((prev) => [recap, ...prev].slice(0, 20));
       } else if (
@@ -1005,8 +1028,36 @@ function SessionSection({
                   <span>
                     {fmtClock(r.ts)} · slain by {r.killer}
                   </span>
-                  <span className="hint num">{r.lines.length} lines</span>
+                  <span className="hint num">
+                    {r.damage.totalTaken > 0
+                      ? `${fmtNum(r.damage.totalTaken)} taken`
+                      : `${r.lines.length} lines`}
+                  </span>
                 </div>
+                {r.damage.bySource.length > 0 && (
+                  <div className="death-damage">
+                    {r.damage.bySource.slice(0, 5).map((s) => (
+                      <div className="death-dmg-row" key={s.source}>
+                        <span className="death-dmg-src">{s.source}</span>
+                        <span className="death-dmg-bar-wrap">
+                          <span
+                            className="death-dmg-bar"
+                            style={{
+                              width: `${
+                                r.damage.totalTaken > 0
+                                  ? (s.amount / r.damage.totalTaken) * 100
+                                  : 0
+                              }%`,
+                            }}
+                          />
+                        </span>
+                        <span className="death-dmg-amt num">
+                          {fmtNum(s.amount)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="death-lines">
                   {r.lines.map((line, ix) => (
                     <div className="death-line" key={`${r.id}-${ix}`}>

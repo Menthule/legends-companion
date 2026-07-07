@@ -3172,6 +3172,42 @@ textarea.share-str:focus {
   border-bottom: none;
   padding-bottom: 0;
 }
+/* Incoming-damage breakdown atop the raw recap lines (P25). */
+.death-damage {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 6px 0 8px;
+}
+.death-dmg-row {
+  display: grid;
+  grid-template-columns: minmax(80px, 0.8fr) 1fr 56px;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+.death-dmg-src {
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.death-dmg-bar-wrap {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+.death-dmg-bar {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--danger, #e5484d) 70%, var(--warning));
+}
+.death-dmg-amt {
+  text-align: right;
+  color: var(--ink);
+}
 .death-lines {
   display: flex;
   flex-direction: column;
