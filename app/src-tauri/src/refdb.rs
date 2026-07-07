@@ -185,8 +185,8 @@ pub fn refdb_mob_search(
         "SELECT n.id, n.name, n.level, COALESCE(n.named, 0), \
            (CASE WHEN COALESCE(n.merchant_id, 0) != 0 THEN 1 ELSE 0 END), \
            (SELECT z.long_name FROM npc_zones nz \
-            JOIN zones z ON z.short_name = nz.zone \
-            WHERE nz.npc_id = n.id AND z.era <= ?2 \
+            LEFT JOIN zones z ON z.short_name = nz.zone \
+            WHERE nz.npc_id = n.id AND (z.era IS NULL OR z.era <= ?2) \
               AND (?5 = '' OR nz.zone = ?5) \
             ORDER BY COALESCE(nz.spawns, 0) DESC, z.long_name ASC LIMIT 1), \
            (SELECT COUNT(*) FROM drops d WHERE d.npc_id = n.id), \

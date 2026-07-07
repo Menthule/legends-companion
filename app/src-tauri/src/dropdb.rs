@@ -238,9 +238,9 @@ pub fn drops_search_items(
     let inner = format!(
         "SELECT {ITEM_COLS}, i.name_lc AS name_lc, \
          (SELECT COUNT(DISTINCT d.npc_id) FROM drops d \
-          JOIN npc_zones nz ON nz.npc_id = d.npc_id \
-          JOIN zones z ON z.short_name = nz.zone \
-          WHERE d.item_id = i.id AND z.era <= ?1 \
+          LEFT JOIN npc_zones nz ON nz.npc_id = d.npc_id \
+          LEFT JOIN zones z ON z.short_name = nz.zone \
+          WHERE d.item_id = i.id AND (z.era IS NULL OR z.era <= ?1) \
             AND (?5 = '' OR nz.zone = ?5)) AS era_sources, \
          (SELECT n2.name FROM drops d2 \
           JOIN npcs n2 ON n2.id = d2.npc_id \
