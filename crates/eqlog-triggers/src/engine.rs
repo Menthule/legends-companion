@@ -584,13 +584,13 @@ impl TriggerEngine {
     }
 
     /// A failed cast must not leave a phantom timer: the cast-start line
-    /// already (re)started the spell's timer, so when the same cast then
-    /// interrupts, fizzles, or gets resisted, drop timers named after the
-    /// spell (bare "Spell" and per-target "Spell — X" forms). The sink is
-    /// told so overlays clear the bar. Approximation note: with shared-name
-    /// timers, an earlier still-running application of the same spell on
-    /// another target is dropped too — its remaining time was already lost
-    /// to the restart at cast-start.
+    /// already (re)started the spell's *bare* timer, so when the same cast
+    /// then interrupts, fizzles, or gets resisted, drop that bare "Spell"
+    /// timer and tell the sink to clear its bar. Per-target "Spell — T"
+    /// instances are left ALONE (P17): binding only happens on a damage tick,
+    /// which a failed cast never produced, so any "Spell — T" belongs to an
+    /// earlier successful cast still ticking on another mob — cancelling it
+    /// would wipe a live DoT on a bystander.
     fn cancel_failed_cast_timers(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
         let spell: Option<&str> = match &parsed.event {
             Event::CastInterrupted {
@@ -609,10 +609,32 @@ impl TriggerEngine {
             _ => None,
         };
         let Some(spell) = spell else { return };
-        let prefix = format!("{spell} — ");
         let mut cancelled: Vec<String> = Vec::new();
         self.timers.retain(|t| {
-            if t.name == spell || t.name.starts_with(&prefix) {
+            if t.name == spell {
+                cancelled.push(t.name.clone());
+                false
+            } else {
+                true
+            }
+        });
+        for name in cancelled {
+            sink.cancel_timer(&name);
+        }
+    }
+
+    /// Zoning leaves every enemy behind, so their DoT/debuff/CC bars are stale
+    /// the instant you enter a new zone — reap enemy-lane timers on `ZoneEnter`
+    /// (P17). Your own buffs, buffs on others, and ability recasts (the buff /
+    /// on-others / other lanes) persist across a zone line, so those keep
+    /// running.
+    fn reap_on_zone(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
+        if !matches!(parsed.event, Event::ZoneEnter { .. }) {
+            return;
+        }
+        let mut cancelled: Vec<String> = Vec::new();
+        self.timers.retain(|t| {
+            if t.lane == TimerLane::Enemy {
                 cancelled.push(t.name.clone());
                 false
             } else {
@@ -963,6 +985,7 @@ impl TriggerEngine {
         // is X.") rarely match any trigger and would otherwise be skipped.
         self.learn_friendly_from(parsed);
         self.cancel_failed_cast_timers(parsed, sink);
+        self.reap_on_zone(parsed, sink);
         self.bind_and_reap_timers(parsed, sink);
         self.bind_buff_on_other(parsed, sink);
         let message = &parsed.line.message;

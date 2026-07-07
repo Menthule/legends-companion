@@ -1115,6 +1115,177 @@ fn renamed_pet_learned_from_leader_say() {
     assert_eq!(sink.spoken.len(), 1, "learned pet no longer alerts");
 }
 
+fn enemy_dot_trigger(name: &str, pattern: &str) -> Trigger {
+    Trigger::new(
+        name,
+        pattern,
+        vec![Action::StartTimer {
+            name: name.into(),
+            duration_secs: 60,
+            warn_at_secs: None,
+            duration_formula: None,
+            duration_cap_ticks: None,
+            cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
+            lane: Some(TimerLane::Enemy),
+        }],
+    )
+}
+
+#[test]
+fn failed_recast_spares_a_bound_dot_on_another_mob() {
+    // P17: a fizzle cancels only the bare timer the failed cast started — a
+    // "Spell — T" DoT already ticking on another mob must survive (a failed
+    // cast dealt no damage, so it never bound one).
+    let mut engine = TriggerEngine::new(
+        vec![enemy_dot_trigger("Boil Blood", r"^You begin casting Boil Blood\.$")],
+        "Nyasha",
+    );
+    let mut sink = RecordingSink::default();
+    let line = |ts: i64, msg: &str, event: Event| ParsedLine {
+        line: LogLine {
+            timestamp: ts,
+            message: msg.into(),
+        },
+        event,
+    };
+
+    // Cast on a rat and let it tick -> bound bar "Boil Blood — a rat".
+    engine.process(
+        &line(
+            1000,
+            "You begin casting Boil Blood.",
+            Event::CastBegin {
+                caster: Entity::You,
+                spell: "Boil Blood".into(),
+            },
+        ),
+        &mut sink,
+    );
+    engine.process(
+        &line(
+            1006,
+            "a rat has taken 8 damage from Boil Blood by Nyasha.",
+            Event::SpellDamageTaken {
+                target: Entity::Named("a rat".into()),
+                source: Entity::Named("Nyasha".into()),
+                spell: "Boil Blood".into(),
+                amount: 8,
+            },
+        ),
+        &mut sink,
+    );
+
+    // Recast (a fresh bare timer) then fizzle it.
+    engine.process(
+        &line(
+            1010,
+            "You begin casting Boil Blood.",
+            Event::CastBegin {
+                caster: Entity::You,
+                spell: "Boil Blood".into(),
+            },
+        ),
+        &mut sink,
+    );
+    engine.process(
+        &line(
+            1012,
+            "Your Boil Blood spell fizzles.",
+            Event::CastFizzled {
+                caster: Entity::You,
+                spell: Some("Boil Blood".into()),
+            },
+        ),
+        &mut sink,
+    );
+
+    let names: Vec<String> = engine
+        .active_timers(1012)
+        .into_iter()
+        .map(|(n, _)| n)
+        .collect();
+    assert_eq!(
+        names,
+        vec!["Boil Blood — a rat".to_string()],
+        "the bound DoT on the other mob must survive the fizzle"
+    );
+}
+
+#[test]
+fn zoning_reaps_enemy_timers_but_keeps_buffs() {
+    // P17: entering a new zone leaves every mob behind, so enemy-lane DoT/CC
+    // bars are stale and must be reaped. Buff-lane timers (your own buffs)
+    // persist across the zone line.
+    let mut buff = enemy_dot_trigger("Shield of Words", r"^You begin casting Shield of Words\.$");
+    if let Action::StartTimer { lane, .. } = &mut buff.actions[0] {
+        *lane = Some(TimerLane::Buff);
+    }
+    let mut engine = TriggerEngine::new(
+        vec![
+            enemy_dot_trigger("Boil Blood", r"^You begin casting Boil Blood\.$"),
+            buff,
+        ],
+        "Nyasha",
+    );
+    let mut sink = RecordingSink::default();
+    let line = |ts: i64, msg: &str, event: Event| ParsedLine {
+        line: LogLine {
+            timestamp: ts,
+            message: msg.into(),
+        },
+        event,
+    };
+
+    engine.process(
+        &line(
+            1000,
+            "You begin casting Boil Blood.",
+            Event::CastBegin {
+                caster: Entity::You,
+                spell: "Boil Blood".into(),
+            },
+        ),
+        &mut sink,
+    );
+    engine.process(
+        &line(
+            1001,
+            "You begin casting Shield of Words.",
+            Event::CastBegin {
+                caster: Entity::You,
+                spell: "Shield of Words".into(),
+            },
+        ),
+        &mut sink,
+    );
+    assert_eq!(engine.active_timers(1001).len(), 2);
+
+    engine.process(
+        &line(
+            1005,
+            "You have entered West Karana.",
+            Event::ZoneEnter {
+                zone: "West Karana".into(),
+            },
+        ),
+        &mut sink,
+    );
+    let names: Vec<String> = engine
+        .active_timers(1005)
+        .into_iter()
+        .map(|(n, _)| n)
+        .collect();
+    assert_eq!(names, vec!["Shield of Words".to_string()]);
+    assert!(sink.cancels.contains(&"Boil Blood".to_string()));
+}
+
 #[test]
 fn failed_casts_cancel_their_dot_timers() {
     let mut t = Trigger::new(
