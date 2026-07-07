@@ -12,6 +12,7 @@ use std::sync::{Arc, Mutex};
 use std::thread::{self, JoinHandle};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
+use eqlog_core::cast_stats::CastStats;
 use eqlog_core::catchup::{CatchUpGuard, CatchUpTransition};
 use eqlog_core::events::Event;
 use eqlog_core::fights::{FightConfig, FightTracker};
@@ -54,6 +55,48 @@ struct LogLinePayload {
 struct ActionPayload {
     kind: &'static str,
     text: String,
+}
+
+/// One row of the live caster resist/fizzle/land% view (P45), emitted on the
+/// `cast-update` event. Percentages are precomputed so the frontend is a plain
+/// table.
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+struct CastRowPayload {
+    caster: String,
+    spell: String,
+    casts: u32,
+    landed: u32,
+    fizzles: u32,
+    resists: u32,
+    interrupts: u32,
+    land_pct: f64,
+    fizzle_pct: f64,
+    resist_pct: f64,
+}
+
+/// Top-N cast rows (by attempts) sent to the frontend — bounds the payload on
+/// long sessions with many caster/spell combinations.
+const CAST_ROWS_CAP: usize = 100;
+
+fn cast_rows_payload(casts: &CastStats) -> Vec<CastRowPayload> {
+    casts
+        .rows()
+        .into_iter()
+        .take(CAST_ROWS_CAP)
+        .map(|r| CastRowPayload {
+            casts: r.attempts(),
+            landed: r.landed(),
+            fizzles: r.fizzles,
+            resists: r.resists,
+            interrupts: r.interrupts,
+            land_pct: r.land_pct(),
+            fizzle_pct: r.fizzle_pct(),
+            resist_pct: r.resist_pct(),
+            caster: r.caster,
+            spell: r.spell,
+        })
+        .collect()
 }
 
 /// Identity of the trigger a fired action belongs to.
@@ -554,6 +597,7 @@ fn run_loop(
         }
     }
     let mut fights = FightTracker::new(fight_config);
+    let mut casts = CastStats::new(config.character_name.clone());
     let mut meter = LiveMeter::new();
     let mut clock = LineClock::new();
     let mut fights_dirty = false;
@@ -648,6 +692,7 @@ fn run_loop(
                 sink.suppress = catchup.is_active();
                 clock.observe(parsed.line.timestamp);
                 fights.ingest(&parsed);
+                casts.ingest(&parsed);
                 fights_dirty = true;
                 let fires = engine.process_traced(&parsed, &mut sink);
                 sink.flush(&fires);
@@ -769,6 +814,11 @@ fn run_loop(
             }
             if let Some(update) = meter.update(&fights, &completed) {
                 let _ = app.emit("fight-update", update);
+            }
+            // Caster resist/fizzle/land% rides the same cadence (P45); it
+            // accumulates across the whole session, so no per-fight reset.
+            if !casts.is_empty() {
+                let _ = app.emit("cast-update", cast_rows_payload(&casts));
             }
             fights_dirty = false;
             last_fight_emit = Instant::now();

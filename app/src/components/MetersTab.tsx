@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { listFights, pasteParse } from "../api";
 import { fmtDuration, fmtNum, useTauriEvent, useTimers } from "../hooks";
 import type {
+  CastRow,
   FightRecord,
   FightUpdatePayload,
   LogLinePayload,
@@ -58,8 +59,11 @@ export default function MetersTab({ character }: { character: string }) {
   const [fight, setFight] = useState<FightUpdatePayload | null>(null);
   const [deaths, setDeaths] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
+  const [view, setView] = useState<"combat" | "casts">("combat");
+  const [casts, setCasts] = useState<CastRow[]>([]);
 
   useTauriEvent<FightUpdatePayload>("fight-update", setFight);
+  useTauriEvent<CastRow[]>("cast-update", setCasts);
   useTauriEvent<LogLinePayload>("log-line", (p) => {
     if (/^You died\.|^You have been slain/.test(p.message)) {
       setDeaths((d) => d + 1);
@@ -181,6 +185,25 @@ export default function MetersTab({ character }: { character: string }) {
 
   return (
     <>
+      <div className="seg meters-view" role="group" aria-label="Meters view">
+        <button
+          className={view === "combat" ? "active" : ""}
+          onClick={() => setView("combat")}
+        >
+          Combat
+        </button>
+        <button
+          className={view === "casts" ? "active" : ""}
+          onClick={() => setView("casts")}
+          title="Caster resist / fizzle / land% this session"
+        >
+          Casts
+        </button>
+      </div>
+      {view === "casts" ? (
+        <CastsView casts={casts} character={character} />
+      ) : (
+        <>
       <div className="stat-tiles">
         <StatTile
           value={fight ? fmtDuration(fight.durationSecs) : "—"}
@@ -406,11 +429,105 @@ export default function MetersTab({ character }: { character: string }) {
           </div>
         )}
       </div>
+        </>
+      )}
       {toast && (
         <div className="toast" role="status">
           {toast}
         </div>
       )}
     </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Casts view (P45): per-caster / per-spell resist, fizzle, and inferred land
+// rate this session, from the backend `cast-update` stream. "Landed" is
+// attempts minus observed failures — most successful casts have no land line.
+// ---------------------------------------------------------------------------
+
+function CastsView({
+  casts,
+  character,
+}: {
+  casts: CastRow[];
+  character: string;
+}) {
+  const [mineOnly, setMineOnly] = useState(false);
+  const rows = useMemo(() => {
+    const c = character.trim();
+    return mineOnly && c !== ""
+      ? casts.filter((r) => r.caster === c)
+      : casts;
+  }, [casts, mineOnly, character]);
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <span className="section-title">Casting outcomes</span>
+        <span className="card-head-side">
+          <span className="hint">this session</span>
+          <label className="hint check">
+            <input
+              type="checkbox"
+              checked={mineOnly}
+              onChange={(e) => setMineOnly(e.target.checked)}
+            />
+            My casts only
+          </label>
+        </span>
+      </div>
+      {rows.length === 0 ? (
+        <Empty
+          title="No casts yet"
+          body="Fizzles, resists, and land rate appear here as you and nearby casters cast spells. Land% is inferred (attempts minus fizzles, resists, and interrupts)."
+        />
+      ) : (
+        <div className="cast-table" role="table" aria-label="Casting outcomes">
+          <div className="cast-row cast-head" role="row">
+            <span role="columnheader">Caster</span>
+            <span role="columnheader">Spell</span>
+            <span role="columnheader" title="Cast attempts">
+              Casts
+            </span>
+            <span role="columnheader" title="Attempts not observed to fail">
+              Land %
+            </span>
+            <span role="columnheader">Fizzle %</span>
+            <span role="columnheader">Resist %</span>
+          </div>
+          {rows.map((r) => (
+            <div className="cast-row" role="row" key={`${r.caster}:${r.spell}`}>
+              <span className="cast-caster" role="cell">
+                {r.caster}
+              </span>
+              <span className="cast-spell" role="cell">
+                {r.spell}
+              </span>
+              <span className="meter-val" role="cell">
+                {r.casts}
+              </span>
+              <span
+                className={`meter-val cast-land${r.landPct < 75 ? " warn" : ""}`}
+                role="cell"
+                title={`${r.landed} landed of ${r.casts}`}
+              >
+                {r.landPct.toFixed(0)}%
+              </span>
+              <span className="meter-val" role="cell">
+                {r.fizzles > 0 ? `${r.fizzlePct.toFixed(0)}%` : "—"}
+              </span>
+              <span className="meter-val" role="cell">
+                {r.resists > 0 ? `${r.resistPct.toFixed(0)}%` : "—"}
+              </span>
+            </div>
+          ))}
+          <div className="hint skills-note">
+            Land% is inferred — most spells have no explicit land line, so it's
+            attempts minus fizzles, resists, and interrupts.
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

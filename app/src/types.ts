@@ -273,6 +273,22 @@ export interface FightUpdatePayload {
   rows: MeterRow[];
 }
 
+/** One row of the live caster resist/fizzle/land% view (`cast-update` event,
+ *  P45). Percentages are precomputed by the backend. */
+export interface CastRow {
+  caster: string;
+  spell: string;
+  /** Attempts (CastBegin count, floored to failures). */
+  casts: number;
+  landed: number;
+  fizzles: number;
+  resists: number;
+  interrupts: number;
+  landPct: number;
+  fizzlePct: number;
+  resistPct: number;
+}
+
 /** One persisted fight from the SQLite store (list_fights / get_fight). */
 export interface FightRecord {
   id: number;

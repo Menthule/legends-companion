@@ -806,6 +806,65 @@ label.field,
   gap: 3px;
   overflow-x: auto;
 }
+
+/* Casting-outcomes table (Meters → Casts sub-tab, P45). Mirrors the skills
+   table; numeric cells reuse .meter-val (right-aligned, tabular). */
+.meters-view {
+  align-self: flex-start;
+  margin-bottom: 2px;
+}
+.cast-table {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow-x: auto;
+}
+.cast-row {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.9fr) minmax(130px, 1.2fr) 52px 56px 60px 60px;
+  align-items: center;
+  column-gap: 8px;
+  min-height: 20px;
+}
+.cast-head {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+}
+.cast-head span {
+  text-align: right;
+}
+.cast-head span:first-child,
+.cast-head span:nth-child(2) {
+  text-align: left;
+}
+.cast-caster {
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cast-spell {
+  font-size: 12.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cast-land.warn {
+  color: color-mix(in srgb, var(--warning) 75%, var(--ink));
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
 .skill-row {
   display: grid;
   grid-template-columns: minmax(130px, 1fr) 58px 52px 52px 52px 44px 48px;
