@@ -2,7 +2,7 @@
 // shared TriggerEditor, prefilled from the clicked log line.
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { confirmDiscard, getTriggers, getTriggerTree, saveTriggers } from "../api";
+import { appendTriggers, confirmDiscard, getTriggerTree } from "../api";
 import type { Trigger } from "../types";
 import TriggerEditor from "./TriggerEditor";
 
@@ -98,10 +98,9 @@ export default function QuickTriggerModal({ message, onClose, onSaved }: Props) 
   }, []);
 
   async function onSave(trigger: Trigger, companion: Trigger | null) {
-    const existingTriggers = await getTriggers();
-    const next = [...existingTriggers, trigger];
-    if (companion) next.push(companion);
-    await saveTriggers(next);
+    // Atomic server-side append (P15): no client-side read-modify-write, so a
+    // save can't clobber a concurrent import.
+    await appendTriggers(companion ? [trigger, companion] : [trigger]);
     onSaved(trigger.name, savedLocation(trigger.category));
   }
 

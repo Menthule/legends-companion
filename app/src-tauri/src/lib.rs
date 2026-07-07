@@ -211,6 +211,7 @@ pub fn run() {
             commands::discover_logs,
             commands::get_triggers,
             commands::save_triggers,
+            commands::append_triggers,
             commands::import_gina,
             commands::share_export,
             commands::share_import,

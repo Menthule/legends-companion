@@ -39,6 +39,9 @@ pub struct AppState {
     /// setup so commands can never race a missing entry). `None` inside =
     /// store unavailable; tailing and alerts still work.
     pub store: crate::store::SharedStore,
+    /// Serializes every user-pack read-modify-write (save / append / GINA +
+    /// share import) so concurrent mutations can't clobber each other (P15).
+    pub pack_lock: Mutex<()>,
 }
 
 impl AppState {
@@ -48,6 +51,7 @@ impl AppState {
             session: Mutex::new(None),
             audio: Mutex::new(audio::spawn()),
             store: Arc::new(Mutex::new(None)),
+            pack_lock: Mutex::new(()),
         }
     }
 }
@@ -189,8 +193,31 @@ pub fn save_triggers(
     state: State<'_, AppState>,
     triggers: Vec<Trigger>,
 ) -> Result<(), String> {
-    config::save_triggers(&pack_path(&app, &state)?, &triggers)?;
+    {
+        let _guard = lock(&state.pack_lock, "trigger pack")?;
+        config::save_triggers(&pack_path(&app, &state)?, &triggers)?;
+    }
     // Edits apply immediately — no "restart tailing" step (ux-findings #4).
+    crate::library::rebuild_if_tailing(&app, &state)
+}
+
+/// Append custom triggers to the user pack atomically (P15): the load → extend
+/// → save happens server-side under `pack_lock`, so a quick-save can't lose a
+/// concurrent GINA/share import (or another save) the way a client-side
+/// get-then-save read-modify-write could.
+#[tauri::command]
+pub fn append_triggers(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    triggers: Vec<Trigger>,
+) -> Result<(), String> {
+    let pack = pack_path(&app, &state)?;
+    {
+        let _guard = lock(&state.pack_lock, "trigger pack")?;
+        let mut existing = config::load_triggers(&pack)?;
+        existing.extend(triggers);
+        config::save_triggers(&pack, &existing)?;
+    }
     crate::library::rebuild_if_tailing(&app, &state)
 }
 
@@ -212,9 +239,12 @@ pub fn import_gina(
     let import = eqlog_triggers::gina::import_gtp(&bytes).map_err(|e| e.to_string())?;
     let imported = import.triggers.len();
     let pack = pack_path(&app, &state)?;
-    let mut existing = config::load_triggers(&pack)?;
-    existing.extend(import.triggers);
-    config::save_triggers(&pack, &existing)?;
+    {
+        let _guard = lock(&state.pack_lock, "trigger pack")?;
+        let mut existing = config::load_triggers(&pack)?;
+        existing.extend(import.triggers);
+        config::save_triggers(&pack, &existing)?;
+    }
     crate::library::rebuild_if_tailing(&app, &state)?;
     Ok(GinaImportResult {
         imported,
@@ -331,9 +361,12 @@ pub fn share_import(
         categories,
     };
     let pack = pack_path(&app, &state)?;
-    let mut user = lib.user;
-    user.extend(import.triggers);
-    config::save_triggers(&pack, &user)?;
+    {
+        let _guard = lock(&state.pack_lock, "trigger pack")?;
+        let mut user = lib.user;
+        user.extend(import.triggers);
+        config::save_triggers(&pack, &user)?;
+    }
     crate::library::rebuild_if_tailing(&app, &state)?;
     crate::logging::info(&format!(
         "imported {} shared trigger(s){}",

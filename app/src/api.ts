@@ -169,6 +169,18 @@ export async function saveTriggers(triggers: Trigger[]): Promise<void> {
   notifyTriggersChanged();
 }
 
+/** Append custom triggers to the user pack atomically (P15) — the backend does
+ *  load→extend→save under a lock, so this never clobbers a concurrent import
+ *  the way a client-side getTriggers()+saveTriggers() read-modify-write could. */
+export async function appendTriggers(triggers: Trigger[]): Promise<void> {
+  if (IS_MOCK) {
+    mockSaveTriggers([...mockGetTriggers(), ...triggers]);
+  } else {
+    await invoke("append_triggers", { triggers });
+  }
+  notifyTriggersChanged();
+}
+
 // ---- trigger library v2: profile + tree ----
 
 export function getProfile(): Promise<CharacterProfile> {
