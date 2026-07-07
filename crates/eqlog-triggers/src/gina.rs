@@ -232,13 +232,23 @@ fn build_trigger(
             });
         }
     }
+    let mut skipped_empty_media = false;
     if is_true(field(fields, "PlayMediaFile")) {
-        let path = field(fields, "MediaFileName").unwrap_or_default();
-        actions.push(Action::PlaySound {
-            path: path.to_string(),
-        });
+        // A PlaySound with an empty path is a no-op that can shadow a real
+        // sound at play time — skip it and warn instead (P43).
+        match field(fields, "MediaFileName").filter(|p| !p.is_empty()) {
+            Some(path) => actions.push(Action::PlaySound {
+                path: path.to_string(),
+            }),
+            None => skipped_empty_media = true,
+        }
     }
     let mut warnings = Vec::new();
+    if skipped_empty_media {
+        warnings.push(format!(
+            "trigger '{name}': PlayMediaFile was set but MediaFileName was empty; sound action skipped"
+        ));
+    }
     let timer_type = field(fields, "TimerType").unwrap_or("");
     if has_field(fields, "TimerEarlyEnders") || has_field(fields, "TimerEarlyEnder") {
         warnings.push(format!(
@@ -356,6 +366,29 @@ mod tests {
         assert_eq!(
             gina_template("{S1} slain, {C} at {TS}"),
             "${S1} slain, {C} at {TS}"
+        );
+    }
+
+    #[test]
+    fn empty_gina_media_is_skipped_with_warning() {
+        // PlayMediaFile set but MediaFileName absent must NOT yield an empty
+        // PlaySound (which shadows real sounds at play time) (P43).
+        let fields = vec![
+            ("Name".to_string(), "Test".to_string()),
+            ("TriggerText".to_string(), "hello".to_string()),
+            ("PlayMediaFile".to_string(), "1".to_string()),
+        ];
+        let (trigger, warnings) = build_trigger(&fields, None).unwrap();
+        assert!(
+            !trigger
+                .actions
+                .iter()
+                .any(|a| matches!(a, Action::PlaySound { .. })),
+            "empty media must not produce a PlaySound action"
+        );
+        assert!(
+            warnings.iter().any(|w| w.contains("MediaFileName was empty")),
+            "expected a skip warning, got {warnings:?}"
         );
     }
 }

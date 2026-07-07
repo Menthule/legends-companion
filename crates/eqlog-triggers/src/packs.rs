@@ -16,11 +16,20 @@ pub struct LoadedPacks {
     pub warnings: Vec<String>,
 }
 
-/// Recursively collect every `*.json` file under `dir`.
+/// Recursively collect every `*.json` file under `dir`. Symlinks are skipped:
+/// following one that points back at a parent would recurse until the stack
+/// overflows (P43).
 fn collect_json_files(dir: &Path, out: &mut Vec<PathBuf>) -> io::Result<()> {
     for entry in std::fs::read_dir(dir)? {
-        let path = entry?.path();
-        if path.is_dir() {
+        let entry = entry?;
+        // `file_type()` does NOT follow the link (unlike `Path::is_dir`), so a
+        // symlinked directory is reported as a symlink and skipped here.
+        let file_type = entry.file_type()?;
+        if file_type.is_symlink() {
+            continue;
+        }
+        let path = entry.path();
+        if file_type.is_dir() {
             collect_json_files(&path, out)?;
         } else if path
             .extension()
