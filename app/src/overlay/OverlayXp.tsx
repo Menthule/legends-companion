@@ -12,7 +12,7 @@ import {
   loadOverlayArrange,
   loadXpSession,
   OVERLAY_ARRANGE_KEY,
-  type SharedXpRow,
+  type XpSession,
   XP_SESSION_KEY,
 } from "../overlayState";
 
@@ -20,7 +20,7 @@ const initiallyUnlocked =
   new URLSearchParams(window.location.search).get("unlocked") === "1" ||
   loadOverlayArrange();
 export default function OverlayXp() {
-  const [rows, setRows] = useState<SharedXpRow[]>(() => loadXpSession());
+  const [session, setSession] = useState<XpSession>(() => loadXpSession());
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
   const enabled = useOverlayEnabled(OVERLAY_XP);
 
@@ -30,7 +30,7 @@ export default function OverlayXp() {
 
   useEffect(() => {
     const onStorage = (e: StorageEvent) => {
-      if (e.key === XP_SESSION_KEY) setRows(loadXpSession());
+      if (e.key === XP_SESSION_KEY) setSession(loadXpSession());
       if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
     };
     window.addEventListener("storage", onStorage);
@@ -41,8 +41,8 @@ export default function OverlayXp() {
   // rate decays between kills instead of freezing at the last gain.
   const nowMs = useNowMs();
   const stats = useMemo(
-    () => ({ ...computeXpStats(rows, nowMs), last: rows[0] ?? null }),
-    [rows, nowMs],
+    () => ({ ...computeXpStats(session, nowMs), last: session.rows[0] ?? null }),
+    [session, nowMs],
   );
 
 

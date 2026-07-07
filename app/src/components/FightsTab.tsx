@@ -30,6 +30,7 @@ import {
   clearXpSession,
   computeXpStats,
   loadXpSession,
+  type XpSession,
 } from "../overlayState";
 import type {
   CatchUpPayload,
@@ -230,7 +231,7 @@ export default function FightsTab({ character }: { character: string }) {
   // regardless of which tab is showing (this component stays mounted).
   const [loot, setLoot] = useState<LootEntry[]>([]);
   const [rolls, setRolls] = useState<RollEntry[]>([]);
-  const [xp, setXp] = useState<XpEntry[]>(() => loadXpSession());
+  const [xp, setXp] = useState<XpSession>(() => loadXpSession());
   const [recaps, setRecaps] = useState<DeathRecap[]>([]);
   const sessionSeq = useRef(0);
   const recentLines = useRef<{ ts: number; message: string; kind: string }[]>([]);
@@ -620,7 +621,7 @@ export default function FightsTab({ character }: { character: string }) {
         respawnFor={(name) => respawnCache.current.get(name.toLowerCase()) ?? null}
         onResetXp={() => {
           clearXpSession();
-          setXp([]);
+          setXp(loadXpSession());
         }}
       />
       {toast && (
@@ -705,7 +706,7 @@ function SessionSection({
 }: {
   loot: LootEntry[];
   rolls: RollEntry[];
-  xp: XpEntry[];
+  xp: XpSession;
   recaps: DeathRecap[];
   wishlist: WishlistEntry[];
   kills: Record<string, KillTally>;
@@ -746,17 +747,17 @@ function SessionSection({
     <div className="session-cards">
       <Collapsible
         title="Session XP"
-        count={xp.length}
+        count={xp.count}
         storageKey="xp"
         headerAside={
-          xp.length > 0 ? (
+          xp.rows.length > 0 ? (
             <button className="ghost small" onClick={onResetXp}>
               Reset
             </button>
           ) : undefined
         }
       >
-        {xp.length === 0 ? (
+        {xp.rows.length === 0 ? (
           <Empty
             title="No XP yet"
             body="XP gains seen this session appear here with an hourly estimate."
@@ -784,7 +785,7 @@ function SessionSection({
                 <span>XP</span>
                 <span>Type</span>
               </div>
-              {xp.slice(0, 20).map((x) => (
+              {xp.rows.slice(0, 20).map((x) => (
                 <div className="session-loot-row" key={x.id}>
                   <span className="session-time num">{fmtClock(x.ts)}</span>
                   <span className="num">{x.percent.toFixed(2)}%</span>

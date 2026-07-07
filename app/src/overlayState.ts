@@ -194,7 +194,14 @@ export function saveOverlayArrange(on: boolean): void {
 // ---------------------------------------------------------------------------
 
 export const XP_SESSION_KEY = "eqlogs.session.xp";
+// Rate-window rows are capped so a marathon session doesn't grow localStorage
+// without bound. The cumulative total/count are tracked separately (P21) so the
+// capped window never shrinks the displayed session total.
 const XP_SESSION_CAP = 200;
+// A gap this long since the last gain means a new play session — don't carry a
+// stale total across it (P21). A quick restart mid-grind stays under it and
+// continues the session.
+const XP_SESSION_STALE_MS = 6 * 60 * 60 * 1000;
 
 export interface SharedXpRow {
   id: number;
@@ -208,20 +215,63 @@ export interface SharedXpRow {
   at?: number;
 }
 
-export function loadXpSession(): SharedXpRow[] {
+/** A play session's XP: cumulative `total`/`count` that never degrade, plus the
+ *  most-recent `rows` (capped) that feed the live rate window. */
+export interface XpSession {
+  total: number;
+  count: number;
+  rows: SharedXpRow[];
+}
+
+const EMPTY_XP_SESSION: XpSession = { total: 0, count: 0, rows: [] };
+
+export function loadXpSession(): XpSession {
   try {
     const raw = localStorage.getItem(XP_SESSION_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as SharedXpRow[];
-    return Array.isArray(parsed) ? parsed : [];
+    if (!raw) return { ...EMPTY_XP_SESSION };
+    const parsed: unknown = JSON.parse(raw);
+    let session: XpSession;
+    if (Array.isArray(parsed)) {
+      // Legacy format: a bare rows array. Reconstruct the cumulative fields
+      // from what we have (best effort — pre-P21 sessions only kept 200 rows).
+      const rows = parsed as SharedXpRow[];
+      session = {
+        total: rows.reduce((s, r) => s + (r.percent ?? 0), 0),
+        count: rows.length,
+        rows,
+      };
+    } else if (parsed && typeof parsed === "object") {
+      const o = parsed as Record<string, unknown>;
+      session = {
+        total: typeof o.total === "number" ? o.total : 0,
+        count: typeof o.count === "number" ? o.count : 0,
+        rows: Array.isArray(o.rows) ? (o.rows as SharedXpRow[]) : [],
+      };
+    } else {
+      return { ...EMPTY_XP_SESSION };
+    }
+    // Drop a stale session: a long break since the last gain is a new play
+    // session, not a continuation (P21).
+    const newestAt = session.rows[0]?.at;
+    if (newestAt != null && Date.now() - newestAt > XP_SESSION_STALE_MS) {
+      return { ...EMPTY_XP_SESSION };
+    }
+    return session;
   } catch {
-    return [];
+    return { ...EMPTY_XP_SESSION };
   }
 }
 
-export function saveXpSession(rows: SharedXpRow[]): void {
+export function saveXpSession(session: XpSession): void {
   try {
-    localStorage.setItem(XP_SESSION_KEY, JSON.stringify(rows.slice(0, XP_SESSION_CAP)));
+    localStorage.setItem(
+      XP_SESSION_KEY,
+      JSON.stringify({
+        total: session.total,
+        count: session.count,
+        rows: session.rows.slice(0, XP_SESSION_CAP),
+      }),
+    );
   } catch {
     // localStorage unavailable — XP still renders in the main Fights tab.
   }
@@ -230,12 +280,17 @@ export function saveXpSession(rows: SharedXpRow[]): void {
 export function appendXpSession(
   row: SharedXpRow,
   opts: { stampNow?: boolean } = {},
-): SharedXpRow[] {
+): XpSession {
   // stampNow=false (replay catch-up): keep the row but don't anchor the
   // live XP/hour window at wall-clock "now" for an hours-old gain.
   const stamped =
     opts.stampNow === false ? { ...row } : { ...row, at: Date.now() };
-  const next = [stamped, ...loadXpSession()].slice(0, XP_SESSION_CAP);
+  const prev = loadXpSession();
+  const next: XpSession = {
+    total: prev.total + row.percent, // cumulative — never capped away (P21)
+    count: prev.count + 1,
+    rows: [stamped, ...prev.rows].slice(0, XP_SESSION_CAP),
+  };
   saveXpSession(next);
   return next;
 }
@@ -243,7 +298,7 @@ export function appendXpSession(
 /** Reset the session (the Fights-tab Reset button). Other windows hear the
  *  storage event; the caller updates its own state. */
 export function clearXpSession(): void {
-  saveXpSession([]);
+  saveXpSession({ ...EMPTY_XP_SESSION });
 }
 
 export interface XpStats {
@@ -269,9 +324,15 @@ export interface XpStats {
 // honestly instead of being diluted by idle time.
 const XP_IDLE_CAP_SECS = 300;
 
-export function computeXpStats(rows: SharedXpRow[], nowMs: number): XpStats {
-  if (rows.length === 0) return { total: 0, perHour: null, perLevelHours: null };
-  const total = rows.reduce((sum, row) => sum + row.percent, 0);
+export function computeXpStats(session: XpSession, nowMs: number): XpStats {
+  const rows = session.rows;
+  // Displayed "XP gained" is the cumulative total — independent of the capped
+  // rate window, so it never shrinks after 200 gains (P21).
+  const total = session.total;
+  if (rows.length === 0) return { total, perHour: null, perLevelHours: null };
+  // The RATE, by contrast, is computed over just the recent (capped) rows and
+  // their active-time window — NOT the cumulative total.
+  const windowTotal = rows.reduce((sum, r) => sum + r.percent, 0);
   const newest = rows[0];
   const sinceNewest =
     newest.at != null ? Math.max(0, (nowMs - newest.at) / 1000) : 0;
@@ -285,7 +346,7 @@ export function computeXpStats(rows: SharedXpRow[], nowMs: number): XpStats {
     activeSecs += Math.min(Math.max(0, gap), XP_IDLE_CAP_SECS);
   }
   const windowSecs = Math.max(60, activeSecs);
-  const perHour = total / (windowSecs / 3600);
+  const perHour = windowTotal / (windowSecs / 3600);
   // Time to earn ONE full level (100%) at the current rate. We can't compute
   // "time to YOUR next level" — the log reports xp as a per-level percentage
   // but never your absolute level or starting position within it, so the
