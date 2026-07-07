@@ -115,17 +115,27 @@ interface KillTally {
 
 const KILL_ROW_CAP = 30;
 
-/** "14:22" today, "Jul 1, 14:22" otherwise. */
+/** "14:22" today, "Jul 1, 14:22" otherwise. Log times are naive local encoded
+ *  as UTC seconds (P18), so read them with UTC getters to recover the in-game
+ *  wall-clock; the "today" test compares that local calendar date against the
+ *  host's current local date. */
 function fmtWhen(ts: number): string {
   if (ts <= 0) return "—";
   const d = new Date(ts * 1000);
   const now = new Date();
-  const hm = `${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
+  const hm = `${String(d.getUTCHours()).padStart(2, "0")}:${String(
+    d.getUTCMinutes(),
   ).padStart(2, "0")}`;
-  if (d.toDateString() === now.toDateString()) return hm;
-  const month = d.toLocaleString(undefined, { month: "short" });
-  return `${month} ${d.getDate()}, ${hm}`;
+  const sameDay =
+    d.getUTCFullYear() === now.getFullYear() &&
+    d.getUTCMonth() === now.getMonth() &&
+    d.getUTCDate() === now.getDate();
+  if (sameDay) return hm;
+  const month = d.toLocaleString(undefined, {
+    month: "short",
+    timeZone: "UTC",
+  });
+  return `${month} ${d.getUTCDate()}, ${hm}`;
 }
 
 /** Mock-only: ?fight=<id> opens the detail view for screenshots. */

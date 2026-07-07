@@ -61,10 +61,13 @@ export function fmtTimerLeft(left: number): string {
   return `${Math.max(0, Math.ceil(left))}s`;
 }
 
-/** Format a unix timestamp as local HH:MM:SS. */
+/** Format a log timestamp as HH:MM:SS. Log times are the naive local
+ *  wall-clock the player saw in-game, encoded as if they were UTC seconds
+ *  (see split_timestamp in eqlog-core), so UTC getters read back that exact
+ *  wall-clock — local getters would shift it by the host's UTC offset (P18). */
 export function fmtClock(ts: number): string {
   const d = new Date(ts * 1000);
-  return [d.getHours(), d.getMinutes(), d.getSeconds()]
+  return [d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()]
     .map((n) => String(n).padStart(2, "0"))
     .join(":");
 }
