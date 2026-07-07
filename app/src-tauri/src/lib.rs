@@ -266,6 +266,7 @@ pub fn run() {
             refdb::refdb_zone_info,
             refdb::refdb_respawn_for,
             spelldb::spells_search,
+            spelldb::unlocks_at_level,
             library::get_profile,
             library::set_profile,
             library::set_active_character,

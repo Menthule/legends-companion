@@ -115,13 +115,25 @@ type SortKey =
 // Name | Classes | Mana(End) | Cast | Recast | Duration | Resist
 const GRID_TEMPLATE = "1.3fr 1.1fr 56px 60px 64px 68px 90px";
 
-export default function SpellsTab({ kind }: { kind: "spells" | "abilities" }) {
+export default function SpellsTab({
+  kind,
+  searchRequest,
+}: {
+  kind: "spells" | "abilities";
+  /** Deep-link (ding digest → spell): prefill the query. `seq` bumps so the
+   *  same name can be re-requested. */
+  searchRequest?: { query: string; seq: number } | null;
+}) {
   const isAbility = kind === "abilities";
   // Abilities cost endurance; the cost column (and its sort) follows suit.
   const costLabel = isAbility ? "End" : "Mana";
   const costSort: SortKey = isAbility ? "endurance" : "mana";
 
   const [query, setQuery] = useState("");
+  // Deep-link prefill: adopt the requested query when the seq changes.
+  useEffect(() => {
+    if (searchRequest && searchRequest.query) setQuery(searchRequest.query);
+  }, [searchRequest?.seq]);
   const [classMask, setClassMask] = useClassMask();
   const classes = classMaskToParam(classMask);
   const [maxLevel, setMaxLevel] = useState(0);

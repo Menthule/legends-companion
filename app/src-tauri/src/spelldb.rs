@@ -43,6 +43,20 @@ pub struct SpellSearchResult {
     pub rows: Vec<SpellRow>,
 }
 
+/// One spell/ability newly trainable at a given level — the "ding digest".
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct UnlockRow {
+    pub id: i64,
+    pub name: String,
+    pub is_ability: i64,
+    /// The selected class(es) that gain this spell AT this level, e.g.
+    /// "Enchanter" or "Cleric, Druid".
+    pub classes: String,
+    pub mana: i64,
+    pub beneficial: i64,
+}
+
 /// NULL-tolerant integer read: the generated data may leave numeric
 /// columns NULL; surface those as 0 rather than failing the whole page.
 fn geti(row: &Row<'_>, idx: usize) -> rusqlite::Result<i64> {
@@ -181,4 +195,50 @@ pub fn spells_search(
         .map_err(|e| e.to_string())?;
 
     Ok(SpellSearchResult { total, rows })
+}
+
+/// Spells/abilities a character newly unlocks AT `level` — powers the ding
+/// digest (P8). `classes` is a comma-separated list of full class names (the
+/// character's tri-class set); it's wrapped in commas here so the `instr`
+/// membership test works regardless of how the caller passes it. Both `?1`
+/// (the wrapped class set) and `?2` (the level) are always referenced, keeping
+/// the parameter count fixed. Abilities sort after spells, then by name.
+#[tauri::command]
+pub fn unlocks_at_level(
+    app: AppHandle,
+    classes: String,
+    level: i64,
+) -> Result<Vec<UnlockRow>, String> {
+    // No class set (or level 0) => nothing meaningful to show.
+    let trimmed = classes.trim().trim_matches(',');
+    if trimmed.is_empty() || level <= 0 {
+        return Ok(Vec::new());
+    }
+    let wrapped = format!(",{trimmed},");
+    let conn = crate::dropdb::open(&app)?;
+    const SQL: &str = "SELECT s.id, s.name, s.is_ability, s.mana, s.beneficial, \
+         (SELECT GROUP_CONCAT(sc.class, ', ') FROM spell_classes sc \
+            WHERE sc.spell_id = s.id AND sc.level = ?2 \
+              AND instr(?1, ',' || sc.class || ',') > 0) AS unlock_classes \
+         FROM spells s \
+         WHERE EXISTS (SELECT 1 FROM spell_classes sc2 \
+            WHERE sc2.spell_id = s.id AND sc2.level = ?2 \
+              AND instr(?1, ',' || sc2.class || ',') > 0) \
+         ORDER BY s.is_ability, s.name_lc";
+    let mut stmt = conn.prepare(SQL).map_err(|e| e.to_string())?;
+    let rows = stmt
+        .query_map(rusqlite::params![wrapped, level], |row| {
+            Ok(UnlockRow {
+                id: geti(row, 0)?,
+                name: row.get::<_, Option<String>>(1)?.unwrap_or_default(),
+                is_ability: geti(row, 2)?,
+                mana: geti(row, 3)?,
+                beneficial: geti(row, 4)?,
+                classes: row.get::<_, Option<String>>(5)?.unwrap_or_default(),
+            })
+        })
+        .map_err(|e| e.to_string())?
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|e| e.to_string())?;
+    Ok(rows)
 }

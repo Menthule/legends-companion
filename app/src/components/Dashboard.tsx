@@ -40,6 +40,7 @@ import DropsTab from "./DropsTab";
 import MobsTab from "./MobsTab";
 import RecipesTab from "./RecipesTab";
 import SpellsTab from "./SpellsTab";
+import DingDigest from "./DingDigest";
 import FightsTab from "./FightsTab";
 import TimersTab from "./TimersTab";
 import MacrosTab from "./MacrosTab";
@@ -186,6 +187,30 @@ export default function Dashboard() {
     window.addEventListener("eqlogs-open-recipes", onOpenRecipes);
     return () =>
       window.removeEventListener("eqlogs-open-recipes", onOpenRecipes);
+  }, []);
+  // Deep-link from the ding digest: open Spells/Abilities pre-searched.
+  const [spellsRequest, setSpellsRequest] = useState<{
+    query: string;
+    isAbility: boolean;
+    seq: number;
+  } | null>(null);
+  useEffect(() => {
+    const onOpenSpells = (e: Event) => {
+      const detail = (e as CustomEvent).detail as
+        | { name?: string; isAbility?: boolean }
+        | undefined;
+      const query = String(detail?.name ?? "").trim();
+      if (!query) return;
+      const isAbility = detail?.isAbility === true;
+      setSpellsRequest((prev) => ({
+        query,
+        isAbility,
+        seq: (prev?.seq ?? 0) + 1,
+      }));
+      setTab(isAbility ? "abilities" : "spells");
+    };
+    window.addEventListener("eqlogs-open-spells", onOpenSpells);
+    return () => window.removeEventListener("eqlogs-open-spells", onOpenSpells);
   }, []);
   const [tailing, setTailing] = useState(false);
   const [character, setCharacter] = useState("");
@@ -688,10 +713,20 @@ export default function Dashboard() {
             <RecipesTab searchRequest={recipesRequest} />
           </section>
           <section className={`page${tab === "spells" ? "" : " hidden"}`}>
-            <SpellsTab kind="spells" />
+            <SpellsTab
+              kind="spells"
+              searchRequest={
+                spellsRequest && !spellsRequest.isAbility ? spellsRequest : null
+              }
+            />
           </section>
           <section className={`page${tab === "abilities" ? "" : " hidden"}`}>
-            <SpellsTab kind="abilities" />
+            <SpellsTab
+              kind="abilities"
+              searchRequest={
+                spellsRequest && spellsRequest.isAbility ? spellsRequest : null
+              }
+            />
           </section>
           <section className={`page${tab === "macros" ? "" : " hidden"}`}>
             <MacrosTab />
@@ -704,6 +739,13 @@ export default function Dashboard() {
           </section>
         </div>
       </div>
+      <DingDigest
+        classes={
+          profile?.loadouts.find((l) => l.name === profile.active_loadout)
+            ?.classes ?? []
+        }
+        catchingUp={catchingUp}
+      />
       {toast && (
         <div className="toast" role="status">
           {toast}

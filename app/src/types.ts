@@ -503,6 +503,17 @@ export interface SpellSearchResult {
   rows: SpellRow[];
 }
 
+/** One spell/ability newly trainable at a level — the ding digest (P8). */
+export interface UnlockRow {
+  id: number;
+  name: string;
+  isAbility: number;
+  /** The character class(es) that gain this at the level, e.g. "Enchanter". */
+  classes: string;
+  mana: number;
+  beneficial: number;
+}
+
 // ---------------------------------------------------------------------------
 // Reference DB v2: mobs, vendors, recipes, zone info (same bundled sqlite).
 // All payloads are serde camelCase from the refdb_* commands.

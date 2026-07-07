@@ -2770,6 +2770,84 @@ input[type="text"].ted-duration {
   display: flex;
   gap: 8px;
 }
+
+/* Ding digest (P8): floating dismissible "what you just unlocked" card. */
+.ding-card {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 50;
+  width: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-raised);
+  border: 1px solid color-mix(in srgb, var(--warning) 40%, var(--border));
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.ding-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hairline);
+}
+.ding-title {
+  font-weight: 600;
+  color: color-mix(in srgb, var(--warning) 85%, var(--ink));
+}
+.ding-empty {
+  padding: 12px;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+.ding-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 12px 12px;
+}
+.ding-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ding-group-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-bottom: 2px;
+}
+.ding-unlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.12s ease;
+}
+.ding-unlock:hover,
+.ding-unlock:focus-visible {
+  border-color: var(--accent);
+}
+.ding-unlock-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+.ding-unlock-meta {
+  font-size: 11px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
 .slain-chip {
   display: inline-block;
   margin-left: 8px;

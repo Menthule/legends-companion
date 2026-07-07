@@ -48,6 +48,7 @@ import type {
   ShareImportResult,
   SpellScroll,
   SpellSearchResult,
+  UnlockRow,
   Trigger,
   TriggerTreeEntry,
   ZoneInfo,
@@ -712,6 +713,17 @@ export function spellsSearch(args: {
 }): Promise<SpellSearchResult> {
   if (IS_MOCK) return Promise.resolve({ total: 0, rows: [] });
   return invoke<SpellSearchResult>("spells_search", args);
+}
+
+/** Spells/abilities newly trainable at `level` for a class set (P8 ding
+ *  digest). `classes` is comma-separated full class names. */
+export async function unlocksAtLevel(
+  classes: string,
+  level: number,
+): Promise<UnlockRow[]> {
+  if (IS_MOCK) return [];
+  const raw = await invoke<unknown>("unlocks_at_level", { classes, level });
+  return Array.isArray(raw) ? (raw as UnlockRow[]) : [];
 }
 
 // ---------------------------------------------------------------------------
