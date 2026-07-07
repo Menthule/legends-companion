@@ -126,28 +126,44 @@ export function stripTimestamp(line: string): string {
 // Duration input helpers ("90", "1:30", "35m", "1h10m" -> seconds)
 // ---------------------------------------------------------------------------
 
-/** Parse a friendly duration string to whole seconds; null when unparsable. */
+/**
+ * Parse a friendly duration string to whole (positive) seconds; null when
+ * unparsable or non-positive. THE canonical parser (P37) — a superset of the
+ * two that used to diverge, so nothing that parsed before stops parsing:
+ * colon `h:mm:ss`/`m:ss` (folded), plain `90`, decimal+unit `1.5h`/`35m`/`90s`,
+ * and compound `1h30m`/`2m30s`. `lib/timers` re-exports this one.
+ */
 export function parseDuration(raw: string): number | null {
   const s = raw.trim().toLowerCase();
   if (s.length === 0) return null;
-  // m:ss or h:mm:ss
-  let m = /^(\d+):([0-5]?\d)(?::([0-5]?\d))?$/.exec(s);
-  if (m) {
-    const a = parseInt(m[1], 10);
-    const b = parseInt(m[2], 10);
-    if (m[3] !== undefined) return a * 3600 + b * 60 + parseInt(m[3], 10);
-    return a * 60 + b;
+  const positive = (n: number): number | null =>
+    Number.isFinite(n) && n > 0 ? Math.round(n) : null;
+
+  // Colon form (h:mm:ss / m:ss / deeper) — fold left; components must be
+  // non-negative numbers.
+  if (s.includes(":")) {
+    const parts = s.split(":").map((p) => Number(p));
+    if (parts.some((n) => !Number.isFinite(n) || n < 0)) return null;
+    let secs = 0;
+    for (const p of parts) secs = secs * 60 + p;
+    return positive(secs);
   }
-  // plain seconds
-  m = /^(\d+)$/.exec(s);
-  if (m) return parseInt(m[1], 10);
-  // unit suffixes: 35m, 90s, 1h, 1h10m, 2m30s
+  // Plain number (optional decimal) = seconds.
+  let m = /^(\d+(?:\.\d+)?)$/.exec(s);
+  if (m) return positive(Number(m[1]));
+  // Single value + unit, decimals allowed: 90s, 35m, 1.5h.
+  m = /^(\d+(?:\.\d+)?)\s*([hms])$/.exec(s);
+  if (m) {
+    const mult = m[2] === "h" ? 3600 : m[2] === "m" ? 60 : 1;
+    return positive(Number(m[1]) * mult);
+  }
+  // Compound integer units: 1h30m, 2m30s, 1h10m, 1h.
   m = /^(?:(\d+)h)?\s*(?:(\d+)m)?\s*(?:(\d+)s?)?$/.exec(s);
   if (m && (m[1] || m[2] || m[3])) {
-    return (
+    return positive(
       (m[1] ? parseInt(m[1], 10) * 3600 : 0) +
-      (m[2] ? parseInt(m[2], 10) * 60 : 0) +
-      (m[3] ? parseInt(m[3], 10) : 0)
+        (m[2] ? parseInt(m[2], 10) * 60 : 0) +
+        (m[3] ? parseInt(m[3], 10) : 0),
     );
   }
   return null;

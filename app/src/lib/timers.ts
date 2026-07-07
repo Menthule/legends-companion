@@ -325,22 +325,8 @@ export function saveCampRaresOnly(on: boolean): void {
 // Custom-timer input parsing.
 // ---------------------------------------------------------------------------
 
-/** Parse a duration string into seconds. Accepts `90` / `90s`, `30m`, `2h`,
- *  `6:40` (m:ss), `1:02:00` (h:mm:ss). Returns null on garbage. */
-export function parseDuration(input: string): number | null {
-  const s = input.trim().toLowerCase();
-  if (!s) return null;
-  if (s.includes(":")) {
-    const parts = s.split(":").map((p) => Number(p));
-    if (parts.some((n) => !Number.isFinite(n) || n < 0)) return null;
-    let secs = 0;
-    for (const p of parts) secs = secs * 60 + p;
-    return secs > 0 ? Math.round(secs) : null;
-  }
-  const m = s.match(/^(\d+(?:\.\d+)?)\s*([smh]?)$/);
-  if (!m) return null;
-  const n = Number(m[1]);
-  if (!Number.isFinite(n) || n <= 0) return null;
-  const mult = m[2] === "h" ? 3600 : m[2] === "m" ? 60 : 1;
-  return Math.round(n * mult);
-}
+// Duration parsing is consolidated in lib/patternJs (P37) — the single
+// canonical superset of the two that used to diverge. Re-exported here so the
+// Timers tab's import path stays stable. Accepts `90`/`90s`, `35m`, `1.5h`,
+// `1h30m`, `6:40` (m:ss), `1:02:00` (h:mm:ss); null on garbage or non-positive.
+export { parseDuration } from "./patternJs";

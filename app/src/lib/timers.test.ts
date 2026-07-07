@@ -21,6 +21,13 @@ describe("parseDuration", () => {
     expect(parseDuration("1:02:00")).toBe(3720); // h:mm:ss
   });
 
+  it("parses compound units and decimal hours (consolidated, P37)", () => {
+    expect(parseDuration("1h30m")).toBe(5400);
+    expect(parseDuration("2m30s")).toBe(150);
+    expect(parseDuration("1h10m")).toBe(4200);
+    expect(parseDuration("1.5h")).toBe(5400);
+  });
+
   it("rejects garbage, zero, and empty", () => {
     expect(parseDuration("")).toBeNull();
     expect(parseDuration("   ")).toBeNull();
