@@ -968,15 +968,17 @@ fn library_fires_on_real_fixture_lines_for_a_profile() {
         engine.process(&line(i as i64, &raw[27..]), &mut sink);
     }
     // Default TTS policy: buff-ending, resist, enemy-cast dangers, and CC
-    // on YOU (root/snare/mez/fear/charm/SPELL stuns, throttled by
-    // cooldowns) speak. Melee bash stuns are far too frequent to speak
-    // (152 fires in this fixture even with a 10 s cooldown) so "You are
-    // stunned!" stays overlay-only, as do other survival/progress lines
-    // (encumbered, level-up "ding").
+    // on YOU (root/snare/mez/fear/charm, throttled by cooldowns) speak.
+    // Stuns stay overlay-only regardless of source: melee bash stuns are far
+    // too frequent to speak (152 fires in this fixture even with a 10 s
+    // cooldown), and SPELL stuns fire 97 times here too — speaking them would
+    // push spoken alerts from ~19 to ~34/hour, over the alert-fatigue budget.
+    // Other survival/progress lines (encumbered, level-up "ding") also stay
+    // overlay-only.
     assert!(sink.displayed.contains(&"stunned".to_string()));
     assert!(!sink.spoken.contains(&"stunned".to_string()));
     assert!(sink.displayed.contains(&"SPELL STUNNED".to_string()));
-    assert!(sink.spoken.contains(&"spell stunned".to_string()));
+    assert!(!sink.spoken.contains(&"spell stunned".to_string()));
     assert!(sink.displayed.contains(&"encumbered".to_string()));
     assert!(!sink.spoken.contains(&"encumbered".to_string()));
     assert!(sink.displayed.contains(&"ding".to_string()));
