@@ -254,6 +254,8 @@ fn write_trigger(xml: &mut String, trigger: &Trigger, indent: usize) {
             // No GINA equivalent (their early-enders live outside the field
             // set our importer reads); dropped by design.
             Action::CancelTimer { .. } => {}
+            // GINA has no webhook concept; dropped on export.
+            Action::PostWebhook { .. } => {}
         }
     }
     if let Some(template) = display {

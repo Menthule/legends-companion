@@ -4,7 +4,7 @@
     {
       "id": "debuffs/beastlord/cast/drowsy",
       "name": "Enemy timer: Drowsy",
-      "pattern": "^You begin casting Drowsy\\.$",
+      "pattern": "^You begin casting Drowsy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/beastlord/cast/envenomed-breath",
       "name": "Enemy timer: Envenomed Breath",
-      "pattern": "^You begin casting Envenomed Breath\\.$",
+      "pattern": "^You begin casting Envenomed Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/beastlord/cast/flash-of-light",
       "name": "Enemy timer: Flash of Light",
-      "pattern": "^You begin casting Flash of Light\\.$",
+      "pattern": "^You begin casting Flash of Light(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/beastlord/cast/incapacitate",
       "name": "Enemy timer: Incapacitate",
-      "pattern": "^You begin casting Incapacitate\\.$",
+      "pattern": "^You begin casting Incapacitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/beastlord/cast/languid-pace",
       "name": "Enemy timer: Languid Pace",
-      "pattern": "^You begin casting Languid Pace\\.$",
+      "pattern": "^You begin casting Languid Pace(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/beastlord/cast/listless-power",
       "name": "Enemy timer: Listless Power",
-      "pattern": "^You begin casting Listless Power\\.$",
+      "pattern": "^You begin casting Listless Power(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/beastlord/cast/malaria",
       "name": "Enemy timer: Malaria",
-      "pattern": "^You begin casting Malaria\\.$",
+      "pattern": "^You begin casting Malaria(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -185,7 +185,7 @@
     {
       "id": "debuffs/beastlord/cast/sha-s-advantage",
       "name": "Enemy timer: Sha's Advantage",
-      "pattern": "^You begin casting Sha's Advantage\\.$",
+      "pattern": "^You begin casting Sha['`]s Advantage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -211,7 +211,7 @@
     {
       "id": "debuffs/beastlord/cast/sha-s-lethargy",
       "name": "Enemy timer: Sha's Lethargy",
-      "pattern": "^You begin casting Sha's Lethargy\\.$",
+      "pattern": "^You begin casting Sha['`]s Lethargy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -237,7 +237,7 @@
     {
       "id": "debuffs/beastlord/cast/sicken",
       "name": "Enemy timer: Sicken",
-      "pattern": "^You begin casting Sicken\\.$",
+      "pattern": "^You begin casting Sicken(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -263,7 +263,7 @@
     {
       "id": "debuffs/beastlord/cast/tainted-breath",
       "name": "Enemy timer: Tainted Breath",
-      "pattern": "^You begin casting Tainted Breath\\.$",
+      "pattern": "^You begin casting Tainted Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -289,7 +289,7 @@
     {
       "id": "debuffs/beastlord/cast/venom-of-the-snake",
       "name": "Enemy timer: Venom of the Snake",
-      "pattern": "^You begin casting Venom of the Snake\\.$",
+      "pattern": "^You begin casting Venom of the Snake(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -315,7 +315,7 @@
     {
       "id": "debuffs/worn/malaria",
       "name": "Enemy timer cleared: Malaria",
-      "pattern": "^Your Malaria spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Malaria(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -340,7 +340,7 @@
     {
       "id": "debuffs/worn/sha-s-advantage",
       "name": "Enemy timer cleared: Sha's Advantage",
-      "pattern": "^Your Sha's Advantage spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Sha['`]s Advantage(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -365,7 +365,7 @@
     {
       "id": "debuffs/worn/sha-s-lethargy",
       "name": "Enemy timer cleared: Sha's Lethargy",
-      "pattern": "^Your Sha's Lethargy spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Sha['`]s Lethargy(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

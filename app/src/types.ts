@@ -29,6 +29,9 @@ export type TriggerAction =
   | { PlaySound: { path: string } }
   | { DisplayText: { template: string } }
   | { CancelTimer: { name: string } }
+  /** Post to a named webhook (Discord batphone). The URL lives in app
+   *  settings keyed by `webhook`; absent = the default webhook. */
+  | { PostWebhook: { template: string; webhook?: string | null } }
   | {
       StartTimer: {
         name: string;
@@ -145,11 +148,12 @@ export interface TriggerTreeEntry {
   pattern: string;
   /** Output channels summarized from the trigger's actions, so the list can
    *  show at a glance whether a trigger speaks / shows a text alert / plays a
-   *  sound / runs a timer. */
+   *  sound / runs a timer / posts to a webhook. */
   speaks: boolean;
   shows: boolean;
   sound: boolean;
   timer: boolean;
+  webhook: boolean;
   /** Index into the user pack for user/gina triggers; null for bundled. */
   userIndex: number | null;
 }
@@ -197,6 +201,15 @@ export interface TriggerFiredPayload {
     kind: "speak" | "playSound" | "displayText" | "startTimer";
     text: string;
   };
+}
+
+/** Frontend-detected proc alert payload. */
+export interface ProcAlertPayload {
+  kind: "proc" | "skill" | "spell";
+  spell: string;
+  target: string;
+  amount?: number | null;
+  critical?: boolean;
 }
 
 /** "timer" event payload. */

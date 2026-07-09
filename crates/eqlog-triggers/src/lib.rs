@@ -23,7 +23,7 @@ pub use model::{
     DEFAULT_LOADOUT_NAME,
 };
 pub use packs::{load_packs, LoadedPacks};
-pub use profile::{effective_enabled, effective_enabled_in_loadout};
+pub use profile::{effective_enabled, effective_enabled_in_loadout, zone_scope_for};
 pub use share::{
     export_gtp, export_string, parse_string, ShareError, ShareImport, SharePayload, SHARE_PREFIX,
 };

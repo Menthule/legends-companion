@@ -272,11 +272,7 @@ const LINE_BUFFER_CAP: usize = 8192;
 /// backpressure, re-checking `stop` on a short timeout so shutdown is never
 /// wedged behind a full queue. Returns `false` if the receiver is gone or a
 /// stop was requested mid-send.
-fn emit_complete_lines(
-    partial: &mut Vec<u8>,
-    tx: &Sender<String>,
-    stop: &AtomicBool,
-) -> bool {
+fn emit_complete_lines(partial: &mut Vec<u8>, tx: &Sender<String>, stop: &AtomicBool) -> bool {
     while let Some(nl) = partial.iter().position(|&b| b == b'\n') {
         let mut line: Vec<u8> = partial.drain(..=nl).collect();
         line.pop(); // '\n'

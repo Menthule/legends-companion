@@ -69,7 +69,11 @@ Run the built app against a real `eqlog_*.txt` while playing/replaying:
 
 ## D. Tag and ship
 
-- [ ] Bump `version` in `app/src-tauri/Cargo.toml` + `tauri.conf.json` to `1.0.0`.
+- [ ] Bump `version` in `app/src-tauri/Cargo.toml` + `tauri.conf.json` **and
+      `app/package.json`** to `1.0.0`. All three must match: the UI's displayed
+      version is injected from `package.json` at build time (vite.config.ts
+      `define` → `__APP_VERSION__`), so a stale `package.json` shows the wrong
+      "Current version" even when the binary is correct.
 - [ ] Push tag `v1.0.0` (triggers the `windows` job in release.yml) or run the
       workflow via `workflow_dispatch` with `tag_name: v1.0.0`.
 - [ ] Confirm the `publish release` step attached the NSIS `.exe`, `eqlog.exe`,

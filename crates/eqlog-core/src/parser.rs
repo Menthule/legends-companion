@@ -1314,7 +1314,9 @@ mod unit {
         // a Consider — it stays System as before.
         let p = Parser::new();
         let ev = p
-            .parse_line("[Thu Jul 02 23:32:46 2026] Your target is too far away, get closer! (Lvl: 42)")
+            .parse_line(
+                "[Thu Jul 02 23:32:46 2026] Your target is too far away, get closer! (Lvl: 42)",
+            )
             .unwrap()
             .event;
         assert_eq!(ev, Event::System);

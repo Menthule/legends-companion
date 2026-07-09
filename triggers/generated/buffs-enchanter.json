@@ -4,7 +4,7 @@
     {
       "id": "buffs/enchanter/cast/aanya-s-quickening",
       "name": "Buff timer: Aanya's Quickening",
-      "pattern": "^You begin casting Aanya's Quickening\\.$",
+      "pattern": "^You begin casting Aanya['`]s Quickening(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/enchanter/cast/adorning-grace",
       "name": "Buff timer: Adorning Grace",
-      "pattern": "^You begin casting Adorning Grace\\.$",
+      "pattern": "^You begin casting Adorning Grace(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/enchanter/cast/alacrity",
       "name": "Buff timer: Alacrity",
-      "pattern": "^You begin casting Alacrity\\.$",
+      "pattern": "^You begin casting Alacrity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/enchanter/cast/augment",
       "name": "Buff timer: Augment",
-      "pattern": "^You begin casting Augment\\.$",
+      "pattern": "^You begin casting Augment(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/enchanter/cast/augmentation",
       "name": "Buff timer: Augmentation",
-      "pattern": "^You begin casting Augmentation\\.$",
+      "pattern": "^You begin casting Augmentation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/enchanter/cast/bedlam",
       "name": "Buff timer: Bedlam",
-      "pattern": "^You begin casting Bedlam\\.$",
+      "pattern": "^You begin casting Bedlam(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/enchanter/cast/berserker-spirit",
       "name": "Buff timer: Berserker Spirit",
-      "pattern": "^You begin casting Berserker Spirit\\.$",
+      "pattern": "^You begin casting Berserker Spirit(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/enchanter/cast/berserker-strength",
       "name": "Buff timer: Berserker Strength",
-      "pattern": "^You begin casting Berserker Strength\\.$",
+      "pattern": "^You begin casting Berserker Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/enchanter/cast/bind-sight",
       "name": "Buff timer: Bind Sight",
-      "pattern": "^You begin casting Bind Sight\\.$",
+      "pattern": "^You begin casting Bind Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/enchanter/cast/boon-of-the-clear-mind",
       "name": "Buff timer: Boon of the Clear Mind",
-      "pattern": "^You begin casting Boon of the Clear Mind\\.$",
+      "pattern": "^You begin casting Boon of the Clear Mind(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/enchanter/cast/boon-of-the-garou",
       "name": "Buff timer: Boon of the Garou",
-      "pattern": "^You begin casting Boon of the Garou\\.$",
+      "pattern": "^You begin casting Boon of the Garou(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/enchanter/cast/breeze",
       "name": "Buff timer: Breeze",
-      "pattern": "^You begin casting Breeze\\.$",
+      "pattern": "^You begin casting Breeze(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/enchanter/cast/brilliance",
       "name": "Buff timer: Brilliance",
-      "pattern": "^You begin casting Brilliance\\.$",
+      "pattern": "^You begin casting Brilliance(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/enchanter/cast/calm",
       "name": "Buff timer: Calm",
-      "pattern": "^You begin casting Calm\\.$",
+      "pattern": "^You begin casting Calm(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "buffs/enchanter/cast/calming-visage",
       "name": "Buff timer: Calming Visage",
-      "pattern": "^You begin casting Calming Visage\\.$",
+      "pattern": "^You begin casting Calming Visage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "buffs/enchanter/cast/cast-sight",
       "name": "Buff timer: Cast Sight",
-      "pattern": "^You begin casting Cast Sight\\.$",
+      "pattern": "^You begin casting Cast Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "buffs/enchanter/cast/celerity",
       "name": "Buff timer: Celerity",
-      "pattern": "^You begin casting Celerity\\.$",
+      "pattern": "^You begin casting Celerity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "buffs/enchanter/cast/clarity",
       "name": "Buff timer: Clarity",
-      "pattern": "^You begin casting Clarity\\.$",
+      "pattern": "^You begin casting Clarity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "buffs/enchanter/cast/clarity-ii",
       "name": "Buff timer: Clarity II",
-      "pattern": "^You begin casting Clarity II\\.$",
+      "pattern": "^You begin casting Clarity II(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "buffs/enchanter/cast/cloud",
       "name": "Buff timer: Cloud",
-      "pattern": "^You begin casting Cloud\\.$",
+      "pattern": "^You begin casting Cloud(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "buffs/enchanter/cast/endure-magic",
       "name": "Buff timer: Endure Magic",
-      "pattern": "^You begin casting Endure Magic\\.$",
+      "pattern": "^You begin casting Endure Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "buffs/enchanter/cast/enduring-breath",
       "name": "Buff timer: Enduring Breath",
-      "pattern": "^You begin casting Enduring Breath\\.$",
+      "pattern": "^You begin casting Enduring Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "buffs/enchanter/cast/enlightenment",
       "name": "Buff timer: Enlightenment",
-      "pattern": "^You begin casting Enlightenment\\.$",
+      "pattern": "^You begin casting Enlightenment(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "buffs/enchanter/cast/everlasting-breath",
       "name": "Buff timer: Everlasting Breath",
-      "pattern": "^You begin casting Everlasting Breath\\.$",
+      "pattern": "^You begin casting Everlasting Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "buffs/enchanter/cast/feedback",
       "name": "Buff timer: Feedback",
-      "pattern": "^You begin casting Feedback\\.$",
+      "pattern": "^You begin casting Feedback(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "buffs/enchanter/cast/gift-of-brilliance",
       "name": "Buff timer: Gift of Brilliance",
-      "pattern": "^You begin casting Gift of Brilliance\\.$",
+      "pattern": "^You begin casting Gift of Brilliance(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "buffs/enchanter/cast/gift-of-insight",
       "name": "Buff timer: Gift of Insight",
-      "pattern": "^You begin casting Gift of Insight\\.$",
+      "pattern": "^You begin casting Gift of Insight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "buffs/enchanter/cast/gift-of-magic",
       "name": "Buff timer: Gift of Magic",
-      "pattern": "^You begin casting Gift of Magic\\.$",
+      "pattern": "^You begin casting Gift of Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "buffs/enchanter/cast/gift-of-pure-thought",
       "name": "Buff timer: Gift of Pure Thought",
-      "pattern": "^You begin casting Gift of Pure Thought\\.$",
+      "pattern": "^You begin casting Gift of Pure Thought(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "buffs/enchanter/cast/glamorous-visage",
       "name": "Buff timer: Glamorous Visage",
-      "pattern": "^You begin casting Glamorous Visage\\.$",
+      "pattern": "^You begin casting Glamorous Visage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "buffs/enchanter/cast/group-resist-magic",
       "name": "Buff timer: Group Resist Magic",
-      "pattern": "^You begin casting Group Resist Magic\\.$",
+      "pattern": "^You begin casting Group Resist Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "buffs/enchanter/cast/guard-of-alendar",
       "name": "Buff timer: Guard of Alendar",
-      "pattern": "^You begin casting Guard of Alendar\\.$",
+      "pattern": "^You begin casting Guard of Alendar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "buffs/enchanter/cast/haunting-visage",
       "name": "Buff timer: Haunting Visage",
-      "pattern": "^You begin casting Haunting Visage\\.$",
+      "pattern": "^You begin casting Haunting Visage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "buffs/enchanter/cast/haze",
       "name": "Buff timer: Haze",
-      "pattern": "^You begin casting Haze\\.$",
+      "pattern": "^You begin casting Haze(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "buffs/enchanter/cast/horrifying-visage",
       "name": "Buff timer: Horrifying Visage",
-      "pattern": "^You begin casting Horrifying Visage\\.$",
+      "pattern": "^You begin casting Horrifying Visage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-air-elemental",
       "name": "Buff timer: Illusion: Air Elemental",
-      "pattern": "^You begin casting Illusion: Air Elemental\\.$",
+      "pattern": "^You begin casting Illusion: Air Elemental(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-akheva",
       "name": "Buff timer: Illusion: Akheva",
-      "pattern": "^You begin casting Illusion: Akheva\\.$",
+      "pattern": "^You begin casting Illusion: Akheva(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-ancient-sarnak-warrior",
       "name": "Buff timer: Illusion: Ancient Sarnak Warrior",
-      "pattern": "^You begin casting Illusion: Ancient Sarnak Warrior\\.$",
+      "pattern": "^You begin casting Illusion: Ancient Sarnak Warrior(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-ancient-yeti",
       "name": "Buff timer: Illusion: Ancient Yeti",
-      "pattern": "^You begin casting Illusion: Ancient Yeti\\.$",
+      "pattern": "^You begin casting Illusion: Ancient Yeti(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-aqua-goblin",
       "name": "Buff timer: Illusion: Aqua Goblin",
-      "pattern": "^You begin casting Illusion: Aqua Goblin\\.$",
+      "pattern": "^You begin casting Illusion: Aqua Goblin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-arcane-scrykin",
       "name": "Buff timer: Illusion: Arcane Scrykin",
-      "pattern": "^You begin casting Illusion: Arcane Scrykin\\.$",
+      "pattern": "^You begin casting Illusion: Arcane Scrykin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1070,7 +1070,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-armored-kunark-goblin",
       "name": "Buff timer: Illusion: Armored Kunark Goblin",
-      "pattern": "^You begin casting Illusion: Armored Kunark Goblin\\.$",
+      "pattern": "^You begin casting Illusion: Armored Kunark Goblin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1096,7 +1096,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-armored-shiliskin",
       "name": "Buff timer: Illusion: Armored Shiliskin",
-      "pattern": "^You begin casting Illusion: Armored Shiliskin\\.$",
+      "pattern": "^You begin casting Illusion: Armored Shiliskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1122,7 +1122,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-aviak-rook",
       "name": "Buff timer: Illusion: Aviak Rook",
-      "pattern": "^You begin casting Illusion: Aviak Rook\\.$",
+      "pattern": "^You begin casting Illusion: Aviak Rook(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1148,7 +1148,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-banshee",
       "name": "Buff timer: Illusion: Banshee",
-      "pattern": "^You begin casting Illusion: Banshee\\.$",
+      "pattern": "^You begin casting Illusion: Banshee(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1174,7 +1174,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-barbarian",
       "name": "Buff timer: Illusion: Barbarian",
-      "pattern": "^You begin casting Illusion: Barbarian\\.$",
+      "pattern": "^You begin casting Illusion: Barbarian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1200,7 +1200,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-barraki",
       "name": "Buff timer: Illusion: Barraki",
-      "pattern": "^You begin casting Illusion: Barraki\\.$",
+      "pattern": "^You begin casting Illusion: Barraki(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1226,7 +1226,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-bixie-drone",
       "name": "Buff timer: Illusion: Bixie Drone",
-      "pattern": "^You begin casting Illusion: Bixie Drone\\.$",
+      "pattern": "^You begin casting Illusion: Bixie Drone(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1252,7 +1252,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-bixie-queen",
       "name": "Buff timer: Illusion: Bixie Queen",
-      "pattern": "^You begin casting Illusion: Bixie Queen\\.$",
+      "pattern": "^You begin casting Illusion: Bixie Queen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1278,7 +1278,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-bixie-soldier",
       "name": "Buff timer: Illusion: Bixie Soldier",
-      "pattern": "^You begin casting Illusion: Bixie Soldier\\.$",
+      "pattern": "^You begin casting Illusion: Bixie Soldier(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1304,7 +1304,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-blood-raven",
       "name": "Buff timer: Illusion: Blood Raven",
-      "pattern": "^You begin casting Illusion: Blood Raven\\.$",
+      "pattern": "^You begin casting Illusion: Blood Raven(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1330,7 +1330,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-blood-red-bellikos",
       "name": "Buff timer: Illusion: Blood Red Bellikos",
-      "pattern": "^You begin casting Illusion: Blood Red Bellikos\\.$",
+      "pattern": "^You begin casting Illusion: Blood Red Bellikos(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1356,7 +1356,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-blood-runed-gargoyle",
       "name": "Buff timer: Illusion: Blood Runed Gargoyle",
-      "pattern": "^You begin casting Illusion: Blood Runed Gargoyle\\.$",
+      "pattern": "^You begin casting Illusion: Blood Runed Gargoyle(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1382,7 +1382,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-boar-beast",
       "name": "Buff timer: Illusion: Boar Beast",
-      "pattern": "^You begin casting Illusion: Boar Beast\\.$",
+      "pattern": "^You begin casting Illusion: Boar Beast(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1408,7 +1408,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-bokon",
       "name": "Buff timer: Illusion: Bokon",
-      "pattern": "^You begin casting Illusion: Bokon\\.$",
+      "pattern": "^You begin casting Illusion: Bokon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1434,7 +1434,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-brell-serilis",
       "name": "Buff timer: Illusion: Brell Serilis",
-      "pattern": "^You begin casting Illusion: Brell Serilis\\.$",
+      "pattern": "^You begin casting Illusion: Brell Serilis(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1460,7 +1460,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-broken-skull-drowned",
       "name": "Buff timer: Illusion: Broken Skull Drowned",
-      "pattern": "^You begin casting Illusion: Broken Skull Drowned\\.$",
+      "pattern": "^You begin casting Illusion: Broken Skull Drowned(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1486,7 +1486,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-brownie",
       "name": "Buff timer: Illusion: Brownie",
-      "pattern": "^You begin casting Illusion: Brownie\\.$",
+      "pattern": "^You begin casting Illusion: Brownie(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1512,7 +1512,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-brownie-noble",
       "name": "Buff timer: Illusion: Brownie Noble",
-      "pattern": "^You begin casting Illusion: Brownie Noble\\.$",
+      "pattern": "^You begin casting Illusion: Brownie Noble(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1538,7 +1538,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-burning-nekhon",
       "name": "Buff timer: Illusion: Burning Nekhon",
-      "pattern": "^You begin casting Illusion: Burning Nekhon\\.$",
+      "pattern": "^You begin casting Illusion: Burning Nekhon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1564,7 +1564,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-butterfly",
       "name": "Buff timer: Illusion: Butterfly",
-      "pattern": "^You begin casting Illusion: Butterfly\\.$",
+      "pattern": "^You begin casting Illusion: Butterfly(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1590,7 +1590,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-candlefolk",
       "name": "Buff timer: Illusion: Candlefolk",
-      "pattern": "^You begin casting Illusion: Candlefolk\\.$",
+      "pattern": "^You begin casting Illusion: Candlefolk(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1616,7 +1616,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-centaur",
       "name": "Buff timer: Illusion: Centaur",
-      "pattern": "^You begin casting Illusion: Centaur\\.$",
+      "pattern": "^You begin casting Illusion: Centaur(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1642,7 +1642,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-centaur-warrior",
       "name": "Buff timer: Illusion: Centaur Warrior",
-      "pattern": "^You begin casting Illusion: Centaur Warrior\\.$",
+      "pattern": "^You begin casting Illusion: Centaur Warrior(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1668,7 +1668,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-combine-orator",
       "name": "Buff timer: Illusion: Combine Orator",
-      "pattern": "^You begin casting Illusion: Combine Orator\\.$",
+      "pattern": "^You begin casting Illusion: Combine Orator(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1694,7 +1694,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-combine-tactician",
       "name": "Buff timer: Illusion: Combine Tactician",
-      "pattern": "^You begin casting Illusion: Combine Tactician\\.$",
+      "pattern": "^You begin casting Illusion: Combine Tactician(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1720,7 +1720,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-corrupt-akhevan",
       "name": "Buff timer: Illusion: Corrupt Akhevan",
-      "pattern": "^You begin casting Illusion: Corrupt Akhevan\\.$",
+      "pattern": "^You begin casting Illusion: Corrupt Akhevan(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1746,7 +1746,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-corrupted-shiliskin",
       "name": "Buff timer: Illusion: Corrupted Shiliskin",
-      "pattern": "^You begin casting Illusion: Corrupted Shiliskin\\.$",
+      "pattern": "^You begin casting Illusion: Corrupted Shiliskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1772,7 +1772,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-crystal-golem",
       "name": "Buff timer: Illusion: Crystal Golem",
-      "pattern": "^You begin casting Illusion: Crystal Golem\\.$",
+      "pattern": "^You begin casting Illusion: Crystal Golem(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1798,7 +1798,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-crystalline-sessiloid",
       "name": "Buff timer: Illusion: Crystalline Sessiloid",
-      "pattern": "^You begin casting Illusion: Crystalline Sessiloid\\.$",
+      "pattern": "^You begin casting Illusion: Crystalline Sessiloid(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1824,7 +1824,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-crystalline-trichordont",
       "name": "Buff timer: Illusion: Crystalline Trichordont",
-      "pattern": "^You begin casting Illusion: Crystalline Trichordont\\.$",
+      "pattern": "^You begin casting Illusion: Crystalline Trichordont(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1850,7 +1850,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dark-bellikos",
       "name": "Buff timer: Illusion: Dark Bellikos",
-      "pattern": "^You begin casting Illusion: Dark Bellikos\\.$",
+      "pattern": "^You begin casting Illusion: Dark Bellikos(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1876,7 +1876,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dark-elf",
       "name": "Buff timer: Illusion: Dark Elf",
-      "pattern": "^You begin casting Illusion: Dark Elf\\.$",
+      "pattern": "^You begin casting Illusion: Dark Elf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1902,7 +1902,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dark-elf-pirate-female",
       "name": "Buff timer: Illusion: Dark Elf Pirate Female",
-      "pattern": "^You begin casting Illusion: Dark Elf Pirate Female\\.$",
+      "pattern": "^You begin casting Illusion: Dark Elf Pirate Female(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1928,7 +1928,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dark-elf-pirate-male",
       "name": "Buff timer: Illusion: Dark Elf Pirate Male",
-      "pattern": "^You begin casting Illusion: Dark Elf Pirate Male\\.$",
+      "pattern": "^You begin casting Illusion: Dark Elf Pirate Male(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1954,7 +1954,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dark-minotaur",
       "name": "Buff timer: Illusion: Dark Minotaur",
-      "pattern": "^You begin casting Illusion: Dark Minotaur\\.$",
+      "pattern": "^You begin casting Illusion: Dark Minotaur(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1980,7 +1980,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-deathfist-pawn",
       "name": "Buff timer: Illusion: Deathfist Pawn",
-      "pattern": "^You begin casting Illusion: Deathfist Pawn\\.$",
+      "pattern": "^You begin casting Illusion: Deathfist Pawn(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2006,7 +2006,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-drachnid",
       "name": "Buff timer: Illusion: Drachnid",
-      "pattern": "^You begin casting Illusion: Drachnid\\.$",
+      "pattern": "^You begin casting Illusion: Drachnid(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2032,7 +2032,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dragorn",
       "name": "Buff timer: Illusion: Dragorn",
-      "pattern": "^You begin casting Illusion: Dragorn\\.$",
+      "pattern": "^You begin casting Illusion: Dragorn(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2058,7 +2058,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-drakkin-of-draton-ra",
       "name": "Buff timer: Illusion: Drakkin of Draton`ra",
-      "pattern": "^You begin casting Illusion: Drakkin of Draton`ra\\.$",
+      "pattern": "^You begin casting Illusion: Drakkin of Draton['`]ra(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2084,7 +2084,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-drakkin-of-osh-vir",
       "name": "Buff timer: Illusion: Drakkin of Osh`vir",
-      "pattern": "^You begin casting Illusion: Drakkin of Osh`vir\\.$",
+      "pattern": "^You begin casting Illusion: Drakkin of Osh['`]vir(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2110,7 +2110,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-drakkin-of-venesh",
       "name": "Buff timer: Illusion: Drakkin of Venesh",
-      "pattern": "^You begin casting Illusion: Drakkin of Venesh\\.$",
+      "pattern": "^You begin casting Illusion: Drakkin of Venesh(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2136,7 +2136,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-drolvarg",
       "name": "Buff timer: Illusion: Drolvarg",
-      "pattern": "^You begin casting Illusion: Drolvarg\\.$",
+      "pattern": "^You begin casting Illusion: Drolvarg(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2162,7 +2162,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dry-bone",
       "name": "Buff timer: Illusion: Dry Bone",
-      "pattern": "^You begin casting Illusion: Dry Bone\\.$",
+      "pattern": "^You begin casting Illusion: Dry Bone(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2188,7 +2188,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dusty-iksar-skeleton",
       "name": "Buff timer: Illusion: Dusty Iksar Skeleton",
-      "pattern": "^You begin casting Illusion: Dusty Iksar Skeleton\\.$",
+      "pattern": "^You begin casting Illusion: Dusty Iksar Skeleton(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2214,7 +2214,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dwarf",
       "name": "Buff timer: Illusion: Dwarf",
-      "pattern": "^You begin casting Illusion: Dwarf\\.$",
+      "pattern": "^You begin casting Illusion: Dwarf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2240,7 +2240,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-dwarven-sentinel",
       "name": "Buff timer: Illusion: Dwarven Sentinel",
-      "pattern": "^You begin casting Illusion: Dwarven Sentinel\\.$",
+      "pattern": "^You begin casting Illusion: Dwarven Sentinel(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2266,7 +2266,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-eagle-aviak",
       "name": "Buff timer: Illusion: Eagle Aviak",
-      "pattern": "^You begin casting Illusion: Eagle Aviak\\.$",
+      "pattern": "^You begin casting Illusion: Eagle Aviak(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2292,7 +2292,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-earth-elemental",
       "name": "Buff timer: Illusion: Earth Elemental",
-      "pattern": "^You begin casting Illusion: Earth Elemental\\.$",
+      "pattern": "^You begin casting Illusion: Earth Elemental(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2318,7 +2318,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-elddar",
       "name": "Buff timer: Illusion: Elddar",
-      "pattern": "^You begin casting Illusion: Elddar\\.$",
+      "pattern": "^You begin casting Illusion: Elddar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2344,7 +2344,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-embattled-minotaur",
       "name": "Buff timer: Illusion: Embattled Minotaur",
-      "pattern": "^You begin casting Illusion: Embattled Minotaur\\.$",
+      "pattern": "^You begin casting Illusion: Embattled Minotaur(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2370,7 +2370,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-enchanted-armor-guardian",
       "name": "Buff timer: Illusion: Enchanted Armor Guardian",
-      "pattern": "^You begin casting Illusion: Enchanted Armor Guardian\\.$",
+      "pattern": "^You begin casting Illusion: Enchanted Armor Guardian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2396,7 +2396,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-erudite",
       "name": "Buff timer: Illusion: Erudite",
-      "pattern": "^You begin casting Illusion: Erudite\\.$",
+      "pattern": "^You begin casting Illusion: Erudite(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2422,7 +2422,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-erudite-pirate-female",
       "name": "Buff timer: Illusion: Erudite Pirate Female",
-      "pattern": "^You begin casting Illusion: Erudite Pirate Female\\.$",
+      "pattern": "^You begin casting Illusion: Erudite Pirate Female(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2448,7 +2448,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-erudite-pirate-male",
       "name": "Buff timer: Illusion: Erudite Pirate Male",
-      "pattern": "^You begin casting Illusion: Erudite Pirate Male\\.$",
+      "pattern": "^You begin casting Illusion: Erudite Pirate Male(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2474,7 +2474,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-evil-eye",
       "name": "Buff timer: Illusion: Evil Eye",
-      "pattern": "^You begin casting Illusion: Evil Eye\\.$",
+      "pattern": "^You begin casting Illusion: Evil Eye(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2500,7 +2500,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-fairy",
       "name": "Buff timer: Illusion: Fairy",
-      "pattern": "^You begin casting Illusion: Fairy\\.$",
+      "pattern": "^You begin casting Illusion: Fairy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2526,7 +2526,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-fallen-knight",
       "name": "Buff timer: Illusion: Fallen Knight",
-      "pattern": "^You begin casting Illusion: Fallen Knight\\.$",
+      "pattern": "^You begin casting Illusion: Fallen Knight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2552,7 +2552,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-fallen-soldier",
       "name": "Buff timer: Illusion: Fallen Soldier",
-      "pattern": "^You begin casting Illusion: Fallen Soldier\\.$",
+      "pattern": "^You begin casting Illusion: Fallen Soldier(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2578,7 +2578,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-faydark-forest-guardian",
       "name": "Buff timer: Illusion: Faydark Forest Guardian",
-      "pattern": "^You begin casting Illusion: Faydark Forest Guardian\\.$",
+      "pattern": "^You begin casting Illusion: Faydark Forest Guardian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2604,7 +2604,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-fire-elemental",
       "name": "Buff timer: Illusion: Fire Elemental",
-      "pattern": "^You begin casting Illusion: Fire Elemental\\.$",
+      "pattern": "^You begin casting Illusion: Fire Elemental(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2630,7 +2630,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-flame-telmira",
       "name": "Buff timer: Illusion: Flame Telmira",
-      "pattern": "^You begin casting Illusion: Flame Telmira\\.$",
+      "pattern": "^You begin casting Illusion: Flame Telmira(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2656,7 +2656,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-flood-telmira",
       "name": "Buff timer: Illusion: Flood Telmira",
-      "pattern": "^You begin casting Illusion: Flood Telmira\\.$",
+      "pattern": "^You begin casting Illusion: Flood Telmira(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2682,7 +2682,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-forest-fairy",
       "name": "Buff timer: Illusion: Forest Fairy",
-      "pattern": "^You begin casting Illusion: Forest Fairy\\.$",
+      "pattern": "^You begin casting Illusion: Forest Fairy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2708,7 +2708,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-fourth-gate-guardian",
       "name": "Buff timer: Illusion: Fourth Gate Guardian",
-      "pattern": "^You begin casting Illusion: Fourth Gate Guardian\\.$",
+      "pattern": "^You begin casting Illusion: Fourth Gate Guardian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2734,7 +2734,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-frost-bone",
       "name": "Buff timer: Illusion: Frost Bone",
-      "pattern": "^You begin casting Illusion: Frost Bone\\.$",
+      "pattern": "^You begin casting Illusion: Frost Bone(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2760,7 +2760,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-frost-goblin",
       "name": "Buff timer: Illusion: Frost Goblin",
-      "pattern": "^You begin casting Illusion: Frost Goblin\\.$",
+      "pattern": "^You begin casting Illusion: Frost Goblin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2786,7 +2786,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-fungal-warrior",
       "name": "Buff timer: Illusion: Fungal Warrior",
-      "pattern": "^You begin casting Illusion: Fungal Warrior\\.$",
+      "pattern": "^You begin casting Illusion: Fungal Warrior(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2812,7 +2812,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-gelatinous-cube",
       "name": "Buff timer: Illusion: Gelatinous Cube",
-      "pattern": "^You begin casting Illusion: Gelatinous Cube\\.$",
+      "pattern": "^You begin casting Illusion: Gelatinous Cube(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2838,7 +2838,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-gelidran",
       "name": "Buff timer: Illusion: Gelidran",
-      "pattern": "^You begin casting Illusion: Gelidran\\.$",
+      "pattern": "^You begin casting Illusion: Gelidran(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2864,7 +2864,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-geonid",
       "name": "Buff timer: Illusion: Geonid",
-      "pattern": "^You begin casting Illusion: Geonid\\.$",
+      "pattern": "^You begin casting Illusion: Geonid(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2890,7 +2890,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-gilded-gnomework",
       "name": "Buff timer: Illusion: Gilded Gnomework",
-      "pattern": "^You begin casting Illusion: Gilded Gnomework\\.$",
+      "pattern": "^You begin casting Illusion: Gilded Gnomework(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2916,7 +2916,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-gingerbread-man",
       "name": "Buff timer: Illusion: Gingerbread Man",
-      "pattern": "^You begin casting Illusion: Gingerbread Man\\.$",
+      "pattern": "^You begin casting Illusion: Gingerbread Man(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2942,7 +2942,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-girplan",
       "name": "Buff timer: Illusion: Girplan",
-      "pattern": "^You begin casting Illusion: Girplan\\.$",
+      "pattern": "^You begin casting Illusion: Girplan(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2968,7 +2968,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-gnome",
       "name": "Buff timer: Illusion: Gnome",
-      "pattern": "^You begin casting Illusion: Gnome\\.$",
+      "pattern": "^You begin casting Illusion: Gnome(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2994,7 +2994,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-gnomish-pirate",
       "name": "Buff timer: Illusion: Gnomish Pirate",
-      "pattern": "^You begin casting Illusion: Gnomish Pirate\\.$",
+      "pattern": "^You begin casting Illusion: Gnomish Pirate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3020,7 +3020,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-goblin-king",
       "name": "Buff timer: Illusion: Goblin King",
-      "pattern": "^You begin casting Illusion: Goblin King\\.$",
+      "pattern": "^You begin casting Illusion: Goblin King(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3046,7 +3046,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-grand-overseer",
       "name": "Buff timer: Illusion: Grand Overseer",
-      "pattern": "^You begin casting Illusion: Grand Overseer\\.$",
+      "pattern": "^You begin casting Illusion: Grand Overseer(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3072,7 +3072,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-grimling",
       "name": "Buff timer: Illusion: Grimling",
-      "pattern": "^You begin casting Illusion: Grimling\\.$",
+      "pattern": "^You begin casting Illusion: Grimling(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3098,7 +3098,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-guktan",
       "name": "Buff timer: Illusion: Guktan",
-      "pattern": "^You begin casting Illusion: Guktan\\.$",
+      "pattern": "^You begin casting Illusion: Guktan(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3124,7 +3124,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-hadal-templar",
       "name": "Buff timer: Illusion: Hadal Templar",
-      "pattern": "^You begin casting Illusion: Hadal Templar\\.$",
+      "pattern": "^You begin casting Illusion: Hadal Templar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3150,7 +3150,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-half-elf",
       "name": "Buff timer: Illusion: Half-Elf",
-      "pattern": "^You begin casting Illusion: Half-Elf\\.$",
+      "pattern": "^You begin casting Illusion: Half-Elf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3176,7 +3176,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-halfling",
       "name": "Buff timer: Illusion: Halfling",
-      "pattern": "^You begin casting Illusion: Halfling\\.$",
+      "pattern": "^You begin casting Illusion: Halfling(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3202,7 +3202,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-harpy-queen",
       "name": "Buff timer: Illusion: Harpy Queen",
-      "pattern": "^You begin casting Illusion: Harpy Queen\\.$",
+      "pattern": "^You begin casting Illusion: Harpy Queen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3228,7 +3228,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-hideous-harpy",
       "name": "Buff timer: Illusion: Hideous Harpy",
-      "pattern": "^You begin casting Illusion: Hideous Harpy\\.$",
+      "pattern": "^You begin casting Illusion: Hideous Harpy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3254,7 +3254,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-high-elf",
       "name": "Buff timer: Illusion: High Elf",
-      "pattern": "^You begin casting Illusion: High Elf\\.$",
+      "pattern": "^You begin casting Illusion: High Elf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3280,7 +3280,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-hooded-scrykin",
       "name": "Buff timer: Illusion: Hooded Scrykin",
-      "pattern": "^You begin casting Illusion: Hooded Scrykin\\.$",
+      "pattern": "^You begin casting Illusion: Hooded Scrykin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3306,7 +3306,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-hraquis-hunter",
       "name": "Buff timer: Illusion: Hraquis Hunter",
-      "pattern": "^You begin casting Illusion: Hraquis Hunter\\.$",
+      "pattern": "^You begin casting Illusion: Hraquis Hunter(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3332,7 +3332,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-human",
       "name": "Buff timer: Illusion: Human",
-      "pattern": "^You begin casting Illusion: Human\\.$",
+      "pattern": "^You begin casting Illusion: Human(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3358,7 +3358,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-human-pirate-female",
       "name": "Buff timer: Illusion: Human Pirate Female",
-      "pattern": "^You begin casting Illusion: Human Pirate Female\\.$",
+      "pattern": "^You begin casting Illusion: Human Pirate Female(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3384,7 +3384,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-human-pirate-male",
       "name": "Buff timer: Illusion: Human Pirate Male",
-      "pattern": "^You begin casting Illusion: Human Pirate Male\\.$",
+      "pattern": "^You begin casting Illusion: Human Pirate Male(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3410,7 +3410,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-ice-giant",
       "name": "Buff timer: Illusion: Ice Giant",
-      "pattern": "^You begin casting Illusion: Ice Giant\\.$",
+      "pattern": "^You begin casting Illusion: Ice Giant(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3436,7 +3436,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-ice-golem",
       "name": "Buff timer: Illusion: Ice Golem",
-      "pattern": "^You begin casting Illusion: Ice Golem\\.$",
+      "pattern": "^You begin casting Illusion: Ice Golem(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3462,7 +3462,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-iksar",
       "name": "Buff timer: Illusion: Iksar",
-      "pattern": "^You begin casting Illusion: Iksar\\.$",
+      "pattern": "^You begin casting Illusion: Iksar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3488,7 +3488,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-iksar-skeleton",
       "name": "Buff timer: Illusion: Iksar Skeleton",
-      "pattern": "^You begin casting Illusion: Iksar Skeleton\\.$",
+      "pattern": "^You begin casting Illusion: Iksar Skeleton(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3514,7 +3514,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-imp",
       "name": "Buff timer: Illusion: Imp",
-      "pattern": "^You begin casting Illusion: Imp\\.$",
+      "pattern": "^You begin casting Illusion: Imp(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3540,7 +3540,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-iron-toothed-earthdigger",
       "name": "Buff timer: Illusion: Iron-Toothed Earthdigger",
-      "pattern": "^You begin casting Illusion: Iron-Toothed Earthdigger\\.$",
+      "pattern": "^You begin casting Illusion: Iron-Toothed Earthdigger(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3566,7 +3566,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-izon",
       "name": "Buff timer: Illusion: Izon",
-      "pattern": "^You begin casting Illusion: Izon\\.$",
+      "pattern": "^You begin casting Illusion: Izon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3592,7 +3592,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-junkyard-gnomework",
       "name": "Buff timer: Illusion: Junkyard Gnomework",
-      "pattern": "^You begin casting Illusion: Junkyard Gnomework\\.$",
+      "pattern": "^You begin casting Illusion: Junkyard Gnomework(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3618,7 +3618,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-kedge",
       "name": "Buff timer: Illusion: Kedge",
-      "pattern": "^You begin casting Illusion: Kedge\\.$",
+      "pattern": "^You begin casting Illusion: Kedge(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3644,7 +3644,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-kobold-king",
       "name": "Buff timer: Illusion: Kobold King",
-      "pattern": "^You begin casting Illusion: Kobold King\\.$",
+      "pattern": "^You begin casting Illusion: Kobold King(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3670,7 +3670,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-kobold-serf",
       "name": "Buff timer: Illusion: Kobold Serf",
-      "pattern": "^You begin casting Illusion: Kobold Serf\\.$",
+      "pattern": "^You begin casting Illusion: Kobold Serf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3696,7 +3696,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-lightning-warrior",
       "name": "Buff timer: Illusion: Lightning Warrior",
-      "pattern": "^You begin casting Illusion: Lightning Warrior\\.$",
+      "pattern": "^You begin casting Illusion: Lightning Warrior(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3722,7 +3722,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-lord-gorelik",
       "name": "Buff timer: Illusion: Lord Gorelik",
-      "pattern": "^You begin casting Illusion: Lord Gorelik\\.$",
+      "pattern": "^You begin casting Illusion: Lord Gorelik(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3748,7 +3748,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-mastruq",
       "name": "Buff timer: Illusion: Mastruq",
-      "pattern": "^You begin casting Illusion: Mastruq\\.$",
+      "pattern": "^You begin casting Illusion: Mastruq(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3774,7 +3774,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-mother-of-the-ayr-dal",
       "name": "Buff timer: Illusion: Mother of the Ayr`Dal",
-      "pattern": "^You begin casting Illusion: Mother of the Ayr`Dal\\.$",
+      "pattern": "^You begin casting Illusion: Mother of the Ayr['`]Dal(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3800,7 +3800,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-oathsworn-giant",
       "name": "Buff timer: Illusion: Oathsworn Giant",
-      "pattern": "^You begin casting Illusion: Oathsworn Giant\\.$",
+      "pattern": "^You begin casting Illusion: Oathsworn Giant(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3826,7 +3826,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-obulus-skeleton",
       "name": "Buff timer: Illusion: Obulus Skeleton",
-      "pattern": "^You begin casting Illusion: Obulus Skeleton\\.$",
+      "pattern": "^You begin casting Illusion: Obulus Skeleton(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3852,7 +3852,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-ogre",
       "name": "Buff timer: Illusion: Ogre",
-      "pattern": "^You begin casting Illusion: Ogre\\.$",
+      "pattern": "^You begin casting Illusion: Ogre(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3878,7 +3878,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-ogre-pirate",
       "name": "Buff timer: Illusion: Ogre Pirate",
-      "pattern": "^You begin casting Illusion: Ogre Pirate\\.$",
+      "pattern": "^You begin casting Illusion: Ogre Pirate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3904,7 +3904,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-orc",
       "name": "Buff timer: Illusion: Orc",
-      "pattern": "^You begin casting Illusion: Orc\\.$",
+      "pattern": "^You begin casting Illusion: Orc(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3930,7 +3930,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-othmir-gentleman",
       "name": "Buff timer: Illusion: Othmir Gentleman",
-      "pattern": "^You begin casting Illusion: Othmir Gentleman\\.$",
+      "pattern": "^You begin casting Illusion: Othmir Gentleman(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3956,7 +3956,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-paineel-skeleton-guard",
       "name": "Buff timer: Illusion: Paineel Skeleton Guard",
-      "pattern": "^You begin casting Illusion: Paineel Skeleton Guard\\.$",
+      "pattern": "^You begin casting Illusion: Paineel Skeleton Guard(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3982,7 +3982,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-phantom-froglok",
       "name": "Buff timer: Illusion: Phantom Froglok",
-      "pattern": "^You begin casting Illusion: Phantom Froglok\\.$",
+      "pattern": "^You begin casting Illusion: Phantom Froglok(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4008,7 +4008,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-plaguebringer",
       "name": "Buff timer: Illusion: Plaguebringer",
-      "pattern": "^You begin casting Illusion: Plaguebringer\\.$",
+      "pattern": "^You begin casting Illusion: Plaguebringer(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4034,7 +4034,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-plains-wyvern",
       "name": "Buff timer: Illusion: Plains Wyvern",
-      "pattern": "^You begin casting Illusion: Plains Wyvern\\.$",
+      "pattern": "^You begin casting Illusion: Plains Wyvern(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4060,7 +4060,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-polar-bear",
       "name": "Buff timer: Illusion: Polar Bear",
-      "pattern": "^You begin casting Illusion: Polar Bear\\.$",
+      "pattern": "^You begin casting Illusion: Polar Bear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4086,7 +4086,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-primal-kerran",
       "name": "Buff timer: Illusion: Primal Kerran",
-      "pattern": "^You begin casting Illusion: Primal Kerran\\.$",
+      "pattern": "^You begin casting Illusion: Primal Kerran(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4112,7 +4112,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-pyrilen",
       "name": "Buff timer: Illusion: Pyrilen",
-      "pattern": "^You begin casting Illusion: Pyrilen\\.$",
+      "pattern": "^You begin casting Illusion: Pyrilen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4138,7 +4138,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-queen-velazul-di-zok",
       "name": "Buff timer: Illusion: Queen Velazul Di`Zok",
-      "pattern": "^You begin casting Illusion: Queen Velazul Di`Zok\\.$",
+      "pattern": "^You begin casting Illusion: Queen Velazul Di['`]Zok(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4164,7 +4164,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-rallosian-goblin",
       "name": "Buff timer: Illusion: Rallosian Goblin",
-      "pattern": "^You begin casting Illusion: Rallosian Goblin\\.$",
+      "pattern": "^You begin casting Illusion: Rallosian Goblin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4190,7 +4190,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-rallosian-ogre",
       "name": "Buff timer: Illusion: Rallosian Ogre",
-      "pattern": "^You begin casting Illusion: Rallosian Ogre\\.$",
+      "pattern": "^You begin casting Illusion: Rallosian Ogre(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4216,7 +4216,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-raptor-predator",
       "name": "Buff timer: Illusion: Raptor Predator",
-      "pattern": "^You begin casting Illusion: Raptor Predator\\.$",
+      "pattern": "^You begin casting Illusion: Raptor Predator(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4242,7 +4242,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-recluse-spider",
       "name": "Buff timer: Illusion: Recluse Spider",
-      "pattern": "^You begin casting Illusion: Recluse Spider\\.$",
+      "pattern": "^You begin casting Illusion: Recluse Spider(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4268,7 +4268,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-regal-vampire-female",
       "name": "Buff timer: Illusion: Regal Vampire Female",
-      "pattern": "^You begin casting Illusion: Regal Vampire Female\\.$",
+      "pattern": "^You begin casting Illusion: Regal Vampire Female(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4294,7 +4294,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-regal-vampire-male",
       "name": "Buff timer: Illusion: Regal Vampire Male",
-      "pattern": "^You begin casting Illusion: Regal Vampire Male\\.$",
+      "pattern": "^You begin casting Illusion: Regal Vampire Male(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4320,7 +4320,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-relife",
       "name": "Buff timer: Illusion: Relife",
-      "pattern": "^You begin casting Illusion: Relife\\.$",
+      "pattern": "^You begin casting Illusion: Relife(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4346,7 +4346,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-restless-cadaver",
       "name": "Buff timer: Illusion: Restless Cadaver",
-      "pattern": "^You begin casting Illusion: Restless Cadaver\\.$",
+      "pattern": "^You begin casting Illusion: Restless Cadaver(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4372,7 +4372,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-restless-coldain",
       "name": "Buff timer: Illusion: Restless Coldain",
-      "pattern": "^You begin casting Illusion: Restless Coldain\\.$",
+      "pattern": "^You begin casting Illusion: Restless Coldain(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4398,7 +4398,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-rivervale-deputy",
       "name": "Buff timer: Illusion: Rivervale Deputy",
-      "pattern": "^You begin casting Illusion: Rivervale Deputy\\.$",
+      "pattern": "^You begin casting Illusion: Rivervale Deputy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4424,7 +4424,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-robed-scrykin",
       "name": "Buff timer: Illusion: Robed Scrykin",
-      "pattern": "^You begin casting Illusion: Robed Scrykin\\.$",
+      "pattern": "^You begin casting Illusion: Robed Scrykin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4450,7 +4450,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-runic-tattoo-nihil-female",
       "name": "Buff timer: Illusion: Runic Tattoo Nihil Female",
-      "pattern": "^You begin casting Illusion: Runic Tattoo Nihil Female\\.$",
+      "pattern": "^You begin casting Illusion: Runic Tattoo Nihil Female(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4476,7 +4476,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-runic-tattoo-nihil-male",
       "name": "Buff timer: Illusion: Runic Tattoo Nihil Male",
-      "pattern": "^You begin casting Illusion: Runic Tattoo Nihil Male\\.$",
+      "pattern": "^You begin casting Illusion: Runic Tattoo Nihil Male(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4502,7 +4502,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-sarnak-skeleton",
       "name": "Buff timer: Illusion: Sarnak Skeleton",
-      "pattern": "^You begin casting Illusion: Sarnak Skeleton\\.$",
+      "pattern": "^You begin casting Illusion: Sarnak Skeleton(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4528,7 +4528,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-sarnak-warrior",
       "name": "Buff timer: Illusion: Sarnak Warrior",
-      "pattern": "^You begin casting Illusion: Sarnak Warrior\\.$",
+      "pattern": "^You begin casting Illusion: Sarnak Warrior(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4554,7 +4554,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-scaled-wolf",
       "name": "Buff timer: Illusion: Scaled Wolf",
-      "pattern": "^You begin casting Illusion: Scaled Wolf\\.$",
+      "pattern": "^You begin casting Illusion: Scaled Wolf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4580,7 +4580,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-scrykin-herald",
       "name": "Buff timer: Illusion: Scrykin Herald",
-      "pattern": "^You begin casting Illusion: Scrykin Herald\\.$",
+      "pattern": "^You begin casting Illusion: Scrykin Herald(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4606,7 +4606,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-shade",
       "name": "Buff timer: Illusion: Shade",
-      "pattern": "^You begin casting Illusion: Shade\\.$",
+      "pattern": "^You begin casting Illusion: Shade(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4632,7 +4632,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-shadow-nekhon",
       "name": "Buff timer: Illusion: Shadow Nekhon",
-      "pattern": "^You begin casting Illusion: Shadow Nekhon\\.$",
+      "pattern": "^You begin casting Illusion: Shadow Nekhon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4658,7 +4658,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-shiny-steam-suit",
       "name": "Buff timer: Illusion: Shiny Steam Suit",
-      "pattern": "^You begin casting Illusion: Shiny Steam Suit\\.$",
+      "pattern": "^You begin casting Illusion: Shiny Steam Suit(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4684,7 +4684,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-shissar",
       "name": "Buff timer: Illusion: Shissar",
-      "pattern": "^You begin casting Illusion: Shissar\\.$",
+      "pattern": "^You begin casting Illusion: Shissar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4710,7 +4710,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-shissar-priest",
       "name": "Buff timer: Illusion: Shissar Priest",
-      "pattern": "^You begin casting Illusion: Shissar Priest\\.$",
+      "pattern": "^You begin casting Illusion: Shissar Priest(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4736,7 +4736,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-silver-gnomework",
       "name": "Buff timer: Illusion: Silver Gnomework",
-      "pattern": "^You begin casting Illusion: Silver Gnomework\\.$",
+      "pattern": "^You begin casting Illusion: Silver Gnomework(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4762,7 +4762,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-simple-bellikos",
       "name": "Buff timer: Illusion: Simple Bellikos",
-      "pattern": "^You begin casting Illusion: Simple Bellikos\\.$",
+      "pattern": "^You begin casting Illusion: Simple Bellikos(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4788,7 +4788,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-simple-gnoll",
       "name": "Buff timer: Illusion: Simple Gnoll",
-      "pattern": "^You begin casting Illusion: Simple Gnoll\\.$",
+      "pattern": "^You begin casting Illusion: Simple Gnoll(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4814,7 +4814,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-simple-gnomework",
       "name": "Buff timer: Illusion: Simple Gnomework",
-      "pattern": "^You begin casting Illusion: Simple Gnomework\\.$",
+      "pattern": "^You begin casting Illusion: Simple Gnomework(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4840,7 +4840,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-siren-enticer",
       "name": "Buff timer: Illusion: Siren Enticer",
-      "pattern": "^You begin casting Illusion: Siren Enticer\\.$",
+      "pattern": "^You begin casting Illusion: Siren Enticer(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4866,7 +4866,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-siren-sorceress",
       "name": "Buff timer: Illusion: Siren Sorceress",
-      "pattern": "^You begin casting Illusion: Siren Sorceress\\.$",
+      "pattern": "^You begin casting Illusion: Siren Sorceress(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4892,7 +4892,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-skeleton",
       "name": "Buff timer: Illusion: Skeleton",
-      "pattern": "^You begin casting Illusion: Skeleton\\.$",
+      "pattern": "^You begin casting Illusion: Skeleton(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4918,7 +4918,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-snow-kobold",
       "name": "Buff timer: Illusion: Snow Kobold",
-      "pattern": "^You begin casting Illusion: Snow Kobold\\.$",
+      "pattern": "^You begin casting Illusion: Snow Kobold(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4944,7 +4944,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-spectre",
       "name": "Buff timer: Illusion: Spectre",
-      "pattern": "^You begin casting Illusion: Spectre\\.$",
+      "pattern": "^You begin casting Illusion: Spectre(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4970,7 +4970,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-spellbound-armor",
       "name": "Buff timer: Illusion: Spellbound Armor",
-      "pattern": "^You begin casting Illusion: Spellbound Armor\\.$",
+      "pattern": "^You begin casting Illusion: Spellbound Armor(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -4996,7 +4996,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-spirit-wolf",
       "name": "Buff timer: Illusion: Spirit Wolf",
-      "pattern": "^You begin casting Illusion: Spirit Wolf\\.$",
+      "pattern": "^You begin casting Illusion: Spirit Wolf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5022,7 +5022,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-spirited-satyr",
       "name": "Buff timer: Illusion: Spirited Satyr",
-      "pattern": "^You begin casting Illusion: Spirited Satyr\\.$",
+      "pattern": "^You begin casting Illusion: Spirited Satyr(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5048,7 +5048,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-steam-suit",
       "name": "Buff timer: Illusion: Steam Suit",
-      "pattern": "^You begin casting Illusion: Steam Suit\\.$",
+      "pattern": "^You begin casting Illusion: Steam Suit(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5074,7 +5074,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-stone-gargoyle",
       "name": "Buff timer: Illusion: Stone Gargoyle",
-      "pattern": "^You begin casting Illusion: Stone Gargoyle\\.$",
+      "pattern": "^You begin casting Illusion: Stone Gargoyle(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5100,7 +5100,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-stonegrabber",
       "name": "Buff timer: Illusion: Stonegrabber",
-      "pattern": "^You begin casting Illusion: Stonegrabber\\.$",
+      "pattern": "^You begin casting Illusion: Stonegrabber(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5126,7 +5126,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-swifttail-grandmaster",
       "name": "Buff timer: Illusion: Swifttail Grandmaster",
-      "pattern": "^You begin casting Illusion: Swifttail Grandmaster\\.$",
+      "pattern": "^You begin casting Illusion: Swifttail Grandmaster(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5152,7 +5152,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-tae-ew-lizardman",
       "name": "Buff timer: Illusion: Tae Ew Lizardman",
-      "pattern": "^You begin casting Illusion: Tae Ew Lizardman\\.$",
+      "pattern": "^You begin casting Illusion: Tae Ew Lizardman(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5178,7 +5178,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-tree",
       "name": "Buff timer: Illusion: Tree",
-      "pattern": "^You begin casting Illusion: Tree\\.$",
+      "pattern": "^You begin casting Illusion: Tree(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5204,7 +5204,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-troll",
       "name": "Buff timer: Illusion: Troll",
-      "pattern": "^You begin casting Illusion: Troll\\.$",
+      "pattern": "^You begin casting Illusion: Troll(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5230,7 +5230,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-twisted-gnomework",
       "name": "Buff timer: Illusion: Twisted Gnomework",
-      "pattern": "^You begin casting Illusion: Twisted Gnomework\\.$",
+      "pattern": "^You begin casting Illusion: Twisted Gnomework(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5256,7 +5256,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-tyrannosaurus",
       "name": "Buff timer: Illusion: Tyrannosaurus",
-      "pattern": "^You begin casting Illusion: Tyrannosaurus\\.$",
+      "pattern": "^You begin casting Illusion: Tyrannosaurus(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5282,7 +5282,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-undead-gnoll",
       "name": "Buff timer: Illusion: Undead Gnoll",
-      "pattern": "^You begin casting Illusion: Undead Gnoll\\.$",
+      "pattern": "^You begin casting Illusion: Undead Gnoll(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5308,7 +5308,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-undead-servant",
       "name": "Buff timer: Illusion: Undead Servant",
-      "pattern": "^You begin casting Illusion: Undead Servant\\.$",
+      "pattern": "^You begin casting Illusion: Undead Servant(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5334,7 +5334,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-vah-shir",
       "name": "Buff timer: Illusion: Vah Shir",
-      "pattern": "^You begin casting Illusion: Vah Shir\\.$",
+      "pattern": "^You begin casting Illusion: Vah Shir(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5360,7 +5360,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-valkyrie",
       "name": "Buff timer: Illusion: Valkyrie",
-      "pattern": "^You begin casting Illusion: Valkyrie\\.$",
+      "pattern": "^You begin casting Illusion: Valkyrie(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5386,7 +5386,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-the-gnomework",
       "name": "Buff timer: Illusion: Visage of The Gnomework",
-      "pattern": "^You begin casting Illusion: Visage of The Gnomework\\.$",
+      "pattern": "^You begin casting Illusion: Visage of The Gnomework(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5412,7 +5412,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-vaniki",
       "name": "Buff timer: Illusion: Visage of Vaniki",
-      "pattern": "^You begin casting Illusion: Visage of Vaniki\\.$",
+      "pattern": "^You begin casting Illusion: Visage of Vaniki(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5438,7 +5438,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-the-bixie-worker",
       "name": "Buff timer: Illusion: Visage of the Bixie Worker",
-      "pattern": "^You begin casting Illusion: Visage of the Bixie Worker\\.$",
+      "pattern": "^You begin casting Illusion: Visage of the Bixie Worker(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5464,7 +5464,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-the-gigyn",
       "name": "Buff timer: Illusion: Visage of the Gigyn",
-      "pattern": "^You begin casting Illusion: Visage of the Gigyn\\.$",
+      "pattern": "^You begin casting Illusion: Visage of the Gigyn(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5490,7 +5490,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-vitrik",
       "name": "Buff timer: Illusion: Vitrik",
-      "pattern": "^You begin casting Illusion: Vitrik\\.$",
+      "pattern": "^You begin casting Illusion: Vitrik(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5516,7 +5516,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-warmly-clad-coldain",
       "name": "Buff timer: Illusion: Warmly Clad Coldain",
-      "pattern": "^You begin casting Illusion: Warmly Clad Coldain\\.$",
+      "pattern": "^You begin casting Illusion: Warmly Clad Coldain(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5542,7 +5542,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-warped-chetari",
       "name": "Buff timer: Illusion: Warped Chetari",
-      "pattern": "^You begin casting Illusion: Warped Chetari\\.$",
+      "pattern": "^You begin casting Illusion: Warped Chetari(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5568,7 +5568,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-water-elemental",
       "name": "Buff timer: Illusion: Water Elemental",
-      "pattern": "^You begin casting Illusion: Water Elemental\\.$",
+      "pattern": "^You begin casting Illusion: Water Elemental(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5594,7 +5594,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-werewolf",
       "name": "Buff timer: Illusion: Werewolf",
-      "pattern": "^You begin casting Illusion: Werewolf\\.$",
+      "pattern": "^You begin casting Illusion: Werewolf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5620,7 +5620,7 @@
     {
       "id": "buffs/enchanter/cast/illusion-wood-elf",
       "name": "Buff timer: Illusion: Wood Elf",
-      "pattern": "^You begin casting Illusion: Wood Elf\\.$",
+      "pattern": "^You begin casting Illusion: Wood Elf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5646,7 +5646,7 @@
     {
       "id": "buffs/enchanter/cast/improved-invisibility",
       "name": "Buff timer: Improved Invisibility",
-      "pattern": "^You begin casting Improved Invisibility\\.$",
+      "pattern": "^You begin casting Improved Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5672,7 +5672,7 @@
     {
       "id": "buffs/enchanter/cast/insight",
       "name": "Buff timer: Insight",
-      "pattern": "^You begin casting Insight\\.$",
+      "pattern": "^You begin casting Insight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5698,7 +5698,7 @@
     {
       "id": "buffs/enchanter/cast/intellectual-advancement",
       "name": "Buff timer: Intellectual Advancement",
-      "pattern": "^You begin casting Intellectual Advancement\\.$",
+      "pattern": "^You begin casting Intellectual Advancement(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5724,7 +5724,7 @@
     {
       "id": "buffs/enchanter/cast/intellectual-superiority",
       "name": "Buff timer: Intellectual Superiority",
-      "pattern": "^You begin casting Intellectual Superiority\\.$",
+      "pattern": "^You begin casting Intellectual Superiority(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5750,7 +5750,7 @@
     {
       "id": "buffs/enchanter/cast/invisibility",
       "name": "Buff timer: Invisibility",
-      "pattern": "^You begin casting Invisibility\\.$",
+      "pattern": "^You begin casting Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5776,7 +5776,7 @@
     {
       "id": "buffs/enchanter/cast/invisibility-versus-undead",
       "name": "Buff timer: Invisibility Versus Undead",
-      "pattern": "^You begin casting Invisibility Versus Undead\\.$",
+      "pattern": "^You begin casting Invisibility Versus Undead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5802,7 +5802,7 @@
     {
       "id": "buffs/enchanter/cast/koadic-s-endless-intellect",
       "name": "Buff timer: Koadic's Endless Intellect",
-      "pattern": "^You begin casting Koadic's Endless Intellect\\.$",
+      "pattern": "^You begin casting Koadic['`]s Endless Intellect(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5828,7 +5828,7 @@
     {
       "id": "buffs/enchanter/cast/leviathan-eyes",
       "name": "Buff timer: Leviathan Eyes",
-      "pattern": "^You begin casting Leviathan Eyes\\.$",
+      "pattern": "^You begin casting Leviathan Eyes(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5854,7 +5854,7 @@
     {
       "id": "buffs/enchanter/cast/levitate",
       "name": "Buff timer: Levitate",
-      "pattern": "^You begin casting Levitate\\.$",
+      "pattern": "^You begin casting Levitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5880,7 +5880,7 @@
     {
       "id": "buffs/enchanter/cast/levitation",
       "name": "Buff timer: Levitation",
-      "pattern": "^You begin casting Levitation\\.$",
+      "pattern": "^You begin casting Levitation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5906,7 +5906,7 @@
     {
       "id": "buffs/enchanter/cast/lull",
       "name": "Buff timer: Lull",
-      "pattern": "^You begin casting Lull\\.$",
+      "pattern": "^You begin casting Lull(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5932,7 +5932,7 @@
     {
       "id": "buffs/enchanter/cast/minor-illusion",
       "name": "Buff timer: Minor Illusion",
-      "pattern": "^You begin casting Minor Illusion\\.$",
+      "pattern": "^You begin casting Minor Illusion(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5958,7 +5958,7 @@
     {
       "id": "buffs/enchanter/cast/mist",
       "name": "Buff timer: Mist",
-      "pattern": "^You begin casting Mist\\.$",
+      "pattern": "^You begin casting Mist(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -5984,7 +5984,7 @@
     {
       "id": "buffs/enchanter/cast/obscure",
       "name": "Buff timer: Obscure",
-      "pattern": "^You begin casting Obscure\\.$",
+      "pattern": "^You begin casting Obscure(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6010,7 +6010,7 @@
     {
       "id": "buffs/enchanter/cast/overwhelming-splendor",
       "name": "Buff timer: Overwhelming Splendor",
-      "pattern": "^You begin casting Overwhelming Splendor\\.$",
+      "pattern": "^You begin casting Overwhelming Splendor(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6036,7 +6036,7 @@
     {
       "id": "buffs/enchanter/cast/pacify",
       "name": "Buff timer: Pacify",
-      "pattern": "^You begin casting Pacify\\.$",
+      "pattern": "^You begin casting Pacify(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6062,7 +6062,7 @@
     {
       "id": "buffs/enchanter/cast/protection-of-alendar",
       "name": "Buff timer: Protection of Alendar",
-      "pattern": "^You begin casting Protection of Alendar\\.$",
+      "pattern": "^You begin casting Protection of Alendar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6088,7 +6088,7 @@
     {
       "id": "buffs/enchanter/cast/quickness",
       "name": "Buff timer: Quickness",
-      "pattern": "^You begin casting Quickness\\.$",
+      "pattern": "^You begin casting Quickness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6114,7 +6114,7 @@
     {
       "id": "buffs/enchanter/cast/radiant-visage",
       "name": "Buff timer: Radiant Visage",
-      "pattern": "^You begin casting Radiant Visage\\.$",
+      "pattern": "^You begin casting Radiant Visage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6140,7 +6140,7 @@
     {
       "id": "buffs/enchanter/cast/rampage",
       "name": "Buff timer: Rampage",
-      "pattern": "^You begin casting Rampage\\.$",
+      "pattern": "^You begin casting Rampage(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6166,7 +6166,7 @@
     {
       "id": "buffs/enchanter/cast/resist-magic",
       "name": "Buff timer: Resist Magic",
-      "pattern": "^You begin casting Resist Magic\\.$",
+      "pattern": "^You begin casting Resist Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6192,7 +6192,7 @@
     {
       "id": "buffs/enchanter/cast/rune-i",
       "name": "Buff timer: Rune I",
-      "pattern": "^You begin casting Rune I\\.$",
+      "pattern": "^You begin casting Rune I(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6218,7 +6218,7 @@
     {
       "id": "buffs/enchanter/cast/rune-ii",
       "name": "Buff timer: Rune II",
-      "pattern": "^You begin casting Rune II\\.$",
+      "pattern": "^You begin casting Rune II(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6244,7 +6244,7 @@
     {
       "id": "buffs/enchanter/cast/rune-iii",
       "name": "Buff timer: Rune III",
-      "pattern": "^You begin casting Rune III\\.$",
+      "pattern": "^You begin casting Rune III(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6270,7 +6270,7 @@
     {
       "id": "buffs/enchanter/cast/rune-iv",
       "name": "Buff timer: Rune IV",
-      "pattern": "^You begin casting Rune IV\\.$",
+      "pattern": "^You begin casting Rune IV(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6296,7 +6296,7 @@
     {
       "id": "buffs/enchanter/cast/rune-v",
       "name": "Buff timer: Rune V",
-      "pattern": "^You begin casting Rune V\\.$",
+      "pattern": "^You begin casting Rune V(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6322,7 +6322,7 @@
     {
       "id": "buffs/enchanter/cast/see-invisible",
       "name": "Buff timer: See Invisible",
-      "pattern": "^You begin casting See Invisible\\.$",
+      "pattern": "^You begin casting See Invisible(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6348,7 +6348,7 @@
     {
       "id": "buffs/enchanter/cast/serpent-sight",
       "name": "Buff timer: Serpent Sight",
-      "pattern": "^You begin casting Serpent Sight\\.$",
+      "pattern": "^You begin casting Serpent Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6374,7 +6374,7 @@
     {
       "id": "buffs/enchanter/cast/shade",
       "name": "Buff timer: Shade",
-      "pattern": "^You begin casting Shade\\.$",
+      "pattern": "^You begin casting Shade(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6400,7 +6400,7 @@
     {
       "id": "buffs/enchanter/cast/shadow",
       "name": "Buff timer: Shadow",
-      "pattern": "^You begin casting Shadow\\.$",
+      "pattern": "^You begin casting Shadow(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6426,7 +6426,7 @@
     {
       "id": "buffs/enchanter/cast/shield-of-the-magi",
       "name": "Buff timer: Shield of the Magi",
-      "pattern": "^You begin casting Shield of the Magi\\.$",
+      "pattern": "^You begin casting Shield of the Magi(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6452,7 +6452,7 @@
     {
       "id": "buffs/enchanter/cast/shifting-sight",
       "name": "Buff timer: Shifting Sight",
-      "pattern": "^You begin casting Shifting Sight\\.$",
+      "pattern": "^You begin casting Shifting Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6478,7 +6478,7 @@
     {
       "id": "buffs/enchanter/cast/soothe",
       "name": "Buff timer: Soothe",
-      "pattern": "^You begin casting Soothe\\.$",
+      "pattern": "^You begin casting Soothe(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6504,7 +6504,7 @@
     {
       "id": "buffs/enchanter/cast/speed-of-the-brood",
       "name": "Buff timer: Speed of the Brood",
-      "pattern": "^You begin casting Speed of the Brood\\.$",
+      "pattern": "^You begin casting Speed of the Brood(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6530,7 +6530,7 @@
     {
       "id": "buffs/enchanter/cast/spell-illusion-badger",
       "name": "Buff timer: Spell: Illusion: Badger",
-      "pattern": "^You begin casting Spell: Illusion: Badger\\.$",
+      "pattern": "^You begin casting Spell: Illusion: Badger(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6556,7 +6556,7 @@
     {
       "id": "buffs/enchanter/cast/spell-illusion-braxi",
       "name": "Buff timer: Spell: Illusion: Braxi",
-      "pattern": "^You begin casting Spell: Illusion: Braxi\\.$",
+      "pattern": "^You begin casting Spell: Illusion: Braxi(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6582,7 +6582,7 @@
     {
       "id": "buffs/enchanter/cast/spell-illusion-marionette",
       "name": "Buff timer: Spell: Illusion: Marionette",
-      "pattern": "^You begin casting Spell: Illusion: Marionette\\.$",
+      "pattern": "^You begin casting Spell: Illusion: Marionette(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6608,7 +6608,7 @@
     {
       "id": "buffs/enchanter/cast/spell-illusion-owlbear",
       "name": "Buff timer: Spell: Illusion: Owlbear",
-      "pattern": "^You begin casting Spell: Illusion: Owlbear\\.$",
+      "pattern": "^You begin casting Spell: Illusion: Owlbear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6634,7 +6634,7 @@
     {
       "id": "buffs/enchanter/cast/strengthen",
       "name": "Buff timer: Strengthen",
-      "pattern": "^You begin casting Strengthen\\.$",
+      "pattern": "^You begin casting Strengthen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6660,7 +6660,7 @@
     {
       "id": "buffs/enchanter/cast/swift-like-the-wind",
       "name": "Buff timer: Swift Like the Wind",
-      "pattern": "^You begin casting Swift Like the Wind\\.$",
+      "pattern": "^You begin casting Swift Like the Wind(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6686,7 +6686,7 @@
     {
       "id": "buffs/enchanter/cast/sympathetic-aura",
       "name": "Buff timer: Sympathetic Aura",
-      "pattern": "^You begin casting Sympathetic Aura\\.$",
+      "pattern": "^You begin casting Sympathetic Aura(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6712,7 +6712,7 @@
     {
       "id": "buffs/enchanter/cast/trickster-s-augmentation",
       "name": "Buff timer: Trickster's Augmentation",
-      "pattern": "^You begin casting Trickster's Augmentation\\.$",
+      "pattern": "^You begin casting Trickster['`]s Augmentation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6738,7 +6738,7 @@
     {
       "id": "buffs/enchanter/cast/ultravision",
       "name": "Buff timer: Ultravision",
-      "pattern": "^You begin casting Ultravision\\.$",
+      "pattern": "^You begin casting Ultravision(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6764,7 +6764,7 @@
     {
       "id": "buffs/enchanter/cast/umbra",
       "name": "Buff timer: Umbra",
-      "pattern": "^You begin casting Umbra\\.$",
+      "pattern": "^You begin casting Umbra(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6790,7 +6790,7 @@
     {
       "id": "buffs/enchanter/cast/visions-of-grandeur",
       "name": "Buff timer: Visions of Grandeur",
-      "pattern": "^You begin casting Visions of Grandeur\\.$",
+      "pattern": "^You begin casting Visions of Grandeur(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6816,7 +6816,7 @@
     {
       "id": "buffs/enchanter/cast/wake-of-tranquility",
       "name": "Buff timer: Wake of Tranquility",
-      "pattern": "^You begin casting Wake of Tranquility\\.$",
+      "pattern": "^You begin casting Wake of Tranquility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6842,7 +6842,7 @@
     {
       "id": "buffs/enchanter/cast/ward-of-alendar",
       "name": "Buff timer: Ward of Alendar",
-      "pattern": "^You begin casting Ward of Alendar\\.$",
+      "pattern": "^You begin casting Ward of Alendar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -6868,7 +6868,7 @@
     {
       "id": "buffs/enchanter/cast/wondrous-rapidity",
       "name": "Buff timer: Wondrous Rapidity",
-      "pattern": "^You begin casting Wondrous Rapidity\\.$",
+      "pattern": "^You begin casting Wondrous Rapidity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

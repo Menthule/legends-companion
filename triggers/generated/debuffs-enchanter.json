@@ -4,7 +4,7 @@
     {
       "id": "debuffs/enchanter/cast/allure",
       "name": "Enemy timer: Allure",
-      "pattern": "^You begin casting Allure\\.$",
+      "pattern": "^You begin casting Allure(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/enchanter/cast/ancient-eternal-rapture",
       "name": "Enemy timer: Ancient: Eternal Rapture",
-      "pattern": "^You begin casting Ancient: Eternal Rapture\\.$",
+      "pattern": "^You begin casting Ancient: Eternal Rapture(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/enchanter/cast/asphyxiate",
       "name": "Enemy timer: Asphyxiate",
-      "pattern": "^You begin casting Asphyxiate\\.$",
+      "pattern": "^You begin casting Asphyxiate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/enchanter/cast/beguile",
       "name": "Enemy timer: Beguile",
-      "pattern": "^You begin casting Beguile\\.$",
+      "pattern": "^You begin casting Beguile(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/enchanter/cast/boltran-s-agacerie",
       "name": "Enemy timer: Boltran's Agacerie",
-      "pattern": "^You begin casting Boltran's Agacerie\\.$",
+      "pattern": "^You begin casting Boltran['`]s Agacerie(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/enchanter/cast/cajoling-whispers",
       "name": "Enemy timer: Cajoling Whispers",
-      "pattern": "^You begin casting Cajoling Whispers\\.$",
+      "pattern": "^You begin casting Cajoling Whispers(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/enchanter/cast/charm",
       "name": "Enemy timer: Charm",
-      "pattern": "^You begin casting Charm\\.$",
+      "pattern": "^You begin casting Charm(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/enchanter/cast/chase-the-moon",
       "name": "Enemy timer: Chase the Moon",
-      "pattern": "^You begin casting Chase the Moon\\.$",
+      "pattern": "^You begin casting Chase the Moon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/enchanter/cast/choke",
       "name": "Enemy timer: Choke",
-      "pattern": "^You begin casting Choke\\.$",
+      "pattern": "^You begin casting Choke(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/enchanter/cast/cripple",
       "name": "Enemy timer: Cripple",
-      "pattern": "^You begin casting Cripple\\.$",
+      "pattern": "^You begin casting Cripple(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/enchanter/cast/curse-of-the-simple-mind",
       "name": "Enemy timer: Curse of the Simple Mind",
-      "pattern": "^You begin casting Curse of the Simple Mind\\.$",
+      "pattern": "^You begin casting Curse of the Simple Mind(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/enchanter/cast/dazzle",
       "name": "Enemy timer: Dazzle",
-      "pattern": "^You begin casting Dazzle\\.$",
+      "pattern": "^You begin casting Dazzle(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/enchanter/cast/dictate",
       "name": "Enemy timer: Dictate",
-      "pattern": "^You begin casting Dictate\\.$",
+      "pattern": "^You begin casting Dictate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/enchanter/cast/disempower",
       "name": "Enemy timer: Disempower",
-      "pattern": "^You begin casting Disempower\\.$",
+      "pattern": "^You begin casting Disempower(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/enchanter/cast/dyn-s-dizzying-draught",
       "name": "Enemy timer: Dyn's Dizzying Draught",
-      "pattern": "^You begin casting Dyn's Dizzying Draught\\.$",
+      "pattern": "^You begin casting Dyn['`]s Dizzying Draught(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "debuffs/enchanter/cast/ebbing-strength",
       "name": "Enemy timer: Ebbing Strength",
-      "pattern": "^You begin casting Ebbing Strength\\.$",
+      "pattern": "^You begin casting Ebbing Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "debuffs/enchanter/cast/enfeeblement",
       "name": "Enemy timer: Enfeeblement",
-      "pattern": "^You begin casting Enfeeblement\\.$",
+      "pattern": "^You begin casting Enfeeblement(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "debuffs/enchanter/cast/eye-of-confusion",
       "name": "Enemy timer: Eye of Confusion",
-      "pattern": "^You begin casting Eye of Confusion\\.$",
+      "pattern": "^You begin casting Eye of Confusion(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "debuffs/enchanter/cast/fascination",
       "name": "Enemy timer: Fascination",
-      "pattern": "^You begin casting Fascination\\.$",
+      "pattern": "^You begin casting Fascination(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "debuffs/enchanter/cast/fear",
       "name": "Enemy timer: Fear",
-      "pattern": "^You begin casting Fear\\.$",
+      "pattern": "^You begin casting Fear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "debuffs/enchanter/cast/feckless-might",
       "name": "Enemy timer: Feckless Might",
-      "pattern": "^You begin casting Feckless Might\\.$",
+      "pattern": "^You begin casting Feckless Might(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "debuffs/enchanter/cast/fetter",
       "name": "Enemy timer: Fetter",
-      "pattern": "^You begin casting Fetter\\.$",
+      "pattern": "^You begin casting Fetter(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "debuffs/enchanter/cast/forlorn-deeds",
       "name": "Enemy timer: Forlorn Deeds",
-      "pattern": "^You begin casting Forlorn Deeds\\.$",
+      "pattern": "^You begin casting Forlorn Deeds(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "debuffs/enchanter/cast/gasping-embrace",
       "name": "Enemy timer: Gasping Embrace",
-      "pattern": "^You begin casting Gasping Embrace\\.$",
+      "pattern": "^You begin casting Gasping Embrace(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "debuffs/enchanter/cast/glamour-of-kintaz",
       "name": "Enemy timer: Glamour of Kintaz",
-      "pattern": "^You begin casting Glamour of Kintaz\\.$",
+      "pattern": "^You begin casting Glamour of Kintaz(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "debuffs/enchanter/cast/immobilize",
       "name": "Enemy timer: Immobilize",
-      "pattern": "^You begin casting Immobilize\\.$",
+      "pattern": "^You begin casting Immobilize(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "debuffs/enchanter/cast/incapacitate",
       "name": "Enemy timer: Incapacitate",
-      "pattern": "^You begin casting Incapacitate\\.$",
+      "pattern": "^You begin casting Incapacitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "debuffs/enchanter/cast/insipid-weakness",
       "name": "Enemy timer: Insipid Weakness",
-      "pattern": "^You begin casting Insipid Weakness\\.$",
+      "pattern": "^You begin casting Insipid Weakness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "debuffs/enchanter/cast/instill",
       "name": "Enemy timer: Instill",
-      "pattern": "^You begin casting Instill\\.$",
+      "pattern": "^You begin casting Instill(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "debuffs/enchanter/cast/invoke-fear",
       "name": "Enemy timer: Invoke Fear",
-      "pattern": "^You begin casting Invoke Fear\\.$",
+      "pattern": "^You begin casting Invoke Fear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "debuffs/enchanter/cast/languid-pace",
       "name": "Enemy timer: Languid Pace",
-      "pattern": "^You begin casting Languid Pace\\.$",
+      "pattern": "^You begin casting Languid Pace(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "debuffs/enchanter/cast/listless-power",
       "name": "Enemy timer: Listless Power",
-      "pattern": "^You begin casting Listless Power\\.$",
+      "pattern": "^You begin casting Listless Power(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "debuffs/enchanter/cast/mesmerization",
       "name": "Enemy timer: Mesmerization",
-      "pattern": "^You begin casting Mesmerization\\.$",
+      "pattern": "^You begin casting Mesmerization(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "debuffs/enchanter/cast/ordinance",
       "name": "Enemy timer: Ordinance",
-      "pattern": "^You begin casting Ordinance\\.$",
+      "pattern": "^You begin casting Ordinance(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "debuffs/enchanter/cast/paralyzing-earth",
       "name": "Enemy timer: Paralyzing Earth",
-      "pattern": "^You begin casting Paralyzing Earth\\.$",
+      "pattern": "^You begin casting Paralyzing Earth(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "debuffs/enchanter/cast/phobia",
       "name": "Enemy timer: Phobia",
-      "pattern": "^You begin casting Phobia\\.$",
+      "pattern": "^You begin casting Phobia(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "debuffs/enchanter/cast/rapture",
       "name": "Enemy timer: Rapture",
-      "pattern": "^You begin casting Rapture\\.$",
+      "pattern": "^You begin casting Rapture(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "debuffs/enchanter/cast/scryer-s-trespass",
       "name": "Enemy timer: Scryer's Trespass",
-      "pattern": "^You begin casting Scryer's Trespass\\.$",
+      "pattern": "^You begin casting Scryer['`]s Trespass(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "debuffs/enchanter/cast/shallow-breath",
       "name": "Enemy timer: Shallow Breath",
-      "pattern": "^You begin casting Shallow Breath\\.$",
+      "pattern": "^You begin casting Shallow Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "debuffs/enchanter/cast/shiftless-deeds",
       "name": "Enemy timer: Shiftless Deeds",
-      "pattern": "^You begin casting Shiftless Deeds\\.$",
+      "pattern": "^You begin casting Shiftless Deeds(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "debuffs/enchanter/cast/suffocate",
       "name": "Enemy timer: Suffocate",
-      "pattern": "^You begin casting Suffocate\\.$",
+      "pattern": "^You begin casting Suffocate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1070,7 +1070,7 @@
     {
       "id": "debuffs/enchanter/cast/suffocating-sphere",
       "name": "Enemy timer: Suffocating Sphere",
-      "pattern": "^You begin casting Suffocating Sphere\\.$",
+      "pattern": "^You begin casting Suffocating Sphere(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1096,7 +1096,7 @@
     {
       "id": "debuffs/enchanter/cast/tashani",
       "name": "Enemy timer: Tashani",
-      "pattern": "^You begin casting Tashani\\.$",
+      "pattern": "^You begin casting Tashani(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1122,7 +1122,7 @@
     {
       "id": "debuffs/enchanter/cast/tashania",
       "name": "Enemy timer: Tashania",
-      "pattern": "^You begin casting Tashania\\.$",
+      "pattern": "^You begin casting Tashania(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1148,7 +1148,7 @@
     {
       "id": "debuffs/enchanter/cast/tashanian",
       "name": "Enemy timer: Tashanian",
-      "pattern": "^You begin casting Tashanian\\.$",
+      "pattern": "^You begin casting Tashanian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1174,7 +1174,7 @@
     {
       "id": "debuffs/enchanter/cast/tashina",
       "name": "Enemy timer: Tashina",
-      "pattern": "^You begin casting Tashina\\.$",
+      "pattern": "^You begin casting Tashina(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1200,7 +1200,7 @@
     {
       "id": "debuffs/enchanter/cast/tepid-deeds",
       "name": "Enemy timer: Tepid Deeds",
-      "pattern": "^You begin casting Tepid Deeds\\.$",
+      "pattern": "^You begin casting Tepid Deeds(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1226,7 +1226,7 @@
     {
       "id": "debuffs/enchanter/cast/torment-of-argli",
       "name": "Enemy timer: Torment of Argli",
-      "pattern": "^You begin casting Torment of Argli\\.$",
+      "pattern": "^You begin casting Torment of Argli(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1252,7 +1252,7 @@
     {
       "id": "debuffs/enchanter/cast/trepidation",
       "name": "Enemy timer: Trepidation",
-      "pattern": "^You begin casting Trepidation\\.$",
+      "pattern": "^You begin casting Trepidation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1278,7 +1278,7 @@
     {
       "id": "debuffs/enchanter/cast/wandering-mind",
       "name": "Enemy timer: Wandering Mind",
-      "pattern": "^You begin casting Wandering Mind\\.$",
+      "pattern": "^You begin casting Wandering Mind(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1304,7 +1304,7 @@
     {
       "id": "debuffs/enchanter/cast/weaken",
       "name": "Enemy timer: Weaken",
-      "pattern": "^You begin casting Weaken\\.$",
+      "pattern": "^You begin casting Weaken(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1330,7 +1330,7 @@
     {
       "id": "debuffs/enchanter/cast/weakness",
       "name": "Enemy timer: Weakness",
-      "pattern": "^You begin casting Weakness\\.$",
+      "pattern": "^You begin casting Weakness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1356,7 +1356,7 @@
     {
       "id": "debuffs/enchanter/cast/wind-of-tashani",
       "name": "Enemy timer: Wind of Tashani",
-      "pattern": "^You begin casting Wind of Tashani\\.$",
+      "pattern": "^You begin casting Wind of Tashani(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1382,7 +1382,7 @@
     {
       "id": "debuffs/enchanter/cast/wind-of-tashanian",
       "name": "Enemy timer: Wind of Tashanian",
-      "pattern": "^You begin casting Wind of Tashanian\\.$",
+      "pattern": "^You begin casting Wind of Tashanian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1408,7 +1408,7 @@
     {
       "id": "debuffs/worn/allure",
       "name": "Enemy timer cleared: Allure",
-      "pattern": "^Your Allure spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Allure(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1433,7 +1433,7 @@
     {
       "id": "debuffs/worn/ancient-eternal-rapture",
       "name": "Enemy timer cleared: Ancient: Eternal Rapture",
-      "pattern": "^Your Ancient: Eternal Rapture spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ancient: Eternal Rapture(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1458,7 +1458,7 @@
     {
       "id": "debuffs/worn/asphyxiate",
       "name": "Enemy timer cleared: Asphyxiate",
-      "pattern": "^Your Asphyxiate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Asphyxiate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1483,7 +1483,7 @@
     {
       "id": "debuffs/worn/beguile",
       "name": "Enemy timer cleared: Beguile",
-      "pattern": "^Your Beguile spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Beguile(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1508,7 +1508,7 @@
     {
       "id": "debuffs/worn/boltran-s-agacerie",
       "name": "Enemy timer cleared: Boltran's Agacerie",
-      "pattern": "^Your Boltran's Agacerie spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Boltran['`]s Agacerie(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1533,7 +1533,7 @@
     {
       "id": "debuffs/worn/cajoling-whispers",
       "name": "Enemy timer cleared: Cajoling Whispers",
-      "pattern": "^Your Cajoling Whispers spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cajoling Whispers(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1558,7 +1558,7 @@
     {
       "id": "debuffs/worn/charm",
       "name": "Enemy timer cleared: Charm",
-      "pattern": "^Your Charm spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Charm(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1583,7 +1583,7 @@
     {
       "id": "debuffs/worn/chase-the-moon",
       "name": "Enemy timer cleared: Chase the Moon",
-      "pattern": "^Your Chase the Moon spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chase the Moon(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1608,7 +1608,7 @@
     {
       "id": "debuffs/worn/choke",
       "name": "Enemy timer cleared: Choke",
-      "pattern": "^Your Choke spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Choke(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1633,7 +1633,7 @@
     {
       "id": "debuffs/worn/curse-of-the-simple-mind",
       "name": "Enemy timer cleared: Curse of the Simple Mind",
-      "pattern": "^Your Curse of the Simple Mind spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Curse of the Simple Mind(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1658,7 +1658,7 @@
     {
       "id": "debuffs/worn/dazzle",
       "name": "Enemy timer cleared: Dazzle",
-      "pattern": "^Your Dazzle spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dazzle(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1683,7 +1683,7 @@
     {
       "id": "debuffs/worn/dictate",
       "name": "Enemy timer cleared: Dictate",
-      "pattern": "^Your Dictate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dictate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1708,7 +1708,7 @@
     {
       "id": "debuffs/worn/dyn-s-dizzying-draught",
       "name": "Enemy timer cleared: Dyn's Dizzying Draught",
-      "pattern": "^Your Dyn's Dizzying Draught spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dyn['`]s Dizzying Draught(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1733,7 +1733,7 @@
     {
       "id": "debuffs/worn/ebbing-strength",
       "name": "Enemy timer cleared: Ebbing Strength",
-      "pattern": "^Your Ebbing Strength spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ebbing Strength(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1758,7 +1758,7 @@
     {
       "id": "debuffs/worn/enfeeblement",
       "name": "Enemy timer cleared: Enfeeblement",
-      "pattern": "^Your Enfeeblement spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Enfeeblement(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1783,7 +1783,7 @@
     {
       "id": "debuffs/worn/eye-of-confusion",
       "name": "Enemy timer cleared: Eye of Confusion",
-      "pattern": "^Your Eye of Confusion spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Eye of Confusion(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1808,7 +1808,7 @@
     {
       "id": "debuffs/worn/fascination",
       "name": "Enemy timer cleared: Fascination",
-      "pattern": "^Your Fascination spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fascination(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1833,7 +1833,7 @@
     {
       "id": "debuffs/worn/feckless-might",
       "name": "Enemy timer cleared: Feckless Might",
-      "pattern": "^Your Feckless Might spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Feckless Might(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1858,7 +1858,7 @@
     {
       "id": "debuffs/worn/forlorn-deeds",
       "name": "Enemy timer cleared: Forlorn Deeds",
-      "pattern": "^Your Forlorn Deeds spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Forlorn Deeds(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1883,7 +1883,7 @@
     {
       "id": "debuffs/worn/gasping-embrace",
       "name": "Enemy timer cleared: Gasping Embrace",
-      "pattern": "^Your Gasping Embrace spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Gasping Embrace(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1908,7 +1908,7 @@
     {
       "id": "debuffs/worn/glamour-of-kintaz",
       "name": "Enemy timer cleared: Glamour of Kintaz",
-      "pattern": "^Your Glamour of Kintaz spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Glamour of Kintaz(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1933,7 +1933,7 @@
     {
       "id": "debuffs/worn/insipid-weakness",
       "name": "Enemy timer cleared: Insipid Weakness",
-      "pattern": "^Your Insipid Weakness spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Insipid Weakness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1958,7 +1958,7 @@
     {
       "id": "debuffs/worn/languid-pace",
       "name": "Enemy timer cleared: Languid Pace",
-      "pattern": "^Your Languid Pace spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Languid Pace(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1984,7 +1984,7 @@
     {
       "id": "debuffs/worn/mesmerization",
       "name": "Enemy timer cleared: Mesmerization",
-      "pattern": "^Your Mesmerization spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Mesmerization(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2009,7 +2009,7 @@
     {
       "id": "debuffs/worn/ordinance",
       "name": "Enemy timer cleared: Ordinance",
-      "pattern": "^Your Ordinance spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ordinance(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2034,7 +2034,7 @@
     {
       "id": "debuffs/worn/phobia",
       "name": "Enemy timer cleared: Phobia",
-      "pattern": "^Your Phobia spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Phobia(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2059,7 +2059,7 @@
     {
       "id": "debuffs/worn/rapture",
       "name": "Enemy timer cleared: Rapture",
-      "pattern": "^Your Rapture spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Rapture(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2084,7 +2084,7 @@
     {
       "id": "debuffs/worn/scryer-s-trespass",
       "name": "Enemy timer cleared: Scryer's Trespass",
-      "pattern": "^Your Scryer's Trespass spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scryer['`]s Trespass(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2109,7 +2109,7 @@
     {
       "id": "debuffs/worn/shallow-breath",
       "name": "Enemy timer cleared: Shallow Breath",
-      "pattern": "^Your Shallow Breath spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shallow Breath(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2134,7 +2134,7 @@
     {
       "id": "debuffs/worn/shiftless-deeds",
       "name": "Enemy timer cleared: Shiftless Deeds",
-      "pattern": "^Your Shiftless Deeds spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shiftless Deeds(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2159,7 +2159,7 @@
     {
       "id": "debuffs/worn/suffocate",
       "name": "Enemy timer cleared: Suffocate",
-      "pattern": "^Your Suffocate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Suffocate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2184,7 +2184,7 @@
     {
       "id": "debuffs/worn/suffocating-sphere",
       "name": "Enemy timer cleared: Suffocating Sphere",
-      "pattern": "^Your Suffocating Sphere spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Suffocating Sphere(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2209,7 +2209,7 @@
     {
       "id": "debuffs/worn/tashani",
       "name": "Enemy timer cleared: Tashani",
-      "pattern": "^Your Tashani spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tashani(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2234,7 +2234,7 @@
     {
       "id": "debuffs/worn/tashania",
       "name": "Enemy timer cleared: Tashania",
-      "pattern": "^Your Tashania spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tashania(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2259,7 +2259,7 @@
     {
       "id": "debuffs/worn/tashanian",
       "name": "Enemy timer cleared: Tashanian",
-      "pattern": "^Your Tashanian spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tashanian(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2284,7 +2284,7 @@
     {
       "id": "debuffs/worn/tashina",
       "name": "Enemy timer cleared: Tashina",
-      "pattern": "^Your Tashina spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tashina(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2309,7 +2309,7 @@
     {
       "id": "debuffs/worn/tepid-deeds",
       "name": "Enemy timer cleared: Tepid Deeds",
-      "pattern": "^Your Tepid Deeds spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tepid Deeds(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2334,7 +2334,7 @@
     {
       "id": "debuffs/worn/torment-of-argli",
       "name": "Enemy timer cleared: Torment of Argli",
-      "pattern": "^Your Torment of Argli spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Torment of Argli(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2359,7 +2359,7 @@
     {
       "id": "debuffs/worn/wandering-mind",
       "name": "Enemy timer cleared: Wandering Mind",
-      "pattern": "^Your Wandering Mind spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Wandering Mind(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2384,7 +2384,7 @@
     {
       "id": "debuffs/worn/weaken",
       "name": "Enemy timer cleared: Weaken",
-      "pattern": "^Your Weaken spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Weaken(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2409,7 +2409,7 @@
     {
       "id": "debuffs/worn/weakness",
       "name": "Enemy timer cleared: Weakness",
-      "pattern": "^Your Weakness spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Weakness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2434,7 +2434,7 @@
     {
       "id": "debuffs/worn/wind-of-tashani",
       "name": "Enemy timer cleared: Wind of Tashani",
-      "pattern": "^Your Wind of Tashani spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Wind of Tashani(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2459,7 +2459,7 @@
     {
       "id": "debuffs/worn/wind-of-tashanian",
       "name": "Enemy timer cleared: Wind of Tashanian",
-      "pattern": "^Your Wind of Tashanian spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Wind of Tashanian(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

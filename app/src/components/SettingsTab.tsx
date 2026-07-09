@@ -72,7 +72,7 @@ const LARGE_LOG_BYTES = 500 * 1024 * 1024;
 
 /** Shipped app version (mirror of app/package.json "version"; the same
  *  const lives in Dashboard.tsx for the sidebar footer). */
-const APP_VERSION = "0.2.0";
+const APP_VERSION = __APP_VERSION__;
 
 /** Human-readable byte size, e.g. "1.2 GB" / "512.0 MB" / "947 B". */
 function formatBytes(bytes: number): string {

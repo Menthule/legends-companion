@@ -160,6 +160,10 @@ impl ActionSink for ConsoleSink {
     fn cancel_timer(&mut self, name: &str) {
         println!("{MAGENTA}{BOLD}[TIMER CANCEL]{RESET} `{name}`");
     }
+    fn post_webhook(&mut self, name: Option<&str>, text: &str) {
+        let target = name.unwrap_or("default");
+        println!("{MAGENTA}{BOLD}[WEBHOOK→{target}]{RESET} {text}");
+    }
 }
 
 fn entity(e: &Entity, you: &str) -> String {
@@ -331,10 +335,7 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
             target,
         } => (
             DIM,
-            format!(
-                "{spell} blocked on {} by {blocker}",
-                entity(target, you)
-            ),
+            format!("{spell} blocked on {} by {blocker}", entity(target, you)),
         ),
         Event::Slain { victim, killer } => {
             let by = killer

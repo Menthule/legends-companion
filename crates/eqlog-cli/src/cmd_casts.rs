@@ -88,12 +88,20 @@ pub fn run(args: &[String]) -> anyhow::Result<()> {
         "{:<18} {:<26} {:>5} {:>5} {:>5} {:>5} {:>5} {:>7}",
         "caster", "spell", "cast", "land", "fizl", "rsst", "intr", "land%"
     )?;
-    let (mut tot_attempts, mut tot_fizzles, mut tot_resists, mut tot_interrupts) = (0u32, 0u32, 0u32, 0u32);
+    let (mut tot_attempts, mut tot_fizzles, mut tot_resists, mut tot_interrupts) =
+        (0u32, 0u32, 0u32, 0u32);
     for r in &rows {
         writeln!(
             out,
             "{:<18} {:<26} {:>5} {:>5} {:>5} {:>5} {:>5} {:>6.1}%",
-            r.caster, r.spell, r.attempts(), r.landed(), r.fizzles, r.resists, r.interrupts, r.land_pct()
+            r.caster,
+            r.spell,
+            r.attempts(),
+            r.landed(),
+            r.fizzles,
+            r.resists,
+            r.interrupts,
+            r.land_pct()
         )?;
         tot_attempts += r.attempts();
         tot_fizzles += r.fizzles;

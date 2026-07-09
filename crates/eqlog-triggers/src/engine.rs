@@ -12,7 +12,7 @@ use crate::model::{
     duration_ticks_at_level, infer_timer_lane, Action, ChannelOverride, CharacterProfile,
     TimerLane, TimerStartMode, Trigger,
 };
-use crate::profile::effective_enabled;
+use crate::profile::{effective_enabled, zone_scope_for};
 use eqlog_core::events::{Entity, Event, ParsedLine};
 
 /// Host-implemented sink that performs actions (TTS, sound, overlay text).
@@ -38,6 +38,15 @@ pub trait ActionSink {
     /// name was removed. Default no-op so existing sinks keep compiling.
     fn cancel_timer(&mut self, name: &str) {
         let _ = name;
+    }
+    /// A `PostWebhook` action fired: send `text` (already template-expanded) to
+    /// a user-configured webhook. `name` selects a *named* webhook from the
+    /// host's settings (`None` = the default webhook). The engine never handles
+    /// URLs — the host resolves the name and performs the HTTP POST — so shared
+    /// trigger packs carry only the harmless name, never anyone's secret URL.
+    /// Default no-op so non-networked sinks (CLI, tests) ignore it.
+    fn post_webhook(&mut self, name: Option<&str>, text: &str) {
+        let _ = (name, text);
     }
 }
 
@@ -129,6 +138,25 @@ struct CompiledTrigger {
     /// Fire-dedupe group: triggers with an identical expanded pattern share a
     /// key, and at most one of them fires per line (the first).
     dedupe_key: usize,
+    /// Effective zone scope, lowercased. Empty = fires everywhere. Non-empty =
+    /// fires only while [`TriggerEngine::current_zone`] contains one of these
+    /// substrings. Resolved once at compile from the trigger's own
+    /// [`Trigger::zones`] (or a loadout override in [`TriggerEngine::new_with_profile`]).
+    zones: Vec<String>,
+}
+
+/// Whether a compiled trigger's zone `scope` (lowercased) permits firing in
+/// `current` (already lowercased). An empty scope permits every zone; a
+/// non-empty scope permits only when `current` is known and contains one of
+/// the scope substrings.
+fn zone_scope_allows(scope: &[String], current: Option<&str>) -> bool {
+    if scope.is_empty() {
+        return true;
+    }
+    match current {
+        None => false,
+        Some(zone) => scope.iter().any(|s| zone.contains(s.as_str())),
+    }
 }
 
 pub struct TriggerEngine {
@@ -148,6 +176,11 @@ pub struct TriggerEngine {
     /// Line-timestamp of each compiled trigger's last fire (parallel to
     /// `compiled`), for the per-trigger refire cooldown. Resets on reload.
     last_fired: Vec<Option<i64>>,
+    /// Current zone (lowercased), learned from `You have entered …` lines, used
+    /// to gate zone-scoped triggers. `None` until the first zone line is seen —
+    /// zone-scoped triggers stay quiet while the location is unknown. Catch-up
+    /// replay on session start re-establishes it from the recent log tail.
+    current_zone: Option<String>,
 }
 
 /// Expand GINA-style tokens in a trigger *pattern* before regex compilation:
@@ -203,8 +236,7 @@ fn expand_pattern_with_constraints(
     // (P32).
     static TOKEN_RE: std::sync::OnceLock<Regex> = std::sync::OnceLock::new();
     let token_re = TOKEN_RE.get_or_init(|| {
-        Regex::new(r"\{([CcSsNn]\d*)(?:(<=|>=|<|>|=)(-?\d+))?\}")
-            .expect("token regex is valid")
+        Regex::new(r"\{([CcSsNn]\d*)(?:(<=|>=|<|>|=)(-?\d+))?\}").expect("token regex is valid")
     });
     let mut seen: HashSet<String> = HashSet::new();
     let mut constraints = Vec::new();
@@ -343,28 +375,12 @@ fn instance_base(name: &str) -> &str {
     name
 }
 
-/// The lowest free instance name for `base` among `timers`: `base` when no
-/// timer holds it, else `"{base} (2)"`, `"{base} (3)"`, … — first gap wins.
-fn next_instance_name(timers: &[ActiveTimer], base: &str) -> String {
-    if !timers.iter().any(|t| t.name == base) {
-        return base.to_string();
-    }
-    let mut n: u32 = 2;
-    loop {
-        let candidate = format!("{base} ({n})");
-        if !timers.iter().any(|t| t.name == candidate) {
-            return candidate;
-        }
-        n += 1;
-    }
-}
-
 fn next_instance_name_among<'a, I>(timers: I, base: &str) -> String
 where
     I: IntoIterator<Item = &'a ActiveTimer>,
 {
     let names: Vec<&str> = timers.into_iter().map(|t| t.name.as_str()).collect();
-    if !names.iter().any(|name| *name == base) {
+    if !names.contains(&base) {
         return base.to_string();
     }
     let mut n: u32 = 2;
@@ -520,11 +536,18 @@ impl TriggerEngine {
                     let next_key = dedupe_keys.len();
                     let dedupe_key = *dedupe_keys.entry(expanded.clone()).or_insert(next_key);
                     patterns.push(expanded);
+                    let zones = trigger
+                        .zones
+                        .iter()
+                        .map(|z| z.trim().to_lowercase())
+                        .filter(|z| !z.is_empty())
+                        .collect();
                     compiled.push(CompiledTrigger {
                         trigger,
                         regex,
                         numeric_constraints,
                         dedupe_key,
+                        zones,
                     });
                 }
                 Err(e) => warnings.push(format!(
@@ -555,6 +578,7 @@ impl TriggerEngine {
             warnings,
             friendly: Vec::new(),
             last_fired,
+            current_zone: None,
         }
     }
 
@@ -634,6 +658,15 @@ impl TriggerEngine {
     /// (P17). Your own buffs, buffs on others, and ability recasts (the buff /
     /// on-others / other lanes) persist across a zone line, so those keep
     /// running.
+    /// Track the current zone from `You have entered …` lines so zone-scoped
+    /// triggers can be gated. Stored lowercased for case-insensitive substring
+    /// matching against [`Trigger::zones`].
+    fn note_zone(&mut self, parsed: &ParsedLine) {
+        if let Event::ZoneEnter { zone } = &parsed.event {
+            self.current_zone = Some(zone.to_lowercase());
+        }
+    }
+
     fn reap_on_zone(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
         if !matches!(parsed.event, Event::ZoneEnter { .. }) {
             return;
@@ -652,32 +685,19 @@ impl TriggerEngine {
         }
     }
 
-    /// Bind DoT timers to their real target, number same-name instances, and
-    /// clear them on wear-off/death:
+    /// Bind DoT timers to their real target and clear them on wear-off/death:
     /// - First damage tick ("T has taken N damage from S by <me>."):
-    ///   a bare enemy-lane timer named `S` is renamed `S — T`; when that
-    ///   name is already running (a second cast landing on an identically
-    ///   named mob), the new binding takes the lowest free instance suffix —
-    ///   `S — T (2)`, `S — T (3)`, … — so every application keeps its own
-    ///   expiry, in cast order.
-    /// - "Your S spell has worn off of T.": the OLDEST instance of `S — T`
-    ///   is popped (FIFO).
-    /// - `T` slain: EVERY instance of EVERY spell bound to `T` clears — a
+    ///   a bare enemy-lane timer named `S` is renamed `S — T`; when that name
+    ///   is already running, the old bar is replaced. The log has no unique
+    ///   mob ID, so treating same visible-name recasts as refreshes avoids
+    ///   splitting one mob into `T`, `T (2)`, etc. during normal play.
+    /// - "Your S spell has worn off of T.": the matching `S — T` bar is
+    ///   popped.
+    /// - `T` slain: EVERY spell bound to `T` clears — a
     ///   dead mob must never keep a bar counting down. With same-named
     ///   twins this also clears a surviving twin's bars (the log cannot
     ///   say which mob died); re-dotting the survivor starts a fresh bar.
     /// - You die: all timers clear (death strips buffs; fights are over).
-    ///
-    /// TWIN-ATTRIBUTION APPROXIMATION: the log names mobs but does not
-    /// identify them. With two identically named mobs each carrying your
-    /// DoT, ticks/wear-offs cannot be matched to a specific mob, so
-    /// instances form a FIFO queue per (spell, name): the first bound is
-    /// assumed to be the first to wear off (you dotted it first, so it has
-    /// been taking damage longest). A tick from the *first* mob arriving
-    /// right after a fresh cast can be the one that binds the new bare
-    /// timer — indistinguishable in the log, and harmless: because the
-    /// names are identical, the instance set and its FIFO order come out
-    /// the same either way.
     fn bind_and_reap_timers(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
         match &parsed.event {
             Event::SpellDamageTaken {
@@ -701,7 +721,20 @@ impl TriggerEngine {
                 };
                 let target = self.canonical_target(target);
                 let base = format!("{spell} — {target}");
-                let new_name = next_instance_name(&self.timers, &base);
+                let new_name = base.clone();
+                let mut idx = idx;
+                let mut replaced: Vec<String> = Vec::new();
+                let mut i = 0;
+                while i < self.timers.len() {
+                    if i != idx && is_instance_of(&self.timers[i].name, &base) {
+                        replaced.push(self.timers.remove(i).name);
+                        if i < idx {
+                            idx -= 1;
+                        }
+                    } else {
+                        i += 1;
+                    }
+                }
                 let t = &mut self.timers[idx];
                 let old = std::mem::replace(&mut t.name, new_name.clone());
                 // A damage tick proves the spell landed — the pending
@@ -714,6 +747,9 @@ impl TriggerEngine {
                     .map(|w| (t.expires_at - w).max(0) as u64);
                 let lane = t.lane;
                 sink.cancel_timer(&old);
+                for name in replaced {
+                    sink.cancel_timer(&name);
+                }
                 sink.start_timer(&new_name, remaining, warn_left, lane, 0);
             }
             Event::WornOff {
@@ -788,7 +824,8 @@ impl TriggerEngine {
     /// debuffs — slows, malos — never produce the damage tick the DoT binder
     /// keys on, so without this they'd sit target-less under the "(target)"
     /// group and survive the mob's death. Enemy binds keep their lane and
-    /// use numbered instances (a debuff CAN run on two same-named twins).
+    /// refresh an existing same-spell visible target bar rather than splitting
+    /// one mob into numbered groups.
     fn bind_buff_on_other(&mut self, parsed: &ParsedLine, sink: &mut dyn ActionSink) {
         let msg = parsed.line.message.as_str();
         let mut hit: Option<(usize, String)> = None;
@@ -859,12 +896,26 @@ impl TriggerEngine {
                 sink.start_timer(&base, remaining, warn_left, TimerLane::OnOthers, 0);
             }
             TimerLane::Enemy => {
-                // Enemy lane: bind in place (lane unchanged) with numbered
-                // instances — the same debuff CAN run on two same-named
-                // twins, matching the damage-tick binding semantics. This
-                // is how non-damaging debuffs (slows, malos) get a target
-                // header on the overlay and get reaped when the mob dies.
-                let new_name = next_instance_name(&self.timers, &base);
+                // Enemy lane, land-line-bound debuffs: re-applying the same
+                // non-damaging debuff to the same visible target replaces the
+                // old bar. These log lines have no unique mob identity, and
+                // duplicate same-spell "(2)" bars are more misleading during
+                // normal single-target recasts than losing a rare same-named
+                // twin distinction.
+                let new_name = base.clone();
+                let mut idx = idx;
+                let mut replaced: Vec<String> = Vec::new();
+                let mut i = 0;
+                while i < self.timers.len() {
+                    if i != idx && is_instance_of(&self.timers[i].name, &base) {
+                        replaced.push(self.timers.remove(i).name);
+                        if i < idx {
+                            idx -= 1;
+                        }
+                    } else {
+                        i += 1;
+                    }
+                }
                 let t = &mut self.timers[idx];
                 let old = std::mem::replace(&mut t.name, new_name.clone());
                 t.lands_at = None;
@@ -875,6 +926,9 @@ impl TriggerEngine {
                     .map(|w| (t.expires_at - w).max(0) as u64);
                 let lane = t.lane;
                 sink.cancel_timer(&old);
+                for name in replaced {
+                    sink.cancel_timer(&name);
+                }
                 sink.start_timer(&new_name, remaining, warn_left, lane, 0);
             }
             _ => {}
@@ -935,7 +989,8 @@ impl TriggerEngine {
         profile: &CharacterProfile,
     ) -> Self {
         let level = profile.level;
-        let channel_overrides = &profile.active_loadout().channel_overrides;
+        let loadout = profile.active_loadout();
+        let channel_overrides = &loadout.channel_overrides;
         let selected: Vec<Trigger> = triggers
             .into_iter()
             .filter(|t| t.enabled && effective_enabled(t, profile))
@@ -943,6 +998,10 @@ impl TriggerEngine {
                 scale_timer_durations(&mut t, level);
                 if let Some(ov) = channel_overrides.get(&t.effective_id()) {
                     apply_channel_override(&mut t, ov);
+                }
+                // A per-loadout zone scope replaces the pack-authored one.
+                if let Some(zones) = zone_scope_for(&t, loadout) {
+                    t.zones = zones.to_vec();
                 }
                 t
             })
@@ -958,6 +1017,13 @@ impl TriggerEngine {
     /// Number of active (compiled, enabled) triggers.
     pub fn active_trigger_count(&self) -> usize {
         self.compiled.len()
+    }
+
+    /// The current zone (lowercased) learned from the log, or `None` before any
+    /// `You have entered …` line has been processed. Drives zone-scoped trigger
+    /// gating; exposed for UI display and tests.
+    pub fn current_zone(&self) -> Option<&str> {
+        self.current_zone.as_deref()
     }
 
     /// Active trigger count per category path (for UI group counts). Triggers
@@ -991,6 +1057,7 @@ impl TriggerEngine {
         // is X.") rarely match any trigger and would otherwise be skipped.
         self.learn_friendly_from(parsed);
         self.cancel_failed_cast_timers(parsed, sink);
+        self.note_zone(parsed);
         self.reap_on_zone(parsed, sink);
         self.bind_and_reap_timers(parsed, sink);
         self.bind_buff_on_other(parsed, sink);
@@ -1024,6 +1091,11 @@ impl TriggerEngine {
         for idx in candidates {
             let ct = &self.compiled[idx];
             if fired_keys.contains(&ct.dedupe_key) {
+                continue;
+            }
+            // Zone gate: a zone-scoped trigger only fires while we're in one of
+            // its zones (and never before the first zone line is seen).
+            if !zone_scope_allows(&ct.zones, self.current_zone.as_deref()) {
                 continue;
             }
             if friendly_cast
@@ -1151,6 +1223,12 @@ impl TriggerEngine {
                         new_timers.retain(|t| t.name != name);
                         sink.cancel_timer(&name);
                     }
+                    Action::PostWebhook { template, webhook } => {
+                        sink.post_webhook(
+                            webhook.as_deref(),
+                            &expand_template(template, &caps, &self.character, ts),
+                        );
+                    }
                 }
             }
         }
@@ -1186,10 +1264,7 @@ impl TriggerEngine {
                     elapsed_secs: t.duration_secs.saturating_sub(remaining as u64),
                     warn_at_secs: t.warn_at_secs,
                     lane: t.lane,
-                    pending_secs: t
-                        .lands_at
-                        .map(|l| (l - now_ts).max(0) as u64)
-                        .unwrap_or(0),
+                    pending_secs: t.lands_at.map(|l| (l - now_ts).max(0) as u64).unwrap_or(0),
                 })
             })
             .collect()
@@ -1315,8 +1390,7 @@ mod tests {
         // so the regex fails to compile and the trigger lands in warnings
         // (the pre-constraint behavior) instead of silently losing the gate.
         for pattern in ["hit for {S>=1000} damage", "{C<5} says"] {
-            let (expanded, constraints) =
-                expand_pattern_with_constraints(pattern, "Nyasha");
+            let (expanded, constraints) = expand_pattern_with_constraints(pattern, "Nyasha");
             assert!(constraints.is_empty());
             assert!(
                 Regex::new(&expanded).is_err(),
@@ -1379,35 +1453,6 @@ mod tests {
         assert_eq!(instance_base("Boil Blood — a bat"), "Boil Blood — a bat");
         // Non-numeric parens are part of the name, not an instance suffix.
         assert_eq!(instance_base("Chant (slow)"), "Chant (slow)");
-    }
-
-    #[test]
-    fn next_instance_name_takes_lowest_free_slot() {
-        let timer = |name: &str| ActiveTimer {
-            name: name.to_string(),
-            duration_secs: 100,
-            expires_at: 100,
-            warn_at_secs: None,
-            warn_at: None,
-            warned: false,
-            lane: TimerLane::Enemy,
-            lands_at: None,
-            repeat_secs: None,
-            stopwatch: false,
-            warn_text: None,
-            expire_text: None,
-            warn_sound: None,
-            expire_sound: None,
-        };
-        let base = "Boil Blood — a bat";
-        assert_eq!(next_instance_name(&[], base), base);
-        let timers = vec![timer(base)];
-        assert_eq!(next_instance_name(&timers, base), format!("{base} (2)"));
-        let timers = vec![timer(base), timer(&format!("{base} (2)"))];
-        assert_eq!(next_instance_name(&timers, base), format!("{base} (3)"));
-        // Base was popped (oldest died): the bare name frees up again.
-        let timers = vec![timer(&format!("{base} (2)"))];
-        assert_eq!(next_instance_name(&timers, base), base);
     }
 
     #[test]

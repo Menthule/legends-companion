@@ -96,9 +96,7 @@ impl CatchUpGuard {
             //    replay climbs back toward the pre-jump live edge and this
             //    shrinks to ~0. This is the signal that survives a wall-clock
             //    domain mismatch, so a non-UTC host can't get stuck replaying.
-            if now_ts - line_ts <= self.exit_lag_secs
-                || lag_behind_seen <= self.exit_lag_secs
-            {
+            if now_ts - line_ts <= self.exit_lag_secs || lag_behind_seen <= self.exit_lag_secs {
                 // This line is (close enough to) live: the replay is over
                 // and this line's own actions go through normally.
                 return self.exit();
@@ -241,7 +239,7 @@ mod tests {
         const OFFSET: i64 = 25_200; // e.g. PDT (UTC-7)
         let mut g = CatchUpGuard::new();
         g.observe_line(1000, 1000 + OFFSET); // live at the edge
-        // A false rotation replays from 100 s before the edge.
+                                             // A false rotation replays from 100 s before the edge.
         assert_eq!(
             g.observe_line(900, 1000 + OFFSET),
             CatchUpTransition::Entered

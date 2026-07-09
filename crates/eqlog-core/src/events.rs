@@ -190,11 +190,7 @@ pub enum Event {
     /// ghoul sentinel" can be rare), so this tag is the reliable signal. The
     /// leading sentence-capitalized article on `target` is left as-is; match
     /// case-insensitively downstream.
-    Consider {
-        target: String,
-        rare: bool,
-        level: Option<u32>,
-    },
+    Consider { target: String, rare: bool, level: Option<u32> },
     /// Recognized but uninteresting (e.g. "Auto attack is on.") — kept
     /// distinct from Unclassified so coverage stats stay honest.
     System,

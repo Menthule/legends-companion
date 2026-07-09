@@ -77,6 +77,7 @@ CLASSES = [
 ]
 CLASS_NAME = dict(CLASSES)
 CLASS_ORDER = [lc for lc, _ in CLASSES]
+RANK_SUFFIX = r"(?: [IVXLCDM]+)?"
 
 MIN_BUFF_DURATION_SECS = 30
 MIN_DEBUFF_DURATION_SECS = 12  # 2 ticks — captures short real DoTs (Ignite
@@ -278,7 +279,29 @@ def rx_escape(name: str) -> str:
     """Escape regex metacharacters only (unlike re.escape, leaves spaces,
     apostrophes, backticks, hyphens alone so the output stays valid for the
     Rust regex crate)."""
-    return re.sub(r"[.^$*+?()\[\]{}|\\]", lambda m: "\\" + m.group(0), name)
+    # Legends log text is inconsistent around possessives: spell data uses
+    # apostrophes, while some client strings render the same names with
+    # backticks. Treat them as equivalent in generated trigger patterns.
+    out = []
+    for ch in name:
+        if ch in "'`":
+            out.append("['`]")
+        elif ch in r".^$*+?()[]{}|\\":
+            out.append("\\" + ch)
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
+def spell_rx(name: str) -> str:
+    """Spell-name regex for generated client log lines.
+
+    Legends now appends roman rank suffixes to many spell cast/wear-off
+    messages ("Togor's Insects VII") while spell data and timer names remain
+    keyed by the base spell name. Generated trigger patterns accept the suffix
+    but keep the base name for timer identity.
+    """
+    return rx_escape(name) + RANK_SUFFIX
 
 
 def slugify(name: str) -> str:
@@ -355,7 +378,7 @@ def build_enemy_casts(all_names):
                   f"dropped: {missing}", file=sys.stderr)
         if not present:
             raise SystemExit(f"enemy-cast group {slug} is empty")
-        pat = rf"^(.+) begins casting ({alternation(present)})\.$"
+        pat = rf"^(.+) begins casting ({alternation(present)}){RANK_SUFFIX}\.$"
         act = speak("${1} casting ${2}") if tier1 else display("${1} casting ${2}")
         return trigger(
             f"enemy-casts/{slug}",
@@ -447,7 +470,7 @@ def build_buff_packs(spells):
         per_class_triggers[cls].append(trigger(
             tid,
             f"Buff timer: {name}",
-            rf"^You begin casting {rx_escape(name)}\.$",
+            rf"^You begin casting {spell_rx(name)}\.$",
             [start_timer(timer_name, dur, warn,
                          s["duration_formula"], s["duration_cap_ticks"],
                          lane="buff",
@@ -608,7 +631,7 @@ def build_debuff_packs(spells):
         per_class_triggers[cls].append(trigger(
             tid,
             f"Enemy timer: {name}",
-            rf"^You begin casting {rx_escape(name)}\.$",
+            rf"^You begin casting {spell_rx(name)}\.$",
             [start_timer(name, dur, warn,
                          s["duration_formula"], s["duration_cap_ticks"],
                          lane="enemy",
@@ -647,7 +670,7 @@ def build_debuff_packs(spells):
         per_class_triggers[home].append(trigger(
             tid,
             f"Enemy timer cleared: {name}",
-            rf"^Your {rx_escape(name)} spell has worn off(?: of (.+))?\.$",
+            rf"^Your {spell_rx(name)} spell has worn off(?: of (.+))?\.$",
             [cancel_timer(name), display(f"{name} off ${{1}}")],
             "Debuffs/Wear-off",
             classes=[CLASS_NAME[c] for c in union],

@@ -21,7 +21,7 @@
     {
       "id": "enemy-casts/heals",
       "name": "Enemy cast: Heals",
-      "pattern": "^(.+) begins casting (Complete Heal)\\.$",
+      "pattern": "^(.+) begins casting (Complete Heal)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -38,7 +38,7 @@
     {
       "id": "enemy-casts/death-touch",
       "name": "Enemy cast: Death Touch",
-      "pattern": "^(.+) begins casting (Cazic Touch)\\.$",
+      "pattern": "^(.+) begins casting (Cazic Touch)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -55,7 +55,7 @@
     {
       "id": "enemy-casts/fear",
       "name": "Enemy cast: Fear",
-      "pattern": "^(.+) begins casting (Terrorize Animal|Chase the Moon|Panic the Dead|Inspire Fear|Wave of Fear|Dragon Roar|Invoke Fear|Panic|Fear)\\.$",
+      "pattern": "^(.+) begins casting (Terrorize Animal|Chase the Moon|Panic the Dead|Inspire Fear|Wave of Fear|Dragon Roar|Invoke Fear|Panic|Fear)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -72,7 +72,7 @@
     {
       "id": "enemy-casts/charm",
       "name": "Enemy cast: Charm",
-      "pattern": "^(.+) begins casting (Boltran's Agacerie|Cajoling Whispers|Beguile Animals|Dominate Undead|Thrall of Bones|Beguile Undead|Call of Karana|Cajole Undead|Charm Animals|Enslave Death|Beguile|Dictate|Allure|Charm)\\.$",
+      "pattern": "^(.+) begins casting (Boltran['`]s Agacerie|Cajoling Whispers|Beguile Animals|Dominate Undead|Thrall of Bones|Beguile Undead|Call of Karana|Cajole Undead|Charm Animals|Enslave Death|Beguile|Dictate|Allure|Charm)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -89,7 +89,7 @@
     {
       "id": "enemy-casts/mesmerize",
       "name": "Enemy cast: Mesmerize",
-      "pattern": "^(.+) begins casting (Sathir's Mesmerization|Mesmerizing Breath|Glamour of Kintaz|Mesmerization|Walking Sleep|Mesmerize|Enthrall|Entrance|Rapture|Dazzle)\\.$",
+      "pattern": "^(.+) begins casting (Sathir['`]s Mesmerization|Mesmerizing Breath|Glamour of Kintaz|Mesmerization|Walking Sleep|Mesmerize|Enthrall|Entrance|Rapture|Dazzle)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -106,7 +106,7 @@
     {
       "id": "enemy-casts/dispel",
       "name": "Enemy cast: Dispel",
-      "pattern": "^(.+) begins casting (Pillage Enchantment|Strip Enchantment|Taper Enchantment|Neutralize Magic|Nullify Magic|Cancel Magic|Recant Magic|Annul Magic)\\.$",
+      "pattern": "^(.+) begins casting (Pillage Enchantment|Strip Enchantment|Taper Enchantment|Neutralize Magic|Nullify Magic|Cancel Magic|Recant Magic|Annul Magic)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -123,7 +123,7 @@
     {
       "id": "enemy-casts/breath-aoe",
       "name": "Enemy cast: Breath AoE",
-      "pattern": "^(.+) begins casting (Frost Breath|Fire Breath|Lava Breath|Ice Breath)\\.$",
+      "pattern": "^(.+) begins casting (Frost Breath|Fire Breath|Lava Breath|Ice Breath)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -140,7 +140,7 @@
     {
       "id": "enemy-casts/avatar",
       "name": "Enemy cast: Avatar",
-      "pattern": "^(.+) begins casting (Avatar Power|Avatar Snare)\\.$",
+      "pattern": "^(.+) begins casting (Avatar Power|Avatar Snare)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -157,7 +157,7 @@
     {
       "id": "enemy-casts/gravity-flux",
       "name": "Enemy cast: Gravity Flux",
-      "pattern": "^(.+) begins casting (Gravity Flux)\\.$",
+      "pattern": "^(.+) begins casting (Gravity Flux)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -174,7 +174,7 @@
     {
       "id": "enemy-casts/heals-other",
       "name": "Enemy cast: Heals (minor)",
-      "pattern": "^(.+) begins casting (Superior Healing|Greater Healing|Kragg's Salve|Light Healing|Minor Healing|Lay on Hands|Chloroblast|Healing)\\.$",
+      "pattern": "^(.+) begins casting (Superior Healing|Greater Healing|Kragg['`]s Salve|Light Healing|Minor Healing|Lay on Hands|Chloroblast|Healing)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -191,7 +191,7 @@
     {
       "id": "enemy-casts/harm-touch",
       "name": "Enemy cast: Harm Touch",
-      "pattern": "^(.+) begins casting (Harm Touch)\\.$",
+      "pattern": "^(.+) begins casting (Harm Touch)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -208,7 +208,7 @@
     {
       "id": "enemy-casts/poison-breath",
       "name": "Enemy cast: Poison Breath",
-      "pattern": "^(.+) begins casting (Tainted Breath)\\.$",
+      "pattern": "^(.+) begins casting (Tainted Breath)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -225,7 +225,7 @@
     {
       "id": "enemy-casts/lifetap",
       "name": "Enemy cast: Lifetap",
-      "pattern": "^(.+) begins casting (Cancelling of Life|Deadly Lifetap|Drain Spirit|Siphon Life|Drain Soul|Life Leech|Spirit Tap|Lifespike|Lifedraw|Lifetap)\\.$",
+      "pattern": "^(.+) begins casting (Cancelling of Life|Deadly Lifetap|Drain Spirit|Siphon Life|Drain Soul|Life Leech|Spirit Tap|Lifespike|Lifedraw|Lifetap)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -242,7 +242,7 @@
     {
       "id": "enemy-casts/root-snare",
       "name": "Enemy cast: Root & Snare",
-      "pattern": "^(.+) begins casting (Atol's Spectral Shackles|Cascading Darkness|Devouring Darkness|Engulfing Darkness|Clinging Darkness|Dooming Darkness|Enveloping Roots|Paralyzing Earth|Engorging Roots|Engulfing Roots|Bonds of Force|Grasping Roots|Tangling Weeds|Ensnare|Instill|Fetter|Snare|Root)\\.$",
+      "pattern": "^(.+) begins casting (Atol['`]s Spectral Shackles|Cascading Darkness|Devouring Darkness|Engulfing Darkness|Clinging Darkness|Dooming Darkness|Enveloping Roots|Paralyzing Earth|Engorging Roots|Engulfing Roots|Bonds of Force|Grasping Roots|Tangling Weeds|Ensnare|Instill|Fetter|Snare|Root)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -259,7 +259,7 @@
     {
       "id": "enemy-casts/stun",
       "name": "Enemy cast: Stun",
-      "pattern": "^(.+) begins casting (Markar's Clash|Sound of Force|Tishan's Clash|Color Shift|Color Slant|Color Flux|Color Skew|Holy Might|Force|Stun)\\.$",
+      "pattern": "^(.+) begins casting (Markar['`]s Clash|Sound of Force|Tishan['`]s Clash|Color Shift|Color Slant|Color Flux|Color Skew|Holy Might|Force|Stun)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -276,7 +276,7 @@
     {
       "id": "enemy-casts/debuff",
       "name": "Enemy cast: Debuff",
-      "pattern": "^(.+) begins casting (Surge of Enfeeblement|Scent of Darkness|Insipid Weakness|Scent of Terris|Siphon Strength|Listless Power|Scent of Dusk|Incapacitate|Malaisement|Tashanian|Malosini|Tashania|Cripple|Malaise|Tashani|Malosi)\\.$",
+      "pattern": "^(.+) begins casting (Surge of Enfeeblement|Scent of Darkness|Insipid Weakness|Scent of Terris|Siphon Strength|Listless Power|Scent of Dusk|Incapacitate|Malaisement|Tashanian|Malosini|Tashania|Cripple|Malaise|Tashani|Malosi)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",
@@ -293,7 +293,7 @@
     {
       "id": "enemy-casts/self-buff",
       "name": "Enemy cast: Self-Buff",
-      "pattern": "^(.+) begins casting (Shield of Brambles|Shield of Thistles|Skin like Diamond|Shield of Spikes|Shield of Barbs|Skin like Steel|Shield of Fire|Skin like Rock)\\.$",
+      "pattern": "^(.+) begins casting (Shield of Brambles|Shield of Thistles|Skin like Diamond|Shield of Spikes|Shield of Barbs|Skin like Steel|Shield of Fire|Skin like Rock)(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": false,
       "source": "generated",

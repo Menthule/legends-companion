@@ -25,6 +25,7 @@ describe("computeXpStats (P-XP active-time window)", () => {
   it("returns nulls for an empty session", () => {
     expect(computeXpStats(sess([]), 0)).toEqual({
       total: 0,
+      count: 0,
       perHour: null,
       perLevelHours: null,
     });
@@ -40,19 +41,20 @@ describe("computeXpStats (P-XP active-time window)", () => {
     ];
     const s = computeXpStats(sess(rows), T);
     expect(s.total).toBe(15);
+    expect(s.count).toBe(3);
     // window = 60 + 60 = 120s -> 15% / (120/3600 h) = 450%/h.
     expect(s.perHour).toBeCloseTo(450, 5);
     expect(s.perLevelHours).toBeCloseTo(100 / 450, 5);
   });
 
-  it("caps a long idle gap so downtime doesn't dilute the rate", () => {
+  it("drops an idle-gap gain outside the recent window", () => {
     const T = 2_000_000;
     // one 5% gain, then an hour of AFK, then another 5% gain.
     const rows = [row(2, 3700, 5, T), row(1, 100, 5, T - 3_600_000)];
     const s = computeXpStats(sess(rows), T);
-    // gap 3600s clamps to 300s -> 10% / (300/3600 h) = 120%/h, NOT the
-    // 10%/h an uncapped hour-long window would report.
-    expect(s.perHour).toBeCloseTo(120, 5);
+    expect(s.total).toBe(5);
+    expect(s.count).toBe(1);
+    expect(s.perHour).toBeCloseTo(300, 5);
   });
 
   it("floors a single gain at a one-minute window", () => {
@@ -72,16 +74,39 @@ describe("computeXpStats (P-XP active-time window)", () => {
     expect(twoMinLater).toBeCloseTo(150, 5);
   });
 
-  it("reports the cumulative total, not the capped rows sum (P21)", () => {
-    // A marathon session: 250% earned over 50 gains, but only the 2 most
-    // recent rows survived the rate-window cap. The total must reflect the
-    // cumulative 250, not the 10 the surviving rows sum to.
+  it("reports recent-window total, not the all-session total", () => {
+    // A marathon session: 250% earned over 50 gains, but the visible/rate
+    // stats intentionally reflect the recent 10-minute grind.
     const T = 5_000_000;
     const rows = [row(50, 200, 5, T), row(49, 140, 5, T - 60_000)];
     const s = computeXpStats({ total: 250, count: 50, rows }, T);
-    expect(s.total).toBe(250);
-    // The rate window still comes from the surviving rows.
+    expect(s.total).toBe(10);
+    expect(s.count).toBe(2);
     expect(s.perHour).toBeCloseTo(600, 5); // 10% / (60/3600 h)
+  });
+
+  it("drops gains older than the 10 minute window", () => {
+    const T = 6_000_000;
+    const rows = [
+      row(3, 1000, 5, T),
+      row(2, 700, 5, T - 300_000),
+      row(1, 300, 5, T - 700_000),
+    ];
+    const s = computeXpStats(sess(rows), T);
+    expect(s.total).toBe(10);
+    expect(s.count).toBe(2);
+    expect(s.perHour).toBeCloseTo(120, 5); // 10% over 5 minutes.
+  });
+
+  it("returns no rate when the newest gain is outside the 10 minute window", () => {
+    const T = 7_000_000;
+    const s = computeXpStats(sess([row(1, 100, 5, T - 700_000)]), T);
+    expect(s).toEqual({
+      total: 0,
+      count: 0,
+      perHour: null,
+      perLevelHours: null,
+    });
   });
 });
 

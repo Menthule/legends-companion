@@ -4,7 +4,7 @@
     {
       "id": "buffs/berserker/cast/battle-cry",
       "name": "Buff timer: Battle Cry",
-      "pattern": "^You begin casting Battle Cry\\.$",
+      "pattern": "^You begin casting Battle Cry(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -29,7 +29,7 @@
     {
       "id": "buffs/berserker/cast/battle-cry-of-dravel",
       "name": "Buff timer: Battle Cry of Dravel",
-      "pattern": "^You begin casting Battle Cry of Dravel\\.$",
+      "pattern": "^You begin casting Battle Cry of Dravel(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -54,7 +54,7 @@
     {
       "id": "buffs/berserker/cast/blind-rage-discipline",
       "name": "Buff timer: Blind Rage Discipline",
-      "pattern": "^You begin casting Blind Rage Discipline\\.$",
+      "pattern": "^You begin casting Blind Rage Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -79,7 +79,7 @@
     {
       "id": "buffs/berserker/cast/burning-rage-discipline",
       "name": "Buff timer: Burning Rage Discipline",
-      "pattern": "^You begin casting Burning Rage Discipline\\.$",
+      "pattern": "^You begin casting Burning Rage Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -104,7 +104,7 @@
     {
       "id": "buffs/berserker/cast/cleaving-rage-discipline",
       "name": "Buff timer: Cleaving Rage Discipline",
-      "pattern": "^You begin casting Cleaving Rage Discipline\\.$",
+      "pattern": "^You begin casting Cleaving Rage Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -129,7 +129,7 @@
     {
       "id": "buffs/berserker/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -154,7 +154,7 @@
     {
       "id": "buffs/berserker/cast/focused-fury-discipline",
       "name": "Buff timer: Focused Fury Discipline",
-      "pattern": "^You begin casting Focused Fury Discipline\\.$",
+      "pattern": "^You begin casting Focused Fury Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -179,7 +179,7 @@
     {
       "id": "buffs/berserker/cast/focused-will-discipline",
       "name": "Buff timer: Focused Will Discipline",
-      "pattern": "^You begin casting Focused Will Discipline\\.$",
+      "pattern": "^You begin casting Focused Will Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -204,7 +204,7 @@
     {
       "id": "buffs/berserker/cast/inspired-anger-discipline",
       "name": "Buff timer: Inspired Anger Discipline",
-      "pattern": "^You begin casting Inspired Anger Discipline\\.$",
+      "pattern": "^You begin casting Inspired Anger Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -229,7 +229,7 @@
     {
       "id": "buffs/berserker/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -254,7 +254,7 @@
     {
       "id": "buffs/berserker/cast/war-cry",
       "name": "Buff timer: War Cry",
-      "pattern": "^You begin casting War Cry\\.$",
+      "pattern": "^You begin casting War Cry(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

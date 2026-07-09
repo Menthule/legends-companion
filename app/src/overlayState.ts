@@ -303,6 +303,7 @@ export function clearXpSession(): void {
 
 export interface XpStats {
   total: number;
+  count: number;
   perHour: number | null;
   /** Hours to earn a FULL level (100%) at the current rate — NOT time to
    *  your next level (the log never reveals your position within a level). */
@@ -317,6 +318,10 @@ export interface XpStats {
  * span between gains plus the wall-clock duration since the newest one.
  * Floored at one minute so the first gain doesn't print an absurd rate.
  */
+// Displayed XP rate/ETA is based on the recent grind, not the whole retained
+// session. The cumulative session is still stored for history/reset behavior.
+const XP_RECENT_WINDOW_SECS = 10 * 60;
+
 // Gaps longer than this between consecutive gains are treated as downtime
 // (AFK, medding, camp-move, or the game being closed while the session
 // persists in localStorage) and don't count toward the rate window. Normal
@@ -326,33 +331,49 @@ const XP_IDLE_CAP_SECS = 300;
 
 export function computeXpStats(session: XpSession, nowMs: number): XpStats {
   const rows = session.rows;
-  // Displayed "XP gained" is the cumulative total — independent of the capped
-  // rate window, so it never shrinks after 200 gains (P21).
-  const total = session.total;
-  if (rows.length === 0) return { total, perHour: null, perLevelHours: null };
-  // The RATE, by contrast, is computed over just the recent (capped) rows and
-  // their active-time window — NOT the cumulative total.
-  const windowTotal = rows.reduce((sum, r) => sum + r.percent, 0);
+  if (rows.length === 0) {
+    return { total: 0, count: 0, perHour: null, perLevelHours: null };
+  }
   const newest = rows[0];
   const sinceNewest =
     newest.at != null ? Math.max(0, (nowMs - newest.at) / 1000) : 0;
+  const ageSecs = (row: SharedXpRow) => {
+    if (newest.at != null && row.at != null) {
+      return Math.max(0, sinceNewest + (newest.at - row.at) / 1000);
+    }
+    return Math.max(0, sinceNewest + (newest.ts - row.ts));
+  };
+  const recentRows = rows.filter((r) => ageSecs(r) <= XP_RECENT_WINDOW_SECS);
+  if (recentRows.length === 0) {
+    return { total: 0, count: 0, perHour: null, perLevelHours: null };
+  }
+  const windowTotal = recentRows.reduce((sum, r) => sum + r.percent, 0);
   // Active-time window: sum the log-domain gaps between consecutive gains
   // (rows are newest-first), each capped so a long idle stretch counts as at
   // most XP_IDLE_CAP_SECS. Add the (also capped) time since the last gain so
   // the rate still decays for a few minutes after a kill, then settles.
-  let activeSecs = Math.min(sinceNewest, XP_IDLE_CAP_SECS);
-  for (let i = 0; i < rows.length - 1; i++) {
-    const gap = rows[i].ts - rows[i + 1].ts;
+  let activeSecs = Math.min(
+    sinceNewest,
+    XP_IDLE_CAP_SECS,
+    XP_RECENT_WINDOW_SECS,
+  );
+  for (let i = 0; i < recentRows.length - 1; i++) {
+    const gap = recentRows[i].ts - recentRows[i + 1].ts;
     activeSecs += Math.min(Math.max(0, gap), XP_IDLE_CAP_SECS);
   }
-  const windowSecs = Math.max(60, activeSecs);
+  const windowSecs = Math.max(60, Math.min(activeSecs, XP_RECENT_WINDOW_SECS));
   const perHour = windowTotal / (windowSecs / 3600);
   // Time to earn ONE full level (100%) at the current rate. We can't compute
   // "time to YOUR next level" — the log reports xp as a per-level percentage
   // but never your absolute level or starting position within it, so the
   // session total isn't "progress into a level".
   const perLevelHours = perHour > 0 ? 100 / perHour : null;
-  return { total, perHour, perLevelHours };
+  return {
+    total: windowTotal,
+    count: recentRows.length,
+    perHour,
+    perLevelHours,
+  };
 }
 
 // --- Position within the current level & ETA-to-level (P9) -------------------
@@ -411,4 +432,43 @@ export function computeLevelEta(
     avgPerKill && avgPerKill > 0 ? Math.ceil(toLevelPct / avgPerKill) : null;
   const mins = perHour && perHour > 0 ? (toLevelPct / perHour) * 60 : null;
   return { progressPct: progress, toLevelPct, avgPerKill, kills, mins };
+}
+
+export const PROC_ALERTS_KEY = "eqlogs.proc.alerts";
+export const PROC_TTS_KEY = "eqlogs.proc.tts";
+export const PROC_PREF_EVENT = "eqlogs-proc-pref";
+
+function loadBoolPref(key: string, defaultValue: boolean): boolean {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw === null) return defaultValue;
+    return raw === "1";
+  } catch {
+    return defaultValue;
+  }
+}
+
+function saveBoolPref(key: string, value: boolean): void {
+  try {
+    localStorage.setItem(key, value ? "1" : "0");
+    window.dispatchEvent(new Event(PROC_PREF_EVENT));
+  } catch {
+    // localStorage unavailable — the current in-memory state still works.
+  }
+}
+
+export function loadProcAlerts(): boolean {
+  return loadBoolPref(PROC_ALERTS_KEY, true);
+}
+
+export function saveProcAlerts(value: boolean): void {
+  saveBoolPref(PROC_ALERTS_KEY, value);
+}
+
+export function loadProcTts(): boolean {
+  return loadBoolPref(PROC_TTS_KEY, false);
+}
+
+export function saveProcTts(value: boolean): void {
+  saveBoolPref(PROC_TTS_KEY, value);
 }

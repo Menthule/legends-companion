@@ -2,11 +2,13 @@
 // fights (newest first) with a detail view that reuses the meter table.
 
 import type { ReactNode } from "react";
+import { emit } from "@tauri-apps/api/event";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   analyzeLog,
   confirmDiscard,
   deleteFight,
+  dropsEffects,
   exportFight,
   getFight,
   listFights,
@@ -37,14 +39,19 @@ import {
   toggleWishlist,
   type WishlistEntry,
 } from "../lib/wishlist";
-import { IS_MOCK } from "../mock";
+import { IS_MOCK, mockEmit } from "../mock";
 import {
   appendXpSession,
   clearXpSession,
   computeLevelEta,
   computeXpStats,
+  loadProcAlerts,
+  loadProcTts,
   loadLevelProgress,
   loadXpSession,
+  PROC_PREF_EVENT,
+  saveProcAlerts,
+  saveProcTts,
   saveLevelProgress,
   type XpSession,
 } from "../overlayState";
@@ -53,6 +60,7 @@ import type {
   FightRecord,
   FightUpdatePayload,
   LogLinePayload,
+  ProcAlertPayload,
   RespawnInfo,
 } from "../types";
 import Empty from "./Empty";
@@ -95,6 +103,16 @@ interface XpEntry {
   at?: number;
 }
 
+interface ProcEntry {
+  id: number;
+  ts: number;
+  kind: "proc" | "skill" | "spell";
+  spell: string;
+  target: string;
+  amount: number | null;
+  critical: boolean;
+}
+
 interface DeathRecap {
   id: number;
   ts: number;
@@ -118,8 +136,39 @@ const SESSION_CAP = 200;
 const RECAP_WINDOW_SECS = 15;
 const RECAP_LINE_CAP = 25;
 const RECAP_DAMAGE_CAP = 60;
+const PROC_CAST_SUPPRESS_SECS = 8;
+const CAST_LAND_MARKER_SECS = 2;
+const SPELLBLADE_ACTIVE_SECS = 30 * 60;
 
 const PAGE_SIZE = 25;
+
+function publishProcAlert(payload: ProcAlertPayload): void {
+  if (IS_MOCK) mockEmit("proc-alert", payload);
+  else void emit("proc-alert", payload);
+}
+
+function skillSpellForVerb(verb: string): string | null {
+  const v = verb.toLowerCase();
+  void v;
+  return null;
+}
+
+function effectKindLabel(kind: ProcEntry["kind"]): string {
+  if (kind === "proc") return "Proc";
+  if (kind === "skill") return "Skill";
+  return "Spell";
+}
+
+function effectName(entry: Pick<ProcEntry, "kind" | "spell">): string {
+  return `${effectKindLabel(entry.kind)}: ${entry.spell}`;
+}
+
+function effectAmountText(
+  entry: Pick<ProcEntry, "amount" | "critical">,
+): string {
+  if (entry.amount == null) return entry.critical ? "crit" : "";
+  return `${fmtNum(entry.amount)}${entry.critical ? " crit" : ""}`;
+}
 
 // ---------------------------------------------------------------------------
 // Camp timers (kill → respawn countdown) + session kill tallies.
@@ -257,6 +306,9 @@ export default function FightsTab({ character }: { character: string }) {
   // regardless of which tab is showing (this component stays mounted).
   const [loot, setLoot] = useState<LootEntry[]>([]);
   const [rolls, setRolls] = useState<RollEntry[]>([]);
+  const [procs, setProcs] = useState<ProcEntry[]>([]);
+  const [procAlerts, setProcAlerts] = useState(() => loadProcAlerts());
+  const [procTts, setProcTts] = useState(() => loadProcTts());
   const [xp, setXp] = useState<XpSession>(() => loadXpSession());
   // Position within the current level (P9): reset on a ding, grows per gain.
   const [levelProgress, setLevelProgress] = useState<number>(() =>
@@ -267,6 +319,11 @@ export default function FightsTab({ character }: { character: string }) {
   const recentLines = useRef<{ ts: number; message: string; kind: string }[]>([]);
   // Structured incoming-damage ring for the death recap (P25).
   const recentDamage = useRef<({ ts: number } & IncomingHit)[]>([]);
+  const recentCasts = useRef<{ ts: number; spell: string }[]>([]);
+  const recentCastLands = useRef<{ ts: number }[]>([]);
+  const recentSkills = useRef<{ ts: number; spell: string; target: string }[]>([]);
+  const procEffectNames = useRef<Set<string>>(new Set());
+  const spellbladeActiveUntil = useRef(0);
   // Replay catch-up (item 13): the backend suppresses trigger audio for
   // replayed lines; side-effectful features here must stay quiet too — no
   // late "X dropped!" speech, no camp timers anchored at Date.now() for
@@ -287,6 +344,33 @@ export default function FightsTab({ character }: { character: string }) {
   const respawnPending = useRef(new Set<string>());
   // Bumped when a lazy respawn lookup resolves so the kills card re-renders.
   const [, setRespawnTick] = useState(0);
+
+  useEffect(() => {
+    dropsEffects(99)
+      .then((effects) => {
+        procEffectNames.current = new Set(
+          effects
+            .filter((e) => e.kind === "proc" || e.kind === "click")
+            .map((e) => e.name.toLowerCase()),
+        );
+      })
+      .catch(() => {
+        procEffectNames.current = new Set();
+      });
+  }, []);
+
+  useEffect(() => {
+    const onProcPref = () => {
+      setProcAlerts(loadProcAlerts());
+      setProcTts(loadProcTts());
+    };
+    window.addEventListener(PROC_PREF_EVENT, onProcPref);
+    window.addEventListener("storage", onProcPref);
+    return () => {
+      window.removeEventListener(PROC_PREF_EVENT, onProcPref);
+      window.removeEventListener("storage", onProcPref);
+    };
+  }, []);
 
   const handleNamedSlain = useCallback((victim: string) => {
     const key = victim.toLowerCase();
@@ -323,7 +407,89 @@ export default function FightsTab({ character }: { character: string }) {
       ...recentLines.current.filter((l) => p.ts - l.ts <= RECAP_WINDOW_SECS),
       { ts: p.ts, message: p.message, kind },
     ].slice(-RECAP_LINE_CAP);
+    if (p.message === "You begin reciting the spellblade invocation.") {
+      spellbladeActiveUntil.current = p.ts + SPELLBLADE_ACTIVE_SECS;
+    }
+    if (p.message === "You regain your concentration and continue your casting.") {
+      recentCastLands.current = [
+        ...recentCastLands.current.filter(
+          (c) => p.ts - c.ts <= CAST_LAND_MARKER_SECS,
+        ),
+        { ts: p.ts },
+      ];
+    }
+    const publishEffect = (entry: ProcEntry) => {
+      setProcs((prev) => [entry, ...prev].slice(0, SESSION_CAP));
+      const payload: ProcAlertPayload = {
+        kind: entry.kind,
+        spell: entry.spell,
+        target: entry.target,
+        amount: entry.amount,
+        critical: entry.critical,
+      };
+      if (procAlerts) publishProcAlert(payload);
+      if (procTts) {
+        const amountText = effectAmountText(entry);
+        void speakText(`${effectName(entry)}${amountText ? ` ${amountText}` : ""}`);
+      }
+    };
+    const spellbladeHit = /^(.+) is stung by a dozen flashes of the blade\.$/i.exec(
+      p.message,
+    );
+    if (spellbladeHit && p.ts <= spellbladeActiveUntil.current) {
+      publishEffect({
+        id: sessionSeq.current++,
+        ts: p.ts,
+        kind: "skill",
+        spell: "Spellblade",
+        target: spellbladeHit[1],
+        amount: null,
+        critical: false,
+      });
+    }
+    const reaveHit = /^You reave (.+?) for (\d+) points? of damage\./.exec(
+      p.message,
+    );
+    if (reaveHit) {
+      publishEffect({
+        id: sessionSeq.current++,
+        ts: p.ts,
+        kind: "skill",
+        spell: "Reave",
+        target: reaveHit[1],
+        amount: Number(reaveHit[2]),
+        critical: p.message.includes("(Critical)"),
+      });
+    }
     if (typeof ev !== "object" || ev === null) return;
+    if ("CastBegin" in ev) {
+      const d = ev.CastBegin as Record<string, unknown>;
+      const caster = entityName(d.caster);
+      const spell = String(d.spell ?? "").trim();
+      if ((caster === "You" || caster === character) && spell) {
+        recentCasts.current = [
+          ...recentCasts.current.filter(
+            (c) => p.ts - c.ts <= PROC_CAST_SUPPRESS_SECS,
+          ),
+          { ts: p.ts, spell },
+        ];
+      }
+    }
+    if ("MeleeHit" in ev) {
+      const d = ev.MeleeHit as Record<string, unknown>;
+      const attacker = entityName(d.attacker);
+      const target = entityName(d.target);
+      const verb = String(d.verb ?? "");
+      const skillSpell = skillSpellForVerb(verb);
+      if ((attacker === "You" || attacker === character) && skillSpell) {
+        recentSkills.current = [
+          ...recentSkills.current.filter(
+            (s) => p.ts - s.ts <= PROC_CAST_SUPPRESS_SECS,
+          ),
+          { ts: p.ts, spell: skillSpell, target },
+        ];
+      }
+    }
     // Track incoming damage for the death recap (P25) — any damage event
     // aimed at You, kept to the recap window.
     const hit = incomingDamage(ev);
@@ -332,6 +498,66 @@ export default function FightsTab({ character }: { character: string }) {
         ...recentDamage.current.filter((h) => p.ts - h.ts <= RECAP_WINDOW_SECS),
         { ts: p.ts, ...hit },
       ].slice(-RECAP_DAMAGE_CAP);
+    }
+    if ("SpellDamage" in ev) {
+      const d = ev.SpellDamage as Record<string, unknown>;
+      const caster = entityName(d.caster);
+      const spell = String(d.spell ?? "").trim();
+      const amount = typeof d.amount === "number" ? d.amount : 0;
+      const target = entityName(d.target);
+      const recentCastIndex = recentCasts.current.findIndex(
+        (c) =>
+          c.spell === spell &&
+          p.ts - c.ts >= 0 &&
+          p.ts - c.ts <= PROC_CAST_SUPPRESS_SECS,
+      );
+      const recentCastLandIndex = recentCastLands.current.findIndex(
+        (c) =>
+          p.ts - c.ts >= 0 &&
+          p.ts - c.ts <= CAST_LAND_MARKER_SECS,
+      );
+      const matchedSkill = recentSkills.current.find(
+        (s) =>
+          s.spell === spell &&
+          s.target === target &&
+          p.ts - s.ts >= 0 &&
+          p.ts - s.ts <= PROC_CAST_SUPPRESS_SECS,
+      );
+      if (
+        (caster === "You" || caster === character) &&
+        target !== "You" &&
+        spell &&
+        amount > 0
+      ) {
+        const flags = d.flags as Record<string, unknown> | undefined;
+        const hasCastLandMarker = recentCastLandIndex >= 0;
+        const wasRecentlyCast = recentCastIndex >= 0 && hasCastLandMarker;
+        const effectKind: ProcEntry["kind"] = matchedSkill
+          ? "skill"
+          : wasRecentlyCast
+            ? "spell"
+            : procEffectNames.current.has(spell.toLowerCase())
+              ? "proc"
+              : "spell";
+        if (wasRecentlyCast) {
+          recentCasts.current = recentCasts.current.filter(
+            (_, i) => i !== recentCastIndex,
+          );
+          recentCastLands.current = recentCastLands.current.filter(
+            (_, i) => i !== recentCastLandIndex,
+          );
+        }
+        const entry: ProcEntry = {
+          id: sessionSeq.current++,
+          ts: p.ts,
+          kind: effectKind,
+          spell,
+          target,
+          amount,
+          critical: flags?.critical === true,
+        };
+        publishEffect(entry);
+      }
     }
     if ("Loot" in ev) {
       const d = ev.Loot as Record<string, unknown>;
@@ -862,6 +1088,17 @@ export default function FightsTab({ character }: { character: string }) {
       <SessionSection
         loot={loot}
         rolls={rolls}
+        procs={procs}
+        procAlerts={procAlerts}
+        procTts={procTts}
+        onSetProcAlerts={(value) => {
+          setProcAlerts(value);
+          saveProcAlerts(value);
+        }}
+        onSetProcTts={(value) => {
+          setProcTts(value);
+          saveProcTts(value);
+        }}
         xp={xp}
         levelProgress={levelProgress}
         onSetLevelProgress={(pct) => {
@@ -951,6 +1188,11 @@ const RECENT_ROLLS = 12;
 function SessionSection({
   loot,
   rolls,
+  procs,
+  procAlerts,
+  procTts,
+  onSetProcAlerts,
+  onSetProcTts,
   xp,
   levelProgress,
   onSetLevelProgress,
@@ -962,6 +1204,11 @@ function SessionSection({
 }: {
   loot: LootEntry[];
   rolls: RollEntry[];
+  procs: ProcEntry[];
+  procAlerts: boolean;
+  procTts: boolean;
+  onSetProcAlerts: (value: boolean) => void;
+  onSetProcTts: (value: boolean) => void;
   xp: XpSession;
   levelProgress: number;
   onSetLevelProgress: (pct: number) => void;
@@ -987,13 +1234,55 @@ function SessionSection({
 
   const groups = useMemo(() => groupRolls(rolls), [rolls]);
   const recentRolls = useMemo(() => rolls.slice(0, RECENT_ROLLS), [rolls]);
+  const procRows = useMemo(() => {
+    const bySpell = new Map<
+      string,
+      {
+        kind: ProcEntry["kind"];
+        spell: string;
+        count: number;
+        damage: number;
+        hasDamage: boolean;
+        crits: number;
+        lastTs: number;
+      }
+    >();
+    for (const p of procs) {
+      const key = `${p.kind}:${p.spell.toLowerCase()}`;
+      const cur = bySpell.get(key);
+      if (cur) {
+        cur.count += 1;
+        cur.damage += p.amount ?? 0;
+        cur.hasDamage = cur.hasDamage || p.amount != null;
+        cur.crits += p.critical ? 1 : 0;
+        cur.lastTs = Math.max(cur.lastTs, p.ts);
+      } else {
+        bySpell.set(key, {
+          kind: p.kind,
+          spell: p.spell,
+          count: 1,
+          damage: p.amount ?? 0,
+          hasDamage: p.amount != null,
+          crits: p.critical ? 1 : 0,
+          lastTs: p.ts,
+        });
+      }
+    }
+    return [...bySpell.values()]
+      .sort((a, b) => b.count - a.count || b.damage - a.damage || b.lastTs - a.lastTs)
+      .slice(0, 12);
+  }, [procs]);
   // Live XP rate: the window extends to "now" (ticking every 15 s), so the
   // rate decays between kills instead of freezing at the last gain.
   const nowMs = useNowMs();
   const xpStats = useMemo(() => computeXpStats(xp, nowMs), [xp, nowMs]);
+  const recentXp = useMemo(
+    () => ({ total: xpStats.total, count: xpStats.count, rows: [] }),
+    [xpStats.total, xpStats.count],
+  );
   const levelEta = useMemo(
-    () => computeLevelEta(xp, levelProgress, xpStats.perHour),
-    [xp, levelProgress, xpStats.perHour],
+    () => computeLevelEta(recentXp, levelProgress, xpStats.perHour),
+    [recentXp, levelProgress, xpStats.perHour],
   );
 
   // Session kills, most-killed first (camp efficiency v1).
@@ -1027,7 +1316,7 @@ function SessionSection({
         ) : (
           <>
             <div className="stat-tiles compact">
-              <StatTile value={`${xpStats.total.toFixed(2)}%`} label="XP gained" />
+              <StatTile value={`${xpStats.total.toFixed(2)}%`} label="XP gained 10m" />
               <StatTile
                 value={xpStats.perHour === null ? "—" : `${xpStats.perHour.toFixed(2)}%`}
                 label="XP/hour"
@@ -1136,6 +1425,78 @@ function SessionSection({
               );
             })}
           </div>
+        )}
+      </Collapsible>
+
+      <Collapsible
+        title="Session effects"
+        count={procs.length}
+        storageKey="procs"
+        headerAside={
+          <>
+            <button
+              className={`ghost small${procAlerts ? " active" : ""}`}
+              onClick={() => onSetProcAlerts(!procAlerts)}
+              title="Show proc, skill, and spell text in the Alerts overlay"
+            >
+              Alerts {procAlerts ? "on" : "off"}
+            </button>
+            <button
+              className={`ghost small${procTts ? " active" : ""}`}
+              onClick={() => onSetProcTts(!procTts)}
+              title="Speak proc, skill, and spell effect names with TTS"
+            >
+              TTS {procTts ? "on" : "off"}
+            </button>
+          </>
+        }
+      >
+        {procs.length === 0 ? (
+          <Empty
+            title="No effects yet"
+            body="Weapon procs, skill riders, and direct spell hits from you appear here."
+          />
+        ) : (
+          <>
+            <div className="session-loot">
+              <div className="kills-row session-loot-head" aria-hidden="true">
+                <span>Effect</span>
+                <span className="num">Hits</span>
+                <span className="num">Damage</span>
+                <span className="num">Last</span>
+              </div>
+              {procRows.map((p) => (
+                <div className="kills-row" key={`${p.kind}:${p.spell}`}>
+                  <span className="session-item">{effectName(p)}</span>
+                  <span className="num">
+                    {p.count}
+                    {p.crits > 0 ? ` / ${p.crits} crit` : ""}
+                  </span>
+                  <span className="num">{p.hasDamage ? fmtNum(p.damage) : "—"}</span>
+                  <span className="num">{fmtClock(p.lastTs)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="session-loot">
+              <div className="session-loot-row session-loot-head" aria-hidden="true">
+                <span>Time</span>
+                <span>Effect</span>
+                <span>Target</span>
+              </div>
+              {procs.slice(0, 20).map((p) => (
+                <div className="session-loot-row" key={p.id}>
+                  <span className="session-time num">{fmtClock(p.ts)}</span>
+                  <span className="session-item">
+                    {effectName(p)}{" "}
+                    {effectAmountText(p) && (
+                      <span className="session-qty num">{effectAmountText(p)}</span>
+                    )}
+                  </span>
+                  <span className="session-who">{p.target}</span>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </Collapsible>
 

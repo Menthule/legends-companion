@@ -17,6 +17,7 @@ struct RecordingSink {
     displayed: Vec<String>,
     timers: Vec<(String, u64, Option<u64>, TimerLane)>,
     cancels: Vec<String>,
+    webhooks: Vec<(Option<String>, String)>,
 }
 
 impl ActionSink for RecordingSink {
@@ -28,6 +29,10 @@ impl ActionSink for RecordingSink {
     }
     fn display_text(&mut self, text: &str) {
         self.displayed.push(text.to_string());
+    }
+    fn post_webhook(&mut self, name: Option<&str>, text: &str) {
+        self.webhooks
+            .push((name.map(str::to_string), text.to_string()));
     }
     fn start_timer(
         &mut self,
@@ -52,6 +57,7 @@ impl RecordingSink {
             + self.displayed.len()
             + self.timers.len()
             + self.cancels.len()
+            + self.webhooks.len()
     }
 }
 
@@ -1146,7 +1152,10 @@ fn failed_recast_spares_a_bound_dot_on_another_mob() {
     // "Spell — T" DoT already ticking on another mob must survive (a failed
     // cast dealt no damage, so it never bound one).
     let mut engine = TriggerEngine::new(
-        vec![enemy_dot_trigger("Boil Blood", r"^You begin casting Boil Blood\.$")],
+        vec![enemy_dot_trigger(
+            "Boil Blood",
+            r"^You begin casting Boil Blood\.$",
+        )],
         "Nyasha",
     );
     let mut sink = RecordingSink::default();
@@ -1535,12 +1544,11 @@ fn dot_timers_bind_to_tick_target_and_die_with_it() {
     );
 }
 
-/// Multi-instance DoT tracking (NOW-sprint item 3): the same spell landing
-/// on two identically named mobs gets numbered instance bars, each with its
-/// own cast-order expiry, and pops FIFO on wear-off/death. Encodes the
-/// twin-attribution approximation documented on `bind_and_reap_timers`.
+/// The log does not carry a unique mob ID. When the same DoT lands again on
+/// the same visible name, treat it as a refresh instead of inventing a
+/// numbered target group that can split one mob across the overlay.
 #[test]
-fn overlapping_casts_on_identical_names_get_numbered_instances() {
+fn redotting_same_visible_target_refreshes_the_existing_bar() {
     let mut t = Trigger::new(
         "Boil Blood timer",
         r"^You begin casting Boil Blood\.$",
@@ -1595,10 +1603,10 @@ fn overlapping_casts_on_identical_names_get_numbered_instances() {
         )
     };
 
-    // Cast on twin #1; first tick binds the base instance.
+    // First cast binds the base instance.
     engine.process(&cast(1000), &mut sink);
     engine.process(&tick(1006), &mut sink);
-    // Cast on twin #2 (identical name); its tick takes instance (2).
+    // Recasting on the same visible name refreshes the existing bar.
     engine.process(&cast(1010), &mut sink);
     engine.process(&tick(1016), &mut sink);
 
@@ -1607,24 +1615,18 @@ fn overlapping_casts_on_identical_names_get_numbered_instances() {
         .into_iter()
         .map(|(n, _)| n)
         .collect();
-    assert_eq!(
-        names,
-        vec![
-            "Boil Blood — A zol ghoul knight".to_string(),
-            "Boil Blood — A zol ghoul knight (2)".to_string(),
-        ]
-    );
-    // Each instance keeps its own cast-order expiry.
+    assert_eq!(names, vec!["Boil Blood — A zol ghoul knight".to_string()]);
     let remaining: Vec<i64> = engine
         .active_timers(1016)
         .into_iter()
         .map(|(_, r)| r)
         .collect();
-    assert_eq!(remaining, vec![1000 + 42 - 1016, 1010 + 42 - 1016]);
+    assert_eq!(remaining, vec![1010 + 42 - 1016]);
+    assert!(sink
+        .cancels
+        .contains(&"Boil Blood — A zol ghoul knight".to_string()));
 
-    // A twin dies: EVERY instance bound to the name clears — the log can't
-    // say which mob died, and a dead mob must never keep a bar counting
-    // down (re-dotting the survivor starts a fresh bar).
+    // The mob dies: the visible-name bar clears.
     engine.process(
         &line(
             1020,
@@ -1640,16 +1642,12 @@ fn overlapping_casts_on_identical_names_get_numbered_instances() {
         engine.active_timers(1020).is_empty(),
         "death clears every instance bound to the name"
     );
-    for name in [
-        "Boil Blood — A zol ghoul knight",
-        "Boil Blood — A zol ghoul knight (2)",
-    ] {
-        assert!(
-            sink.cancels.contains(&name.to_string()),
-            "sink told to clear {name}: {:?}",
-            sink.cancels
-        );
-    }
+    assert!(
+        sink.cancels
+            .contains(&"Boil Blood — A zol ghoul knight".to_string()),
+        "sink told to clear Boil Blood: {:?}",
+        sink.cancels
+    );
 }
 
 #[test]
@@ -1760,7 +1758,7 @@ fn mixed_case_target_binds_reuse_the_first_seen_casing() {
 }
 
 #[test]
-fn targeted_wear_off_pops_oldest_instance_fifo() {
+fn targeted_wear_off_clears_refreshed_visible_target_bar() {
     let mut t = Trigger::new(
         "Heat Blood timer",
         r"^You begin casting Heat Blood\.$",
@@ -1823,15 +1821,9 @@ fn targeted_wear_off_pops_oldest_instance_fifo() {
         .into_iter()
         .map(|(n, _)| n)
         .collect();
-    assert_eq!(
-        names,
-        vec![
-            "Heat Blood — A froglok".to_string(),
-            "Heat Blood — A froglok (2)".to_string(),
-        ]
-    );
+    assert_eq!(names, vec!["Heat Blood — A froglok".to_string()]);
 
-    // "Your Heat Blood spell has worn off of A froglok." — oldest pops.
+    // "Your Heat Blood spell has worn off of A froglok." clears the bar.
     engine.process(
         &line(
             1040,
@@ -1848,15 +1840,14 @@ fn targeted_wear_off_pops_oldest_instance_fifo() {
         .into_iter()
         .map(|(n, _)| n)
         .collect();
-    assert_eq!(names, vec!["Heat Blood — A froglok (2)".to_string()]);
+    assert!(names.is_empty(), "{names:?}");
     assert!(sink.cancels.contains(&"Heat Blood — A froglok".to_string()));
 }
 
 #[test]
-fn death_clears_every_instance_of_every_spell_bound_to_the_victim() {
-    // Two different DoTs, each cast twice on identically named twins: one
-    // death clears ALL instances of EACH spell bound to that name — no bar
-    // may survive a matching death, even a younger twin's.
+fn death_clears_every_spell_bound_to_the_victim() {
+    // Two different DoTs bound to one visible name: one death clears every
+    // spell bound to that name.
     let dot = |spell: &str| {
         let mut t = Trigger::new(
             format!("{spell} timer"),
@@ -1892,36 +1883,34 @@ fn death_clears_every_instance_of_every_spell_bound_to_the_victim() {
         event,
     };
     let mut ts = 1000;
-    for _twin in 0..2 {
-        for spell in ["Boil Blood", "Heat Blood"] {
-            engine.process(
-                &line(
-                    ts,
-                    &format!("You begin casting {spell}."),
-                    Event::CastBegin {
-                        caster: Entity::You,
-                        spell: spell.into(),
-                    },
-                ),
-                &mut sink,
-            );
-            engine.process(
-                &line(
-                    ts + 3,
-                    &format!("A gnoll has taken 5 damage from {spell} by Nyasha."),
-                    Event::SpellDamageTaken {
-                        target: Entity::Named("A gnoll".into()),
-                        source: Entity::You,
-                        spell: spell.into(),
-                        amount: 5,
-                    },
-                ),
-                &mut sink,
-            );
-            ts += 5;
-        }
+    for spell in ["Boil Blood", "Heat Blood"] {
+        engine.process(
+            &line(
+                ts,
+                &format!("You begin casting {spell}."),
+                Event::CastBegin {
+                    caster: Entity::You,
+                    spell: spell.into(),
+                },
+            ),
+            &mut sink,
+        );
+        engine.process(
+            &line(
+                ts + 3,
+                &format!("A gnoll has taken 5 damage from {spell} by Nyasha."),
+                Event::SpellDamageTaken {
+                    target: Entity::Named("A gnoll".into()),
+                    source: Entity::You,
+                    spell: spell.into(),
+                    amount: 5,
+                },
+            ),
+            &mut sink,
+        );
+        ts += 5;
     }
-    assert_eq!(engine.active_timers(ts).len(), 4);
+    assert_eq!(engine.active_timers(ts).len(), 2);
 
     engine.process(
         &line(
@@ -1936,14 +1925,9 @@ fn death_clears_every_instance_of_every_spell_bound_to_the_victim() {
     );
     assert!(
         engine.active_timers(ts).is_empty(),
-        "one death clears every instance of every spell bound to the name"
+        "one death clears every spell bound to the name"
     );
-    for name in [
-        "Boil Blood — A gnoll",
-        "Boil Blood — A gnoll (2)",
-        "Heat Blood — A gnoll",
-        "Heat Blood — A gnoll (2)",
-    ] {
+    for name in ["Boil Blood — A gnoll", "Heat Blood — A gnoll"] {
         assert!(
             sink.cancels.contains(&name.to_string()),
             "sink told to clear {name}: {:?}",
@@ -2387,10 +2371,10 @@ fn non_damaging_debuff_binds_on_land_line_and_dies_with_the_mob() {
         "land line binds the slow to its target"
     );
     assert!(
-        sink.timers
-            .iter()
-            .any(|(n, _, _, lane)| n == "Togor's Insects — A dar ghoul knight"
-                && *lane == TimerLane::Enemy),
+        sink.timers.iter().any(
+            |(n, _, _, lane)| n == "Togor's Insects — A dar ghoul knight"
+                && *lane == TimerLane::Enemy
+        ),
         "bound bar stays in the enemy lane: {:?}",
         sink.timers
     );
@@ -2412,6 +2396,80 @@ fn non_damaging_debuff_binds_on_land_line_and_dies_with_the_mob() {
     assert!(
         engine.active_timers(1010).is_empty(),
         "death reaps the land-bound debuff bar"
+    );
+}
+
+#[test]
+fn generated_insect_slow_casts_accept_backtick_possessives() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Shaman".into()];
+    profile.level = 50;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    assert!(engine.warnings().is_empty(), "{:?}", engine.warnings());
+    let mut sink = RecordingSink::default();
+
+    engine.process(
+        &line(1000, "You begin casting Togor's Insects VII."),
+        &mut sink,
+    );
+    engine.process(&line(1005, "A dar ghoul knight yawns."), &mut sink);
+
+    let names: Vec<String> = engine
+        .active_timers(1005)
+        .into_iter()
+        .map(|(n, _)| n)
+        .collect();
+    assert!(
+        names.contains(&"Togor's Insects — A dar ghoul knight".to_string()),
+        "backtick spell name should start and bind the generated Togor timer: {names:?}"
+    );
+}
+
+#[test]
+fn reapplying_land_bound_enemy_debuff_replaces_same_visible_target() {
+    let mut t = Trigger::new(
+        "Togor's Insects timer",
+        r"^You begin casting Togor's Insects\.$",
+        vec![Action::StartTimer {
+            name: "Togor's Insects".into(),
+            duration_secs: 150,
+            warn_at_secs: None,
+            duration_formula: None,
+            duration_cap_ticks: None,
+            cast_time_secs: None,
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
+            lane: Some(TimerLane::Enemy),
+        }],
+    );
+    t.category = Some("Class/Shaman/Debuffs".into());
+    let mut engine = TriggerEngine::new(vec![t], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(1000, "You begin casting Togor's Insects."), &mut sink);
+    engine.process(&line(1003, "A dar ghoul knight yawns."), &mut sink);
+    engine.process(&line(1010, "You begin casting Togor's Insects."), &mut sink);
+    engine.process(&line(1013, "A dar ghoul knight yawns."), &mut sink);
+
+    let names: Vec<String> = engine
+        .active_timers(1013)
+        .into_iter()
+        .map(|(n, _)| n)
+        .collect();
+    assert_eq!(
+        names,
+        vec!["Togor's Insects — A dar ghoul knight".to_string()],
+        "same land-bound debuff on the same visible target should refresh, not create (2)"
+    );
+    assert!(
+        sink.cancels
+            .contains(&"Togor's Insects — A dar ghoul knight".to_string()),
+        "the old bound bar should be explicitly cancelled before the refreshed bar"
     );
 }
 
@@ -2449,10 +2507,7 @@ fn rebuffing_same_target_replaces_the_bar_instead_of_numbering() {
         sink.cancels
     );
     assert!(
-        !sink
-            .timers
-            .iter()
-            .any(|(n, _, _, _)| n.contains("(2)")),
+        !sink.timers.iter().any(|(n, _, _, _)| n.contains("(2)")),
         "no numbered instance ever started: {:?}",
         sink.timers
     );
@@ -2601,4 +2656,175 @@ fn ambiguous_land_line_binds_nothing() {
         .timers
         .iter()
         .any(|(_, _, _, lane)| *lane == TimerLane::OnOthers));
+}
+
+// ---------------------------------------------------------------------------
+// Zone-conditional trigger activation (P??): a trigger with a non-empty `zones`
+// scope fires only while the current zone (learned from "You have entered …"
+// lines) matches, and never before the location is known.
+// ---------------------------------------------------------------------------
+
+/// A speak trigger scoped to `zones` that matches the fixed line below.
+fn zone_scoped_trigger(zones: &[&str]) -> Trigger {
+    let mut t = Trigger::new(
+        "sebilis-emote",
+        "^A froglok croaks",
+        vec![Action::Speak {
+            template: "croak".into(),
+        }],
+    );
+    t.id = Some("zone/test/croak".into());
+    t.category = Some("Zone/Test".into());
+    t.zones = zones.iter().map(|z| z.to_string()).collect();
+    t
+}
+
+fn zone_enter(ts: i64, zone: &str) -> ParsedLine {
+    ParsedLine {
+        line: LogLine {
+            timestamp: ts,
+            message: format!("You have entered {zone}."),
+        },
+        event: Event::ZoneEnter {
+            zone: zone.to_string(),
+        },
+    }
+}
+
+#[test]
+fn zone_scoped_trigger_stays_quiet_before_any_zone_line() {
+    let mut engine = TriggerEngine::new(vec![zone_scoped_trigger(&["Sebilis"])], "Nyasha");
+    assert_eq!(engine.current_zone(), None);
+    let mut sink = RecordingSink::default();
+    engine.process(&line(10, "A froglok croaks menacingly."), &mut sink);
+    assert!(
+        sink.spoken.is_empty(),
+        "zone-scoped trigger fired with unknown location: {:?}",
+        sink.spoken
+    );
+}
+
+#[test]
+fn zone_scoped_trigger_fires_only_in_matching_zone() {
+    let mut engine = TriggerEngine::new(vec![zone_scoped_trigger(&["Sebilis"])], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    // Wrong zone: substring "Sebilis" is not in "West Karana" → silent.
+    engine.process(&zone_enter(100, "West Karana"), &mut sink);
+    engine.process(&line(101, "A froglok croaks menacingly."), &mut sink);
+    assert!(
+        sink.spoken.is_empty(),
+        "fired in wrong zone: {:?}",
+        sink.spoken
+    );
+
+    // Right zone: the log's full name "New Sebilis Expedition" contains the
+    // configured substring "Sebilis" (case-insensitive) → fires.
+    engine.process(&zone_enter(200, "New Sebilis Expedition"), &mut sink);
+    assert_eq!(engine.current_zone(), Some("new sebilis expedition"));
+    engine.process(&line(201, "A froglok croaks menacingly."), &mut sink);
+    assert_eq!(sink.spoken, vec!["croak".to_string()]);
+
+    // Zone out again → silent once more.
+    engine.process(&zone_enter(300, "Trakanon's Teeth"), &mut sink);
+    engine.process(&line(301, "A froglok croaks menacingly."), &mut sink);
+    assert_eq!(
+        sink.spoken,
+        vec!["croak".to_string()],
+        "leaked after zoning out"
+    );
+}
+
+#[test]
+fn unscoped_trigger_fires_in_every_zone() {
+    let mut t = zone_scoped_trigger(&[]); // empty scope = everywhere
+    t.zones.clear();
+    let mut engine = TriggerEngine::new(vec![t], "Nyasha");
+    let mut sink = RecordingSink::default();
+    // Fires before any zone line …
+    engine.process(&line(1, "A froglok croaks menacingly."), &mut sink);
+    // … and after zoning anywhere.
+    engine.process(&zone_enter(2, "West Karana"), &mut sink);
+    engine.process(&line(3, "A froglok croaks menacingly."), &mut sink);
+    assert_eq!(sink.spoken.len(), 2);
+}
+
+#[test]
+fn loadout_zone_scope_overrides_pack_zones() {
+    use eqlog_triggers::Loadout;
+
+    // Pack ships the trigger scoped to Sebilis; the user's loadout re-scopes
+    // the whole "Zone/Test" branch to Guk instead.
+    let pack_trigger = zone_scoped_trigger(&["Sebilis"]);
+    let mut loadout = Loadout::new("Default");
+    loadout
+        .zone_scopes
+        .insert("Zone/Test".into(), vec!["Guk".into()]);
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.loadouts = vec![loadout];
+    profile.active_loadout = "Default".into();
+
+    let mut engine = TriggerEngine::new_with_profile(vec![pack_trigger], "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    // Sebilis no longer counts — the loadout replaced the scope.
+    engine.process(&zone_enter(100, "New Sebilis Expedition"), &mut sink);
+    engine.process(&line(101, "A froglok croaks menacingly."), &mut sink);
+    assert!(
+        sink.spoken.is_empty(),
+        "pack scope not overridden: {:?}",
+        sink.spoken
+    );
+
+    // Guk now activates it.
+    engine.process(&zone_enter(200, "Lower Guk"), &mut sink);
+    engine.process(&line(201, "A froglok croaks menacingly."), &mut sink);
+    assert_eq!(sink.spoken, vec!["croak".to_string()]);
+}
+
+// ---------------------------------------------------------------------------
+// PostWebhook action: fires the sink's post_webhook with the expanded template
+// and the (optional) named webhook. URLs never reach the engine.
+// ---------------------------------------------------------------------------
+
+#[test]
+fn post_webhook_action_expands_template_and_targets_named_webhook() {
+    let named = Trigger::new(
+        "batphone",
+        "^{C} tells the guild, '(?P<msg>.+)'",
+        vec![Action::PostWebhook {
+            template: "Batphone: ${msg}".into(),
+            webhook: Some("raid".into()),
+        }],
+    );
+    let default_hook = Trigger::new(
+        "named-up",
+        "^(?P<mob>.+) begins to cast a spell",
+        vec![Action::PostWebhook {
+            template: "${mob} is up".into(),
+            webhook: None,
+        }],
+    );
+    let mut engine = TriggerEngine::new(vec![named, default_hook], "Nyasha");
+    assert!(engine.warnings().is_empty(), "{:?}", engine.warnings());
+    let mut sink = RecordingSink::default();
+
+    engine.process(
+        &line(1, "Nyasha tells the guild, 'inc trak, up now'"),
+        &mut sink,
+    );
+    engine.process(&line(2, "Trakanon begins to cast a spell."), &mut sink);
+
+    assert_eq!(
+        sink.webhooks,
+        vec![
+            (
+                Some("raid".to_string()),
+                "Batphone: inc trak, up now".to_string()
+            ),
+            (None, "Trakanon is up".to_string()),
+        ]
+    );
+    // A webhook action speaks/shows nothing on its own.
+    assert!(sink.spoken.is_empty() && sink.displayed.is_empty());
 }

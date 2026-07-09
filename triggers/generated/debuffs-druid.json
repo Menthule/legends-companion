@@ -4,7 +4,7 @@
     {
       "id": "debuffs/druid/cast/allure-of-the-wild",
       "name": "Enemy timer: Allure of the Wild",
-      "pattern": "^You begin casting Allure of the Wild\\.$",
+      "pattern": "^You begin casting Allure of the Wild(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/druid/cast/befriend-animal",
       "name": "Enemy timer: Befriend Animal",
-      "pattern": "^You begin casting Befriend Animal\\.$",
+      "pattern": "^You begin casting Befriend Animal(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/druid/cast/beguile-animals",
       "name": "Enemy timer: Beguile Animals",
-      "pattern": "^You begin casting Beguile Animals\\.$",
+      "pattern": "^You begin casting Beguile Animals(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/druid/cast/beguile-plants",
       "name": "Enemy timer: Beguile Plants",
-      "pattern": "^You begin casting Beguile Plants\\.$",
+      "pattern": "^You begin casting Beguile Plants(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/druid/cast/bonds-of-tunare",
       "name": "Enemy timer: Bonds of Tunare",
-      "pattern": "^You begin casting Bonds of Tunare\\.$",
+      "pattern": "^You begin casting Bonds of Tunare(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/druid/cast/breath-of-ro",
       "name": "Enemy timer: Breath of Ro",
-      "pattern": "^You begin casting Breath of Ro\\.$",
+      "pattern": "^You begin casting Breath of Ro(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/druid/cast/call-of-karana",
       "name": "Enemy timer: Call of Karana",
-      "pattern": "^You begin casting Call of Karana\\.$",
+      "pattern": "^You begin casting Call of Karana(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/druid/cast/charm-animals",
       "name": "Enemy timer: Charm Animals",
-      "pattern": "^You begin casting Charm Animals\\.$",
+      "pattern": "^You begin casting Charm Animals(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/druid/cast/creeping-crud",
       "name": "Enemy timer: Creeping Crud",
-      "pattern": "^You begin casting Creeping Crud\\.$",
+      "pattern": "^You begin casting Creeping Crud(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/druid/cast/drifting-death",
       "name": "Enemy timer: Drifting Death",
-      "pattern": "^You begin casting Drifting Death\\.$",
+      "pattern": "^You begin casting Drifting Death(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/druid/cast/drones-of-doom",
       "name": "Enemy timer: Drones of Doom",
-      "pattern": "^You begin casting Drones of Doom\\.$",
+      "pattern": "^You begin casting Drones of Doom(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/druid/cast/engorging-roots",
       "name": "Enemy timer: Engorging Roots",
-      "pattern": "^You begin casting Engorging Roots\\.$",
+      "pattern": "^You begin casting Engorging Roots(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/druid/cast/engulfing-roots",
       "name": "Enemy timer: Engulfing Roots",
-      "pattern": "^You begin casting Engulfing Roots\\.$",
+      "pattern": "^You begin casting Engulfing Roots(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/druid/cast/ensnare",
       "name": "Enemy timer: Ensnare",
-      "pattern": "^You begin casting Ensnare\\.$",
+      "pattern": "^You begin casting Ensnare(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/druid/cast/ensnaring-roots",
       "name": "Enemy timer: Ensnaring Roots",
-      "pattern": "^You begin casting Ensnaring Roots\\.$",
+      "pattern": "^You begin casting Ensnaring Roots(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "debuffs/druid/cast/entrapping-roots",
       "name": "Enemy timer: Entrapping Roots",
-      "pattern": "^You begin casting Entrapping Roots\\.$",
+      "pattern": "^You begin casting Entrapping Roots(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "debuffs/druid/cast/enveloping-roots",
       "name": "Enemy timer: Enveloping Roots",
-      "pattern": "^You begin casting Enveloping Roots\\.$",
+      "pattern": "^You begin casting Enveloping Roots(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "debuffs/druid/cast/fire",
       "name": "Enemy timer: Fire",
-      "pattern": "^You begin casting Fire\\.$",
+      "pattern": "^You begin casting Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "debuffs/druid/cast/fixation-of-ro",
       "name": "Enemy timer: Fixation of Ro",
-      "pattern": "^You begin casting Fixation of Ro\\.$",
+      "pattern": "^You begin casting Fixation of Ro(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "debuffs/druid/cast/flame-lick",
       "name": "Enemy timer: Flame Lick",
-      "pattern": "^You begin casting Flame Lick\\.$",
+      "pattern": "^You begin casting Flame Lick(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "debuffs/druid/cast/glamour-of-tunare",
       "name": "Enemy timer: Glamour of Tunare",
-      "pattern": "^You begin casting Glamour of Tunare\\.$",
+      "pattern": "^You begin casting Glamour of Tunare(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "debuffs/druid/cast/grasping-roots",
       "name": "Enemy timer: Grasping Roots",
-      "pattern": "^You begin casting Grasping Roots\\.$",
+      "pattern": "^You begin casting Grasping Roots(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "debuffs/druid/cast/ice",
       "name": "Enemy timer: Ice",
-      "pattern": "^You begin casting Ice\\.$",
+      "pattern": "^You begin casting Ice(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "debuffs/druid/cast/immolate",
       "name": "Enemy timer: Immolate",
-      "pattern": "^You begin casting Immolate\\.$",
+      "pattern": "^You begin casting Immolate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "debuffs/druid/cast/instinctual-fear",
       "name": "Enemy timer: Instinctual Fear",
-      "pattern": "^You begin casting Instinctual Fear\\.$",
+      "pattern": "^You begin casting Instinctual Fear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "debuffs/druid/cast/panic-animal",
       "name": "Enemy timer: Panic Animal",
-      "pattern": "^You begin casting Panic Animal\\.$",
+      "pattern": "^You begin casting Panic Animal(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "debuffs/druid/cast/repulse-animal",
       "name": "Enemy timer: Repulse Animal",
-      "pattern": "^You begin casting Repulse Animal\\.$",
+      "pattern": "^You begin casting Repulse Animal(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "debuffs/druid/cast/ro-s-fiery-sundering",
       "name": "Enemy timer: Ro's Fiery Sundering",
-      "pattern": "^You begin casting Ro's Fiery Sundering\\.$",
+      "pattern": "^You begin casting Ro['`]s Fiery Sundering(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "debuffs/druid/cast/ro-s-smoldering-disjunction",
       "name": "Enemy timer: Ro's Smoldering Disjunction",
-      "pattern": "^You begin casting Ro's Smoldering Disjunction\\.$",
+      "pattern": "^You begin casting Ro['`]s Smoldering Disjunction(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "debuffs/druid/cast/share-wolf-form",
       "name": "Enemy timer: Share Wolf Form",
-      "pattern": "^You begin casting Share Wolf Form\\.$",
+      "pattern": "^You begin casting Share Wolf Form(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "debuffs/druid/cast/snare",
       "name": "Enemy timer: Snare",
-      "pattern": "^You begin casting Snare\\.$",
+      "pattern": "^You begin casting Snare(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "debuffs/druid/cast/stinging-swarm",
       "name": "Enemy timer: Stinging Swarm",
-      "pattern": "^You begin casting Stinging Swarm\\.$",
+      "pattern": "^You begin casting Stinging Swarm(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "debuffs/druid/cast/sunbeam",
       "name": "Enemy timer: Sunbeam",
-      "pattern": "^You begin casting Sunbeam\\.$",
+      "pattern": "^You begin casting Sunbeam(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "debuffs/druid/cast/tangle",
       "name": "Enemy timer: Tangle",
-      "pattern": "^You begin casting Tangle\\.$",
+      "pattern": "^You begin casting Tangle(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "debuffs/druid/cast/tangling-weeds",
       "name": "Enemy timer: Tangling Weeds",
-      "pattern": "^You begin casting Tangling Weeds\\.$",
+      "pattern": "^You begin casting Tangling Weeds(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "debuffs/druid/cast/terrorize-animal",
       "name": "Enemy timer: Terrorize Animal",
-      "pattern": "^You begin casting Terrorize Animal\\.$",
+      "pattern": "^You begin casting Terrorize Animal(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "debuffs/druid/cast/tunare-s-request",
       "name": "Enemy timer: Tunare's Request",
-      "pattern": "^You begin casting Tunare's Request\\.$",
+      "pattern": "^You begin casting Tunare['`]s Request(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "debuffs/druid/cast/vengeance-of-nature",
       "name": "Enemy timer: Vengeance of Nature",
-      "pattern": "^You begin casting Vengeance of Nature\\.$",
+      "pattern": "^You begin casting Vengeance of Nature(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "debuffs/druid/cast/vengeance-of-the-wild",
       "name": "Enemy timer: Vengeance of the Wild",
-      "pattern": "^You begin casting Vengeance of the Wild\\.$",
+      "pattern": "^You begin casting Vengeance of the Wild(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "debuffs/druid/cast/winged-death",
       "name": "Enemy timer: Winged Death",
-      "pattern": "^You begin casting Winged Death\\.$",
+      "pattern": "^You begin casting Winged Death(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "debuffs/worn/allure-of-the-wild",
       "name": "Enemy timer cleared: Allure of the Wild",
-      "pattern": "^Your Allure of the Wild spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Allure of the Wild(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1069,7 +1069,7 @@
     {
       "id": "debuffs/worn/befriend-animal",
       "name": "Enemy timer cleared: Befriend Animal",
-      "pattern": "^Your Befriend Animal spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Befriend Animal(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1095,7 +1095,7 @@
     {
       "id": "debuffs/worn/beguile-animals",
       "name": "Enemy timer cleared: Beguile Animals",
-      "pattern": "^Your Beguile Animals spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Beguile Animals(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1120,7 +1120,7 @@
     {
       "id": "debuffs/worn/beguile-plants",
       "name": "Enemy timer cleared: Beguile Plants",
-      "pattern": "^Your Beguile Plants spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Beguile Plants(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1145,7 +1145,7 @@
     {
       "id": "debuffs/worn/bonds-of-tunare",
       "name": "Enemy timer cleared: Bonds of Tunare",
-      "pattern": "^Your Bonds of Tunare spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Bonds of Tunare(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1170,7 +1170,7 @@
     {
       "id": "debuffs/worn/breath-of-ro",
       "name": "Enemy timer cleared: Breath of Ro",
-      "pattern": "^Your Breath of Ro spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Breath of Ro(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1195,7 +1195,7 @@
     {
       "id": "debuffs/worn/call-of-karana",
       "name": "Enemy timer cleared: Call of Karana",
-      "pattern": "^Your Call of Karana spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Call of Karana(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1220,7 +1220,7 @@
     {
       "id": "debuffs/worn/charm-animals",
       "name": "Enemy timer cleared: Charm Animals",
-      "pattern": "^Your Charm Animals spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Charm Animals(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1246,7 +1246,7 @@
     {
       "id": "debuffs/worn/creeping-crud",
       "name": "Enemy timer cleared: Creeping Crud",
-      "pattern": "^Your Creeping Crud spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Creeping Crud(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1271,7 +1271,7 @@
     {
       "id": "debuffs/worn/drifting-death",
       "name": "Enemy timer cleared: Drifting Death",
-      "pattern": "^Your Drifting Death spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Drifting Death(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1296,7 +1296,7 @@
     {
       "id": "debuffs/worn/engorging-roots",
       "name": "Enemy timer cleared: Engorging Roots",
-      "pattern": "^Your Engorging Roots spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Engorging Roots(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1321,7 +1321,7 @@
     {
       "id": "debuffs/worn/engulfing-roots",
       "name": "Enemy timer cleared: Engulfing Roots",
-      "pattern": "^Your Engulfing Roots spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Engulfing Roots(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1346,7 +1346,7 @@
     {
       "id": "debuffs/worn/entrapping-roots",
       "name": "Enemy timer cleared: Entrapping Roots",
-      "pattern": "^Your Entrapping Roots spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Entrapping Roots(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1371,7 +1371,7 @@
     {
       "id": "debuffs/worn/fire",
       "name": "Enemy timer cleared: Fire",
-      "pattern": "^Your Fire spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fire(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1396,7 +1396,7 @@
     {
       "id": "debuffs/worn/fixation-of-ro",
       "name": "Enemy timer cleared: Fixation of Ro",
-      "pattern": "^Your Fixation of Ro spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fixation of Ro(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1421,7 +1421,7 @@
     {
       "id": "debuffs/worn/glamour-of-tunare",
       "name": "Enemy timer cleared: Glamour of Tunare",
-      "pattern": "^Your Glamour of Tunare spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Glamour of Tunare(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1446,7 +1446,7 @@
     {
       "id": "debuffs/worn/ice",
       "name": "Enemy timer cleared: Ice",
-      "pattern": "^Your Ice spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1471,7 +1471,7 @@
     {
       "id": "debuffs/worn/instinctual-fear",
       "name": "Enemy timer cleared: Instinctual Fear",
-      "pattern": "^Your Instinctual Fear spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Instinctual Fear(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1496,7 +1496,7 @@
     {
       "id": "debuffs/worn/repulse-animal",
       "name": "Enemy timer cleared: Repulse Animal",
-      "pattern": "^Your Repulse Animal spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Repulse Animal(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1521,7 +1521,7 @@
     {
       "id": "debuffs/worn/ro-s-fiery-sundering",
       "name": "Enemy timer cleared: Ro's Fiery Sundering",
-      "pattern": "^Your Ro's Fiery Sundering spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ro['`]s Fiery Sundering(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1546,7 +1546,7 @@
     {
       "id": "debuffs/worn/ro-s-smoldering-disjunction",
       "name": "Enemy timer cleared: Ro's Smoldering Disjunction",
-      "pattern": "^Your Ro's Smoldering Disjunction spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ro['`]s Smoldering Disjunction(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1571,7 +1571,7 @@
     {
       "id": "debuffs/worn/share-wolf-form",
       "name": "Enemy timer cleared: Share Wolf Form",
-      "pattern": "^Your Share Wolf Form spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Share Wolf Form(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1596,7 +1596,7 @@
     {
       "id": "debuffs/worn/sunbeam",
       "name": "Enemy timer cleared: Sunbeam",
-      "pattern": "^Your Sunbeam spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Sunbeam(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1621,7 +1621,7 @@
     {
       "id": "debuffs/worn/terrorize-animal",
       "name": "Enemy timer cleared: Terrorize Animal",
-      "pattern": "^Your Terrorize Animal spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Terrorize Animal(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1646,7 +1646,7 @@
     {
       "id": "debuffs/worn/tunare-s-request",
       "name": "Enemy timer cleared: Tunare's Request",
-      "pattern": "^Your Tunare's Request spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tunare['`]s Request(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1671,7 +1671,7 @@
     {
       "id": "debuffs/worn/vengeance-of-nature",
       "name": "Enemy timer cleared: Vengeance of Nature",
-      "pattern": "^Your Vengeance of Nature spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Vengeance of Nature(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1696,7 +1696,7 @@
     {
       "id": "debuffs/worn/vengeance-of-the-wild",
       "name": "Enemy timer cleared: Vengeance of the Wild",
-      "pattern": "^Your Vengeance of the Wild spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Vengeance of the Wild(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1721,7 +1721,7 @@
     {
       "id": "debuffs/worn/winged-death",
       "name": "Enemy timer cleared: Winged Death",
-      "pattern": "^Your Winged Death spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Winged Death(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

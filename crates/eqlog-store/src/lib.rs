@@ -411,7 +411,9 @@ mod tests {
     fn prune_before_removes_only_older_fights() {
         let mut store = FightStore::open_in_memory().unwrap();
         for (i, target) in ["old1", "old2", "keep1", "keep2"].iter().enumerate() {
-            store.insert(&summary(target, 1_000 + i as i64 * 100)).unwrap();
+            store
+                .insert(&summary(target, 1_000 + i as i64 * 100))
+                .unwrap();
         }
         // start_ts: old1=1000 old2=1100 keep1=1200 keep2=1300.
         let removed = store.prune_before(1_200).unwrap();
@@ -429,7 +431,9 @@ mod tests {
     fn prune_keep_last_keeps_the_newest_n() {
         let mut store = FightStore::open_in_memory().unwrap();
         for (i, target) in ["a", "b", "c", "d", "e"].iter().enumerate() {
-            store.insert(&summary(target, 1_000 + i as i64 * 60)).unwrap();
+            store
+                .insert(&summary(target, 1_000 + i as i64 * 60))
+                .unwrap();
         }
         let removed = store.prune_keep_last(2).unwrap();
         assert_eq!(removed, 3);

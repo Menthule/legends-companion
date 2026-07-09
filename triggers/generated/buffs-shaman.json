@@ -4,7 +4,7 @@
     {
       "id": "buffs/shaman/cast/acumen",
       "name": "Buff timer: Acumen",
-      "pattern": "^You begin casting Acumen\\.$",
+      "pattern": "^You begin casting Acumen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/shaman/cast/acumen-of-dar-khura",
       "name": "Buff timer: Acumen of Dar Khura",
-      "pattern": "^You begin casting Acumen of Dar Khura\\.$",
+      "pattern": "^You begin casting Acumen of Dar Khura(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/shaman/cast/agility",
       "name": "Buff timer: Agility",
-      "pattern": "^You begin casting Agility\\.$",
+      "pattern": "^You begin casting Agility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/shaman/cast/alacrity",
       "name": "Buff timer: Alacrity",
-      "pattern": "^You begin casting Alacrity\\.$",
+      "pattern": "^You begin casting Alacrity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/shaman/cast/alluring-aura",
       "name": "Buff timer: Alluring Aura",
-      "pattern": "^You begin casting Alluring Aura\\.$",
+      "pattern": "^You begin casting Alluring Aura(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/shaman/cast/ancient-feral-avatar",
       "name": "Buff timer: Ancient: Feral Avatar",
-      "pattern": "^You begin casting Ancient: Feral Avatar\\.$",
+      "pattern": "^You begin casting Ancient: Feral Avatar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/shaman/cast/assiduous-vision",
       "name": "Buff timer: Assiduous Vision",
-      "pattern": "^You begin casting Assiduous Vision\\.$",
+      "pattern": "^You begin casting Assiduous Vision(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/shaman/cast/avatar",
       "name": "Buff timer: Avatar",
-      "pattern": "^You begin casting Avatar\\.$",
+      "pattern": "^You begin casting Avatar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/shaman/cast/celerity",
       "name": "Buff timer: Celerity",
-      "pattern": "^You begin casting Celerity\\.$",
+      "pattern": "^You begin casting Celerity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/shaman/cast/charisma",
       "name": "Buff timer: Charisma",
-      "pattern": "^You begin casting Charisma\\.$",
+      "pattern": "^You begin casting Charisma(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/shaman/cast/chloroplast",
       "name": "Buff timer: Chloroplast",
-      "pattern": "^You begin casting Chloroplast\\.$",
+      "pattern": "^You begin casting Chloroplast(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/shaman/cast/creeping-vision",
       "name": "Buff timer: Creeping Vision",
-      "pattern": "^You begin casting Creeping Vision\\.$",
+      "pattern": "^You begin casting Creeping Vision(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/shaman/cast/deftness",
       "name": "Buff timer: Deftness",
-      "pattern": "^You begin casting Deftness\\.$",
+      "pattern": "^You begin casting Deftness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/shaman/cast/deliriously-nimble",
       "name": "Buff timer: Deliriously Nimble",
-      "pattern": "^You begin casting Deliriously Nimble\\.$",
+      "pattern": "^You begin casting Deliriously Nimble(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "buffs/shaman/cast/dexterity",
       "name": "Buff timer: Dexterity",
-      "pattern": "^You begin casting Dexterity\\.$",
+      "pattern": "^You begin casting Dexterity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "buffs/shaman/cast/dexterous-aura",
       "name": "Buff timer: Dexterous Aura",
-      "pattern": "^You begin casting Dexterous Aura\\.$",
+      "pattern": "^You begin casting Dexterous Aura(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "buffs/shaman/cast/endure-cold",
       "name": "Buff timer: Endure Cold",
-      "pattern": "^You begin casting Endure Cold\\.$",
+      "pattern": "^You begin casting Endure Cold(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "buffs/shaman/cast/endure-disease",
       "name": "Buff timer: Endure Disease",
-      "pattern": "^You begin casting Endure Disease\\.$",
+      "pattern": "^You begin casting Endure Disease(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "buffs/shaman/cast/endure-fire",
       "name": "Buff timer: Endure Fire",
-      "pattern": "^You begin casting Endure Fire\\.$",
+      "pattern": "^You begin casting Endure Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "buffs/shaman/cast/endure-magic",
       "name": "Buff timer: Endure Magic",
-      "pattern": "^You begin casting Endure Magic\\.$",
+      "pattern": "^You begin casting Endure Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "buffs/shaman/cast/endure-poison",
       "name": "Buff timer: Endure Poison",
-      "pattern": "^You begin casting Endure Poison\\.$",
+      "pattern": "^You begin casting Endure Poison(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "buffs/shaman/cast/enduring-breath",
       "name": "Buff timer: Enduring Breath",
-      "pattern": "^You begin casting Enduring Breath\\.$",
+      "pattern": "^You begin casting Enduring Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "buffs/shaman/cast/everlasting-breath",
       "name": "Buff timer: Everlasting Breath",
-      "pattern": "^You begin casting Everlasting Breath\\.$",
+      "pattern": "^You begin casting Everlasting Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "buffs/shaman/cast/feet-like-cat",
       "name": "Buff timer: Feet like Cat",
-      "pattern": "^You begin casting Feet like Cat\\.$",
+      "pattern": "^You begin casting Feet like Cat(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "buffs/shaman/cast/focus-of-spirit",
       "name": "Buff timer: Focus of Spirit",
-      "pattern": "^You begin casting Focus of Spirit\\.$",
+      "pattern": "^You begin casting Focus of Spirit(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "buffs/shaman/cast/form-of-the-bear",
       "name": "Buff timer: Form of the Bear",
-      "pattern": "^You begin casting Form of the Bear\\.$",
+      "pattern": "^You begin casting Form of the Bear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "buffs/shaman/cast/form-of-the-great-bear",
       "name": "Buff timer: Form of the Great Bear",
-      "pattern": "^You begin casting Form of the Great Bear\\.$",
+      "pattern": "^You begin casting Form of the Great Bear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "buffs/shaman/cast/furious-strength",
       "name": "Buff timer: Furious Strength",
-      "pattern": "^You begin casting Furious Strength\\.$",
+      "pattern": "^You begin casting Furious Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "buffs/shaman/cast/glamour",
       "name": "Buff timer: Glamour",
-      "pattern": "^You begin casting Glamour\\.$",
+      "pattern": "^You begin casting Glamour(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "buffs/shaman/cast/guardian",
       "name": "Buff timer: Guardian",
-      "pattern": "^You begin casting Guardian\\.$",
+      "pattern": "^You begin casting Guardian(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "buffs/shaman/cast/harnessing-of-spirit",
       "name": "Buff timer: Harnessing of Spirit",
-      "pattern": "^You begin casting Harnessing of Spirit\\.$",
+      "pattern": "^You begin casting Harnessing of Spirit(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "buffs/shaman/cast/health",
       "name": "Buff timer: Health",
-      "pattern": "^You begin casting Health\\.$",
+      "pattern": "^You begin casting Health(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "buffs/shaman/cast/infusion-of-spirit",
       "name": "Buff timer: Infusion of Spirit",
-      "pattern": "^You begin casting Infusion of Spirit\\.$",
+      "pattern": "^You begin casting Infusion of Spirit(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "buffs/shaman/cast/inner-fire",
       "name": "Buff timer: Inner Fire",
-      "pattern": "^You begin casting Inner Fire\\.$",
+      "pattern": "^You begin casting Inner Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "buffs/shaman/cast/invisibility",
       "name": "Buff timer: Invisibility",
-      "pattern": "^You begin casting Invisibility\\.$",
+      "pattern": "^You begin casting Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "buffs/shaman/cast/invisibility-versus-animals",
       "name": "Buff timer: Invisibility Versus Animals",
-      "pattern": "^You begin casting Invisibility Versus Animals\\.$",
+      "pattern": "^You begin casting Invisibility Versus Animals(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "buffs/shaman/cast/khura-s-focusing",
       "name": "Buff timer: Khura's Focusing",
-      "pattern": "^You begin casting Khura's Focusing\\.$",
+      "pattern": "^You begin casting Khura['`]s Focusing(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "buffs/shaman/cast/levitate",
       "name": "Buff timer: Levitate",
-      "pattern": "^You begin casting Levitate\\.$",
+      "pattern": "^You begin casting Levitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "buffs/shaman/cast/levitation",
       "name": "Buff timer: Levitation",
-      "pattern": "^You begin casting Levitation\\.$",
+      "pattern": "^You begin casting Levitation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "buffs/shaman/cast/maniacal-strength",
       "name": "Buff timer: Maniacal Strength",
-      "pattern": "^You begin casting Maniacal Strength\\.$",
+      "pattern": "^You begin casting Maniacal Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "buffs/shaman/cast/mortal-deftness",
       "name": "Buff timer: Mortal Deftness",
-      "pattern": "^You begin casting Mortal Deftness\\.$",
+      "pattern": "^You begin casting Mortal Deftness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1070,7 +1070,7 @@
     {
       "id": "buffs/shaman/cast/nimble",
       "name": "Buff timer: Nimble",
-      "pattern": "^You begin casting Nimble\\.$",
+      "pattern": "^You begin casting Nimble(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1096,7 +1096,7 @@
     {
       "id": "buffs/shaman/cast/pack-shrew",
       "name": "Buff timer: Pack Shrew",
-      "pattern": "^You begin casting Pack Shrew\\.$",
+      "pattern": "^You begin casting Pack Shrew(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1122,7 +1122,7 @@
     {
       "id": "buffs/shaman/cast/primal-avatar",
       "name": "Buff timer: Primal Avatar",
-      "pattern": "^You begin casting Primal Avatar\\.$",
+      "pattern": "^You begin casting Primal Avatar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1148,7 +1148,7 @@
     {
       "id": "buffs/shaman/cast/primal-essence",
       "name": "Buff timer: Primal Essence",
-      "pattern": "^You begin casting Primal Essence\\.$",
+      "pattern": "^You begin casting Primal Essence(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1174,7 +1174,7 @@
     {
       "id": "buffs/shaman/cast/protect",
       "name": "Buff timer: Protect",
-      "pattern": "^You begin casting Protect\\.$",
+      "pattern": "^You begin casting Protect(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1200,7 +1200,7 @@
     {
       "id": "buffs/shaman/cast/quickness",
       "name": "Buff timer: Quickness",
-      "pattern": "^You begin casting Quickness\\.$",
+      "pattern": "^You begin casting Quickness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1226,7 +1226,7 @@
     {
       "id": "buffs/shaman/cast/raging-strength",
       "name": "Buff timer: Raging Strength",
-      "pattern": "^You begin casting Raging Strength\\.$",
+      "pattern": "^You begin casting Raging Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1252,7 +1252,7 @@
     {
       "id": "buffs/shaman/cast/regeneration",
       "name": "Buff timer: Regeneration",
-      "pattern": "^You begin casting Regeneration\\.$",
+      "pattern": "^You begin casting Regeneration(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1278,7 +1278,7 @@
     {
       "id": "buffs/shaman/cast/regrowth",
       "name": "Buff timer: Regrowth",
-      "pattern": "^You begin casting Regrowth\\.$",
+      "pattern": "^You begin casting Regrowth(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1304,7 +1304,7 @@
     {
       "id": "buffs/shaman/cast/regrowth-of-dar-khura",
       "name": "Buff timer: Regrowth of Dar Khura",
-      "pattern": "^You begin casting Regrowth of Dar Khura\\.$",
+      "pattern": "^You begin casting Regrowth of Dar Khura(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1330,7 +1330,7 @@
     {
       "id": "buffs/shaman/cast/resist-cold",
       "name": "Buff timer: Resist Cold",
-      "pattern": "^You begin casting Resist Cold\\.$",
+      "pattern": "^You begin casting Resist Cold(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1356,7 +1356,7 @@
     {
       "id": "buffs/shaman/cast/resist-disease",
       "name": "Buff timer: Resist Disease",
-      "pattern": "^You begin casting Resist Disease\\.$",
+      "pattern": "^You begin casting Resist Disease(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1382,7 +1382,7 @@
     {
       "id": "buffs/shaman/cast/resist-fire",
       "name": "Buff timer: Resist Fire",
-      "pattern": "^You begin casting Resist Fire\\.$",
+      "pattern": "^You begin casting Resist Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1408,7 +1408,7 @@
     {
       "id": "buffs/shaman/cast/resist-magic",
       "name": "Buff timer: Resist Magic",
-      "pattern": "^You begin casting Resist Magic\\.$",
+      "pattern": "^You begin casting Resist Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1434,7 +1434,7 @@
     {
       "id": "buffs/shaman/cast/resist-poison",
       "name": "Buff timer: Resist Poison",
-      "pattern": "^You begin casting Resist Poison\\.$",
+      "pattern": "^You begin casting Resist Poison(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1460,7 +1460,7 @@
     {
       "id": "buffs/shaman/cast/riotous-health",
       "name": "Buff timer: Riotous Health",
-      "pattern": "^You begin casting Riotous Health\\.$",
+      "pattern": "^You begin casting Riotous Health(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1486,7 +1486,7 @@
     {
       "id": "buffs/shaman/cast/rising-dexterity",
       "name": "Buff timer: Rising Dexterity",
-      "pattern": "^You begin casting Rising Dexterity\\.$",
+      "pattern": "^You begin casting Rising Dexterity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1512,7 +1512,7 @@
     {
       "id": "buffs/shaman/cast/scale-skin",
       "name": "Buff timer: Scale Skin",
-      "pattern": "^You begin casting Scale Skin\\.$",
+      "pattern": "^You begin casting Scale Skin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1538,7 +1538,7 @@
     {
       "id": "buffs/shaman/cast/scale-of-wolf",
       "name": "Buff timer: Scale of Wolf",
-      "pattern": "^You begin casting Scale of Wolf\\.$",
+      "pattern": "^You begin casting Scale of Wolf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1564,7 +1564,7 @@
     {
       "id": "buffs/shaman/cast/serpent-sight",
       "name": "Buff timer: Serpent Sight",
-      "pattern": "^You begin casting Serpent Sight\\.$",
+      "pattern": "^You begin casting Serpent Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1590,7 +1590,7 @@
     {
       "id": "buffs/shaman/cast/shifting-shield",
       "name": "Buff timer: Shifting Shield",
-      "pattern": "^You begin casting Shifting Shield\\.$",
+      "pattern": "^You begin casting Shifting Shield(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1616,7 +1616,7 @@
     {
       "id": "buffs/shaman/cast/shroud-of-the-spirits",
       "name": "Buff timer: Shroud of the Spirits",
-      "pattern": "^You begin casting Shroud of the Spirits\\.$",
+      "pattern": "^You begin casting Shroud of the Spirits(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1642,7 +1642,7 @@
     {
       "id": "buffs/shaman/cast/spirit-quickening",
       "name": "Buff timer: Spirit Quickening",
-      "pattern": "^You begin casting Spirit Quickening\\.$",
+      "pattern": "^You begin casting Spirit Quickening(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1668,7 +1668,7 @@
     {
       "id": "buffs/shaman/cast/spirit-sight",
       "name": "Buff timer: Spirit Sight",
-      "pattern": "^You begin casting Spirit Sight\\.$",
+      "pattern": "^You begin casting Spirit Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1694,7 +1694,7 @@
     {
       "id": "buffs/shaman/cast/spirit-strength",
       "name": "Buff timer: Spirit Strength",
-      "pattern": "^You begin casting Spirit Strength\\.$",
+      "pattern": "^You begin casting Spirit Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1720,7 +1720,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-bear",
       "name": "Buff timer: Spirit of Bear",
-      "pattern": "^You begin casting Spirit of Bear\\.$",
+      "pattern": "^You begin casting Spirit of Bear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1746,7 +1746,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-bih-li",
       "name": "Buff timer: Spirit of Bih`Li",
-      "pattern": "^You begin casting Spirit of Bih`Li\\.$",
+      "pattern": "^You begin casting Spirit of Bih['`]Li(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1772,7 +1772,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-cat",
       "name": "Buff timer: Spirit of Cat",
-      "pattern": "^You begin casting Spirit of Cat\\.$",
+      "pattern": "^You begin casting Spirit of Cat(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1798,7 +1798,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-cheetah",
       "name": "Buff timer: Spirit of Cheetah",
-      "pattern": "^You begin casting Spirit of Cheetah\\.$",
+      "pattern": "^You begin casting Spirit of Cheetah(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1824,7 +1824,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-monkey",
       "name": "Buff timer: Spirit of Monkey",
-      "pattern": "^You begin casting Spirit of Monkey\\.$",
+      "pattern": "^You begin casting Spirit of Monkey(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1850,7 +1850,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-ox",
       "name": "Buff timer: Spirit of Ox",
-      "pattern": "^You begin casting Spirit of Ox\\.$",
+      "pattern": "^You begin casting Spirit of Ox(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1876,7 +1876,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-scale",
       "name": "Buff timer: Spirit of Scale",
-      "pattern": "^You begin casting Spirit of Scale\\.$",
+      "pattern": "^You begin casting Spirit of Scale(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1902,7 +1902,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-snake",
       "name": "Buff timer: Spirit of Snake",
-      "pattern": "^You begin casting Spirit of Snake\\.$",
+      "pattern": "^You begin casting Spirit of Snake(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1928,7 +1928,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-wolf",
       "name": "Buff timer: Spirit of Wolf",
-      "pattern": "^You begin casting Spirit of Wolf\\.$",
+      "pattern": "^You begin casting Spirit of Wolf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1954,7 +1954,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-the-jaguar",
       "name": "Buff timer: Spirit of the Jaguar",
-      "pattern": "^You begin casting Spirit of the Jaguar\\.$",
+      "pattern": "^You begin casting Spirit of the Jaguar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1980,7 +1980,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-the-puma",
       "name": "Buff timer: Spirit of the Puma",
-      "pattern": "^You begin casting Spirit of the Puma\\.$",
+      "pattern": "^You begin casting Spirit of the Puma(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2006,7 +2006,7 @@
     {
       "id": "buffs/shaman/cast/spirit-of-the-shrew",
       "name": "Buff timer: Spirit of the Shrew",
-      "pattern": "^You begin casting Spirit of the Shrew\\.$",
+      "pattern": "^You begin casting Spirit of the Shrew(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2032,7 +2032,7 @@
     {
       "id": "buffs/shaman/cast/stamina",
       "name": "Buff timer: Stamina",
-      "pattern": "^You begin casting Stamina\\.$",
+      "pattern": "^You begin casting Stamina(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2058,7 +2058,7 @@
     {
       "id": "buffs/shaman/cast/strength",
       "name": "Buff timer: Strength",
-      "pattern": "^You begin casting Strength\\.$",
+      "pattern": "^You begin casting Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2084,7 +2084,7 @@
     {
       "id": "buffs/shaman/cast/strengthen",
       "name": "Buff timer: Strengthen",
-      "pattern": "^You begin casting Strengthen\\.$",
+      "pattern": "^You begin casting Strengthen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2110,7 +2110,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-altuna",
       "name": "Buff timer: Talisman of Altuna",
-      "pattern": "^You begin casting Talisman of Altuna\\.$",
+      "pattern": "^You begin casting Talisman of Altuna(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2136,7 +2136,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-epuration",
       "name": "Buff timer: Talisman of Epuration",
-      "pattern": "^You begin casting Talisman of Epuration\\.$",
+      "pattern": "^You begin casting Talisman of Epuration(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2162,7 +2162,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-jasinth",
       "name": "Buff timer: Talisman of Jasinth",
-      "pattern": "^You begin casting Talisman of Jasinth\\.$",
+      "pattern": "^You begin casting Talisman of Jasinth(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2188,7 +2188,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-kragg",
       "name": "Buff timer: Talisman of Kragg",
-      "pattern": "^You begin casting Talisman of Kragg\\.$",
+      "pattern": "^You begin casting Talisman of Kragg(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2214,7 +2214,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-shadoo",
       "name": "Buff timer: Talisman of Shadoo",
-      "pattern": "^You begin casting Talisman of Shadoo\\.$",
+      "pattern": "^You begin casting Talisman of Shadoo(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2240,7 +2240,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-tnarg",
       "name": "Buff timer: Talisman of Tnarg",
-      "pattern": "^You begin casting Talisman of Tnarg\\.$",
+      "pattern": "^You begin casting Talisman of Tnarg(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2266,7 +2266,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-the-beast",
       "name": "Buff timer: Talisman of the Beast",
-      "pattern": "^You begin casting Talisman of the Beast\\.$",
+      "pattern": "^You begin casting Talisman of the Beast(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2292,7 +2292,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-the-brute",
       "name": "Buff timer: Talisman of the Brute",
-      "pattern": "^You begin casting Talisman of the Brute\\.$",
+      "pattern": "^You begin casting Talisman of the Brute(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2318,7 +2318,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-the-cat",
       "name": "Buff timer: Talisman of the Cat",
-      "pattern": "^You begin casting Talisman of the Cat\\.$",
+      "pattern": "^You begin casting Talisman of the Cat(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2344,7 +2344,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-the-raptor",
       "name": "Buff timer: Talisman of the Raptor",
-      "pattern": "^You begin casting Talisman of the Raptor\\.$",
+      "pattern": "^You begin casting Talisman of the Raptor(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2370,7 +2370,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-the-rhino",
       "name": "Buff timer: Talisman of the Rhino",
-      "pattern": "^You begin casting Talisman of the Rhino\\.$",
+      "pattern": "^You begin casting Talisman of the Rhino(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2396,7 +2396,7 @@
     {
       "id": "buffs/shaman/cast/talisman-of-the-serpent",
       "name": "Buff timer: Talisman of the Serpent",
-      "pattern": "^You begin casting Talisman of the Serpent\\.$",
+      "pattern": "^You begin casting Talisman of the Serpent(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2422,7 +2422,7 @@
     {
       "id": "buffs/shaman/cast/tumultuous-strength",
       "name": "Buff timer: Tumultuous Strength",
-      "pattern": "^You begin casting Tumultuous Strength\\.$",
+      "pattern": "^You begin casting Tumultuous Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2448,7 +2448,7 @@
     {
       "id": "buffs/shaman/cast/turtle-skin",
       "name": "Buff timer: Turtle Skin",
-      "pattern": "^You begin casting Turtle Skin\\.$",
+      "pattern": "^You begin casting Turtle Skin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2474,7 +2474,7 @@
     {
       "id": "buffs/shaman/cast/ultravision",
       "name": "Buff timer: Ultravision",
-      "pattern": "^You begin casting Ultravision\\.$",
+      "pattern": "^You begin casting Ultravision(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2500,7 +2500,7 @@
     {
       "id": "buffs/shaman/cast/unfailing-reverence",
       "name": "Buff timer: Unfailing Reverence",
-      "pattern": "^You begin casting Unfailing Reverence\\.$",
+      "pattern": "^You begin casting Unfailing Reverence(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2526,7 +2526,7 @@
     {
       "id": "buffs/shaman/cast/vision",
       "name": "Buff timer: Vision",
-      "pattern": "^You begin casting Vision\\.$",
+      "pattern": "^You begin casting Vision(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2552,7 +2552,7 @@
     {
       "id": "buffs/shaman/cast/voice-of-the-berserker",
       "name": "Buff timer: Voice of the Berserker",
-      "pattern": "^You begin casting Voice of the Berserker\\.$",
+      "pattern": "^You begin casting Voice of the Berserker(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2639,7 +2639,7 @@
     {
       "id": "buffs/wear-off/spirit-of-bih-li",
       "name": "Worn off: Spirit of Bih`Li",
-      "pattern": "^The spirit of Bih`Li leaves you\\.$",
+      "pattern": "^The spirit of Bih['`]Li leaves you\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

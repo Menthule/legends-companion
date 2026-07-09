@@ -52,14 +52,16 @@ const TEMPLATE_CTX: TemplateContext = {
 // Action-row model (1:1 with Trigger.actions, order preserved)
 // ---------------------------------------------------------------------------
 
-type RowKind = "speak" | "sound" | "show" | "timer" | "cancel";
+type RowKind = "speak" | "sound" | "show" | "timer" | "cancel" | "webhook";
 
 interface RowState {
   id: number;
   kind: RowKind;
-  /** Speak / Show text template. */
+  /** Speak / Show / Webhook text template. */
   text: string;
   soundPath: string;
+  /** Named webhook to post to (Webhook kind); empty = the default webhook. */
+  webhookName: string;
   /** Timer name (Start timer) or timer to cancel (Cancel timer). */
   timerName: string;
   durationText: string;
@@ -80,6 +82,7 @@ function blankRow(kind: RowKind): RowState {
     kind,
     text: "",
     soundPath: "",
+    webhookName: "",
     timerName: "",
     durationText: "0:30",
     warnMode: "none",
@@ -99,6 +102,13 @@ function rowsFromActions(actions: TriggerAction[]): RowState[] {
     }
     if ("CancelTimer" in a) {
       return { ...blankRow("cancel"), timerName: a.CancelTimer.name };
+    }
+    if ("PostWebhook" in a) {
+      return {
+        ...blankRow("webhook"),
+        text: a.PostWebhook.template,
+        webhookName: a.PostWebhook.webhook ?? "",
+      };
     }
     const t = a.StartTimer;
     const warn = t.warn_at_secs;
@@ -149,6 +159,17 @@ function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
       case "cancel": {
         if (!row.timerName.trim()) return "Cancel timer needs a timer name.";
         actions.push({ CancelTimer: { name: row.timerName.trim() } });
+        break;
+      }
+      case "webhook": {
+        if (!row.text.trim()) return "Webhook needs a message to post.";
+        const name = row.webhookName.trim();
+        actions.push({
+          PostWebhook: {
+            template: row.text.trim(),
+            ...(name ? { webhook: name } : {}),
+          },
+        });
         break;
       }
       case "timer": {
@@ -667,6 +688,8 @@ export default function TriggerEditor({
       }
       case "cancel":
         return `Cancels timer: ${render(row.timerName)}`;
+      case "webhook":
+        return `Posts to ${row.webhookName.trim() || "default"} webhook: “${render(row.text)}”`;
       case "timer": {
         const secs = parseDuration(row.durationText);
         const warn = warnSecsOf(row);
@@ -1080,10 +1103,13 @@ export default function TriggerEditor({
           <option value="show">Show text</option>
           <option value="timer">Start timer</option>
           <option value="cancel">Cancel timer</option>
+          <option value="webhook">Post to webhook</option>
         </select>
 
         <div className="ted-action-main">
-          {(row.kind === "speak" || row.kind === "show") && (
+          {(row.kind === "speak" ||
+            row.kind === "show" ||
+            row.kind === "webhook") && (
             <>
               <input
                 type="text"
@@ -1093,9 +1119,19 @@ export default function TriggerEditor({
                 }}
                 value={row.text}
                 placeholder={
-                  row.kind === "speak" ? "what to say aloud" : "what to show on the overlay"
+                  row.kind === "speak"
+                    ? "what to say aloud"
+                    : row.kind === "webhook"
+                      ? "message to post"
+                      : "what to show on the overlay"
                 }
-                aria-label={row.kind === "speak" ? "Speak text" : "Overlay text"}
+                aria-label={
+                  row.kind === "speak"
+                    ? "Speak text"
+                    : row.kind === "webhook"
+                      ? "Webhook message"
+                      : "Overlay text"
+                }
                 onChange={(e) => updateRow(row.id, { text: e.target.value })}
               />
               <div className="ted-chips">
@@ -1114,6 +1150,24 @@ export default function TriggerEditor({
               </div>
               {row.kind === "show" && (
                 <div className="hint">Appears on the alerts overlay for 4 s.</div>
+              )}
+              {row.kind === "webhook" && (
+                <>
+                  <input
+                    type="text"
+                    value={row.webhookName}
+                    placeholder="webhook name (blank = default)"
+                    aria-label="Webhook name"
+                    onChange={(e) =>
+                      updateRow(row.id, { webhookName: e.target.value })
+                    }
+                  />
+                  <div className="hint">
+                    Posts to a webhook you configure in Settings. The URL stays
+                    in your settings — only the name is saved here, so a shared
+                    trigger never leaks your endpoint.
+                  </div>
+                </>
               )}
             </>
           )}

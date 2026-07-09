@@ -4,7 +4,7 @@
     {
       "id": "debuffs/warrior/cast/bellow",
       "name": "Enemy timer: Bellow",
-      "pattern": "^You begin casting Bellow\\.$",
+      "pattern": "^You begin casting Bellow(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -29,7 +29,7 @@
     {
       "id": "debuffs/warrior/cast/berate",
       "name": "Enemy timer: Berate",
-      "pattern": "^You begin casting Berate\\.$",
+      "pattern": "^You begin casting Berate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -54,7 +54,7 @@
     {
       "id": "debuffs/warrior/cast/provoke",
       "name": "Enemy timer: Provoke",
-      "pattern": "^You begin casting Provoke\\.$",
+      "pattern": "^You begin casting Provoke(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -79,7 +79,7 @@
     {
       "id": "debuffs/worn/bellow",
       "name": "Enemy timer cleared: Bellow",
-      "pattern": "^Your Bellow spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Bellow(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -104,7 +104,7 @@
     {
       "id": "debuffs/worn/berate",
       "name": "Enemy timer cleared: Berate",
-      "pattern": "^Your Berate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Berate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -129,7 +129,7 @@
     {
       "id": "debuffs/worn/provoke",
       "name": "Enemy timer cleared: Provoke",
-      "pattern": "^Your Provoke spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Provoke(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

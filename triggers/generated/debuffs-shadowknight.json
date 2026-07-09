@@ -4,7 +4,7 @@
     {
       "id": "debuffs/shadowknight/cast/abduction-of-strength",
       "name": "Enemy timer: Abduction of Strength",
-      "pattern": "^You begin casting Abduction of Strength\\.$",
+      "pattern": "^You begin casting Abduction of Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/shadowknight/cast/asystole",
       "name": "Enemy timer: Asystole",
-      "pattern": "^You begin casting Asystole\\.$",
+      "pattern": "^You begin casting Asystole(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/shadowknight/cast/blood-of-pain",
       "name": "Enemy timer: Blood of Pain",
-      "pattern": "^You begin casting Blood of Pain\\.$",
+      "pattern": "^You begin casting Blood of Pain(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/shadowknight/cast/boil-blood",
       "name": "Enemy timer: Boil Blood",
-      "pattern": "^You begin casting Boil Blood\\.$",
+      "pattern": "^You begin casting Boil Blood(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/shadowknight/cast/cancelling-of-life",
       "name": "Enemy timer: Cancelling of Life",
-      "pattern": "^You begin casting Cancelling of Life\\.$",
+      "pattern": "^You begin casting Cancelling of Life(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/shadowknight/cast/cascading-darkness",
       "name": "Enemy timer: Cascading Darkness",
-      "pattern": "^You begin casting Cascading Darkness\\.$",
+      "pattern": "^You begin casting Cascading Darkness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/shadowknight/cast/clinging-darkness",
       "name": "Enemy timer: Clinging Darkness",
-      "pattern": "^You begin casting Clinging Darkness\\.$",
+      "pattern": "^You begin casting Clinging Darkness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/shadowknight/cast/despair",
       "name": "Enemy timer: Despair",
-      "pattern": "^You begin casting Despair\\.$",
+      "pattern": "^You begin casting Despair(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/shadowknight/cast/disease-cloud",
       "name": "Enemy timer: Disease Cloud",
-      "pattern": "^You begin casting Disease Cloud\\.$",
+      "pattern": "^You begin casting Disease Cloud(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/shadowknight/cast/dooming-darkness",
       "name": "Enemy timer: Dooming Darkness",
-      "pattern": "^You begin casting Dooming Darkness\\.$",
+      "pattern": "^You begin casting Dooming Darkness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/shadowknight/cast/engulfing-darkness",
       "name": "Enemy timer: Engulfing Darkness",
-      "pattern": "^You begin casting Engulfing Darkness\\.$",
+      "pattern": "^You begin casting Engulfing Darkness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/shadowknight/cast/fear",
       "name": "Enemy timer: Fear",
-      "pattern": "^You begin casting Fear\\.$",
+      "pattern": "^You begin casting Fear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/shadowknight/cast/heart-flutter",
       "name": "Enemy timer: Heart Flutter",
-      "pattern": "^You begin casting Heart Flutter\\.$",
+      "pattern": "^You begin casting Heart Flutter(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/shadowknight/cast/heat-blood",
       "name": "Enemy timer: Heat Blood",
-      "pattern": "^You begin casting Heat Blood\\.$",
+      "pattern": "^You begin casting Heat Blood(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/shadowknight/cast/invoke-fear",
       "name": "Enemy timer: Invoke Fear",
-      "pattern": "^You begin casting Invoke Fear\\.$",
+      "pattern": "^You begin casting Invoke Fear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "debuffs/shadowknight/cast/negation-of-life",
       "name": "Enemy timer: Negation of Life",
-      "pattern": "^You begin casting Negation of Life\\.$",
+      "pattern": "^You begin casting Negation of Life(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "debuffs/shadowknight/cast/panic-the-dead",
       "name": "Enemy timer: Panic the Dead",
-      "pattern": "^You begin casting Panic the Dead\\.$",
+      "pattern": "^You begin casting Panic the Dead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "debuffs/shadowknight/cast/scream-of-hate",
       "name": "Enemy timer: Scream of Hate",
-      "pattern": "^You begin casting Scream of Hate\\.$",
+      "pattern": "^You begin casting Scream of Hate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "debuffs/shadowknight/cast/scream-of-pain",
       "name": "Enemy timer: Scream of Pain",
-      "pattern": "^You begin casting Scream of Pain\\.$",
+      "pattern": "^You begin casting Scream of Pain(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "debuffs/shadowknight/cast/shadow-voice",
       "name": "Enemy timer: Shadow Voice",
-      "pattern": "^You begin casting Shadow Voice\\.$",
+      "pattern": "^You begin casting Shadow Voice(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "debuffs/shadowknight/cast/shadow-vortex",
       "name": "Enemy timer: Shadow Vortex",
-      "pattern": "^You begin casting Shadow Vortex\\.$",
+      "pattern": "^You begin casting Shadow Vortex(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "debuffs/shadowknight/cast/shroud-of-hate",
       "name": "Enemy timer: Shroud of Hate",
-      "pattern": "^You begin casting Shroud of Hate\\.$",
+      "pattern": "^You begin casting Shroud of Hate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "debuffs/shadowknight/cast/shroud-of-pain",
       "name": "Enemy timer: Shroud of Pain",
-      "pattern": "^You begin casting Shroud of Pain\\.$",
+      "pattern": "^You begin casting Shroud of Pain(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "debuffs/shadowknight/cast/siphon-strength",
       "name": "Enemy timer: Siphon Strength",
-      "pattern": "^You begin casting Siphon Strength\\.$",
+      "pattern": "^You begin casting Siphon Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "debuffs/shadowknight/cast/soulless-fear",
       "name": "Enemy timer: Soulless Fear",
-      "pattern": "^You begin casting Soulless Fear\\.$",
+      "pattern": "^You begin casting Soulless Fear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "debuffs/shadowknight/cast/spook-the-dead",
       "name": "Enemy timer: Spook the Dead",
-      "pattern": "^You begin casting Spook the Dead\\.$",
+      "pattern": "^You begin casting Spook the Dead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "debuffs/shadowknight/cast/torrent-of-fatigue",
       "name": "Enemy timer: Torrent of Fatigue",
-      "pattern": "^You begin casting Torrent of Fatigue\\.$",
+      "pattern": "^You begin casting Torrent of Fatigue(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "debuffs/shadowknight/cast/torrent-of-hate",
       "name": "Enemy timer: Torrent of Hate",
-      "pattern": "^You begin casting Torrent of Hate\\.$",
+      "pattern": "^You begin casting Torrent of Hate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "debuffs/shadowknight/cast/torrent-of-pain",
       "name": "Enemy timer: Torrent of Pain",
-      "pattern": "^You begin casting Torrent of Pain\\.$",
+      "pattern": "^You begin casting Torrent of Pain(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "debuffs/shadowknight/cast/vampiric-curse",
       "name": "Enemy timer: Vampiric Curse",
-      "pattern": "^You begin casting Vampiric Curse\\.$",
+      "pattern": "^You begin casting Vampiric Curse(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "debuffs/shadowknight/cast/wave-of-enfeeblement",
       "name": "Enemy timer: Wave of Enfeeblement",
-      "pattern": "^You begin casting Wave of Enfeeblement\\.$",
+      "pattern": "^You begin casting Wave of Enfeeblement(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "debuffs/worn/abduction-of-strength",
       "name": "Enemy timer cleared: Abduction of Strength",
-      "pattern": "^Your Abduction of Strength spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Abduction of Strength(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -835,7 +835,7 @@
     {
       "id": "debuffs/worn/asystole",
       "name": "Enemy timer cleared: Asystole",
-      "pattern": "^Your Asystole spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Asystole(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -861,7 +861,7 @@
     {
       "id": "debuffs/worn/blood-of-pain",
       "name": "Enemy timer cleared: Blood of Pain",
-      "pattern": "^Your Blood of Pain spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Blood of Pain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -886,7 +886,7 @@
     {
       "id": "debuffs/worn/boil-blood",
       "name": "Enemy timer cleared: Boil Blood",
-      "pattern": "^Your Boil Blood spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Boil Blood(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -912,7 +912,7 @@
     {
       "id": "debuffs/worn/cancelling-of-life",
       "name": "Enemy timer cleared: Cancelling of Life",
-      "pattern": "^Your Cancelling of Life spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cancelling of Life(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -938,7 +938,7 @@
     {
       "id": "debuffs/worn/cascading-darkness",
       "name": "Enemy timer cleared: Cascading Darkness",
-      "pattern": "^Your Cascading Darkness spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cascading Darkness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -964,7 +964,7 @@
     {
       "id": "debuffs/worn/clinging-darkness",
       "name": "Enemy timer cleared: Clinging Darkness",
-      "pattern": "^Your Clinging Darkness spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Clinging Darkness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -990,7 +990,7 @@
     {
       "id": "debuffs/worn/despair",
       "name": "Enemy timer cleared: Despair",
-      "pattern": "^Your Despair spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Despair(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1015,7 +1015,7 @@
     {
       "id": "debuffs/worn/disease-cloud",
       "name": "Enemy timer cleared: Disease Cloud",
-      "pattern": "^Your Disease Cloud spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Disease Cloud(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1041,7 +1041,7 @@
     {
       "id": "debuffs/worn/dooming-darkness",
       "name": "Enemy timer cleared: Dooming Darkness",
-      "pattern": "^Your Dooming Darkness spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dooming Darkness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1067,7 +1067,7 @@
     {
       "id": "debuffs/worn/engulfing-darkness",
       "name": "Enemy timer cleared: Engulfing Darkness",
-      "pattern": "^Your Engulfing Darkness spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Engulfing Darkness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1093,7 +1093,7 @@
     {
       "id": "debuffs/worn/heart-flutter",
       "name": "Enemy timer cleared: Heart Flutter",
-      "pattern": "^Your Heart Flutter spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Heart Flutter(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1119,7 +1119,7 @@
     {
       "id": "debuffs/worn/heat-blood",
       "name": "Enemy timer cleared: Heat Blood",
-      "pattern": "^Your Heat Blood spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Heat Blood(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1145,7 +1145,7 @@
     {
       "id": "debuffs/worn/negation-of-life",
       "name": "Enemy timer cleared: Negation of Life",
-      "pattern": "^Your Negation of Life spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Negation of Life(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1171,7 +1171,7 @@
     {
       "id": "debuffs/worn/scream-of-hate",
       "name": "Enemy timer cleared: Scream of Hate",
-      "pattern": "^Your Scream of Hate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scream of Hate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1196,7 +1196,7 @@
     {
       "id": "debuffs/worn/scream-of-pain",
       "name": "Enemy timer cleared: Scream of Pain",
-      "pattern": "^Your Scream of Pain spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scream of Pain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1221,7 +1221,7 @@
     {
       "id": "debuffs/worn/shadow-voice",
       "name": "Enemy timer cleared: Shadow Voice",
-      "pattern": "^Your Shadow Voice spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shadow Voice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1246,7 +1246,7 @@
     {
       "id": "debuffs/worn/shadow-vortex",
       "name": "Enemy timer cleared: Shadow Vortex",
-      "pattern": "^Your Shadow Vortex spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shadow Vortex(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1272,7 +1272,7 @@
     {
       "id": "debuffs/worn/shroud-of-hate",
       "name": "Enemy timer cleared: Shroud of Hate",
-      "pattern": "^Your Shroud of Hate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shroud of Hate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1297,7 +1297,7 @@
     {
       "id": "debuffs/worn/shroud-of-pain",
       "name": "Enemy timer cleared: Shroud of Pain",
-      "pattern": "^Your Shroud of Pain spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shroud of Pain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1322,7 +1322,7 @@
     {
       "id": "debuffs/worn/siphon-strength",
       "name": "Enemy timer cleared: Siphon Strength",
-      "pattern": "^Your Siphon Strength spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Siphon Strength(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1348,7 +1348,7 @@
     {
       "id": "debuffs/worn/soulless-fear",
       "name": "Enemy timer cleared: Soulless Fear",
-      "pattern": "^Your Soulless Fear spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Soulless Fear(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1373,7 +1373,7 @@
     {
       "id": "debuffs/worn/torrent-of-fatigue",
       "name": "Enemy timer cleared: Torrent of Fatigue",
-      "pattern": "^Your Torrent of Fatigue spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Torrent of Fatigue(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1398,7 +1398,7 @@
     {
       "id": "debuffs/worn/torrent-of-hate",
       "name": "Enemy timer cleared: Torrent of Hate",
-      "pattern": "^Your Torrent of Hate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Torrent of Hate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1423,7 +1423,7 @@
     {
       "id": "debuffs/worn/torrent-of-pain",
       "name": "Enemy timer cleared: Torrent of Pain",
-      "pattern": "^Your Torrent of Pain spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Torrent of Pain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1448,7 +1448,7 @@
     {
       "id": "debuffs/worn/vampiric-curse",
       "name": "Enemy timer cleared: Vampiric Curse",
-      "pattern": "^Your Vampiric Curse spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Vampiric Curse(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1474,7 +1474,7 @@
     {
       "id": "debuffs/worn/wave-of-enfeeblement",
       "name": "Enemy timer cleared: Wave of Enfeeblement",
-      "pattern": "^Your Wave of Enfeeblement spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Wave of Enfeeblement(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

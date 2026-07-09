@@ -491,11 +491,13 @@ pub struct TriggerTreeEntry {
     pub pattern: String,
     /// Output channels this trigger uses, summarized from its actions so the
     /// Triggers tab can show at a glance whether a trigger speaks (TTS), shows
-    /// a text alert, plays a sound, or runs a timer — without opening each one.
+    /// a text alert, plays a sound, runs a timer, or posts to a webhook —
+    /// without opening each one.
     pub speaks: bool,
     pub shows: bool,
     pub sound: bool,
     pub timer: bool,
+    pub webhook: bool,
     /// Index into the user pack file for user/gina triggers (edit/delete
     /// target); `None` for read-only bundled triggers.
     pub user_index: Option<usize>,
@@ -523,12 +525,14 @@ fn tree_entry(
     let mut shows = false;
     let mut sound = false;
     let mut timer = false;
+    let mut webhook = false;
     for a in actions.iter() {
         match a {
             Action::Speak { .. } => speaks = true,
             Action::DisplayText { .. } => shows = true,
             Action::PlaySound { .. } => sound = true,
             Action::StartTimer { .. } | Action::CancelTimer { .. } => timer = true,
+            Action::PostWebhook { .. } => webhook = true,
         }
     }
     TriggerTreeEntry {
@@ -551,6 +555,7 @@ fn tree_entry(
         shows,
         sound,
         timer,
+        webhook,
         user_index,
     }
 }

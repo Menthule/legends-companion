@@ -4,7 +4,7 @@
     {
       "id": "buffs/shadowknight/cast/augment-death",
       "name": "Buff timer: Augment Death",
-      "pattern": "^You begin casting Augment Death\\.$",
+      "pattern": "^You begin casting Augment Death(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/shadowknight/cast/bobbing-corpse",
       "name": "Buff timer: Bobbing Corpse",
-      "pattern": "^You begin casting Bobbing Corpse\\.$",
+      "pattern": "^You begin casting Bobbing Corpse(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/shadowknight/cast/call-of-darkness",
       "name": "Buff timer: Call of Darkness",
-      "pattern": "^You begin casting Call of Darkness\\.$",
+      "pattern": "^You begin casting Call of Darkness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/shadowknight/cast/cloak-of-the-akheva",
       "name": "Buff timer: Cloak of the Akheva",
-      "pattern": "^You begin casting Cloak of the Akheva\\.$",
+      "pattern": "^You begin casting Cloak of the Akheva(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/shadowknight/cast/deathly-temptation",
       "name": "Buff timer: Deathly Temptation",
-      "pattern": "^You begin casting Deathly Temptation\\.$",
+      "pattern": "^You begin casting Deathly Temptation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/shadowknight/cast/diamondskin",
       "name": "Buff timer: Diamondskin",
-      "pattern": "^You begin casting Diamondskin\\.$",
+      "pattern": "^You begin casting Diamondskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/shadowknight/cast/endure-cold",
       "name": "Buff timer: Endure Cold",
-      "pattern": "^You begin casting Endure Cold\\.$",
+      "pattern": "^You begin casting Endure Cold(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/shadowknight/cast/endure-disease",
       "name": "Buff timer: Endure Disease",
-      "pattern": "^You begin casting Endure Disease\\.$",
+      "pattern": "^You begin casting Endure Disease(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/shadowknight/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -237,7 +237,7 @@
     {
       "id": "buffs/shadowknight/cast/gather-shadows",
       "name": "Buff timer: Gather Shadows",
-      "pattern": "^You begin casting Gather Shadows\\.$",
+      "pattern": "^You begin casting Gather Shadows(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -263,7 +263,7 @@
     {
       "id": "buffs/shadowknight/cast/ichor-guard",
       "name": "Buff timer: Ichor Guard",
-      "pattern": "^You begin casting Ichor Guard\\.$",
+      "pattern": "^You begin casting Ichor Guard(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -288,7 +288,7 @@
     {
       "id": "buffs/shadowknight/cast/invisibility-versus-undead",
       "name": "Buff timer: Invisibility Versus Undead",
-      "pattern": "^You begin casting Invisibility Versus Undead\\.$",
+      "pattern": "^You begin casting Invisibility Versus Undead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -314,7 +314,7 @@
     {
       "id": "buffs/shadowknight/cast/mental-corruption",
       "name": "Buff timer: Mental Corruption",
-      "pattern": "^You begin casting Mental Corruption\\.$",
+      "pattern": "^You begin casting Mental Corruption(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -340,7 +340,7 @@
     {
       "id": "buffs/shadowknight/cast/numb-the-dead",
       "name": "Buff timer: Numb the Dead",
-      "pattern": "^You begin casting Numb the Dead\\.$",
+      "pattern": "^You begin casting Numb the Dead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -366,7 +366,7 @@
     {
       "id": "buffs/shadowknight/cast/resist-cold",
       "name": "Buff timer: Resist Cold",
-      "pattern": "^You begin casting Resist Cold\\.$",
+      "pattern": "^You begin casting Resist Cold(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -392,7 +392,7 @@
     {
       "id": "buffs/shadowknight/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -417,7 +417,7 @@
     {
       "id": "buffs/shadowknight/cast/rest-the-dead",
       "name": "Buff timer: Rest the Dead",
-      "pattern": "^You begin casting Rest the Dead\\.$",
+      "pattern": "^You begin casting Rest the Dead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -443,7 +443,7 @@
     {
       "id": "buffs/shadowknight/cast/shieldskin",
       "name": "Buff timer: Shieldskin",
-      "pattern": "^You begin casting Shieldskin\\.$",
+      "pattern": "^You begin casting Shieldskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -469,7 +469,7 @@
     {
       "id": "buffs/shadowknight/cast/shroud-of-death",
       "name": "Buff timer: Shroud of Death",
-      "pattern": "^You begin casting Shroud of Death\\.$",
+      "pattern": "^You begin casting Shroud of Death(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -495,7 +495,7 @@
     {
       "id": "buffs/shadowknight/cast/shroud-of-undeath",
       "name": "Buff timer: Shroud of Undeath",
-      "pattern": "^You begin casting Shroud of Undeath\\.$",
+      "pattern": "^You begin casting Shroud of Undeath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -521,7 +521,7 @@
     {
       "id": "buffs/shadowknight/cast/steelskin",
       "name": "Buff timer: Steelskin",
-      "pattern": "^You begin casting Steelskin\\.$",
+      "pattern": "^You begin casting Steelskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -547,7 +547,7 @@
     {
       "id": "buffs/shadowknight/cast/strengthen-death",
       "name": "Buff timer: Strengthen Death",
-      "pattern": "^You begin casting Strengthen Death\\.$",
+      "pattern": "^You begin casting Strengthen Death(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -573,7 +573,7 @@
     {
       "id": "buffs/shadowknight/cast/unholy-aura-discipline",
       "name": "Buff timer: Unholy Aura Discipline",
-      "pattern": "^You begin casting Unholy Aura Discipline\\.$",
+      "pattern": "^You begin casting Unholy Aura Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -598,7 +598,7 @@
     {
       "id": "buffs/shadowknight/cast/voice-of-darkness",
       "name": "Buff timer: Voice of Darkness",
-      "pattern": "^You begin casting Voice of Darkness\\.$",
+      "pattern": "^You begin casting Voice of Darkness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -624,7 +624,7 @@
     {
       "id": "buffs/shadowknight/cast/voice-of-death",
       "name": "Buff timer: Voice of Death",
-      "pattern": "^You begin casting Voice of Death\\.$",
+      "pattern": "^You begin casting Voice of Death(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -650,7 +650,7 @@
     {
       "id": "buffs/shadowknight/cast/voice-of-shadows",
       "name": "Buff timer: Voice of Shadows",
-      "pattern": "^You begin casting Voice of Shadows\\.$",
+      "pattern": "^You begin casting Voice of Shadows(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -676,7 +676,7 @@
     {
       "id": "buffs/shadowknight/cast/voice-of-terris",
       "name": "Buff timer: Voice of Terris",
-      "pattern": "^You begin casting Voice of Terris\\.$",
+      "pattern": "^You begin casting Voice of Terris(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

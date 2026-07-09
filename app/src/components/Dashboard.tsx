@@ -136,7 +136,7 @@ const CANARY_PCT = 3;
 
 /** Shipped app version (mirror of app/package.json "version"); shown in the
  *  sidebar and compared against the latest GitHub release. */
-const APP_VERSION = "0.2.0";
+const APP_VERSION = __APP_VERSION__;
 
 /** localStorage key remembering the update version the user dismissed. */
 const UPDATE_DISMISSED_KEY = "eqlogs.updateDismissed";

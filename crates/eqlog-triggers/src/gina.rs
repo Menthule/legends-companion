@@ -341,6 +341,7 @@ fn build_trigger(
             cooldown_secs: None,
             priority: 0,
             suppress: false,
+            zones: Vec::new(),
         },
         warnings,
     ))
@@ -387,7 +388,9 @@ mod tests {
             "empty media must not produce a PlaySound action"
         );
         assert!(
-            warnings.iter().any(|w| w.contains("MediaFileName was empty")),
+            warnings
+                .iter()
+                .any(|w| w.contains("MediaFileName was empty")),
             "expected a skip warning, got {warnings:?}"
         );
     }

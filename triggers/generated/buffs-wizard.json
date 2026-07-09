@@ -4,7 +4,7 @@
     {
       "id": "buffs/wizard/cast/bind-sight",
       "name": "Buff timer: Bind Sight",
-      "pattern": "^You begin casting Bind Sight\\.$",
+      "pattern": "^You begin casting Bind Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/wizard/cast/diamondskin",
       "name": "Buff timer: Diamondskin",
-      "pattern": "^You begin casting Diamondskin\\.$",
+      "pattern": "^You begin casting Diamondskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/wizard/cast/elemental-cloak",
       "name": "Buff timer: Elemental Cloak",
-      "pattern": "^You begin casting Elemental Cloak\\.$",
+      "pattern": "^You begin casting Elemental Cloak(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/wizard/cast/eye-of-tallon",
       "name": "Buff timer: Eye of Tallon",
-      "pattern": "^You begin casting Eye of Tallon\\.$",
+      "pattern": "^You begin casting Eye of Tallon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/wizard/cast/eye-of-zomm",
       "name": "Buff timer: Eye of Zomm",
-      "pattern": "^You begin casting Eye of Zomm\\.$",
+      "pattern": "^You begin casting Eye of Zomm(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/wizard/cast/familiar",
       "name": "Buff timer: Familiar",
-      "pattern": "^You begin casting Familiar\\.$",
+      "pattern": "^You begin casting Familiar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/wizard/cast/gaze",
       "name": "Buff timer: Gaze",
-      "pattern": "^You begin casting Gaze\\.$",
+      "pattern": "^You begin casting Gaze(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/wizard/cast/greater-familiar",
       "name": "Buff timer: Greater Familiar",
-      "pattern": "^You begin casting Greater Familiar\\.$",
+      "pattern": "^You begin casting Greater Familiar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/wizard/cast/guard-of-calrena",
       "name": "Buff timer: Guard of Calrena",
-      "pattern": "^You begin casting Guard of Calrena\\.$",
+      "pattern": "^You begin casting Guard of Calrena(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/wizard/cast/heat-sight",
       "name": "Buff timer: Heat Sight",
-      "pattern": "^You begin casting Heat Sight\\.$",
+      "pattern": "^You begin casting Heat Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/wizard/cast/improved-invisibility",
       "name": "Buff timer: Improved Invisibility",
-      "pattern": "^You begin casting Improved Invisibility\\.$",
+      "pattern": "^You begin casting Improved Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/wizard/cast/invisibility",
       "name": "Buff timer: Invisibility",
-      "pattern": "^You begin casting Invisibility\\.$",
+      "pattern": "^You begin casting Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/wizard/cast/invisibility-to-undead",
       "name": "Buff timer: Invisibility to Undead",
-      "pattern": "^You begin casting Invisibility to Undead\\.$",
+      "pattern": "^You begin casting Invisibility to Undead(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/wizard/cast/leatherskin",
       "name": "Buff timer: Leatherskin",
-      "pattern": "^You begin casting Leatherskin\\.$",
+      "pattern": "^You begin casting Leatherskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "buffs/wizard/cast/lesser-familiar",
       "name": "Buff timer: Lesser Familiar",
-      "pattern": "^You begin casting Lesser Familiar\\.$",
+      "pattern": "^You begin casting Lesser Familiar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "buffs/wizard/cast/levitate",
       "name": "Buff timer: Levitate",
-      "pattern": "^You begin casting Levitate\\.$",
+      "pattern": "^You begin casting Levitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "buffs/wizard/cast/levitation",
       "name": "Buff timer: Levitation",
-      "pattern": "^You begin casting Levitation\\.$",
+      "pattern": "^You begin casting Levitation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "buffs/wizard/cast/magi-ward",
       "name": "Buff timer: Magi Ward",
-      "pattern": "^You begin casting Magi Ward\\.$",
+      "pattern": "^You begin casting Magi Ward(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "buffs/wizard/cast/magnify",
       "name": "Buff timer: Magnify",
-      "pattern": "^You begin casting Magnify\\.$",
+      "pattern": "^You begin casting Magnify(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "buffs/wizard/cast/manasink",
       "name": "Buff timer: Manasink",
-      "pattern": "^You begin casting Manasink\\.$",
+      "pattern": "^You begin casting Manasink(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "buffs/wizard/cast/manaskin",
       "name": "Buff timer: Manaskin",
-      "pattern": "^You begin casting Manaskin\\.$",
+      "pattern": "^You begin casting Manaskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "buffs/wizard/cast/minor-familiar",
       "name": "Buff timer: Minor Familiar",
-      "pattern": "^You begin casting Minor Familiar\\.$",
+      "pattern": "^You begin casting Minor Familiar(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "buffs/wizard/cast/o-keil-s-embers",
       "name": "Buff timer: O`Keil's Embers",
-      "pattern": "^You begin casting O`Keil's Embers\\.$",
+      "pattern": "^You begin casting O['`]Keil['`]s Embers(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "buffs/wizard/cast/o-keil-s-flickering-flame",
       "name": "Buff timer: O`Keil's Flickering Flame",
-      "pattern": "^You begin casting O`Keil's Flickering Flame\\.$",
+      "pattern": "^You begin casting O['`]Keil['`]s Flickering Flame(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "buffs/wizard/cast/o-keil-s-radiation",
       "name": "Buff timer: O`Keil's Radiation",
-      "pattern": "^You begin casting O`Keil's Radiation\\.$",
+      "pattern": "^You begin casting O['`]Keil['`]s Radiation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "buffs/wizard/cast/plainsight",
       "name": "Buff timer: Plainsight",
-      "pattern": "^You begin casting Plainsight\\.$",
+      "pattern": "^You begin casting Plainsight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "buffs/wizard/cast/see-invisible",
       "name": "Buff timer: See Invisible",
-      "pattern": "^You begin casting See Invisible\\.$",
+      "pattern": "^You begin casting See Invisible(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "buffs/wizard/cast/shield-of-the-magi",
       "name": "Buff timer: Shield of the Magi",
-      "pattern": "^You begin casting Shield of the Magi\\.$",
+      "pattern": "^You begin casting Shield of the Magi(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "buffs/wizard/cast/shieldskin",
       "name": "Buff timer: Shieldskin",
-      "pattern": "^You begin casting Shieldskin\\.$",
+      "pattern": "^You begin casting Shieldskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "buffs/wizard/cast/shifting-sight",
       "name": "Buff timer: Shifting Sight",
-      "pattern": "^You begin casting Shifting Sight\\.$",
+      "pattern": "^You begin casting Shifting Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "buffs/wizard/cast/sight",
       "name": "Buff timer: Sight",
-      "pattern": "^You begin casting Sight\\.$",
+      "pattern": "^You begin casting Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "buffs/wizard/cast/spellshield",
       "name": "Buff timer: Spellshield",
-      "pattern": "^You begin casting Spellshield\\.$",
+      "pattern": "^You begin casting Spellshield(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "buffs/wizard/cast/steelskin",
       "name": "Buff timer: Steelskin",
-      "pattern": "^You begin casting Steelskin\\.$",
+      "pattern": "^You begin casting Steelskin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "buffs/wizard/cast/vision-shift",
       "name": "Buff timer: Vision Shift",
-      "pattern": "^You begin casting Vision Shift\\.$",
+      "pattern": "^You begin casting Vision Shift(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "buffs/wizard/cast/ward-of-calrena",
       "name": "Buff timer: Ward of Calrena",
-      "pattern": "^You begin casting Ward of Calrena\\.$",
+      "pattern": "^You begin casting Ward of Calrena(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

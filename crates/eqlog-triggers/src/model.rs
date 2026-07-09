@@ -81,6 +81,15 @@ pub struct Trigger {
     /// alls from speaking on known-benign lines.
     #[serde(default, skip_serializing_if = "is_false")]
     pub suppress: bool,
+    /// Zone scope: zone-name substrings (case-insensitive) this trigger is
+    /// limited to. Empty = fires in every zone. Non-empty = fires only while
+    /// the current zone (learned from `You have entered …` log lines) contains
+    /// one of these substrings — e.g. `["Sebilis"]` matches "New Sebilis
+    /// Expedition". Until a zone line is seen, the current zone is unknown and
+    /// zone-scoped triggers stay quiet. Pack-authored; the user can override it
+    /// per loadout via [`Loadout::zone_scopes`].
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub zones: Vec<String>,
 }
 
 impl Trigger {
@@ -101,6 +110,7 @@ impl Trigger {
             cooldown_secs: None,
             priority: 0,
             suppress: false,
+            zones: Vec::new(),
         }
     }
 
@@ -305,6 +315,17 @@ pub enum Action {
         /// `StartTimer` name template.
         name: String,
     },
+    /// Post a message to a user-configured webhook (a Discord "batphone", or
+    /// any generic incoming webhook). The `webhook` names an entry in the
+    /// host's settings — the URL lives there, NOT in the trigger — so a shared
+    /// pack never leaks a private endpoint; `None` targets the default webhook.
+    PostWebhook {
+        /// Message body; supports the same capture/token expansion as `Speak`.
+        template: String,
+        /// Name of the configured webhook to target. Absent = the default one.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        webhook: Option<String>,
+    },
 }
 
 /// Classic EQ buff-duration formula → duration in ticks (1 tick = 6 s) at
@@ -388,6 +409,16 @@ pub struct Loadout {
     /// [`crate::engine::apply_channel_override`]).
     #[serde(default)]
     pub channel_overrides: BTreeMap<String, ChannelOverride>,
+    /// `<trigger-id or category-path-prefix>` → the zones that scope of
+    /// triggers is limited to (same resolution as `overrides`: exact id, then
+    /// longest matching path-prefix). A matching entry REPLACES the trigger's
+    /// pack-authored [`Trigger::zones`]. This is how a user scopes a whole pack
+    /// to one hunting zone ("only run the Sebilis debuff pack in Sebilis")
+    /// without editing pack files. Empty value list = the entry scopes to no
+    /// zone (effectively muting the branch everywhere); omit the entry to keep
+    /// the pack default.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub zone_scopes: BTreeMap<String, Vec<String>>,
 }
 
 impl Loadout {
@@ -398,6 +429,7 @@ impl Loadout {
             classes: Vec::new(),
             overrides: BTreeMap::new(),
             channel_overrides: BTreeMap::new(),
+            zone_scopes: BTreeMap::new(),
         }
     }
 }
@@ -409,6 +441,7 @@ static EMPTY_LOADOUT: Loadout = Loadout {
     classes: Vec::new(),
     overrides: BTreeMap::new(),
     channel_overrides: BTreeMap::new(),
+    zone_scopes: BTreeMap::new(),
 };
 
 /// Per-character trigger settings: level (drives generated timer durations)
@@ -482,6 +515,7 @@ impl From<ProfileWire> for CharacterProfile {
                     classes,
                     overrides,
                     channel_overrides: BTreeMap::new(),
+                    zone_scopes: BTreeMap::new(),
                 }],
             },
         }
@@ -600,6 +634,7 @@ mod tests {
                     cooldown_secs: Some(5),
                     priority: 0,
                     suppress: false,
+                    zones: Vec::new(),
                 },
                 Trigger::new(
                     "timer",

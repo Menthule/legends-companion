@@ -8,6 +8,7 @@ import { classifySeverity } from "../lib/severity";
 import {
   OVERLAY_ALERTS,
   type OverlayLockPayload,
+  type ProcAlertPayload,
   type TriggerFiredPayload,
   type TriggerIdentity,
 } from "../types";
@@ -26,6 +27,47 @@ let nextAlertId = 0;
 
 const initiallyUnlocked =
   new URLSearchParams(window.location.search).get("unlocked") === "1";
+
+function titleCaseWords(text: string): string {
+  return text
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+
+function normalizeAlertText(text: string): string {
+  const raw = text.trim().replace(/\s+/g, " ");
+  const lower = raw.toLowerCase();
+  const known: Record<string, string> = {
+    rooted: "Root: On",
+    "root off": "Root: Off",
+    "root broke": "Root: Broke",
+    stunned: "Stun: On",
+    "stun over": "Stun: Off",
+    snared: "Snare: On",
+    "snare off": "Snare: Off",
+    slowed: "Slow: On",
+    "slow off": "Slow: Off",
+    mezzed: "Mez: On",
+    "mez off": "Mez: Off",
+    charmed: "Charm: On You",
+    "charm over": "Charm: Off You",
+    "charm broke": "Charm: Broke",
+  };
+  if (known[lower]) return known[lower];
+
+  const rootedTarget = /^(.+) rooted$/i.exec(raw);
+  if (rootedTarget) return `Root: ${rootedTarget[1]}`;
+
+  const offTarget = /^(.+?) off(?: (.+))?$/i.exec(raw);
+  if (offTarget) {
+    const effect = titleCaseWords(offTarget[1]);
+    return offTarget[2] ? `${effect}: Off ${offTarget[2]}` : `${effect}: Off`;
+  }
+
+  return raw;
+}
 
 /** Text alerts only (trigger DisplayText, deaths, …) — timer bars live on
  *  the buffs and target overlays (overlay-lanes spec). Speech is NOT done
@@ -49,8 +91,11 @@ export default function OverlayAlerts() {
 
   const pushAlert = (text: string, trigger: TriggerIdentity | null) => {
     const id = nextAlertId++;
+    const normalizedText = normalizeAlertText(text);
     // Newest on top, max 5 visible.
-    setAlerts((a) => [{ id, text, trigger, leaving: false }, ...a].slice(0, 5));
+    setAlerts((a) =>
+      [{ id, text: normalizedText, trigger, leaving: false }, ...a].slice(0, 5),
+    );
     window.setTimeout(
       () =>
         setAlerts((a) =>
@@ -67,6 +112,21 @@ export default function OverlayAlerts() {
   useTauriEvent<TriggerFiredPayload>("trigger-fired", (p) => {
     if (p.action.kind !== "displayText") return;
     pushAlert(p.action.text, p.trigger);
+  });
+
+  useTauriEvent<ProcAlertPayload>("proc-alert", (p) => {
+    if (!p?.spell) return;
+    const crit = p.critical ? " crit" : "";
+    const amt =
+      typeof p.amount === "number" && Number.isFinite(p.amount)
+        ? ` ${Math.round(p.amount)}${crit}`
+        : crit;
+    const label =
+      p.kind === "skill" ? "Skill" : p.kind === "spell" ? "Spell" : "Proc";
+    pushAlert(`${label}: ${p.spell}${amt}`, {
+      id: `system/${p.kind}-alert`,
+      name: `${label} alert`,
+    });
   });
 
   // Camp respawn (FightsTab): a timed mob is back up. Visual only — the

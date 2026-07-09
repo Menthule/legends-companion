@@ -389,12 +389,18 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
     const s = `${id} ${cat ?? ""}`.toLowerCase();
     const timer = /timer|\/cast\/|debuff/.test(s);
     const speaks = /resist|wear-off|tell|survival|died|ending|enrage/.test(s);
-    return { speaks, shows: !timer, sound: false, timer };
+    return { speaks, shows: !timer, sound: false, timer, webhook: false };
   };
   // Resolve per-trigger channel overrides on top of the base channels, so the
   // chips reflect the effective TTS/alert state (matches the Rust tree).
   const chOv = activeLoadout(mockProfile).channel_overrides ?? {};
-  type Ch = { speaks: boolean; shows: boolean; sound: boolean; timer: boolean };
+  type Ch = {
+    speaks: boolean;
+    shows: boolean;
+    sound: boolean;
+    timer: boolean;
+    webhook: boolean;
+  };
   const applyOv = (id: string, ch: Ch): Ch => {
     const ov = chOv[id];
     if (!ov) return ch;
@@ -403,6 +409,7 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
       shows: ov.alert ?? ch.shows,
       sound: ch.sound,
       timer: ch.timer,
+      webhook: ch.webhook,
     };
   };
   const packs: TriggerTreeEntry[] = MOCK_PACK_TRIGGERS.map((p) => ({
@@ -444,6 +451,7 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
         shows: t.actions.some((a) => "DisplayText" in a),
         sound: t.actions.some((a) => "PlaySound" in a),
         timer: t.actions.some((a) => "StartTimer" in a || "CancelTimer" in a),
+        webhook: t.actions.some((a) => "PostWebhook" in a),
       }),
       userIndex: i,
     };

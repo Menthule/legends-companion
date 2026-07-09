@@ -4,7 +4,7 @@
     {
       "id": "debuffs/shaman/cast/affliction",
       "name": "Enemy timer: Affliction",
-      "pattern": "^You begin casting Affliction\\.$",
+      "pattern": "^You begin casting Affliction(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/shaman/cast/anathema",
       "name": "Enemy timer: Anathema",
-      "pattern": "^You begin casting Anathema\\.$",
+      "pattern": "^You begin casting Anathema(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/shaman/cast/ancient-scourge-of-nife",
       "name": "Enemy timer: Ancient: Scourge of Nife",
-      "pattern": "^You begin casting Ancient: Scourge of Nife\\.$",
+      "pattern": "^You begin casting Ancient: Scourge of Nife(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/shaman/cast/bane-of-nife",
       "name": "Enemy timer: Bane of Nife",
-      "pattern": "^You begin casting Bane of Nife\\.$",
+      "pattern": "^You begin casting Bane of Nife(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/shaman/cast/befriend-animal",
       "name": "Enemy timer: Befriend Animal",
-      "pattern": "^You begin casting Befriend Animal\\.$",
+      "pattern": "^You begin casting Befriend Animal(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/shaman/cast/blinding-luminance",
       "name": "Enemy timer: Blinding Luminance",
-      "pattern": "^You begin casting Blinding Luminance\\.$",
+      "pattern": "^You begin casting Blinding Luminance(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/shaman/cast/charm-animals",
       "name": "Enemy timer: Charm Animals",
-      "pattern": "^You begin casting Charm Animals\\.$",
+      "pattern": "^You begin casting Charm Animals(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/shaman/cast/cripple",
       "name": "Enemy timer: Cripple",
-      "pattern": "^You begin casting Cripple\\.$",
+      "pattern": "^You begin casting Cripple(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/shaman/cast/curse",
       "name": "Enemy timer: Curse",
-      "pattern": "^You begin casting Curse\\.$",
+      "pattern": "^You begin casting Curse(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/shaman/cast/disempower",
       "name": "Enemy timer: Disempower",
-      "pattern": "^You begin casting Disempower\\.$",
+      "pattern": "^You begin casting Disempower(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/shaman/cast/drowsy",
       "name": "Enemy timer: Drowsy",
-      "pattern": "^You begin casting Drowsy\\.$",
+      "pattern": "^You begin casting Drowsy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/shaman/cast/envenomed-bolt",
       "name": "Enemy timer: Envenomed Bolt",
-      "pattern": "^You begin casting Envenomed Bolt\\.$",
+      "pattern": "^You begin casting Envenomed Bolt(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/shaman/cast/envenomed-breath",
       "name": "Enemy timer: Envenomed Breath",
-      "pattern": "^You begin casting Envenomed Breath\\.$",
+      "pattern": "^You begin casting Envenomed Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/shaman/cast/flash-of-light",
       "name": "Enemy timer: Flash of Light",
-      "pattern": "^You begin casting Flash of Light\\.$",
+      "pattern": "^You begin casting Flash of Light(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/shaman/cast/immobilize",
       "name": "Enemy timer: Immobilize",
-      "pattern": "^You begin casting Immobilize\\.$",
+      "pattern": "^You begin casting Immobilize(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "debuffs/shaman/cast/incapacitate",
       "name": "Enemy timer: Incapacitate",
-      "pattern": "^You begin casting Incapacitate\\.$",
+      "pattern": "^You begin casting Incapacitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "debuffs/shaman/cast/infectious-cloud",
       "name": "Enemy timer: Infectious Cloud",
-      "pattern": "^You begin casting Infectious Cloud\\.$",
+      "pattern": "^You begin casting Infectious Cloud(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "debuffs/shaman/cast/insidious-decay",
       "name": "Enemy timer: Insidious Decay",
-      "pattern": "^You begin casting Insidious Decay\\.$",
+      "pattern": "^You begin casting Insidious Decay(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "debuffs/shaman/cast/insidious-fever",
       "name": "Enemy timer: Insidious Fever",
-      "pattern": "^You begin casting Insidious Fever\\.$",
+      "pattern": "^You begin casting Insidious Fever(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "debuffs/shaman/cast/insidious-malady",
       "name": "Enemy timer: Insidious Malady",
-      "pattern": "^You begin casting Insidious Malady\\.$",
+      "pattern": "^You begin casting Insidious Malady(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "debuffs/shaman/cast/instill",
       "name": "Enemy timer: Instill",
-      "pattern": "^You begin casting Instill\\.$",
+      "pattern": "^You begin casting Instill(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "debuffs/shaman/cast/listless-power",
       "name": "Enemy timer: Listless Power",
-      "pattern": "^You begin casting Listless Power\\.$",
+      "pattern": "^You begin casting Listless Power(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "debuffs/shaman/cast/malaise",
       "name": "Enemy timer: Malaise",
-      "pattern": "^You begin casting Malaise\\.$",
+      "pattern": "^You begin casting Malaise(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "debuffs/shaman/cast/malaisement",
       "name": "Enemy timer: Malaisement",
-      "pattern": "^You begin casting Malaisement\\.$",
+      "pattern": "^You begin casting Malaisement(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "debuffs/shaman/cast/malo",
       "name": "Enemy timer: Malo",
-      "pattern": "^You begin casting Malo\\.$",
+      "pattern": "^You begin casting Malo(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "debuffs/shaman/cast/malosi",
       "name": "Enemy timer: Malosi",
-      "pattern": "^You begin casting Malosi\\.$",
+      "pattern": "^You begin casting Malosi(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "debuffs/shaman/cast/malosini",
       "name": "Enemy timer: Malosini",
-      "pattern": "^You begin casting Malosini\\.$",
+      "pattern": "^You begin casting Malosini(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "debuffs/shaman/cast/odium",
       "name": "Enemy timer: Odium",
-      "pattern": "^You begin casting Odium\\.$",
+      "pattern": "^You begin casting Odium(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "debuffs/shaman/cast/paralyzing-earth",
       "name": "Enemy timer: Paralyzing Earth",
-      "pattern": "^You begin casting Paralyzing Earth\\.$",
+      "pattern": "^You begin casting Paralyzing Earth(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "debuffs/shaman/cast/plague",
       "name": "Enemy timer: Plague",
-      "pattern": "^You begin casting Plague\\.$",
+      "pattern": "^You begin casting Plague(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "debuffs/shaman/cast/plague-of-insects",
       "name": "Enemy timer: Plague of Insects",
-      "pattern": "^You begin casting Plague of Insects\\.$",
+      "pattern": "^You begin casting Plague of Insects(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "debuffs/shaman/cast/pox-of-bertoxxulous",
       "name": "Enemy timer: Pox of Bertoxxulous",
-      "pattern": "^You begin casting Pox of Bertoxxulous\\.$",
+      "pattern": "^You begin casting Pox of Bertoxxulous(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "debuffs/shaman/cast/root",
       "name": "Enemy timer: Root",
-      "pattern": "^You begin casting Root\\.$",
+      "pattern": "^You begin casting Root(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "debuffs/shaman/cast/scourge",
       "name": "Enemy timer: Scourge",
-      "pattern": "^You begin casting Scourge\\.$",
+      "pattern": "^You begin casting Scourge(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "debuffs/shaman/cast/sicken",
       "name": "Enemy timer: Sicken",
-      "pattern": "^You begin casting Sicken\\.$",
+      "pattern": "^You begin casting Sicken(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "debuffs/shaman/cast/tagar-s-insects",
       "name": "Enemy timer: Tagar's Insects",
-      "pattern": "^You begin casting Tagar's Insects\\.$",
+      "pattern": "^You begin casting Tagar['`]s Insects(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "debuffs/shaman/cast/tainted-breath",
       "name": "Enemy timer: Tainted Breath",
-      "pattern": "^You begin casting Tainted Breath\\.$",
+      "pattern": "^You begin casting Tainted Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "debuffs/shaman/cast/tigir-s-insects",
       "name": "Enemy timer: Tigir's Insects",
-      "pattern": "^You begin casting Tigir's Insects\\.$",
+      "pattern": "^You begin casting Tigir['`]s Insects(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "debuffs/shaman/cast/togor-s-insects",
       "name": "Enemy timer: Togor's Insects",
-      "pattern": "^You begin casting Togor's Insects\\.$",
+      "pattern": "^You begin casting Togor['`]s Insects(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "debuffs/shaman/cast/turgur-s-insects",
       "name": "Enemy timer: Turgur's Insects",
-      "pattern": "^You begin casting Turgur's Insects\\.$",
+      "pattern": "^You begin casting Turgur['`]s Insects(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "debuffs/shaman/cast/venom-of-the-snake",
       "name": "Enemy timer: Venom of the Snake",
-      "pattern": "^You begin casting Venom of the Snake\\.$",
+      "pattern": "^You begin casting Venom of the Snake(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1070,7 +1070,7 @@
     {
       "id": "debuffs/worn/affliction",
       "name": "Enemy timer cleared: Affliction",
-      "pattern": "^Your Affliction spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Affliction(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1095,7 +1095,7 @@
     {
       "id": "debuffs/worn/anathema",
       "name": "Enemy timer cleared: Anathema",
-      "pattern": "^Your Anathema spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Anathema(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1120,7 +1120,7 @@
     {
       "id": "debuffs/worn/ancient-scourge-of-nife",
       "name": "Enemy timer cleared: Ancient: Scourge of Nife",
-      "pattern": "^Your Ancient: Scourge of Nife spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ancient: Scourge of Nife(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1145,7 +1145,7 @@
     {
       "id": "debuffs/worn/bane-of-nife",
       "name": "Enemy timer cleared: Bane of Nife",
-      "pattern": "^Your Bane of Nife spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Bane of Nife(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1170,7 +1170,7 @@
     {
       "id": "debuffs/worn/cripple",
       "name": "Enemy timer cleared: Cripple",
-      "pattern": "^Your Cripple spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cripple(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1196,7 +1196,7 @@
     {
       "id": "debuffs/worn/curse",
       "name": "Enemy timer cleared: Curse",
-      "pattern": "^Your Curse spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Curse(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1221,7 +1221,7 @@
     {
       "id": "debuffs/worn/disempower",
       "name": "Enemy timer cleared: Disempower",
-      "pattern": "^Your Disempower spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Disempower(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1247,7 +1247,7 @@
     {
       "id": "debuffs/worn/drowsy",
       "name": "Enemy timer cleared: Drowsy",
-      "pattern": "^Your Drowsy spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Drowsy(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1273,7 +1273,7 @@
     {
       "id": "debuffs/worn/envenomed-bolt",
       "name": "Enemy timer cleared: Envenomed Bolt",
-      "pattern": "^Your Envenomed Bolt spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Envenomed Bolt(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1299,7 +1299,7 @@
     {
       "id": "debuffs/worn/envenomed-breath",
       "name": "Enemy timer cleared: Envenomed Breath",
-      "pattern": "^Your Envenomed Breath spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Envenomed Breath(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1325,7 +1325,7 @@
     {
       "id": "debuffs/worn/incapacitate",
       "name": "Enemy timer cleared: Incapacitate",
-      "pattern": "^Your Incapacitate spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Incapacitate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1352,7 +1352,7 @@
     {
       "id": "debuffs/worn/infectious-cloud",
       "name": "Enemy timer cleared: Infectious Cloud",
-      "pattern": "^Your Infectious Cloud spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Infectious Cloud(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1378,7 +1378,7 @@
     {
       "id": "debuffs/worn/insidious-decay",
       "name": "Enemy timer cleared: Insidious Decay",
-      "pattern": "^Your Insidious Decay spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Insidious Decay(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1403,7 +1403,7 @@
     {
       "id": "debuffs/worn/insidious-fever",
       "name": "Enemy timer cleared: Insidious Fever",
-      "pattern": "^Your Insidious Fever spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Insidious Fever(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1428,7 +1428,7 @@
     {
       "id": "debuffs/worn/insidious-malady",
       "name": "Enemy timer cleared: Insidious Malady",
-      "pattern": "^Your Insidious Malady spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Insidious Malady(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1453,7 +1453,7 @@
     {
       "id": "debuffs/worn/listless-power",
       "name": "Enemy timer cleared: Listless Power",
-      "pattern": "^Your Listless Power spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Listless Power(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1480,7 +1480,7 @@
     {
       "id": "debuffs/worn/malaise",
       "name": "Enemy timer cleared: Malaise",
-      "pattern": "^Your Malaise spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Malaise(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1506,7 +1506,7 @@
     {
       "id": "debuffs/worn/malaisement",
       "name": "Enemy timer cleared: Malaisement",
-      "pattern": "^Your Malaisement spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Malaisement(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1532,7 +1532,7 @@
     {
       "id": "debuffs/worn/malo",
       "name": "Enemy timer cleared: Malo",
-      "pattern": "^Your Malo spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Malo(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1557,7 +1557,7 @@
     {
       "id": "debuffs/worn/malosi",
       "name": "Enemy timer cleared: Malosi",
-      "pattern": "^Your Malosi spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Malosi(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1583,7 +1583,7 @@
     {
       "id": "debuffs/worn/malosini",
       "name": "Enemy timer cleared: Malosini",
-      "pattern": "^Your Malosini spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Malosini(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1609,7 +1609,7 @@
     {
       "id": "debuffs/worn/odium",
       "name": "Enemy timer cleared: Odium",
-      "pattern": "^Your Odium spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Odium(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1634,7 +1634,7 @@
     {
       "id": "debuffs/worn/plague",
       "name": "Enemy timer cleared: Plague",
-      "pattern": "^Your Plague spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Plague(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1660,7 +1660,7 @@
     {
       "id": "debuffs/worn/plague-of-insects",
       "name": "Enemy timer cleared: Plague of Insects",
-      "pattern": "^Your Plague of Insects spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Plague of Insects(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1685,7 +1685,7 @@
     {
       "id": "debuffs/worn/pox-of-bertoxxulous",
       "name": "Enemy timer cleared: Pox of Bertoxxulous",
-      "pattern": "^Your Pox of Bertoxxulous spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Pox of Bertoxxulous(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1710,7 +1710,7 @@
     {
       "id": "debuffs/worn/scourge",
       "name": "Enemy timer cleared: Scourge",
-      "pattern": "^Your Scourge spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scourge(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1736,7 +1736,7 @@
     {
       "id": "debuffs/worn/sicken",
       "name": "Enemy timer cleared: Sicken",
-      "pattern": "^Your Sicken spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Sicken(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1762,7 +1762,7 @@
     {
       "id": "debuffs/worn/tagar-s-insects",
       "name": "Enemy timer cleared: Tagar's Insects",
-      "pattern": "^Your Tagar's Insects spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tagar['`]s Insects(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1787,7 +1787,7 @@
     {
       "id": "debuffs/worn/tainted-breath",
       "name": "Enemy timer cleared: Tainted Breath",
-      "pattern": "^Your Tainted Breath spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tainted Breath(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1813,7 +1813,7 @@
     {
       "id": "debuffs/worn/tigir-s-insects",
       "name": "Enemy timer cleared: Tigir's Insects",
-      "pattern": "^Your Tigir's Insects spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tigir['`]s Insects(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1838,7 +1838,7 @@
     {
       "id": "debuffs/worn/togor-s-insects",
       "name": "Enemy timer cleared: Togor's Insects",
-      "pattern": "^Your Togor's Insects spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Togor['`]s Insects(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1863,7 +1863,7 @@
     {
       "id": "debuffs/worn/turgur-s-insects",
       "name": "Enemy timer cleared: Turgur's Insects",
-      "pattern": "^Your Turgur's Insects spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Turgur['`]s Insects(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1888,7 +1888,7 @@
     {
       "id": "debuffs/worn/venom-of-the-snake",
       "name": "Enemy timer cleared: Venom of the Snake",
-      "pattern": "^Your Venom of the Snake spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Venom of the Snake(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

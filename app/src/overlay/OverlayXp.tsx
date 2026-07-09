@@ -51,9 +51,13 @@ export default function OverlayXp() {
     () => ({ ...computeXpStats(session, nowMs), last: session.rows[0] ?? null }),
     [session, nowMs],
   );
+  const recentSession = useMemo(
+    () => ({ total: stats.total, count: stats.count, rows: [] }),
+    [stats.total, stats.count],
+  );
   const eta = useMemo(
-    () => computeLevelEta(session, levelProgress, stats.perHour),
-    [session, levelProgress, stats.perHour],
+    () => computeLevelEta(recentSession, levelProgress, stats.perHour),
+    [recentSession, levelProgress, stats.perHour],
   );
 
 
@@ -64,7 +68,7 @@ export default function OverlayXp() {
       )}
       <div className="oxp pill" data-tauri-drag-region>
         <div className="oxp-title">
-          <span>Session XP</span>
+          <span>XP 10m</span>
           <span className="num">{stats.total.toFixed(2)}%</span>
         </div>
         <div className="oxp-grid">

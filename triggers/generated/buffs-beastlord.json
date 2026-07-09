@@ -4,7 +4,7 @@
     {
       "id": "buffs/beastlord/cast/alacrity",
       "name": "Buff timer: Alacrity",
-      "pattern": "^You begin casting Alacrity\\.$",
+      "pattern": "^You begin casting Alacrity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/beastlord/cast/bestial-fury-discipline",
       "name": "Buff timer: Bestial Fury Discipline",
-      "pattern": "^You begin casting Bestial Fury Discipline\\.$",
+      "pattern": "^You begin casting Bestial Fury Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -55,7 +55,7 @@
     {
       "id": "buffs/beastlord/cast/bond-of-the-wild",
       "name": "Buff timer: Bond of the Wild",
-      "pattern": "^You begin casting Bond of the Wild\\.$",
+      "pattern": "^You begin casting Bond of the Wild(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -81,7 +81,7 @@
     {
       "id": "buffs/beastlord/cast/chloroplast",
       "name": "Buff timer: Chloroplast",
-      "pattern": "^You begin casting Chloroplast\\.$",
+      "pattern": "^You begin casting Chloroplast(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -107,7 +107,7 @@
     {
       "id": "buffs/beastlord/cast/deftness",
       "name": "Buff timer: Deftness",
-      "pattern": "^You begin casting Deftness\\.$",
+      "pattern": "^You begin casting Deftness(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -133,7 +133,7 @@
     {
       "id": "buffs/beastlord/cast/dexterity",
       "name": "Buff timer: Dexterity",
-      "pattern": "^You begin casting Dexterity\\.$",
+      "pattern": "^You begin casting Dexterity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -159,7 +159,7 @@
     {
       "id": "buffs/beastlord/cast/endure-cold",
       "name": "Buff timer: Endure Cold",
-      "pattern": "^You begin casting Endure Cold\\.$",
+      "pattern": "^You begin casting Endure Cold(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -185,7 +185,7 @@
     {
       "id": "buffs/beastlord/cast/endure-disease",
       "name": "Buff timer: Endure Disease",
-      "pattern": "^You begin casting Endure Disease\\.$",
+      "pattern": "^You begin casting Endure Disease(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -211,7 +211,7 @@
     {
       "id": "buffs/beastlord/cast/endure-fire",
       "name": "Buff timer: Endure Fire",
-      "pattern": "^You begin casting Endure Fire\\.$",
+      "pattern": "^You begin casting Endure Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -237,7 +237,7 @@
     {
       "id": "buffs/beastlord/cast/endure-magic",
       "name": "Buff timer: Endure Magic",
-      "pattern": "^You begin casting Endure Magic\\.$",
+      "pattern": "^You begin casting Endure Magic(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -263,7 +263,7 @@
     {
       "id": "buffs/beastlord/cast/endure-poison",
       "name": "Buff timer: Endure Poison",
-      "pattern": "^You begin casting Endure Poison\\.$",
+      "pattern": "^You begin casting Endure Poison(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -289,7 +289,7 @@
     {
       "id": "buffs/beastlord/cast/enduring-breath",
       "name": "Buff timer: Enduring Breath",
-      "pattern": "^You begin casting Enduring Breath\\.$",
+      "pattern": "^You begin casting Enduring Breath(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -315,7 +315,7 @@
     {
       "id": "buffs/beastlord/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -340,7 +340,7 @@
     {
       "id": "buffs/beastlord/cast/furious-strength",
       "name": "Buff timer: Furious Strength",
-      "pattern": "^You begin casting Furious Strength\\.$",
+      "pattern": "^You begin casting Furious Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -366,7 +366,7 @@
     {
       "id": "buffs/beastlord/cast/guard-of-calliav",
       "name": "Buff timer: Guard of Calliav",
-      "pattern": "^You begin casting Guard of Calliav\\.$",
+      "pattern": "^You begin casting Guard of Calliav(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -392,7 +392,7 @@
     {
       "id": "buffs/beastlord/cast/health",
       "name": "Buff timer: Health",
-      "pattern": "^You begin casting Health\\.$",
+      "pattern": "^You begin casting Health(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -418,7 +418,7 @@
     {
       "id": "buffs/beastlord/cast/inner-fire",
       "name": "Buff timer: Inner Fire",
-      "pattern": "^You begin casting Inner Fire\\.$",
+      "pattern": "^You begin casting Inner Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -444,7 +444,7 @@
     {
       "id": "buffs/beastlord/cast/invisibility",
       "name": "Buff timer: Invisibility",
-      "pattern": "^You begin casting Invisibility\\.$",
+      "pattern": "^You begin casting Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -470,7 +470,7 @@
     {
       "id": "buffs/beastlord/cast/levitate",
       "name": "Buff timer: Levitate",
-      "pattern": "^You begin casting Levitate\\.$",
+      "pattern": "^You begin casting Levitate(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -496,7 +496,7 @@
     {
       "id": "buffs/beastlord/cast/omakin-s-alacrity",
       "name": "Buff timer: Omakin's Alacrity",
-      "pattern": "^You begin casting Omakin's Alacrity\\.$",
+      "pattern": "^You begin casting Omakin['`]s Alacrity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -522,7 +522,7 @@
     {
       "id": "buffs/beastlord/cast/pack-shrew",
       "name": "Buff timer: Pack Shrew",
-      "pattern": "^You begin casting Pack Shrew\\.$",
+      "pattern": "^You begin casting Pack Shrew(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -548,7 +548,7 @@
     {
       "id": "buffs/beastlord/cast/protect",
       "name": "Buff timer: Protect",
-      "pattern": "^You begin casting Protect\\.$",
+      "pattern": "^You begin casting Protect(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -574,7 +574,7 @@
     {
       "id": "buffs/beastlord/cast/raging-strength",
       "name": "Buff timer: Raging Strength",
-      "pattern": "^You begin casting Raging Strength\\.$",
+      "pattern": "^You begin casting Raging Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -600,7 +600,7 @@
     {
       "id": "buffs/beastlord/cast/resist-disease",
       "name": "Buff timer: Resist Disease",
-      "pattern": "^You begin casting Resist Disease\\.$",
+      "pattern": "^You begin casting Resist Disease(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -626,7 +626,7 @@
     {
       "id": "buffs/beastlord/cast/resist-poison",
       "name": "Buff timer: Resist Poison",
-      "pattern": "^You begin casting Resist Poison\\.$",
+      "pattern": "^You begin casting Resist Poison(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -652,7 +652,7 @@
     {
       "id": "buffs/beastlord/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -677,7 +677,7 @@
     {
       "id": "buffs/beastlord/cast/savagery",
       "name": "Buff timer: Savagery",
-      "pattern": "^You begin casting Savagery\\.$",
+      "pattern": "^You begin casting Savagery(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -703,7 +703,7 @@
     {
       "id": "buffs/beastlord/cast/scale-skin",
       "name": "Buff timer: Scale Skin",
-      "pattern": "^You begin casting Scale Skin\\.$",
+      "pattern": "^You begin casting Scale Skin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -729,7 +729,7 @@
     {
       "id": "buffs/beastlord/cast/serpent-sight",
       "name": "Buff timer: Serpent Sight",
-      "pattern": "^You begin casting Serpent Sight\\.$",
+      "pattern": "^You begin casting Serpent Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -755,7 +755,7 @@
     {
       "id": "buffs/beastlord/cast/sha-s-ferocity",
       "name": "Buff timer: Sha's Ferocity",
-      "pattern": "^You begin casting Sha's Ferocity\\.$",
+      "pattern": "^You begin casting Sha['`]s Ferocity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -781,7 +781,7 @@
     {
       "id": "buffs/beastlord/cast/shifting-shield",
       "name": "Buff timer: Shifting Shield",
-      "pattern": "^You begin casting Shifting Shield\\.$",
+      "pattern": "^You begin casting Shifting Shield(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -807,7 +807,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-sight",
       "name": "Buff timer: Spirit Sight",
-      "pattern": "^You begin casting Spirit Sight\\.$",
+      "pattern": "^You begin casting Spirit Sight(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -833,7 +833,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-strength",
       "name": "Buff timer: Spirit Strength",
-      "pattern": "^You begin casting Spirit Strength\\.$",
+      "pattern": "^You begin casting Spirit Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -859,7 +859,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-bear",
       "name": "Buff timer: Spirit of Bear",
-      "pattern": "^You begin casting Spirit of Bear\\.$",
+      "pattern": "^You begin casting Spirit of Bear(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -885,7 +885,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-flame",
       "name": "Buff timer: Spirit of Flame",
-      "pattern": "^You begin casting Spirit of Flame\\.$",
+      "pattern": "^You begin casting Spirit of Flame(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -911,7 +911,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-inferno",
       "name": "Buff timer: Spirit of Inferno",
-      "pattern": "^You begin casting Spirit of Inferno\\.$",
+      "pattern": "^You begin casting Spirit of Inferno(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -937,7 +937,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-lightning",
       "name": "Buff timer: Spirit of Lightning",
-      "pattern": "^You begin casting Spirit of Lightning\\.$",
+      "pattern": "^You begin casting Spirit of Lightning(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -963,7 +963,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-monkey",
       "name": "Buff timer: Spirit of Monkey",
-      "pattern": "^You begin casting Spirit of Monkey\\.$",
+      "pattern": "^You begin casting Spirit of Monkey(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -989,7 +989,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-ox",
       "name": "Buff timer: Spirit of Ox",
-      "pattern": "^You begin casting Spirit of Ox\\.$",
+      "pattern": "^You begin casting Spirit of Ox(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1015,7 +1015,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-snow",
       "name": "Buff timer: Spirit of Snow",
-      "pattern": "^You begin casting Spirit of Snow\\.$",
+      "pattern": "^You begin casting Spirit of Snow(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1041,7 +1041,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-vermin",
       "name": "Buff timer: Spirit of Vermin",
-      "pattern": "^You begin casting Spirit of Vermin\\.$",
+      "pattern": "^You begin casting Spirit of Vermin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1067,7 +1067,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-wind",
       "name": "Buff timer: Spirit of Wind",
-      "pattern": "^You begin casting Spirit of Wind\\.$",
+      "pattern": "^You begin casting Spirit of Wind(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1093,7 +1093,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-wolf",
       "name": "Buff timer: Spirit of Wolf",
-      "pattern": "^You begin casting Spirit of Wolf\\.$",
+      "pattern": "^You begin casting Spirit of Wolf(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1119,7 +1119,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-the-blizzard",
       "name": "Buff timer: Spirit of the Blizzard",
-      "pattern": "^You begin casting Spirit of the Blizzard\\.$",
+      "pattern": "^You begin casting Spirit of the Blizzard(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1145,7 +1145,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-the-scorpion",
       "name": "Buff timer: Spirit of the Scorpion",
-      "pattern": "^You begin casting Spirit of the Scorpion\\.$",
+      "pattern": "^You begin casting Spirit of the Scorpion(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1171,7 +1171,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-the-shrew",
       "name": "Buff timer: Spirit of the Shrew",
-      "pattern": "^You begin casting Spirit of the Shrew\\.$",
+      "pattern": "^You begin casting Spirit of the Shrew(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1197,7 +1197,7 @@
     {
       "id": "buffs/beastlord/cast/spirit-of-the-storm",
       "name": "Buff timer: Spirit of the Storm",
-      "pattern": "^You begin casting Spirit of the Storm\\.$",
+      "pattern": "^You begin casting Spirit of the Storm(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1223,7 +1223,7 @@
     {
       "id": "buffs/beastlord/cast/spiritual-brawn",
       "name": "Buff timer: Spiritual Brawn",
-      "pattern": "^You begin casting Spiritual Brawn\\.$",
+      "pattern": "^You begin casting Spiritual Brawn(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1249,7 +1249,7 @@
     {
       "id": "buffs/beastlord/cast/spiritual-light",
       "name": "Buff timer: Spiritual Light",
-      "pattern": "^You begin casting Spiritual Light\\.$",
+      "pattern": "^You begin casting Spiritual Light(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1275,7 +1275,7 @@
     {
       "id": "buffs/beastlord/cast/spiritual-purity",
       "name": "Buff timer: Spiritual Purity",
-      "pattern": "^You begin casting Spiritual Purity\\.$",
+      "pattern": "^You begin casting Spiritual Purity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1301,7 +1301,7 @@
     {
       "id": "buffs/beastlord/cast/spiritual-radiance",
       "name": "Buff timer: Spiritual Radiance",
-      "pattern": "^You begin casting Spiritual Radiance\\.$",
+      "pattern": "^You begin casting Spiritual Radiance(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1327,7 +1327,7 @@
     {
       "id": "buffs/beastlord/cast/spiritual-strength",
       "name": "Buff timer: Spiritual Strength",
-      "pattern": "^You begin casting Spiritual Strength\\.$",
+      "pattern": "^You begin casting Spiritual Strength(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1353,7 +1353,7 @@
     {
       "id": "buffs/beastlord/cast/stamina",
       "name": "Buff timer: Stamina",
-      "pattern": "^You begin casting Stamina\\.$",
+      "pattern": "^You begin casting Stamina(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1379,7 +1379,7 @@
     {
       "id": "buffs/beastlord/cast/strengthen",
       "name": "Buff timer: Strengthen",
-      "pattern": "^You begin casting Strengthen\\.$",
+      "pattern": "^You begin casting Strengthen(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1405,7 +1405,7 @@
     {
       "id": "buffs/beastlord/cast/talisman-of-altuna",
       "name": "Buff timer: Talisman of Altuna",
-      "pattern": "^You begin casting Talisman of Altuna\\.$",
+      "pattern": "^You begin casting Talisman of Altuna(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1431,7 +1431,7 @@
     {
       "id": "buffs/beastlord/cast/talisman-of-tnarg",
       "name": "Buff timer: Talisman of Tnarg",
-      "pattern": "^You begin casting Talisman of Tnarg\\.$",
+      "pattern": "^You begin casting Talisman of Tnarg(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1457,7 +1457,7 @@
     {
       "id": "buffs/beastlord/cast/turtle-skin",
       "name": "Buff timer: Turtle Skin",
-      "pattern": "^You begin casting Turtle Skin\\.$",
+      "pattern": "^You begin casting Turtle Skin(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1483,7 +1483,7 @@
     {
       "id": "buffs/beastlord/cast/ultravision",
       "name": "Buff timer: Ultravision",
-      "pattern": "^You begin casting Ultravision\\.$",
+      "pattern": "^You begin casting Ultravision(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1509,7 +1509,7 @@
     {
       "id": "buffs/beastlord/cast/ward-of-calliav",
       "name": "Buff timer: Ward of Calliav",
-      "pattern": "^You begin casting Ward of Calliav\\.$",
+      "pattern": "^You begin casting Ward of Calliav(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1535,7 +1535,7 @@
     {
       "id": "buffs/beastlord/cast/yekan-s-quickening",
       "name": "Buff timer: Yekan's Quickening",
-      "pattern": "^You begin casting Yekan's Quickening\\.$",
+      "pattern": "^You begin casting Yekan['`]s Quickening(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

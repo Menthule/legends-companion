@@ -4,7 +4,7 @@
     {
       "id": "buffs/magician/cast/aegis-of-ro",
       "name": "Buff timer: Aegis of Ro",
-      "pattern": "^You begin casting Aegis of Ro\\.$",
+      "pattern": "^You begin casting Aegis of Ro(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/magician/cast/ancient-burnout-blaze",
       "name": "Buff timer: Ancient: Burnout Blaze",
-      "pattern": "^You begin casting Ancient: Burnout Blaze\\.$",
+      "pattern": "^You begin casting Ancient: Burnout Blaze(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/magician/cast/barrier-of-combustion",
       "name": "Buff timer: Barrier of Combustion",
-      "pattern": "^You begin casting Barrier of Combustion\\.$",
+      "pattern": "^You begin casting Barrier of Combustion(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/magician/cast/boon-of-immolation",
       "name": "Buff timer: Boon of Immolation",
-      "pattern": "^You begin casting Boon of Immolation\\.$",
+      "pattern": "^You begin casting Boon of Immolation(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/magician/cast/burnout",
       "name": "Buff timer: Burnout",
-      "pattern": "^You begin casting Burnout\\.$",
+      "pattern": "^You begin casting Burnout(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/magician/cast/burnout-ii",
       "name": "Buff timer: Burnout II",
-      "pattern": "^You begin casting Burnout II\\.$",
+      "pattern": "^You begin casting Burnout II(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/magician/cast/burnout-iii",
       "name": "Buff timer: Burnout III",
-      "pattern": "^You begin casting Burnout III\\.$",
+      "pattern": "^You begin casting Burnout III(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/magician/cast/burnout-iv",
       "name": "Buff timer: Burnout IV",
-      "pattern": "^You begin casting Burnout IV\\.$",
+      "pattern": "^You begin casting Burnout IV(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/magician/cast/cadeau-of-flame",
       "name": "Buff timer: Cadeau of Flame",
-      "pattern": "^You begin casting Cadeau of Flame\\.$",
+      "pattern": "^You begin casting Cadeau of Flame(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/magician/cast/elemental-cloak",
       "name": "Buff timer: Elemental Cloak",
-      "pattern": "^You begin casting Elemental Cloak\\.$",
+      "pattern": "^You begin casting Elemental Cloak(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/magician/cast/elemental-empathy",
       "name": "Buff timer: Elemental Empathy",
-      "pattern": "^You begin casting Elemental Empathy\\.$",
+      "pattern": "^You begin casting Elemental Empathy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/magician/cast/expedience",
       "name": "Buff timer: Expedience",
-      "pattern": "^You begin casting Expedience\\.$",
+      "pattern": "^You begin casting Expedience(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/magician/cast/eye-of-tallon",
       "name": "Buff timer: Eye of Tallon",
-      "pattern": "^You begin casting Eye of Tallon\\.$",
+      "pattern": "^You begin casting Eye of Tallon(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/magician/cast/eye-of-zomm",
       "name": "Buff timer: Eye of Zomm",
-      "pattern": "^You begin casting Eye of Zomm\\.$",
+      "pattern": "^You begin casting Eye of Zomm(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "buffs/magician/cast/guard-of-calliav",
       "name": "Buff timer: Guard of Calliav",
-      "pattern": "^You begin casting Guard of Calliav\\.$",
+      "pattern": "^You begin casting Guard of Calliav(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "buffs/magician/cast/inferno-shield",
       "name": "Buff timer: Inferno Shield",
-      "pattern": "^You begin casting Inferno Shield\\.$",
+      "pattern": "^You begin casting Inferno Shield(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "buffs/magician/cast/invisibility",
       "name": "Buff timer: Invisibility",
-      "pattern": "^You begin casting Invisibility\\.$",
+      "pattern": "^You begin casting Invisibility(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "buffs/magician/cast/kindle",
       "name": "Buff timer: Kindle",
-      "pattern": "^You begin casting Kindle\\.$",
+      "pattern": "^You begin casting Kindle(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "buffs/magician/cast/phantasmal-armor",
       "name": "Buff timer: Phantasmal Armor",
-      "pattern": "^You begin casting Phantasmal Armor\\.$",
+      "pattern": "^You begin casting Phantasmal Armor(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "buffs/magician/cast/phantom-armor",
       "name": "Buff timer: Phantom Armor",
-      "pattern": "^You begin casting Phantom Armor\\.$",
+      "pattern": "^You begin casting Phantom Armor(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "buffs/magician/cast/primal-remedy",
       "name": "Buff timer: Primal Remedy",
-      "pattern": "^You begin casting Primal Remedy\\.$",
+      "pattern": "^You begin casting Primal Remedy(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "buffs/magician/cast/see-invisible",
       "name": "Buff timer: See Invisible",
-      "pattern": "^You begin casting See Invisible\\.$",
+      "pattern": "^You begin casting See Invisible(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "buffs/magician/cast/shield-of-fire",
       "name": "Buff timer: Shield of Fire",
-      "pattern": "^You begin casting Shield of Fire\\.$",
+      "pattern": "^You begin casting Shield of Fire(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "buffs/magician/cast/shield-of-flame",
       "name": "Buff timer: Shield of Flame",
-      "pattern": "^You begin casting Shield of Flame\\.$",
+      "pattern": "^You begin casting Shield of Flame(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "buffs/magician/cast/shield-of-lava",
       "name": "Buff timer: Shield of Lava",
-      "pattern": "^You begin casting Shield of Lava\\.$",
+      "pattern": "^You begin casting Shield of Lava(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "buffs/magician/cast/shield-of-the-magi",
       "name": "Buff timer: Shield of the Magi",
-      "pattern": "^You begin casting Shield of the Magi\\.$",
+      "pattern": "^You begin casting Shield of the Magi(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "buffs/magician/cast/transon-s-phantasmal-protection",
       "name": "Buff timer: Transon's Phantasmal Protection",
-      "pattern": "^You begin casting Transon's Phantasmal Protection\\.$",
+      "pattern": "^You begin casting Transon['`]s Phantasmal Protection(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "buffs/magician/cast/valiant-companion",
       "name": "Buff timer: Valiant Companion",
-      "pattern": "^You begin casting Valiant Companion\\.$",
+      "pattern": "^You begin casting Valiant Companion(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "buffs/magician/cast/veil-of-elements",
       "name": "Buff timer: Veil of Elements",
-      "pattern": "^You begin casting Veil of Elements\\.$",
+      "pattern": "^You begin casting Veil of Elements(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "buffs/magician/cast/velocity",
       "name": "Buff timer: Velocity",
-      "pattern": "^You begin casting Velocity\\.$",
+      "pattern": "^You begin casting Velocity(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "buffs/magician/cast/ward-of-calliav",
       "name": "Buff timer: Ward of Calliav",
-      "pattern": "^You begin casting Ward of Calliav\\.$",
+      "pattern": "^You begin casting Ward of Calliav(?: [IVXLCDM]+)?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
