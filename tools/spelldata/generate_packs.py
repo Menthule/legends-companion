@@ -304,6 +304,21 @@ def spell_rx(name: str) -> str:
     return rx_escape(name) + RANK_SUFFIX
 
 
+def cast_start_rx(cls: str, name: str) -> str:
+    """Cast-start log line for a spell as cast by class `cls`.
+
+    Legends bards SING every spell — the log reads "You begin singing <song>."
+    (see the parser's cast_sing rule and its cast_begin_bard_song test), never
+    "casting" — so a bard-cast timer keyed to "You begin casting" never fires.
+    All other classes cast. Note this keys off the CLASS, not the bard-song
+    twist-window flag (which is False for memmed songs like Kelin's Lucid
+    Lullaby), because a spell shared by a bard and a caster is sung by the bard
+    and cast by the caster.
+    """
+    verb = "singing" if cls == "bard" else "casting"
+    return rf"^You begin {verb} {spell_rx(name)}\.$"
+
+
 def slugify(name: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     return s or "x"
@@ -470,7 +485,7 @@ def build_buff_packs(spells):
         per_class_triggers[cls].append(trigger(
             tid,
             f"Buff timer: {name}",
-            rf"^You begin casting {spell_rx(name)}\.$",
+            cast_start_rx(cls, name),
             [start_timer(timer_name, dur, warn,
                          s["duration_formula"], s["duration_cap_ticks"],
                          lane="buff",
@@ -631,7 +646,7 @@ def build_debuff_packs(spells):
         per_class_triggers[cls].append(trigger(
             tid,
             f"Enemy timer: {name}",
-            rf"^You begin casting {spell_rx(name)}\.$",
+            cast_start_rx(cls, name),
             [start_timer(name, dur, warn,
                          s["duration_formula"], s["duration_cap_ticks"],
                          lane="enemy",
