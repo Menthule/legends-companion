@@ -26,6 +26,7 @@ import {
   loadCampRaresOnly,
   saveCampRaresOnly,
 } from "../lib/timers";
+import { useLiveZoneEnabled } from "../lib/refFilters";
 import { ShareDialog, type ShareRequest } from "./ShareDialogs";
 import { useTauriEvent } from "../hooks";
 import { IS_MOCK } from "../mock";
@@ -89,8 +90,10 @@ function formatBytes(bytes: number): string {
 
 export default function SettingsTab({
   onCharacterChange,
+  sectionRequest,
 }: {
   onCharacterChange?: (name: string) => void;
+  sectionRequest?: { section: string; seq: number } | null;
 }) {
   const [config, setConfigState] = useState<AppConfig | null>(null);
   const [logSize, setLogSize] = useState<number | null>(null);
@@ -114,6 +117,7 @@ export default function SettingsTab({
     loadBuffThresholdMins()
   );
   const [alertSize, setAlertSize] = useState<number>(() => loadAlertSizePx());
+  const [liveZoneEnabled, setLiveZoneEnabled] = useLiveZoneEnabled();
   const [voices, setVoices] = useState<string[]>([]);
   useEffect(() => {
     listTtsVoices().then(setVoices).catch(() => {});
@@ -138,6 +142,10 @@ export default function SettingsTab({
       // localStorage unavailable — selection just won't persist.
     }
   }
+  useEffect(() => {
+    if (sectionRequest?.section) setSection(sectionRequest.section);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sectionRequest?.seq]);
   const [renaming, setRenaming] = useState<{ from: string; text: string } | null>(
     null,
   );
@@ -304,12 +312,24 @@ export default function SettingsTab({
     }
   }
 
+  function classLoadoutName(classes: string[]): string {
+    const picked = classes.map((c) => c.trim()).filter(Boolean);
+    if (picked.length === 0) return "";
+    return picked.join(" / ");
+  }
+
   function addLoadout() {
     if (!profile) return;
-    const name = uniqueName(profile, `Loadout ${profile.loadouts.length + 1}`);
+    const active = profile.loadouts.find(
+      (l) => l.name === profile.active_loadout,
+    );
+    const classes = active?.classes ?? [];
+    const base =
+      classLoadoutName(classes) || `Loadout ${profile.loadouts.length + 1}`;
+    const name = uniqueName(profile, base);
     const next: CharacterProfile = {
       ...profile,
-      loadouts: [...profile.loadouts, { name, classes: [], overrides: {} }],
+      loadouts: [...profile.loadouts, { name, classes: [...classes], overrides: {} }],
     };
     void saveProfile(next, `Created loadout “${name}”.`);
   }
@@ -660,6 +680,21 @@ export default function SettingsTab({
             }}
           />
         </label>
+        <label className="settings-switch-row">
+          <span>
+            <strong>Auto zone change</strong>
+            <span>
+              Keep search, drops, mobs, recipes, spells, and timers synced to
+              the zone detected from the live log.
+            </span>
+          </span>
+          <input
+            type="checkbox"
+            className="switch live-feature-switch"
+            checked={liveZoneEnabled}
+            onChange={(e) => setLiveZoneEnabled(e.target.checked)}
+          />
+        </label>
         <label className="field">
           <span>
             Trigger pack file (blank = triggers.json in the app config folder)
@@ -689,6 +724,22 @@ export default function SettingsTab({
               })
             }
             onBlur={() => void save(config)}
+          />
+        </label>
+        <label className="settings-switch-row">
+          <span>
+            <strong>Mute all alert audio</strong>
+            <span>
+              Master switch: no spoken triggers or alert sounds until turned
+              back on (voice/sound previews here still play). For a one-off
+              interruption use Silence instead (Ctrl+Alt+S).
+            </span>
+          </span>
+          <input
+            type="checkbox"
+            className="switch"
+            checked={config.ttsMuted ?? false}
+            onChange={(e) => void save({ ...config, ttsMuted: e.target.checked })}
           />
         </label>
         <label className="field">
@@ -906,6 +957,35 @@ export default function SettingsTab({
       <section className={`card${section === "overlays" ? "" : " hidden"}`}>
         <div className="card-head">
           <span className="section-title">Overlays</span>
+          <span className="hint">Glanceable windows over the game</span>
+        </div>
+        <div className="overlay-actions">
+          <button
+            className="ghost small"
+            onClick={() =>
+              void Promise.all(
+                OVERLAY_LABELS.map((label) => toggleOverlay(label, true)),
+              )
+            }
+          >
+            Show all
+          </button>
+          <button
+            className="ghost small"
+            onClick={() =>
+              void Promise.all(
+                OVERLAY_LABELS.map((label) => toggleOverlay(label, false)),
+              )
+            }
+          >
+            Hide all
+          </button>
+          <button
+            className="ghost small"
+            onClick={() => void toggleUnlock(!unlocked)}
+          >
+            {unlocked ? "Lock overlays" : "Arrange overlays"}
+          </button>
         </div>
         <div className="check-row">
           <input

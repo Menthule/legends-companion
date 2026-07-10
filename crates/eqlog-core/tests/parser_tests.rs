@@ -137,6 +137,104 @@ fn melee_hit_critical_flag() {
 }
 
 #[test]
+fn melee_hit_skill_verbs() {
+    assert_eq!(
+        parse("[Fri Jul 03 11:37:40 2026] You smite Baron Telyx V`Zher for 42 points of damage."),
+        Event::MeleeHit {
+            attacker: you(),
+            target: named("Baron Telyx V`Zher"),
+            verb: "smite".into(),
+            amount: 42,
+            flags: HitFlags::default(),
+        }
+    );
+    assert_eq!(
+        parse(
+            "[Fri Jul 03 11:37:41 2026] You eagle strike Baron Telyx V`Zher for 43 points of damage."
+        ),
+        Event::MeleeHit {
+            attacker: you(),
+            target: named("Baron Telyx V`Zher"),
+            verb: "eagle strike".into(),
+            amount: 43,
+            flags: HitFlags::default(),
+        }
+    );
+}
+
+#[test]
+fn melee_hit_skill_verbs_third_person_single_token_attacker() {
+    // Player (single capitalized token) using a noun-led skill verb: the
+    // skill regex must win so the verb is "eagle strikes", not attacker
+    // "Torvin eagle" + verb "strikes".
+    assert_eq!(
+        parse("[Fri Jul 03 11:37:42 2026] Torvin eagle strikes Baron Telyx V`Zher for 43 points of damage."),
+        Event::MeleeHit {
+            attacker: named("Torvin"),
+            target: named("Baron Telyx V`Zher"),
+            verb: "eagle strikes".into(),
+            amount: 43,
+            flags: HitFlags::default(),
+        }
+    );
+}
+
+#[test]
+fn melee_hit_mob_names_ending_in_skill_nouns() {
+    // Mob names ending in eagle/tiger must NOT be truncated by the noun-led
+    // skill verbs ("A giant eagle strikes ..." is the eagle's plain melee,
+    // not someone named "A giant" using Eagle Strike).
+    assert_eq!(
+        parse("[Fri Jul 03 12:30:00 2026] A giant eagle strikes Torvin for 10 points of damage."),
+        Event::MeleeHit {
+            attacker: named("A giant eagle"),
+            target: named("Torvin"),
+            verb: "strikes".into(),
+            amount: 10,
+            flags: HitFlags::default(),
+        }
+    );
+    assert_eq!(
+        parse("[Fri Jul 03 12:30:01 2026] A sabertooth tiger claws YOU for 30 points of damage."),
+        Event::MeleeHit {
+            attacker: named("A sabertooth tiger"),
+            target: you(),
+            verb: "claws".into(),
+            amount: 30,
+            flags: HitFlags::default(),
+        }
+    );
+    // Article + noun at line start: "An eagle" is a mob, not a player named
+    // "An" — the article guard must reject the skill reading.
+    assert_eq!(
+        parse("[Fri Jul 03 12:30:02 2026] An eagle strikes YOU for 12 points of damage."),
+        Event::MeleeHit {
+            attacker: named("An eagle"),
+            target: you(),
+            verb: "strikes".into(),
+            amount: 12,
+            flags: HitFlags::default(),
+        }
+    );
+}
+
+#[test]
+fn melee_hit_multiword_npc_round_kick() {
+    // Multi-word NPC names keep working with the non-noun-led multi-word
+    // verbs, which stay in the generic 3P alternation.
+    assert_eq!(
+        parse("[Fri Jul 03 12:30:03 2026] Brother Qwinn round kicks YOU for 20 points of damage."),
+        Event::MeleeHit {
+            attacker: named("Brother Qwinn"),
+            target: you(),
+            verb: "round kicks".into(),
+            amount: 20,
+            flags: HitFlags::default(),
+        }
+    );
+}
+
+#[test]
 fn melee_hit_you_critical_single_point() {
     assert_eq!(
         parse("[Thu Jul 02 23:44:52 2026] You crush skeleton L`rodd for 39 points of damage. (Critical)"),
@@ -237,6 +335,31 @@ fn melee_miss_two_word_frenzy_verb() {
             target: named("a Teir`Dal ranger"),
             verb: "frenzy on".into(),
             kind: MissKind::Miss,
+        }
+    );
+}
+
+#[test]
+fn melee_miss_multiword_skill_verbs() {
+    // Miss verbs must match the hit-side list so hits and misses key the
+    // same source row (Acc%): "eagle strike", not verb "eagle" + target
+    // "strike a rat".
+    assert_eq!(
+        parse("[Fri Jul 03 12:31:00 2026] You try to eagle strike a Teir`Dal ranger, but miss!"),
+        Event::MeleeMiss {
+            attacker: you(),
+            target: named("a Teir`Dal ranger"),
+            verb: "eagle strike".into(),
+            kind: MissKind::Miss,
+        }
+    );
+    assert_eq!(
+        parse("[Fri Jul 03 12:31:01 2026] Torvin tries to round kick Baron Telyx V`Zher, but Baron Telyx V`Zher dodges!"),
+        Event::MeleeMiss {
+            attacker: named("Torvin"),
+            target: named("Baron Telyx V`Zher"),
+            verb: "round kick".into(),
+            kind: MissKind::Dodge,
         }
     );
 }

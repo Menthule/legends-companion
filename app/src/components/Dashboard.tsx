@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import {
   checkUpdate,
   installUpdate,
@@ -21,16 +21,30 @@ import { IS_MOCK } from "../mock";
 import { useTauriEvent } from "../hooks";
 import { activeLoadout } from "../resolution";
 import {
+  pushRecentLog,
+  pushRecentLogLine,
+  type GlobalSearchAction,
+} from "../lib/globalSearch";
+import {
+  setLiveZoneName,
+  useLiveZoneEnabled,
+  useLiveZoneName,
+} from "../lib/refFilters";
+import {
   OVERLAY_LABELS,
   type AppConfig,
   type CatchUpPayload,
   type CharacterProfile,
   type DiscoveredLog,
+  type EqEvent,
+  type LogLinePayload,
   type SessionEndedPayload,
   type TailStatsPayload,
 } from "../types";
 import {
   loadOverlayVisibility,
+  OVERLAY_VIS_EVENT,
+  OVERLAY_VIS_KEY,
   saveOverlayArrange,
   saveOverlayVisibility,
 } from "../overlayState";
@@ -47,11 +61,18 @@ import MacrosTab from "./MacrosTab";
 import TriggersTab from "./TriggersTab";
 import SettingsTab from "./SettingsTab";
 import WelcomeCard from "./WelcomeCard";
+import GlobalSearchModal from "./GlobalSearchModal";
+import CoachTab from "./CoachTab";
+import DiagnosticsTab from "./DiagnosticsTab";
+import PatchNotesTab from "./PatchNotesTab";
 import {
   IconAbilities,
   IconEye,
   IconEyeOff,
   IconFights,
+  IconDiagnostics,
+  IconInsights,
+  IconPatchNotes,
   IconLive,
   IconLock,
   IconMacros,
@@ -77,6 +98,9 @@ type TabId =
   | "meters"
   | "fights"
   | "timers"
+  | "coach"
+  | "diagnostics"
+  | "patch-notes"
   | "drops"
   | "mobs"
   | "recipes"
@@ -102,6 +126,7 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
       { id: "meters", label: "Meters", icon: IconMeters },
       { id: "fights", label: "Fights", icon: IconFights },
       { id: "timers", label: "Timers", icon: IconTimers },
+      { id: "coach", label: "Insights", icon: IconInsights },
       { id: "triggers", label: "Triggers", icon: IconTriggers },
     ],
   },
@@ -118,7 +143,11 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
   },
   {
     label: null,
-    tabs: [{ id: "settings", label: "Settings", icon: IconSettings }],
+    tabs: [
+      { id: "patch-notes", label: "Patch Notes", icon: IconPatchNotes },
+      { id: "diagnostics", label: "Diagnostics", icon: IconDiagnostics },
+      { id: "settings", label: "Settings", icon: IconSettings },
+    ],
   },
 ];
 
@@ -140,6 +169,82 @@ const APP_VERSION = __APP_VERSION__;
 
 /** localStorage key remembering the update version the user dismissed. */
 const UPDATE_DISMISSED_KEY = "eqlogs.updateDismissed";
+
+function useDismissOnOutsidePointer(
+  refs: RefObject<HTMLElement>[],
+  active: boolean,
+  onDismiss: () => void,
+): void {
+  useEffect(() => {
+    if (!active) return;
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (refs.some((ref) => ref.current?.contains(target))) return;
+      onDismiss();
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onDismiss();
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [active, onDismiss, refs]);
+}
+
+function namedEntity(e: unknown): string {
+  if (typeof e === "string") return e;
+  if (e && typeof e === "object" && "Named" in e) {
+    return String((e as { Named: unknown }).Named);
+  }
+  return "";
+}
+
+function chatFields(event: EqEvent):
+  | { channel: unknown; speaker: string; text: string }
+  | null {
+  if (typeof event !== "object" || event === null || !("Chat" in event)) {
+    return null;
+  }
+  const chat = event.Chat;
+  if (typeof chat !== "object" || chat === null) return null;
+  const c = chat as Record<string, unknown>;
+  return {
+    channel: c.channel,
+    speaker: namedEntity(c.speaker),
+    text: typeof c.text === "string" ? c.text : "",
+  };
+}
+
+function outgoingHailName(event: EqEvent): string | null | undefined {
+  const chat = chatFields(event);
+  if (chat?.channel !== "Say" || chat.speaker !== "You") return undefined;
+  const m = /^Hail(?:,\s*(.+?))?[.!?]?$/i.exec(chat.text.trim());
+  if (!m) return undefined;
+  return m[1]?.trim() || null;
+}
+
+function hailResponseName(p: LogLinePayload): string | null {
+  const chat = chatFields(p.event);
+  if (chat?.channel === "Say" && chat.speaker && chat.speaker !== "You") {
+    return chat.speaker;
+  }
+  const told = /^(.+?) told you, '.*'$/.exec(p.message);
+  return told?.[1]?.trim() ?? null;
+}
+
+function zoneEnterName(event: EqEvent): string | null {
+  if (typeof event !== "object" || event === null || !("ZoneEnter" in event)) {
+    return null;
+  }
+  const zone = event.ZoneEnter;
+  if (typeof zone !== "object" || zone === null) return null;
+  const name = (zone as Record<string, unknown>).zone;
+  return typeof name === "string" && name.trim() ? name.trim() : null;
+}
 
 export default function Dashboard() {
   const [tab, setTab] = useState<TabId>(initialTab);
@@ -179,6 +284,47 @@ export default function Dashboard() {
     query: string;
     seq: number;
   } | null>(null);
+  const [triggersRequest, setTriggersRequest] = useState<{
+    query: string;
+    seq: number;
+  } | null>(null);
+  const [liveRequest, setLiveRequest] = useState<{
+    query: string;
+    seq: number;
+  } | null>(null);
+  const [globalSearch, setGlobalSearch] = useState<{
+    query: string;
+    reason?: string;
+    seq: number;
+  } | null>(null);
+  const [settingsSectionRequest, setSettingsSectionRequest] = useState<{
+    section: string;
+    seq: number;
+  } | null>(null);
+  const [currentZone, setCurrentZone] = useState<string | null>(null);
+  const [liveZoneEnabled, setLiveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
+  const [activeLogPath, setActiveLogPath] = useState("");
+  const [suggestedLog, setSuggestedLog] = useState<DiscoveredLog | null>(null);
+  const [dismissedLogPath, setDismissedLogPath] = useState("");
+  const [hailCard, setHailCard] = useState<{ name: string; ts: number } | null>(null);
+  const [liveMenuOpen, setLiveMenuOpen] = useState(false);
+  const [overlayMenuOpen, setOverlayMenuOpen] = useState(false);
+  const [sessionMenuOpen, setSessionMenuOpen] = useState(false);
+  const liveMenuRef = useRef<HTMLDivElement>(null);
+  const sessionMenuRef = useRef<HTMLDivElement>(null);
+  const overlayMenuRef = useRef<HTMLDivElement>(null);
+  const closeTopbarPopovers = useCallback(() => {
+    setLiveMenuOpen(false);
+    setSessionMenuOpen(false);
+    setOverlayMenuOpen(false);
+  }, []);
+  useDismissOnOutsidePointer(
+    [liveMenuRef, sessionMenuRef, overlayMenuRef],
+    liveMenuOpen || sessionMenuOpen || overlayMenuOpen,
+    closeTopbarPopovers,
+  );
+  const pendingHailUntil = useRef(0);
   useEffect(() => {
     const onOpenMobs = (e: Event) => {
       const query = String((e as CustomEvent).detail ?? "").trim();
@@ -243,17 +389,43 @@ export default function Dashboard() {
   const [unclassifiedPct, setUnclassifiedPct] = useState(0);
   /** Replay catch-up in progress (item 13): alerts are suppressed. */
   const [catchingUp, setCatchingUp] = useState(false);
+  /** Ref twin of catchingUp for event handlers (state is stale in callbacks). */
+  const catchingUpRef = useRef(false);
   /** First run: no saved config yet — show the welcome card. */
   const [needsSetup, setNeedsSetup] = useState(false);
   /** Newer release found on GitHub (slim banner); null = up to date/unknown. */
   const [update, setUpdate] = useState<UpdateInfo | null>(null);
   const [installing, setInstalling] = useState(false);
 
+  useEffect(() => {
+    const sync = () => {
+      const v = loadOverlayVisibility();
+      setOverlaysOn(OVERLAYS.some((label) => v[label]));
+    };
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === OVERLAY_VIS_KEY) sync();
+    };
+    window.addEventListener(OVERLAY_VIS_EVENT, sync);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(OVERLAY_VIS_EVENT, sync);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
+
   function showToast(message: string) {
     setToast(message);
     if (toastTimer.current != null) window.clearTimeout(toastTimer.current);
     toastTimer.current = window.setTimeout(() => setToast(null), 2500);
   }
+
+  const openGlobalSearch = useCallback((query = "", reason?: string) => {
+    setGlobalSearch((prev) => ({
+      query,
+      reason,
+      seq: (prev?.seq ?? 0) + 1,
+    }));
+  }, []);
 
   useEffect(() => {
     isTailing()
@@ -262,6 +434,7 @@ export default function Dashboard() {
     getConfig()
       .then((c) => {
         setCharacter(c.characterName);
+        setActiveLogPath(c.logPath);
         // Empty log path = fresh install (defaults are blank now); walk the
         // user through picking a discovered log instead of a dead end.
         setNeedsSetup(c.logPath.trim().length === 0);
@@ -298,6 +471,7 @@ export default function Dashboard() {
   // may have sampled the blank default (spurious welcome card otherwise).
   useTauriEvent<AppConfig>("config-changed", (c) => {
     setCharacter(c.characterName);
+    setActiveLogPath(c.logPath);
     setNeedsSetup(c.logPath.trim().length === 0);
   });
 
@@ -314,9 +488,40 @@ export default function Dashboard() {
     }
   });
 
+  useTauriEvent<LogLinePayload>("log-line", (p) => {
+    pushRecentLogLine(p);
+    const zone = zoneEnterName(p.event);
+    if (zone) {
+      setCurrentZone(zone);
+      setLiveZoneName(zone);
+    }
+    // Replayed history must not pop the hail card / global search: a
+    // week-old "Hail, X" is not a request to look X up now.
+    if (catchingUpRef.current) return;
+    const hailName = outgoingHailName(p.event);
+    if (hailName !== undefined) {
+      pendingHailUntil.current = p.ts + 8;
+      if (hailName) {
+        pendingHailUntil.current = 0;
+        setHailCard({ name: hailName, ts: p.ts });
+        openGlobalSearch(hailName, `Hail: ${hailName}`);
+      }
+      return;
+    }
+    if (p.ts <= pendingHailUntil.current) {
+      const responseName = hailResponseName(p);
+      if (responseName) {
+        pendingHailUntil.current = 0;
+        setHailCard({ name: responseName, ts: p.ts });
+        openGlobalSearch(responseName, `Hail: ${responseName}`);
+      }
+    }
+  });
+
   // Catch-up guard (item 13): topbar note while replayed lines stream
   // through with alerts suppressed; a toast sums it up on exit.
   useTauriEvent<CatchUpPayload>("catch-up", (p) => {
+    catchingUpRef.current = p.active;
     setCatchingUp(p.active);
     if (!p.active) {
       showToast(
@@ -336,8 +541,14 @@ export default function Dashboard() {
     }
   }, []);
 
-  // Esc-Esc double-tap = silence (item 14): the incident kill switch must
-  // work without hunting for a button mid-raid.
+  // Backend already silenced the audio (Ctrl+Alt+S global hotkey, works
+  // while the game has focus) — this is just the visible confirmation.
+  useTauriEvent("global-silence", () => {
+    showToast("Audio silenced — queued alerts dropped (Ctrl+Alt+S)");
+  });
+
+  // Esc-Esc double-tap = silence (item 14) while the companion has focus;
+  // Ctrl+Alt+S (global, backend-registered) covers game-focused play.
   useEffect(() => {
     let lastEsc = 0;
     const onKey = (e: KeyboardEvent) => {
@@ -353,6 +564,27 @@ export default function Dashboard() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [doSilence]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      const typing =
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        tag === "SELECT" ||
+        target?.isContentEditable === true;
+      const chord =
+        ((e.ctrlKey || e.metaKey) &&
+          (e.key.toLowerCase() === "k" || e.key.toLowerCase() === "f")) ||
+        (e.key === "/" && !typing);
+      if (!chord) return;
+      e.preventDefault();
+      openGlobalSearch();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [openGlobalSearch]);
 
   // Update check (APP_REVIEW N1): one silent GitHub call on mount. Skipped
   // entirely in mock mode; any failure resolves to null and shows nothing.
@@ -432,19 +664,125 @@ export default function Dashboard() {
       .catch(() => setCharacters([]));
   }, []);
 
+  const refreshCharacters = useCallback(() => {
+    discoverLogs()
+      .then(setCharacters)
+      .catch(() => setCharacters([]));
+  }, []);
+
+  useEffect(() => {
+    const newest = characters
+      .filter((l) => l.modifiedTs != null)
+      .sort((a, b) => (b.modifiedTs ?? 0) - (a.modifiedTs ?? 0))[0];
+    if (!newest || newest.path === dismissedLogPath) {
+      setSuggestedLog(null);
+      return;
+    }
+    const current = characters.find((l) => l.path === activeLogPath);
+    const newerBySecs = (newest.modifiedTs ?? 0) - (current?.modifiedTs ?? 0);
+    const newestAgeSecs = Date.now() / 1000 - (newest.modifiedTs ?? 0);
+    const differentCharacter =
+      newest.character.toLowerCase() !== character.toLowerCase() ||
+      newest.path !== activeLogPath;
+    const confident =
+      newestAgeSecs <= 90 && (!current || newerBySecs >= (tailing ? 30 : 15));
+    if (differentCharacter && confident) {
+      setSuggestedLog(newest);
+    } else {
+      setSuggestedLog(null);
+    }
+  }, [activeLogPath, character, characters, dismissedLogPath, tailing]);
+
   const changeCharacter = useCallback(async (log: DiscoveredLog) => {
     setError(null);
     try {
       await setActiveCharacter(log.server, log.character);
-      // Real backend re-emits config-changed/profile-changed (top bar + profile
-      // sync via those listeners); mock has no events, so refresh directly.
+      pushRecentLog(log);
+      setActiveLogPath(log.path);
+      setSuggestedLog(null);
+      // The backend emits config/profile changes, but refresh directly too so
+      // the selected character's one-to-many loadout list updates immediately.
       setCharacter(log.character);
-      if (IS_MOCK) setProfile(await getProfile());
+      const [nextProfile, nextConfig] = await Promise.all([
+        getProfile().catch(() => null),
+        getConfig().catch(() => null),
+      ]);
+      if (nextProfile) setProfile(nextProfile);
+      if (nextConfig) {
+        setCharacter(nextConfig.characterName);
+        setActiveLogPath(nextConfig.logPath);
+      }
+      refreshCharacters();
       showToast(`Switched to ${log.character}`);
     } catch (e) {
       setError(String(e));
     }
-  }, []);
+  }, [refreshCharacters]);
+
+  const handleGlobalSearchAction = useCallback(
+    (action: GlobalSearchAction) => {
+      if (action.kind === "open-tab-search") {
+        switch (action.tab) {
+          case "live":
+            setLiveRequest((prev) => ({
+              query: action.query,
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab("live");
+            break;
+          case "drops":
+            setDropsRequest((prev) => ({
+              query: action.query,
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab("drops");
+            break;
+          case "mobs":
+            setMobsRequest((prev) => ({
+              query: action.query,
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab("mobs");
+            break;
+          case "recipes":
+            setRecipesRequest((prev) => ({
+              query: action.query,
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab("recipes");
+            break;
+          case "spells":
+          case "abilities":
+            setSpellsRequest((prev) => ({
+              query: action.query,
+              isAbility: action.tab === "abilities",
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab(action.tab);
+            break;
+          case "triggers":
+            setTriggersRequest((prev) => ({
+              query: action.query,
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab("triggers");
+            break;
+        }
+      } else if (action.kind === "open-trigger") {
+        setTriggersRequest((prev) => ({
+          query: action.query,
+          seq: (prev?.seq ?? 0) + 1,
+        }));
+        setTab("triggers");
+      } else if (action.kind === "open-character-log") {
+        const log = characters.find((c) => c.path === action.path);
+        if (log) void changeCharacter(log);
+        else void setActiveCharacter(action.server, action.character);
+        setTab("live");
+      }
+    },
+    [changeCharacter, characters],
+  );
 
   const toggleTailing = useCallback(async () => {
     setError(null);
@@ -500,18 +838,21 @@ export default function Dashboard() {
     setError(null);
     try {
       if (!nextLocked) {
-        // Arranging implies the overlays must be visible.
+        // Arranging temporarily reveals every overlay without changing which
+        // overlays are enabled when locked.
         setOverlaysOn(true);
         for (const label of OVERLAYS) {
           await overlayShow(label);
+          await overlaySetClickThrough(label, false);
         }
-        saveOverlayVisibility(
-          Object.fromEntries(OVERLAYS.map((label) => [label, true])),
-        );
-      }
-      // Locked = click-through.
-      for (const label of OVERLAYS) {
-        await overlaySetClickThrough(label, nextLocked);
+      } else {
+        const vis = loadOverlayVisibility();
+        setOverlaysOn(OVERLAYS.some((label) => vis[label]));
+        for (const label of OVERLAYS) {
+          if (vis[label]) await overlayShow(label);
+          else await overlayHide(label);
+          await overlaySetClickThrough(label, true);
+        }
       }
     } catch (e) {
       setError(String(e));
@@ -547,54 +888,105 @@ export default function Dashboard() {
 
       <div className="main">
         <header className="topbar">
-          {characters.length > 1 ? (
-            <label
-              className="char-switch"
-              title="Active character — switching points the app at that character's log and profile"
+          <div className="identity-switch">
+            {characters.length > 1 ? (
+              <label
+                className="char-switch"
+                title="Active character — switching points the app at that character's log and profile"
+              >
+                <span className="topbar-label">Character</span>
+                <select
+                  value={
+                    characters.find(
+                      (l) => l.character.toLowerCase() === character.toLowerCase(),
+                    )?.path ?? ""
+                  }
+                  onChange={(e) => {
+                    const log = characters.find((l) => l.path === e.target.value);
+                    if (log) void changeCharacter(log);
+                  }}
+                  aria-label="Character"
+                >
+                  {characters.map((l) => (
+                    <option key={l.path} value={l.path}>
+                      {l.character}
+                      {l.server ? ` · ${l.server}` : ""}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : (
+              <span className="char-name">{character || "No character"}</span>
+            )}
+            {profile && profile.loadouts.length > 0 && (
+              <label className="loadout-switch" title="Trigger loadout — switching applies it to the live session">
+                <span className="topbar-label">Loadout</span>
+                <select
+                  value={activeLoadout(profile).name}
+                  onChange={(e) => void changeLoadout(e.target.value)}
+                  aria-label="Loadout"
+                >
+                  {profile.loadouts.map((l) => (
+                    <option key={l.name} value={l.name}>
+                      {l.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+          </div>
+          <button
+            className="ghost small global-search-button"
+            onClick={() => openGlobalSearch()}
+            title="Global search (Ctrl+K, Ctrl+F, /)"
+          >
+            Search
+            <span className="key-hint">Ctrl K</span>
+          </button>
+          <div className="topbar-menu" ref={liveMenuRef}>
+            <button
+              className="ghost small live-menu-button"
+              onClick={() => {
+                setSessionMenuOpen(false);
+                setOverlayMenuOpen(false);
+                setLiveMenuOpen((o) => !o);
+              }}
+              title="Live log and live-context controls"
+              aria-expanded={liveMenuOpen}
             >
-              <select
-                value={
-                  characters.find(
-                    (l) => l.character.toLowerCase() === character.toLowerCase(),
-                  )?.path ?? ""
-                }
-                onChange={(e) => {
-                  const log = characters.find((l) => l.path === e.target.value);
-                  if (log) void changeCharacter(log);
-                }}
-                aria-label="Character"
-              >
-                {characters.map((l) => (
-                  <option key={l.path} value={l.path}>
-                    {l.character}
-                    {l.server ? ` · ${l.server}` : ""}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : (
-            <span className="char-name">{character || "No character"}</span>
-          )}
-          {profile && profile.loadouts.length > 0 && (
-            <label className="loadout-switch" title="Trigger loadout — switching applies it to the live session">
-              <span className="loadout-label">Loadout</span>
-              <select
-                value={activeLoadout(profile).name}
-                onChange={(e) => void changeLoadout(e.target.value)}
-                aria-label="Loadout"
-              >
-                {profile.loadouts.map((l) => (
-                  <option key={l.name} value={l.name}>
-                    {l.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
-          <span className="conn">
-            <span className={`status-dot${tailing ? " live" : ""}`} />
-            {tailing ? "Tailing log" : "Idle"}
-          </span>
+              <span className={`status-dot${tailing ? " live" : ""}`} />
+              {tailing ? "Live" : "Idle"}
+            </button>
+            {liveMenuOpen && (
+              <div className="topbar-popover live-popover" role="menu">
+                <div className="topbar-popover-row">
+                  <span className="popover-label">Log tail</span>
+                  <strong>{tailing ? "Live" : "Idle"}</strong>
+                </div>
+                <div className="topbar-popover-row">
+                  <span className="popover-label">Detected zone</span>
+                  <strong>{liveZoneName || currentZone || "Unknown"}</strong>
+                </div>
+                <label
+                  className={`live-feature-row${!liveZoneName && !currentZone ? " disabled" : ""}`}
+                  title="When on, database views and search follow your current in-game zone"
+                >
+                  <span className="live-feature-copy">
+                    <strong>Auto zone change</strong>
+                    <span>Keep search, drops, mobs, recipes, spells, and timers synced to your current zone.</span>
+                  </span>
+                  <input
+                    type="checkbox"
+                    className="switch live-feature-switch"
+                    checked={liveZoneEnabled}
+                    disabled={!liveZoneName && !currentZone}
+                    onChange={(e) => setLiveZoneEnabled(e.target.checked)}
+                    aria-label="Auto zone change"
+                  />
+                </label>
+              </div>
+            )}
+          </div>
           {catchingUp && (
             <span
               className="catchup-badge"
@@ -603,53 +995,93 @@ export default function Dashboard() {
               Catching up — alerts paused
             </span>
           )}
-          {unclassifiedPct > CANARY_PCT && (
-            <span
-              className="canary-badge"
-              title={`${unclassifiedPct.toFixed(1)}% of recent log lines were not recognized — a game update may have changed log formats. Check for an app update.`}
-            >
-              <IconWarn />
-              {unclassifiedPct.toFixed(1)}% unrecognized
-            </span>
-          )}
-          <button className="ghost small" onClick={toggleTailing}>
-            {tailing ? <IconStop /> : <IconPlay />}
-            {tailing ? "Stop" : "Start"}
-          </button>
-          <button
-            className="ghost small"
-            onClick={() => void doSilence()}
-            title="Silence — stop the current speech and drop queued alerts (Esc Esc)"
-          >
-            <IconSpeakerOff />
-            Silence
-          </button>
           <span className="spacer" />
-          <button
-            className="ghost small"
-            onClick={toggleOverlays}
-            title={
-              overlaysOn
-                ? "Overlays are shown over the game. Click to hide them."
-                : "Overlays are hidden. Click to show them."
-            }
-          >
-            {overlaysOn ? <IconEye /> : <IconEyeOff />}
-            Overlays {overlaysOn ? "on" : "off"}
-          </button>
-          <button
-            className="ghost small"
-            onClick={toggleOverlayLock}
-            disabled={!overlaysOn && overlaysLocked}
-            title={
-              overlaysLocked
-                ? "Overlays are click-through. Arrange to drag them into place."
-                : "Overlays accept the mouse. Lock before playing."
-            }
-          >
-            {overlaysLocked ? <IconLock /> : <IconUnlock />}
-            {overlaysLocked ? "Arrange" : "Done arranging"}
-          </button>
+          <div className="topbar-menu" ref={sessionMenuRef}>
+            <button
+              className="ghost small"
+              onClick={() => {
+                setLiveMenuOpen(false);
+                setOverlayMenuOpen(false);
+                setSessionMenuOpen((o) => !o);
+              }}
+              title="Session controls"
+              aria-expanded={sessionMenuOpen}
+            >
+              {tailing ? <IconStop /> : <IconPlay />}
+              Session
+            </button>
+            {sessionMenuOpen && (
+              <div className="topbar-popover" role="menu">
+                <button className="ghost small" onClick={toggleTailing}>
+                  {tailing ? <IconStop /> : <IconPlay />}
+                  {tailing ? "Stop tailing" : "Start tailing"}
+                </button>
+                <button
+                  className="ghost small"
+                  onClick={() => void doSilence()}
+                  title="Silence — stop the current speech and drop queued alerts (Esc Esc here, Ctrl+Alt+S anywhere — even with the game focused)"
+                >
+                  <IconSpeakerOff />
+                  Silence audio
+                </button>
+                {unclassifiedPct > CANARY_PCT && (
+                  <button
+                    className="ghost small"
+                    onClick={() => setTab("settings")}
+                    title="Check for app and reference-data updates"
+                  >
+                    <IconWarn />
+                    {unclassifiedPct.toFixed(1)}% unrecognized
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="topbar-menu" ref={overlayMenuRef}>
+            <button
+              className="ghost small"
+              onClick={() => {
+                setLiveMenuOpen(false);
+                setSessionMenuOpen(false);
+                setOverlayMenuOpen((o) => !o);
+              }}
+              title="Overlay controls"
+              aria-expanded={overlayMenuOpen}
+            >
+              {overlaysOn ? <IconEye /> : <IconEyeOff />}
+              Overlays
+            </button>
+            {overlayMenuOpen && (
+              <div className="topbar-popover" role="menu">
+                <button className="ghost small" onClick={toggleOverlays}>
+                  {overlaysOn ? <IconEyeOff /> : <IconEye />}
+                  {overlaysOn ? "Hide overlays" : "Show overlays"}
+                </button>
+                <button
+                  className="ghost small"
+                  onClick={toggleOverlayLock}
+                  disabled={!overlaysOn && overlaysLocked}
+                >
+                  {overlaysLocked ? <IconUnlock /> : <IconLock />}
+                  {overlaysLocked ? "Arrange overlays" : "Lock overlays"}
+                </button>
+                <button
+                  className="ghost small"
+                  onClick={() => {
+                    setOverlayMenuOpen(false);
+                    setSettingsSectionRequest((prev) => ({
+                      section: "overlays",
+                      seq: (prev?.seq ?? 0) + 1,
+                    }));
+                    setTab("settings");
+                  }}
+                >
+                  <IconSettings />
+                  Overlay settings
+                </button>
+              </div>
+            )}
+          </div>
         </header>
 
         <div className="content">
@@ -692,6 +1124,71 @@ export default function Dashboard() {
               </button>
             </div>
           )}
+          {suggestedLog && (
+            <div className="session-banner" role="status">
+              <span className="session-banner-text">
+                <strong>Newer active log detected</strong> - switch to{" "}
+                {suggestedLog.character} / {suggestedLog.server}?
+              </span>
+              <button
+                className="primary small"
+                onClick={() => void changeCharacter(suggestedLog)}
+              >
+                Switch
+              </button>
+              <button
+                className="ghost small"
+                onClick={() => {
+                  setDismissedLogPath(suggestedLog.path);
+                  setSuggestedLog(null);
+                }}
+              >
+                Not now
+              </button>
+            </div>
+          )}
+          {hailCard && (
+            <div className="hail-card" role="status">
+              <span className="hail-card-main">
+                <strong>Hail:</strong> {hailCard.name}
+              </span>
+              <button
+                className="ghost small"
+                onClick={() => {
+                  setMobsRequest((prev) => ({
+                    query: hailCard.name,
+                    seq: (prev?.seq ?? 0) + 1,
+                  }));
+                  setTab("mobs");
+                }}
+              >
+                Mobs
+              </button>
+              <button
+                className="ghost small"
+                onClick={() => {
+                  setDropsRequest((prev) => ({
+                    query: hailCard.name,
+                    seq: (prev?.seq ?? 0) + 1,
+                  }));
+                  setTab("drops");
+                }}
+              >
+                Drops
+              </button>
+              <a
+                className="ghost small button-link"
+                href={`https://www.google.com/search?q=${encodeURIComponent(`EverQuest Legends ${hailCard.name}`)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Web
+              </a>
+              <button className="ghost small" onClick={() => setHailCard(null)}>
+                Dismiss
+              </button>
+            </div>
+          )}
           {error && <div className="error-banner">{error}</div>}
           {needsSetup && tab !== "settings" && (
             <WelcomeCard
@@ -704,7 +1201,7 @@ export default function Dashboard() {
             />
           )}
           <section className={`page page-live${tab === "live" ? "" : " hidden"}`}>
-            <LiveTab character={character} />
+            <LiveTab character={character} searchRequest={liveRequest} />
           </section>
           <section className={`page${tab === "meters" ? "" : " hidden"}`}>
             <MetersTab character={character} />
@@ -714,6 +1211,15 @@ export default function Dashboard() {
           </section>
           <section className={`page${tab === "timers" ? "" : " hidden"}`}>
             <TimersTab />
+          </section>
+          <section className={`page${tab === "coach" ? "" : " hidden"}`}>
+            <CoachTab character={character} />
+          </section>
+          <section className={`page${tab === "diagnostics" ? "" : " hidden"}`}>
+            <DiagnosticsTab />
+          </section>
+          <section className={`page${tab === "patch-notes" ? "" : " hidden"}`}>
+            <PatchNotesTab />
           </section>
           <section className={`page${tab === "drops" ? "" : " hidden"}`}>
             {visited.has("drops") && <DropsTab searchRequest={dropsRequest} />}
@@ -752,10 +1258,13 @@ export default function Dashboard() {
             {visited.has("macros") && <MacrosTab />}
           </section>
           <section className={`page${tab === "triggers" ? "" : " hidden"}`}>
-            <TriggersTab character={character} />
+            <TriggersTab character={character} searchRequest={triggersRequest} />
           </section>
           <section className={`page${tab === "settings" ? "" : " hidden"}`}>
-            <SettingsTab onCharacterChange={setCharacter} />
+            <SettingsTab
+              onCharacterChange={setCharacter}
+              sectionRequest={settingsSectionRequest}
+            />
           </section>
         </div>
       </div>
@@ -770,6 +1279,18 @@ export default function Dashboard() {
         <div className="toast" role="status">
           {toast}
         </div>
+      )}
+      {globalSearch && (
+        <GlobalSearchModal
+          key={globalSearch.seq}
+          initialQuery={globalSearch.query}
+          reason={globalSearch.reason}
+          currentZone={
+            liveZoneEnabled ? liveZoneName || currentZone : null
+          }
+          onClose={() => setGlobalSearch(null)}
+          onAction={handleGlobalSearchAction}
+        />
       )}
     </div>
   );

@@ -54,24 +54,27 @@ describe("computeXpStats (P-XP active-time window)", () => {
     const s = computeXpStats(sess(rows), T);
     expect(s.total).toBe(5);
     expect(s.count).toBe(1);
-    expect(s.perHour).toBeCloseTo(300, 5);
+    expect(s.perHour).toBeNull();
+    expect(s.perLevelHours).toBeNull();
   });
 
-  it("floors a single gain at a one-minute window", () => {
+  it("does not estimate rate from a single gain", () => {
     const T = 3_000_000;
     const s = computeXpStats(sess([row(1, 100, 5, T)]), T);
-    // window floored to 60s -> 5% / (60/3600 h) = 300%/h.
-    expect(s.perHour).toBeCloseTo(300, 5);
+    expect(s.total).toBe(5);
+    expect(s.count).toBe(1);
+    expect(s.perHour).toBeNull();
+    expect(s.perLevelHours).toBeNull();
   });
 
   it("decays the rate as time passes since the last gain", () => {
     const T = 4_000_000;
-    const rows = [row(1, 100, 5, T)];
+    const rows = [row(2, 160, 5, T), row(1, 100, 5, T - 60_000)];
     const atGain = computeXpStats(sess(rows), T).perHour!;
     const twoMinLater = computeXpStats(sess(rows), T + 120_000).perHour!;
     expect(twoMinLater).toBeLessThan(atGain);
-    // 2 min elapsed -> 5% / (120/3600 h) = 150%/h.
-    expect(twoMinLater).toBeCloseTo(150, 5);
+    // 60s inter-gain + 120s since last gain -> 10% / (180/3600 h).
+    expect(twoMinLater).toBeCloseTo(200, 5);
   });
 
   it("reports recent-window total, not the all-session total", () => {

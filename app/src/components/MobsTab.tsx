@@ -18,9 +18,15 @@ import {
 import type { DropZone, MobDetail, MobRow, ZoneInfo } from "../types";
 import { SearchSelect, SpecRow } from "./DropsTab";
 import Empty from "./Empty";
-import { useEraMax } from "../lib/refFilters";
+import {
+  resolveLiveZoneShortName,
+  useEraMax,
+  useLiveZoneEnabled,
+  useLiveZoneName,
+} from "../lib/refFilters";
 import { EraSelect } from "./RefFilters";
 import { ItemTypeIcon } from "./ItemIcons";
+import ResourceLinks from "./ResourceLinks";
 
 const PAGE_SIZE = 50;
 
@@ -79,6 +85,8 @@ export default function MobsTab({
   const [minLevel, setMinLevel] = useState(0);
   const [maxLevel, setMaxLevel] = useState(0);
   const [zone, setZone] = useState("");
+  const [liveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
   const [zones, setZones] = useState<DropZone[]>([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
@@ -149,6 +157,26 @@ export default function MobsTab({
     setPage(0);
     setExpanded(null);
   }
+
+  const liveZoneShort = useMemo(
+    () => resolveLiveZoneShortName(liveZoneName, zones),
+    [liveZoneName, zones],
+  );
+  // Follow the live zone only when it CHANGES (zoning, or toggle flipped on):
+  // a manual pick in the zone dropdown must stick, not snap back.
+  const appliedLiveZone = useRef<string | null>(null);
+  useEffect(() => {
+    if (!liveZoneEnabled || !liveZoneShort) {
+      appliedLiveZone.current = null;
+      return;
+    }
+    if (appliedLiveZone.current === liveZoneShort) return;
+    appliedLiveZone.current = liveZoneShort;
+    if (zone !== liveZoneShort) {
+      setZone(liveZoneShort);
+      resetPaging();
+    }
+  }, [liveZoneEnabled, liveZoneShort, zone]);
 
   function toggleZoneInfo() {
     const next = !zoneInfoOpen;
@@ -438,6 +466,7 @@ export default function MobsTab({
                             )}
                           />
                         </div>
+                        <ResourceLinks kind="mob" name={detail.name} />
                         {detail.zones.length > 0 && (
                           <>
                             <div className="refdb-subhead">Spawns in</div>

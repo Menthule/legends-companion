@@ -7,12 +7,18 @@
 // UX mirrors DropsTab: debounced search, .drops-* grid tables, 50/page
 // paging, expandable detail rows with components + farming hints.
 
-import { useEffect, useRef, useState } from "react";
-import { refdbRecipeDetail, refdbRecipeSearch } from "../api";
-import type { RecipeDetail, RecipeRef } from "../types";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { dropsZones, refdbRecipeDetail, refdbRecipeSearch } from "../api";
+import type { DropZone, RecipeDetail, RecipeRef } from "../types";
 import { TRADESKILL_NAMES, tradeskillName } from "../types";
 import { SpecRow } from "./DropsTab";
 import Empty from "./Empty";
+import ResourceLinks from "./ResourceLinks";
+import {
+  resolveLiveZoneShortName,
+  useLiveZoneEnabled,
+  useLiveZoneName,
+} from "../lib/refFilters";
 
 const PAGE_SIZE = 50;
 
@@ -48,7 +54,10 @@ export default function RecipesTab({
 }) {
   const [query, setQuery] = useState("");
   const [tradeskill, setTradeskill] = useState(0);
+  const [liveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
   const [maxTrivial, setMaxTrivial] = useState(0);
+  const [zones, setZones] = useState<DropZone[]>([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
   const [rows, setRows] = useState<RecipeRef[]>([]);
@@ -70,6 +79,16 @@ export default function RecipesTab({
   }, [searchRequest]);
 
   const active = query.trim().length >= 2 || tradeskill !== 0;
+
+  useEffect(() => {
+    dropsZones().then(setZones).catch(() => {});
+  }, []);
+
+  const liveZoneShort = useMemo(
+    () =>
+      liveZoneEnabled ? resolveLiveZoneShortName(liveZoneName, zones) : "",
+    [liveZoneEnabled, liveZoneName, zones],
+  );
 
   useEffect(() => {
     if (debounce.current) window.clearTimeout(debounce.current);
@@ -111,10 +130,15 @@ export default function RecipesTab({
     }
     setExpanded(id);
     setDetail(null);
-    refdbRecipeDetail(id, DETAIL_ERA_MAX)
+  }
+
+  useEffect(() => {
+    if (expanded == null) return;
+    setDetail(null);
+    refdbRecipeDetail(expanded, DETAIL_ERA_MAX, liveZoneShort)
       .then(setDetail)
       .catch((e) => setError(String(e)));
-  }
+  }, [expanded, liveZoneShort]);
 
   function clearAll() {
     setQuery("");
@@ -243,6 +267,7 @@ export default function RecipesTab({
                             <SpecRow label="Flags" value="NO FAIL" />
                           ) : null}
                         </div>
+                        <ResourceLinks kind="recipe" name={detail.name} />
                         {detail.results.length > 0 && (
                           <>
                             <div className="refdb-subhead">Makes</div>
@@ -263,7 +288,10 @@ export default function RecipesTab({
                         )}
                         {detail.components.length > 0 ? (
                           <>
-                            <div className="refdb-subhead">Components</div>
+                            <div className="refdb-subhead">
+                              Components
+                              {liveZoneShort && <span className="drops-badge">Live zone preferred</span>}
+                            </div>
                             <div className="refdb-rows">
                               <div
                                 className="refdb-row refdb-row-head"

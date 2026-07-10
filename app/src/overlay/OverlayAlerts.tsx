@@ -4,7 +4,7 @@ import { ALERT_SIZE_KEY, loadAlertSizePx } from "../overlayState";
 import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
 import OverlayEditChrome from "./OverlayEditChrome";
-import { classifySeverity } from "../lib/severity";
+import { classifySeverity, type Severity } from "../lib/severity";
 import {
   OVERLAY_ALERTS,
   type OverlayLockPayload,
@@ -13,13 +13,20 @@ import {
   type TriggerIdentity,
 } from "../types";
 
-const ALERT_TTL_MS = 4000; // visible time before fade-out
+// Visible time before fade-out, by severity: the dangerous tiers linger so
+// a Death Touch can't scroll off in the same 4 s as routine spam.
+const ALERT_TTL_MS: Record<Severity, number> = {
+  info: 4000,
+  warn: 6000,
+  alarm: 8000,
+};
 const ALERT_FADE_MS = 300;
 
 interface AlertItem {
   id: number;
   text: string;
   trigger: TriggerIdentity | null;
+  severity: Severity;
   leaving: boolean;
 }
 
@@ -92,20 +99,33 @@ export default function OverlayAlerts() {
   const pushAlert = (text: string, trigger: TriggerIdentity | null) => {
     const id = nextAlertId++;
     const normalizedText = normalizeAlertText(text);
-    // Newest on top, max 5 visible.
-    setAlerts((a) =>
-      [{ id, text: normalizedText, trigger, leaving: false }, ...a].slice(0, 5),
-    );
+    const severity = classifySeverity(trigger?.id, trigger?.name);
+    const ttl = ALERT_TTL_MS[severity];
+    // Newest on top, max 5 visible. When full, evict the oldest NON-alarm
+    // pill first: a burst of routine spam must not push a Death Touch off.
+    setAlerts((a) => {
+      const next = [
+        { id, text: normalizedText, trigger, severity, leaving: false },
+        ...a,
+      ];
+      if (next.length <= 5) return next;
+      for (let i = next.length - 1; i >= 0; i--) {
+        if (next[i].severity !== "alarm") {
+          return [...next.slice(0, i), ...next.slice(i + 1)];
+        }
+      }
+      return next.slice(0, 5);
+    });
     window.setTimeout(
       () =>
         setAlerts((a) =>
           a.map((x) => (x.id === id ? { ...x, leaving: true } : x)),
         ),
-      ALERT_TTL_MS,
+      ttl,
     );
     window.setTimeout(
       () => setAlerts((a) => a.filter((x) => x.id !== id)),
-      ALERT_TTL_MS + ALERT_FADE_MS,
+      ttl + ALERT_FADE_MS,
     );
   };
 
@@ -145,21 +165,18 @@ export default function OverlayAlerts() {
         <OverlayEditChrome label={OVERLAY_ALERTS} name="Alerts overlay" />
       )}
       <div className="ov-alert-stack" style={{ fontSize: sizePx }}>
-        {alerts.map((a) => {
+        {alerts.map((a) => (
           // Tier the pill so a Death Touch never reads like a tell (X6).
-          const severity = classifySeverity(a.trigger?.id, a.trigger?.name);
-          return (
-            <div
-              key={a.id}
-              className={`alert-pill alert-${severity}${
-                a.leaving ? " leaving" : ""
-              }`}
-              title={a.trigger ? `Trigger: ${a.trigger.name}` : undefined}
-            >
-              {a.text}
-            </div>
-          );
-        })}
+          <div
+            key={a.id}
+            className={`alert-pill alert-${a.severity}${
+              a.leaving ? " leaving" : ""
+            }`}
+            title={a.trigger ? `Trigger: ${a.trigger.name}` : undefined}
+          >
+            {a.text}
+          </div>
+        ))}
       </div>
       {IS_MOCK && (
         <button

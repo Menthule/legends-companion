@@ -10,6 +10,7 @@ import {
   deleteFight,
   dropsEffects,
   exportFight,
+  getConfig,
   getFight,
   listFights,
   pasteParse,
@@ -45,18 +46,21 @@ import {
   clearXpSession,
   computeLevelEta,
   computeXpStats,
+  loadLevelAnchorKnown,
+  loadLevelProgress,
   loadProcAlerts,
   loadProcTts,
-  loadLevelProgress,
   loadXpSession,
   PROC_PREF_EVENT,
+  saveLevelAnchorKnown,
+  saveLevelProgress,
   saveProcAlerts,
   saveProcTts,
-  saveLevelProgress,
   type XpSession,
 } from "../overlayState";
 import type {
   CatchUpPayload,
+  AppConfig,
   FightRecord,
   FightUpdatePayload,
   LogLinePayload,
@@ -149,8 +153,56 @@ function publishProcAlert(payload: ProcAlertPayload): void {
 
 function skillSpellForVerb(verb: string): string | null {
   const v = verb.toLowerCase();
-  void v;
-  return null;
+  switch (v) {
+    case "kick":
+    case "kicks":
+    case "round kick":
+    case "round kicks":
+    case "flying kick":
+    case "flying kicks":
+      return "Kick";
+    case "bash":
+    case "bashes":
+      return "Bash";
+    case "slam":
+    case "slams":
+      return "Slam";
+    case "backstab":
+    case "backstabs":
+      return "Backstab";
+    case "frenzy on":
+    case "frenzies on":
+      return "Frenzy";
+    case "smite":
+    case "smites":
+      return "Smite";
+    // Plain "strike(s)"/"claw(s)" are ordinary auto-attack verbs (pets claw
+    // every round) — only the multi-word skill forms alert, or every swing
+    // would fire a proc alert.
+    case "eagle strike":
+    case "eagle strikes":
+      return "Eagle Strike";
+    case "tiger claw":
+    case "tiger claws":
+      return "Tiger Claw";
+    case "dragon punch":
+    case "dragon punches":
+      return "Dragon Punch";
+    case "tail rake":
+    case "tail rakes":
+      return "Tail Rake";
+    default:
+      return null;
+  }
+}
+
+function isSkillAlertAttacker(
+  attacker: string,
+  character: string,
+  ownedNames: Set<string>,
+) {
+  const key = attacker.toLowerCase();
+  return attacker === "You" || key === character.toLowerCase() || ownedNames.has(key);
 }
 
 function effectKindLabel(kind: ProcEntry["kind"]): string {
@@ -309,10 +361,14 @@ export default function FightsTab({ character }: { character: string }) {
   const [procs, setProcs] = useState<ProcEntry[]>([]);
   const [procAlerts, setProcAlerts] = useState(() => loadProcAlerts());
   const [procTts, setProcTts] = useState(() => loadProcTts());
+  const [ownedNames, setOwnedNames] = useState<Set<string>>(() => new Set());
   const [xp, setXp] = useState<XpSession>(() => loadXpSession());
-  // Position within the current level (P9): reset on a ding, grows per gain.
-  const [levelProgress, setLevelProgress] = useState<number>(() =>
-    loadLevelProgress(),
+  // Position within the current level is only trustworthy after this app sees
+  // a ding; before then, per-level ETA stays blank instead of asking for input.
+  // Both persist (P9) so the XP overlay and later sessions keep the position.
+  const [levelProgress, setLevelProgress] = useState(() => loadLevelProgress());
+  const [levelAnchorKnown, setLevelAnchorKnown] = useState(() =>
+    loadLevelAnchorKnown(),
   );
   const [recaps, setRecaps] = useState<DeathRecap[]>([]);
   const sessionSeq = useRef(0);
@@ -358,6 +414,22 @@ export default function FightsTab({ character }: { character: string }) {
         procEffectNames.current = new Set();
       });
   }, []);
+
+  const syncOwnedNames = useCallback((config: AppConfig) => {
+    setOwnedNames(
+      new Set(
+        [config.characterName, ...(config.pets ?? [])]
+          .map((name) => name.trim().toLowerCase())
+          .filter((name) => name.length > 0),
+      ),
+    );
+  }, []);
+
+  useEffect(() => {
+    void getConfig().then(syncOwnedNames).catch(() => setOwnedNames(new Set()));
+  }, [syncOwnedNames]);
+
+  useTauriEvent<AppConfig>("config-changed", syncOwnedNames);
 
   useEffect(() => {
     const onProcPref = () => {
@@ -481,7 +553,18 @@ export default function FightsTab({ character }: { character: string }) {
       const target = entityName(d.target);
       const verb = String(d.verb ?? "");
       const skillSpell = skillSpellForVerb(verb);
-      if ((attacker === "You" || attacker === character) && skillSpell) {
+      if (skillSpell && isSkillAlertAttacker(attacker, character, ownedNames)) {
+        const amount = typeof d.amount === "number" ? d.amount : null;
+        const flags = d.flags as Record<string, unknown> | undefined;
+        publishEffect({
+          id: sessionSeq.current++,
+          ts: p.ts,
+          kind: "skill",
+          spell: skillSpell,
+          target,
+          amount,
+          critical: flags?.critical === true,
+        });
         recentSkills.current = [
           ...recentSkills.current.filter(
             (s) => p.ts - s.ts <= PROC_CAST_SUPPRESS_SECS,
@@ -530,8 +613,7 @@ export default function FightsTab({ character }: { character: string }) {
         amount > 0
       ) {
         const flags = d.flags as Record<string, unknown> | undefined;
-        const hasCastLandMarker = recentCastLandIndex >= 0;
-        const wasRecentlyCast = recentCastIndex >= 0 && hasCastLandMarker;
+        const wasRecentlyCast = recentCastIndex >= 0;
         const effectKind: ProcEntry["kind"] = matchedSkill
           ? "skill"
           : wasRecentlyCast
@@ -543,9 +625,11 @@ export default function FightsTab({ character }: { character: string }) {
           recentCasts.current = recentCasts.current.filter(
             (_, i) => i !== recentCastIndex,
           );
-          recentCastLands.current = recentCastLands.current.filter(
-            (_, i) => i !== recentCastLandIndex,
-          );
+          if (recentCastLandIndex >= 0) {
+            recentCastLands.current = recentCastLands.current.filter(
+              (_, i) => i !== recentCastLandIndex,
+            );
+          }
         }
         const entry: ProcEntry = {
           id: sessionSeq.current++,
@@ -604,7 +688,7 @@ export default function FightsTab({ character }: { character: string }) {
       setXp(appendXpSession(entry, { stampNow: !catchingUp.current }));
       // Advance level position on live gains only — replaying old gains would
       // double-count against the persisted position (P9).
-      if (!catchingUp.current) {
+      if (!catchingUp.current && levelAnchorKnown) {
         setLevelProgress((prev) => {
           const next = Math.min(100, prev + percent);
           saveLevelProgress(next);
@@ -612,9 +696,14 @@ export default function FightsTab({ character }: { character: string }) {
         });
       }
     } else if ("LevelUp" in ev) {
-      // Ding: you're at 0% of the new level. Live only, for the same reason.
+      // Ding: you're at 0% of the new level. From here, later XP gains can
+      // estimate time/kills to the next ding without any manual percent entry.
+      // Live only: a replayed ding's gains since it already sit in the
+      // persisted position.
       if (!catchingUp.current) {
+        setLevelAnchorKnown(true);
         setLevelProgress(0);
+        saveLevelAnchorKnown(true);
         saveLevelProgress(0);
       }
     } else if ("Slain" in ev) {
@@ -663,7 +752,7 @@ export default function FightsTab({ character }: { character: string }) {
     }
   });
 
-  const load = useCallback((pageIx: number) => {
+  const load = useCallback((pageIx: number, retry = true) => {
     listFights(PAGE_SIZE, pageIx * PAGE_SIZE)
       .then((p) => {
         setFights(p.fights);
@@ -671,9 +760,14 @@ export default function FightsTab({ character }: { character: string }) {
         setError(null);
       })
       .catch((e) => {
+        const message = String(e);
+        if (retry && message.includes("database failed to open")) {
+          window.setTimeout(() => load(pageIx, false), 500);
+          return;
+        }
         setFights([]);
         setTotal(null);
-        setError(String(e));
+        setError(message);
       });
   }, []);
 
@@ -820,9 +914,65 @@ export default function FightsTab({ character }: { character: string }) {
     return you ? you.dps : null;
   }
 
+  function splitPetRows(rows: FightRecord["rows"]): FightRecord["rows"] {
+    const split = rows.flatMap((r) => {
+      const petSources = (r.sources ?? []).filter((s) =>
+        s.name.toLowerCase().includes("(pet)"),
+      );
+      const ownSources = (r.sources ?? []).filter(
+        (s) => !s.name.toLowerCase().includes("(pet)"),
+      );
+      // normalizeFight coerces a missing pet_damage to 0, so `??` would never
+      // fall back — records stored before the field existed need the
+      // sources-based sum (same guard as MetersTab's petDamageOf).
+      const petTotal =
+        r.petDamage && r.petDamage > 0
+          ? r.petDamage
+          : petSources.reduce((sum, s) => sum + s.total, 0);
+      const ownTotal = Math.max(0, r.total - petTotal);
+      const out: FightRecord["rows"] = [];
+      if (ownTotal > 0 || ownSources.length > 0) {
+        out.push({
+          ...r,
+          total: ownTotal,
+          dps:
+            selected && selected.durationSecs > 0
+              ? ownTotal / selected.durationSecs
+              : ownTotal,
+          pct:
+            selected && selected.totalDamage > 0
+              ? (ownTotal / selected.totalDamage) * 100
+              : 0,
+          pet: false,
+          sources: ownSources,
+        });
+      }
+      if (petTotal > 0) {
+        out.push({
+          ...r,
+          name: `${r.name} pet`,
+          total: petTotal,
+          dps:
+            selected && selected.durationSecs > 0
+              ? petTotal / selected.durationSecs
+              : petTotal,
+          pct:
+            selected && selected.totalDamage > 0
+              ? (petTotal / selected.totalDamage) * 100
+              : 0,
+          pet: false,
+          sources: petSources,
+        });
+      }
+      return out;
+    });
+    return split.sort((a, b) => b.total - a.total || a.name.localeCompare(b.name));
+  }
+
   // ---- detail view ----
   if (selected) {
     const dps = yourDps(selected);
+    const detailRows = splitPetRows(selected.rows);
     return (
       <>
         <div className="toolbar">
@@ -856,10 +1006,10 @@ export default function FightsTab({ character }: { character: string }) {
             <span className="section-title">Damage — {selected.target}</span>
             {selected.targetSlain && <span className="slain-chip">slain</span>}
           </div>
-          {selected.rows.length === 0 ? (
+          {detailRows.length === 0 ? (
             <Empty title="No damage rows" body="This fight recorded no damage contributions." />
           ) : (
-            <MeterTable rows={selected.rows} />
+            <MeterTable rows={detailRows} />
           )}
         </div>
         {toast && (
@@ -1101,11 +1251,7 @@ export default function FightsTab({ character }: { character: string }) {
         }}
         xp={xp}
         levelProgress={levelProgress}
-        onSetLevelProgress={(pct) => {
-          const c = Math.min(100, Math.max(0, pct));
-          setLevelProgress(c);
-          saveLevelProgress(c);
-        }}
+        levelAnchorKnown={levelAnchorKnown}
         recaps={recaps}
         wishlist={wishlist}
         kills={kills}
@@ -1195,7 +1341,7 @@ function SessionSection({
   onSetProcTts,
   xp,
   levelProgress,
-  onSetLevelProgress,
+  levelAnchorKnown,
   recaps,
   wishlist,
   kills,
@@ -1211,7 +1357,7 @@ function SessionSection({
   onSetProcTts: (value: boolean) => void;
   xp: XpSession;
   levelProgress: number;
-  onSetLevelProgress: (pct: number) => void;
+  levelAnchorKnown: boolean;
   recaps: DeathRecap[];
   wishlist: WishlistEntry[];
   kills: Record<string, KillTally>;
@@ -1220,6 +1366,7 @@ function SessionSection({
   onResetXp: () => void;
 }) {
   const [lootQuery, setLootQuery] = useState("");
+  const [tab, setTab] = useState<"xp" | "kills" | "effects" | "deaths" | "loot" | "wishlist" | "rolls">("xp");
 
   const shownLoot = useMemo(() => {
     const q = lootQuery.trim().toLowerCase();
@@ -1276,13 +1423,16 @@ function SessionSection({
   // rate decays between kills instead of freezing at the last gain.
   const nowMs = useNowMs();
   const xpStats = useMemo(() => computeXpStats(xp, nowMs), [xp, nowMs]);
-  const recentXp = useMemo(
-    () => ({ total: xpStats.total, count: xpStats.count, rows: [] }),
-    [xpStats.total, xpStats.count],
-  );
+  const progressPct = levelAnchorKnown ? Math.min(100, Math.max(0, levelProgress)) : 0;
+  // Kills/time to ding from the anchored position and the 10m rate window.
   const levelEta = useMemo(
-    () => computeLevelEta(recentXp, levelProgress, xpStats.perHour),
-    [recentXp, levelProgress, xpStats.perHour],
+    () =>
+      computeLevelEta(
+        { total: xpStats.total, count: xpStats.count, rows: [] },
+        progressPct,
+        xpStats.perHour,
+      ),
+    [xpStats.total, xpStats.count, xpStats.perHour, progressPct],
   );
 
   // Session kills, most-killed first (camp efficiency v1).
@@ -1295,9 +1445,29 @@ function SessionSection({
   );
 
   return (
-    <div className="session-cards">
-      <Collapsible
-        title="Session XP"
+    <div className="session-tabs-card card">
+      <div className="session-tabs">
+        {[
+          ["xp", "XP", xp.count],
+          ["kills", "Kills", killRows.length],
+          ["effects", "Effects", procs.length],
+          ["deaths", "Death recaps", recaps.length],
+          ["loot", "Loot", loot.length],
+          ["wishlist", "Wishlist", wishlist.length],
+          ["rolls", "Rolls", rolls.length],
+        ].map(([id, label, count]) => (
+          <button
+            key={id}
+            className={`settings-tab${tab === id ? " active" : ""}`}
+            onClick={() => setTab(id as typeof tab)}
+          >
+            {label}
+            <span className="pill">{count}</span>
+          </button>
+        ))}
+      </div>
+      {tab === "xp" && <Collapsible
+        title="XP"
         count={xp.count}
         storageKey="xp"
         headerAside={
@@ -1334,38 +1504,33 @@ function SessionSection({
               <div className="xp-tolevel-head">
                 <span className="xp-tolevel-label">To level</span>
                 <span className="xp-tolevel-vals num">
-                  {levelEta.kills === null
+                  {!levelAnchorKnown || levelEta.kills === null
                     ? "—"
                     : `~${levelEta.kills} kill${levelEta.kills === 1 ? "" : "s"}`}
-                  {levelEta.mins !== null &&
+                  {levelAnchorKnown &&
+                    levelEta.kills !== null &&
+                    levelEta.mins !== null &&
                     ` · ~${fmtDuration(Math.round(levelEta.mins * 60))}`}
                 </span>
               </div>
               <div
                 className="xp-progress"
                 role="progressbar"
-                aria-valuenow={Math.round(levelEta.progressPct)}
+                aria-valuenow={Math.round(progressPct)}
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-label="Progress into current level"
               >
                 <div
                   className="xp-progress-fill"
-                  style={{ width: `${levelEta.progressPct}%` }}
+                  style={{ width: `${progressPct}%` }}
                 />
               </div>
-              <label className="xp-setlevel">
-                At
-                <input
-                  type="number"
-                  min={0}
-                  max={100}
-                  step={1}
-                  value={Math.round(levelProgress)}
-                  onChange={(e) => onSetLevelProgress(Number(e.target.value))}
-                />
-                % into level — set this once; dings track it after.
-              </label>
+              <div className="hint">
+                {levelAnchorKnown
+                  ? `${progressPct.toFixed(1)}% into level since the last ding seen by the app.`
+                  : "No level ETA yet. It will start after the app sees your next ding."}
+              </div>
             </div>
             <div className="session-loot">
               <div className="session-loot-row session-loot-head" aria-hidden="true">
@@ -1383,10 +1548,10 @@ function SessionSection({
             </div>
           </>
         )}
-      </Collapsible>
+      </Collapsible>}
 
-      <Collapsible
-        title="Session kills"
+      {tab === "kills" && <Collapsible
+        title="Kills"
         count={killRows.length}
         storageKey="kills"
       >
@@ -1426,10 +1591,10 @@ function SessionSection({
             })}
           </div>
         )}
-      </Collapsible>
+      </Collapsible>}
 
-      <Collapsible
-        title="Session effects"
+      {tab === "effects" && <Collapsible
+        title="Effects"
         count={procs.length}
         storageKey="procs"
         headerAside={
@@ -1498,9 +1663,9 @@ function SessionSection({
             </div>
           </>
         )}
-      </Collapsible>
+      </Collapsible>}
 
-      <Collapsible title="Death recap" count={recaps.length} storageKey="deaths">
+      {tab === "deaths" && <Collapsible title="Death recaps" count={recaps.length} storageKey="deaths">
         {recaps.length === 0 ? (
           <Empty
             title="No deaths yet"
@@ -1557,10 +1722,10 @@ function SessionSection({
             ))}
           </div>
         )}
-      </Collapsible>
+      </Collapsible>}
 
-      <Collapsible
-        title="Session loot"
+      {tab === "loot" && <Collapsible
+        title="Loot"
         count={loot.length}
         storageKey="loot"
         headerAside={
@@ -1612,9 +1777,9 @@ function SessionSection({
             ))}
           </div>
         )}
-      </Collapsible>
+      </Collapsible>}
 
-      <Collapsible
+      {tab === "wishlist" && <Collapsible
         title="Wishlist"
         count={wishlist.length}
         storageKey="wishlist"
@@ -1648,9 +1813,9 @@ function SessionSection({
             </div>
           </>
         )}
-      </Collapsible>
+      </Collapsible>}
 
-      <Collapsible title="Roll tracker" count={rolls.length} storageKey="rolls">
+      {tab === "rolls" && <Collapsible title="Rolls" count={rolls.length} storageKey="rolls">
         {rolls.length === 0 ? (
           <Empty
             title="No rolls yet"
@@ -1699,7 +1864,7 @@ function SessionSection({
             </div>
           </>
         )}
-      </Collapsible>
+      </Collapsible>}
     </div>
   );
 }

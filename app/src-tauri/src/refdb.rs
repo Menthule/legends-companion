@@ -19,9 +19,11 @@ use crate::dropdb;
 /// The four "where do I get this item" summary columns, correlated on
 /// `item` (an SQL expression) and era-capped by the `era` placeholder:
 /// distinct era-qualifying dropping NPCs, distinct era-qualifying vendors,
-/// and the best "npc — zone" labels for each. Column order:
+/// and the best "npc — zone" labels for each. When `zone` is non-empty,
+/// the best labels prefer sources in that zone before falling back to the
+/// normal best source. Column order:
 /// drop_count, vendor_count, top_drop, top_vendor.
-fn source_cols(item: &str, era: &str) -> String {
+fn source_cols(item: &str, era: &str, zone: &str) -> String {
     format!(
         "(SELECT COUNT(DISTINCT d.npc_id) FROM drops d \
           LEFT JOIN npc_zones nz ON nz.npc_id = d.npc_id \
@@ -36,14 +38,16 @@ fn source_cols(item: &str, era: &str) -> String {
           LEFT JOIN npc_zones nz2 ON nz2.npc_id = n2.id \
           LEFT JOIN zones z2 ON z2.short_name = nz2.zone \
           WHERE d2.item_id = {item} AND (z2.era IS NULL OR z2.era <= {era}) \
-          ORDER BY d2.chance DESC, (z2.long_name IS NULL), n2.name ASC, \
+          ORDER BY (CASE WHEN {zone} != '' AND nz2.zone = {zone} THEN 0 ELSE 1 END), \
+                   d2.chance DESC, (z2.long_name IS NULL), n2.name ASC, \
                    z2.long_name ASC LIMIT 1) AS top_drop, \
          (SELECT n2.name || COALESCE(' — ' || z2.long_name, '') FROM vendor_items v2 \
           JOIN npcs n2 ON n2.id = v2.npc_id \
           LEFT JOIN npc_zones nz2 ON nz2.npc_id = n2.id \
           LEFT JOIN zones z2 ON z2.short_name = nz2.zone \
           WHERE v2.item_id = {item} AND (z2.era IS NULL OR z2.era <= {era}) \
-          ORDER BY (z2.long_name IS NULL), n2.name ASC, \
+          ORDER BY (CASE WHEN {zone} != '' AND nz2.zone = {zone} THEN 0 ELSE 1 END), \
+                   (z2.long_name IS NULL), n2.name ASC, \
                    z2.long_name ASC LIMIT 1) AS top_vendor"
     )
 }
@@ -388,16 +392,18 @@ pub fn refdb_spell_scrolls(
     app: AppHandle,
     spell_id: i64,
     era_max: i64,
+    zone: Option<String>,
 ) -> Result<Vec<ScrollSource>, String> {
     let conn = dropdb::open(&app)?;
-    let cols = source_cols("i.id", "?2");
+    let zone = zone.unwrap_or_default();
+    let cols = source_cols("i.id", "?2", "?3");
     let sql = format!(
         "SELECT i.id, i.name, {cols} FROM items i \
          WHERE i.scroll_spell_id = ?1 ORDER BY i.name_lc ASC"
     );
     let mut stmt = conn.prepare(&sql).map_err(|e| e.to_string())?;
     let rows = stmt
-        .query_map(rusqlite::params![spell_id, era_max], |row| {
+        .query_map(rusqlite::params![spell_id, era_max, zone], |row| {
             Ok(ScrollSource {
                 item_id: row.get(0)?,
                 item: row.get(1)?,
@@ -518,8 +524,10 @@ pub fn refdb_recipe_detail(
     app: AppHandle,
     recipe_id: i64,
     era_max: i64,
+    zone: Option<String>,
 ) -> Result<RecipeDetail, String> {
     let conn = dropdb::open(&app)?;
+    let zone = zone.unwrap_or_default();
     let (name, tradeskill, trivial, no_fail): (String, i64, i64, i64) = conn
         .query_row(
             "SELECT r.name, r.tradeskill, r.trivial, COALESCE(r.no_fail, 0) \
@@ -529,7 +537,7 @@ pub fn refdb_recipe_detail(
         )
         .map_err(|e| format!("recipe {recipe_id} not found: {e}"))?;
 
-    let cols = source_cols("rc.item_id", "?2");
+    let cols = source_cols("rc.item_id", "?2", "?3");
     let sql = format!(
         "SELECT rc.item_id, COALESCE(i.name, 'item #' || rc.item_id), \
                 rc.componentcount, {cols} \
@@ -540,7 +548,7 @@ pub fn refdb_recipe_detail(
     );
     let mut stmt = conn.prepare(&sql).map_err(|e| e.to_string())?;
     let components = stmt
-        .query_map(rusqlite::params![recipe_id, era_max], |row| {
+        .query_map(rusqlite::params![recipe_id, era_max, zone], |row| {
             Ok(RecipeComponent {
                 item_id: row.get(0)?,
                 item: row.get(1)?,

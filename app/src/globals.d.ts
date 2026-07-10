@@ -2,3 +2,8 @@
  *  (see vite.config.ts `define`). The single source of truth for the
  *  version shown in the UI — never hardcode it in a component. */
 declare const __APP_VERSION__: string;
+
+declare module "*?raw" {
+  const content: string;
+  export default content;
+}

@@ -9,7 +9,7 @@
 //! `tts.stop()`. Sounds already playing ride out (rodio sinks are detached);
 //! only speech is interruptible.
 
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::sync::{Arc, RwLock};
 use std::thread;
@@ -34,21 +34,50 @@ pub struct AudioHandle {
     tx: Sender<AudioCmd>,
     generation: Arc<AtomicU64>,
     dictionary: Arc<RwLock<Vec<(String, String)>>>,
+    /// Master mute (Settings): alert speech/sounds drop at enqueue time.
+    muted: Arc<AtomicBool>,
 }
 
 impl AudioHandle {
     /// Queue TTS. Best-effort: a dead audio thread is not an error the
-    /// caller can act on mid-fight.
+    /// caller can act on mid-fight. Dropped while master-muted.
     pub fn speak(&self, text: String) {
+        if self.muted.load(Ordering::SeqCst) {
+            return;
+        }
+        self.speak_unchecked(text);
+    }
+
+    /// Queue TTS regardless of master mute — Settings previews only, so a
+    /// muted user can still audition voices.
+    pub fn speak_unchecked(&self, text: String) {
         let generation = self.generation.load(Ordering::SeqCst);
         let text = self.apply_dictionary(text);
         let _ = self.tx.send(AudioCmd::Speak(text, generation));
     }
 
-    /// Queue a sound file (already resolved to a real path).
+    /// Queue a sound file (already resolved to a real path). Dropped while
+    /// master-muted.
     pub fn play(&self, path: String) {
+        if self.muted.load(Ordering::SeqCst) {
+            return;
+        }
+        self.play_unchecked(path);
+    }
+
+    /// Queue a sound regardless of master mute — Settings previews only.
+    pub fn play_unchecked(&self, path: String) {
         let generation = self.generation.load(Ordering::SeqCst);
         let _ = self.tx.send(AudioCmd::Play(path, generation));
+    }
+
+    /// Master mute on/off. Muting also cuts the current utterance and drops
+    /// the queue (like `silence`); unmuting only lifts the gate.
+    pub fn set_muted(&self, muted: bool) {
+        let was = self.muted.swap(muted, Ordering::SeqCst);
+        if muted && !was {
+            let _ = self.silence();
+        }
     }
 
     /// Drop everything queued (via the generation bump) and cut the current
@@ -99,6 +128,7 @@ pub fn spawn() -> AudioHandle {
         tx,
         generation,
         dictionary,
+        muted: Arc::new(AtomicBool::new(false)),
     }
 }
 

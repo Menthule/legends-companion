@@ -27,7 +27,10 @@ pub type SharedStore = Arc<Mutex<Option<FightStore>>>;
 pub fn open(app: &AppHandle) -> Option<FightStore> {
     let path = crate::data_root::resolve(app).fights_db();
     match FightStore::open(&path) {
-        Ok(store) => Some(store),
+        Ok(store) => {
+            logging::info(&format!("fight history opened: {}", path.display()));
+            Some(store)
+        }
         Err(e) => {
             logging::warn(&format!(
                 "fight history disabled — cannot open {}: {e}",
@@ -80,12 +83,36 @@ pub struct FightPage {
 
 const NO_STORE: &str = "fight history is unavailable (database failed to open — see app.log)";
 
+fn ensure_store(app: &AppHandle, state: &State<'_, AppState>) -> Result<(), String> {
+    let mut guard = lock(&state.store, "fight store")?;
+    if guard.is_some() {
+        return Ok(());
+    }
+    let path = crate::data_root::resolve(app).fights_db();
+    match FightStore::open(&path) {
+        Ok(store) => {
+            logging::info(&format!("fight history opened: {}", path.display()));
+            *guard = Some(store);
+            Ok(())
+        }
+        Err(e) => {
+            logging::warn(&format!(
+                "fight history disabled — cannot open {}: {e}",
+                path.display()
+            ));
+            Err(NO_STORE.to_string())
+        }
+    }
+}
+
 #[tauri::command]
 pub fn list_fights(
+    app: AppHandle,
     state: State<'_, AppState>,
     limit: u32,
     offset: u32,
 ) -> Result<FightPage, String> {
+    ensure_store(&app, &state)?;
     let guard = lock(&state.store, "fight store")?;
     let store = guard.as_ref().ok_or(NO_STORE)?;
     let limit = limit.clamp(1, 500);
@@ -100,7 +127,12 @@ pub fn list_fights(
 }
 
 #[tauri::command]
-pub fn get_fight(state: State<'_, AppState>, id: i64) -> Result<Option<FightRecord>, String> {
+pub fn get_fight(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    id: i64,
+) -> Result<Option<FightRecord>, String> {
+    ensure_store(&app, &state)?;
     let guard = lock(&state.store, "fight store")?;
     let store = guard.as_ref().ok_or(NO_STORE)?;
     Ok(store
@@ -113,11 +145,16 @@ pub fn get_fight(state: State<'_, AppState>, id: i64) -> Result<Option<FightReco
 /// the most recently stored one (`id: null` — the Meters tab's Copy button).
 /// Returned as ready-to-paste chunks, each within the EQ chat length limit.
 #[tauri::command]
-pub fn paste_parse(state: State<'_, AppState>, id: Option<i64>) -> Result<Vec<String>, String> {
+pub fn paste_parse(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    id: Option<i64>,
+) -> Result<Vec<String>, String> {
     let character = lock(&state.config, "config")?
         .character_name
         .trim()
         .to_string();
+    ensure_store(&app, &state)?;
     let guard = lock(&state.store, "fight store")?;
     let store = guard.as_ref().ok_or(NO_STORE)?;
     let stored = match id {
@@ -138,7 +175,8 @@ pub fn paste_parse(state: State<'_, AppState>, id: Option<i64>) -> Result<Vec<St
 /// Delete one stored fight (the Fights-tab row × button). Returns whether a
 /// row was actually removed.
 #[tauri::command]
-pub fn delete_fight(state: State<'_, AppState>, id: i64) -> Result<bool, String> {
+pub fn delete_fight(app: AppHandle, state: State<'_, AppState>, id: i64) -> Result<bool, String> {
+    ensure_store(&app, &state)?;
     let mut guard = lock(&state.store, "fight store")?;
     let store = guard.as_mut().ok_or(NO_STORE)?;
     store.delete(id).map_err(|e| e.to_string())
@@ -150,10 +188,12 @@ pub fn delete_fight(state: State<'_, AppState>, id: i64) -> Result<bool, String>
 /// "Clear history" button (keep_last_n: 0) and the retention sweep at startup.
 #[tauri::command]
 pub fn prune_fights(
+    app: AppHandle,
     state: State<'_, AppState>,
     keep_last_n: Option<u32>,
     before_ts: Option<i64>,
 ) -> Result<u64, String> {
+    ensure_store(&app, &state)?;
     let mut guard = lock(&state.store, "fight store")?;
     let store = guard.as_mut().ok_or(NO_STORE)?;
     let mut removed = 0;
@@ -178,9 +218,7 @@ pub fn analyze_log(state: State<'_, AppState>, path: String) -> Result<Vec<Fight
         let cfg = lock(&state.config, "config")?;
         (cfg.character_name.clone(), cfg.pets.clone())
     };
-    let text = std::fs::read_to_string(&path).map_err(|e| {
-        format!("cannot read log file: {e}")
-    })?;
+    let text = std::fs::read_to_string(&path).map_err(|e| format!("cannot read log file: {e}"))?;
     let parser = Parser::new();
     let mut cfg = FightConfig::new(character.clone());
     for pet in &pets {
@@ -210,7 +248,8 @@ pub fn analyze_log(state: State<'_, AppState>, path: String) -> Result<Vec<Fight
 /// Export one stored fight's full summary as pretty JSON (the Fights-tab
 /// Export button; the frontend offers it as a download).
 #[tauri::command]
-pub fn export_fight(state: State<'_, AppState>, id: i64) -> Result<String, String> {
+pub fn export_fight(app: AppHandle, state: State<'_, AppState>, id: i64) -> Result<String, String> {
+    ensure_store(&app, &state)?;
     let guard = lock(&state.store, "fight store")?;
     let store = guard.as_ref().ok_or(NO_STORE)?;
     let stored = store

@@ -127,8 +127,8 @@ fn download_verified(
         .call()
         .map_err(|e| format!("download {}: {e}", want.name))?;
     let mut reader = resp.into_reader().take(MAX_FILE_BYTES);
-    let mut file = std::fs::File::create(dest)
-        .map_err(|e| format!("create {}: {e}", dest.display()))?;
+    let mut file =
+        std::fs::File::create(dest).map_err(|e| format!("create {}: {e}", dest.display()))?;
     let mut hasher = Sha256::new();
     let mut buf = [0u8; 64 * 1024];
     let mut total: i64 = 0;
@@ -245,12 +245,10 @@ fn install_triggers(dir: &Path, zip_path: &Path) -> Result<(), String> {
 }
 
 fn extract_zip(zip_path: &Path, out_dir: &Path) -> Result<(), String> {
-    let file = std::fs::File::open(zip_path)
-        .map_err(|e| format!("open {}: {e}", zip_path.display()))?;
-    let mut archive =
-        zip::ZipArchive::new(file).map_err(|e| format!("read triggers.zip: {e}"))?;
-    std::fs::create_dir_all(out_dir)
-        .map_err(|e| format!("create {}: {e}", out_dir.display()))?;
+    let file =
+        std::fs::File::open(zip_path).map_err(|e| format!("open {}: {e}", zip_path.display()))?;
+    let mut archive = zip::ZipArchive::new(file).map_err(|e| format!("read triggers.zip: {e}"))?;
+    std::fs::create_dir_all(out_dir).map_err(|e| format!("create {}: {e}", out_dir.display()))?;
     for i in 0..archive.len() {
         let mut entry = archive
             .by_index(i)
@@ -273,8 +271,8 @@ fn extract_zip(zip_path: &Path, out_dir: &Path) -> Result<(), String> {
             std::fs::create_dir_all(parent)
                 .map_err(|e| format!("create {}: {e}", parent.display()))?;
         }
-        let mut out = std::fs::File::create(&dest)
-            .map_err(|e| format!("create {}: {e}", dest.display()))?;
+        let mut out =
+            std::fs::File::create(&dest).map_err(|e| format!("create {}: {e}", dest.display()))?;
         std::io::copy(&mut entry, &mut out)
             .map_err(|e| format!("extract {}: {e}", dest.display()))?;
     }

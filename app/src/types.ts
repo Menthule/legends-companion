@@ -13,6 +13,9 @@ export interface AppConfig {
   ttsDictionary?: { from: string; to: string }[];
   /** Windows TTS voice display name; "" or absent = system default. */
   ttsVoice?: string;
+  /** Master audio mute: alert speech/sounds are dropped while set (Settings
+   *  previews still play). Distinct from the one-shot Silence. */
+  ttsMuted?: boolean;
   /** Drop stored fights older than this many days at startup. 0/absent =
    *  keep history forever. */
   fightRetentionDays?: number;
@@ -257,6 +260,8 @@ export interface MeterSourceRow {
 export interface MeterRow {
   name: string;
   total: number;
+  /** Portion of total damage contributed by attributed pets. */
+  petDamage?: number;
   dps: number;
   pct: number;
   /** True when a pet's damage is folded into this row. */

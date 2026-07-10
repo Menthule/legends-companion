@@ -37,6 +37,11 @@ import {
   type TimerView,
   windowRemainingSecs,
 } from "../lib/timers";
+import {
+  resolveLiveZoneShortName,
+  useLiveZoneEnabled,
+  useLiveZoneName,
+} from "../lib/refFilters";
 
 /** ss / m:ss / h:mm:ss — compact countdown. */
 function fmtCountdown(secs: number): string {
@@ -221,6 +226,8 @@ export default function TimersTab() {
         ]
       : [],
   );
+  const [liveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
 
   // Custom quick-add form.
   const [durInput, setDurInput] = useState("30m");
@@ -271,6 +278,16 @@ export default function TimersTab() {
     },
     [],
   );
+
+  useEffect(() => {
+    if (IS_MOCK || !liveZoneEnabled || !liveZoneName || zones.length === 0) {
+      return;
+    }
+    const short = resolveLiveZoneShortName(liveZoneName, zones);
+    if (!short || short === zoneShort) return;
+    const z = zones.find((x) => x.shortName === short);
+    loadZoneRares(short, z?.longName ?? liveZoneName);
+  }, [liveZoneEnabled, liveZoneName, zones, zoneShort, loadZoneRares]);
 
   // Mock only: the real app loads zone rares off the ZoneEnter line; in the
   // browser mock there is no log, so load the seeded starting zone on mount.
@@ -431,6 +448,8 @@ export default function TimersTab() {
     }
 
     if ("ZoneEnter" in ev) {
+      // Always track the zone here: "This zone's rares" follows the log
+      // regardless of the Database tabs' live-zone filter toggle.
       const d = ev.ZoneEnter as Record<string, unknown>;
       const long = String(d.zone ?? "").trim();
       if (!long) return;
@@ -724,6 +743,61 @@ export default function TimersTab() {
 
   return (
     <div className="tmr-page">
+      {/* CUSTOM QUICK-ADD */}
+      <div className="card">
+        <div className="card-head">
+          <span className="section-title">New custom timer</span>
+          <span className="tmr-row-sub">bio break, cooldowns, reminders</span>
+        </div>
+        <div className="tmr-add">
+          <div className="tmr-add-row">
+            <input
+              className="tmr-fld num"
+              style={{ width: 92 }}
+              value={durInput}
+              onChange={(e) => setDurInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addCustom()}
+              aria-label="Duration"
+            />
+            <input
+              className="tmr-fld"
+              style={{ flex: 1, minWidth: 140 }}
+              value={label}
+              placeholder="Label (optional)"
+              onChange={(e) => setLabel(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addCustom()}
+              aria-label="Label"
+            />
+            <button
+              className={`tmr-toggle${repeat ? " on" : ""}`}
+              onClick={() => setRepeat((v) => !v)}
+            >
+              <span className="tmr-sw" />
+              Repeat
+            </button>
+            <button
+              className={`tmr-toggle${tts ? " on" : ""}`}
+              onClick={() => setTts((v) => !v)}
+            >
+              <span className="tmr-sw" />
+              Speak at pop
+            </button>
+            <button className="tmr-btn primary" onClick={addCustom}>
+              Start
+            </button>
+          </div>
+          <div className="tmr-add-hint">
+            {addError ? (
+              <span className="tmr-add-err">{addError}</span>
+            ) : (
+              <>
+                Accepts <b>30m</b>, <b>6:40</b>, <b>1:02:00</b>, or bare seconds.
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* ACTIVE */}
       <div className="card">
         <div className="card-head">
@@ -951,61 +1025,6 @@ export default function TimersTab() {
               })}
             </div>
           )}
-        </div>
-      </div>
-
-      {/* CUSTOM QUICK-ADD */}
-      <div className="card">
-        <div className="card-head">
-          <span className="section-title">New custom timer</span>
-          <span className="tmr-row-sub">bio break, cooldowns, reminders</span>
-        </div>
-        <div className="tmr-add">
-          <div className="tmr-add-row">
-            <input
-              className="tmr-fld num"
-              style={{ width: 92 }}
-              value={durInput}
-              onChange={(e) => setDurInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addCustom()}
-              aria-label="Duration"
-            />
-            <input
-              className="tmr-fld"
-              style={{ flex: 1, minWidth: 140 }}
-              value={label}
-              placeholder="Label (optional)"
-              onChange={(e) => setLabel(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addCustom()}
-              aria-label="Label"
-            />
-            <button
-              className={`tmr-toggle${repeat ? " on" : ""}`}
-              onClick={() => setRepeat((v) => !v)}
-            >
-              <span className="tmr-sw" />
-              Repeat
-            </button>
-            <button
-              className={`tmr-toggle${tts ? " on" : ""}`}
-              onClick={() => setTts((v) => !v)}
-            >
-              <span className="tmr-sw" />
-              Speak at pop
-            </button>
-            <button className="tmr-btn primary" onClick={addCustom}>
-              Start
-            </button>
-          </div>
-          <div className="tmr-add-hint">
-            {addError ? (
-              <span className="tmr-add-err">{addError}</span>
-            ) : (
-              <>
-                Accepts <b>30m</b>, <b>6:40</b>, <b>1:02:00</b>, or bare seconds.
-              </>
-            )}
-          </div>
         </div>
       </div>
     </div>

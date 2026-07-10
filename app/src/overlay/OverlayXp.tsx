@@ -10,11 +10,13 @@ import {
 import {
   computeLevelEta,
   computeXpStats,
+  loadLevelAnchorKnown,
   loadLevelProgress,
   loadOverlayArrange,
   loadXpSession,
   OVERLAY_ARRANGE_KEY,
   type XpSession,
+  XP_LEVEL_ANCHOR_KEY,
   XP_LEVEL_PROGRESS_KEY,
   XP_SESSION_KEY,
 } from "../overlayState";
@@ -27,6 +29,11 @@ export default function OverlayXp() {
   const [levelProgress, setLevelProgress] = useState<number>(() =>
     loadLevelProgress(),
   );
+  // Position is only trusted once the app has seen a ding (anchor set by
+  // FightsTab); until then the persisted value may be stale.
+  const [anchorKnown, setAnchorKnown] = useState<boolean>(() =>
+    loadLevelAnchorKnown(),
+  );
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
   const enabled = useOverlayEnabled(OVERLAY_XP);
 
@@ -38,6 +45,7 @@ export default function OverlayXp() {
     const onStorage = (e: StorageEvent) => {
       if (e.key === XP_SESSION_KEY) setSession(loadXpSession());
       if (e.key === XP_LEVEL_PROGRESS_KEY) setLevelProgress(loadLevelProgress());
+      if (e.key === XP_LEVEL_ANCHOR_KEY) setAnchorKnown(loadLevelAnchorKnown());
       if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
     };
     window.addEventListener("storage", onStorage);
@@ -87,7 +95,7 @@ export default function OverlayXp() {
             <span className="oxp-label">per level</span>
           </div>
         </div>
-        {eta.kills !== null && (
+        {anchorKnown && eta.kills !== null && (
           <div className="oxp-tolevel">
             <span className="oxp-label">to level</span>
             <span className="num">

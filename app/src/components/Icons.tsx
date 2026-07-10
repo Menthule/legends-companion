@@ -57,10 +57,46 @@ export function IconTimers({ size = 16 }: IconProps) {
   );
 }
 
+/** Session insights: compass needle over a small dial. */
+export function IconInsights({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <circle cx="8" cy="8" r="6" />
+      <path d="M9.9 4.5 8.6 8.6 4.5 9.9 7.4 7.4z" />
+      <path d="M8 2.8v1M8 12.2v1M2.8 8h1M12.2 8h1" />
+    </svg>
+  );
+}
+
 export function IconTriggers({ size = 16 }: IconProps) {
   return (
     <svg {...svgProps(size)}>
       <path d="M8.7 1.5 3.6 9h3.5l-1 5.5L11.9 7H8.4l1.1-5.5Z" />
+    </svg>
+  );
+}
+
+/** Diagnostics: small bug with probe legs. */
+export function IconDiagnostics({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <rect x="5" y="5" width="6" height="7" rx="2" />
+      <path d="M6.2 5 5 3.5M9.8 5 11 3.5" />
+      <path d="M3 7h2M11 7h2M3.5 10h1.7M10.8 10h1.7" />
+      <path d="M8 5v7" />
+      <circle cx="6.8" cy="7.2" r=".2" />
+      <circle cx="9.2" cy="7.2" r=".2" />
+    </svg>
+  );
+}
+
+/** Patch notes: document with short change lines. */
+export function IconPatchNotes({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <path d="M4 2.5h5l3 3v8H4z" />
+      <path d="M9 2.5v3h3" />
+      <path d="M6 8h4M6 10.2h4M6 12.4h2.5" />
     </svg>
   );
 }

@@ -440,10 +440,7 @@ impl TailSession {
     /// Current running timers, for UI resync after a window reload (P3).
     /// Empty if the snapshot lock is poisoned rather than propagating panic.
     pub fn active_timers(&self) -> Vec<ActiveTimerPayload> {
-        self.snapshots
-            .lock()
-            .map(|s| s.clone())
-            .unwrap_or_default()
+        self.snapshots.lock().map(|s| s.clone()).unwrap_or_default()
     }
 
     /// Replace the live trigger engine (profile/override change while
@@ -495,7 +492,14 @@ pub fn start(
             let loop_stop = stop_flag.clone();
             let result = std::panic::catch_unwind(AssertUnwindSafe(move || {
                 run_loop(
-                    loop_app, config, build, engine_rx, tailer, loop_stop, sink, store,
+                    loop_app,
+                    config,
+                    build,
+                    engine_rx,
+                    tailer,
+                    loop_stop,
+                    sink,
+                    store,
                     loop_snapshots,
                 )
             }));
@@ -626,6 +630,49 @@ fn run_loop(
             .unwrap_or(0)
     }
 
+    /// `/pet leader` reply: `My leader is <owner>.` When the owner is this
+    /// character, persist the speaker into config.pets so the pet survives
+    /// restarts (meters attribution + friendly-caster seeding at session
+    /// start) instead of being re-taught every session. The live trigger
+    /// engine already learned it in-memory; the fight tracker picks it up
+    /// on the next session start.
+    fn persist_learned_pet(app: &AppHandle, character: &str, parsed: &eqlog_core::events::ParsedLine) {
+        use eqlog_core::events::Entity;
+        let Event::Chat {
+            speaker: Entity::Named(name),
+            text,
+            ..
+        } = &parsed.event
+        else {
+            return;
+        };
+        let Some(owner) = text.trim().strip_prefix("My leader is ") else {
+            return;
+        };
+        if !owner.trim_end_matches('.').eq_ignore_ascii_case(character) || character.is_empty() {
+            return;
+        }
+        let Some(state) = app.try_state::<crate::commands::AppState>() else {
+            return;
+        };
+        let Ok(mut cfg) = crate::commands::lock(&state.config, "config") else {
+            return;
+        };
+        if cfg.pets.iter().any(|p| p.trim().eq_ignore_ascii_case(name)) {
+            return; // already known
+        }
+        cfg.pets.push(name.clone());
+        let snapshot = cfg.clone();
+        drop(cfg);
+        if let Err(e) = crate::config::save(app, &snapshot) {
+            logging::warn(&format!("persist learned pet '{name}': {e}"));
+            return;
+        }
+        crate::library::persist_active_overrides(app, &snapshot);
+        let _ = app.emit("config-changed", &snapshot);
+        logging::info(&format!("learned pet '{name}' for {character} (persisted)"));
+    }
+
     fn announce_catchup(app: &AppHandle, transition: CatchUpTransition) {
         match transition {
             CatchUpTransition::Entered => {
@@ -691,6 +738,7 @@ fn run_loop(
                 announce_catchup(&app, transition);
                 sink.suppress = catchup.is_active();
                 clock.observe(parsed.line.timestamp);
+                persist_learned_pet(&app, &config.character_name, &parsed);
                 fights.ingest(&parsed);
                 casts.ingest(&parsed);
                 fights_dirty = true;
@@ -740,8 +788,11 @@ fn run_loop(
                     // Muted during catch-up: replayed timers expiring in
                     // bulk must not narrate.
                     if !catchup.is_active() {
-                        sink.audio
-                            .speak(fire.text.clone().unwrap_or_else(|| format!("{} ending", fire.name)));
+                        sink.audio.speak(
+                            fire.text
+                                .clone()
+                                .unwrap_or_else(|| format!("{} ending", fire.name)),
+                        );
                         if let Some(sound) = &fire.sound {
                             sink.audio
                                 .play(crate::sounds::resolve_in(sink.sounds_dir.as_deref(), sound));

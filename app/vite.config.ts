@@ -6,6 +6,7 @@ import pkg from "./package.json";
 export default defineConfig({
   plugins: [react()],
   clearScreen: false,
+  base: "./",
   // Single source of truth for the displayed app version: injected from
   // package.json at build time so it can never drift from the real release
   // (package.json, Cargo.toml, and tauri.conf.json are bumped together).

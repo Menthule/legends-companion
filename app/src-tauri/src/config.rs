@@ -36,6 +36,12 @@ pub struct AppConfig {
     /// Windows TTS voice display name; "" = system default. Additive.
     #[serde(default)]
     pub tts_voice: String,
+    /// Master audio mute: while set, alert speech and sounds are dropped at
+    /// enqueue time (voice/sound previews in Settings still play). Distinct
+    /// from the one-shot Silence, which only drains the current queue.
+    /// Additive.
+    #[serde(default)]
+    pub tts_muted: bool,
     /// Whether tailing was running when the app last changed it — Start
     /// persists true, Stop persists false, launch resumes accordingly so
     /// the user never re-clicks Start after a restart. Additive.

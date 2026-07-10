@@ -28,6 +28,7 @@ pub struct MeterSourceRow {
 pub struct MeterRow {
     pub name: String,
     pub total: u64,
+    pub pet_damage: u64,
     pub dps: f64,
     pub pct: f64,
     /// Actual healing done by this combatant while the fight was active
@@ -65,6 +66,7 @@ pub fn damage_rows(summary: &FightSummary) -> Vec<MeterRow> {
         .map(|r| MeterRow {
             name: r.name.clone(),
             total: r.damage,
+            pet_damage: r.pet_damage,
             dps: r.dps,
             pct: r.percent,
             healing: r.healing,
@@ -154,6 +156,7 @@ fn merge_pull(fights: &[FightSummary]) -> FightUpdate {
     // damage so the merged pull view supports every meter mode (X2).
     let mut order: Vec<String> = Vec::new();
     let mut totals: HashMap<String, u64> = HashMap::new();
+    let mut pet_totals: HashMap<String, u64> = HashMap::new();
     let mut healing: HashMap<String, u64> = HashMap::new();
     let mut overheal: HashMap<String, u64> = HashMap::new();
     let mut taken: HashMap<String, u64> = HashMap::new();
@@ -168,6 +171,7 @@ fn merge_pull(fights: &[FightSummary]) -> FightUpdate {
                 order.push(r.name.clone());
             }
             *totals.entry(r.name.clone()).or_insert(0) += r.damage;
+            *pet_totals.entry(r.name.clone()).or_insert(0) += r.pet_damage;
             *healing.entry(r.name.clone()).or_insert(0) += r.healing;
             *overheal.entry(r.name.clone()).or_insert(0) += r.overheal;
             *taken.entry(r.name.clone()).or_insert(0) += r.damage_taken;
@@ -204,6 +208,7 @@ fn merge_pull(fights: &[FightSummary]) -> FightUpdate {
             srcs.sort_by_key(|s| std::cmp::Reverse(s.total));
             MeterRow {
                 total,
+                pet_damage: pet_totals.get(&name).copied().unwrap_or(0),
                 dps: total as f64 / duration as f64,
                 pct: if grand > 0 {
                     total as f64 * 100.0 / grand as f64

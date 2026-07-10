@@ -34,12 +34,16 @@ import {
   CLASS_ABBR as CLASS_BITS,
   CLASS_FULL,
   CLASS_NAME_TO_BIT,
+  resolveLiveZoneShortName,
   useClassMask,
   useEraMax,
+  useLiveZoneEnabled,
+  useLiveZoneName,
 } from "../lib/refFilters";
 import { ClassFilterButton, EraSelect } from "./RefFilters";
 import Empty from "./Empty";
 import { ItemTypeIcon } from "./ItemIcons";
+import ResourceLinks from "./ResourceLinks";
 import {
   isWishlisted,
   onWishlistChanged,
@@ -413,6 +417,8 @@ export default function DropsTab({
   const [slotMask, setSlotMask] = useState(0);
   const [classMask, setClassMask] = useClassMask();
   const [zone, setZone] = useState("");
+  const [liveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
   const [effectType, setEffectType] = useState("");
   const [effectName, setEffectName] = useState("");
   const [zones, setZones] = useState<DropZone[]>([]);
@@ -552,6 +558,26 @@ export default function DropsTab({
     setPage(0);
     setExpanded(null);
   }
+
+  const liveZoneShort = useMemo(
+    () => resolveLiveZoneShortName(liveZoneName, zones),
+    [liveZoneName, zones],
+  );
+  // Follow the live zone only when it CHANGES (zoning, or toggle flipped on):
+  // a manual pick in the zone dropdown must stick, not snap back.
+  const appliedLiveZone = useRef<string | null>(null);
+  useEffect(() => {
+    if (!liveZoneEnabled || !liveZoneShort) {
+      appliedLiveZone.current = null;
+      return;
+    }
+    if (appliedLiveZone.current === liveZoneShort) return;
+    appliedLiveZone.current = liveZoneShort;
+    if (zone !== liveZoneShort) {
+      setZone(liveZoneShort);
+      resetPaging();
+    }
+  }, [liveZoneEnabled, liveZoneShort, zone]);
 
   // ---- smart-search suggestions -----------------------------------------
 
@@ -1171,6 +1197,7 @@ export default function DropsTab({
                         />
                       )}
                     </div>
+                    <ResourceLinks kind="item" name={detail.name} eqId={detail.id} />
                     {sources === null ? (
                       <div className="hint">Loading sources…</div>
                     ) : sources.length === 0 ? (

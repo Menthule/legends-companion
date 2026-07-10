@@ -34,18 +34,42 @@ const MACRO_CATEGORIES = [...new Set(MACROS.map((m) => m.category))].sort();
 const MACRO_CLASSES = [...new Set(MACROS.flatMap((m) => m.classes))].sort();
 const COMMAND_CATEGORIES = [...new Set(COMMANDS.map((c) => c.category))].sort();
 
+const NAME_PLACEHOLDERS = [
+  "Tankname",
+  "Leadername",
+  "Clericname",
+  "Draggername",
+  "Dragger",
+  "Alice",
+  "Bob",
+];
+
+function applyMacroName(line: string, name: string): string {
+  const n = name.trim();
+  if (!n) return line;
+  let out = line;
+  for (const token of NAME_PLACEHOLDERS) {
+    out = out.replace(new RegExp(`\\b${token}\\b`, "g"), n);
+  }
+  return out;
+}
+
 /** One macro card with the guided per-line copy stepper. */
-function MacroCard({ macro }: { macro: MacroDef }) {
+function MacroCard({ macro, macroName }: { macro: MacroDef; macroName: string }) {
   // Index of the next line the stepper will copy; null = fresh card.
   const [nextLine, setNextLine] = useState(0);
   const [flash, setFlash] = useState<number | null>(null);
+  const lines = useMemo(
+    () => macro.lines.map((line) => applyMacroName(line, macroName)),
+    [macro.lines, macroName],
+  );
 
   async function copyLine(i: number) {
     try {
-      await navigator.clipboard.writeText(macro.lines[i]);
+      await navigator.clipboard.writeText(lines[i]);
       setFlash(i);
       window.setTimeout(() => setFlash((f) => (f === i ? null : f)), 900);
-      setNextLine(Math.min(i + 1, macro.lines.length));
+      setNextLine(Math.min(i + 1, lines.length));
     } catch {
       /* clipboard unavailable */
     }
@@ -53,7 +77,7 @@ function MacroCard({ macro }: { macro: MacroDef }) {
 
   async function copyAll() {
     try {
-      await navigator.clipboard.writeText(macro.lines.join("\n"));
+      await navigator.clipboard.writeText(lines.join("\n"));
       setFlash(-1);
       window.setTimeout(() => setFlash((f) => (f === -1 ? null : f)), 900);
     } catch {
@@ -61,7 +85,7 @@ function MacroCard({ macro }: { macro: MacroDef }) {
     }
   }
 
-  const done = nextLine >= macro.lines.length;
+  const done = nextLine >= lines.length;
 
   return (
     <div className="macro-card">
@@ -80,7 +104,7 @@ function MacroCard({ macro }: { macro: MacroDef }) {
       </div>
       <p className="macro-desc">{macro.description}</p>
       <div className="macro-lines">
-        {macro.lines.map((line, i) => (
+        {lines.map((line, i) => (
           <div
             key={i}
             className={`macro-line${nextLine === i ? " next" : ""}${
@@ -107,11 +131,21 @@ function MacroCard({ macro }: { macro: MacroDef }) {
         >
           {done
             ? "↺ Start over"
-            : `Copy line ${nextLine + 1} of ${macro.lines.length}`}
+            : `Copy line ${nextLine + 1} of ${lines.length}`}
         </button>
         <button className="ghost small" onClick={() => void copyAll()}>
           {flash === -1 ? "Copied ✓" : "Copy all"}
         </button>
+        {macro.source && (
+          <a
+            className="ghost small button-link"
+            href={macro.source}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Source
+          </a>
+        )}
         {macro.tips && <span className="hint macro-tips">{macro.tips}</span>}
       </div>
     </div>
@@ -123,6 +157,7 @@ export default function MacrosTab() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [klass, setKlass] = useState("");
+  const [macroName, setMacroName] = useState("");
 
   const q = query.trim().toLowerCase();
 
@@ -206,6 +241,15 @@ export default function MacrosTab() {
           ))}
         </select>
         {view === "macros" && (
+          <>
+          <input
+            className="macro-name-input"
+            type="text"
+            placeholder="Name for Tankname, Dragger, Leadername..."
+            value={macroName}
+            onChange={(e) => setMacroName(e.target.value)}
+            title="Replaces common macro placeholders before copy/paste"
+          />
           <select value={klass} onChange={(e) => setKlass(e.target.value)}>
             <option value="">All classes</option>
             {MACRO_CLASSES.map((c) => (
@@ -214,6 +258,7 @@ export default function MacrosTab() {
               </option>
             ))}
           </select>
+          </>
         )}
       </div>
 
@@ -223,7 +268,7 @@ export default function MacrosTab() {
         ) : (
           <div className="macro-grid">
             {shownMacros.map((m) => (
-              <MacroCard key={m.name} macro={m} />
+              <MacroCard key={m.name} macro={m} macroName={macroName} />
             ))}
           </div>
         )
@@ -242,7 +287,17 @@ export default function MacrosTab() {
               <code>{c.command}</code>
               <code className="cmd-syntax">{c.syntax}</code>
               <span className="hint">{c.category}</span>
-              <span>{c.description}</span>
+              <span>
+                {c.description}
+                {c.source && (
+                  <>
+                    {" "}
+                    <a href={c.source} target="_blank" rel="noreferrer">
+                      source
+                    </a>
+                  </>
+                )}
+              </span>
             </div>
           ))}
         </div>

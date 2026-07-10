@@ -65,6 +65,7 @@ fn apply_audio_dictionary(audio: &AudioHandle, config: &AppConfig) {
             .collect(),
     );
     audio.set_voice(config.tts_voice.clone());
+    audio.set_muted(config.tts_muted);
 }
 
 /// Installed Windows TTS voice display names, for the Settings picker.
@@ -478,14 +479,15 @@ pub fn silence_audio(state: State<'_, AppState>) -> Result<(), String> {
 
 /// Speak arbitrary frontend-supplied text through the app audio thread —
 /// the same queue trigger Speak actions use, so it shares the TTS voice,
-/// the pronunciation dictionary, and the silence kill-switch.
+/// the pronunciation dictionary, and the silence kill-switch. Bypasses the
+/// master mute: this is an explicit user action (voice/trigger preview).
 #[tauri::command]
 pub fn speak_text(state: State<'_, AppState>, text: String) -> Result<(), String> {
     let text = text.trim().to_string();
     if text.is_empty() {
         return Ok(());
     }
-    lock(&state.audio, "audio")?.speak(text);
+    lock(&state.audio, "audio")?.speak_unchecked(text);
     Ok(())
 }
 

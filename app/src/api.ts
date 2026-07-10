@@ -426,6 +426,7 @@ function normalizeFight(raw: unknown): FightRecord | null {
     .map((r) => ({
       name: String(r.name ?? "?"),
       total: num(pick(r.total, r.damage)),
+      petDamage: num(pick(r.petDamage, r.pet_damage)),
       dps: num(r.dps),
       pct: num(pick(r.pct, r.percent)),
       pet: num(pick(r.pet_damage, r.petDamage)) > 0 || r.pet === true,
@@ -797,9 +798,10 @@ export function refdbMobDetail(npcId: number): Promise<MobDetail> {
 export function refdbSpellScrolls(
   spellId: number,
   eraMax: number,
+  zone = "",
 ): Promise<SpellScroll[]> {
   if (IS_MOCK) return Promise.resolve([]);
-  return invoke<SpellScroll[]>("refdb_spell_scrolls", { spellId, eraMax });
+  return invoke<SpellScroll[]>("refdb_spell_scrolls", { spellId, eraMax, zone });
 }
 
 /** Recipes that consume (usedIn) or produce (makes) an item. */
@@ -811,6 +813,7 @@ export function refdbItemRecipes(itemId: number): Promise<ItemRecipes> {
 export function refdbRecipeDetail(
   recipeId: number,
   eraMax: number,
+  zone = "",
 ): Promise<RecipeDetail> {
   if (IS_MOCK) {
     return Promise.resolve({
@@ -823,7 +826,7 @@ export function refdbRecipeDetail(
       results: [],
     });
   }
-  return invoke<RecipeDetail>("refdb_recipe_detail", { recipeId, eraMax });
+  return invoke<RecipeDetail>("refdb_recipe_detail", { recipeId, eraMax, zone });
 }
 
 /** Search recipes by name. tradeskill 0 = any; maxTrivial 0 = any. */

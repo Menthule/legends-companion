@@ -34,10 +34,98 @@ interface SkillAgg {
   casts: number;
 }
 
+function isPetSourceName(name: string) {
+  return /\s+\(pet\)$/i.test(name);
+}
+
+function stripPetSuffix(name: string) {
+  return name.replace(/\s+\(pet\)$/i, "");
+}
+
+function petDamageOf(row: MeterRow) {
+  const rawPetDamage =
+    typeof row.petDamage === "number"
+      ? row.petDamage
+      : typeof (row as MeterRow & { pet_damage?: unknown }).pet_damage ===
+          "number"
+        ? (row as MeterRow & { pet_damage: number }).pet_damage
+        : 0;
+  if (rawPetDamage > 0) return Math.min(row.total, rawPetDamage);
+  return Math.min(
+    row.total,
+    (row.sources ?? [])
+      .filter((s) => isPetSourceName(s.name))
+      .reduce((sum, s) => sum + s.total, 0),
+  );
+}
+
+function splitDamageRows(
+  rows: MeterRow[],
+  durationSecs: number,
+  totalDamage: number,
+): MeterRow[] {
+  const duration = Math.max(1, durationSecs);
+  const split: MeterRow[] = [];
+  for (const row of rows) {
+    const petDamage = petDamageOf(row);
+    if (petDamage <= 0) {
+      split.push(row);
+      continue;
+    }
+
+    const petSources = (row.sources ?? []).filter((s) =>
+      isPetSourceName(s.name),
+    );
+    const playerSources = (row.sources ?? []).filter(
+      (s) => !isPetSourceName(s.name),
+    );
+    const playerDamage = Math.max(0, row.total - petDamage);
+    if (playerDamage > 0 || playerSources.length > 0) {
+      split.push({
+        ...row,
+        total: playerDamage,
+        petDamage: 0,
+        pet: false,
+        dps: playerDamage / duration,
+        pct: totalDamage > 0 ? (playerDamage / totalDamage) * 100 : 0,
+        sources: playerSources,
+      });
+    }
+    split.push({
+      ...row,
+      name: `${row.name} pet`,
+      total: petDamage,
+      petDamage: 0,
+      pet: false,
+      dps: petDamage / duration,
+      pct: totalDamage > 0 ? (petDamage / totalDamage) * 100 : 0,
+      sources:
+        petSources.length > 0
+          ? petSources.map((s) => ({ ...s, name: stripPetSuffix(s.name) }))
+          : [
+              {
+                name: "pet damage",
+                total: petDamage,
+                hits: 0,
+                crits: 0,
+                maxHit: 0,
+                misses: 0,
+                casts: 0,
+              },
+            ],
+    });
+  }
+  return split.sort((a, b) => b.total - a.total);
+}
+
 function addSources(acc: Map<string, SkillAgg>, row: MeterRow | undefined) {
+  let petSourceTotal = 0;
   for (const s of row?.sources ?? []) {
-    const a = acc.get(s.name) ?? {
-      name: s.name,
+    const isPet = isPetSourceName(s.name);
+    const name = isPet ? `Pet: ${stripPetSuffix(s.name)}` : s.name;
+    if (isPet) petSourceTotal += s.total;
+    const a = acc.get(name) ?? {
+      name,
       total: 0,
       hits: 0,
       crits: 0,
@@ -51,7 +139,22 @@ function addSources(acc: Map<string, SkillAgg>, row: MeterRow | undefined) {
     a.maxHit = Math.max(a.maxHit, s.maxHit ?? 0);
     a.misses += s.misses ?? 0;
     a.casts += s.casts ?? 0;
-    acc.set(s.name, a);
+    acc.set(name, a);
+  }
+  const missingPetDamage = Math.max(0, row ? petDamageOf(row) - petSourceTotal : 0);
+  if (missingPetDamage > 0) {
+    const name = "Pet: damage";
+    const a = acc.get(name) ?? {
+      name,
+      total: 0,
+      hits: 0,
+      crits: 0,
+      maxHit: 0,
+      misses: 0,
+      casts: 0,
+    };
+    a.total += missingPetDamage;
+    acc.set(name, a);
   }
 }
 
@@ -87,6 +190,10 @@ export default function MetersTab({ character }: { character: string }) {
   const you = rows.find(
     (r) => r.name.toLowerCase() === character.toLowerCase(),
   );
+  const damageRows = useMemo(
+    () => splitDamageRows(rows, fight?.durationSecs ?? 0, fight?.totalDamage ?? 0),
+    [rows, fight?.durationSecs, fight?.totalDamage],
+  );
 
   // ---- meter mode (X2): damage / healing / damage-taken ----
   const [meterMode, setMeterMode] = useState<MeterMode>("damage");
@@ -104,8 +211,8 @@ export default function MetersTab({ character }: { character: string }) {
         .filter((r) => (r.damageTaken ?? 0) > 0)
         .sort((a, b) => (b.damageTaken ?? 0) - (a.damageTaken ?? 0));
     }
-    return rows.filter((r) => r.total > 0);
-  }, [rows, meterMode]);
+    return damageRows.filter((r) => r.total > 0);
+  }, [rows, damageRows, meterMode]);
   const modeLabel =
     meterMode === "healing"
       ? "Healing"
@@ -185,23 +292,30 @@ export default function MetersTab({ character }: { character: string }) {
 
   return (
     <>
-      <div className="seg meters-view" role="group" aria-label="Meters view">
-        <button
-          className={view === "combat" ? "active" : ""}
-          onClick={() => setView("combat")}
-        >
-          Combat
-        </button>
-        <button
-          className={view === "casts" ? "active" : ""}
-          onClick={() => setView("casts")}
-          title="Caster resist / fizzle / land% this session"
-        >
-          Casts
-        </button>
+      <div className="meters-view-row">
+        <div className="seg meters-view" role="group" aria-label="Meters view">
+          <button
+            className={view === "combat" ? "active" : ""}
+            onClick={() => setView("combat")}
+          >
+            Combat
+          </button>
+          <button
+            className={view === "casts" ? "active" : ""}
+            onClick={() => setView("casts")}
+            title="Caster resist / fizzle / land% this session"
+          >
+            Casts
+          </button>
+        </div>
       </div>
       {view === "casts" ? (
-        <CastsView casts={casts} character={character} />
+        <CastsView
+          casts={casts}
+          character={character}
+          view={view}
+          onViewChange={setView}
+        />
       ) : (
         <>
       <div className="stat-tiles">
@@ -449,9 +563,13 @@ export default function MetersTab({ character }: { character: string }) {
 function CastsView({
   casts,
   character,
+  view,
+  onViewChange,
 }: {
   casts: CastRow[];
   character: string;
+  view: "combat" | "casts";
+  onViewChange: (view: "combat" | "casts") => void;
 }) {
   const [mineOnly, setMineOnly] = useState(false);
   const rows = useMemo(() => {
@@ -466,6 +584,20 @@ function CastsView({
       <div className="card-head">
         <span className="section-title">Casting outcomes</span>
         <span className="card-head-side">
+          <div className="seg" role="group" aria-label="Meters view">
+            <button
+              className={view === "combat" ? "active" : ""}
+              onClick={() => onViewChange("combat")}
+            >
+              Combat
+            </button>
+            <button
+              className={view === "casts" ? "active" : ""}
+              onClick={() => onViewChange("casts")}
+            >
+              Casts
+            </button>
+          </div>
           <span className="hint">this session</span>
           <label className="hint check">
             <input

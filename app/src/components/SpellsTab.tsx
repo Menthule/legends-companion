@@ -11,16 +11,23 @@
 // styling reuses the .drops-* grid classes.
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { refdbSpellScrolls, spellsSearch } from "../api";
-import type { SpellRow, SpellScroll } from "../types";
+import { dropsZones, refdbSpellScrolls, spellsSearch } from "../api";
+import type { DropZone, SpellRow, SpellScroll } from "../types";
 import Empty from "./Empty";
 import {
   BUFF_CONFLICTS_EVENT,
   conflictsForMap,
   loadConflicts,
 } from "../lib/buffConflicts";
-import { classMaskToParam, useClassMask } from "../lib/refFilters";
+import {
+  classMaskToParam,
+  resolveLiveZoneShortName,
+  useClassMask,
+  useLiveZoneEnabled,
+  useLiveZoneName,
+} from "../lib/refFilters";
 import { ClassFilterButton } from "./RefFilters";
+import ResourceLinks from "./ResourceLinks";
 
 const PAGE_SIZE = 50;
 
@@ -154,7 +161,10 @@ export default function SpellsTab({
   }, []);
   const conflictMap = useMemo(() => loadConflicts(), [conflictVer]);
   const [classMask, setClassMask] = useClassMask();
+  const [liveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
   const classes = classMaskToParam(classMask);
+  const [zones, setZones] = useState<DropZone[]>([]);
   const [maxLevel, setMaxLevel] = useState(0);
   const [sort, setSort] = useState<SortKey>("name");
   const [descending, setDescending] = useState(false);
@@ -168,6 +178,16 @@ export default function SpellsTab({
   const debounce = useRef<number | null>(null);
 
   const active = query.trim().length >= 2 || classes !== "";
+
+  useEffect(() => {
+    dropsZones().then(setZones).catch(() => {});
+  }, []);
+
+  const liveZoneShort = useMemo(
+    () =>
+      liveZoneEnabled ? resolveLiveZoneShortName(liveZoneName, zones) : "",
+    [liveZoneEnabled, liveZoneName, zones],
+  );
 
   useEffect(() => {
     if (debounce.current) window.clearTimeout(debounce.current);
@@ -214,10 +234,15 @@ export default function SpellsTab({
     // Scroll sources are secondary detail: a failure just hides the section.
     // Era 3 ("Everything") — scribing hunts shouldn't hide later-era copies.
     setScrolls(null);
-    refdbSpellScrolls(id, 3)
+  }
+
+  useEffect(() => {
+    if (expanded == null) return;
+    setScrolls(null);
+    refdbSpellScrolls(expanded, 3, liveZoneShort)
       .then(setScrolls)
       .catch(() => setScrolls([]));
-  }
+  }, [expanded, liveZoneShort]);
 
   function toggleSort(key: SortKey) {
     if (sort === key) {
@@ -400,6 +425,11 @@ export default function SpellsTab({
                         </span>
                       )}
                     </div>
+                    <ResourceLinks
+                      kind={isAbility ? "ability" : "spell"}
+                      name={r.name}
+                      eqId={isAbility ? null : r.id}
+                    />
                     {r.classesStr && (
                       <div className="spells-classlist">
                         Classes: {r.classesStr}
@@ -431,7 +461,10 @@ export default function SpellsTab({
                     )}
                     {scrolls && scrolls.length > 0 && (
                       <>
-                        <div className="refdb-subhead">Scrolls</div>
+                        <div className="refdb-subhead">
+                          Scrolls
+                          {liveZoneShort && <span className="drops-badge">Live zone preferred</span>}
+                        </div>
                         <div className="refdb-rows">
                           {scrolls.map((s) => (
                             <div

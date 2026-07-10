@@ -198,7 +198,13 @@ const MUTE_DEMO: boolean = IS_MOCK
   ? new URLSearchParams(window.location.search).get("mutedemo") === "1"
   : false;
 
-export default function LiveTab({ character }: { character: string }) {
+export default function LiveTab({
+  character,
+  searchRequest,
+}: {
+  character: string;
+  searchRequest?: { query: string; seq: number } | null;
+}) {
   const [rows, setRows] = useState<Row[]>([]);
   const [archiveRows, setArchiveRows] = useState<Row[]>([]);
   const [archiveOpen, setArchiveOpen] = useState(false);
@@ -231,6 +237,12 @@ export default function LiveTab({ character }: { character: string }) {
   // the current watermark without a stale closure.
   const pausedAtRef = useRef<number | null>(null);
   pausedAtRef.current = pausedAt;
+
+  useEffect(() => {
+    if (!searchRequest?.query) return;
+    setArchiveOpen(true);
+    setArchiveQuery(searchRequest.query);
+  }, [searchRequest?.seq]);
 
   const pushRow = (row: Omit<Row, "id">): void => {
     setRows((prev) => {

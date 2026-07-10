@@ -348,6 +348,14 @@ export function computeXpStats(session: XpSession, nowMs: number): XpStats {
     return { total: 0, count: 0, perHour: null, perLevelHours: null };
   }
   const windowTotal = recentRows.reduce((sum, r) => sum + r.percent, 0);
+  if (recentRows.length < 2) {
+    return {
+      total: windowTotal,
+      count: recentRows.length,
+      perHour: null,
+      perLevelHours: null,
+    };
+  }
   // Active-time window: sum the log-domain gaps between consecutive gains
   // (rows are newest-first), each capped so a long idle stretch counts as at
   // most XP_IDLE_CAP_SECS. Add the (also capped) time since the last gain so
@@ -379,9 +387,27 @@ export function computeXpStats(session: XpSession, nowMs: number): XpStats {
 // --- Position within the current level & ETA-to-level (P9) -------------------
 // The log never reports your absolute level or position within it, so we track
 // it from events: reset to 0 on a LevelUp ding, accumulate each XpGain%. Until
-// the first ding of a session the position is unknown, so the user can set it
-// (persisted) to get an accurate kills/ETA-to-level.
+// the app has seen a ding (the anchor) the position is a guess, so it is only
+// trusted — and only shown — once the anchor flag is set. Both persist so the
+// XP overlay (separate window) and later sessions keep the position.
 export const XP_LEVEL_PROGRESS_KEY = "eqlogs.session.levelProgress";
+export const XP_LEVEL_ANCHOR_KEY = "eqlogs.session.levelAnchor";
+
+export function loadLevelAnchorKnown(): boolean {
+  try {
+    return localStorage.getItem(XP_LEVEL_ANCHOR_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function saveLevelAnchorKnown(known: boolean): void {
+  try {
+    localStorage.setItem(XP_LEVEL_ANCHOR_KEY, known ? "1" : "0");
+  } catch {
+    // localStorage unavailable — the anchor just won't persist.
+  }
+}
 
 export function loadLevelProgress(): number {
   try {

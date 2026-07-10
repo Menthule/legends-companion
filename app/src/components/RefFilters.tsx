@@ -11,6 +11,8 @@ import {
   classMaskFullNames,
   useClassMask,
   useEraMax,
+  useLiveZoneEnabled,
+  useLiveZoneName,
 } from "../lib/refFilters";
 
 const ERAS = [
@@ -140,5 +142,35 @@ export function ClassFilterButton() {
         </div>
       )}
     </div>
+  );
+}
+
+export function LiveZoneFilterButton({
+  matchedZone,
+  className = "",
+}: {
+  matchedZone?: string;
+  className?: string;
+}) {
+  const [enabled, setEnabled] = useLiveZoneEnabled();
+  const [zoneName] = useLiveZoneName();
+  const label = zoneName
+    ? enabled
+      ? `Live zone: ${matchedZone || zoneName}`
+      : `Live zone off`
+    : "Live zone";
+  return (
+    <button
+      className={`ghost small live-zone-filter${enabled ? " ref-filter-active" : ""}${className ? ` ${className}` : ""}`}
+      onClick={() => setEnabled((v) => !v)}
+      disabled={!zoneName}
+      title={
+        zoneName
+          ? `When on, zone filters follow your current in-game zone: ${zoneName}`
+          : "Zone into the game once to enable live zone filtering"
+      }
+    >
+      {label}
+    </button>
   );
 }

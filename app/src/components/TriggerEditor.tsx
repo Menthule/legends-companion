@@ -1531,6 +1531,23 @@ export default function TriggerEditor({
         </div>
         {testOpen && (
           <div className="ted-test">
+            {batch && (
+              <div
+                className={`qt-preview ted-test-status ${batch.matched > 0 ? "ok" : "miss"}`}
+                role="status"
+              >
+                <span className="dot" />
+                <strong>{batch.matched} / {batch.results.length} lines match</strong>
+              </div>
+            )}
+            {!batch && test && (
+              <div className={`qt-preview ted-test-status ${test.state}`} role="status">
+                <span className="dot" />
+                <strong>{test.text}</strong>
+              </div>
+            )}
+            <label className="field ted-test-field">
+              <span>Test line</span>
             <textarea
               className="ted-test-input"
               rows={testLines.length > 1 ? 4 : 1}
@@ -1542,15 +1559,7 @@ export default function TriggerEditor({
                 setTestLine(e.target.value);
               }}
             />
-            {batch && (
-              <div
-                className={`qt-preview ${batch.matched > 0 ? "ok" : "miss"}`}
-                role="status"
-              >
-                <span className="dot" />
-                {batch.matched} / {batch.results.length} lines match
-              </div>
-            )}
+            </label>
             {batch && (
               <div className="ted-batch-list">
                 {batch.results.map((r, i) => (
@@ -1564,12 +1573,6 @@ export default function TriggerEditor({
                     <span className="ted-batch-line">{r.line}</span>
                   </div>
                 ))}
-              </div>
-            )}
-            {!batch && test && (
-              <div className={`qt-preview ${test.state}`} role="status">
-                <span className="dot" />
-                {test.text}
               </div>
             )}
             {test?.match && test.match.length > 1 && (

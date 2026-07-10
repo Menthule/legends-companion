@@ -41,6 +41,29 @@ pub fn run() {
             }
         }))
         .plugin(tauri_plugin_dialog::init())
+        // Global silence hotkey: the in-app Esc-Esc kill switch only works
+        // while the companion has focus, which mid-fight (game fullscreen on
+        // the other monitor) it never does. Ctrl+Alt+S works system-wide.
+        // The shortcut itself is registered in setup() below.
+        .plugin(
+            tauri_plugin_global_shortcut::Builder::new()
+                .with_handler(|app, shortcut, event| {
+                    use tauri_plugin_global_shortcut::{Code, Modifiers, ShortcutState};
+                    if event.state() == ShortcutState::Pressed
+                        && shortcut.matches(Modifiers::CONTROL | Modifiers::ALT, Code::KeyS)
+                    {
+                        if let Some(state) = app.try_state::<commands::AppState>() {
+                            if let Ok(audio) = state.audio.lock() {
+                                let _ = audio.silence();
+                            }
+                        }
+                        // Frontend shows the "silenced" toast off this event.
+                        use tauri::Emitter;
+                        let _ = app.emit("global-silence", ());
+                    }
+                })
+                .build(),
+        )
         // Auto-update from signed GitHub releases (endpoint + pubkey in
         // tauri.conf.json). No-op in dev / when offline.
         .plugin(tauri_plugin_updater::Builder::new().build())
@@ -166,6 +189,7 @@ pub fn run() {
                         .collect(),
                 );
                 audio.set_voice(cfg.tts_voice.clone());
+                audio.set_muted(cfg.tts_muted);
             }
             // The webview can query get_config before this setup ran and see
             // the blank default (=> spurious first-run welcome card). Push
@@ -223,6 +247,18 @@ pub fn run() {
                     if let Err(e) = commands::start_tailing_inner(app.handle(), &state) {
                         logging::warn(&format!("auto-resume tailing failed: {e}"));
                     }
+                }
+            }
+            // Global silence hotkey (handler on the plugin above). Failure
+            // (e.g. another app owns the combo) must not break startup —
+            // the in-app Esc-Esc and the Session-menu button still work.
+            {
+                use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut};
+                let silence = Shortcut::new(Some(Modifiers::CONTROL | Modifiers::ALT), Code::KeyS);
+                if let Err(e) = app.global_shortcut().register(silence) {
+                    logging::warn(&format!(
+                        "global silence hotkey (Ctrl+Alt+S) failed to register: {e}"
+                    ));
                 }
             }
             // Overlays start visible (tauri.conf.json) and must be

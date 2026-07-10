@@ -12,13 +12,28 @@ use crate::events::{ChatChannel, Entity, Event, HitFlags, LogLine, MissKind, Par
 use regex::Regex;
 
 /// Melee verbs as they appear in third person (`X slashes Y for ...`).
-const MELEE_VERBS_3P: &str = "hits|slashes|pierces|crushes|bashes|kicks|punches|cleaves|strikes|bites|claws|shoots|backstabs|gores|mauls|smashes|slams|slices|rends|stings|frenzies on";
+/// The noun-led skill verbs (eagle strikes, tiger claws, …) are NOT here:
+/// with a lazy attacker capture they would truncate mob names ending in
+/// eagle/tiger/dragon/tail ("A giant eagle strikes …" -> attacker "A giant").
+/// Those live in [`MELEE_SKILL_VERBS_3P`], matched only for single-token
+/// attackers (players / single-name mobs) before the generic form.
+const MELEE_VERBS_3P: &str = "hits|slashes|pierces|crushes|bashes|kicks|punches|cleaves|strikes|bites|claws|shoots|backstabs|gores|mauls|smashes|slams|slices|rends|stings|smites|frenzies on|round kicks|flying kicks";
+/// Third-person monk skill verbs whose first word is a common mob-name noun.
+/// Only matched when the attacker is a single capitalized token, where the
+/// "name ends in the noun" reading is impossible (players, named mobs).
+const MELEE_SKILL_VERBS_3P: &str = "eagle strikes|tiger claws|dragon punches|tail rakes";
 /// Melee verbs in the first-person form (`You crush Y for ...`).
-const MELEE_VERBS_YOU: &str = "hit|slash|pierce|crush|bash|kick|punch|cleave|strike|bite|claw|shoot|backstab|gore|maul|smash|slam|slice|rend|sting|frenzy on";
+const MELEE_VERBS_YOU: &str = "hit|slash|pierce|crush|bash|kick|punch|cleave|strike|bite|claw|shoot|backstab|gore|maul|smash|slam|slice|rend|sting|smite|frenzy on|round kick|flying kick|eagle strike|tiger claw|dragon punch|tail rake";
+/// Multi-word verbs in the infinitive form used by miss lines ("try/tries
+/// to <verb>"). Must stay in sync with the multi-word entries of the hit-side
+/// lists so hit and miss key the same source row (drives the Acc% column).
+const MELEE_VERBS_MULTIWORD_INF: &str =
+    "frenzy on|round kick|flying kick|eagle strike|tiger claw|dragon punch|tail rake";
 
 struct Regexes {
     // Melee
     melee_hit_you: Regex,
+    melee_skill_hit: Regex,
     melee_hit: Regex,
     melee_miss_you: Regex,
     melee_miss: Regex,
@@ -93,20 +108,28 @@ impl Parser {
                 r"^You (?P<v>{MELEE_VERBS_YOU}) (?P<t>.+?) for (?P<n>\d+) points? of damage\.$"
             ))
             .unwrap(),
+            // Single-token attacker only: see MELEE_SKILL_VERBS_3P. An
+            // article guard in try_melee_hit rejects "A"/"An"/"The" so
+            // "An eagle strikes …" still parses as mob melee below.
+            melee_skill_hit: Regex::new(&format!(
+                r"^(?P<a>[A-Z][a-zA-Z`'-]*) (?P<v>{MELEE_SKILL_VERBS_3P}) (?P<t>.+?) for (?P<n>\d+) points? of damage\.$"
+            ))
+            .unwrap(),
             melee_hit: Regex::new(&format!(
                 r"^(?P<a>.+?) (?P<v>{MELEE_VERBS_3P}) (?P<t>.+?) for (?P<n>\d+) points? of damage\.$"
             ))
             .unwrap(),
-            // The verb is one word except "frenzy on" (the miss form is the
-            // infinitive after "try/tries to", matching the hit-side verb
-            // lists); leftmost-first alternation prefers the two-word form.
-            melee_miss_you: Regex::new(
-                r"^You try to (?P<v>frenzy on|\S+) (?P<t>.+?), but (?P<rest>.+)!$",
-            )
+            // The verb is one word except the multi-word skills (the miss
+            // form is the infinitive after "try/tries to", matching the
+            // hit-side verb lists); leftmost-first alternation prefers the
+            // multi-word forms.
+            melee_miss_you: Regex::new(&format!(
+                r"^You try to (?P<v>{MELEE_VERBS_MULTIWORD_INF}|\S+) (?P<t>.+?), but (?P<rest>.+)!$"
+            ))
             .unwrap(),
-            melee_miss: Regex::new(
-                r"^(?P<a>.+?) tries to (?P<v>frenzy on|\S+) (?P<t>.+?), but (?P<rest>.+)!$",
-            )
+            melee_miss: Regex::new(&format!(
+                r"^(?P<a>.+?) tries to (?P<v>{MELEE_VERBS_MULTIWORD_INF}|\S+) (?P<t>.+?), but (?P<rest>.+)!$"
+            ))
             .unwrap(),
             spell_damage: Regex::new(
                 r"^(?P<c>.+?) hit (?P<t>.+?) for (?P<n>\d+) points? of (?:\w+) damage by (?P<s>.+)\.$",
@@ -730,6 +753,20 @@ impl Parser {
                 amount: c["n"].parse().ok()?,
                 flags,
             });
+        }
+        // Noun-led skill verbs first (single-token attacker), so
+        // "Grok eagle strikes X" is Grok's skill — but "An eagle strikes X"
+        // (article attacker) falls through to plain mob melee below.
+        if let Some(c) = self.re.melee_skill_hit.captures(core) {
+            if !matches!(&c["a"], "A" | "An" | "The" | "It") {
+                return Some(Event::MeleeHit {
+                    attacker: entity(&c["a"]),
+                    target: entity(&c["t"]),
+                    verb: c["v"].to_string(),
+                    amount: c["n"].parse().ok()?,
+                    flags,
+                });
+            }
         }
         if let Some(c) = self.re.melee_hit.captures(core) {
             return Some(Event::MeleeHit {

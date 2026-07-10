@@ -111,7 +111,8 @@ pub fn list_sounds(app: AppHandle) -> Result<Vec<SoundInfo>, String> {
 }
 
 /// Play a sound once on the app-lifetime audio thread. Accepts either an
-/// absolute path or a bare bundled filename ("danger.wav").
+/// absolute path or a bare bundled filename ("danger.wav"). Bypasses the
+/// master mute: this is an explicit user action (sound preview).
 #[tauri::command]
 pub fn preview_sound(
     app: AppHandle,
@@ -120,6 +121,6 @@ pub fn preview_sound(
 ) -> Result<(), String> {
     let resolved = resolve_sound_path(&app, &path);
     let audio = lock(&state.audio, "audio")?.clone();
-    audio.play(resolved);
+    audio.play_unchecked(resolved);
     Ok(())
 }
