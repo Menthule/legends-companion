@@ -84,10 +84,6 @@ pub const OVERLAYS: &[OverlayDescriptor] = &[
     },
 ];
 
-pub fn overlay_by_id(id: &str) -> Option<&'static OverlayDescriptor> {
-    OVERLAYS.iter().find(|overlay| overlay.id == id)
-}
-
 pub fn overlay_by_window_label(label: &str) -> Option<&'static OverlayDescriptor> {
     OVERLAYS
         .iter()

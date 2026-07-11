@@ -17,6 +17,7 @@ use tauri::{AppHandle, Manager};
 /// 2. the bundled `refdata/drops.sqlite` resource in installed builds,
 /// 3. the repo's `assets/data/` for dev runs (same pattern as
 ///    `library::packs_dir`).
+///
 /// NOTE: the resource dir is deliberately NOT named `data/` — a writable
 /// `data/` beside the executable is the portable-mode marker (see
 /// `data_root`), and dev builds copy resources next to the exe, which would

@@ -104,35 +104,35 @@ pub fn run() {
                     // final resting position unthrottled.
                     let _ = window.app_handle().save_window_state(WINDOW_STATE_FLAGS);
                 }
-                WindowEvent::CloseRequested { .. } | WindowEvent::Destroyed => {
+                WindowEvent::CloseRequested { .. } | WindowEvent::Destroyed
+                    if window.label() == "main" =>
+                {
                     // Quitting must kill the WHOLE app, not just the window.
                     // The overlay windows (overlay-*) are independent top-level
                     // windows, so closing `main` alone leaves them — and with
                     // them the Tauri event loop and the background tail/audio
                     // threads — alive. Force a full exit when the main window
                     // goes away so the backend never lingers.
-                    if window.label() == "main" {
-                        let app = window.app_handle();
-                        let _ = app.save_window_state(WINDOW_STATE_FLAGS);
-                        // Close the fight-history DB CLEANLY before the hard
-                        // exit. A process kill mid-WAL leaves fights.db with an
-                        // un-checkpointed -wal/-shm that SQLite then refuses to
-                        // reopen ("disk I/O error"). Stopping the tail session
-                        // (joins its writer thread) and dropping the FightStore
-                        // closes the connection, which checkpoints the WAL and
-                        // removes the sidecar files.
-                        if let Some(state) = app.try_state::<commands::AppState>() {
-                            if let Ok(mut session) = state.session.lock() {
-                                if let Some(s) = session.take() {
-                                    s.stop();
-                                }
-                            }
-                            if let Ok(mut store) = state.store.lock() {
-                                store.take(); // drop FightStore -> checkpoint + close
+                    let app = window.app_handle();
+                    let _ = app.save_window_state(WINDOW_STATE_FLAGS);
+                    // Close the fight-history DB CLEANLY before the hard
+                    // exit. A process kill mid-WAL leaves fights.db with an
+                    // un-checkpointed -wal/-shm that SQLite then refuses to
+                    // reopen ("disk I/O error"). Stopping the tail session
+                    // (joins its writer thread) and dropping the FightStore
+                    // closes the connection, which checkpoints the WAL and
+                    // removes the sidecar files.
+                    if let Some(state) = app.try_state::<commands::AppState>() {
+                        if let Ok(mut session) = state.session.lock() {
+                            if let Some(s) = session.take() {
+                                s.stop();
                             }
                         }
-                        app.exit(0);
+                        if let Ok(mut store) = state.store.lock() {
+                            store.take(); // drop FightStore -> checkpoint + close
+                        }
                     }
+                    app.exit(0);
                 }
                 _ => {}
             }
