@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { open } from "@tauri-apps/plugin-dialog";
+import { open, save } from "@tauri-apps/plugin-dialog";
 import {
   confirmDiscard,
   getProfile,
@@ -13,6 +13,11 @@ import {
   setProfile,
   setSeverityOverride,
   shareExport,
+  shareExportFile,
+  shareReadFile,
+  triggerUpdateCheck,
+  triggerUpdateInstall,
+  triggerVersion,
 } from "../api";
 import { useTauriEvent } from "../hooks";
 import { IS_MOCK } from "../mock";
@@ -29,6 +34,7 @@ import {
   type PackWarningsPayload,
   type Trigger,
   type TriggerAction,
+  type TriggerUpdateInfo,
   type TriggerTreeEntry,
 } from "../types";
 import { buildShareString, parseShareString } from "../lib/share";
@@ -195,6 +201,18 @@ interface EditingState {
 
 type TriggerIntent = "speak" | "alert" | "sound" | "timer" | "effect";
 type TriggerFilter = "all" | "mine" | "enabled" | "tts" | "alerts" | "timers" | "disabled";
+
+function formatUpdateBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  const units = ["KB", "MB", "GB"];
+  let value = bytes / 1024;
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit++;
+  }
+  return `${value.toFixed(1)} ${units[unit]}`;
+}
 
 /** Mock-only demo hook: ?editordemo=1 opens the editor prefilled. */
 const EDITOR_DEMO: string | null = IS_MOCK
@@ -401,6 +419,11 @@ export default function TriggersTab({
   const expandedSeeded = useRef(false);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [libraryVersion, setLibraryVersion] = useState<string | null>(null);
+  const [libraryUpdate, setLibraryUpdate] =
+    useState<TriggerUpdateInfo | null>(null);
+  const [libraryBusy, setLibraryBusy] = useState(false);
+  const [libraryStatus, setLibraryStatus] = useState<string | null>(null);
   const [undoToast, setUndoToast] = useState<{
     message: string;
     undo: () => void;
@@ -411,14 +434,19 @@ export default function TriggersTab({
   const [warnOpen, setWarnOpen] = useState(false);
   /** Sharing v1 dialogs. */
   const [share, setShare] = useState<ShareRequest | null>(null);
-  const [importing, setImporting] = useState<{ initialText?: string } | null>(
-    null,
-  );
+  const [importing, setImporting] = useState<{
+    initialText?: string;
+    sourceName?: string;
+  } | null>(null);
   const shareDemoSeeded = useRef(false);
 
   useEffect(() => {
     if (searchRequest?.query) setQuery(searchRequest.query);
   }, [searchRequest?.seq]);
+
+  useEffect(() => {
+    void triggerVersion().then(setLibraryVersion).catch(() => {});
+  }, []);
 
   useTauriEvent<PackWarningsPayload>("pack-warnings", (p) => {
     // Backend emits { count, messages } on every engine build; count 0
@@ -432,6 +460,21 @@ export default function TriggersTab({
       return;
     }
     setPackWarnings(messages);
+  });
+
+  useTauriEvent<string>("trigger-library-updated", (version) => {
+    setLibraryVersion(version);
+    setLibraryUpdate(null);
+    void getTriggerTree()
+      .then((tree) => {
+        setEntries(tree);
+        setLibraryStatus(
+          `Trigger library ${version} installed. ${tree.length} triggers loaded.`,
+        );
+      })
+      .catch((e) =>
+        setLibraryStatus(`Library installed; reload failed: ${String(e)}`),
+      );
   });
 
   useEffect(() => {
@@ -511,6 +554,46 @@ export default function TriggersTab({
     editorDirty.current = false;
     setEditorNonce((n) => n + 1);
     setEditor(next);
+  }
+
+  async function checkLibraryUpdate() {
+    setLibraryBusy(true);
+    setLibraryStatus("Checking for the latest trigger library…");
+    try {
+      const info = await triggerUpdateCheck();
+      setLibraryUpdate(info);
+      setLibraryVersion(info.current);
+      setLibraryStatus(
+        info.updateAvailable
+          ? `Trigger library ${info.latest} is ready to install.`
+          : info.latest
+            ? `You have the latest trigger library (${info.latest}).`
+            : "Trigger library updates are available in the desktop app.",
+      );
+    } catch (e) {
+      setLibraryStatus(`Could not check for updates: ${String(e)}`);
+    } finally {
+      setLibraryBusy(false);
+    }
+  }
+
+  async function installLibraryUpdate() {
+    setLibraryBusy(true);
+    setLibraryStatus("Downloading and verifying the trigger library…");
+    try {
+      const version = await triggerUpdateInstall();
+      const tree = await getTriggerTree();
+      setEntries(tree);
+      setLibraryVersion(version);
+      setLibraryUpdate(null);
+      setLibraryStatus(
+        `Trigger library ${version} installed. ${tree.length} triggers loaded.`,
+      );
+    } catch (e) {
+      setLibraryStatus(`Trigger library update failed: ${String(e)}`);
+    } finally {
+      setLibraryBusy(false);
+    }
   }
 
   function startSimpleTrigger() {
@@ -814,6 +897,60 @@ export default function TriggersTab({
     }
     overrides[prefix] = target;
     await saveProfile(updateActiveLoadout(profile, { overrides }));
+  }
+
+  async function onExportCompanion() {
+    setError(null);
+    if (!entries || entries.length === 0) return;
+    if (IS_MOCK) {
+      setStatus("Companion package export needs the desktop app (mock mode).");
+      return;
+    }
+    const name = loadout
+      ? `${loadout.name} trigger library`
+      : "Legends Companion trigger library";
+    const filename = `${name.replace(/[^\w -]+/g, "").trim() || "triggers"}.lct`;
+    try {
+      const path = await save({
+        defaultPath: filename,
+        filters: [
+          { name: "Legends Companion trigger package", extensions: ["lct"] },
+        ],
+      });
+      if (typeof path !== "string") return;
+      const count = await shareExportFile(
+        name,
+        entries.map((entry) => entry.id),
+        path,
+      );
+      setStatus(
+        `Exported ${count} trigger${count === 1 ? "" : "s"} to a Companion package.`,
+      );
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  }
+
+  async function onImportCompanion() {
+    setError(null);
+    if (IS_MOCK) {
+      setStatus("Companion package import needs the desktop app (mock mode).");
+      return;
+    }
+    try {
+      const picked = await open({
+        multiple: false,
+        filters: [
+          { name: "Legends Companion trigger package", extensions: ["lct"] },
+        ],
+      });
+      if (typeof picked !== "string") return;
+      const text = await shareReadFile(picked);
+      const sourceName = picked.split(/[\\/]/).pop() || "Companion package";
+      setImporting({ initialText: text, sourceName });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
   }
 
   async function onImportGina() {
@@ -1268,10 +1405,10 @@ export default function TriggersTab({
                 className="ghost"
                 onClick={() => {
                   setImportOpen(false);
-                  void onImportGina();
+                  void onImportCompanion();
                 }}
               >
-                GINA .gtp…
+                Companion package…
               </button>
               <button
                 className="ghost"
@@ -1283,9 +1420,27 @@ export default function TriggersTab({
               >
                 Share string…
               </button>
+              <button
+                className="ghost"
+                onClick={() => {
+                  setImportOpen(false);
+                  void onImportGina();
+                }}
+                title="Import a GINA package; unsupported Companion fields may be skipped"
+              >
+                GINA .gtp…
+              </button>
             </div>
           )}
         </div>
+        <button
+          className="ghost"
+          onClick={() => void onExportCompanion()}
+          disabled={!entries || entries.length === 0}
+          title="Save every current trigger in a lossless Companion package"
+        >
+          Export all
+        </button>
         <button
           className="primary"
           onClick={() => setStarterOpen((o) => !o)}
@@ -1311,6 +1466,43 @@ export default function TriggersTab({
             {label}
           </button>
         ))}
+      </div>
+      <div className="trigger-library-update" aria-live="polite">
+        <div className="trigger-library-copy">
+          <div className="trigger-library-title-row">
+            <span className="section-title">Trigger library</span>
+            <span className="trigger-library-version">
+              {libraryVersion
+                ? `Installed ${libraryVersion}`
+                : "Included with app"}
+            </span>
+          </div>
+          <span className="hint">
+            {libraryStatus ??
+              "Keep shared spell, combat, and class triggers current without waiting for an app release."}
+          </span>
+        </div>
+        <div className="trigger-library-actions">
+          <button
+            className="ghost"
+            onClick={() => void checkLibraryUpdate()}
+            disabled={libraryBusy}
+          >
+            {libraryBusy ? "Working…" : "Check for updates"}
+          </button>
+          {libraryUpdate?.updateAvailable && (
+            <button
+              className="primary"
+              onClick={() => void installLibraryUpdate()}
+              disabled={libraryBusy}
+            >
+              Install {libraryUpdate.latest}
+              {libraryUpdate.totalBytes > 0
+                ? ` · ${formatUpdateBytes(libraryUpdate.totalBytes)}`
+                : ""}
+            </button>
+          )}
+        </div>
       </div>
       {starterOpen && (
         <div className="card trigger-starter">
@@ -1467,6 +1659,7 @@ export default function TriggersTab({
       {importing && (
         <ImportDialog
           initialText={importing.initialText}
+          sourceName={importing.sourceName}
           onClose={() => setImporting(null)}
           onImported={(summary) => {
             setImporting(null);

@@ -128,6 +128,29 @@ impl FightStore {
         Ok(fights)
     }
 
+    /// Return every fight that overlaps the inclusive log-time range, oldest
+    /// first. Session exports use overlap rather than start-time containment so
+    /// a fight already in progress at either boundary is not silently lost.
+    pub fn list_between(&self, start_ts: i64, end_ts: i64) -> Result<Vec<StoredFight>, StoreError> {
+        let mut stmt = self.conn.prepare_cached(
+            "SELECT id, summary_json FROM fights \
+             WHERE end_ts >= ?1 AND start_ts <= ?2 \
+             ORDER BY start_ts ASC, id ASC",
+        )?;
+        let rows = stmt.query_map(params![start_ts, end_ts], |row| {
+            Ok((row.get::<_, i64>(0)?, row.get::<_, String>(1)?))
+        })?;
+        let mut fights = Vec::new();
+        for row in rows {
+            let (id, json) = row?;
+            fights.push(StoredFight {
+                id,
+                summary: parse_summary(id, &json)?,
+            });
+        }
+        Ok(fights)
+    }
+
     /// Fetch one fight by id. `Ok(None)` when no such row exists.
     pub fn get(&self, id: i64) -> Result<Option<StoredFight>, StoreError> {
         let json: Option<String> = self
@@ -383,6 +406,28 @@ mod tests {
             .map(|f| f.summary.target)
             .collect();
         assert_eq!(names, ["second", "first"]);
+    }
+
+    #[test]
+    fn list_between_includes_boundary_overlaps_in_chronological_order() {
+        let mut store = FightStore::open_in_memory().unwrap();
+        for (target, start) in [
+            ("before", 900),
+            ("crosses start", 980),
+            ("inside", 1_050),
+            ("at end", 1_100),
+            ("after", 1_101),
+        ] {
+            store.insert(&summary(target, start)).unwrap();
+        }
+
+        let names: Vec<String> = store
+            .list_between(1_000, 1_100)
+            .unwrap()
+            .into_iter()
+            .map(|f| f.summary.target)
+            .collect();
+        assert_eq!(names, ["crosses start", "inside", "at end"]);
     }
 
     #[test]

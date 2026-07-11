@@ -54,6 +54,7 @@ import type {
   UnlockRow,
   Trigger,
   TriggerTreeEntry,
+  TriggerUpdateInfo,
   ZoneInfo,
 } from "./types";
 
@@ -122,6 +123,35 @@ export function dataUpdateInstall(): Promise<string> {
     return Promise.reject(new Error("Data updates need the desktop app."));
   }
   return invoke<string>("data_update_install");
+}
+
+// ---- trigger-library update channel ----
+
+/** Installed trigger-library version, or null when using the app bundle. */
+export function triggerVersion(): Promise<string | null> {
+  if (IS_MOCK) return Promise.resolve(null);
+  return invoke<string | null>("trigger_version").catch(() => null);
+}
+
+/** Compare the installed trigger library with the rolling trigger release. */
+export function triggerUpdateCheck(): Promise<TriggerUpdateInfo> {
+  if (IS_MOCK) {
+    return Promise.resolve({
+      current: null,
+      latest: "",
+      updateAvailable: false,
+      totalBytes: 0,
+    });
+  }
+  return invoke<TriggerUpdateInfo>("trigger_update_check");
+}
+
+/** Download, verify, and install the latest trigger library. */
+export function triggerUpdateInstall(): Promise<string> {
+  if (IS_MOCK) {
+    return Promise.reject(new Error("Trigger updates need the desktop app."));
+  }
+  return invoke<string>("trigger_update_install");
 }
 
 /** Size of the configured log file, for the Settings "large log" nudge.
@@ -536,6 +566,19 @@ export async function exportFight(id: number): Promise<string> {
   return await invoke<string>("export_fight", { id });
 }
 
+/** Write a versioned snapshot of the current play session. Stored fights are
+ * selected by the backend so the export retains their full summaries. */
+export async function exportSession(args: {
+  path: string;
+  character: string;
+  startTs: number;
+  endTs: number;
+  details: Record<string, unknown>;
+}): Promise<void> {
+  if (IS_MOCK) return;
+  await invoke("export_session", args);
+}
+
 /** Offline log import (P26): replay a past log file and return its fights,
  *  read-only. Ids are positional — these are not stored. */
 export async function analyzeLog(path: string): Promise<FightRecord[]> {
@@ -653,6 +696,30 @@ export function shareExportGtp(
   }
   // Tauri arg key is camelCase for the command's `package_name` parameter.
   return invoke("share_export_gtp", { packageName: name, ids, path });
+}
+
+/** Write a lossless native Legends Companion trigger package. */
+export function shareExportFile(
+  name: string,
+  ids: string[],
+  path: string,
+): Promise<number> {
+  if (IS_MOCK) {
+    return Promise.reject(
+      new Error("Companion package export needs the desktop app."),
+    );
+  }
+  return invoke<number>("share_export_file", { name, ids, path });
+}
+
+/** Read and validate a native trigger package for preview/import. */
+export function shareReadFile(path: string): Promise<string> {
+  if (IS_MOCK) {
+    return Promise.reject(
+      new Error("Companion package import needs the desktop app."),
+    );
+  }
+  return invoke<string>("share_read_file", { path });
 }
 
 /** Import an LCS1 share string into the user pack (dedupes id collisions). */

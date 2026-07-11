@@ -2893,6 +2893,56 @@ button.coach-row.active {
   min-width: 170px;
 }
 
+.trigger-library-update {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  background: var(--surface-raised);
+}
+.trigger-library-copy {
+  flex: 1 1 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.trigger-library-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.trigger-library-version {
+  color: var(--ink-2);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.trigger-library-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 800px) {
+  .trigger-library-update {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .trigger-library-copy {
+    flex-basis: auto;
+  }
+  .trigger-library-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
 .classes-bar {
   padding: 12px 16px;
 }
@@ -4347,6 +4397,22 @@ textarea.share-str:focus {
   outline: none;
   border-color: var(--accent);
 }
+.import-file-source {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--page);
+}
+.import-file-name {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
 .import-preview {
   border: 1px solid var(--hairline);
   border-radius: 8px;
@@ -5250,6 +5316,10 @@ button.drops-item.active {
 .settings-tab.active {
   color: var(--ink);
   border-bottom-color: var(--accent);
+}
+.session-tabs.settings-tabs {
+  align-items: center;
+  flex-wrap: wrap;
 }
 .settings-switch-row {
   display: grid;

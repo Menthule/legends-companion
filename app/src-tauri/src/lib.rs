@@ -284,6 +284,8 @@ pub fn run() {
             commands::append_triggers,
             commands::import_gina,
             commands::share_export,
+            commands::share_export_file,
+            commands::share_read_file,
             commands::share_import,
             commands::share_export_gtp,
             store::list_fights,
@@ -292,6 +294,7 @@ pub fn run() {
             store::delete_fight,
             store::prune_fights,
             store::export_fight,
+            store::export_session,
             store::analyze_log,
             dropdb::drops_search_items,
             dropdb::drops_item_sources,
@@ -334,6 +337,9 @@ pub fn run() {
             datapack::data_update_check,
             datapack::data_update_install,
             datapack::data_version,
+            datapack::trigger_update_check,
+            datapack::trigger_update_install,
+            datapack::trigger_version,
         ])
         .run(tauri::generate_context!())
         .expect("error while running Legends Companion");

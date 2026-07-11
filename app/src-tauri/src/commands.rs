@@ -384,6 +384,69 @@ pub fn share_export(
     }))
 }
 
+/// Write the same lossless `LCS1:` payload as `share_export` to a `.lct`
+/// package chosen by the user. Returns the number of exported triggers.
+#[tauri::command]
+pub fn share_export_file(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    ids: Vec<String>,
+    name: Option<String>,
+    path: String,
+) -> Result<usize, String> {
+    let cfg = lock(&state.config, "config")?.clone();
+    let lib = library::load_library(&app, &cfg)?;
+    let triggers = collect_by_ids(&lib, &ids);
+    if triggers.is_empty() {
+        return Err("no matching triggers to export".into());
+    }
+    let count = triggers.len();
+    let text = eqlog_triggers::export_string(&SharePayload { name, triggers });
+    std::fs::write(&path, text).map_err(|e| format!("write {path}: {e}"))?;
+    Ok(count)
+}
+
+/// Read a lossless `.lct` package for the existing share preview/import flow.
+/// Already-installed effective ids are removed before re-encoding, preventing
+/// a full-library package from creating renamed copies of every bundled item.
+#[tauri::command]
+pub fn share_read_file(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    path: String,
+) -> Result<String, String> {
+    const MAX_PACKAGE_BYTES: u64 = 32 * 1024 * 1024;
+
+    let metadata = std::fs::metadata(&path).map_err(|e| format!("read {path}: {e}"))?;
+    if metadata.len() > MAX_PACKAGE_BYTES {
+        return Err("trigger package exceeds the 32 MiB safety limit".into());
+    }
+    let text = std::fs::read_to_string(&path).map_err(|e| format!("read {path}: {e}"))?;
+    let empty = HashSet::new();
+    let import = eqlog_triggers::parse_string(&text, &empty).map_err(|e| e.to_string())?;
+
+    let cfg = lock(&state.config, "config")?.clone();
+    let lib = library::load_library(&app, &cfg)?;
+    let existing: HashSet<String> = lib
+        .packs
+        .iter()
+        .chain(lib.user.iter())
+        .map(|trigger| trigger.effective_id())
+        .collect();
+    let triggers: Vec<Trigger> = import
+        .triggers
+        .into_iter()
+        .filter(|trigger| !existing.contains(&trigger.effective_id()))
+        .collect();
+    if triggers.is_empty() {
+        return Err("all triggers in this package are already installed".into());
+    }
+    Ok(eqlog_triggers::export_string(&SharePayload {
+        name: import.name,
+        triggers,
+    }))
+}
+
 /// What `share_import` did, for the summary dialog.
 #[derive(Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -579,8 +642,8 @@ struct OverlayLockPayload {
 }
 
 fn overlay_window(app: &AppHandle, label: &str) -> Result<WebviewWindow, String> {
-    let overlay = overlay_by_window_label(label)
-        .ok_or_else(|| format!("unknown overlay window: {label}"))?;
+    let overlay =
+        overlay_by_window_label(label).ok_or_else(|| format!("unknown overlay window: {label}"))?;
     app.get_webview_window(overlay.window_label)
         .ok_or_else(|| format!("overlay window {} not found", overlay.window_label))
 }
@@ -610,7 +673,9 @@ pub fn overlay_set_click_through(
     let win = match overlay_window(&app, &label) {
         Ok(w) => w,
         Err(e) => {
-            crate::logging::warn(&format!("overlay_set_click_through({label}, {ignore}): {e}"));
+            crate::logging::warn(&format!(
+                "overlay_set_click_through({label}, {ignore}): {e}"
+            ));
             return Err(e);
         }
     };

@@ -825,3 +825,14 @@ export interface DataUpdateInfo {
   /** Total download size of the data pack, in bytes. */
   totalBytes: number;
 }
+
+/** Trigger-library update channel state (trigger_update_check). */
+export interface TriggerUpdateInfo {
+  /** Installed trigger-library version; null = bundled library only. */
+  current: string | null;
+  /** Latest version published on the rolling trigger release. */
+  latest: string;
+  updateAvailable: boolean;
+  /** Trigger-library download size, in bytes. */
+  totalBytes: number;
+}

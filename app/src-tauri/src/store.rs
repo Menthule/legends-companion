@@ -11,6 +11,7 @@ use eqlog_core::fights::{FightConfig, FightSummary, FightTracker};
 use eqlog_core::parser::Parser;
 use eqlog_store::FightStore;
 use serde::Serialize;
+use serde_json::Value;
 use tauri::{AppHandle, State};
 
 use crate::commands::{lock, AppState};
@@ -77,6 +78,30 @@ pub struct FightPage {
     pub fights: Vec<FightRecord>,
     /// Total rows in the store (for pagination).
     pub total: u64,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SessionExportFight {
+    id: i64,
+    summary: FightSummary,
+}
+
+/// Stable, portable session snapshot. `session` holds the frontend-owned
+/// collections (loot, rolls, XP, and similar); fights come directly from the
+/// store so their complete summaries are preserved.
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SessionExport {
+    format: &'static str,
+    version: u32,
+    app_version: &'static str,
+    exported_at: u64,
+    character: String,
+    started_ts: i64,
+    ended_ts: i64,
+    session: Value,
+    fights: Vec<SessionExportFight>,
 }
 
 // ---------- commands ----------
@@ -257,6 +282,57 @@ pub fn export_fight(app: AppHandle, state: State<'_, AppState>, id: i64) -> Resu
         .map_err(|e| e.to_string())?
         .ok_or_else(|| format!("no stored fight with id {id}"))?;
     serde_json::to_string_pretty(&stored.summary).map_err(|e| e.to_string())
+}
+
+/// Export the current frontend session collections plus every stored fight
+/// overlapping the captured log-time bounds. Raw log lines are deliberately
+/// excluded because they can contain private chat.
+#[tauri::command]
+pub fn export_session(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    path: String,
+    character: String,
+    start_ts: i64,
+    end_ts: i64,
+    details: Value,
+) -> Result<(), String> {
+    if path.trim().is_empty() {
+        return Err("export path is empty".to_string());
+    }
+    if start_ts > end_ts {
+        return Err("session start is after its end".to_string());
+    }
+    ensure_store(&app, &state)?;
+    let guard = lock(&state.store, "fight store")?;
+    let store = guard.as_ref().ok_or(NO_STORE)?;
+    let fights = store
+        .list_between(start_ts, end_ts)
+        .map_err(|e| e.to_string())?
+        .into_iter()
+        .map(|stored| SessionExportFight {
+            id: stored.id,
+            summary: stored.summary,
+        })
+        .collect();
+    drop(guard);
+    let exported_at = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_err(|e| e.to_string())?
+        .as_secs();
+    let export = SessionExport {
+        format: "legends-companion-session",
+        version: 1,
+        app_version: env!("CARGO_PKG_VERSION"),
+        exported_at,
+        character,
+        started_ts: start_ts,
+        ended_ts: end_ts,
+        session: details,
+        fights,
+    };
+    let json = serde_json::to_vec_pretty(&export).map_err(|e| e.to_string())?;
+    std::fs::write(path, json).map_err(|e| format!("write session export: {e}"))
 }
 
 // ---------- paste formatting ----------

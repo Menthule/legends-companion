@@ -144,11 +144,14 @@ const MAX_PREVIEW_CATEGORIES = 8;
 
 export function ImportDialog({
   initialText,
+  sourceName,
   onClose,
   onImported,
 }: {
   /** Prefill (mock screenshot hook). */
   initialText?: string;
+  /** Native package filename; replaces the paste field when present. */
+  sourceName?: string;
   onClose: () => void;
   /** Called after a successful import with a human summary line. */
   onImported: (summary: string) => void;
@@ -207,20 +210,29 @@ export function ImportDialog({
     <div className="modal-scrim" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="card-head">
-          <span className="section-title">Import shared triggers</span>
+          <span className="section-title">
+            {sourceName ? "Review Companion package" : "Import shared triggers"}
+          </span>
         </div>
-        <label className="field">
-          <span>Paste a share string (starts with LCS1:)</span>
-          <textarea
-            className="share-str"
-            rows={5}
-            value={text}
-            autoFocus
-            placeholder="LCS1:…"
-            onChange={(e) => setText(e.target.value)}
-            aria-label="Share string to import"
-          />
-        </label>
+        {sourceName ? (
+          <div className="import-file-source">
+            <span className="import-file-name">{sourceName}</span>
+            <span className="hint">Legends Companion trigger package</span>
+          </div>
+        ) : (
+          <label className="field">
+            <span>Paste a share string (starts with LCS1:)</span>
+            <textarea
+              className="share-str"
+              rows={5}
+              value={text}
+              autoFocus
+              placeholder="LCS1:…"
+              onChange={(e) => setText(e.target.value)}
+              aria-label="Share string to import"
+            />
+          </label>
+        )}
         {error && text.trim().length > 0 && (
           <div className="error-banner qt-error">{error}</div>
         )}

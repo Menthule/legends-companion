@@ -90,7 +90,9 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
     crate::logging::info(&format!(
         "trigger packs loaded: {} triggers from {} (kick present: {})",
         packs.len(),
-        dir.as_ref().map(|d| d.display().to_string()).unwrap_or_else(|| "<none>".into()),
+        dir.as_ref()
+            .map(|d| d.display().to_string())
+            .unwrap_or_else(|| "<none>".into()),
         has_kick,
     ));
     let user = config::load_triggers(&config::trigger_pack_file(app, cfg)?)?;
@@ -204,10 +206,7 @@ pub fn build_engine(app: &AppHandle, cfg: &AppConfig) -> Result<EngineBuild, Str
     // hot-swapped engines keep the pet list too.
     engine.add_friendly_names(cfg.pets.iter().map(|p| p.trim()).filter(|p| !p.is_empty()));
     warnings.extend(engine.warnings().iter().cloned());
-    Ok(EngineBuild {
-        engine,
-        warnings,
-    })
+    Ok(EngineBuild { engine, warnings })
 }
 
 /// Payload of the "pack-warnings" event, emitted at every engine build

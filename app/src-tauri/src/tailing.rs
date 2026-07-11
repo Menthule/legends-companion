@@ -713,7 +713,11 @@ fn run_loop(
     /// start) instead of being re-taught every session. The live trigger
     /// engine already learned it in-memory; the fight tracker picks it up
     /// on the next session start.
-    fn persist_learned_pet(app: &AppHandle, character: &str, parsed: &eqlog_core::events::ParsedLine) {
+    fn persist_learned_pet(
+        app: &AppHandle,
+        character: &str,
+        parsed: &eqlog_core::events::ParsedLine,
+    ) {
         use eqlog_core::events::Entity;
         let Event::Chat {
             speaker: Entity::Named(name),

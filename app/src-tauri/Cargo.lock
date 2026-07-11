@@ -1221,7 +1221,7 @@ dependencies = [
 
 [[package]]
 name = "eqlogs-app"
-version = "0.2.6"
+version = "0.2.7"
 dependencies = [
  "eqlog-core",
  "eqlog-store",

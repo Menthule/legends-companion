@@ -3,6 +3,7 @@
 
 import type { ReactNode } from "react";
 import { emit } from "@tauri-apps/api/event";
+import { save } from "@tauri-apps/plugin-dialog";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   analyzeLog,
@@ -10,6 +11,7 @@ import {
   deleteFight,
   dropsEffects,
   exportFight,
+  exportSession,
   getConfig,
   getFight,
   listFights,
@@ -397,8 +399,14 @@ export default function FightsTab({ character }: { character: string }) {
     fights: FightRecord[];
   } | null>(null);
   const [importing, setImporting] = useState(false);
+  const [exportingSession, setExportingSession] = useState(false);
+  const [hasSessionActivity, setHasSessionActivity] = useState(false);
   const prevActive = useRef(false);
   const demoSeeded = useRef(false);
+  const sessionBounds = useRef<{ startTs: number | null; endTs: number | null }>({
+    startTs: null,
+    endTs: null,
+  });
   // Session-scope loot + rolls (newest first). Captured for the whole app run
   // regardless of which tab is showing (this component stays mounted).
   const [loot, setLoot] = useState<LootEntry[]>([]);
@@ -536,6 +544,12 @@ export default function FightsTab({ character }: { character: string }) {
   }, []);
 
   useTauriEvent<LogLinePayload>("log-line", (p) => {
+    if (!catchingUp.current) {
+      const bounds = sessionBounds.current;
+      if (bounds.startTs === null) setHasSessionActivity(true);
+      bounds.startTs = bounds.startTs === null ? p.ts : Math.min(bounds.startTs, p.ts);
+      bounds.endTs = bounds.endTs === null ? p.ts : Math.max(bounds.endTs, p.ts);
+    }
     // Scoreboard helpers (capture live ownedNames/catchingUp each render).
     const bumpPlayer = (name: string): PlayerScore => {
       const k = name.toLowerCase();
@@ -958,6 +972,57 @@ export default function FightsTab({ character }: { character: string }) {
     }
   }
 
+  async function exportCurrentSession() {
+    const { startTs, endTs } = sessionBounds.current;
+    if (startTs === null || endTs === null) {
+      setToast("No session activity to export yet");
+      return;
+    }
+    const safeCharacter = character.replace(/[^\w-]+/g, "_") || "character";
+    const day = new Date().toISOString().slice(0, 10);
+    setExportingSession(true);
+    try {
+      const path = await save({
+        defaultPath: `legends-session-${safeCharacter}-${day}.json`,
+        filters: [
+          { name: "Legends Companion session", extensions: ["json"] },
+        ],
+      });
+      if (typeof path !== "string") return;
+      await exportSession({
+        path,
+        character,
+        startTs,
+        endTs,
+        details: {
+          xp,
+          level: { progress: levelProgress, anchorKnown: levelAnchorKnown },
+          kills: Object.values(kills),
+          effects: procs,
+          deathRecaps: recaps.map(({ id, ts, killer, damage }) => ({
+            id,
+            ts,
+            killer,
+            damage,
+          })),
+          loot,
+          rolls,
+          scoreboard: scoreboard.current,
+          captureLimits: {
+            collectionRows: SESSION_CAP,
+            deathRecaps: 20,
+            rawLogLinesIncluded: false,
+          },
+        },
+      });
+      setToast("Session exported");
+    } catch (e) {
+      setToast(`Could not export session: ${String(e)}`);
+    } finally {
+      setExportingSession(false);
+    }
+  }
+
   async function importLog() {
     let path: string | null = null;
     try {
@@ -1314,6 +1379,9 @@ export default function FightsTab({ character }: { character: string }) {
           clearXpSession();
           setXp(loadXpSession());
         }}
+        canExport={hasSessionActivity}
+        exporting={exportingSession}
+        onExport={() => void exportCurrentSession()}
       />
       {toast && (
         <div className="toast" role="status">
@@ -1401,6 +1469,9 @@ function SessionSection({
   kills,
   respawnFor,
   onResetXp,
+  canExport,
+  exporting,
+  onExport,
 }: {
   loot: LootEntry[];
   rolls: RollEntry[];
@@ -1418,6 +1489,9 @@ function SessionSection({
   /** Cached refdb lookup (null/absent = unknown mob or not fetched yet). */
   respawnFor: (name: string) => RespawnInfo | null;
   onResetXp: () => void;
+  canExport: boolean;
+  exporting: boolean;
+  onExport: () => void;
 }) {
   const [lootQuery, setLootQuery] = useState("");
   const [tab, setTab] = useState<"xp" | "kills" | "effects" | "deaths" | "loot" | "wishlist" | "rolls">("xp");
@@ -1500,7 +1574,7 @@ function SessionSection({
 
   return (
     <div className="session-tabs-card card">
-      <div className="session-tabs">
+      <div className="session-tabs settings-tabs">
         {[
           ["xp", "XP", xp.count],
           ["kills", "Kills", killRows.length],
@@ -1519,6 +1593,15 @@ function SessionSection({
             <span className="pill">{count}</span>
           </button>
         ))}
+        <span className="spacer" />
+        <button
+          className="ghost small"
+          onClick={onExport}
+          disabled={!canExport || exporting}
+          title="Save this session's fights, XP, kills, effects, loot, and rolls"
+        >
+          {exporting ? "Exporting…" : "Export session"}
+        </button>
       </div>
       {tab === "xp" && <Collapsible
         title="XP"

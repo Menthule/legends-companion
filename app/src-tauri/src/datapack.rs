@@ -16,7 +16,7 @@ use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use tauri::AppHandle;
+use tauri::{AppHandle, Emitter};
 
 use crate::logging;
 
@@ -25,6 +25,7 @@ const BASE_URL: &str =
     "https://github.com/Menthule/legends-companion/releases/download/data-latest";
 const MANIFEST_NAME: &str = "data-manifest.json";
 const VERSION_FILE: &str = "version.txt";
+const TRIGGER_VERSION_FILE: &str = "triggers-version.txt";
 /// Sanity cap on the manifest body (it is a few hundred bytes).
 const MAX_MANIFEST_BYTES: u64 = 1024 * 1024;
 /// Sanity cap on any single data file (guards a corrupt manifest/server).
@@ -86,20 +87,27 @@ fn fetch_manifest(agent: &ureq::Agent) -> Result<Manifest, String> {
 
 // ---------- version.txt ----------
 
-fn installed_version(dir: &Path) -> Option<String> {
-    let text = std::fs::read_to_string(dir.join(VERSION_FILE)).ok()?;
+fn installed_version_file(dir: &Path, filename: &str) -> Option<String> {
+    let text = std::fs::read_to_string(dir.join(filename)).ok()?;
     let v = text.trim();
     (!v.is_empty()).then(|| v.to_string())
 }
 
+fn installed_version(dir: &Path) -> Option<String> {
+    installed_version_file(dir, VERSION_FILE)
+}
+
 /// Record the installed version — the LAST step of an install, via a temp
 /// file + rename so a crash mid-write can't leave a torn version marker.
-fn write_version(dir: &Path, version: &str) -> Result<(), String> {
-    let tmp = dir.join("version.txt.tmp");
+fn write_version_file(dir: &Path, filename: &str, version: &str) -> Result<(), String> {
+    let tmp = dir.join(format!("{filename}.tmp"));
     std::fs::write(&tmp, format!("{version}\n"))
         .map_err(|e| format!("write {}: {e}", tmp.display()))?;
-    std::fs::rename(&tmp, dir.join(VERSION_FILE))
-        .map_err(|e| format!("finalize {VERSION_FILE}: {e}"))
+    std::fs::rename(&tmp, dir.join(filename)).map_err(|e| format!("finalize {filename}: {e}"))
+}
+
+fn write_version(dir: &Path, version: &str) -> Result<(), String> {
+    write_version_file(dir, VERSION_FILE, version)
 }
 
 // ---------- download + verify ----------
@@ -295,6 +303,48 @@ fn check_inner(app: &AppHandle) -> Result<DataUpdateInfo, String> {
     })
 }
 
+fn manifest_file<'a>(manifest: &'a Manifest, name: &str) -> Result<&'a ManifestFile, String> {
+    manifest
+        .files
+        .iter()
+        .find(|file| file.name == name)
+        .ok_or_else(|| format!("data manifest does not contain {name}"))
+}
+
+fn trigger_check_inner(app: &AppHandle) -> Result<DataUpdateInfo, String> {
+    let manifest = fetch_manifest(&agent())?;
+    let triggers = manifest_file(&manifest, "triggers.zip")?;
+    let total_bytes = triggers.bytes.max(0);
+    let dir = crate::data_root::resolve(app).refdata_update_dir();
+    let current = installed_version_file(&dir, TRIGGER_VERSION_FILE);
+    let update_available = current.as_deref() != Some(manifest.version.as_str());
+    Ok(DataUpdateInfo {
+        current,
+        latest: manifest.version,
+        update_available,
+        total_bytes,
+    })
+}
+
+fn trigger_install_inner(app: &AppHandle) -> Result<String, String> {
+    let agent = agent();
+    let manifest = fetch_manifest(&agent)?;
+    let triggers = manifest_file(&manifest, "triggers.zip")?;
+    let dir = crate::data_root::resolve(app).refdata_update_dir();
+    std::fs::create_dir_all(&dir).map_err(|e| format!("create {}: {e}", dir.display()))?;
+
+    let staged = dir.join("triggers-update.zip");
+    download_verified(
+        &agent,
+        &format!("{BASE_URL}/{}", triggers.name),
+        &staged,
+        triggers,
+    )?;
+    install_triggers(&dir, &staged)?;
+    write_version_file(&dir, TRIGGER_VERSION_FILE, &manifest.version)?;
+    Ok(manifest.version)
+}
+
 fn install_inner(app: &AppHandle) -> Result<String, String> {
     let agent = agent();
     let manifest = fetch_manifest(&agent)?;
@@ -323,7 +373,10 @@ fn install_inner(app: &AppHandle) -> Result<String, String> {
     for (f, temp) in &staged {
         match f.name.as_str() {
             "drops.sqlite" => install_drops(&dir, temp)?,
-            "triggers.zip" => install_triggers(&dir, temp)?,
+            "triggers.zip" => {
+                install_triggers(&dir, temp)?;
+                write_version_file(&dir, TRIGGER_VERSION_FILE, &manifest.version)?;
+            }
             _ => {} // unreachable: validated in phase 1
         }
     }
@@ -367,4 +420,95 @@ pub async fn data_update_install(app: AppHandle) -> Result<String, String> {
 pub fn data_version(app: AppHandle) -> Result<Option<String>, String> {
     let dir = crate::data_root::resolve(&app).refdata_update_dir();
     Ok(installed_version(&dir))
+}
+
+/// Compare the independently installed trigger library against the rolling
+/// release. Existing aggregate-only installs intentionally report an update
+/// once so stale trigger overrides cannot mask newer bundled packs forever.
+#[tauri::command]
+pub async fn trigger_update_check(app: AppHandle) -> Result<DataUpdateInfo, String> {
+    tauri::async_runtime::spawn_blocking(move || trigger_check_inner(&app))
+        .await
+        .map_err(|e| format!("trigger update check task failed: {e}"))?
+}
+
+/// Download and atomically install only `triggers.zip`, then rebuild a live
+/// tailing engine so the new library takes effect without restarting.
+#[tauri::command]
+pub async fn trigger_update_install(
+    app: AppHandle,
+    state: tauri::State<'_, crate::commands::AppState>,
+) -> Result<String, String> {
+    let worker_app = app.clone();
+    let result = tauri::async_runtime::spawn_blocking(move || trigger_install_inner(&worker_app))
+        .await
+        .map_err(|e| format!("trigger update task failed: {e}"))?;
+    match result {
+        Ok(version) => {
+            crate::library::rebuild_if_tailing(&app, &state)?;
+            let _ = app.emit("trigger-library-updated", version.clone());
+            logging::info(&format!("trigger library updated: version {version}"));
+            Ok(version)
+        }
+        Err(e) => {
+            logging::warn(&format!("trigger library update failed: {e}"));
+            Err(e)
+        }
+    }
+}
+
+/// Independently installed trigger-library version, if any.
+#[tauri::command]
+pub fn trigger_version(app: AppHandle) -> Result<Option<String>, String> {
+    let dir = crate::data_root::resolve(&app).refdata_update_dir();
+    Ok(installed_version_file(&dir, TRIGGER_VERSION_FILE))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn test_dir(name: &str) -> PathBuf {
+        std::env::temp_dir().join(format!("eqlogs-datapack-{name}-{}", std::process::id()))
+    }
+
+    #[test]
+    fn trigger_version_is_independent_from_aggregate_data_version() {
+        let dir = test_dir("versions");
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+
+        write_version(&dir, "data-1").unwrap();
+        assert_eq!(installed_version(&dir).as_deref(), Some("data-1"));
+        assert_eq!(installed_version_file(&dir, TRIGGER_VERSION_FILE), None);
+
+        write_version_file(&dir, TRIGGER_VERSION_FILE, "triggers-2").unwrap();
+        assert_eq!(installed_version(&dir).as_deref(), Some("data-1"));
+        assert_eq!(
+            installed_version_file(&dir, TRIGGER_VERSION_FILE).as_deref(),
+            Some("triggers-2")
+        );
+        let _ = std::fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn trigger_manifest_entry_is_required_and_selected_by_name() {
+        let manifest = Manifest {
+            version: "2026-07-11".into(),
+            files: vec![
+                ManifestFile {
+                    name: "drops.sqlite".into(),
+                    sha256: "drops".into(),
+                    bytes: 10,
+                },
+                ManifestFile {
+                    name: "triggers.zip".into(),
+                    sha256: "triggers".into(),
+                    bytes: 20,
+                },
+            ],
+        };
+        assert_eq!(manifest_file(&manifest, "triggers.zip").unwrap().bytes, 20);
+        assert!(manifest_file(&manifest, "missing.zip").is_err());
+    }
 }
