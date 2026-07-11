@@ -635,6 +635,29 @@ export default function TriggersTab({
   useEffect(() => {
     if (!EDITOR_DEMO || demoSeeded.current || userTriggers.length === 0) return;
     demoSeeded.current = true;
+    if (EDITOR_DEMO === "controls") {
+      void openEditor({
+        index: null,
+        line: "You are out of mana.",
+        trigger: {
+          name: "Out of mana",
+          pattern: "out of mana",
+          enabled: true,
+          case_insensitive: true,
+          category: "Combat/Resources",
+          actions: [
+            {
+              Overlay: {
+                overlay: "alerts",
+                fields: { text: "out of mana", icon: "!" },
+                config: { severity: "warn" },
+              },
+            },
+          ],
+        },
+      });
+      return;
+    }
     if (EDITOR_DEMO === "overlay") {
       void openEditor({
         index: null,

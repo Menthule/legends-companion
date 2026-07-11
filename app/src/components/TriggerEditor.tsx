@@ -1236,6 +1236,7 @@ export default function TriggerEditor({
                   type="button"
                   key={o.value}
                   className={value === o.value ? "active" : ""}
+                  aria-pressed={value === o.value}
                   onClick={() => setParam(def.key, o.value)}
                 >
                   {o.label}
