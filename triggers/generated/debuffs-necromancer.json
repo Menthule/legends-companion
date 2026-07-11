@@ -66,7 +66,7 @@
           "StartTimer": {
             "name": "Beguile Undead",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 6,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -77,7 +77,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/boil-blood",
@@ -144,7 +144,7 @@
           "StartTimer": {
             "name": "Cajole Undead",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 9,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -155,7 +155,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/cancelling-of-life",
@@ -482,7 +482,7 @@
           "StartTimer": {
             "name": "Dominate Undead",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 5,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -493,7 +493,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/dooming-darkness",
@@ -612,7 +612,7 @@
           "StartTimer": {
             "name": "Enslave Death",
             "duration_secs": 30,
-            "warn_at_secs": null,
+            "warn_at_secs": 4,
             "cast_time_secs": 5,
             "duration_formula": 10,
             "duration_cap_ticks": 5,
@@ -623,7 +623,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m30s at level 50 (formula 10, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 10, cap 5 ticks); CC; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/envenomed-bolt",
@@ -690,7 +690,7 @@
           "StartTimer": {
             "name": "Fear",
             "duration_secs": 18,
-            "warn_at_secs": null,
+            "warn_at_secs": 2,
             "cast_time_secs": 4,
             "duration_formula": 7,
             "duration_cap_ticks": 3,
@@ -701,7 +701,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Necromancer level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/funeral-pyre-of-kelador",
@@ -1002,7 +1002,7 @@
           "StartTimer": {
             "name": "Invoke Fear",
             "duration_secs": 42,
-            "warn_at_secs": null,
+            "warn_at_secs": 6,
             "cast_time_secs": 3,
             "duration_formula": 2,
             "duration_cap_ticks": 7,
@@ -1013,7 +1013,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Necromancer level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/leech",
@@ -1080,7 +1080,7 @@
           "StartTimer": {
             "name": "Panic the Dead",
             "duration_secs": 54,
-            "warn_at_secs": null,
+            "warn_at_secs": 8,
             "cast_time_secs": 2,
             "duration_formula": 2,
             "duration_cap_ticks": 9,
@@ -1091,7 +1091,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Necromancer level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/paralyzing-earth",
@@ -1600,7 +1600,7 @@
           "StartTimer": {
             "name": "Thrall of Bones",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 6,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -1611,7 +1611,7 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/necromancer/cast/trepidation",
@@ -1810,8 +1810,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Auspice off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Auspice off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1835,8 +1841,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Beguile Undead off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Beguile Undead off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1860,8 +1872,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Bond of Death off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Bond of Death off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1885,8 +1903,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Cajole Undead off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Cajole Undead off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1910,8 +1934,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Cessation of Cor off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Cessation of Cor off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1935,8 +1965,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Cessation of Life off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Cessation of Life off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1960,8 +1996,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chill Bones off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chill Bones off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1985,8 +2027,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chilling Embrace off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chilling Embrace off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2010,8 +2058,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Crippling Claudication off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Crippling Claudication off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2035,8 +2089,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Dark Soul off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Dark Soul off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2060,8 +2120,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Degeneration off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Degeneration off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2085,8 +2151,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Devouring Darkness off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Devouring Darkness off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -2110,8 +2182,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Dominate Undead off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Dominate Undead off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -2135,8 +2213,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Eidolon Voice off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Eidolon Voice off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2160,8 +2244,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Enslave Death off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Enslave Death off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -2185,8 +2275,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Eternities Torment off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Eternities Torment off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2210,8 +2306,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Funeral Pyre of Kelador off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Funeral Pyre of Kelador off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2235,8 +2337,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Hungry Earth off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Hungry Earth off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2260,8 +2368,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ignite Blood off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ignite Blood off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2285,8 +2399,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ignite Bones off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ignite Bones off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2310,8 +2430,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Imprecation off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Imprecation off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2335,8 +2461,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Insidious Retrogression off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Insidious Retrogression off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2360,8 +2492,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Leech off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Leech off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2385,8 +2523,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Poison Bolt off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Poison Bolt off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2410,8 +2554,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Pyrocruor off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Pyrocruor off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2435,8 +2585,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Scent of Darkness off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Scent of Darkness off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2460,8 +2616,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Scent of Dusk off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Scent of Dusk off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2485,8 +2647,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Scent of Shadow off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Scent of Shadow off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2510,8 +2678,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Scent of Terris off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Scent of Terris off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2535,8 +2709,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Screaming Terror off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Screaming Terror off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2560,8 +2740,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Shackle of Bone off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Shackle of Bone off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2585,8 +2771,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Shackle of Spirit off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Shackle of Spirit off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2610,8 +2802,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Splurt off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Splurt off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2635,8 +2833,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Succussion of Shadows off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Succussion of Shadows off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2660,8 +2864,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Surge of Enfeeblement off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Surge of Enfeeblement off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2685,8 +2895,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Thrall of Bones off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Thrall of Bones off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -2710,8 +2926,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Unholy Voice off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Unholy Voice off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2735,8 +2957,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Vexing Mordinia off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Vexing Mordinia off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2760,8 +2988,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Zevfeer's Theft of Vitae off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Zevfeer's Theft of Vitae off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

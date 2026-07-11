@@ -34,7 +34,7 @@ extract_spells.py — run that first if the file is missing) and writes:
       buff packs — plus ONE wear-off companion per spell wired to the
       Legends "Your <Spell> spell has worn off of <target>." line:
       CancelTimer (drops the countdown early on mez break / mob death) and
-      a DisplayText re-announce. Cast-start lines carry no target, so v1
+      an Alerts-overlay re-announce with explicit severity. Cast-start lines carry no target, so v1
       keys enemy timers by spell name only (two mobs mezzed with the same
       spell share one bar; the first wear-off cancels it). ALL enemy timers
       default-ON: a bar only starts when YOU cast that exact spell, and
@@ -229,6 +229,17 @@ CC_SPELLS = {
     "Devouring Darkness",
 }
 
+# Keep the timer/wear-off taxonomy aligned with enemy-cast groups. Charm,
+# fear, and stun are CC too even though the original timer list only covered
+# mez/root/snare.
+CC_ENEMY_CAST_SLUGS = {"fear", "charm", "mesmerize", "root-snare", "stun"}
+CC_SPELLS |= {
+    spell
+    for slug, _leaf, spells in (*TIER1_GROUPS, *TIER2_GROUPS)
+    if slug in CC_ENEMY_CAST_SLUGS
+    for spell in spells
+}
+
 # Class-defining DoTs: cast timers default ON for these (class, spell) pairs
 # only — the bread-and-butter DoTs a player of that class re-applies every
 # fight. Everything else detrimental is generated but default OFF (spam
@@ -353,8 +364,17 @@ def speak(template):
     return {"Speak": {"template": template}}
 
 
-def display(template):
-    return {"DisplayText": {"template": template}}
+def alert(template, severity="info"):
+    """Alerts-overlay action with an explicit bundled presentation default."""
+    if severity not in {"info", "warn", "alarm"}:
+        raise ValueError(f"invalid alert severity: {severity}")
+    return {
+        "Overlay": {
+            "overlay": "alerts",
+            "fields": {"text": template},
+            "config": {"severity": severity},
+        }
+    }
 
 
 def start_timer(name, duration_secs, warn_at_secs,
@@ -394,7 +414,9 @@ def build_enemy_casts(all_names):
         if not present:
             raise SystemExit(f"enemy-cast group {slug} is empty")
         pat = rf"^(.+) begins casting ({alternation(present)}){RANK_SUFFIX}\.$"
-        act = speak("${1} casting ${2}") if tier1 else display("${1} casting ${2}")
+        severity = "warn" if slug in CC_ENEMY_CAST_SLUGS else "info"
+        act = speak("${1} casting ${2}") if tier1 else alert(
+            "${1} casting ${2}", severity)
         return trigger(
             f"enemy-casts/{slug}",
             f"Enemy cast: {leaf}",
@@ -428,7 +450,7 @@ def build_enemy_casts(all_names):
         "enemy-casts/any",
         "Enemy cast: anything",
         r"^(.+) begins casting (.+)\.$",
-        [display("${1} casting ${2}")],
+        [alert("${1} casting ${2}", "info")],
         "Enemy Casts/Other",
         default_enabled=False,
         comments="Catch-all for any named cast. Overlay only; enable for "
@@ -665,7 +687,7 @@ def build_debuff_packs(spells):
         worn_classes[name].add(cls)
 
     # Wear-off companions: ONE per spell, in the first class's file with the
-    # class union — CancelTimer (early break) + DisplayText re-announce.
+    # class union — CancelTimer (early break) + Alerts re-announce.
     # The Legends line names the target ("Your X spell has worn off of Y.");
     # the bare form (no target) also exists, so the target is optional.
     #
@@ -686,7 +708,13 @@ def build_debuff_packs(spells):
             tid,
             f"Enemy timer cleared: {name}",
             rf"^Your {spell_rx(name)} spell has worn off(?: of (.+))?\.$",
-            [cancel_timer(name), display(f"{name} off ${{1}}")],
+            [
+                cancel_timer(name),
+                alert(
+                    f"{name} off ${{1}}",
+                    "warn" if name in CC_SPELLS else "info",
+                ),
+            ],
             "Debuffs/Wear-off",
             classes=[CLASS_NAME[c] for c in union],
             default_enabled=True,

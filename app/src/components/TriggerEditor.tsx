@@ -135,7 +135,12 @@ export function rowsFromActions(actions: TriggerAction[]): RowState[] {
           ...overlayDefaults("alerts").fields,
           text: a.DisplayText.template,
         },
-        overlayConfig: overlayDefaults("alerts").config,
+        // DisplayText has no presentation metadata. Preserve Auto so legacy
+        // CC/danger triggers continue through the compatibility classifier.
+        overlayConfig: {
+          ...overlayDefaults("alerts").config,
+          severity: "auto",
+        },
       };
     }
     if ("PlaySound" in a) {

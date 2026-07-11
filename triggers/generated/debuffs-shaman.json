@@ -170,7 +170,7 @@
           "StartTimer": {
             "name": "Charm Animals",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 5,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -181,7 +181,7 @@
       "classes": [
         "Shaman"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Shaman level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/shaman/cast/cripple",
@@ -1082,8 +1082,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Affliction off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Affliction off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1107,8 +1113,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Anathema off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Anathema off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1132,8 +1144,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ancient: Scourge of Nife off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ancient: Scourge of Nife off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1157,8 +1175,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Bane of Nife off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Bane of Nife off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1182,8 +1206,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Cripple off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Cripple off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1208,8 +1238,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Curse off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Curse off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1233,8 +1269,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Disempower off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Disempower off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1259,8 +1301,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Drowsy off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Drowsy off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1285,8 +1333,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Envenomed Bolt off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Envenomed Bolt off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1311,8 +1365,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Envenomed Breath off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Envenomed Breath off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1337,8 +1397,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Incapacitate off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Incapacitate off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1364,8 +1430,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Infectious Cloud off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Infectious Cloud off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1390,8 +1462,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Insidious Decay off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Insidious Decay off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1415,8 +1493,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Insidious Fever off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Insidious Fever off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1440,8 +1524,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Insidious Malady off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Insidious Malady off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1465,8 +1555,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Listless Power off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Listless Power off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1492,8 +1588,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Malaise off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Malaise off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1518,8 +1620,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Malaisement off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Malaisement off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1544,8 +1652,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Malo off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Malo off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1569,8 +1683,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Malosi off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Malosi off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1595,8 +1715,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Malosini off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Malosini off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1621,8 +1747,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Odium off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Odium off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1646,8 +1778,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Plague off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Plague off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1672,8 +1810,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Plague of Insects off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Plague of Insects off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1697,8 +1841,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Pox of Bertoxxulous off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Pox of Bertoxxulous off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1722,8 +1872,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Scourge off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Scourge off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1748,8 +1904,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Sicken off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Sicken off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1774,8 +1936,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tagar's Insects off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tagar's Insects off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1799,8 +1967,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tainted Breath off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tainted Breath off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1825,8 +1999,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tigir's Insects off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tigir's Insects off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1850,8 +2030,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Togor's Insects off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Togor's Insects off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1875,8 +2061,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Turgur's Insects off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Turgur's Insects off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1900,8 +2092,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Venom of the Snake off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Venom of the Snake off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

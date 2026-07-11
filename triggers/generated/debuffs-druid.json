@@ -66,7 +66,7 @@
           "StartTimer": {
             "name": "Beguile Animals",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 6,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -77,7 +77,7 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 33. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Druid level 33. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/druid/cast/beguile-plants",
@@ -170,7 +170,7 @@
           "StartTimer": {
             "name": "Call of Karana",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 5,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -181,7 +181,7 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Druid level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/druid/cast/charm-animals",
@@ -196,7 +196,7 @@
           "StartTimer": {
             "name": "Charm Animals",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 5,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -207,7 +207,7 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Druid level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/druid/cast/creeping-crud",
@@ -924,7 +924,7 @@
           "StartTimer": {
             "name": "Terrorize Animal",
             "duration_secs": 54,
-            "warn_at_secs": null,
+            "warn_at_secs": 8,
             "cast_time_secs": 2,
             "duration_formula": 1,
             "duration_cap_ticks": 9,
@@ -935,7 +935,7 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); CC; the engine rescales to the profile's level; Druid level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/druid/cast/tunare-s-request",
@@ -1056,8 +1056,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Allure of the Wild off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Allure of the Wild off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1081,8 +1087,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Befriend Animal off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Befriend Animal off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1107,8 +1119,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Beguile Animals off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Beguile Animals off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1132,8 +1150,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Beguile Plants off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Beguile Plants off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1157,8 +1181,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Bonds of Tunare off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Bonds of Tunare off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1182,8 +1212,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Breath of Ro off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Breath of Ro off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1207,8 +1243,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Call of Karana off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Call of Karana off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1232,8 +1274,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Charm Animals off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Charm Animals off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1258,8 +1306,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Creeping Crud off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Creeping Crud off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1283,8 +1337,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Drifting Death off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Drifting Death off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1308,8 +1368,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Engorging Roots off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Engorging Roots off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1333,8 +1399,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Engulfing Roots off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Engulfing Roots off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1358,8 +1430,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Entrapping Roots off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Entrapping Roots off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1383,8 +1461,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fire off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fire off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1408,8 +1492,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fixation of Ro off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fixation of Ro off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1433,8 +1523,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Glamour of Tunare off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Glamour of Tunare off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1458,8 +1554,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ice off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ice off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1483,8 +1585,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Instinctual Fear off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Instinctual Fear off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1508,8 +1616,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Repulse Animal off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Repulse Animal off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1533,8 +1647,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ro's Fiery Sundering off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ro's Fiery Sundering off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1558,8 +1678,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ro's Smoldering Disjunction off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ro's Smoldering Disjunction off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1583,8 +1709,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Share Wolf Form off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Share Wolf Form off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1608,8 +1740,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Sunbeam off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Sunbeam off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1633,8 +1771,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Terrorize Animal off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Terrorize Animal off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1658,8 +1802,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tunare's Request off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tunare's Request off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1683,8 +1833,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Vengeance of Nature off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Vengeance of Nature off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1708,8 +1864,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Vengeance of the Wild off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Vengeance of the Wild off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1733,8 +1895,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Winged Death off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Winged Death off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

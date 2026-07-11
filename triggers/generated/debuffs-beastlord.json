@@ -327,8 +327,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Malaria off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Malaria off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -352,8 +358,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Sha's Advantage off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Sha's Advantage off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -377,8 +389,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Sha's Lethargy off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Sha's Lethargy off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

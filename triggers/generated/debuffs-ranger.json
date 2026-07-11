@@ -380,8 +380,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Drones of Doom off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Drones of Doom off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -406,8 +412,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ensnare off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ensnare off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -432,8 +444,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ensnaring Roots off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ensnaring Roots off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -458,8 +476,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Enveloping Roots off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Enveloping Roots off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -484,8 +508,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fire Swarm off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fire Swarm off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -509,8 +539,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Flame Lick off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Flame Lick off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -535,8 +571,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Grasping Roots off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Grasping Roots off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -561,8 +603,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Immolate off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Immolate off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -587,8 +635,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Panic Animal off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Panic Animal off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -613,8 +667,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Snare off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Snare off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -639,8 +699,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Stinging Swarm off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Stinging Swarm off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -665,8 +731,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Swarm of Pain off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Swarm of Pain off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -690,8 +762,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tangle off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tangle off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -716,8 +794,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tangling Weeds off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tangling Weeds off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],

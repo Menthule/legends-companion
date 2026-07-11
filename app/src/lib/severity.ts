@@ -1,33 +1,42 @@
-// Alert severity classification (APP_REVIEW X6): a Death Touch must not render
-// like a tell. Maps a fired trigger's identity (id slug + display name) to one
-// of three tiers so the overlay and live feed can weight it visually.
+// Alert severity fallback for legacy/imported actions that do not carry an
+// explicit Alerts-overlay severity. New bundled alerts encode presentation in
+// their action config; this policy keeps older triggers predictable.
 //
 // The id embeds the trigger's category slug, e.g.
-//   "enemy-casts/..."            (dangerous enemy cast)
 //   "universal/survival/you-died"
 //   "class/enchanter/cc/..."     (crowd control)
-// so most classification is a slug substring test, with a name-regex fallback
-// for danger casts whose id is generic.
+// so classification is primarily a stable-id/category test, with a narrow
+// name fallback for imported triggers.
 
 export type Severity = "info" | "warn" | "alarm";
 
-/** Slug fragments that mark a top-tier danger regardless of class. */
+/** Explicit survival states and failed escape mechanics that demand action. */
 const ALARM_ID_FRAGMENTS = [
-  "enemy-casts",
-  "death",
-  "summoned",
-  "enraged",
-  "you-died",
+  "universal/survival/summoned",
+  "universal/survival/enraged",
+  "universal/survival/you-died",
+  "universal/survival/slain-by",
+  "class/monk/fd/",
+  "class/necromancer/fd/",
 ];
 
-/** Names that read as lethal even when the id is generic/custom. */
-const ALARM_NAME = /death|gate|complete heal|harm touch/i;
+/** Imported failed-Feign alerts may not have a stable curated id. */
+const ALARM_NAME = /(?:feign death|\bfd\b).*(?:fail|broke|broken|ended|over)/i;
 
-/** Slug fragments for "act soon, not lethal" alerts. */
-const WARN_ID_FRAGMENTS = ["/cc/", "crowd-control", "defense", "wear-off"];
+/** Crowd-control application, break, and expiry are always the warn tier. */
+const WARN_ID_FRAGMENTS = [
+  "/cc/",
+  "crowd-control",
+  "universal/survival/stunned",
+  "enemy-casts/fear",
+  "enemy-casts/charm",
+  "enemy-casts/mesmerize",
+  "enemy-casts/root-snare",
+  "enemy-casts/stun",
+];
 
-/** Names for wear-off warnings (re-mez / re-buff prompts). */
-const WARN_NAME = /worn off/i;
+/** Semantic fallback for GINA/shared triggers without curated ids. */
+const WARN_NAME = /\b(?:mez|mezzed|mesmeriz(?:e|ed|ation)|charm(?:ed)?|root(?:ed)?|snar(?:e|ed)|stun(?:ned)?|fear(?:ed)?|slow(?:ed)?|walking sleep)\b/i;
 
 /**
  * Classify a fired trigger. `id`/`name` may be null when the engine doesn't
@@ -40,11 +49,13 @@ export function classifySeverity(
   const i = (id ?? "").toLowerCase();
   const n = name ?? "";
 
-  if (ALARM_ID_FRAGMENTS.some((f) => i.includes(f)) || ALARM_NAME.test(n)) {
-    return "alarm";
-  }
+  // CC wins over generic danger wording: a charm/mez/root event should have
+  // one consistent visual tier whether it lands, breaks, or wears off.
   if (WARN_ID_FRAGMENTS.some((f) => i.includes(f)) || WARN_NAME.test(n)) {
     return "warn";
+  }
+  if (ALARM_ID_FRAGMENTS.some((f) => i.includes(f)) || ALARM_NAME.test(n)) {
+    return "alarm";
   }
   return "info";
 }

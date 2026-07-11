@@ -252,7 +252,7 @@ function simpleTrigger(intent: TriggerIntent, line: string): Trigger | null {
             Overlay: {
               overlay: "alerts",
               fields: { text: label },
-              config: { severity: "auto" },
+              config: { severity: "info" },
             },
           },
         ],
@@ -265,7 +265,7 @@ function simpleTrigger(intent: TriggerIntent, line: string): Trigger | null {
             Overlay: {
               overlay: "alerts",
               fields: { text: label },
-              config: { severity: "auto" },
+              config: { severity: "info" },
             },
           },
           { PlaySound: { path: "" } },
@@ -293,7 +293,7 @@ function simpleTrigger(intent: TriggerIntent, line: string): Trigger | null {
             Overlay: {
               overlay: "alerts",
               fields: { text: `Effect: ${label}` },
-              config: { severity: "success" },
+              config: { severity: "info" },
             },
           },
         ],

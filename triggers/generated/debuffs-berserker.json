@@ -91,8 +91,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Leg Cut off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Leg Cut off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -116,8 +122,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Leg Slice off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Leg Slice off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -141,8 +153,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Leg Strike off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Leg Strike off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

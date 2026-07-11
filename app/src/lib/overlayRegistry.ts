@@ -98,7 +98,7 @@ const DEFINITIONS: readonly OverlayDefinition[] = [
         label: "Loudness",
         type: "select",
         options: SEVERITY_OPTIONS,
-        default: "auto",
+        default: "info",
       },
       {
         key: "color",

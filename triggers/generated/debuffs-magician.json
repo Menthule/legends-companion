@@ -198,8 +198,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Elemental Maelstrom off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Elemental Maelstrom off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -223,8 +229,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Mala off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Mala off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -248,8 +260,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Wrath of the Elements off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Wrath of the Elements off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

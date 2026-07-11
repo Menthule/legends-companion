@@ -198,8 +198,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Atol's Spectral Shackles off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Atol's Spectral Shackles off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -223,8 +229,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Bonds of Force off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Bonds of Force off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -248,8 +260,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Elnerick's Entombment of Ice off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Elnerick's Entombment of Ice off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -273,8 +291,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fetter off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fetter off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],

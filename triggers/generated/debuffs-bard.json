@@ -894,8 +894,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ancient: Lullaby of Shadow off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ancient: Lullaby of Shadow off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -919,8 +925,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Angstlich's Appalling Screech off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Angstlich's Appalling Screech off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -944,8 +956,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Angstlich's Assonance off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Angstlich's Assonance off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -969,8 +987,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Cassindra's Insipid Ditty off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Cassindra's Insipid Ditty off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -994,8 +1018,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chant of Chaos off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chant of Chaos off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1019,8 +1049,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chant of Flame off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chant of Flame off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1044,8 +1080,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chant of Frost off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chant of Frost off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1069,8 +1111,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chant of Magic off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chant of Magic off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1094,8 +1142,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chant of Plague off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chant of Plague off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1119,8 +1173,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chant of Venom off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chant of Venom off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1144,8 +1204,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chords of Dissonance off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chords of Dissonance off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1169,8 +1235,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Crission's Pixie Strike off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Crission's Pixie Strike off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1194,8 +1266,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Denon's Bereavement off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Denon's Bereavement off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1219,8 +1297,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Denon's Disruptive Discord off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Denon's Disruptive Discord off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1244,8 +1328,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Dreams of Ayonae off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Dreams of Ayonae off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1269,8 +1359,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fufil's Curtailing Chant off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fufil's Curtailing Chant off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1294,8 +1390,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fufil's Diminishing Dirge off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fufil's Diminishing Dirge off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1319,8 +1421,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Jaxan's Jig o` Vigor off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Jaxan's Jig o` Vigor off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1344,8 +1452,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Kelin's Lucid Lullaby off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Kelin's Lucid Lullaby off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1369,8 +1483,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Largo's Assonant Binding off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Largo's Assonant Binding off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1394,8 +1514,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Largo's Melodic Binding off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Largo's Melodic Binding off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1419,8 +1545,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Occlusion of Sound off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Occlusion of Sound off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1444,8 +1576,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Selo's Assonant Strain off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Selo's Assonant Strain off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1469,8 +1607,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Selo's Chords of Cessation off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Selo's Chords of Cessation off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1494,8 +1638,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Selo's Consonant Chain off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Selo's Consonant Chain off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1519,8 +1669,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Sionachie's Dreams off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Sionachie's Dreams off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1544,8 +1700,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Solon's Bewitching Bravura off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Solon's Bewitching Bravura off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1569,8 +1731,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Solon's Song of the Sirens off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Solon's Song of the Sirens off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1594,8 +1762,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Song of Midnight off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Song of Midnight off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1619,8 +1793,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Song of Twilight off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Song of Twilight off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1644,8 +1824,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tuyen's Chant of Disease off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tuyen's Chant of Disease off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1669,8 +1855,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tuyen's Chant of Flame off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tuyen's Chant of Flame off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1694,8 +1886,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tuyen's Chant of Frost off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tuyen's Chant of Frost off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1719,8 +1917,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tuyen's Chant of Poison off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tuyen's Chant of Poison off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],

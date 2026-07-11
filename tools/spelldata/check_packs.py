@@ -44,12 +44,12 @@ LOOKAROUND = ("(?=", "(?!", "(?<")
 
 # Pinned curated pack sizes (update when curating new triggers).
 EXPECTED_CURATED = {
-    "universal.json": 27, "warrior.json": 2, "cleric.json": 2,
+    "universal.json": 48, "warrior.json": 2, "cleric.json": 2,
     "paladin.json": 2, "ranger.json": 2, "shadowknight.json": 2,
     "druid.json": 2, "monk.json": 5, "bard.json": 1, "rogue.json": 4,
-    "shaman.json": 3, "necromancer.json": 1, "wizard.json": 1,
+    "shaman.json": 3, "necromancer.json": 2, "wizard.json": 1,
     "magician.json": 1, "enchanter.json": 12, "beastlord.json": 1,
-    "berserker.json": 1,
+    "berserker.json": 1, "impact.json": 3, "skills.json": 13,
 }
 
 # Patterns that must match at least one line of the real Legends log
@@ -80,6 +80,7 @@ def fail(msg):
 
 
 VALID_LANES = {"buff", "enemy", "other"}
+VALID_SEVERITIES = {"info", "warn", "alarm"}
 
 
 def check_action(where, action):
@@ -90,6 +91,17 @@ def check_action(where, action):
     if kind in ("Speak", "DisplayText"):
         if set(body) != {"template"} or not isinstance(body["template"], str):
             fail(f"{where}: bad {kind} body {body!r}")
+    elif kind == "Overlay":
+        if set(body) - {"overlay", "fields", "config"} or \
+                not isinstance(body.get("overlay"), str) or \
+                not isinstance(body.get("fields"), dict) or \
+                not isinstance(body.get("config", {}), dict):
+            fail(f"{where}: bad Overlay body {body!r}")
+            return
+        if body["overlay"] == "alerts":
+            severity = body.get("config", {}).get("severity")
+            if severity not in VALID_SEVERITIES:
+                fail(f"{where}: Alerts Overlay needs severity info/warn/alarm")
     elif kind == "PlaySound":
         if set(body) != {"path"} or not isinstance(body["path"], str):
             fail(f"{where}: bad PlaySound body {body!r}")
@@ -101,7 +113,9 @@ def check_action(where, action):
         if not {"name", "duration_secs"} <= set(body) or \
                 set(body) - {"name", "duration_secs", "warn_at_secs",
                              "duration_formula", "duration_cap_ticks",
-                             "lane"}:
+                             "lane", "cast_time_secs", "mode", "repeat_secs",
+                             "stopwatch", "warn_text", "expire_text",
+                             "warn_sound", "expire_sound"}:
             fail(f"{where}: bad StartTimer keys {sorted(body)}")
             return
         lane = body.get("lane")
@@ -153,8 +167,8 @@ def main():
         glob.glob(os.path.join(TRIGGERS, "curated", "*.json"))
         + glob.glob(os.path.join(TRIGGERS, "generated", "*.json"))
     )
-    if len(pack_files) != 17 + 33:
-        fail(f"expected 50 pack files (17 curated + 33 generated: enemy-casts"
+    if len(pack_files) != 19 + 33:
+        fail(f"expected 52 pack files (19 curated + 33 generated: enemy-casts"
              f" + 16 buffs + 16 debuffs), found {len(pack_files)}")
 
     all_ids = {}

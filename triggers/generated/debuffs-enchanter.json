@@ -14,7 +14,7 @@
           "StartTimer": {
             "name": "Allure",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 6,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -25,7 +25,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/ancient-eternal-rapture",
@@ -92,7 +92,7 @@
           "StartTimer": {
             "name": "Beguile",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 4,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -103,7 +103,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/boltran-s-agacerie",
@@ -118,7 +118,7 @@
           "StartTimer": {
             "name": "Boltran's Agacerie",
             "duration_secs": 360,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 4,
             "duration_formula": 8,
             "duration_cap_ticks": 75,
@@ -129,7 +129,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); CC; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/cajoling-whispers",
@@ -144,7 +144,7 @@
           "StartTimer": {
             "name": "Cajoling Whispers",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 6,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -155,7 +155,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/charm",
@@ -170,7 +170,7 @@
           "StartTimer": {
             "name": "Charm",
             "duration_secs": 1230,
-            "warn_at_secs": null,
+            "warn_at_secs": 10,
             "cast_time_secs": 3,
             "duration_formula": 10,
             "duration_cap_ticks": 205,
@@ -181,7 +181,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/chase-the-moon",
@@ -196,7 +196,7 @@
           "StartTimer": {
             "name": "Chase the Moon",
             "duration_secs": 36,
-            "warn_at_secs": null,
+            "warn_at_secs": 5,
             "cast_time_secs": 4,
             "duration_formula": 2,
             "duration_cap_ticks": 6,
@@ -207,7 +207,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/choke",
@@ -326,7 +326,7 @@
           "StartTimer": {
             "name": "Dictate",
             "duration_secs": 48,
-            "warn_at_secs": null,
+            "warn_at_secs": 7,
             "cast_time_secs": 5,
             "duration_formula": 10,
             "duration_cap_ticks": 8,
@@ -337,7 +337,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); CC; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/disempower",
@@ -508,7 +508,7 @@
           "StartTimer": {
             "name": "Fear",
             "duration_secs": 18,
-            "warn_at_secs": null,
+            "warn_at_secs": 2,
             "cast_time_secs": 4,
             "duration_formula": 7,
             "duration_cap_ticks": 3,
@@ -519,7 +519,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Enchanter level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/feckless-might",
@@ -768,7 +768,7 @@
           "StartTimer": {
             "name": "Invoke Fear",
             "duration_secs": 42,
-            "warn_at_secs": null,
+            "warn_at_secs": 6,
             "cast_time_secs": 3,
             "duration_formula": 2,
             "duration_cap_ticks": 7,
@@ -779,7 +779,7 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
     },
     {
       "id": "debuffs/enchanter/cast/languid-pace",
@@ -1420,8 +1420,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Allure off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Allure off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1445,8 +1451,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ancient: Eternal Rapture off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ancient: Eternal Rapture off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1470,8 +1482,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Asphyxiate off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Asphyxiate off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1495,8 +1513,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Beguile off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Beguile off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1520,8 +1544,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Boltran's Agacerie off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Boltran's Agacerie off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1545,8 +1575,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Cajoling Whispers off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Cajoling Whispers off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1570,8 +1606,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Charm off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Charm off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1595,8 +1637,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Chase the Moon off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Chase the Moon off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1620,8 +1668,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Choke off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Choke off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1645,8 +1699,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Curse of the Simple Mind off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Curse of the Simple Mind off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1670,8 +1730,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Dazzle off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Dazzle off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1695,8 +1761,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Dictate off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Dictate off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1720,8 +1792,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Dyn's Dizzying Draught off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Dyn's Dizzying Draught off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1745,8 +1823,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ebbing Strength off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ebbing Strength off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1770,8 +1854,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Enfeeblement off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Enfeeblement off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1795,8 +1885,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Eye of Confusion off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Eye of Confusion off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1820,8 +1916,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Fascination off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Fascination off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1845,8 +1947,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Feckless Might off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Feckless Might off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1870,8 +1978,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Forlorn Deeds off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Forlorn Deeds off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1895,8 +2009,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Gasping Embrace off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Gasping Embrace off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1920,8 +2040,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Glamour of Kintaz off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Glamour of Kintaz off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -1945,8 +2071,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Insipid Weakness off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Insipid Weakness off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1970,8 +2102,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Languid Pace off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Languid Pace off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -1996,8 +2134,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Mesmerization off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Mesmerization off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -2021,8 +2165,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Ordinance off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Ordinance off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2046,8 +2196,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Phobia off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Phobia off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2071,8 +2227,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Rapture off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Rapture off ${1}"
+            },
+            "config": {
+              "severity": "warn"
+            }
           }
         }
       ],
@@ -2096,8 +2258,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Scryer's Trespass off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Scryer's Trespass off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2121,8 +2289,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Shallow Breath off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Shallow Breath off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2146,8 +2320,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Shiftless Deeds off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Shiftless Deeds off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2171,8 +2351,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Suffocate off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Suffocate off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2196,8 +2382,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Suffocating Sphere off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Suffocating Sphere off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2221,8 +2413,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tashani off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tashani off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2246,8 +2444,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tashania off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tashania off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2271,8 +2475,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tashanian off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tashanian off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2296,8 +2506,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tashina off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tashina off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2321,8 +2537,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Tepid Deeds off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Tepid Deeds off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2346,8 +2568,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Torment of Argli off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Torment of Argli off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2371,8 +2599,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Wandering Mind off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Wandering Mind off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2396,8 +2630,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Weaken off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Weaken off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2421,8 +2661,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Weakness off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Weakness off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2446,8 +2692,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Wind of Tashani off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Wind of Tashani off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
@@ -2471,8 +2723,14 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Wind of Tashanian off ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Wind of Tashanian off ${1}"
+            },
+            "config": {
+              "severity": "info"
+            }
           }
         }
       ],
