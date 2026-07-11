@@ -9,6 +9,12 @@ use eqlog_triggers::{
     TimerStartMode, Trigger, TriggerEngine, TriggerFireInfo,
 };
 
+type RecordedOverlay = (
+    String,
+    std::collections::BTreeMap<String, String>,
+    std::collections::BTreeMap<String, serde_json::Value>,
+);
+
 /// Records every sink call for assertions.
 #[derive(Default)]
 struct RecordingSink {
@@ -18,11 +24,7 @@ struct RecordingSink {
     timers: Vec<(String, u64, Option<u64>, TimerLane)>,
     cancels: Vec<String>,
     webhooks: Vec<(Option<String>, String)>,
-    overlays: Vec<(
-        String,
-        std::collections::BTreeMap<String, String>,
-        std::collections::BTreeMap<String, serde_json::Value>,
-    )>,
+    overlays: Vec<RecordedOverlay>,
     current_trigger: Option<String>,
     attributed_calls: Vec<(String, Option<String>)>,
 }
