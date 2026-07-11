@@ -5,3 +5,8 @@ dist/
 dist-data/
 app/src-tauri/target
 __pycache__/
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
