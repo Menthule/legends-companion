@@ -389,7 +389,15 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
     const s = `${id} ${cat ?? ""}`.toLowerCase();
     const timer = /timer|\/cast\/|debuff/.test(s);
     const speaks = /resist|wear-off|tell|survival|died|ending|enrage/.test(s);
-    return { speaks, shows: !timer, sound: false, timer, webhook: false };
+    return {
+      speaks,
+      shows: !timer,
+      sound: false,
+      timer,
+      webhook: false,
+      impact: false,
+      overlays: timer ? [] : ["alerts"],
+    };
   };
   // Resolve per-trigger channel overrides on top of the base channels, so the
   // chips reflect the effective TTS/alert state (matches the Rust tree).
@@ -400,6 +408,8 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
     sound: boolean;
     timer: boolean;
     webhook: boolean;
+    impact: boolean;
+    overlays: string[];
   };
   const applyOv = (id: string, ch: Ch): Ch => {
     const ov = chOv[id];
@@ -410,6 +420,12 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
       sound: ch.sound,
       timer: ch.timer,
       webhook: ch.webhook,
+      impact: ch.impact,
+      overlays: ov.alert === false
+        ? ch.overlays.filter((overlay) => overlay !== "alerts")
+        : ov.alert === true && !ch.overlays.includes("alerts")
+          ? [...ch.overlays, "alerts"]
+          : ch.overlays,
     };
   };
   const packs: TriggerTreeEntry[] = MOCK_PACK_TRIGGERS.map((p) => ({
@@ -448,10 +464,27 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
       pattern: t.pattern,
       ...applyOv(id, {
         speaks: t.actions.some((a) => "Speak" in a),
-        shows: t.actions.some((a) => "DisplayText" in a),
+        shows: t.actions.some(
+          (a) =>
+            "DisplayText" in a ||
+            ("Overlay" in a && a.Overlay.overlay === "alerts"),
+        ),
         sound: t.actions.some((a) => "PlaySound" in a),
         timer: t.actions.some((a) => "StartTimer" in a || "CancelTimer" in a),
         webhook: t.actions.some((a) => "PostWebhook" in a),
+        impact: t.actions.some(
+          (a) => "Impact" in a || ("Overlay" in a && a.Overlay.overlay === "impact"),
+        ),
+        overlays: Array.from(
+          new Set(
+            t.actions.flatMap((a) => {
+              if ("Overlay" in a) return [a.Overlay.overlay];
+              if ("DisplayText" in a) return ["alerts"];
+              if ("Impact" in a) return ["impact"];
+              return [];
+            }),
+          ),
+        ),
       }),
       userIndex: i,
     };

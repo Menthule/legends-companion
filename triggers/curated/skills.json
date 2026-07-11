@@ -1,0 +1,226 @@
+{
+  "name": "Curated melee-skill triggers",
+  "triggers": [
+    {
+      "id": "skills/melee/kick",
+      "name": "Kick",
+      "pattern": "^You kick .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Verified in Legends log: 'You kick Asaka L`Rei for 22 points of damage.' + crit form '... (Critical)'. Default ON per user request — note this is high-frequency (fires every combat round, 1208x in the audit fixture); toggle off in the UI if it's too spammy. Replaces the old built-in Skill:Kick alert (skillSpellForVerb).",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Kick ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/bash",
+      "name": "Bash",
+      "pattern": "^You bash .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": false,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Shield bash (warrior/paladin/SK/cleric). Default OFF — frequent auto-attack-tier skill. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Bash ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/slam",
+      "name": "Slam",
+      "pattern": "^You slam .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": false,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Racial slam (ogre/etc.). Default OFF — frequent. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Slam ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/backstab",
+      "name": "Backstab",
+      "pattern": "^You backstab .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Rogue backstab — notable discipline hit, low frequency. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Backstab ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/eagle-strike",
+      "name": "Eagle Strike",
+      "pattern": "^You eagle strike .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Monk special. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Eagle Strike ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/tiger-claw",
+      "name": "Tiger Claw",
+      "pattern": "^You tiger claw .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Monk special. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Tiger Claw ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/dragon-punch",
+      "name": "Dragon Punch",
+      "pattern": "^You dragon punch .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Monk special (a.k.a. Tail Rake for iksar). Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Dragon Punch ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/tail-rake",
+      "name": "Tail Rake",
+      "pattern": "^You tail rake .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Iksar-monk variant of Dragon Punch. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Tail Rake ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/flying-kick",
+      "name": "Flying Kick",
+      "pattern": "^You flying kick .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Monk high-tier kick. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Flying Kick ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/round-kick",
+      "name": "Round Kick",
+      "pattern": "^You round kick .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Monk mid-tier kick. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Round Kick ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/frenzy",
+      "name": "Frenzy",
+      "pattern": "^You frenzy on .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Berserker Frenzy. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map ('frenzy on').",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Frenzy ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/smite",
+      "name": "Smite",
+      "pattern": "^You smite .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Smite ${1}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills/melee/reave",
+      "name": "Reave",
+      "pattern": "^You reave .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Skills/Melee",
+      "comments": "Verified in Legends log: 'You reave a Teir`Dal ranger for 135 points of damage.' Default ON — preserves the prior built-in Skill:Reave behavior; toggle off in the UI per taste. Replaces the old hardcoded Skill:Reave alert in FightsTab.tsx.",
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "Reave ${1}"
+          }
+        }
+      ]
+    }
+  ]
+}

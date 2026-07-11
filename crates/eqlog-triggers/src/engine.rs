@@ -17,6 +17,13 @@ use eqlog_core::events::{Entity, Event, ParsedLine};
 
 /// Host-implemented sink that performs actions (TTS, sound, overlay text).
 pub trait ActionSink {
+    /// Enter/leave a user-authored trigger's action scope. Hosts can use this
+    /// to attach identity directly to each sink call. Engine housekeeping
+    /// happens outside a scope and is therefore explicitly unattributed.
+    fn begin_trigger(&mut self, trigger: &TriggerFireInfo) {
+        let _ = trigger;
+    }
+    fn end_trigger(&mut self) {}
     fn speak(&mut self, text: &str);
     fn play_sound(&mut self, path: &str);
     fn display_text(&mut self, text: &str);
@@ -48,6 +55,37 @@ pub trait ActionSink {
     fn post_webhook(&mut self, name: Option<&str>, text: &str) {
         let _ = (name, text);
     }
+    /// An `Impact` action fired: show a big animated moment on the Impact
+    /// overlay. All text fields are already template-expanded. Default no-op so
+    /// sinks without an Impact overlay (CLI, tests) ignore it.
+    fn impact(&mut self, spec: ImpactFire<'_>) {
+        let _ = spec;
+    }
+    /// A generic overlay action fired. All fields are template-expanded;
+    /// configuration is opaque to the engine and interpreted by the overlay.
+    fn overlay(&mut self, spec: OverlayFire<'_>) {
+        let _ = spec;
+    }
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct OverlayFire<'a> {
+    pub overlay: &'a str,
+    pub fields: BTreeMap<String, String>,
+    pub config: &'a BTreeMap<String, serde_json::Value>,
+}
+
+/// A fired `Impact` action, fully expanded and ready for the Impact overlay.
+/// Borrowed `style`/`glyph`/`color` come straight from the trigger; the text
+/// lines are owned because they were template-expanded from the match.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ImpactFire<'a> {
+    pub style: &'a str,
+    pub headline: Option<String>,
+    pub big: Option<String>,
+    pub sub: Option<String>,
+    pub glyph: Option<&'a str>,
+    pub color: Option<&'a str>,
 }
 
 /// Why a timer fired.
@@ -394,12 +432,10 @@ where
 }
 
 /// Layer a [`ChannelOverride`] onto a trigger's actions in place: force the
-/// Speak (TTS) and/or DisplayText (alert) channels on or off. `None` for a
-/// channel leaves that channel exactly as the trigger defines it. Enabling a
-/// missing channel synthesizes a default template (the trigger name, lower-
-/// cased for speech); disabling removes every action of that kind. This is how
-/// the Triggers-tab TTS/Alert chips reconfigure even read-only bundled
-/// triggers without editing the pack file.
+/// Speak (TTS) and/or Alerts-overlay channels on or off. Legacy DisplayText
+/// actions count as Alerts actions. `None` leaves that channel unchanged.
+/// Enabling a missing channel synthesizes a generic Alerts overlay; disabling
+/// removes both generic and legacy Alerts actions.
 pub fn apply_channel_override(t: &mut Trigger, ov: &ChannelOverride) {
     if let Some(speak) = ov.speak {
         let has = t.actions.iter().any(|a| matches!(a, Action::Speak { .. }));
@@ -412,17 +448,19 @@ pub fn apply_channel_override(t: &mut Trigger, ov: &ChannelOverride) {
         }
     }
     if let Some(alert) = ov.alert {
-        let has = t
-            .actions
-            .iter()
-            .any(|a| matches!(a, Action::DisplayText { .. }));
+        let is_alert = |a: &Action| {
+            matches!(a, Action::DisplayText { .. })
+                || matches!(a, Action::Overlay { overlay, .. } if overlay == "alerts")
+        };
+        let has = t.actions.iter().any(is_alert);
         if alert && !has {
-            t.actions.push(Action::DisplayText {
-                template: t.name.clone(),
+            t.actions.push(Action::Overlay {
+                overlay: "alerts".into(),
+                fields: BTreeMap::from([("text".into(), t.name.clone())]),
+                config: BTreeMap::new(),
             });
         } else if !alert && has {
-            t.actions
-                .retain(|a| !matches!(a, Action::DisplayText { .. }));
+            t.actions.retain(|a| !is_alert(a));
         }
     }
 }
@@ -1132,11 +1170,13 @@ impl TriggerEngine {
             }
             self.last_fired[idx] = Some(ts);
             fired_keys.insert(ct.dedupe_key);
-            fired.push(TriggerFireInfo {
+            let fire = TriggerFireInfo {
                 id: ct.trigger.effective_id(),
                 name: ct.trigger.name.clone(),
                 category: ct.trigger.category.clone(),
-            });
+            };
+            fired.push(fire.clone());
+            sink.begin_trigger(&fire);
             for action in &ct.trigger.actions {
                 match action {
                     Action::Speak { template } => {
@@ -1145,6 +1185,26 @@ impl TriggerEngine {
                     Action::PlaySound { path } => sink.play_sound(path),
                     Action::DisplayText { template } => {
                         sink.display_text(&expand_template(template, &caps, &self.character, ts));
+                    }
+                    Action::Overlay {
+                        overlay,
+                        fields,
+                        config,
+                    } => {
+                        let fields = fields
+                            .iter()
+                            .map(|(key, value)| {
+                                (
+                                    key.clone(),
+                                    expand_template(value, &caps, &self.character, ts),
+                                )
+                            })
+                            .collect();
+                        sink.overlay(OverlayFire {
+                            overlay,
+                            fields,
+                            config,
+                        });
                     }
                     Action::StartTimer {
                         name,
@@ -1229,8 +1289,30 @@ impl TriggerEngine {
                             &expand_template(template, &caps, &self.character, ts),
                         );
                     }
+                    Action::Impact {
+                        style,
+                        headline,
+                        big,
+                        sub,
+                        glyph,
+                        color,
+                    } => {
+                        let exp = |t: &Option<String>| {
+                            t.as_deref()
+                                .map(|s| expand_template(s, &caps, &self.character, ts))
+                        };
+                        sink.impact(ImpactFire {
+                            style,
+                            headline: exp(headline),
+                            big: exp(big),
+                            sub: exp(sub),
+                            glyph: glyph.as_deref(),
+                            color: color.as_deref(),
+                        });
+                    }
                 }
             }
+            sink.end_trigger();
         }
         for timer in new_timers {
             // Re-match restarts the same-named timer unless StartTimer opted

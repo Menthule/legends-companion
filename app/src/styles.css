@@ -2230,6 +2230,303 @@ button.coach-row.active {
   }
 }
 
+/* finishing-blow flash: one big killing-blow number + who got the kill. The
+   pill self-centers in the overlay window; the pop animation restarts on each
+   new kill (React keys it by id). */
+/* Finishing blow — the "Cleave" strike: no box. A blade sweeps across the big
+   number and shears it in two along the cut, then the halves snap back. */
+.ov-impact {
+  /* Accent for headline/number/medal; a trigger's Impact action `color`
+     overrides this per-moment (set inline as --impact-accent). */
+  --impact-accent: #f2c14e;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  color: #fff;
+  animation: finisher-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+.ov-impact.leaving {
+  opacity: 0;
+  transition: opacity 0.45s ease-out;
+}
+
+/* The whole number and its two clipped halves stack in one grid cell so they
+   register exactly; only the halves move on the cut. */
+.ov-impact .ovf-strike {
+  display: grid;
+  position: relative;
+}
+.ov-impact .ovf-strike > * {
+  grid-area: 1 / 1;
+  place-self: center;
+}
+.ov-impact .ovf-num {
+  font: 900 62px/0.9 "Arial Black", "Helvetica Neue", system-ui, sans-serif;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: var(--impact-accent);
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
+}
+.ov-impact .ovf-num.whole {
+  animation: cleave-whole 0.55s ease-out both;
+}
+.ov-impact .ovf-num.top {
+  opacity: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 42%, 0 60%);
+  animation: cleave-top 0.7s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+.ov-impact .ovf-num.bottom {
+  opacity: 0;
+  clip-path: polygon(0 61%, 100% 43%, 100% 100%, 0 100%);
+  animation: cleave-bot 0.7s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+.ov-impact .ovf-blade {
+  width: 155%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff 22%, #fff 78%, transparent);
+  box-shadow: 0 0 14px 3px rgba(255, 255, 255, 0.85);
+  transform: rotate(-24deg) scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  pointer-events: none;
+  animation: cleave-blade 0.45s ease-out both;
+}
+.ov-impact .ovf-kicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  opacity: 0;
+  animation: finisher-in 0.4s ease-out 0.16s both;
+}
+.ov-impact .ovf-killer {
+  font-size: 16px;
+  font-weight: 800;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+}
+.ov-impact .ovf-victim {
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
+/* Shared text bits used across every Impact style (headline / focal / sub). */
+.ov-impact .ovi-headline {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--impact-accent);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+.ov-impact .ovi-big {
+  font: 900 62px/0.9 "Arial Black", "Helvetica Neue", system-ui, sans-serif;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  color: var(--impact-accent);
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
+}
+.ov-impact .ovi-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+}
+.ov-impact .ovi-sub {
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* big-number (crits): the focal number bursts in with a shake. */
+.ov-impact.impact-big-number {
+  animation:
+    trophy-pop 0.5s cubic-bezier(0.16, 1.1, 0.3, 1) both,
+    finisher-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+.ov-impact.impact-big-number .ovi-big {
+  animation: bignum-burst 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+@keyframes bignum-burst {
+  0% { opacity: 0; transform: scale(0.4); }
+  55% { opacity: 1; transform: scale(1.14); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* level: the level number rises up on a ding. */
+.ov-impact.impact-level .ovi-big {
+  font-size: 74px;
+  animation: level-rise 0.55s ease-out both;
+}
+@keyframes level-rise {
+  0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+  60% { opacity: 1; transform: translateY(-4px) scale(1.08); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* badge / medal (AA procs, achievements): a slab medal pops in. */
+.ov-impact.impact-badge,
+.ov-impact.impact-medal {
+  gap: 2px;
+  animation:
+    trophy-pop 0.5s cubic-bezier(0.16, 1.1, 0.3, 1) both,
+    finisher-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+.ov-medal {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.55));
+  animation: trophy-badge 0.7s ease-out both;
+}
+.ov-medal svg {
+  display: block;
+}
+.ov-medal-ribbon {
+  fill: var(--impact-accent);
+  opacity: 0.85;
+}
+.ov-medal-disc {
+  fill: color-mix(in srgb, var(--impact-accent) 26%, #171717);
+}
+.ov-medal-ring {
+  fill: none;
+  stroke: var(--impact-accent);
+  stroke-width: 2.5;
+}
+.ov-medal-glyph {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 62%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 19px;
+  line-height: 1;
+}
+@keyframes trophy-pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes trophy-badge {
+  0% { transform: scale(0) rotate(-25deg); }
+  55% { transform: scale(1.25) rotate(8deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+@keyframes finisher-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes finisher-shake {
+  0% { transform: translate(0, 0); }
+  12% { transform: translate(-6px, 3px); }
+  24% { transform: translate(5px, -4px); }
+  38% { transform: translate(-4px, -2px); }
+  52% { transform: translate(4px, 3px); }
+  68% { transform: translate(-2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes cleave-whole {
+  0% { opacity: 0; transform: scale(0.5); }
+  40% { opacity: 1; transform: scale(1.12); }
+  46% { opacity: 1; }
+  47% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes cleave-top {
+  0%, 46% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  47% { opacity: 1; transform: translate(-14px, -12px) rotate(-3deg); }
+  100% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes cleave-bot {
+  0%, 46% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  47% { opacity: 1; transform: translate(14px, 12px) rotate(-3deg); }
+  100% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes cleave-blade {
+  0% { transform: rotate(-24deg) scaleX(0); opacity: 0; }
+  30% { opacity: 1; }
+  46% { transform: rotate(-24deg) scaleX(1); opacity: 1; }
+  100% { transform: rotate(-24deg) scaleX(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ov-impact,
+  .ov-impact .ovf-num,
+  .ov-impact .ovf-blade,
+  .ov-impact .ovf-kicker,
+  .ov-impact .ovt-badge {
+    animation-duration: 0.001ms;
+  }
+}
+
+/* Scoreboard overlay: compact party leaderboard table. */
+.ov-score {
+  align-self: flex-start;
+  padding: 8px 11px 9px;
+  min-width: 208px;
+  color: #fff;
+}
+.ov-score .ovs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.ov-score .ovs-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.ov-score .ovs-empty {
+  font-size: 12px;
+  color: var(--ink-muted);
+  padding: 2px 0;
+}
+.ovs-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12.5px;
+}
+.ovs-table th {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: right;
+  padding: 0 0 3px 8px;
+  font-weight: 700;
+}
+.ovs-table th.ovs-name {
+  text-align: left;
+  padding-left: 0;
+}
+.ovs-table td {
+  padding: 2px 0 2px 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+.ovs-table td.ovs-name {
+  text-align: left;
+  padding-left: 0;
+  font-weight: 600;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ovs-table tr.ovs-you td {
+  color: color-mix(in srgb, var(--accent) 58%, #fff);
+  font-weight: 700;
+}
+
 /* Sample bars shown only while arranging an empty overlay (P10) — dimmed and
    non-interactive so they read as placeholders, not live timers. */
 .ov-timer-stack.ov-sample {
@@ -2713,6 +3010,35 @@ button.chan-chip:not(.on) {
 button.chan-chip:hover {
   opacity: 1;
   border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+}
+/* Per-trigger alert loudness override — a chip-styled <select>. "Auto" reads
+   muted; an explicit tier tints to that tier's color so overrides stand out. */
+.chan-sev {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  padding: 1px 4px;
+  line-height: 1.5;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--ink-muted);
+}
+.chan-sev.sev-auto {
+  opacity: 0.6;
+}
+.chan-sev.sev-info {
+  color: color-mix(in srgb, var(--accent) 80%, var(--ink));
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.chan-sev.sev-warn {
+  color: color-mix(in srgb, var(--warning) 90%, var(--ink));
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+}
+.chan-sev.sev-alarm {
+  color: color-mix(in srgb, var(--critical) 95%, var(--ink));
+  border-color: color-mix(in srgb, var(--critical) 50%, transparent);
 }
 .tt-btns {
   display: flex;
@@ -3664,20 +3990,77 @@ textarea.share-str:focus {
   background: color-mix(in srgb, var(--c) 22%, transparent);
 }
 
-/* Overlay alert pills: info renders as before; warn/alarm escalate with an
-   accent rail, a tint, and larger text so a Death Touch can't be mistaken
-   for a tell. Relative units: escalation must compose with the user's
-   alert-size setting (the stack's font-size), never shrink below it. */
+/* Overlay alert pills, per severity tier. Each tier is a visually DISTINCT
+   box — its own size multiplier, text color, background, border and weight —
+   so a routine info line and a Death Touch alarm can never be confused. Every
+   knob is a CSS variable defaulted here and overridable per-tier from
+   Settings → Appearance (the overlay sets them inline on .ov-alert-stack).
+   Sizes are relative (em) so they compose with the user's base alert-size. */
+.ov-alert-stack {
+  /* info tier defaults */
+  --alert-info-scale: 0.92;
+  --alert-info-color: #e8e8ea;
+  --alert-info-bg: rgba(13, 13, 13, 0.66);
+  --alert-info-border: transparent;
+  --alert-info-weight: 600;
+  /* warn tier defaults */
+  --alert-warn-scale: 1.12;
+  --alert-warn-color: #ffffff;
+  --alert-warn-bg: color-mix(in srgb, var(--warning) 22%, rgba(13, 13, 13, 0.78));
+  --alert-warn-border: var(--warning);
+  --alert-warn-weight: 700;
+  /* alarm tier defaults */
+  --alert-alarm-scale: 1.42;
+  --alert-alarm-color: #fff;
+  --alert-alarm-bg: color-mix(in srgb, var(--critical) 34%, rgba(13, 13, 13, 0.82));
+  --alert-alarm-border: var(--critical);
+  --alert-alarm-weight: 800;
+}
+.alert-pill.alert-info {
+  font-size: calc(1em * var(--alert-info-scale));
+  color: var(--alert-info-color);
+  background: var(--alert-info-bg);
+  border: 1px solid var(--alert-info-border);
+  font-weight: var(--alert-info-weight);
+}
 .alert-pill.alert-warn {
-  border-left: 3px solid var(--warning);
-  background: color-mix(in srgb, var(--warning) 20%, rgba(13, 13, 13, 0.72));
-  font-size: 1.1em;
+  font-size: calc(1em * var(--alert-warn-scale));
+  color: var(--alert-warn-color);
+  background: var(--alert-warn-bg);
+  border: 1px solid var(--alert-warn-border);
+  border-left-width: 4px;
+  font-weight: var(--alert-warn-weight);
 }
 .alert-pill.alert-alarm {
-  border-left: 4px solid var(--critical);
-  background: color-mix(in srgb, var(--critical) 30%, rgba(13, 13, 13, 0.72));
-  font-size: 1.25em;
+  font-size: calc(1em * var(--alert-alarm-scale));
+  color: var(--alert-alarm-color);
+  background: var(--alert-alarm-bg);
+  border: 1.5px solid var(--alert-alarm-border);
+  border-left-width: 5px;
+  font-weight: var(--alert-alarm-weight);
   padding: 10px 18px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--critical) 40%, transparent),
+    0 6px 20px rgba(0, 0, 0, 0.5);
+  animation: alert-in 0.2s ease-out, alarm-pulse 1.1s ease-in-out infinite;
+}
+/* Alarm keeps drawing the eye until it fades — a slow border/glow pulse. */
+@keyframes alarm-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--critical) 40%, transparent),
+      0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 2px var(--critical),
+      0 0 18px color-mix(in srgb, var(--critical) 55%, transparent),
+      0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .alert-pill.alert-alarm {
+    animation: alert-in 0.2s ease-out;
+  }
 }
 
 /* ========================================================================

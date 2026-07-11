@@ -18,6 +18,11 @@ import {
   stripTimestamp,
 } from "../lib/patternJs";
 import {
+  getOverlayDefinition,
+  listOverlayDefinitions,
+  overlayDefaults,
+} from "../lib/overlayRegistry";
+import {
   getTemplate,
   leadName,
   recognizePattern,
@@ -52,7 +57,13 @@ const TEMPLATE_CTX: TemplateContext = {
 // Action-row model (1:1 with Trigger.actions, order preserved)
 // ---------------------------------------------------------------------------
 
-type RowKind = "speak" | "sound" | "show" | "timer" | "cancel" | "webhook";
+type RowKind =
+  | "speak"
+  | "sound"
+  | "overlay"
+  | "timer"
+  | "cancel"
+  | "webhook";
 
 interface RowState {
   id: number;
@@ -72,6 +83,13 @@ interface RowState {
   /** Preserved StartTimer metadata (generated packs). */
   formula?: number | null;
   capTicks?: number | null;
+  /** Original action retained so controls may edit a subset without dropping
+   * advanced fields that this compact editor does not expose. */
+  preservedAction?: TriggerAction;
+  /** Generic overlay destination, structured template fields and renderer config. */
+  overlay: string;
+  overlayFields: Record<string, string>;
+  overlayConfig: Record<string, unknown>;
 }
 
 let nextRowId = 1;
@@ -88,14 +106,25 @@ function blankRow(kind: RowKind): RowState {
     warnMode: "none",
     warnText: "",
     endEarlySpell: "",
+    overlay: "alerts",
+    overlayFields: overlayDefaults("alerts").fields,
+    overlayConfig: overlayDefaults("alerts").config,
   };
 }
 
-function rowsFromActions(actions: TriggerAction[]): RowState[] {
+export function rowsFromActions(actions: TriggerAction[]): RowState[] {
   return actions.map((a) => {
     if ("Speak" in a) return { ...blankRow("speak"), text: a.Speak.template };
     if ("DisplayText" in a) {
-      return { ...blankRow("show"), text: a.DisplayText.template };
+      return {
+        ...blankRow("overlay"),
+        overlay: "alerts",
+        overlayFields: {
+          ...overlayDefaults("alerts").fields,
+          text: a.DisplayText.template,
+        },
+        overlayConfig: overlayDefaults("alerts").config,
+      };
     }
     if ("PlaySound" in a) {
       return { ...blankRow("sound"), soundPath: a.PlaySound.path };
@@ -110,6 +139,32 @@ function rowsFromActions(actions: TriggerAction[]): RowState[] {
         webhookName: a.PostWebhook.webhook ?? "",
       };
     }
+    if ("Overlay" in a) {
+      return {
+        ...blankRow("overlay"),
+        overlay: a.Overlay.overlay || "alerts",
+        overlayFields: { ...a.Overlay.fields },
+        overlayConfig: { ...(a.Overlay.config ?? {}) },
+      };
+    }
+    if ("Impact" in a) {
+      return {
+        ...blankRow("overlay"),
+        overlay: "impact",
+        overlayFields: {
+          ...overlayDefaults("impact").fields,
+          headline: a.Impact.headline ?? "",
+          big: a.Impact.big ?? "",
+          sub: a.Impact.sub ?? "",
+          glyph: a.Impact.glyph ?? "",
+        },
+        overlayConfig: {
+          ...overlayDefaults("impact").config,
+          style: a.Impact.style,
+          color: a.Impact.color ?? "",
+        },
+      };
+    }
     const t = a.StartTimer;
     const warn = t.warn_at_secs;
     return {
@@ -121,8 +176,25 @@ function rowsFromActions(actions: TriggerAction[]): RowState[] {
       warnText: warn != null ? String(warn) : "",
       formula: t.duration_formula,
       capTicks: t.duration_cap_ticks,
+      preservedAction: a,
     };
   });
+}
+
+function configuredString(config: Record<string, unknown>, key: string): string {
+  const value = config[key];
+  return typeof value === "string" ? value : "";
+}
+
+function configuredNumber(config: Record<string, unknown>, key: string): string {
+  const value = config[key];
+  return typeof value === "number" && Number.isFinite(value) ? String(value) : "";
+}
+
+function compactRecord<T>(record: Record<string, T | undefined | "">): Record<string, T> {
+  return Object.fromEntries(
+    Object.entries(record).filter(([, value]) => value !== undefined && value !== ""),
+  ) as Record<string, T>;
 }
 
 function warnSecsOf(row: RowState): number | null {
@@ -134,7 +206,7 @@ function warnSecsOf(row: RowState): number | null {
 }
 
 /** Build actions from rows; returns an error message instead on bad input. */
-function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
+export function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
   if (rows.length === 0) {
     return "Add at least one action — a trigger with no actions does nothing.";
   }
@@ -146,9 +218,25 @@ function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
         actions.push({ Speak: { template: row.text.trim() } });
         break;
       }
-      case "show": {
-        if (!row.text.trim()) return "Show text needs some text to display.";
-        actions.push({ DisplayText: { template: row.text.trim() } });
+      case "overlay": {
+        const overlay = row.overlay.trim();
+        if (!overlay) return "Pick an overlay destination.";
+        const fields = compactRecord(row.overlayFields);
+        const definition = getOverlayDefinition(overlay);
+        const missing = definition?.fields.find(
+          (field) => field.required && !fields[field.key]?.trim(),
+        );
+        if (missing) {
+          return `${definition?.label ?? overlay} needs ${missing.label.toLowerCase()}.`;
+        }
+        const config = compactRecord(row.overlayConfig);
+        actions.push({
+          Overlay: {
+            overlay,
+            fields,
+            ...(Object.keys(config).length > 0 ? { config } : {}),
+          },
+        });
         break;
       }
       case "sound": {
@@ -182,8 +270,13 @@ function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
         if (warn !== null && warn >= secs) {
           return "The timer warning must be shorter than the duration.";
         }
+        const preserved =
+          row.preservedAction && "StartTimer" in row.preservedAction
+            ? row.preservedAction.StartTimer
+            : null;
         const timer: TriggerAction = {
           StartTimer: {
+            ...(preserved ?? {}),
             name: row.timerName.trim(),
             duration_secs: secs,
             warn_at_secs: warn,
@@ -680,8 +773,15 @@ export default function TriggerEditor({
     switch (row.kind) {
       case "speak":
         return `Will say: “${render(row.text)}”`;
-      case "show":
-        return `Will show: “${render(row.text)}”`;
+      case "overlay": {
+        const label =
+          row.overlay === "alerts"
+            ? render(row.overlayFields.text ?? "")
+            : row.overlay === "impact"
+              ? render(row.overlayFields.big ?? row.overlayFields.headline ?? "")
+              : Object.values(row.overlayFields).map(render).find(Boolean) ?? "";
+        return `Sends to ${row.overlay || "overlay"}: ${label || "structured data"}`;
+      }
       case "sound": {
         const s = matchSound(row.soundPath);
         return `Plays: ${s ? s.label : baseName(row.soundPath) || "(no sound picked)"}`;
@@ -740,6 +840,11 @@ export default function TriggerEditor({
     const row = blankRow(kind);
     if (kind === "sound") row.soundPath = sounds[0]?.path ?? "";
     if (kind === "timer") row.timerName = name || "Timer";
+    if (kind === "overlay") {
+      const defaults = overlayDefaults("alerts");
+      row.overlayFields = { ...defaults.fields, text: name || "Alert" };
+      row.overlayConfig = defaults.config;
+    }
     setRows((rs) => [...rs, row]);
   };
 
@@ -1100,16 +1205,14 @@ export default function TriggerEditor({
         >
           <option value="speak">Speak</option>
           <option value="sound">Play sound</option>
-          <option value="show">Show text</option>
+          <option value="overlay">Send to overlay</option>
           <option value="timer">Start timer</option>
           <option value="cancel">Cancel timer</option>
           <option value="webhook">Post to webhook</option>
         </select>
 
         <div className="ted-action-main">
-          {(row.kind === "speak" ||
-            row.kind === "show" ||
-            row.kind === "webhook") && (
+          {(row.kind === "speak" || row.kind === "webhook") && (
             <>
               <input
                 type="text"
@@ -1121,16 +1224,12 @@ export default function TriggerEditor({
                 placeholder={
                   row.kind === "speak"
                     ? "what to say aloud"
-                    : row.kind === "webhook"
-                      ? "message to post"
-                      : "what to show on the overlay"
+                    : "message to post"
                 }
                 aria-label={
                   row.kind === "speak"
                     ? "Speak text"
-                    : row.kind === "webhook"
-                      ? "Webhook message"
-                      : "Overlay text"
+                    : "Webhook message"
                 }
                 onChange={(e) => updateRow(row.id, { text: e.target.value })}
               />
@@ -1148,9 +1247,6 @@ export default function TriggerEditor({
                   </button>
                 ))}
               </div>
-              {row.kind === "show" && (
-                <div className="hint">Appears on the alerts overlay for 4 s.</div>
-              )}
               {row.kind === "webhook" && (
                 <>
                   <input
@@ -1171,6 +1267,118 @@ export default function TriggerEditor({
               )}
             </>
           )}
+
+          {row.kind === "overlay" && (() => {
+            const definitions = listOverlayDefinitions();
+            const definition = getOverlayDefinition(row.overlay);
+            const changeDestination = (overlay: string) => {
+              const defaults = overlayDefaults(overlay);
+              updateRow(row.id, {
+                overlay,
+                overlayFields: defaults.fields,
+                overlayConfig: defaults.config,
+              });
+            };
+            const setField = (key: string, value: string) =>
+              updateRow(row.id, {
+                overlayFields: { ...row.overlayFields, [key]: value },
+              });
+            const setConfig = (key: string, value: unknown) =>
+              updateRow(row.id, {
+                overlayConfig: { ...row.overlayConfig, [key]: value },
+              });
+            return (
+              <div className="ted-impact">
+                <label className="field">
+                  <span>Overlay</span>
+                  <select
+                    value={row.overlay}
+                    aria-label="Overlay destination"
+                    onChange={(e) => changeDestination(e.target.value)}
+                  >
+                    {!definition && row.overlay && (
+                      <option value={row.overlay}>{row.overlay}</option>
+                    )}
+                    {definitions.map((item) => (
+                      <option value={item.id} key={item.id}>{item.label}</option>
+                    ))}
+                  </select>
+                </label>
+                {definition && <div className="hint">{definition.description}</div>}
+                {definition?.fields.map((field) => (
+                  <label className="field" key={field.key} title={field.description}>
+                    <span>{field.label}{field.required ? " *" : ""}</span>
+                    {field.type === "textarea" ? (
+                      <textarea
+                        value={row.overlayFields[field.key] ?? ""}
+                        placeholder={field.placeholder}
+                        onChange={(e) => setField(field.key, e.target.value)}
+                      />
+                    ) : field.type === "select" ? (
+                      <select
+                        value={row.overlayFields[field.key] ?? field.default}
+                        onChange={(e) => setField(field.key, e.target.value)}
+                      >
+                        {field.options?.map((option) => (
+                          <option value={option.value} key={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        type="text"
+                        value={row.overlayFields[field.key] ?? ""}
+                        placeholder={field.placeholder}
+                        onChange={(e) => setField(field.key, e.target.value)}
+                      />
+                    )}
+                  </label>
+                ))}
+                {definition?.config.map((config) => (
+                  <label className="field" key={config.key} title={config.description}>
+                    <span>{config.label}</span>
+                    {config.type === "select" ? (
+                      <select
+                        value={configuredString(row.overlayConfig, config.key) || String(config.default)}
+                        onChange={(e) => setConfig(config.key, e.target.value)}
+                      >
+                        {config.options?.map((option) => (
+                          <option value={option.value} key={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    ) : config.type === "number" ? (
+                      <input
+                        type="number"
+                        min={config.min}
+                        max={config.max}
+                        step={config.step}
+                        value={configuredNumber(row.overlayConfig, config.key)}
+                        placeholder={config.default ? String(config.default) : "default"}
+                        onChange={(e) =>
+                          setConfig(
+                            config.key,
+                            e.target.value === "" ? "" : Number(e.target.value),
+                          )
+                        }
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        value={configuredString(row.overlayConfig, config.key)}
+                        placeholder={config.placeholder}
+                        onChange={(e) => setConfig(config.key, e.target.value)}
+                      />
+                    )}
+                  </label>
+                ))}
+                {!definition && (
+                  <div className="hint">
+                    This destination is not installed in this build. Its fields and
+                    presentation settings will be preserved unchanged.
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {row.kind === "sound" && (
             <div className="ted-sound-line">
@@ -1325,6 +1533,7 @@ export default function TriggerEditor({
               )}
             </>
           )}
+
         </div>
 
         <button

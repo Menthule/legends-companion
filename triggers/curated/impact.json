@@ -1,0 +1,82 @@
+{
+  "name": "Curated impact triggers",
+  "triggers": [
+    {
+      "id": "impact/finishing-blow",
+      "name": "Finishing Blow",
+      "pattern": "^You \\S+ (.+?) for (\\d+)(?: points? of damage)?\\.? \\(Finishing Blow\\)",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact",
+      "comments": "The Finishing Blow AA proc — YOUR big kill moment on the Impact overlay (blade slash cutting the damage number). Verified Legends formats (both accepted): 'You slash Soldier of V`Zher for 111 (Finishing Blow)' and 'You reave a Teir`Dal ranger for 135 points of damage. (Finishing Blow)'. ${1}=victim, ${2}=damage. Groupmates' Finishing Blows are counted on the Scoreboard but only YOURS pop here; copy this trigger with a name pattern to celebrate a groupmate's.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "FINISHING BLOW",
+              "big": "${2}",
+              "sub": "You → ${1}"
+            },
+            "config": {
+              "style": "slash"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "impact/level-up",
+      "name": "Level up",
+      "pattern": "^You have gained a level! Welcome to level (\\d+)!$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact",
+      "comments": "Ding! Verified in Legends log: 'You have gained a level! Welcome to level 16!'. ${1}=new level. Rare, celebratory — default ON.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "LEVEL UP",
+              "big": "${1}",
+              "sub": "Ding!"
+            },
+            "config": {
+              "style": "level",
+              "color": "#7ac74f"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "impact/big-crit",
+      "name": "Big crit",
+      "pattern": "^You \\S+ (.+?) for (\\d{3,}) points? of damage\\. \\(Critical\\)$",
+      "enabled": false,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Impact",
+      "comments": "A big critical melee hit bursts onto the Impact overlay. Verified crit format: 'You crush Asaka L`Rei for 45 points of damage. (Critical)'. The \\d{3,} makes 'big' mean 100+ damage (a regex threshold, since triggers can't compare to a running max — raise to \\d{4,} for 1000+). ${1}=victim, ${2}=damage. Default OFF: crits are frequent — enable and tune the threshold to taste.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "CRITICAL",
+              "big": "${2}",
+              "sub": "${1}"
+            },
+            "config": {
+              "style": "big-number",
+              "color": "#ffb454"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

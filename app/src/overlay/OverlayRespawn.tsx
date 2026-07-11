@@ -16,9 +16,11 @@ import {
   OVERLAY_ARRANGE_KEY,
 } from "../overlayState";
 
+// Arrange is transient — always boot LOCKED; the persisted flag only drives
+// runtime cross-window sync, not initial state (a restart mid-arrange must not
+// leave drag chrome over the game).
 const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1" ||
-  loadOverlayArrange();
+  new URLSearchParams(window.location.search).get("unlocked") === "1";
 
 /** ss / m:ss / h:mm — compact countdown. */
 function fmtCountdown(secs: number): string {

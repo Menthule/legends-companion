@@ -18,7 +18,7 @@ game log file ──► eqlog-core (tail → parse → typed events → fights)
         app/src-tauri (tailing.rs session thread, audio thread,
                         library, reference sqlite, updaters)
                         │  Tauri events / commands
-        app/src (React dashboard + 7 overlay windows)
+        app/src (React dashboard + overlay windows)
 ```
 
 Two consumers of the same core: the Tauri app and the `eqlog` CLI
@@ -53,6 +53,14 @@ blocks WSL `cargo test --workspace`.
   layers keyed by stable trigger id: enable/disable and speak/alert
   channels. Profile changes hot-rebuild the live engine; **pack JSON on
   disk is only re-read when a session (re)starts**.
+- **Action routing**: a match owns an ordered action list. `Speak` routes to
+  TTS; generic `Overlay` actions carry an open destination id, expanded named
+  fields, and opaque destination configuration. The Tauri host emits one
+  attributed `trigger-overlay` event per Overlay action. Repeating Overlay
+  actions provides fan-out with independent presentation for each destination.
+  Legacy `DisplayText` and `Impact` actions remain readable during migration.
+  Frontend renderers are lazy-loaded from `app/src/overlay/modules.tsx`; see
+  `docs/overlay-modules.md` for the module extension contract.
 - **Reference data**: one bundled sqlite (`refdata/drops.sqlite` resource;
   `assets/data/drops.sqlite` in dev), three query modules — `dropdb.rs`
   (item→mob→zone drop graph), `spelldb.rs` (spells/abilities + class

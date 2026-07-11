@@ -243,6 +243,8 @@ fn write_trigger(xml: &mut String, trigger: &Trigger, indent: usize) {
     for action in &trigger.actions {
         match action {
             Action::DisplayText { template } => display = display.or(Some(template)),
+            // Generic overlay destinations have no GINA equivalent.
+            Action::Overlay { .. } => {}
             Action::Speak { template } => speak = speak.or(Some(template)),
             Action::PlaySound { path } => sound = sound.or(Some(path)),
             Action::StartTimer {
@@ -256,6 +258,8 @@ fn write_trigger(xml: &mut String, trigger: &Trigger, indent: usize) {
             Action::CancelTimer { .. } => {}
             // GINA has no webhook concept; dropped on export.
             Action::PostWebhook { .. } => {}
+            // GINA has no Impact-overlay concept; dropped on export.
+            Action::Impact { .. } => {}
         }
     }
     if let Some(template) = display {

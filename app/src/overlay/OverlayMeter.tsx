@@ -15,6 +15,7 @@ import {
   loadMeterOtherSources,
   loadMeterSources,
 } from "../overlayState";
+import { splitPetDamageRows } from "../lib/meterRows";
 import {
   OVERLAY_METER,
   type FightUpdatePayload,
@@ -67,7 +68,9 @@ export default function OverlayMeter() {
 
   const isYou = (name: string) =>
     character.length > 0 && name.toLowerCase() === character.toLowerCase();
-  const allRows = fight?.rows ?? [];
+  const allRows = fight
+    ? splitPetDamageRows(fight.rows, fight.durationSecs, fight.totalDamage)
+    : [];
   const topRows = allRows.slice(0, TOP_N);
   // Always pin the local player's row (P27): in a full group/raid where the
   // player isn't top-5, a personal meter that drops their own bar and "my

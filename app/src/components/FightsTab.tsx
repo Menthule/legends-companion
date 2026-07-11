@@ -40,6 +40,14 @@ import {
   toggleWishlist,
   type WishlistEntry,
 } from "../lib/wishlist";
+import { splitPetDamageRows } from "../lib/meterRows";
+import {
+  emptyPlayer,
+  isPlayerName,
+  saveScoreboard,
+  type PlayerScore,
+  type Scoreboard,
+} from "../lib/scoreboard";
 import { IS_MOCK, mockEmit } from "../mock";
 import {
   appendXpSession,
@@ -149,6 +157,43 @@ const PAGE_SIZE = 25;
 function publishProcAlert(payload: ProcAlertPayload): void {
   if (IS_MOCK) mockEmit("proc-alert", payload);
   else void emit("proc-alert", payload);
+}
+
+/** Does this hit's flags carry the Finishing Blow AA tag? The Legends parser
+ *  puts the "(Finishing Blow)" suffix into `flags.other` (verified:
+ *  `You slash a Teir\`Dal priestess for 226 points of damage. (Finishing Blow)`
+ *  → MeleeHit flags.other = ["Finishing Blow"]). Finishing Blow is a melee AA,
+ *  so it is always YOUR hit and the damage is exact — no correlation needed. */
+function hasFinishingBlowFlag(flags: Record<string, unknown> | undefined): boolean {
+  const other = flags?.other;
+  return (
+    Array.isArray(other) &&
+    other.some((o) => String(o).toLowerCase() === "finishing blow")
+  );
+}
+
+/** Extract an outgoing hit for Scoreboard attribution: attacker + amount + a
+ *  label (verb/spell/effect → target) for the "highest hit" record. Covers
+ *  melee, direct spell damage, and DoT/damage-shield ticks. */
+function scoreHit(
+  ev: unknown,
+): { attacker: string; amount: number; label: string; target: string } | null {
+  if (typeof ev !== "object" || ev === null) return null;
+  const rec = ev as Record<string, unknown>;
+  const num = (x: unknown) => (typeof x === "number" ? x : 0);
+  if ("MeleeHit" in rec) {
+    const d = rec.MeleeHit as Record<string, unknown>;
+    return { attacker: entityName(d.attacker), amount: num(d.amount), label: String(d.verb ?? "hit"), target: entityName(d.target) };
+  }
+  if ("SpellDamage" in rec) {
+    const d = rec.SpellDamage as Record<string, unknown>;
+    return { attacker: entityName(d.caster), amount: num(d.amount), label: String(d.spell ?? "spell"), target: entityName(d.target) };
+  }
+  if ("NonMeleeDamage" in rec) {
+    const d = rec.NonMeleeDamage as Record<string, unknown>;
+    return { attacker: d.source == null ? "" : entityName(d.source), amount: num(d.amount), label: String(d.effect ?? "dot"), target: entityName(d.target) };
+  }
+  return null;
 }
 
 function skillSpellForVerb(verb: string): string | null {
@@ -372,6 +417,11 @@ export default function FightsTab({ character }: { character: string }) {
   );
   const [recaps, setRecaps] = useState<DeathRecap[]>([]);
   const sessionSeq = useRef(0);
+  // Party Scoreboard: per-player session stats (reset each run). Flushed to
+  // localStorage on a timer; the overlay reads it. (Record-break trophies were
+  // dropped — Impact moments are trigger-driven now, not scoreboard-driven.)
+  const scoreboard = useRef<Scoreboard>({});
+  const scoreDirty = useRef(false);
   const recentLines = useRef<{ ts: number; message: string; kind: string }[]>([]);
   // Structured incoming-damage ring for the death recap (P25).
   const recentDamage = useRef<({ ts: number } & IncomingHit)[]>([]);
@@ -471,7 +521,30 @@ export default function FightsTab({ character }: { character: string }) {
     catchingUp.current = p.active;
   });
 
+  // Scoreboard: fresh per app run (all-time records persist separately), and
+  // flushed to localStorage once a second when dirty so the overlay updates
+  // without a write per hit.
+  useEffect(() => {
+    scoreboard.current = {};
+    saveScoreboard({});
+    const iv = window.setInterval(() => {
+      if (!scoreDirty.current) return;
+      scoreDirty.current = false;
+      saveScoreboard({ ...scoreboard.current });
+    }, 1000);
+    return () => window.clearInterval(iv);
+  }, []);
+
   useTauriEvent<LogLinePayload>("log-line", (p) => {
+    // Scoreboard helpers (capture live ownedNames/catchingUp each render).
+    const bumpPlayer = (name: string): PlayerScore => {
+      const k = name.toLowerCase();
+      const found = scoreboard.current[k];
+      if (found) return found;
+      const created = emptyPlayer(name);
+      scoreboard.current[k] = created;
+      return created;
+    };
     const ev = p.event;
     const kind =
       typeof ev === "string" ? ev : Object.keys(ev ?? {})[0] ?? "Unknown";
@@ -519,20 +592,10 @@ export default function FightsTab({ character }: { character: string }) {
         critical: false,
       });
     }
-    const reaveHit = /^You reave (.+?) for (\d+) points? of damage\./.exec(
-      p.message,
-    );
-    if (reaveHit) {
-      publishEffect({
-        id: sessionSeq.current++,
-        ts: p.ts,
-        kind: "skill",
-        spell: "Reave",
-        target: reaveHit[1],
-        amount: Number(reaveHit[2]),
-        critical: p.message.includes("(Critical)"),
-      });
-    }
+    // "Skill: Reave" was formerly hardcoded here; it is now the curated,
+    // per-taste-toggleable trigger `skills/melee/reave` (default OFF) in
+    // triggers/curated/skills.json — see the "everything configurable"
+    // principle. Removed so it no longer double-fires as a built-in alert.
     if (typeof ev !== "object" || ev === null) return;
     if ("CastBegin" in ev) {
       const d = ev.CastBegin as Record<string, unknown>;
@@ -552,19 +615,23 @@ export default function FightsTab({ character }: { character: string }) {
       const attacker = entityName(d.attacker);
       const target = entityName(d.target);
       const verb = String(d.verb ?? "");
+      const flags = d.flags as Record<string, unknown> | undefined;
+      // Finishing Blow AA: the hit line is tagged "(Finishing Blow)". We count
+      // it toward the Scoreboard leaderboard here; the DRAMATIC moment (the
+      // slash on the Impact overlay) is NOT hardcoded — it's the curated
+      // `impact/finishing-blow` trigger, so it's fully user-configurable like
+      // every other alert/impact.
+      if (hasFinishingBlowFlag(flags)) {
+        bumpPlayer(attacker).finishingBlows++;
+        scoreDirty.current = true;
+      }
       const skillSpell = skillSpellForVerb(verb);
+      // Skill alerts (Kick, Bash, …) are now individually-configurable curated
+      // triggers (triggers/curated/skills.json) — see the "everything
+      // configurable" principle. We no longer publish a built-in Skill alert
+      // here; we only keep the recentSkills correlation so a skill's follow-up
+      // SpellDamage line isn't misclassified as a separate proc below.
       if (skillSpell && isSkillAlertAttacker(attacker, character, ownedNames)) {
-        const amount = typeof d.amount === "number" ? d.amount : null;
-        const flags = d.flags as Record<string, unknown> | undefined;
-        publishEffect({
-          id: sessionSeq.current++,
-          ts: p.ts,
-          kind: "skill",
-          spell: skillSpell,
-          target,
-          amount,
-          critical: flags?.critical === true,
-        });
         recentSkills.current = [
           ...recentSkills.current.filter(
             (s) => p.ts - s.ts <= PROC_CAST_SUPPRESS_SECS,
@@ -581,6 +648,20 @@ export default function FightsTab({ character }: { character: string }) {
         ...recentDamage.current.filter((h) => p.ts - h.ts <= RECAP_WINDOW_SECS),
         { ts: p.ts, ...hit },
       ].slice(-RECAP_DAMAGE_CAP);
+    }
+    // Scoreboard: attribute outgoing damage + the "highest hit" record to the
+    // attacking player (you, a groupmate, or an owned pet — not mobs).
+    const sh = scoreHit(ev);
+    if (sh && sh.amount > 0 && isPlayerName(sh.attacker, ownedNames)) {
+      const pl = bumpPlayer(sh.attacker);
+      pl.totalDamage += sh.amount;
+      pl.lastTs = p.ts;
+      if (pl.firstTs === 0) pl.firstTs = p.ts;
+      if (sh.amount > pl.highestHit) {
+        pl.highestHit = sh.amount;
+        pl.highestHitLabel = sh.target ? `${sh.label} → ${sh.target}` : sh.label;
+      }
+      scoreDirty.current = true;
     }
     if ("SpellDamage" in ev) {
       const d = ev.SpellDamage as Record<string, unknown>;
@@ -719,6 +800,11 @@ export default function FightsTab({ character }: { character: string }) {
           ),
         };
         setRecaps((prev) => [recap, ...prev].slice(0, 20));
+        // Scoreboard: your death breaks your killstreak.
+        const yp = bumpPlayer("You");
+        yp.deaths++;
+        yp.curStreak = 0;
+        scoreDirty.current = true;
       } else if (
         typeof d.victim === "object" &&
         d.victim !== null &&
@@ -729,12 +815,27 @@ export default function FightsTab({ character }: { character: string }) {
         // GROUPMATES, not camp kills; mobs carry articles or multiple
         // words. Same heuristic as the curated ally-slain trigger.
         const looksLikePlayer = /^[A-Z][a-z]+$/.test(victim);
-        // Replayed kills also stay out: a camp timer anchored at
-        // Date.now() for an hours-old kill is wrong by construction.
-        if (!looksLikePlayer && !catchingUp.current) {
-          // NPC kill: tally it and (when the refdb knows the mob) start
-          // or reset its camp timer.
-          handleNamedSlain(victim);
+        if (looksLikePlayer) {
+          // Groupmate died — their killstreak resets, deaths tick up.
+          const dp = bumpPlayer(victim);
+          dp.deaths++;
+          dp.curStreak = 0;
+          scoreDirty.current = true;
+        } else {
+          // NPC kill: tally it and (when the refdb knows the mob) start or reset
+          // its camp timer. Replayed kills stay out of the camp timer (a
+          // Date.now()-anchored hours-old kill is wrong by construction).
+          if (!catchingUp.current) handleNamedSlain(victim);
+          // Scoreboard: credit the killing blow to the slaying player.
+          const killer = d.killer == null ? "" : entityName(d.killer);
+          if (killer && isPlayerName(killer, ownedNames)) {
+            const kp = bumpPlayer(killer);
+            kp.killingBlows++;
+            kp.curStreak++;
+            if (kp.curStreak > kp.bestStreak) kp.bestStreak = kp.curStreak;
+            kp.lastTs = p.ts;
+            scoreDirty.current = true;
+          }
         }
       }
     } else if ("BuffBlocked" in ev) {
@@ -915,58 +1016,11 @@ export default function FightsTab({ character }: { character: string }) {
   }
 
   function splitPetRows(rows: FightRecord["rows"]): FightRecord["rows"] {
-    const split = rows.flatMap((r) => {
-      const petSources = (r.sources ?? []).filter((s) =>
-        s.name.toLowerCase().includes("(pet)"),
-      );
-      const ownSources = (r.sources ?? []).filter(
-        (s) => !s.name.toLowerCase().includes("(pet)"),
-      );
-      // normalizeFight coerces a missing pet_damage to 0, so `??` would never
-      // fall back — records stored before the field existed need the
-      // sources-based sum (same guard as MetersTab's petDamageOf).
-      const petTotal =
-        r.petDamage && r.petDamage > 0
-          ? r.petDamage
-          : petSources.reduce((sum, s) => sum + s.total, 0);
-      const ownTotal = Math.max(0, r.total - petTotal);
-      const out: FightRecord["rows"] = [];
-      if (ownTotal > 0 || ownSources.length > 0) {
-        out.push({
-          ...r,
-          total: ownTotal,
-          dps:
-            selected && selected.durationSecs > 0
-              ? ownTotal / selected.durationSecs
-              : ownTotal,
-          pct:
-            selected && selected.totalDamage > 0
-              ? (ownTotal / selected.totalDamage) * 100
-              : 0,
-          pet: false,
-          sources: ownSources,
-        });
-      }
-      if (petTotal > 0) {
-        out.push({
-          ...r,
-          name: `${r.name} pet`,
-          total: petTotal,
-          dps:
-            selected && selected.durationSecs > 0
-              ? petTotal / selected.durationSecs
-              : petTotal,
-          pct:
-            selected && selected.totalDamage > 0
-              ? (petTotal / selected.totalDamage) * 100
-              : 0,
-          pet: false,
-          sources: petSources,
-        });
-      }
-      return out;
-    });
-    return split.sort((a, b) => b.total - a.total || a.name.localeCompare(b.name));
+    return splitPetDamageRows(
+      rows,
+      selected?.durationSecs ?? 0,
+      selected?.totalDamage ?? 0,
+    );
   }
 
   // ---- detail view ----

@@ -53,6 +53,7 @@
 - Added `Auto zone change` to Settings > General as the persistent home for the same live-context preference.
 - Top-bar popovers now dismiss when clicking outside them or pressing Escape.
 - Improved the Pets tab empty state to explain when no pet damage is parsing and point users to pet leader/configuration setup.
+- Meter overlay now splits attributed pet damage into its own pet row, matching the main Meters and Fight History views.
 - Changed proc/skill/spell Insights from per-line debug rows to aggregate session totals.
 - Improved pet Insights so pet damage and pet-only sources are shown separately from player damage.
 - Reused the same pet-session summary logic across Insights so current and completed fights report pet damage consistently.
@@ -82,6 +83,10 @@
 - Timers now follows the top-level Live Zone setting when loading the current zone's rares.
 
 ### Triggers
+- Refactored trigger outputs around a scalable `Trigger -> Actions` model. A generic Overlay action now selects an open overlay destination and carries template-expanded fields plus destination-specific presentation settings; one match can fan out to several independently configured overlays and TTS.
+- Added an overlay registry that defines each destination's editor fields, presentation controls, defaults, and runtime adapter. Alerts and Impact now use the shared `trigger-overlay` event while legacy DisplayText/Impact actions remain compatible.
+- Trigger action events now capture their trigger identity directly instead of reconstructing ownership from action counts, preventing mixed or skipped actions from being attributed to the wrong trigger.
+- Editing an advanced timer now preserves fields the compact editor does not expose, including lane, cast lead-in, repeat/stopwatch behavior, and warning/expiry text and sounds.
 - Live rows already support creating a trigger from a specific log line with `+ Trigger`.
 - Trigger creation now supports a simpler intent-first path for alerts, TTS, timers, sounds, and proc/skill/spell-style alerts.
 - Bundled trigger rows now say `Customize` when creating an editable user copy.

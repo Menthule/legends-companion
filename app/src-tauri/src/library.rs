@@ -64,8 +64,9 @@ pub struct Library {
 
 pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String> {
     let mut warnings = Vec::new();
-    let packs = match packs_dir(app) {
-        Some(dir) => match load_packs(&dir) {
+    let dir = packs_dir(app);
+    let packs = match &dir {
+        Some(dir) => match load_packs(dir) {
             Ok(loaded) => {
                 warnings.extend(loaded.warnings);
                 loaded.triggers
@@ -83,6 +84,15 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
             Vec::new()
         }
     };
+    // Ground-truth diagnostic: which dir did we load, how many triggers, and are
+    // the curated skill triggers among them? (Kept terse; one line per load.)
+    let has_kick = packs.iter().any(|t| t.name.eq_ignore_ascii_case("kick"));
+    crate::logging::info(&format!(
+        "trigger packs loaded: {} triggers from {} (kick present: {})",
+        packs.len(),
+        dir.as_ref().map(|d| d.display().to_string()).unwrap_or_else(|| "<none>".into()),
+        has_kick,
+    ));
     let user = config::load_triggers(&config::trigger_pack_file(app, cfg)?)?;
     Ok(Library {
         packs,
@@ -173,18 +183,10 @@ pub fn hydrate_active_character(app: &AppHandle, cfg: &mut AppConfig) {
     }
 }
 
-/// A ready-to-run engine plus the sidecar data the tail session needs:
-/// per-trigger action counts (so the emit sink can attribute buffered sink
-/// calls back to the `process_traced` fire list) and every pack-load +
-/// compile warning (surfaced via the "pack-warnings" event and app.log).
+/// A ready-to-run engine plus every pack-load and compile warning (surfaced
+/// via the "pack-warnings" event and app.log).
 pub struct EngineBuild {
     pub engine: TriggerEngine,
-    /// `effective_id` → number of actions on that trigger. Engine action
-    /// dispatch makes exactly one sink call per action, in fire order, so
-    /// these counts partition a line's buffered sink calls by trigger. On
-    /// the (pathological) duplicate-id case the first definition's count
-    /// wins — worst case a single line's attribution is off, never a crash.
-    pub action_counts: HashMap<String, usize>,
     pub warnings: Vec<String>,
 }
 
@@ -196,12 +198,6 @@ pub fn build_engine(app: &AppHandle, cfg: &AppConfig) -> Result<EngineBuild, Str
     let profile = load_profile(app, cfg);
     let mut all = lib.packs;
     all.extend(lib.user);
-    let mut action_counts = HashMap::with_capacity(all.len());
-    for t in &all {
-        action_counts
-            .entry(t.effective_id())
-            .or_insert(t.actions.len());
-    }
     let mut engine = TriggerEngine::new_with_profile(all, &cfg.character_name, &profile);
     // Configured pet names are friendly casters — their casts must not fire
     // "Enemy Casts" triggers. Registered here (not just at session start) so
@@ -210,7 +206,6 @@ pub fn build_engine(app: &AppHandle, cfg: &AppConfig) -> Result<EngineBuild, Str
     warnings.extend(engine.warnings().iter().cloned());
     Ok(EngineBuild {
         engine,
-        action_counts,
         warnings,
     })
 }
@@ -396,6 +391,35 @@ pub fn set_channel_override(
     Ok(())
 }
 
+/// Override a trigger's alert severity tier (`"info"`/`"warn"`/`"alarm"`) for
+/// the active loadout, overriding the host's auto-classifier — the Triggers-tab
+/// tier chip calls this. `None` (or an empty/`"auto"` string) clears the
+/// override, restoring auto-classification. Render-time only: it does not
+/// rebuild the engine (the tier affects only how the alert overlay draws), but
+/// it emits `profile-changed` so the alert overlay re-reads the map.
+#[tauri::command]
+pub fn set_severity_override(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    id: String,
+    severity: Option<String>,
+) -> Result<(), String> {
+    let cfg = lock(&state.config, "config")?.clone();
+    let mut profile = load_profile(&app, &cfg);
+    let overrides = &mut profile.active_loadout_mut().severity_overrides;
+    match severity.as_deref() {
+        Some("info") | Some("warn") | Some("alarm") => {
+            overrides.insert(id, severity.unwrap());
+        }
+        _ => {
+            overrides.remove(&id);
+        }
+    }
+    save_profile(&app, &cfg, &profile)?;
+    emit_profile_changed(&app, &profile);
+    Ok(())
+}
+
 /// Switch the active character. Repoints the configured log at that
 /// character's file, loads its stored profile (a fresh default if absent),
 /// hydrates the per-character overrides (log path, pets) into the live config,
@@ -498,6 +522,11 @@ pub struct TriggerTreeEntry {
     pub sound: bool,
     pub timer: bool,
     pub webhook: bool,
+    /// Distinct overlay destinations used after resolving channel overrides.
+    /// Legacy DisplayText and Impact actions map to `alerts` and `impact`.
+    pub overlays: Vec<String>,
+    /// Fires a big Impact-overlay moment (Finishing Blow, level-up, crit, …).
+    pub impact: bool,
     /// Index into the user pack file for user/gina triggers (edit/delete
     /// target); `None` for read-only bundled triggers.
     pub user_index: Option<usize>,
@@ -526,13 +555,32 @@ fn tree_entry(
     let mut sound = false;
     let mut timer = false;
     let mut webhook = false;
+    let mut impact = false;
+    let mut overlays: Vec<String> = Vec::new();
+    let mut add_overlay = |overlay: &str| {
+        if !overlays.iter().any(|existing| existing == overlay) {
+            overlays.push(overlay.to_string());
+        }
+    };
     for a in actions.iter() {
         match a {
             Action::Speak { .. } => speaks = true,
-            Action::DisplayText { .. } => shows = true,
+            Action::DisplayText { .. } => {
+                shows = true;
+                add_overlay("alerts");
+            }
+            Action::Overlay { overlay, .. } => {
+                shows |= overlay == "alerts";
+                impact |= overlay == "impact";
+                add_overlay(overlay);
+            }
             Action::PlaySound { .. } => sound = true,
             Action::StartTimer { .. } | Action::CancelTimer { .. } => timer = true,
             Action::PostWebhook { .. } => webhook = true,
+            Action::Impact { .. } => {
+                impact = true;
+                add_overlay("impact");
+            }
         }
     }
     TriggerTreeEntry {
@@ -556,6 +604,8 @@ fn tree_entry(
         sound,
         timer,
         webhook,
+        overlays,
+        impact,
         user_index,
     }
 }

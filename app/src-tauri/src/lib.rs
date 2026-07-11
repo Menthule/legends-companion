@@ -266,7 +266,8 @@ pub fn run() {
             }
             // Overlays start visible (tauri.conf.json) and must be
             // click-through until the user unlocks them to arrange.
-            for label in commands::OVERLAY_LABELS {
+            for overlay in commands::OVERLAYS {
+                let label = overlay.window_label;
                 if let Some(w) = app.get_webview_window(label) {
                     let _ = w.set_ignore_cursor_events(true);
                 }
@@ -313,6 +314,7 @@ pub fn run() {
             library::switch_loadout,
             library::set_override,
             library::set_channel_override,
+            library::set_severity_override,
             library::get_trigger_tree,
             sounds::list_sounds,
             sounds::preview_sound,
@@ -326,6 +328,7 @@ pub fn run() {
             commands::overlay_show,
             commands::overlay_hide,
             commands::overlay_set_click_through,
+            commands::overlay_set_arranging,
             update::check_update,
             update::install_update,
             datapack::data_update_check,

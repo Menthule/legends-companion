@@ -256,6 +256,20 @@ export async function setChannelOverride(
   notifyTriggersChanged();
 }
 
+/** Override a trigger's alert severity tier ("info"/"warn"/"alarm"), or clear
+ *  it (null) to restore the auto-classifier. Persisted per active loadout. */
+export async function setSeverityOverride(
+  id: string,
+  severity: string | null,
+): Promise<void> {
+  if (IS_MOCK) {
+    notifyTriggersChanged();
+    return;
+  }
+  await invoke("set_severity_override", { id, severity });
+  notifyTriggersChanged();
+}
+
 /** Guess the character's classes from spell names seen in cast lines. */
 
 /** Import a GINA .gtp package; returns count + per-trigger warnings. */
@@ -677,6 +691,16 @@ export function overlaySetClickThrough(
     return Promise.resolve();
   }
   return invoke("overlay_set_click_through", { label, ignore });
+}
+
+/** Enter/leave overlay arrange mode. Entering unlocks + reveals every overlay
+ *  and latches a backend guard so a drag that shifts focus can't re-lock the
+ *  others. Call with `false` BEFORE applying a normal lock/hide pass. */
+export function overlaySetArranging(arranging: boolean): Promise<void> {
+  if (IS_MOCK) {
+    return Promise.resolve();
+  }
+  return invoke("overlay_set_arranging", { arranging });
 }
 
 // ---------------------------------------------------------------------------

@@ -150,6 +150,38 @@
         "shadow": false,
         "resizable": true,
         "visible": true
+      },
+      {
+        "label": "overlay-impact",
+        "title": "Legends Companion Impact",
+        "url": "index.html?overlay=impact",
+        "width": 380,
+        "height": 210,
+        "x": 770,
+        "y": 230,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": false,
+        "resizable": true,
+        "visible": true
+      },
+      {
+        "label": "overlay-scoreboard",
+        "title": "Legends Companion Scoreboard",
+        "url": "index.html?overlay=scoreboard",
+        "width": 300,
+        "height": 200,
+        "x": 40,
+        "y": 300,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": false,
+        "resizable": true,
+        "visible": true
       }
     ]
   },

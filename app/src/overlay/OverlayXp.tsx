@@ -21,9 +21,11 @@ import {
   XP_SESSION_KEY,
 } from "../overlayState";
 
+// Arrange is transient — always boot LOCKED; the persisted flag only drives
+// runtime cross-window sync, not initial state (a restart mid-arrange must not
+// leave drag chrome over the game).
 const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1" ||
-  loadOverlayArrange();
+  new URLSearchParams(window.location.search).get("unlocked") === "1";
 export default function OverlayXp() {
   const [session, setSession] = useState<XpSession>(() => loadXpSession());
   const [levelProgress, setLevelProgress] = useState<number>(() =>

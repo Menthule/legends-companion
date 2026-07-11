@@ -4,6 +4,7 @@
 
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
 use eqlog_triggers::model::Trigger;
@@ -17,16 +18,92 @@ use crate::discover::{self, DiscoveredLog};
 use crate::library::{self, Library};
 use crate::tailing::{self, TailSession};
 
-pub const OVERLAY_LABELS: [&str; 8] = [
-    "overlay-alerts",
-    "overlay-buffs",
-    "overlay-onothers",
-    "overlay-target",
-    "overlay-meter",
-    "overlay-xp",
-    "overlay-stance",
-    "overlay-respawn",
+/// Stable backend metadata for one overlay window. Trigger actions address
+/// `id`; Tauri manages `window_label`; the webview selects its renderer from
+/// `route`. Keep the catalog synchronized with the static windows in
+/// `tauri.conf.json` until window creation becomes catalog-driven.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct OverlayDescriptor {
+    pub id: &'static str,
+    pub window_label: &'static str,
+    pub route: &'static str,
+}
+
+/// Canonical overlay catalog. Validation, arranging, and startup behavior all
+/// iterate this list, so adding a destination has one backend registration.
+pub const OVERLAYS: &[OverlayDescriptor] = &[
+    OverlayDescriptor {
+        id: "alerts",
+        window_label: "overlay-alerts",
+        route: "index.html?overlay=alerts",
+    },
+    OverlayDescriptor {
+        id: "buffs",
+        window_label: "overlay-buffs",
+        route: "index.html?overlay=buffs",
+    },
+    OverlayDescriptor {
+        id: "onothers",
+        window_label: "overlay-onothers",
+        route: "index.html?overlay=onothers",
+    },
+    OverlayDescriptor {
+        id: "target",
+        window_label: "overlay-target",
+        route: "index.html?overlay=target",
+    },
+    OverlayDescriptor {
+        id: "meter",
+        window_label: "overlay-meter",
+        route: "index.html?overlay=meter",
+    },
+    OverlayDescriptor {
+        id: "xp",
+        window_label: "overlay-xp",
+        route: "index.html?overlay=xp",
+    },
+    OverlayDescriptor {
+        id: "stance",
+        window_label: "overlay-stance",
+        route: "index.html?overlay=stance",
+    },
+    OverlayDescriptor {
+        id: "respawn",
+        window_label: "overlay-respawn",
+        route: "index.html?overlay=respawn",
+    },
+    OverlayDescriptor {
+        id: "impact",
+        window_label: "overlay-impact",
+        route: "index.html?overlay=impact",
+    },
+    OverlayDescriptor {
+        id: "scoreboard",
+        window_label: "overlay-scoreboard",
+        route: "index.html?overlay=scoreboard",
+    },
 ];
+
+pub fn overlay_by_id(id: &str) -> Option<&'static OverlayDescriptor> {
+    OVERLAYS.iter().find(|overlay| overlay.id == id)
+}
+
+pub fn overlay_by_window_label(label: &str) -> Option<&'static OverlayDescriptor> {
+    OVERLAYS
+        .iter()
+        .find(|overlay| overlay.window_label == label)
+}
+
+/// True while the user is arranging overlays (Settings/Dashboard "Arrange").
+/// While set, overlays are FORCED interactive (never click-through) so a drag
+/// that shifts window focus can't re-lock the others — the root cause of the
+/// "drag one overlay, then the rest freeze" bug. The window-event handler in
+/// `lib.rs` also re-asserts interactivity on move/blur while this is set.
+pub static OVERLAYS_ARRANGING: AtomicBool = AtomicBool::new(false);
+
+pub fn overlays_arranging() -> bool {
+    OVERLAYS_ARRANGING.load(Ordering::Relaxed)
+}
 
 pub struct AppState {
     pub config: Mutex<AppConfig>,
@@ -506,11 +583,10 @@ struct OverlayLockPayload {
 }
 
 fn overlay_window(app: &AppHandle, label: &str) -> Result<WebviewWindow, String> {
-    if !OVERLAY_LABELS.contains(&label) {
-        return Err(format!("unknown overlay: {label}"));
-    }
-    app.get_webview_window(label)
-        .ok_or_else(|| format!("overlay window {label} not found"))
+    let overlay = overlay_by_window_label(label)
+        .ok_or_else(|| format!("unknown overlay window: {label}"))?;
+    app.get_webview_window(overlay.window_label)
+        .ok_or_else(|| format!("overlay window {} not found", overlay.window_label))
 }
 
 #[tauri::command]
@@ -535,9 +611,21 @@ pub fn overlay_set_click_through(
     label: String,
     ignore: bool,
 ) -> Result<(), String> {
-    overlay_window(&app, &label)?
-        .set_ignore_cursor_events(ignore)
+    let win = match overlay_window(&app, &label) {
+        Ok(w) => w,
+        Err(e) => {
+            crate::logging::warn(&format!("overlay_set_click_through({label}, {ignore}): {e}"));
+            return Err(e);
+        }
+    };
+    // While arranging, NEVER let an overlay go click-through — a stray lock
+    // from a focus/blur re-render must not freeze dragging mid-arrange.
+    let ignore = if overlays_arranging() { false } else { ignore };
+    win.set_ignore_cursor_events(ignore)
         .map_err(|e| e.to_string())?;
+    crate::logging::info(&format!(
+        "overlay_set_click_through({label}, ignore={ignore}) ok; emitting overlay-lock-changed"
+    ));
     let _ = app.emit(
         "overlay-lock-changed",
         OverlayLockPayload {
@@ -545,5 +633,34 @@ pub fn overlay_set_click_through(
             click_through: ignore,
         },
     );
+    Ok(())
+}
+
+/// Enter/leave overlay arrange mode. Single source of truth for the whole
+/// arrange lifecycle so Settings and the Dashboard sidebar can't fight each
+/// other. Entering reveals + unlocks EVERY overlay and latches the
+/// `OVERLAYS_ARRANGING` guard so nothing can re-lock them until the user
+/// leaves. Leaving clears the guard; the caller then applies its normal
+/// lock/hide pass.
+#[tauri::command]
+pub fn overlay_set_arranging(app: AppHandle, arranging: bool) -> Result<(), String> {
+    OVERLAYS_ARRANGING.store(arranging, Ordering::Relaxed);
+    crate::logging::info(&format!("overlay_set_arranging({arranging})"));
+    if arranging {
+        for overlay in OVERLAYS {
+            let label = overlay.window_label;
+            if let Some(w) = app.get_webview_window(label) {
+                let _ = w.show();
+                let _ = w.set_ignore_cursor_events(false);
+                let _ = app.emit(
+                    "overlay-lock-changed",
+                    OverlayLockPayload {
+                        label: label.to_string(),
+                        click_through: false,
+                    },
+                );
+            }
+        }
+    }
     Ok(())
 }

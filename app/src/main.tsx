@@ -1,14 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Dashboard from "./components/Dashboard";
-import OverlayAlerts from "./overlay/OverlayAlerts";
-import OverlayBuffs from "./overlay/OverlayBuffs";
-import OverlayMeter from "./overlay/OverlayMeter";
-import OverlayXp from "./overlay/OverlayXp";
-import OverlayStance from "./overlay/OverlayStance";
-import OverlayOnOthers from "./overlay/OverlayOnOthers";
-import OverlayTarget from "./overlay/OverlayTarget";
-import OverlayRespawn from "./overlay/OverlayRespawn";
+import {
+  getOverlayModuleByRoute,
+  getOverlayModuleByWindowLabel,
+} from "./overlay/modules";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { initTheme } from "./theme";
 import { IS_MOCK, startMockDriver } from "./mock";
@@ -32,16 +28,16 @@ if (!IS_MOCK) {
 }
 
 const params = new URLSearchParams(window.location.search);
-// Overlay windows are `?overlay=alerts|buffs|target|meter`; also accept
-// `?window=overlay-<name>` for symmetry with window labels.
+// Overlay windows accept their catalog route or exact Tauri window label.
 const windowParam = params.get("window");
-const overlay =
+const overlayRoute =
   params.get("overlay") ??
-  (windowParam?.startsWith("overlay-")
-    ? windowParam.slice("overlay-".length)
-    : null);
+  (windowParam ? getOverlayModuleByWindowLabel(windowParam)?.route : null);
+const overlayModule = overlayRoute
+  ? getOverlayModuleByRoute(overlayRoute)
+  : undefined;
 
-if (overlay) {
+if (overlayModule) {
   document.documentElement.classList.add("overlay-root");
   document.body.classList.add("overlay-root");
   // In mock mode give the transparent overlay a stand-in "game footage"
@@ -49,35 +45,14 @@ if (overlay) {
   if (IS_MOCK) document.body.classList.add("mock-backdrop");
 }
 
-let view: React.ReactElement;
-switch (overlay) {
-  case "alerts":
-    view = <OverlayAlerts />;
-    break;
-  case "buffs":
-    view = <OverlayBuffs />;
-    break;
-  case "target":
-    view = <OverlayTarget />;
-    break;
-  case "meter":
-    view = <OverlayMeter />;
-    break;
-  case "xp":
-    view = <OverlayXp />;
-    break;
-  case "stance":
-    view = <OverlayStance />;
-    break;
-  case "onothers":
-    view = <OverlayOnOthers />;
-    break;
-  case "respawn":
-    view = <OverlayRespawn />;
-    break;
-  default:
-    view = <Dashboard />;
-}
+const OverlayView = overlayModule?.component;
+const view: React.ReactElement = OverlayView ? (
+  <Suspense fallback={null}>
+    <OverlayView />
+  </Suspense>
+) : (
+  <Dashboard />
+);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>{view}</React.StrictMode>,

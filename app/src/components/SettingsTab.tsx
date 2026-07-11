@@ -15,6 +15,7 @@ import {
   getTriggerTree,
   onTriggersChanged,
   overlayHide,
+  overlaySetArranging,
   overlaySetClickThrough,
   overlayShow,
   setConfig,
@@ -28,8 +29,14 @@ import {
 } from "../lib/timers";
 import { useLiveZoneEnabled } from "../lib/refFilters";
 import { ShareDialog, type ShareRequest } from "./ShareDialogs";
+import { emit } from "@tauri-apps/api/event";
 import { useTauriEvent } from "../hooks";
-import { IS_MOCK } from "../mock";
+import { IS_MOCK, mockEmit } from "../mock";
+import { cloneLoadout } from "../resolution";
+import {
+  OVERLAY_MODULES,
+  overlayWindowLabels,
+} from "../overlay/modules";
 import {
   loadAlertSizePx,
   loadBuffThresholdMins,
@@ -50,15 +57,6 @@ import { getTheme, setTheme, type Theme } from "../theme";
 import {
   CLASS_NAMES,
   DEFAULT_LOG_DIR,
-  OVERLAY_ALERTS,
-  OVERLAY_BUFFS,
-  OVERLAY_ONOTHERS,
-  OVERLAY_LABELS,
-  OVERLAY_METER,
-  OVERLAY_RESPAWN,
-  OVERLAY_STANCE,
-  OVERLAY_TARGET,
-  OVERLAY_XP,
   displayPath,
   type AppConfig,
   type CharacterProfile,
@@ -67,6 +65,8 @@ import {
   type Trigger,
   type TriggerTreeEntry,
 } from "../types";
+
+const OVERLAY_WINDOW_LABELS = overlayWindowLabels();
 
 /** Warn above this size: EQ's own log writer slows as the file grows. */
 const LARGE_LOG_BYTES = 500 * 1024 * 1024;
@@ -337,11 +337,7 @@ export default function SettingsTab({
   function duplicateLoadout(l: Loadout) {
     if (!profile) return;
     const name = uniqueName(profile, `${l.name} copy`);
-    const copy: Loadout = {
-      name,
-      classes: [...l.classes],
-      overrides: { ...l.overrides },
-    };
+    const copy = cloneLoadout(l, name);
     void saveProfile(
       { ...profile, loadouts: [...profile.loadouts, copy] },
       `Duplicated “${l.name}” as “${name}”.`,
@@ -544,30 +540,44 @@ export default function SettingsTab({
     setUnlocked(next);
     setError(null);
     saveOverlayArrange(next);
-    try {
-      if (next) {
-        // Enter arrange: reveal EVERY overlay (even disabled ones) so all can
-        // be positioned and toggled on/off in place, and make them draggable.
-        for (const label of OVERLAY_LABELS) {
-          await overlayShow(label);
-          await overlaySetClickThrough(label, false);
-        }
-      } else {
-        // Lock: realize each overlay's enabled flag (hide the disabled ones)
-        // and restore click-through so the shown overlays ignore the mouse.
-        const vis = loadOverlayVisibility();
-        setShown(vis);
-        for (const label of OVERLAY_LABELS) {
+    // Per-label try/catch: one overlay window that fails to show/unlock must
+    // NOT abort the loop and leave every other overlay stuck un-draggable.
+    // Collect failures and surface them instead of silently swallowing.
+    const failures: string[] = [];
+    if (next) {
+      // Enter arrange: the backend reveals + unlocks EVERY overlay in one call
+      // and latches a guard so a drag that shifts focus can't re-lock the rest.
+      try {
+        await overlaySetArranging(true);
+      } catch (e) {
+        failures.push(`arrange: ${String(e)}`);
+      }
+    } else {
+      // Leave arrange: clear the guard FIRST so the lock pass below can take.
+      try {
+        await overlaySetArranging(false);
+      } catch (e) {
+        failures.push(`arrange: ${String(e)}`);
+      }
+      // Lock: realize each overlay's enabled flag (hide the disabled ones)
+      // and restore click-through so the shown overlays ignore the mouse.
+      const vis = loadOverlayVisibility();
+      setShown(vis);
+      for (const label of OVERLAY_WINDOW_LABELS) {
+        try {
           if (vis[label] === false) {
             await overlayHide(label);
           } else {
             await overlayShow(label);
             await overlaySetClickThrough(label, true);
           }
+        } catch (e) {
+          failures.push(`${label}: ${String(e)}`);
         }
       }
-    } catch (e) {
-      setError(String(e));
+    }
+    if (failures.length > 0) {
+      setError(`Overlay arrange had problems:\n${failures.join("\n")}`);
     }
   }
 
@@ -964,7 +974,7 @@ export default function SettingsTab({
             className="ghost small"
             onClick={() =>
               void Promise.all(
-                OVERLAY_LABELS.map((label) => toggleOverlay(label, true)),
+                OVERLAY_WINDOW_LABELS.map((label) => toggleOverlay(label, true)),
               )
             }
           >
@@ -974,7 +984,7 @@ export default function SettingsTab({
             className="ghost small"
             onClick={() =>
               void Promise.all(
-                OVERLAY_LABELS.map((label) => toggleOverlay(label, false)),
+                OVERLAY_WINDOW_LABELS.map((label) => toggleOverlay(label, false)),
               )
             }
           >
@@ -987,100 +997,45 @@ export default function SettingsTab({
             {unlocked ? "Lock overlays" : "Arrange overlays"}
           </button>
         </div>
-        <div className="check-row">
-          <input
-            id="ov-alerts"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_ALERTS]}
-            onChange={(e) => void toggleOverlay(OVERLAY_ALERTS, e.target.checked)}
-          />
-          <label htmlFor="ov-alerts">Alerts overlay (text alerts)</label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-buffs"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_BUFFS]}
-            onChange={(e) => void toggleOverlay(OVERLAY_BUFFS, e.target.checked)}
-          />
-          <label htmlFor="ov-buffs">Buff timers overlay (your buffs)</label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-onothers"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_ONOTHERS]}
-            onChange={(e) =>
-              void toggleOverlay(OVERLAY_ONOTHERS, e.target.checked)
-            }
-          />
-          <label htmlFor="ov-onothers">
-            On-others overlay (buffs you cast on others)
-          </label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-target"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_TARGET]}
-            onChange={(e) => void toggleOverlay(OVERLAY_TARGET, e.target.checked)}
-          />
-          <label htmlFor="ov-target">
-            Target overlay (your effects on enemies)
-          </label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-meter"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_METER]}
-            onChange={(e) => void toggleOverlay(OVERLAY_METER, e.target.checked)}
-          />
-          <label htmlFor="ov-meter">DPS meter overlay (top 5)</label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-xp"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_XP]}
-            onChange={(e) => void toggleOverlay(OVERLAY_XP, e.target.checked)}
-          />
-          <label htmlFor="ov-xp">XP rate overlay</label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-stance"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_STANCE]}
-            onChange={(e) => void toggleOverlay(OVERLAY_STANCE, e.target.checked)}
-          />
-          <label htmlFor="ov-stance">
-            Stance & invocation overlay (current martial stance — known after
-            your first change)
-          </label>
-        </div>
-        <div className="check-row">
-          <input
-            id="ov-respawn"
-            type="checkbox"
-            className="switch"
-            checked={shown[OVERLAY_RESPAWN]}
-            onChange={(e) =>
-              void toggleOverlay(OVERLAY_RESPAWN, e.target.checked)
-            }
-          />
-          <label htmlFor="ov-respawn">
-            Timer overlay (respawn + custom countdowns, soonest on top — hidden
-            when no timers are running)
-          </label>
-        </div>
+        {OVERLAY_MODULES.map((module) => {
+          const inputId = `ov-${module.route}`;
+          return (
+            <div className="check-row" key={module.id}>
+              <input
+                id={inputId}
+                type="checkbox"
+                className="switch"
+                checked={shown[module.windowLabel]}
+                onChange={(e) =>
+                  void toggleOverlay(module.windowLabel, e.target.checked)
+                }
+              />
+              <label htmlFor={inputId}>
+                {module.displayName} overlay ({module.description})
+              </label>
+              {module.preview && (
+                <button
+                  type="button"
+                  className="ghost small"
+                  style={{ marginLeft: "auto" }}
+                  title={`Preview the ${module.displayName} overlay`}
+                  onClick={() => {
+                    for (const preview of module.preview ?? []) {
+                      const fire = () => {
+                        if (IS_MOCK) mockEmit(preview.event, preview.payload);
+                        else void emit(preview.event, preview.payload);
+                      };
+                      if (preview.delayMs) window.setTimeout(fire, preview.delayMs);
+                      else fire();
+                    }
+                  }}
+                >
+                  Test
+                </button>
+              )}
+            </div>
+          );
+        })}
         <div className="check-row check-sub">
           <input
             id="ov-respawn-rares"

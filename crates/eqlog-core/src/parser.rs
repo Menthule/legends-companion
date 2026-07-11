@@ -17,13 +17,13 @@ use regex::Regex;
 /// eagle/tiger/dragon/tail ("A giant eagle strikes …" -> attacker "A giant").
 /// Those live in [`MELEE_SKILL_VERBS_3P`], matched only for single-token
 /// attackers (players / single-name mobs) before the generic form.
-const MELEE_VERBS_3P: &str = "hits|slashes|pierces|crushes|bashes|kicks|punches|cleaves|strikes|bites|claws|shoots|backstabs|gores|mauls|smashes|slams|slices|rends|stings|smites|frenzies on|round kicks|flying kicks";
+const MELEE_VERBS_3P: &str = "hits|slashes|pierces|crushes|bashes|kicks|punches|cleaves|strikes|bites|claws|shoots|backstabs|gores|mauls|smashes|slams|slices|rends|reaves|stings|smites|frenzies on|round kicks|flying kicks";
 /// Third-person monk skill verbs whose first word is a common mob-name noun.
 /// Only matched when the attacker is a single capitalized token, where the
 /// "name ends in the noun" reading is impossible (players, named mobs).
 const MELEE_SKILL_VERBS_3P: &str = "eagle strikes|tiger claws|dragon punches|tail rakes";
 /// Melee verbs in the first-person form (`You crush Y for ...`).
-const MELEE_VERBS_YOU: &str = "hit|slash|pierce|crush|bash|kick|punch|cleave|strike|bite|claw|shoot|backstab|gore|maul|smash|slam|slice|rend|sting|smite|frenzy on|round kick|flying kick|eagle strike|tiger claw|dragon punch|tail rake";
+const MELEE_VERBS_YOU: &str = "hit|slash|pierce|crush|bash|kick|punch|cleave|strike|bite|claw|shoot|backstab|gore|maul|smash|slam|slice|rend|reave|sting|smite|frenzy on|round kick|flying kick|eagle strike|tiger claw|dragon punch|tail rake";
 /// Multi-word verbs in the infinitive form used by miss lines ("try/tries
 /// to <verb>"). Must stay in sync with the multi-word entries of the hit-side
 /// lists so hit and miss key the same source row (drives the Acc% column).
@@ -1303,6 +1303,28 @@ mod unit {
         let (_, f) = strip_flags("X shoots Y for 9 points of damage. (Critical Double Bow Shot)");
         assert!(f.critical);
         assert_eq!(f.other, vec!["Double Bow Shot".to_string()]);
+    }
+
+    #[test]
+    fn reave_verb_and_finishing_blow_flag() {
+        let p = Parser::new();
+        // "reave" is a real Legends melee verb; the Finishing Blow AA tags the
+        // hit with "(Finishing Blow)" which must land in flags.other.
+        for line in [
+            "[Sat Jul 04 08:43:59 2026] You reave a Teir`Dal ranger for 135 points of damage. (Finishing Blow)",
+            "[Sat Jul 04 08:43:59 2026] Thaggar reaves a greater ice bones for 108 points of damage. (Finishing Blow)",
+        ] {
+            match p.parse_line(line).unwrap().event {
+                Event::MeleeHit { amount, flags, .. } => {
+                    assert!(amount > 0);
+                    assert!(
+                        flags.other.iter().any(|o| o == "Finishing Blow"),
+                        "expected Finishing Blow flag in {line}",
+                    );
+                }
+                other => panic!("expected MeleeHit for {line}, got {other:?}"),
+            }
+        }
     }
 
     #[test]

@@ -11,7 +11,9 @@
     "overlay-meter",
     "overlay-xp",
     "overlay-respawn",
-    "overlay-stance"
+    "overlay-stance",
+    "overlay-impact",
+    "overlay-scoreboard"
   ],
   "permissions": [
     "core:default",

@@ -3,7 +3,7 @@
 //! audio thread. One session thread does everything; `recv_timeout(250ms)`
 //! doubles as the timer/fight-update tick.
 
-use std::collections::{HashMap, VecDeque};
+use std::collections::{BTreeMap, VecDeque};
 use std::panic::AssertUnwindSafe;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -18,7 +18,7 @@ use eqlog_core::events::Event;
 use eqlog_core::fights::{FightConfig, FightTracker};
 use eqlog_core::parser::Parser;
 use eqlog_core::tail::{Tailer, TailerConfig};
-use eqlog_triggers::engine::{ActionSink, TimerFireKind, TriggerFireInfo};
+use eqlog_triggers::engine::{ActionSink, ImpactFire, OverlayFire, TimerFireKind, TriggerFireInfo};
 use eqlog_triggers::model::TimerLane;
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, Manager};
@@ -55,6 +55,36 @@ struct LogLinePayload {
 struct ActionPayload {
     kind: &'static str,
     text: String,
+}
+
+/// A fired `Impact` action, emitted on the `impact` event for the Impact
+/// overlay. Every field comes straight from the trigger's `Impact` action
+/// (already template-expanded) — nothing here is hardcoded per moment.
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+struct ImpactPayload {
+    style: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    headline: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    big: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    sub: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    glyph: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    color: Option<String>,
+}
+
+/// Destination-neutral overlay delivery. The selected overlay owns the field
+/// and configuration schema; the backend transports it without interpretation.
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+struct TriggerOverlayPayload {
+    trigger: Option<TriggerRef>,
+    overlay: String,
+    fields: BTreeMap<String, String>,
+    config: BTreeMap<String, serde_json::Value>,
 }
 
 /// One row of the live caster resist/fizzle/land% view (P45), emitted on the
@@ -242,23 +272,31 @@ enum BufferedAction {
         pending_secs: u64,
     },
     CancelTimer(String),
+    Impact(ImpactPayload),
+    Overlay {
+        overlay: String,
+        fields: BTreeMap<String, String>,
+        config: BTreeMap<String, serde_json::Value>,
+    },
+}
+
+struct BufferedEntry {
+    action: BufferedAction,
+    trigger: Option<TriggerRef>,
 }
 
 /// Emits "trigger-fired"/"timer" events and forwards audio. Sink calls are
-/// buffered per line and flushed with trigger attribution: the engine makes
-/// exactly one sink call per trigger action, in fire order, so the fire list
-/// from `process_traced` plus the per-trigger action counts partition the
-/// buffer. Sink calls made *before* the match loop (timer reaping on
-/// wear-off/death lines) land at the front and get `trigger: null`.
+/// buffered per line. The engine explicitly enters each trigger's scope, so
+/// every buffered call captures its owner immediately. Housekeeping calls are
+/// made outside a scope and carry `trigger: null`.
 struct EmitSink {
     app: AppHandle,
     audio: AudioHandle,
     /// Bundled sounds dir, cached at session start so PlaySound actions can
     /// reference bundled files by bare name ("danger.wav") portably.
     sounds_dir: Option<PathBuf>,
-    /// `effective_id` → action count, from the current [`EngineBuild`].
-    action_counts: HashMap<String, usize>,
-    buffer: Vec<BufferedAction>,
+    current_trigger: Option<TriggerRef>,
+    buffer: Vec<BufferedEntry>,
     /// Catch-up mode (post-sprint item 13): alert-facing actions (Speak,
     /// PlaySound, DisplayText, StartTimer) are dropped at flush; timer
     /// cancels still go through so overlays never keep stale bars.
@@ -266,12 +304,15 @@ struct EmitSink {
 }
 
 impl EmitSink {
-    fn set_counts(&mut self, counts: HashMap<String, usize>) {
-        self.action_counts = counts;
+    fn push(&mut self, action: BufferedAction) {
+        self.buffer.push(BufferedEntry {
+            action,
+            trigger: self.current_trigger.clone(),
+        });
     }
 
     /// Attribute and emit everything buffered while processing one line.
-    fn flush(&mut self, fires: &[TriggerFireInfo]) {
+    fn flush(&mut self) {
         if self.buffer.is_empty() {
             return;
         }
@@ -280,37 +321,16 @@ impl EmitSink {
             // action unemitted; only pass timer cancels through (the engine
             // already dropped those timers — overlays must follow).
             let buffer = std::mem::take(&mut self.buffer);
-            for action in buffer {
-                if let BufferedAction::CancelTimer(name) = action {
-                    self.emit_action(BufferedAction::CancelTimer(name), None);
+            for entry in buffer {
+                if let BufferedAction::CancelTimer(name) = entry.action {
+                    self.emit_action(BufferedAction::CancelTimer(name), entry.trigger);
                 }
             }
             return;
         }
         let buffer = std::mem::take(&mut self.buffer);
-        let attributed: usize = fires
-            .iter()
-            .map(|f| self.action_counts.get(&f.id).copied().unwrap_or(0))
-            .sum();
-        // Anything beyond the fired triggers' own actions came from the
-        // engine's pre-match housekeeping, which always runs first.
-        let lead = buffer.len().saturating_sub(attributed);
-        let mut owners: Vec<Option<TriggerRef>> = vec![None; lead];
-        'fill: for fire in fires {
-            let n = self.action_counts.get(&fire.id).copied().unwrap_or(0);
-            for _ in 0..n {
-                if owners.len() == buffer.len() {
-                    break 'fill;
-                }
-                owners.push(Some(TriggerRef {
-                    id: fire.id.clone(),
-                    name: fire.name.clone(),
-                }));
-            }
-        }
-        owners.resize(buffer.len(), None);
-        for (action, trigger) in buffer.into_iter().zip(owners) {
-            self.emit_action(action, trigger);
+        for entry in buffer {
+            self.emit_action(entry.action, entry.trigger);
         }
     }
 
@@ -365,6 +385,36 @@ impl EmitSink {
                 );
                 self.fired("cancelTimer", name, trigger);
             }
+            BufferedAction::Impact(payload) => {
+                // Trigger-driven Impact moment → the Impact overlay. Also
+                // reported as a fired action (kind "impact") so the trigger
+                // audit/attribution sees it like any other channel.
+                let label = payload.big.clone().unwrap_or_else(|| payload.style.clone());
+                let _ = self.app.emit("impact", payload);
+                self.fired("impact", label, trigger);
+            }
+            BufferedAction::Overlay {
+                overlay,
+                fields,
+                config,
+            } => {
+                let label = fields
+                    .get("text")
+                    .or_else(|| fields.get("headline"))
+                    .or_else(|| fields.get("value"))
+                    .cloned()
+                    .unwrap_or_else(|| overlay.clone());
+                let _ = self.app.emit(
+                    "trigger-overlay",
+                    TriggerOverlayPayload {
+                        trigger: trigger.clone(),
+                        overlay,
+                        fields,
+                        config,
+                    },
+                );
+                self.fired("overlay", label, trigger);
+            }
         }
     }
 
@@ -380,18 +430,28 @@ impl EmitSink {
 }
 
 impl ActionSink for EmitSink {
+    fn begin_trigger(&mut self, trigger: &TriggerFireInfo) {
+        self.current_trigger = Some(TriggerRef {
+            id: trigger.id.clone(),
+            name: trigger.name.clone(),
+        });
+    }
+
+    fn end_trigger(&mut self) {
+        self.current_trigger = None;
+    }
+
     fn speak(&mut self, text: &str) {
-        self.buffer.push(BufferedAction::Speak(text.to_string()));
+        self.push(BufferedAction::Speak(text.to_string()));
     }
 
     fn play_sound(&mut self, path: &str) {
         let resolved = crate::sounds::resolve_in(self.sounds_dir.as_deref(), path);
-        self.buffer.push(BufferedAction::PlaySound(resolved));
+        self.push(BufferedAction::PlaySound(resolved));
     }
 
     fn display_text(&mut self, text: &str) {
-        self.buffer
-            .push(BufferedAction::DisplayText(text.to_string()));
+        self.push(BufferedAction::DisplayText(text.to_string()));
     }
 
     fn start_timer(
@@ -402,7 +462,7 @@ impl ActionSink for EmitSink {
         lane: TimerLane,
         pending_secs: u64,
     ) {
-        self.buffer.push(BufferedAction::StartTimer {
+        self.push(BufferedAction::StartTimer {
             name: name.to_string(),
             duration_secs,
             warn_at_secs,
@@ -412,8 +472,26 @@ impl ActionSink for EmitSink {
     }
 
     fn cancel_timer(&mut self, name: &str) {
-        self.buffer
-            .push(BufferedAction::CancelTimer(name.to_string()));
+        self.push(BufferedAction::CancelTimer(name.to_string()));
+    }
+
+    fn impact(&mut self, spec: ImpactFire<'_>) {
+        self.push(BufferedAction::Impact(ImpactPayload {
+            style: spec.style.to_string(),
+            headline: spec.headline,
+            big: spec.big,
+            sub: spec.sub,
+            glyph: spec.glyph.map(|s| s.to_string()),
+            color: spec.color.map(|s| s.to_string()),
+        }));
+    }
+
+    fn overlay(&mut self, spec: OverlayFire<'_>) {
+        self.push(BufferedAction::Overlay {
+            overlay: spec.overlay.to_string(),
+            fields: spec.fields,
+            config: spec.config.clone(),
+        });
     }
 }
 
@@ -476,7 +554,7 @@ pub fn start(
         app: app.clone(),
         audio,
         sounds_dir: crate::sounds::sounds_dir(&app),
-        action_counts: HashMap::new(),
+        current_trigger: None,
         buffer: Vec::new(),
         suppress: false,
     };
@@ -587,7 +665,6 @@ fn run_loop(
     snapshots: Arc<Mutex<Vec<ActiveTimerPayload>>>,
 ) -> Option<String> {
     let mut engine = build.engine;
-    sink.set_counts(build.action_counts);
     let parser = Parser::new();
     // Configured pets attribute to the character so meters fold named pets
     // (the possessive "<char>'s pet/warder" forms are auto-attributed).
@@ -709,7 +786,6 @@ fn run_loop(
         // were already announced by the rebuild that sent it).
         while let Ok(next) = engine_rx.try_recv() {
             engine = next.engine;
-            sink.set_counts(next.action_counts);
         }
 
         match tailer.lines.recv_timeout(Duration::from_millis(TICK_MS)) {
@@ -742,8 +818,8 @@ fn run_loop(
                 fights.ingest(&parsed);
                 casts.ingest(&parsed);
                 fights_dirty = true;
-                let fires = engine.process_traced(&parsed, &mut sink);
-                sink.flush(&fires);
+                let _fires = engine.process_traced(&parsed, &mut sink);
+                sink.flush();
                 let _ = app.emit(
                     "log-line",
                     LogLinePayload {

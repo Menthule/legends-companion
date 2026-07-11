@@ -8,6 +8,12 @@ import type {
   LogLinePayload,
   MeterRow,
 } from "../types";
+import {
+  isPetSourceName,
+  petDamageOf,
+  splitPetDamageRows,
+  stripPetSuffix,
+} from "../lib/meterRows";
 import Empty from "./Empty";
 import MeterTable, { type MeterMode, StatTile } from "./MeterTable";
 import TimerBars from "./TimerBars";
@@ -32,90 +38,6 @@ interface SkillAgg {
   maxHit: number;
   misses: number;
   casts: number;
-}
-
-function isPetSourceName(name: string) {
-  return /\s+\(pet\)$/i.test(name);
-}
-
-function stripPetSuffix(name: string) {
-  return name.replace(/\s+\(pet\)$/i, "");
-}
-
-function petDamageOf(row: MeterRow) {
-  const rawPetDamage =
-    typeof row.petDamage === "number"
-      ? row.petDamage
-      : typeof (row as MeterRow & { pet_damage?: unknown }).pet_damage ===
-          "number"
-        ? (row as MeterRow & { pet_damage: number }).pet_damage
-        : 0;
-  if (rawPetDamage > 0) return Math.min(row.total, rawPetDamage);
-  return Math.min(
-    row.total,
-    (row.sources ?? [])
-      .filter((s) => isPetSourceName(s.name))
-      .reduce((sum, s) => sum + s.total, 0),
-  );
-}
-
-function splitDamageRows(
-  rows: MeterRow[],
-  durationSecs: number,
-  totalDamage: number,
-): MeterRow[] {
-  const duration = Math.max(1, durationSecs);
-  const split: MeterRow[] = [];
-  for (const row of rows) {
-    const petDamage = petDamageOf(row);
-    if (petDamage <= 0) {
-      split.push(row);
-      continue;
-    }
-
-    const petSources = (row.sources ?? []).filter((s) =>
-      isPetSourceName(s.name),
-    );
-    const playerSources = (row.sources ?? []).filter(
-      (s) => !isPetSourceName(s.name),
-    );
-    const playerDamage = Math.max(0, row.total - petDamage);
-    if (playerDamage > 0 || playerSources.length > 0) {
-      split.push({
-        ...row,
-        total: playerDamage,
-        petDamage: 0,
-        pet: false,
-        dps: playerDamage / duration,
-        pct: totalDamage > 0 ? (playerDamage / totalDamage) * 100 : 0,
-        sources: playerSources,
-      });
-    }
-    split.push({
-      ...row,
-      name: `${row.name} pet`,
-      total: petDamage,
-      petDamage: 0,
-      pet: false,
-      dps: petDamage / duration,
-      pct: totalDamage > 0 ? (petDamage / totalDamage) * 100 : 0,
-      sources:
-        petSources.length > 0
-          ? petSources.map((s) => ({ ...s, name: stripPetSuffix(s.name) }))
-          : [
-              {
-                name: "pet damage",
-                total: petDamage,
-                hits: 0,
-                crits: 0,
-                maxHit: 0,
-                misses: 0,
-                casts: 0,
-              },
-            ],
-    });
-  }
-  return split.sort((a, b) => b.total - a.total);
 }
 
 function addSources(acc: Map<string, SkillAgg>, row: MeterRow | undefined) {
@@ -191,7 +113,7 @@ export default function MetersTab({ character }: { character: string }) {
     (r) => r.name.toLowerCase() === character.toLowerCase(),
   );
   const damageRows = useMemo(
-    () => splitDamageRows(rows, fight?.durationSecs ?? 0, fight?.totalDamage ?? 0),
+    () => splitPetDamageRows(rows, fight?.durationSecs ?? 0, fight?.totalDamage ?? 0),
     [rows, fight?.durationSecs, fight?.totalDamage],
   );
 

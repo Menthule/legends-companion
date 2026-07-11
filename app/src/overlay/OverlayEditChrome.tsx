@@ -1,3 +1,4 @@
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useOverlayEnabled } from "../hooks";
 import { toggleOverlayEnabled } from "../overlayState";
 import ResizeGrip from "./ResizeGrip";
@@ -17,7 +18,17 @@ export default function OverlayEditChrome({
   const enabled = useOverlayEnabled(label);
   return (
     <>
-      <div className="ov-drag-tag" data-tauri-drag-region>
+      <div
+        className="ov-drag-tag"
+        // Explicit startDragging on mousedown — `data-tauri-drag-region` is
+        // unreliable in WebView2 (drags die on the first move event), while the
+        // imperative call is rock-solid (it's what the resize grip uses). Skip
+        // when the mousedown lands on the enable/disable button.
+        onMouseDown={(e) => {
+          if ((e.target as HTMLElement).closest("button")) return;
+          void getCurrentWindow().startDragging().catch(() => {});
+        }}
+      >
         <span className="ov-drag-name">{name} — drag</span>
         <button
           type="button"

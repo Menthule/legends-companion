@@ -5,8 +5,8 @@
 
 use eqlog_core::events::{ChatChannel, Entity, Event, LogLine, ParsedLine};
 use eqlog_triggers::{
-    Action, ActionSink, ChannelOverride, CharacterProfile, TimerFireKind, TimerLane,
-    TimerStartMode, Trigger, TriggerEngine,
+    Action, ActionSink, ChannelOverride, CharacterProfile, OverlayFire, TimerFireKind, TimerLane,
+    TimerStartMode, Trigger, TriggerEngine, TriggerFireInfo,
 };
 
 /// Records every sink call for assertions.
@@ -18,11 +18,26 @@ struct RecordingSink {
     timers: Vec<(String, u64, Option<u64>, TimerLane)>,
     cancels: Vec<String>,
     webhooks: Vec<(Option<String>, String)>,
+    overlays: Vec<(
+        String,
+        std::collections::BTreeMap<String, String>,
+        std::collections::BTreeMap<String, serde_json::Value>,
+    )>,
+    current_trigger: Option<String>,
+    attributed_calls: Vec<(String, Option<String>)>,
 }
 
 impl ActionSink for RecordingSink {
+    fn begin_trigger(&mut self, trigger: &TriggerFireInfo) {
+        self.current_trigger = Some(trigger.id.clone());
+    }
+    fn end_trigger(&mut self) {
+        self.current_trigger = None;
+    }
     fn speak(&mut self, text: &str) {
         self.spoken.push(text.to_string());
+        self.attributed_calls
+            .push(("speak".into(), self.current_trigger.clone()));
     }
     fn play_sound(&mut self, path: &str) {
         self.sounds.push(path.to_string());
@@ -44,9 +59,17 @@ impl ActionSink for RecordingSink {
     ) {
         self.timers
             .push((name.to_string(), duration_secs, warn_at_secs, lane));
+        self.attributed_calls
+            .push(("timer".into(), self.current_trigger.clone()));
     }
     fn cancel_timer(&mut self, name: &str) {
         self.cancels.push(name.to_string());
+    }
+    fn overlay(&mut self, spec: OverlayFire<'_>) {
+        self.attributed_calls
+            .push(("overlay".into(), self.current_trigger.clone()));
+        self.overlays
+            .push((spec.overlay.to_string(), spec.fields, spec.config.clone()));
     }
 }
 
@@ -58,6 +81,7 @@ impl RecordingSink {
             + self.timers.len()
             + self.cancels.len()
             + self.webhooks.len()
+            + self.overlays.len()
     }
 }
 
@@ -2258,8 +2282,55 @@ fn channel_override_toggles_tts_and_alert_independently() {
         &mut sink,
     );
     assert!(sink.spoken.is_empty(), "speak channel forced off");
-    // Synthesized alert template = trigger name.
-    assert_eq!(sink.displayed, vec!["Your spell resisted"]);
+    // A missing alert channel is synthesized using the generic overlay path.
+    assert!(sink.displayed.is_empty());
+    assert_eq!(sink.overlays.len(), 1);
+    assert_eq!(sink.overlays[0].0, "alerts");
+    assert_eq!(sink.overlays[0].1["text"], "Your spell resisted");
+}
+
+#[test]
+fn channel_override_alert_off_removes_legacy_and_generic_alerts_only() {
+    use std::collections::BTreeMap;
+
+    let trigger = Trigger {
+        id: Some("universal/mixed-overlays".into()),
+        ..Trigger::new(
+            "Mixed overlays",
+            "^mixed$",
+            vec![
+                Action::DisplayText {
+                    template: "legacy".into(),
+                },
+                Action::Overlay {
+                    overlay: "alerts".into(),
+                    fields: BTreeMap::from([("text".into(), "generic".into())]),
+                    config: BTreeMap::new(),
+                },
+                Action::Overlay {
+                    overlay: "impact".into(),
+                    fields: BTreeMap::from([("headline".into(), "kept".into())]),
+                    config: BTreeMap::new(),
+                },
+            ],
+        )
+    };
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().channel_overrides.insert(
+        "universal/mixed-overlays".into(),
+        ChannelOverride {
+            speak: None,
+            alert: Some(false),
+        },
+    );
+    let mut engine = TriggerEngine::new_with_profile(vec![trigger], "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(0, "mixed"), &mut sink);
+
+    assert!(sink.displayed.is_empty());
+    assert_eq!(sink.overlays.len(), 1);
+    assert_eq!(sink.overlays[0].0, "impact");
 }
 
 // ---- "On others" buff mini-bars: per-target binding in the on-others lane ----
@@ -2827,4 +2898,87 @@ fn post_webhook_action_expands_template_and_targets_named_webhook() {
     );
     // A webhook action speaks/shows nothing on its own.
     assert!(sink.spoken.is_empty() && sink.displayed.is_empty());
+}
+
+#[test]
+fn generic_overlays_fan_out_with_tts_and_explicit_attribution() {
+    use std::collections::BTreeMap;
+
+    let overlay = |destination: &str, field: (&str, &str), color: &str| Action::Overlay {
+        overlay: destination.into(),
+        fields: BTreeMap::from([(field.0.into(), field.1.into())]),
+        config: BTreeMap::from([("color".into(), serde_json::json!(color))]),
+    };
+    let trigger = Trigger::new(
+        "root warning",
+        "^(?P<target>.+) has been rooted by {C}\\.$",
+        vec![
+            overlay("alerts", ("text", "${target} rooted"), "#ffcc00"),
+            overlay("target", ("status", "ROOT: ${target}"), "red"),
+            Action::Speak {
+                template: "${target} rooted".into(),
+            },
+        ],
+    );
+    let trigger_id = trigger.effective_id();
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(42, "a froglok has been rooted by Nyasha."), &mut sink);
+
+    assert_eq!(sink.spoken, ["a froglok rooted"]);
+    assert_eq!(sink.overlays.len(), 2);
+    assert_eq!(sink.overlays[0].0, "alerts");
+    assert_eq!(sink.overlays[0].1["text"], "a froglok rooted");
+    assert_eq!(sink.overlays[0].2["color"], serde_json::json!("#ffcc00"));
+    assert_eq!(sink.overlays[1].0, "target");
+    assert_eq!(sink.overlays[1].1["status"], "ROOT: a froglok");
+    assert_eq!(
+        sink.attributed_calls,
+        vec![
+            ("overlay".into(), Some(trigger_id.clone())),
+            ("overlay".into(), Some(trigger_id.clone())),
+            ("speak".into(), Some(trigger_id)),
+        ]
+    );
+    assert!(sink.current_trigger.is_none());
+}
+
+#[test]
+fn skipped_action_does_not_shift_attribution_to_the_previous_trigger() {
+    let mut timer = Trigger::new(
+        "conditional timer",
+        "^go(?:)$",
+        vec![start_timer_action(
+            "Once",
+            30,
+            Some(TimerStartMode::IgnoreIfRunning),
+            None,
+        )],
+    );
+    timer.priority = 10;
+    let speaker = Trigger::new(
+        "always speaks",
+        "^go$",
+        vec![Action::Speak {
+            template: "go".into(),
+        }],
+    );
+    let timer_id = timer.effective_id();
+    let speaker_id = speaker.effective_id();
+    let mut engine = TriggerEngine::new(vec![timer, speaker], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(1, "go"), &mut sink);
+    engine.process(&line(2, "go"), &mut sink);
+
+    assert_eq!(
+        sink.attributed_calls,
+        vec![
+            ("timer".into(), Some(timer_id)),
+            ("speak".into(), Some(speaker_id.clone())),
+            // The timer's second action is skipped, so only this call exists.
+            ("speak".into(), Some(speaker_id)),
+        ]
+    );
 }

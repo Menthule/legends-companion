@@ -74,6 +74,28 @@ export function activeLoadout(profile: CharacterProfile): Loadout {
   );
 }
 
+/** Deep-copy a loadout under a new name without losing trigger behavior. */
+export function cloneLoadout(loadout: Loadout, name: string): Loadout {
+  return {
+    name,
+    classes: [...loadout.classes],
+    overrides: { ...loadout.overrides },
+    channel_overrides: Object.fromEntries(
+      Object.entries(loadout.channel_overrides ?? {}).map(([id, override]) => [
+        id,
+        { ...override },
+      ]),
+    ),
+    severity_overrides: { ...(loadout.severity_overrides ?? {}) },
+    zone_scopes: Object.fromEntries(
+      Object.entries(loadout.zone_scopes ?? {}).map(([scope, zones]) => [
+        scope,
+        [...zones],
+      ]),
+    ),
+  };
+}
+
 /**
  * A copy of `profile` with `patch` applied to its active loadout (appending
  * a loadout when the profile somehow has none) — the frontend counterpart
@@ -81,7 +103,16 @@ export function activeLoadout(profile: CharacterProfile): Loadout {
  */
 export function updateActiveLoadout(
   profile: CharacterProfile,
-  patch: Partial<Pick<Loadout, "classes" | "overrides" | "channel_overrides">>,
+  patch: Partial<
+    Pick<
+      Loadout,
+      | "classes"
+      | "overrides"
+      | "channel_overrides"
+      | "severity_overrides"
+      | "zone_scopes"
+    >
+  >,
 ): CharacterProfile {
   const active = activeLoadout(profile);
   const present = profile.loadouts.some((l) => l.name === active.name);

@@ -3,15 +3,34 @@ import { useTauriEvent } from "../hooks";
 import { ALERT_SIZE_KEY, loadAlertSizePx } from "../overlayState";
 import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
+import { getProfile } from "../api";
+import { activeLoadout } from "../resolution";
 import OverlayEditChrome from "./OverlayEditChrome";
 import { classifySeverity, type Severity } from "../lib/severity";
 import {
+  alertOverlayView,
+  type AlertOverlayView,
+} from "../lib/overlayRegistry";
+import {
   OVERLAY_ALERTS,
+  type CharacterProfile,
   type OverlayLockPayload,
   type ProcAlertPayload,
   type TriggerFiredPayload,
   type TriggerIdentity,
+  type TriggerOverlayPayload,
 } from "../types";
+
+/** Pull the active loadout's per-trigger severity overrides into a plain map. */
+function severityMapOf(profile: CharacterProfile | null): Record<string, Severity> {
+  if (!profile) return {};
+  const raw = activeLoadout(profile).severity_overrides ?? {};
+  const out: Record<string, Severity> = {};
+  for (const [id, sev] of Object.entries(raw)) {
+    if (sev === "info" || sev === "warn" || sev === "alarm") out[id] = sev;
+  }
+  return out;
+}
 
 // Visible time before fade-out, by severity: the dangerous tiers linger so
 // a Death Touch can't scroll off in the same 4 s as routine spam.
@@ -27,6 +46,9 @@ interface AlertItem {
   text: string;
   trigger: TriggerIdentity | null;
   severity: Severity;
+  icon?: string;
+  color?: string;
+  fontSize?: number;
   leaving: boolean;
 }
 
@@ -86,6 +108,11 @@ export default function OverlayAlerts() {
   const [unlocked, setUnlocked] = useState(initiallyUnlocked);
   const enabled = useOverlayEnabled(OVERLAY_ALERTS);
   const [sizePx, setSizePx] = useState(() => loadAlertSizePx());
+  // Per-trigger severity overrides from the active loadout — a trigger the
+  // auto-classifier reads wrong (e.g. "Bond of Death off" → alarm) can be
+  // dialled to a quieter tier from the Triggers tab. Refreshed on every
+  // profile-changed (which the tier chip triggers).
+  const [sevOverrides, setSevOverrides] = useState<Record<string, Severity>>({});
 
   // The Settings window writes the size; the storage event carries it here.
   useEffect(() => {
@@ -96,16 +123,48 @@ export default function OverlayAlerts() {
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
-  const pushAlert = (text: string, trigger: TriggerIdentity | null) => {
+  // Load the severity overrides once, then keep them fresh via profile-changed.
+  useEffect(() => {
+    if (IS_MOCK) return;
+    let live = true;
+    getProfile()
+      .then((p) => live && setSevOverrides(severityMapOf(p)))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
+  useTauriEvent<CharacterProfile>("profile-changed", (p) =>
+    setSevOverrides(severityMapOf(p)),
+  );
+
+  const pushAlert = (
+    text: string,
+    trigger: TriggerIdentity | null,
+    presentation: Partial<AlertOverlayView> = {},
+  ) => {
     const id = nextAlertId++;
     const normalizedText = normalizeAlertText(text);
-    const severity = classifySeverity(trigger?.id, trigger?.name);
-    const ttl = ALERT_TTL_MS[severity];
+    const override = trigger?.id ? sevOverrides[trigger.id] : undefined;
+    const severity =
+      override ??
+      presentation.severity ??
+      classifySeverity(trigger?.id, trigger?.name);
+    const ttl = presentation.durationMs ?? ALERT_TTL_MS[severity];
     // Newest on top, max 5 visible. When full, evict the oldest NON-alarm
     // pill first: a burst of routine spam must not push a Death Touch off.
     setAlerts((a) => {
       const next = [
-        { id, text: normalizedText, trigger, severity, leaving: false },
+        {
+          id,
+          text: normalizedText,
+          trigger,
+          severity,
+          icon: presentation.icon,
+          color: presentation.color,
+          fontSize: presentation.fontSize,
+          leaving: false,
+        },
         ...a,
       ];
       if (next.length <= 5) return next;
@@ -132,6 +191,11 @@ export default function OverlayAlerts() {
   useTauriEvent<TriggerFiredPayload>("trigger-fired", (p) => {
     if (p.action.kind !== "displayText") return;
     pushAlert(p.action.text, p.trigger);
+  });
+
+  useTauriEvent<TriggerOverlayPayload>("trigger-overlay", (p) => {
+    const view = alertOverlayView(p);
+    if (view) pushAlert(view.text, p.trigger, view);
   });
 
   useTauriEvent<ProcAlertPayload>("proc-alert", (p) => {
@@ -172,8 +236,10 @@ export default function OverlayAlerts() {
             className={`alert-pill alert-${a.severity}${
               a.leaving ? " leaving" : ""
             }`}
+            style={{ color: a.color, fontSize: a.fontSize }}
             title={a.trigger ? `Trigger: ${a.trigger.name}` : undefined}
           >
+            {a.icon && <span className="alert-icon">{a.icon}</span>}
             {a.text}
           </div>
         ))}

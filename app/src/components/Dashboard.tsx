@@ -9,6 +9,7 @@ import {
   isTailing,
   onTriggersChanged,
   overlayHide,
+  overlaySetArranging,
   overlaySetClickThrough,
   overlayShow,
   setActiveCharacter,
@@ -31,7 +32,6 @@ import {
   useLiveZoneName,
 } from "../lib/refFilters";
 import {
-  OVERLAY_LABELS,
   type AppConfig,
   type CatchUpPayload,
   type CharacterProfile,
@@ -41,6 +41,7 @@ import {
   type SessionEndedPayload,
   type TailStatsPayload,
 } from "../types";
+import { overlayWindowLabels } from "../overlay/modules";
 import {
   loadOverlayVisibility,
   OVERLAY_VIS_EVENT,
@@ -91,7 +92,7 @@ import {
   IconWarn,
 } from "./Icons";
 
-const OVERLAYS = OVERLAY_LABELS;
+const OVERLAYS = overlayWindowLabels();
 
 type TabId =
   | "live"
@@ -448,6 +449,10 @@ export default function Dashboard() {
     // Loadout create/rename/delete in Settings (and class edits on the
     // Triggers tab) go through setProfile, which notifies this listener.
     const offTriggers = onTriggersChanged(refreshProfile);
+    // Arrange is transient: clear any persisted arrange flag on startup so a
+    // restart mid-arrange doesn't leave every overlay showing drag chrome. The
+    // storage write also nudges overlay windows to re-lock.
+    saveOverlayArrange(false);
     // Apply persisted overlay visibility (windows default to visible;
     // hide any the user previously turned off) and start click-through.
     const v = loadOverlayVisibility();
@@ -838,14 +843,13 @@ export default function Dashboard() {
     setError(null);
     try {
       if (!nextLocked) {
-        // Arranging temporarily reveals every overlay without changing which
-        // overlays are enabled when locked.
+        // Arranging: the backend reveals + unlocks every overlay and latches a
+        // guard so a drag that shifts focus can't re-lock the rest.
         setOverlaysOn(true);
-        for (const label of OVERLAYS) {
-          await overlayShow(label);
-          await overlaySetClickThrough(label, false);
-        }
+        await overlaySetArranging(true);
       } else {
+        // Leaving arrange: clear the guard FIRST so the lock pass below takes.
+        await overlaySetArranging(false);
         const vis = loadOverlayVisibility();
         setOverlaysOn(OVERLAYS.some((label) => vis[label]));
         for (const label of OVERLAYS) {

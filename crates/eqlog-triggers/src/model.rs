@@ -258,6 +258,17 @@ pub enum Action {
     DisplayText {
         template: String,
     },
+    /// Route template-expanded data to a named overlay. Overlay ids are open
+    /// strings so adding a destination does not require an engine release.
+    /// The destination owns the meaning and validation of both `fields` and
+    /// `config`; the engine only expands string fields and forwards the JSON.
+    Overlay {
+        overlay: String,
+        #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+        fields: BTreeMap<String, String>,
+        #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+        config: BTreeMap<String, serde_json::Value>,
+    },
     StartTimer {
         name: String,
         duration_secs: u64,
@@ -325,6 +336,36 @@ pub enum Action {
         /// Name of the configured webhook to target. Absent = the default one.
         #[serde(default, skip_serializing_if = "Option::is_none")]
         webhook: Option<String>,
+    },
+    /// Show a big animated moment on the Impact overlay. This is how the
+    /// "impactful" moments (Finishing Blow, level-up, notable AA procs, big
+    /// crits) are driven ENTIRELY from triggers — nothing about them is
+    /// hardcoded. Every field is template-expanded like `Speak`/`DisplayText`
+    /// (positional `${1}`, named `${S}`, `{C}`, `{TS}`), so the payload is
+    /// built from the matched log line's captures.
+    Impact {
+        /// Visual treatment the overlay renders:
+        /// `"slash"` (big number cut by a blade — Finishing Blow),
+        /// `"big-number"` (focal number that bursts in — crits),
+        /// `"level"` (level-up ding), `"badge"` / `"medal"` (award with a
+        /// glyph — AA procs, achievements). Unknown values fall back to a
+        /// plain badge on the overlay side.
+        style: String,
+        /// Small eyebrow line above the focal text, e.g. "FINISHING BLOW".
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        headline: Option<String>,
+        /// The large focal text — a number (`${1}`) or a short word.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        big: Option<String>,
+        /// Secondary line under the focal text (who/what/target).
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sub: Option<String>,
+        /// Emoji/glyph for the `badge`/`medal` styles.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        glyph: Option<String>,
+        /// Accent color (any CSS color) overriding the style's default.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        color: Option<String>,
     },
 }
 
@@ -409,6 +450,13 @@ pub struct Loadout {
     /// [`crate::engine::apply_channel_override`]).
     #[serde(default)]
     pub channel_overrides: BTreeMap<String, ChannelOverride>,
+    /// `<trigger-id>` → alert severity tier override (`"info"`/`"warn"`/
+    /// `"alarm"`), overriding the host's auto-classifier so a benign alert the
+    /// classifier reads as lethal (e.g. a Necromancer DoT named "Bond of
+    /// Death") can be dialled down. Absent = auto-classify. Render-time only —
+    /// the host applies it on the alert overlay; the engine ignores it.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub severity_overrides: BTreeMap<String, String>,
     /// `<trigger-id or category-path-prefix>` → the zones that scope of
     /// triggers is limited to (same resolution as `overrides`: exact id, then
     /// longest matching path-prefix). A matching entry REPLACES the trigger's
@@ -429,6 +477,7 @@ impl Loadout {
             classes: Vec::new(),
             overrides: BTreeMap::new(),
             channel_overrides: BTreeMap::new(),
+            severity_overrides: BTreeMap::new(),
             zone_scopes: BTreeMap::new(),
         }
     }
@@ -441,6 +490,7 @@ static EMPTY_LOADOUT: Loadout = Loadout {
     classes: Vec::new(),
     overrides: BTreeMap::new(),
     channel_overrides: BTreeMap::new(),
+    severity_overrides: BTreeMap::new(),
     zone_scopes: BTreeMap::new(),
 };
 
@@ -515,6 +565,7 @@ impl From<ProfileWire> for CharacterProfile {
                     classes,
                     overrides,
                     channel_overrides: BTreeMap::new(),
+                    severity_overrides: BTreeMap::new(),
                     zone_scopes: BTreeMap::new(),
                 }],
             },

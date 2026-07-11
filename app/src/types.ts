@@ -26,11 +26,25 @@ export interface AppConfig {
 export type TimerLane = "buff" | "enemy" | "on-others" | "other";
 export type TimerStartMode = "restart" | "ignore-if-running" | "start-new-instance";
 
+/** Extensible trigger overlay identifier. Known overlays get autocomplete,
+ * while plugins/future builds can introduce another string id. */
+export type OverlayId = "alerts" | "impact" | (string & {});
+
+/** Template fields and presentation config are overlay-defined. The engine
+ * expands every field template before emitting `trigger-overlay`; config is
+ * deliberately open so adding an overlay does not change the core contract. */
+export interface TriggerOverlaySpec {
+  overlay: OverlayId;
+  fields: Record<string, string>;
+  config?: Record<string, unknown>;
+}
+
 /** eqlog-triggers Action enum, serde externally-tagged. */
 export type TriggerAction =
   | { Speak: { template: string } }
   | { PlaySound: { path: string } }
   | { DisplayText: { template: string } }
+  | { Overlay: TriggerOverlaySpec }
   | { CancelTimer: { name: string } }
   /** Post to a named webhook (Discord batphone). The URL lives in app
    *  settings keyed by `webhook`; absent = the default webhook. */
@@ -47,6 +61,8 @@ export type TriggerAction =
         duration_cap_ticks?: number | null;
         /** Overlay lane; absent = engine infers from the trigger category. */
         lane?: TimerLane | null;
+        /** Cast-time lead-in so expiry is anchored to the effect landing. */
+        cast_time_secs?: number | null;
         mode?: TimerStartMode | null;
         repeat_secs?: number | null;
         stopwatch?: boolean;
@@ -54,6 +70,18 @@ export type TriggerAction =
         expire_text?: string | null;
         warn_sound?: string | null;
         expire_sound?: string | null;
+      };
+    }
+  /** Fire a big Impact-overlay moment. `style` picks the visual treatment;
+   *  the text fields are template-expanded from the matched line's captures. */
+  | {
+      Impact: {
+        style: string;
+        headline?: string | null;
+        big?: string | null;
+        sub?: string | null;
+        glyph?: string | null;
+        color?: string | null;
       };
     };
 
@@ -83,6 +111,8 @@ export interface Trigger {
   cooldown_secs?: number | null;
   priority?: number;
   suppress?: boolean;
+  /** Zone-name substrings in which this trigger may fire. Empty = all zones. */
+  zones?: string[];
 }
 
 /** The 16 Legends classes, exact names as used in pack `classes` arrays. */
@@ -124,6 +154,11 @@ export interface Loadout {
   overrides: Record<string, boolean>;
   /** trigger-id -> forced TTS/alert channel state. */
   channel_overrides?: Record<string, ChannelOverride>;
+  /** trigger-id -> alert severity tier override ("info"/"warn"/"alarm"),
+   *  overriding the auto-classifier. Absent = auto-classify. */
+  severity_overrides?: Record<string, string>;
+  /** Trigger id/category prefix -> replacement zone scope for this loadout. */
+  zone_scopes?: Record<string, string[]>;
 }
 
 /** Per-character trigger settings (profiles/<slug>.json on the Rust side).
@@ -157,6 +192,10 @@ export interface TriggerTreeEntry {
   sound: boolean;
   timer: boolean;
   webhook: boolean;
+  /** Fires a big Impact-overlay moment (Finishing Blow, level-up, crit, …). */
+  impact: boolean;
+  /** Generic overlay destinations used by this trigger, in action order. */
+  overlays: string[];
   /** Index into the user pack for user/gina triggers; null for bundled. */
   userIndex: number | null;
 }
@@ -201,10 +240,55 @@ export interface TriggerFiredPayload {
   /** Firing trigger's identity when the engine knows it. */
   trigger: TriggerIdentity | null;
   action: {
-    kind: "speak" | "playSound" | "displayText" | "startTimer";
+    kind:
+      | "speak"
+      | "playSound"
+      | "displayText"
+      | "startTimer"
+      | "cancelTimer"
+      | "webhook"
+      | "impact"
+      | "overlay";
     text: string;
   };
 }
+
+/** Shared `trigger-overlay` event emitted after an Overlay action matches. */
+export interface TriggerOverlayPayload {
+  trigger: TriggerIdentity | null;
+  overlay: OverlayId;
+  /** Template-expanded values interpreted by the destination overlay. */
+  fields: Record<string, string>;
+  /** Destination-specific presentation options. */
+  config: Record<string, unknown>;
+}
+
+/** The visual treatment an Impact moment renders as. Comes from the trigger's
+ *  Impact action `style` field; unknown values fall back to "badge". */
+export type ImpactStyle = "slash" | "big-number" | "level" | "badge" | "medal";
+
+/** A trigger-driven Impact moment — the payload of the `impact` event. Every
+ *  field is filled by the trigger's Impact action (template-expanded from the
+ *  matched log line); NOTHING about a moment is hardcoded. The overlay assigns
+ *  `id` locally for animation keying. */
+export interface ImpactPayload {
+  id: number;
+  /** Visual treatment. */
+  style: ImpactStyle | string;
+  /** Small eyebrow line above the focal text (e.g. "FINISHING BLOW"). */
+  headline?: string;
+  /** The large focal text — a number or short word. */
+  big?: string;
+  /** Secondary line (who/what/target). */
+  sub?: string;
+  /** Emoji/glyph for badge/medal styles. */
+  glyph?: string;
+  /** Accent color (any CSS color) overriding the style default. */
+  color?: string;
+}
+
+/** The `impact` event payload as emitted by the backend (no local `id`). */
+export type ImpactEvent = Omit<ImpactPayload, "id">;
 
 /** Frontend-detected proc alert payload. */
 export interface ProcAlertPayload {
@@ -388,6 +472,8 @@ export const OVERLAY_STANCE = "overlay-stance";
 export const OVERLAY_ONOTHERS = "overlay-onothers";
 export const OVERLAY_XP = "overlay-xp";
 export const OVERLAY_RESPAWN = "overlay-respawn";
+export const OVERLAY_IMPACT = "overlay-impact";
+export const OVERLAY_SCOREBOARD = "overlay-scoreboard";
 
 /** All overlay window labels, in top-bar/Settings display order. */
 export const OVERLAY_LABELS = [
@@ -399,6 +485,8 @@ export const OVERLAY_LABELS = [
   OVERLAY_XP,
   OVERLAY_STANCE,
   OVERLAY_RESPAWN,
+  OVERLAY_IMPACT,
+  OVERLAY_SCOREBOARD,
 ] as const;
 
 /** Timer-name convention for per-target enemy effects: "<Effect> — <target>"
