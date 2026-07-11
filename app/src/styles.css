@@ -2283,6 +2283,18 @@ button.coach-row.active {
   color: #fff;
   animation: finisher-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
+.impact-shell {
+  align-items: stretch;
+  container-name: impact;
+  container-type: size;
+}
+.impact-shell .ov-impact {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  justify-content: center;
+  padding: 18px;
+}
 .ov-impact.leaving {
   opacity: 0;
   transition: opacity 0.45s ease-out;
@@ -2301,7 +2313,7 @@ button.coach-row.active {
 .ov-impact .ovf-num {
   font: 900 62px/0.9 "Arial Black", "Helvetica Neue", system-ui, sans-serif;
   font-style: italic;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   white-space: nowrap;
   color: var(--impact-accent);
   text-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
@@ -2352,7 +2364,7 @@ button.coach-row.active {
 .ov-impact .ovi-headline {
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.22em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--impact-accent);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
@@ -2360,7 +2372,7 @@ button.coach-row.active {
 .ov-impact .ovi-big {
   font: 900 62px/0.9 "Arial Black", "Helvetica Neue", system-ui, sans-serif;
   font-style: italic;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   color: var(--impact-accent);
   text-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
 }
@@ -2441,6 +2453,68 @@ button.coach-row.active {
   text-align: center;
   font-size: 19px;
   line-height: 1;
+}
+
+@container impact (min-width: 650px) and (min-height: 360px) {
+  .ov-impact {
+    gap: 10px;
+  }
+  .ov-impact .ovf-num,
+  .ov-impact .ovi-big {
+    font-size: 132px;
+  }
+  .ov-impact.impact-level .ovi-big {
+    font-size: 164px;
+  }
+  .ov-impact .ovi-headline {
+    font-size: 22px;
+  }
+  .ov-impact .ovi-name {
+    max-width: 90%;
+    font-size: 34px;
+    overflow-wrap: anywhere;
+  }
+  .ov-impact .ovi-sub {
+    max-width: 90%;
+    font-size: 20px;
+    overflow-wrap: anywhere;
+  }
+  .ov-medal {
+    width: 132px;
+    height: 132px;
+  }
+  .ov-medal-glyph {
+    font-size: 38px;
+  }
+}
+
+@container impact (min-width: 900px) and (min-height: 480px) {
+  .ov-impact {
+    gap: 14px;
+  }
+  .ov-impact .ovf-num,
+  .ov-impact .ovi-big {
+    font-size: 176px;
+  }
+  .ov-impact.impact-level .ovi-big {
+    font-size: 220px;
+  }
+  .ov-impact .ovi-headline {
+    font-size: 28px;
+  }
+  .ov-impact .ovi-name {
+    font-size: 44px;
+  }
+  .ov-impact .ovi-sub {
+    font-size: 24px;
+  }
+  .ov-medal {
+    width: 180px;
+    height: 180px;
+  }
+  .ov-medal-glyph {
+    font-size: 52px;
+  }
 }
 @keyframes trophy-pop {
   0% { opacity: 0; transform: scale(0.6); }

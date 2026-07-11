@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import {
+  getCurrentWindow,
+  LogicalPosition,
+  LogicalSize,
+} from "@tauri-apps/api/window";
 import { useTauriEvent, useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
 import OverlayEditChrome from "./OverlayEditChrome";
 import { impactOverlayView } from "../lib/overlayRegistry";
+import { impactDefaultSize } from "../lib/impactSizing";
 import {
   OVERLAY_IMPACT,
   type ImpactEvent,
@@ -15,6 +21,8 @@ import { loadOverlayArrange, OVERLAY_ARRANGE_KEY } from "../overlayState";
 // How long an impact lingers before it fades out.
 const IMPACT_TTL_MS = 2600;
 const IMPACT_FADE_MS = 450;
+const IMPACT_SCALE_VERSION_KEY = "eqlogs.overlay.impactScaleVersion";
+const IMPACT_SCALE_VERSION = "2";
 
 // Arrange is a transient mode — overlays always boot LOCKED (click-through,
 // no edit chrome). The persisted flag only drives runtime cross-window sync
@@ -95,6 +103,61 @@ export default function OverlayImpact() {
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
+  // Window-state persistence keeps the old 380x210 geometry forever unless
+  // we migrate it. Resize only that legacy footprint once; a player who later
+  // chooses a smaller custom size is never overridden.
+  useEffect(() => {
+    if (IS_MOCK) return;
+    try {
+      if (localStorage.getItem(IMPACT_SCALE_VERSION_KEY) === IMPACT_SCALE_VERSION) {
+        return;
+      }
+    } catch {
+      return;
+    }
+    const migrate = async () => {
+      const appWindow = getCurrentWindow();
+      const [physicalSize, physicalPosition] = await Promise.all([
+        appWindow.outerSize(),
+        appWindow.outerPosition(),
+      ]);
+      const scale = window.devicePixelRatio || 1;
+      const width = physicalSize.width / scale;
+      const height = physicalSize.height / scale;
+      if (width <= 500 && height <= 300) {
+        const target = impactDefaultSize(
+          window.screen.availWidth,
+          window.screen.availHeight,
+        );
+        const left = physicalPosition.x / scale;
+        const top = physicalPosition.y / scale;
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        const screen = window.screen as Screen & {
+          availLeft?: number;
+          availTop?: number;
+        };
+        const minX = screen.availLeft ?? 0;
+        const minY = screen.availTop ?? 0;
+        const maxX = minX + window.screen.availWidth - target.width;
+        const maxY = minY + window.screen.availHeight - target.height;
+        await appWindow.setSize(new LogicalSize(target.width, target.height));
+        await appWindow.setPosition(
+          new LogicalPosition(
+            Math.max(minX, Math.min(maxX, centerX - target.width / 2)),
+            Math.max(minY, Math.min(maxY, centerY - target.height / 2)),
+          ),
+        );
+      }
+      try {
+        localStorage.setItem(IMPACT_SCALE_VERSION_KEY, IMPACT_SCALE_VERSION);
+      } catch {
+        // The static Tauri default still covers new installs.
+      }
+    };
+    void migrate().catch(() => {});
+  }, []);
+
   // Mock: cycle one of each style so all render in browser dev.
   useEffect(() => {
     if (!IS_MOCK) return;
@@ -102,6 +165,7 @@ export default function OverlayImpact() {
       { style: "slash", headline: "FINISHING BLOW", big: "1,204", sub: "You → Baron Telyx V`Zher" },
       { style: "big-number", headline: "CRITICAL", big: "947", sub: "Blast of Frost → a Teir`Dal ranger", color: "#ffb454" },
       { style: "level", headline: "LEVEL UP", big: "32", sub: "Ding!" },
+      { style: "badge", headline: "ACHIEVEMENT", big: "Dragon Slayer", sub: "Veeshan's Peak", glyph: "★" },
       { style: "medal", headline: "AA PROC", big: "Divine Intervention", sub: "saved you from death", glyph: "✦" },
     ];
     let i = 0;
@@ -123,7 +187,7 @@ export default function OverlayImpact() {
 
   return (
     <div
-      className={`ov-shell${unlocked ? " unlocked" : ""}${
+      className={`ov-shell impact-shell${unlocked ? " unlocked" : ""}${
         unlocked && !enabled ? " ov-disabled" : ""
       }`}
     >

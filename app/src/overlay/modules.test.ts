@@ -61,4 +61,12 @@ describe("overlay module catalog", () => {
     expect(catalog).toEqual(configured);
     expect(catalog).toEqual(permitted);
   });
+
+  it("gives Impact a large focal default window", () => {
+    const impact = tauriConfig.app.windows.find(
+      (window) => window.label === "overlay-impact",
+    );
+    expect(impact?.width).toBeGreaterThanOrEqual(900);
+    expect(impact?.height).toBeGreaterThanOrEqual(500);
+  });
 });
