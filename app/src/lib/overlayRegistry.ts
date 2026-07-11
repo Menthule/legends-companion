@@ -38,6 +38,8 @@ export interface OverlayConfigDescriptor extends OverlayDescriptorBase {
   min?: number;
   max?: number;
   step?: number;
+  /** Divide stored numeric values by this factor for friendlier editor units. */
+  inputScale?: number;
 }
 
 export interface OverlayDefinition {
@@ -116,12 +118,13 @@ const DEFINITIONS: readonly OverlayDefinition[] = [
       },
       {
         key: "durationMs",
-        label: "Visible time",
+        label: "Visible time (seconds)",
         type: "number",
-        description: "Milliseconds before the alert fades.",
+        description: "Seconds before the alert fades.",
         min: 500,
         max: 60_000,
         step: 100,
+        inputScale: 1000,
         default: "",
       },
     ],
@@ -178,11 +181,12 @@ const DEFINITIONS: readonly OverlayDefinition[] = [
       },
       {
         key: "durationMs",
-        label: "Visible time",
+        label: "Visible time (seconds)",
         type: "number",
         min: 500,
         max: 60_000,
         step: 100,
+        inputScale: 1000,
         default: 2600,
       },
     ],

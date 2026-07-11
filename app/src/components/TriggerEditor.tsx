@@ -23,6 +23,13 @@ import {
   overlayDefaults,
 } from "../lib/overlayRegistry";
 import {
+  IconArrowDown,
+  IconArrowUp,
+  IconChevronDown,
+  IconCopy,
+  IconTrash,
+} from "./Icons";
+import {
   getTemplate,
   leadName,
   recognizePattern,
@@ -90,6 +97,9 @@ interface RowState {
   overlay: string;
   overlayFields: Record<string, string>;
   overlayConfig: Record<string, unknown>;
+  /** Editor-only disclosure state; never serialized into Trigger.actions. */
+  expanded: boolean;
+  appearanceOpen: boolean;
 }
 
 let nextRowId = 1;
@@ -109,11 +119,13 @@ function blankRow(kind: RowKind): RowState {
     overlay: "alerts",
     overlayFields: overlayDefaults("alerts").fields,
     overlayConfig: overlayDefaults("alerts").config,
+    expanded: true,
+    appearanceOpen: false,
   };
 }
 
 export function rowsFromActions(actions: TriggerAction[]): RowState[] {
-  return actions.map((a) => {
+  return actions.map<RowState>((a) => {
     if ("Speak" in a) return { ...blankRow("speak"), text: a.Speak.template };
     if ("DisplayText" in a) {
       return {
@@ -178,7 +190,7 @@ export function rowsFromActions(actions: TriggerAction[]): RowState[] {
       capTicks: t.duration_cap_ticks,
       preservedAction: a,
     };
-  });
+  }).map((row, index) => ({ ...row, expanded: index === 0 }));
 }
 
 function configuredString(config: Record<string, unknown>, key: string): string {
@@ -221,15 +233,19 @@ export function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
       case "overlay": {
         const overlay = row.overlay.trim();
         if (!overlay) return "Pick an overlay destination.";
-        const fields = compactRecord(row.overlayFields);
         const definition = getOverlayDefinition(overlay);
+        const fields = definition
+          ? compactRecord(row.overlayFields)
+          : { ...row.overlayFields };
         const missing = definition?.fields.find(
           (field) => field.required && !fields[field.key]?.trim(),
         );
         if (missing) {
           return `${definition?.label ?? overlay} needs ${missing.label.toLowerCase()}.`;
         }
-        const config = compactRecord(row.overlayConfig);
+        const config = definition
+          ? compactRecord(row.overlayConfig)
+          : { ...row.overlayConfig };
         actions.push({
           Overlay: {
             overlay,
@@ -575,6 +591,7 @@ export default function TriggerEditor({
   const [name, setName] = useState(init.name);
   const [category, setCategory] = useState(init.category);
   const [rows, setRows] = useState<RowState[]>(init.rows);
+  const [addMenuOpen, setAddMenuOpen] = useState(false);
   const [enabled, setEnabled] = useState(init.enabled);
   /** Refire cooldown in seconds; 0 = fire on every match. */
   const [cooldown, setCooldown] = useState<number>(initial?.cooldown_secs ?? 0);
@@ -641,11 +658,13 @@ export default function TriggerEditor({
       const reduce = window.matchMedia?.(
         "(prefers-reduced-motion: reduce)",
       )?.matches;
-      const card = rootRef.current?.closest(".card.editor") ?? rootRef.current;
-      card?.scrollIntoView({
-        block: "start",
-        behavior: reduce ? "auto" : "smooth",
-      });
+      if (!rootRef.current?.closest(".trigger-editor-workspace")) {
+        const card = rootRef.current?.closest(".card.editor") ?? rootRef.current;
+        card?.scrollIntoView({
+          block: "start",
+          behavior: reduce ? "auto" : "smooth",
+        });
+      }
     }
     nameRef.current?.focus({ preventScroll: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -774,13 +793,17 @@ export default function TriggerEditor({
       case "speak":
         return `Will say: “${render(row.text)}”`;
       case "overlay": {
-        const label =
-          row.overlay === "alerts"
-            ? render(row.overlayFields.text ?? "")
-            : row.overlay === "impact"
-              ? render(row.overlayFields.big ?? row.overlayFields.headline ?? "")
-              : Object.values(row.overlayFields).map(render).find(Boolean) ?? "";
-        return `Sends to ${row.overlay || "overlay"}: ${label || "structured data"}`;
+        const definition = getOverlayDefinition(row.overlay);
+        const preferredKeys = [
+          ...(definition?.fields.filter((field) => field.required) ?? []),
+          ...(definition?.fields ?? []),
+        ].map((field) => field.key);
+        const raw = preferredKeys
+          .map((key) => row.overlayFields[key])
+          .find((value) => value?.trim()) ??
+          Object.values(row.overlayFields).find((value) => value.trim()) ??
+          "";
+        return `Sends to ${definition?.label ?? (row.overlay || "overlay")}: ${raw ? render(raw) : "structured data"}`;
       }
       case "sound": {
         const s = matchSound(row.soundPath);
@@ -798,6 +821,34 @@ export default function TriggerEditor({
         }${warn !== null ? `, warn at ${formatDuration(warn)}` : ""}`;
       }
     }
+  }
+
+  function actionLabel(row: RowState): string {
+    switch (row.kind) {
+      case "overlay":
+        return `${getOverlayDefinition(row.overlay)?.label ?? row.overlay ?? "Unknown"} overlay`;
+      case "speak":
+        return "Text to speech";
+      case "sound":
+        return "Play sound";
+      case "timer":
+        return "Start timer";
+      case "cancel":
+        return "Cancel timer";
+      case "webhook":
+        return "Legacy webhook";
+    }
+  }
+
+  function actionBadge(kind: RowKind): string {
+    return {
+      overlay: "OV",
+      speak: "TTS",
+      sound: "SND",
+      timer: "TMR",
+      cancel: "END",
+      webhook: "WEB",
+    }[kind];
   }
 
   function matchSound(path: string): SoundInfo | null {
@@ -828,10 +879,53 @@ export default function TriggerEditor({
     setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   };
 
+  const setRowDisclosure = (
+    id: number,
+    patch: Pick<Partial<RowState>, "expanded" | "appearanceOpen">,
+  ) => {
+    setRows((current) =>
+      current.map((row) => (row.id === id ? { ...row, ...patch } : row)),
+    );
+  };
+
   const removeRow = (id: number) => {
     touch();
     dirty.current.actions = true;
     setRows((rs) => rs.filter((r) => r.id !== id));
+  };
+
+  const moveRow = (id: number, delta: -1 | 1) => {
+    touch();
+    dirty.current.actions = true;
+    setRows((current) => {
+      const from = current.findIndex((row) => row.id === id);
+      const to = from + delta;
+      if (from < 0 || to < 0 || to >= current.length) return current;
+      const next = [...current];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved);
+      return next;
+    });
+  };
+
+  const duplicateRow = (id: number) => {
+    touch();
+    dirty.current.actions = true;
+    setRows((current) => {
+      const index = current.findIndex((row) => row.id === id);
+      if (index < 0) return current;
+      const source = current[index];
+      const duplicate: RowState = {
+        ...source,
+        id: nextRowId++,
+        overlayFields: { ...source.overlayFields },
+        overlayConfig: { ...source.overlayConfig },
+        expanded: true,
+      };
+      const next = [...current];
+      next.splice(index + 1, 0, duplicate);
+      return next;
+    });
   };
 
   const addRow = (kind: RowKind) => {
@@ -846,6 +940,7 @@ export default function TriggerEditor({
       row.overlayConfig = defaults.config;
     }
     setRows((rs) => [...rs, row]);
+    setAddMenuOpen(false);
   };
 
   function insertToken(rowId: number, token: string) {
@@ -1189,29 +1284,47 @@ export default function TriggerEditor({
     }
   }
 
-  function renderRow(row: RowState, isFirstTimer: boolean) {
+  function renderRow(row: RowState, isFirstTimer: boolean, rowIndex: number) {
     const rowChips = [
       ...chips,
       { group: 0, label: "my character", token: "{C}" },
       { group: 0, label: "time", token: "{TS}" },
     ];
     return (
-      <div className="ted-action-row" key={row.id}>
-        <select
-          className="ted-kind"
-          value={row.kind}
-          aria-label="Action kind"
-          onChange={(e) => updateRow(row.id, { kind: e.target.value as RowKind })}
-        >
-          <option value="speak">Speak</option>
-          <option value="sound">Play sound</option>
-          <option value="overlay">Send to overlay</option>
-          <option value="timer">Start timer</option>
-          <option value="cancel">Cancel timer</option>
-          <option value="webhook">Post to webhook</option>
-        </select>
+      <div className={`ted-action-card${row.expanded ? " open" : ""}`} key={row.id}>
+        <div className="ted-action-head">
+          <button
+            type="button"
+            className="ted-action-toggle"
+            aria-expanded={row.expanded}
+            onClick={() => setRowDisclosure(row.id, { expanded: !row.expanded })}
+          >
+            <span className={`ted-action-chevron${row.expanded ? " open" : ""}`}>
+              <IconChevronDown size={14} />
+            </span>
+            <span className="ted-action-badge" aria-hidden="true">{actionBadge(row.kind)}</span>
+            <span className="ted-action-title">
+              <strong>{actionLabel(row)}</strong>
+              <span>{willDo(row, test?.match ?? null)}</span>
+            </span>
+          </button>
+          <div className="ted-action-tools">
+            <button type="button" className="icon-button" title="Move action up" aria-label="Move action up" disabled={rowIndex === 0} onClick={() => moveRow(row.id, -1)}>
+              <IconArrowUp />
+            </button>
+            <button type="button" className="icon-button" title="Move action down" aria-label="Move action down" disabled={rowIndex === rows.length - 1} onClick={() => moveRow(row.id, 1)}>
+              <IconArrowDown />
+            </button>
+            <button type="button" className="icon-button" title="Duplicate action" aria-label="Duplicate action" onClick={() => duplicateRow(row.id)}>
+              <IconCopy />
+            </button>
+            <button type="button" className="icon-button danger" title="Delete action" aria-label="Delete action" onClick={() => removeRow(row.id)}>
+              <IconTrash />
+            </button>
+          </div>
+        </div>
 
-        <div className="ted-action-main">
+        {row.expanded && <div className="ted-action-main">
           {(row.kind === "speak" || row.kind === "webhook") && (
             <>
               <input
@@ -1249,6 +1362,10 @@ export default function TriggerEditor({
               </div>
               {row.kind === "webhook" && (
                 <>
+                  <div className="ted-warn">
+                    Webhook delivery is unavailable in this build. This legacy
+                    action will be preserved unless you delete it.
+                  </div>
                   <input
                     type="text"
                     value={row.webhookName}
@@ -1333,7 +1450,20 @@ export default function TriggerEditor({
                     )}
                   </label>
                 ))}
-                {definition?.config.map((config) => (
+                {definition && definition.config.length > 0 && (
+                  <button
+                    type="button"
+                    className="ted-appearance-toggle"
+                    aria-expanded={row.appearanceOpen}
+                    onClick={() => setRowDisclosure(row.id, { appearanceOpen: !row.appearanceOpen })}
+                  >
+                    <span>Appearance and behavior</span>
+                    <span className={`ted-action-chevron${row.appearanceOpen ? " open" : ""}`}>
+                      <IconChevronDown size={14} />
+                    </span>
+                  </button>
+                )}
+                {row.appearanceOpen && definition?.config.map((config) => (
                   <label className="field" key={config.key} title={config.description}>
                     <span>{config.label}</span>
                     {config.type === "select" ? (
@@ -1348,18 +1478,42 @@ export default function TriggerEditor({
                     ) : config.type === "number" ? (
                       <input
                         type="number"
-                        min={config.min}
-                        max={config.max}
-                        step={config.step}
-                        value={configuredNumber(row.overlayConfig, config.key)}
-                        placeholder={config.default ? String(config.default) : "default"}
+                        min={config.min == null ? undefined : config.min / (config.inputScale ?? 1)}
+                        max={config.max == null ? undefined : config.max / (config.inputScale ?? 1)}
+                        step={config.step == null ? undefined : config.step / (config.inputScale ?? 1)}
+                        value={(() => {
+                          const raw = configuredNumber(row.overlayConfig, config.key);
+                          return raw === "" ? "" : Number(raw) / (config.inputScale ?? 1);
+                        })()}
+                        placeholder={
+                          typeof config.default === "number"
+                            ? String(config.default / (config.inputScale ?? 1))
+                            : "default"
+                        }
                         onChange={(e) =>
                           setConfig(
                             config.key,
-                            e.target.value === "" ? "" : Number(e.target.value),
+                            e.target.value === ""
+                              ? ""
+                              : Number(e.target.value) * (config.inputScale ?? 1),
                           )
                         }
                       />
+                    ) : config.type === "color" ? (
+                      <div className="ted-color-line">
+                        <input
+                          type="color"
+                          aria-label={`${config.label} picker`}
+                          value={configuredString(row.overlayConfig, config.key) || "#ffffff"}
+                          onChange={(e) => setConfig(config.key, e.target.value)}
+                        />
+                        <input
+                          type="text"
+                          value={configuredString(row.overlayConfig, config.key)}
+                          placeholder="Overlay default"
+                          onChange={(e) => setConfig(config.key, e.target.value)}
+                        />
+                      </div>
                     ) : (
                       <input
                         type="text"
@@ -1534,16 +1688,7 @@ export default function TriggerEditor({
             </>
           )}
 
-        </div>
-
-        <button
-          type="button"
-          className="ghost small ted-remove"
-          onClick={() => removeRow(row.id)}
-          aria-label="Remove action"
-        >
-          Remove
-        </button>
+        </div>}
       </div>
     );
   }
@@ -1719,10 +1864,40 @@ export default function TriggerEditor({
             No actions yet — a trigger with no actions does nothing.
           </div>
         )}
-        {rows.map((r) => renderRow(r, r.id === firstTimerId))}
-        <button type="button" className="ghost small ted-add" onClick={() => addRow("speak")}>
-          + Add action
-        </button>
+        {rows.map((r, index) => renderRow(r, r.id === firstTimerId, index))}
+        <div className="ted-add-wrap">
+          <button
+            type="button"
+            className="ghost ted-add"
+            aria-expanded={addMenuOpen}
+            onClick={() => setAddMenuOpen((open) => !open)}
+          >
+            + Add action
+          </button>
+          {addMenuOpen && (
+            <div className="ted-action-picker" role="menu" aria-label="Add an action">
+              {([
+                ["overlay", "Overlay", "Send matched data to a configurable overlay"],
+                ["speak", "Text to speech", "Read a message aloud"],
+                ["sound", "Sound", "Play an audio cue"],
+                ["timer", "Start timer", "Create or restart a timer bar"],
+                ["cancel", "Cancel timer", "Stop a timer by name"],
+              ] as const).map(([kind, label, description]) => (
+                <button
+                  type="button"
+                  role="menuitem"
+                  key={kind}
+                  onClick={() => addRow(kind)}
+                >
+                  <span className="ted-action-badge" aria-hidden="true">
+                    {actionBadge(kind)}
+                  </span>
+                  <span><strong>{label}</strong><small>{description}</small></span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="ted-section">

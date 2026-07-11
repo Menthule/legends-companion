@@ -81,4 +81,27 @@ describe("trigger action editor codec", () => {
 
     expect(roundTrip(actions)).toEqual(actions);
   });
+
+  it("preserves empty and nested data for an overlay not installed in this build", () => {
+    const actions: TriggerAction[] = [
+      {
+        Overlay: {
+          overlay: "future-raid-grid",
+          fields: { title: "Incoming", optional: "" },
+          config: { enabled: false, count: 0, nested: { lanes: ["north"] } },
+        },
+      },
+    ];
+
+    expect(roundTrip(actions)).toEqual(actions);
+  });
+
+  it("opens the first action and collapses later actions initially", () => {
+    const rows = rowsFromActions([
+      { Speak: { template: "move" } },
+      { CancelTimer: { name: "danger" } },
+    ]);
+
+    expect(rows.map((row) => row.expanded)).toEqual([true, false]);
+  });
 });

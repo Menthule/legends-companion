@@ -877,6 +877,7 @@ export default function Dashboard() {
               {g.tabs.map((t) => (
                 <button
                   key={t.id}
+                  title={t.label}
                   className={tab === t.id ? "active" : ""}
                   onClick={() => setTab(t.id)}
                 >

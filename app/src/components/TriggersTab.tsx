@@ -245,12 +245,29 @@ function simpleTrigger(intent: TriggerIntent, line: string): Trigger | null {
     case "speak":
       return { ...common, actions: [{ Speak: { template: label } }] };
     case "alert":
-      return { ...common, actions: [{ DisplayText: { template: label } }] };
+      return {
+        ...common,
+        actions: [
+          {
+            Overlay: {
+              overlay: "alerts",
+              fields: { text: label },
+              config: { severity: "auto" },
+            },
+          },
+        ],
+      };
     case "sound":
       return {
         ...common,
         actions: [
-          { DisplayText: { template: label } },
+          {
+            Overlay: {
+              overlay: "alerts",
+              fields: { text: label },
+              config: { severity: "auto" },
+            },
+          },
           { PlaySound: { path: "" } },
         ],
       };
@@ -271,7 +288,15 @@ function simpleTrigger(intent: TriggerIntent, line: string): Trigger | null {
       return {
         ...common,
         name: `Effect: ${label}`,
-        actions: [{ DisplayText: { template: `Effect: ${label}` } }],
+        actions: [
+          {
+            Overlay: {
+              overlay: "alerts",
+              fields: { text: `Effect: ${label}` },
+              config: { severity: "success" },
+            },
+          },
+        ],
       };
   }
 }
@@ -610,6 +635,37 @@ export default function TriggersTab({
   useEffect(() => {
     if (!EDITOR_DEMO || demoSeeded.current || userTriggers.length === 0) return;
     demoSeeded.current = true;
+    if (EDITOR_DEMO === "overlay") {
+      void openEditor({
+        index: null,
+        line: "Vulak'Aerr begins to cast Ancient Breath.",
+        trigger: {
+          name: "Vulak breath warning",
+          pattern: "^Vulak'Aerr begins to cast (.+)\\.$",
+          enabled: true,
+          case_insensitive: true,
+          category: "Raid/Vulak'Aerr",
+          actions: [
+            {
+              Overlay: {
+                overlay: "alerts",
+                fields: { text: "${1} - move away" },
+                config: { severity: "alarm", durationMs: 7000 },
+              },
+            },
+            {
+              Overlay: {
+                overlay: "impact",
+                fields: { headline: "INCOMING", big: "${1}", sub: "Move away" },
+                config: { style: "badge", color: "#ff5a5f" },
+              },
+            },
+            { Speak: { template: "${1}. Move away." } },
+          ],
+        },
+      });
+      return;
+    }
     const ix = Math.max(
       userTriggers.findIndex((t) => t.name === "Mez cast timer"),
       0,
@@ -1102,6 +1158,49 @@ export default function TriggersTab({
     );
   }
 
+  if (editor) {
+    return (
+      <div className="trigger-editor-workspace">
+        <div className="trigger-editor-workspace-head">
+          <button className="ghost" onClick={() => void cancelEditor()}>
+            Back to triggers
+          </button>
+          <div>
+            <div className="trigger-editor-breadcrumb">Triggers / {editor.index === null ? "New trigger" : "Edit trigger"}</div>
+            <h2>{editor.index === null ? "Create trigger" : editor.trigger?.name ?? "Edit trigger"}</h2>
+          </div>
+        </div>
+        {error && <div className="error-banner">{error}</div>}
+        {status && !error && <div className="status-banner">{status}</div>}
+        <div className="card editor trigger-editor-surface">
+          <TriggerEditor
+            key={editorNonce}
+            initial={editor.trigger}
+            initialLine={editor.line}
+            variant="card"
+            userTriggers={userTriggers}
+            existing={(entries ?? [])
+              .filter(
+                (entry) =>
+                  entry.effectiveEnabled &&
+                  (editor.index === null || entry.userIndex !== editor.index),
+              )
+              .map((entry) => ({
+                name: entry.name,
+                category: entry.category,
+                pattern: entry.pattern,
+              }))}
+            onDirtyChange={(dirty) => {
+              editorDirty.current = dirty;
+            }}
+            onCancel={() => void cancelEditor()}
+            onSave={onEditorSave}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="toolbar triggers-toolbar">
@@ -1311,41 +1410,6 @@ export default function TriggersTab({
           <div className="hint">Loading profile…</div>
         )}
       </div>
-
-      {editor && (
-        <div className="card editor">
-          <div className="card-head">
-            <span className="section-title">
-              {editor.index === null
-                ? "New trigger"
-                : `Edit — ${editor.trigger?.name ?? ""}`}
-            </span>
-          </div>
-          <TriggerEditor
-            key={editorNonce}
-            initial={editor.trigger}
-            initialLine={editor.line}
-            variant="card"
-            userTriggers={userTriggers}
-            existing={(entries ?? [])
-              .filter(
-                (en) =>
-                  en.effectiveEnabled &&
-                  (editor.index === null || en.userIndex !== editor.index),
-              )
-              .map((en) => ({
-                name: en.name,
-                category: en.category,
-                pattern: en.pattern,
-              }))}
-            onDirtyChange={(d) => {
-              editorDirty.current = d;
-            }}
-            onCancel={() => void cancelEditor()}
-            onSave={onEditorSave}
-          />
-        </div>
-      )}
 
       {entries === null ? (
         <div className="card">
