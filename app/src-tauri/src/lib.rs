@@ -41,6 +41,9 @@ pub fn run() {
             }
         }))
         .plugin(tauri_plugin_dialog::init())
+        // External links: Tauri webviews don't hand target="_blank" to the OS
+        // browser, so a global click handler routes them through the opener.
+        .plugin(tauri_plugin_opener::init())
         // Global silence hotkey: the in-app Esc-Esc kill switch only works
         // while the companion has focus, which mid-fight (game fullscreen on
         // the other monitor) it never does. Ctrl+Alt+S works system-wide.

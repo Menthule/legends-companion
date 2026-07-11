@@ -28,6 +28,7 @@
     "core:window:allow-outer-position",
     "core:window:allow-outer-size",
     "dialog:default",
-    "updater:default"
+    "updater:default",
+    "opener:default"
   ]
 }
