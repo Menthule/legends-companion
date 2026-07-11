@@ -2305,6 +2305,8 @@ button.coach-row.active {
 .ov-impact .ovf-strike {
   display: grid;
   position: relative;
+  overflow: visible;
+  padding: 12px 20px;
 }
 .ov-impact .ovf-strike > * {
   grid-area: 1 / 1;
@@ -2319,7 +2321,7 @@ button.coach-row.active {
   text-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
 }
 .ov-impact .ovf-num.whole {
-  animation: cleave-whole 0.55s ease-out both;
+  animation: cleave-whole 0.7s ease-out both;
 }
 .ov-impact .ovf-num.top {
   opacity: 0;
@@ -2541,20 +2543,22 @@ button.coach-row.active {
 }
 @keyframes cleave-whole {
   0% { opacity: 0; transform: scale(0.5); }
-  40% { opacity: 1; transform: scale(1.12); }
-  46% { opacity: 1; }
-  47% { opacity: 0; }
-  100% { opacity: 0; }
+  35% { opacity: 1; transform: scale(1.12); }
+  40% { opacity: 1; transform: scale(1); }
+  41%, 82% { opacity: 0; transform: scale(1); }
+  90%, 100% { opacity: 1; transform: scale(1); }
 }
 @keyframes cleave-top {
-  0%, 46% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
-  47% { opacity: 1; transform: translate(-14px, -12px) rotate(-3deg); }
-  100% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  0%, 40% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  41% { opacity: 1; transform: translate(-14px, -12px) rotate(-3deg); }
+  80% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  90%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
 }
 @keyframes cleave-bot {
-  0%, 46% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
-  47% { opacity: 1; transform: translate(14px, 12px) rotate(-3deg); }
-  100% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  0%, 40% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  41% { opacity: 1; transform: translate(14px, 12px) rotate(-3deg); }
+  80% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  90%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
 }
 @keyframes cleave-blade {
   0% { transform: rotate(-24deg) scaleX(0); opacity: 0; }
