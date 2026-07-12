@@ -15,10 +15,19 @@ import type {
 import { petRowsForCharacter, summedRowsTotal } from "../lib/sessionInsights";
 import {
   loadPaceState,
+  lootMetricMatches,
+  paceSnapshot,
   PACE_STATE_EVENT,
   savePaceState,
   type PaceState,
 } from "../lib/pace";
+import {
+  compareSessions,
+  type ComparisonGoal,
+  type ComparisonMetric,
+  type SessionComparisonSample,
+  type SessionRouteSample,
+} from "../lib/sessionComparison";
 import PaceRates from "./PaceRates";
 
 const COACH_KEY = "eqlogs.coach.v1";
@@ -75,6 +84,22 @@ interface SessionHistoryRow {
   buckets: EfficiencyBucket[];
   damageSources: MeterSourceRow[];
   effects: EffectAgg[];
+  /** Additive v2 comparison snapshot. Missing fields on legacy rows stay unknown. */
+  schemaVersion?: 2;
+  character?: string;
+  server?: string;
+  loadout?: string;
+  classes?: string[];
+  difficulty?: string;
+  fightCount?: number;
+  combatSecs?: number;
+  playerDamage?: number;
+  damageTaken?: number;
+  healing?: number;
+  aaPoints?: number;
+  aaPercent?: number | null;
+  motes?: number;
+  routes?: SessionRouteSample[];
 }
 
 interface CoachStore {
@@ -83,6 +108,23 @@ interface CoachStore {
   idleMinutes: number;
   buckets: EfficiencyBucket[];
   history: SessionHistoryRow[];
+  baselineSessionId?: string;
+  comparisonGoal?: ComparisonGoal;
+}
+
+interface RouteSegment {
+  id: string;
+  label: string;
+  zone: string;
+  difficulty: string;
+  startedAtMs: number;
+  endedAtMs: number;
+  xp: number;
+  aaPoints: number;
+  motes: number;
+  kills: number;
+  deaths: number;
+  damage: number;
 }
 
 function storeKey(character: string, loadout: string): string {
@@ -103,6 +145,14 @@ function loadStore(key = COACH_KEY): CoachStore {
           : 15,
       buckets: Array.isArray(parsed.buckets) ? parsed.buckets.slice(0, 80) : [],
       history: Array.isArray(parsed.history) ? parsed.history.slice(0, SESSION_HISTORY_CAP) : [],
+      baselineSessionId:
+        typeof parsed.baselineSessionId === "string" ? parsed.baselineSessionId : "auto",
+      comparisonGoal:
+        parsed.comparisonGoal === "aa" ||
+        parsed.comparisonGoal === "motes" ||
+        parsed.comparisonGoal === "damage"
+          ? parsed.comparisonGoal
+          : "xp",
     };
   } catch {
     return {
@@ -111,6 +161,8 @@ function loadStore(key = COACH_KEY): CoachStore {
       idleMinutes: 15,
       buckets: [],
       history: [],
+      baselineSessionId: "auto",
+      comparisonGoal: "xp",
     };
   }
 }
@@ -218,6 +270,21 @@ function xpFromEvent(event: EqEvent): number {
   return typeof xp?.percent === "number" ? xp.percent : 0;
 }
 
+function aaPointsFromEvent(event: EqEvent): number {
+  const aa = eventData(event, "AaPointGain");
+  return typeof aa?.points === "number" && aa.points > 0 ? Math.floor(aa.points) : 0;
+}
+
+function motesFromEvent(event: EqEvent, pace: PaceState): number {
+  const loot = eventData(event, "Loot");
+  if (!loot) return 0;
+  const item = typeof loot.item === "string" ? loot.item : "";
+  const looter = entityName(loot.looter);
+  const quantity = typeof loot.quantity === "number" ? Math.max(1, loot.quantity) : 1;
+  const metric = pace.lootMetrics.find((row) => row.id === "motes" && row.enabled);
+  return metric && lootMetricMatches(metric, item, looter) ? Math.floor(quantity) : 0;
+}
+
 function difficultyFromLine(message: string): string | null {
   const text = message.trim();
   const explicit = /\b(?:difficulty|instance|tier)\D{0,16}(D?[1-5])\b/i.exec(text);
@@ -234,12 +301,63 @@ function slainVictim(event: EqEvent): string | null {
   return entityName(s.victim) || null;
 }
 
+function sourceSkills(sources: MeterSourceRow[]): SessionComparisonSample["skills"] {
+  return sources.map((source) => ({
+    name: source.name,
+    damage: source.total,
+    // Casts are the best denominator for spells. Melee and damage shields do
+    // not have casts, so their landed tick count is the useful fallback.
+    uses: source.casts || source.hits || 0,
+  }));
+}
+
+function historySample(row: SessionHistoryRow): SessionComparisonSample {
+  const legacyCombatSecs = (row.buckets ?? []).reduce((sum, bucket) => sum + bucket.seconds, 0);
+  return {
+    id: row.id,
+    label: new Date(row.startedTs).toLocaleString(),
+    durationSecs: row.durationSecs,
+    combatSecs: row.combatSecs ?? (legacyCombatSecs > 0 ? legacyCombatSecs : null),
+    activeSecs: row.combatSecs ?? (legacyCombatSecs > 0 ? legacyCombatSecs : null),
+    observations: row.fightCount ?? row.kills,
+    fights: row.fightCount ?? null,
+    kills: row.kills,
+    deaths: row.deaths,
+    xp: row.xp,
+    aaPoints: row.aaPoints ?? null,
+    aaPercent: row.aaPercent ?? null,
+    motes: row.motes ?? null,
+    damage: row.playerDamage ?? null,
+    damageTaken: row.damageTaken ?? null,
+    skills: sourceSkills(row.damageSources ?? []),
+    routes: row.routes,
+  };
+}
+
+function formatMetricValue(metric: ComparisonMetric, value: number | null): string {
+  if (value === null) return "--";
+  if (metric.unit === "percent") return `${value.toFixed(1)}%`;
+  if (metric.unit === "percentPerHour") return `${value.toFixed(2)}%/hr`;
+  if (metric.unit === "dps") return `${fmtNum(Math.round(value))} DPS`;
+  return `${value.toFixed(value >= 100 ? 0 : 1)}/hr`;
+}
+
+function metricDelta(metric: ComparisonMetric): string {
+  if (metric.delta === null) return "--";
+  const sign = metric.delta > 0 ? "+" : "";
+  if (metric.unit === "percent") return `${sign}${metric.delta.toFixed(1)} pts`;
+  if (metric.unit === "percentPerHour") return `${sign}${metric.delta.toFixed(2)}%/hr`;
+  if (metric.unit === "dps") return `${sign}${fmtNum(Math.round(metric.delta))}`;
+  return `${sign}${metric.delta.toFixed(Math.abs(metric.delta) >= 100 ? 0 : 1)}/hr`;
+}
+
 export default function CoachTab({ character }: { character: string }) {
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [profile, setProfile] = useState<CharacterProfile | null>(null);
   const [logs, setLogs] = useState<DiscoveredLog[]>([]);
   const [store, setStore] = useState<CoachStore>(() => loadStore());
-  const [section, setSection] = useState<"rates" | "session" | "damage" | "pets" | "efficiency" | "npcs">("rates");
+  const [section, setSection] = useState<"session" | "damage" | "pets" | "efficiency" | "npcs">("session");
+  const [viewScope, setViewScope] = useState<"fight" | "session" | "past">("session");
   const [pace, setPace] = useState<PaceState>(() => loadPaceState());
   const [effects, setEffects] = useState<Map<string, EffectAgg>>(() => new Map());
   const [petAggs, setPetAggs] = useState<Map<string, PetAgg>>(() => new Map());
@@ -254,6 +372,15 @@ export default function CoachTab({ character }: { character: string }) {
   const [kills, setKills] = useState(0);
   const [killCounts, setKillCounts] = useState<Map<string, number>>(() => new Map());
   const [deaths, setDeaths] = useState(0);
+  const [aaPoints, setAaPoints] = useState(0);
+  const [motes, setMotes] = useState(0);
+  const [fightCount, setFightCount] = useState(0);
+  const [combatSecs, setCombatSecs] = useState(0);
+  const [playerDamageTotal, setPlayerDamageTotal] = useState(0);
+  const [damageTakenTotal, setDamageTakenTotal] = useState(0);
+  const [healingTotal, setHealingTotal] = useState(0);
+  const [sourceAggs, setSourceAggs] = useState<Map<string, MeterSourceRow>>(() => new Map());
+  const [routeSegments, setRouteSegments] = useState<RouteSegment[]>([]);
   const [sessionReason, setSessionReason] = useState("Manual session");
   const [selectedHistoryId, setSelectedHistoryId] = useState("");
   const [currentPetName, setCurrentPetName] = useState("");
@@ -262,6 +389,7 @@ export default function CoachTab({ character }: { character: string }) {
   const completedFightRef = useRef("");
   const lastActivityMsRef = useRef(Date.now());
   const loadedStoreKeyRef = useRef("");
+  const skipStoreSaveKeyRef = useRef("");
 
   useEffect(() => {
     getConfig().then(setConfig).catch(() => setConfig(null));
@@ -284,12 +412,20 @@ export default function CoachTab({ character }: { character: string }) {
   const scopedKey = storeKey(profile?.character || character, activeLoadout?.name || profile?.active_loadout || "Default");
 
   useEffect(() => {
+    if (loadedStoreKeyRef.current && loadedStoreKeyRef.current !== scopedKey) {
+      clearTransientSession("Current session");
+    }
+    skipStoreSaveKeyRef.current = scopedKey;
     loadedStoreKeyRef.current = scopedKey;
     setStore(loadStore(scopedKey));
   }, [scopedKey]);
 
   useEffect(() => {
     if (loadedStoreKeyRef.current !== scopedKey) return;
+    if (skipStoreSaveKeyRef.current === scopedKey) {
+      skipStoreSaveKeyRef.current = "";
+      return;
+    }
     saveStore(store, scopedKey);
   }, [store, scopedKey]);
 
@@ -310,11 +446,52 @@ export default function CoachTab({ character }: { character: string }) {
     difficultyRef.current = store.difficulty;
   }, [store.difficulty]);
 
+  const recordRoute = (
+    atMs: number,
+    zone: string,
+    difficulty: string,
+    patch: Partial<Pick<RouteSegment, "xp" | "aaPoints" | "motes" | "kills" | "deaths" | "damage">> = {},
+  ) => {
+    setRouteSegments((previous) => {
+      const last = previous[previous.length - 1];
+      const same = last?.zone === zone && last.difficulty === difficulty;
+      const base: RouteSegment = same
+        ? last
+        : {
+            id: `${atMs}:${zone}:${difficulty}`,
+            label: `${zone}${difficulty !== "Unknown" ? ` · ${difficulty}` : ""}`,
+            zone,
+            difficulty,
+            startedAtMs: atMs,
+            endedAtMs: atMs,
+            xp: 0,
+            aaPoints: 0,
+            motes: 0,
+            kills: 0,
+            deaths: 0,
+            damage: 0,
+          };
+      const next = {
+        ...base,
+        endedAtMs: Math.max(base.endedAtMs, atMs),
+        xp: base.xp + (patch.xp ?? 0),
+        aaPoints: base.aaPoints + (patch.aaPoints ?? 0),
+        motes: base.motes + (patch.motes ?? 0),
+        kills: base.kills + (patch.kills ?? 0),
+        deaths: base.deaths + (patch.deaths ?? 0),
+        damage: base.damage + (patch.damage ?? 0),
+      };
+      return same ? [...previous.slice(0, -1), next] : [...previous, next].slice(-40);
+    });
+  };
+
   function sessionHasData(): boolean {
     return (
       xpSession > 0 ||
       kills > 0 ||
       deaths > 0 ||
+      aaPoints > 0 ||
+      motes > 0 ||
       sessionBuckets.length > 0 ||
       effects.size > 0 ||
       petAggs.size > 0
@@ -331,14 +508,26 @@ export default function CoachTab({ character }: { character: string }) {
     const petDamage = [...petAggs.values()]
       .filter((row) => !row.key.startsWith("source:"))
       .reduce((sum, row) => sum + row.total, 0);
-    const activePlayerRow = fight?.rows.find((r) => r.name.toLowerCase() === character.toLowerCase());
-    const damageSources = [...(activePlayerRow?.sources ?? [])]
-      .filter((s) => !/\s+\(pet\)$/i.test(s.name))
+    const damageSources = [...sourceAggs.values()]
       .sort((a, b) => b.total - a.total)
       .slice(0, 16);
     const historyEffects = [...effects.values()]
       .sort((a, b) => b.total - a.total)
       .slice(0, 16);
+    const matchingPace = pace.active && pace.active.startedAtMs >= sessionStart
+      ? pace.active
+      : pace.history.find((sample) => sample.startedAtMs >= sessionStart) ?? null;
+    const paceResult = matchingPace
+      ? paceSnapshot(matchingPace, pace.lootMetrics, endedTs)
+      : null;
+    const routes: SessionRouteSample[] = routeSegments.map((route, index) => ({
+      label: route.label || `Segment ${index + 1}`,
+      durationSecs: Math.max(1, Math.round((route.endedAtMs - route.startedAtMs) / 1000)),
+      xp: route.xp,
+      aaPoints: route.aaPoints,
+      motes: route.motes,
+      damage: route.damage,
+    }));
     return {
       id: `${sessionStart}:${endedTs}`,
       startedTs: sessionStart,
@@ -355,6 +544,21 @@ export default function CoachTab({ character }: { character: string }) {
       buckets: sessionBuckets.slice(0, 12),
       damageSources,
       effects: historyEffects,
+      schemaVersion: 2,
+      character,
+      server: currentLog?.server,
+      loadout: activeLoadout?.name ?? profile?.active_loadout ?? "Default",
+      classes: activeLoadout?.classes ?? [],
+      difficulty: difficultyRef.current,
+      fightCount,
+      combatSecs,
+      playerDamage: playerDamageTotal,
+      damageTaken: damageTakenTotal,
+      healing: healingTotal,
+      aaPoints,
+      aaPercent: paceResult?.aaPercentGained ?? null,
+      motes,
+      routes,
     };
   }
 
@@ -367,13 +571,21 @@ export default function CoachTab({ character }: { character: string }) {
     }));
   }
 
-  function resetSession(reason: string, endReason = reason) {
-    archiveCurrentSession(endReason);
+  function clearTransientSession(reason: string) {
     setSessionStart(Date.now());
     setSessionReason(reason);
     setXpSession(0);
     setKills(0);
     setDeaths(0);
+    setAaPoints(0);
+    setMotes(0);
+    setFightCount(0);
+    setCombatSecs(0);
+    setPlayerDamageTotal(0);
+    setDamageTakenTotal(0);
+    setHealingTotal(0);
+    setSourceAggs(new Map());
+    setRouteSegments([]);
     setKillCounts(new Map());
     setSessionBuckets([]);
     setEffects(new Map());
@@ -381,6 +593,11 @@ export default function CoachTab({ character }: { character: string }) {
     setFight(null);
     completedFightRef.current = "";
     lastActivityMsRef.current = Date.now();
+  }
+
+  function resetSession(reason: string, endReason = reason) {
+    archiveCurrentSession(endReason);
+    clearTransientSession(reason);
   }
 
   function clearSession() {
@@ -404,6 +621,7 @@ export default function CoachTab({ character }: { character: string }) {
     }
     setStore({ ...store, history: [] });
     setSelectedHistoryId("");
+    setViewScope("session");
   }
 
   useTauriEvent<FightUpdatePayload>("fight-update", (p) => {
@@ -417,6 +635,34 @@ export default function CoachTab({ character }: { character: string }) {
       completedFightRef.current = completedKey;
       const zone = currentZoneRef.current;
       const difficulty = difficultyRef.current;
+      const player = p.rows.find(
+        (row) => row.name.toLowerCase() === character.toLowerCase(),
+      );
+      const playerDamage = Math.max(0, (player?.total ?? 0) - (player?.petDamage ?? 0));
+      setFightCount((value) => value + 1);
+      setCombatSecs((value) => value + p.durationSecs);
+      setPlayerDamageTotal((value) => value + playerDamage);
+      setDamageTakenTotal((value) => value + (player?.damageTaken ?? 0));
+      setHealingTotal((value) => value + (player?.healing ?? 0));
+      setSourceAggs((previous) => {
+        const next = new Map(previous);
+        for (const source of player?.sources ?? []) {
+          if (/\s+\(pet\)$/i.test(source.name)) continue;
+          const key = source.name.toLowerCase();
+          const old = next.get(key);
+          next.set(key, {
+            name: old?.name ?? source.name,
+            total: (old?.total ?? 0) + source.total,
+            hits: (old?.hits ?? 0) + (source.hits ?? 0),
+            crits: (old?.crits ?? 0) + (source.crits ?? 0),
+            maxHit: Math.max(old?.maxHit ?? 0, source.maxHit ?? 0),
+            misses: (old?.misses ?? 0) + (source.misses ?? 0),
+            casts: (old?.casts ?? 0) + (source.casts ?? 0),
+          });
+        }
+        return next;
+      });
+      recordRoute(Date.now(), zone, difficulty, { damage: playerDamage });
       setSessionBuckets((rows) =>
         addBucketRows(rows, {
           zone,
@@ -518,12 +764,17 @@ export default function CoachTab({ character }: { character: string }) {
       const bucketZone = zone ?? currentZoneRef.current;
       const bucketDifficulty = difficultyRef.current;
       const xp = xpFromEvent(p.event);
+      const gainedAa = aaPointsFromEvent(p.event);
+      const gainedMotes = motesFromEvent(p.event, pace);
       if (xp > 0) {
         setXpSession((v) => v + xp);
         setSessionBuckets((rows) => addBucketRows(rows, { zone: bucketZone, difficulty: bucketDifficulty, xp }));
       }
+      if (gainedAa > 0) setAaPoints((value) => value + gainedAa);
+      if (gainedMotes > 0) setMotes((value) => value + gainedMotes);
       const victim = slainVictim(p.event);
-      if (victim && victim !== "You" && !/^[A-Z][a-z]+$/.test(victim)) {
+      const killed = Boolean(victim && victim !== "You" && !/^[A-Z][a-z]+$/.test(victim));
+      if (killed && victim) {
         setKills((v) => v + 1);
         setKillCounts((prev) => {
           const next = new Map(prev);
@@ -532,10 +783,18 @@ export default function CoachTab({ character }: { character: string }) {
         });
         setSessionBuckets((rows) => addBucketRows(rows, { zone: bucketZone, difficulty: bucketDifficulty, kills: 1 }));
       }
-      if (p.message === "You died." || victim === "You") {
+      const died = p.message === "You died." || victim === "You";
+      if (died) {
         setDeaths((v) => v + 1);
         setSessionBuckets((rows) => addBucketRows(rows, { zone: bucketZone, difficulty: bucketDifficulty, deaths: 1 }));
       }
+      recordRoute(now, bucketZone, bucketDifficulty, {
+        xp,
+        aaPoints: gainedAa,
+        motes: gainedMotes,
+        kills: killed ? 1 : 0,
+        deaths: died ? 1 : 0,
+      });
     }
     const npc = npcFromLine(p);
     if (npc) {
@@ -564,8 +823,11 @@ export default function CoachTab({ character }: { character: string }) {
   );
   const currentLog = logs.find((l) => l.path === config?.logPath) ?? null;
   const sessionHistory = store.history ?? [];
-  const selectedHistory = sessionHistory.find((row) => row.id === selectedHistoryId) ?? null;
-  const isViewingHistory = selectedHistory !== null;
+  const selectedHistory = viewScope === "past"
+    ? sessionHistory.find((row) => row.id === selectedHistoryId) ?? sessionHistory[0] ?? null
+    : null;
+  const isViewingHistory = viewScope === "past" && selectedHistory !== null;
+  const isViewingFight = viewScope === "fight";
   const effectsRows = [...effects.values()].sort((a, b) => b.total - a.total);
   const petRows = fight ? petRowsForCharacter(fight.rows, character) : [];
   const petTotal = summedRowsTotal(petRows);
@@ -574,8 +836,9 @@ export default function CoachTab({ character }: { character: string }) {
   const playerSources = [...(playerRow?.sources ?? [])]
     .filter((s) => !/\s+\(pet\)$/i.test(s.name))
     .sort((a, b) => b.total - a.total);
-  const visiblePlayerSources = selectedHistory?.damageSources ?? playerSources;
-  const visiblePlayerDamage = visiblePlayerSources.reduce((sum, row) => sum + row.total, 0) || playerDamage;
+  const sessionSources = [...sourceAggs.values()].sort((a, b) => b.total - a.total);
+  const visiblePlayerSources = selectedHistory?.damageSources ?? (isViewingFight ? playerSources : sessionSources);
+  const visiblePlayerDamage = visiblePlayerSources.reduce((sum, row) => sum + row.total, 0) || (isViewingFight ? playerDamage : playerDamageTotal);
   // Old session caches may contain the removed proc/skill classifications.
   const visibleEffectsRows = (selectedHistory?.effects ?? effectsRows).filter(
     (row) => row.kind === "spell",
@@ -596,49 +859,86 @@ export default function CoachTab({ character }: { character: string }) {
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
     .slice(0, 8);
   const elapsedSecs = Math.max(1, Math.round((now - sessionStart) / 1000));
-  const visibleBuckets = selectedHistory?.buckets ?? sessionBuckets;
-  const visibleXp = selectedHistory?.xp ?? xpSession;
-  const visibleKills = selectedHistory?.kills ?? kills;
-  const visibleDeaths = selectedHistory?.deaths ?? deaths;
-  const visiblePetDamage = selectedHistory?.petDamage ?? (sessionPetTotal || petTotal);
-  const visibleDurationSecs = selectedHistory?.durationSecs ?? elapsedSecs;
-  const visibleZones = selectedHistory?.zones ?? [...new Set(sessionBuckets.map((b) => b.zone))];
+  const visibleBuckets = selectedHistory?.buckets ?? (isViewingFight ? [] : sessionBuckets);
+  const visibleXp = selectedHistory?.xp ?? (isViewingFight ? 0 : xpSession);
+  const visibleKills = selectedHistory?.kills ?? (isViewingFight ? 0 : kills);
+  const visibleDeaths = selectedHistory?.deaths ?? (isViewingFight ? 0 : deaths);
+  const visiblePetDamage = selectedHistory?.petDamage ?? (isViewingFight ? petTotal : sessionPetTotal || petTotal);
+  const visibleDurationSecs = selectedHistory?.durationSecs ?? (isViewingFight ? fight?.durationSecs ?? 0 : elapsedSecs);
+  const visibleZones = selectedHistory?.zones ?? (isViewingFight
+    ? [currentZone]
+    : [...new Set(sessionBuckets.map((b) => b.zone))]);
   const visibleTopKills = selectedHistory
     ? selectedHistory.topMob
       ? [{ name: selectedHistory.topMob, count: selectedHistory.topMobKills }]
       : []
-    : topKills;
+    : isViewingFight ? [] : topKills;
   const buckets = [...visibleBuckets].sort((a, b) => {
     const axp = a.seconds > 0 ? a.xp / a.seconds : a.xp;
     const bxp = b.seconds > 0 ? b.xp / b.seconds : b.xp;
     return bxp - axp;
   });
-  const overallBucket = sessionBuckets.reduce<EfficiencyBucket>(
-    (acc, b) => ({
-      ...acc,
-      xp: acc.xp + b.xp,
-      kills: acc.kills + b.kills,
-      deaths: acc.deaths + b.deaths,
-      damage: acc.damage + b.damage,
-      seconds: acc.seconds + b.seconds,
-    }),
-    {
-      key: "overall",
-      zone: "All zones",
-      difficulty: "All",
-      xp: 0,
-      kills: 0,
-      deaths: 0,
-      damage: 0,
-      seconds: 0,
-    },
-  );
   const bestBucket = buckets[0] ?? null;
-  const currentBucket = buckets.find((b) => b.key === bucketKey(currentZone, store.difficulty));
-  const currentXpHour =
-    currentBucket && currentBucket.seconds > 0
-      ? (currentBucket.xp / currentBucket.seconds) * 3600
-      : null;
+  const livePaceSample = pace.active && pace.active.startedAtMs >= sessionStart
+    ? pace.active
+    : pace.history.find((sample) => sample.startedAtMs >= sessionStart) ?? null;
+  const livePace = livePaceSample ? paceSnapshot(livePaceSample, pace.lootMetrics, now) : null;
+  const sessionRoutes: SessionRouteSample[] = routeSegments.map((route) => ({
+    label: route.label,
+    durationSecs: Math.max(1, Math.round((Math.max(route.endedAtMs, now) - route.startedAtMs) / 1000)),
+    xp: route.xp,
+    aaPoints: route.aaPoints,
+    motes: route.motes,
+    damage: route.damage,
+  }));
+  const currentSessionSample: SessionComparisonSample = {
+    id: "current-session",
+    label: "Current session",
+    durationSecs: elapsedSecs,
+    combatSecs,
+    activeSecs: combatSecs,
+    observations: fightCount,
+    fights: fightCount,
+    kills,
+    deaths,
+    xp: xpSession,
+    aaPoints,
+    aaPercent: livePace?.aaPercentGained ?? null,
+    motes,
+    damage: playerDamageTotal,
+    damageTaken: damageTakenTotal,
+    skills: sourceSkills(sessionSources),
+    routes: sessionRoutes,
+  };
+  const currentFightSample: SessionComparisonSample = {
+    id: "current-fight",
+    label: fight?.active ? "Current fight" : "Last fight",
+    durationSecs: fight?.durationSecs ?? 0,
+    combatSecs: fight?.durationSecs ?? 0,
+    activeSecs: fight?.durationSecs ?? 0,
+    observations: fight ? 1 : 0,
+    fights: fight ? 1 : 0,
+    damage: playerDamage,
+    damageTaken: playerRow?.damageTaken ?? 0,
+    skills: sourceSkills(playerSources),
+  };
+  const viewedSample = selectedHistory
+    ? historySample(selectedHistory)
+    : isViewingFight ? currentFightSample : currentSessionSample;
+  const baselineCandidates = sessionHistory.filter((row) => row.id !== selectedHistory?.id);
+  const configuredBaseline = store.baselineSessionId && store.baselineSessionId !== "auto"
+    ? baselineCandidates.find((row) => row.id === store.baselineSessionId) ?? null
+    : null;
+  const baselineRow = configuredBaseline ?? baselineCandidates[0] ?? null;
+  const comparison = baselineRow
+    ? compareSessions(viewedSample, historySample(baselineRow), store.comparisonGoal ?? "xp")
+    : null;
+  const visibleRoutes = selectedHistory?.routes ?? (isViewingFight ? [] : sessionRoutes);
+  const comparisonMetricGroups = comparison ? [
+    { label: "Progress", metrics: comparison.metrics.filter((metric) => (metric.id === comparison.primaryMetricId && metric.id !== "dps") || metric.id === "killsPerHour") },
+    { label: "Combat", metrics: comparison.metrics.filter((metric) => metric.id === "dps" || metric.id === "damageTakenPerHour" || metric.id === "deathsPerHour") },
+    { label: "Route", metrics: comparison.metrics.filter((metric) => metric.id === "downtimePercent") },
+  ].filter((group) => group.metrics.length > 0) : [];
 
   // One-click postable session summary (same cultural fit as the per-fight
   // "Parse copied" button): plain text for Discord/guild chat.
@@ -669,36 +969,50 @@ export default function CoachTab({ character }: { character: string }) {
     }
   }
 
-  const findings = [
-    visibleTopKills[0] ? `${visibleTopKills[0].name} is your most-killed mob (${visibleTopKills[0].count}).` : "",
-    visiblePlayerSources[0] ? `${visiblePlayerSources[0].name} is your top damage source.` : "",
-    visibleXp > 0 && buckets.length === 0 ? "XP was gained, but there is not enough zone timing yet to judge pace." : "",
-    bestBucket && currentBucket && bestBucket.key !== currentBucket.key
-      ? `${bestBucket.difficulty} in ${bestBucket.zone} is your best stored XP pace.`
-      : "",
-    visibleEffectsRows[0] ? `${visibleEffectsRows[0].name} leads observed spell damage.` : "",
-    visiblePetDamage > 0 ? `Pets have contributed ${fmtNum(visiblePetDamage)} damage.` : "",
-  ].filter(Boolean);
-
   return (
     <div className="coach-grid">
       <section className="card coach-span coach-context-card">
         <div className="coach-context-bar">
           <div className="coach-context-picker">
-            <select
-              id="coach-session-context"
-              value={selectedHistoryId || "current"}
-              onChange={(e) => setSelectedHistoryId(e.target.value === "current" ? "" : e.target.value)}
-              aria-label="Session"
-            >
-              <option value="current">Current session</option>
-              {sessionHistory.map((row) => (
-                <option key={row.id} value={row.id}>
-                  {new Date(row.startedTs).toLocaleString()} · {fmtDuration(row.durationSecs)} · {row.xp.toFixed(3)}% XP
-                </option>
+            <div className="coach-scope-switch" role="group" aria-label="View scope">
+              {([
+                ["fight", fight?.active ? "Current fight" : "Last fight"],
+                ["session", "Current session"],
+                ["past", "Past session"],
+              ] as const).map(([id, label]) => (
+                <button
+                  type="button"
+                  key={id}
+                  className={viewScope === id ? "active" : ""}
+                  disabled={(id === "fight" && !fight) || (id === "past" && sessionHistory.length === 0)}
+                  onClick={() => {
+                    setViewScope(id);
+                    if (id === "past" && !selectedHistoryId && sessionHistory[0]) {
+                      setSelectedHistoryId(sessionHistory[0].id);
+                    }
+                  }}
+                >
+                  {label}
+                </button>
               ))}
-            </select>
-            {!isViewingHistory && (
+            </div>
+            {viewScope === "past" && (
+              <select
+                id="coach-session-context"
+                value={selectedHistory?.id ?? ""}
+                onChange={(event) => setSelectedHistoryId(event.target.value)}
+                aria-label="Past session"
+                disabled={sessionHistory.length === 0}
+              >
+                {sessionHistory.length === 0 && <option value="">No past sessions</option>}
+                {sessionHistory.map((row) => (
+                  <option key={row.id} value={row.id}>
+                    {new Date(row.startedTs).toLocaleString()} · {fmtDuration(row.durationSecs)}
+                  </option>
+                ))}
+              </select>
+            )}
+            {viewScope === "session" && (
               <button className="ghost small" onClick={clearSession}>
                 New session
               </button>
@@ -712,18 +1026,20 @@ export default function CoachTab({ character }: { character: string }) {
             </button>
           </div>
           <span className="context-chip">
-            <span>{isViewingHistory ? "Previous" : "Live"}</span>
+            <span>{isViewingHistory ? "Past" : isViewingFight ? (fight?.active ? "Live" : "Last") : "Live"}</span>
             <strong>
               {isViewingHistory
                 ? `${new Date(selectedHistory.startedTs).toLocaleTimeString()} - ${new Date(selectedHistory.endedTs).toLocaleTimeString()}`
-                : `${sessionReason} · ${new Date(sessionStart).toLocaleTimeString()}`}
+                : isViewingFight
+                  ? fight?.target ?? "No fight"
+                  : `${sessionReason} · ${new Date(sessionStart).toLocaleTimeString()}`}
             </strong>
           </span>
           <span className="context-chip">
             <span>{isViewingHistory ? "Zones" : "Zone"}</span>
             <strong>{isViewingHistory ? selectedHistory.zones.join(" / ") || "Unknown zone" : currentZone}</strong>
           </span>
-          {!isViewingHistory && (
+          {viewScope === "session" && (
             <>
               <label className="context-field" title="Best-effort auto-detects when a log line includes difficulty/tier/instance D1-D5. Otherwise set it here.">
                 <span>Difficulty</span>
@@ -765,24 +1081,23 @@ export default function CoachTab({ character }: { character: string }) {
 
       <section className="card coach-span">
         <div className="card-head">
-          <span className="section-title">{isViewingHistory ? "Session Summary" : "Current Session"}</span>
-          <span className="hint">{isViewingHistory ? selectedHistory.endReason : "Live session totals"}</span>
+          <span className="section-title">{viewedSample.label}</span>
+          <span className="hint">{isViewingHistory ? selectedHistory.endReason : isViewingFight ? fight?.target : "Live session totals"}</span>
         </div>
         <div className="coach-summary">
-          <Stat label="XP" value={`${visibleXp.toFixed(3)}%`} />
-          <Stat label="Kills" value={String(visibleKills)} />
-          <Stat label="Deaths" value={String(visibleDeaths)} />
-          <Stat label="Pet Damage" value={fmtNum(visiblePetDamage)} />
-          <Stat label="Zones" value={String(Math.max(1, visibleZones.filter(Boolean).length))} />
+          <Stat label="XP" value={viewedSample.xp == null ? "--" : `${viewedSample.xp.toFixed(3)}%`} />
+          <Stat label="AA" value={viewedSample.aaPoints == null ? "--" : String(viewedSample.aaPoints)} />
+          <Stat label="Motes" value={viewedSample.motes == null ? "--" : String(viewedSample.motes)} />
+          <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "--" : fmtNum(viewedSample.damage)} />
+          <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "--"} / ${viewedSample.deaths ?? "--"}`} />
           <Stat label="Time" value={fmtDuration(visibleDurationSecs)} />
         </div>
         <div className="coach-tabs">
           {[
-            ["rates", "Rates"],
             ["session", "Overview"],
             ["damage", "Damage"],
             ["pets", "Pets"],
-            ["efficiency", "XP / Zones"],
+            ["efficiency", "Routes"],
             ["npcs", "NPC History"],
           ].map(([id, label]) => (
             <button
@@ -796,19 +1111,81 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
       </section>
 
-      {section === "rates" && <section className="card coach-span session-rates-card">
+      {section === "session" && viewScope === "session" && <section className="card coach-span session-rates-card">
         <div className="card-head">
           <span className="section-title">XP, AA, and Mote Rates</span>
-          <span className="hint">Start a measured grind sample; pause it during breaks.</span>
+          <span className="hint">Optional manual sample for AA percentage and planned breaks.</span>
         </div>
         <PaceRates pace={pace} onChange={updatePace} />
       </section>}
 
-      {section === "session" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">Session Takeaways</span></div>
-        <ul className="coach-list">
-          {findings.length > 0 ? findings.map((r) => <li key={r}>{r}</li>) : <li>Start fighting, gaining XP, or hailing NPCs to build session findings.</li>}
-        </ul>
+      {section === "session" && <section className="card coach-span comparison-card">
+        <div className="comparison-toolbar">
+          <div>
+            <span className="section-title">Compare performance</span>
+            <span className={`comparison-confidence ${comparison?.confidence.level ?? "insufficient"}`}>
+              {comparison?.confidence.label ?? "Start a new session to create a baseline"}
+            </span>
+          </div>
+          <div className="comparison-controls">
+            <label>
+              <span>Goal</span>
+              <select
+                value={store.comparisonGoal ?? "xp"}
+                onChange={(event) => setStore((previous) => ({ ...previous, comparisonGoal: event.target.value as ComparisonGoal }))}
+              >
+                <option value="xp">XP</option>
+                <option value="aa">AA</option>
+                <option value="motes">Motes</option>
+                <option value="damage">Damage</option>
+              </select>
+            </label>
+            <label>
+              <span>Baseline</span>
+              <select
+                value={configuredBaseline?.id ?? "auto"}
+                onChange={(event) => setStore((previous) => ({ ...previous, baselineSessionId: event.target.value }))}
+                disabled={baselineCandidates.length === 0}
+              >
+                <option value="auto">Previous session (default)</option>
+                {baselineCandidates.map((row) => (
+                  <option key={row.id} value={row.id}>
+                    {new Date(row.startedTs).toLocaleString()} · {fmtDuration(row.durationSecs)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </div>
+        {comparison ? (
+          <>
+            <div className="comparison-groups">
+              {comparisonMetricGroups.map((group) => (
+                <div className="comparison-group" key={group.label}>
+                  <div className="comparison-group-head">
+                    <strong>{group.label}</strong>
+                    <span>Now</span><span>Baseline</span><span>Change</span>
+                  </div>
+                  {group.metrics.map((metric) => (
+                    <div className="comparison-metric" key={metric.id}>
+                      <strong>{metric.label}</strong>
+                      <span>{formatMetricValue(metric, metric.current)}</span>
+                      <span>{formatMetricValue(metric, metric.baseline)}</span>
+                      <span className={metric.direction}>{metricDelta(metric)}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            {comparison.confidence.level !== "insufficient" && comparison.findings.length > 0 && (
+              <div className="comparison-findings">
+                {comparison.findings.map((finding) => <span key={finding}>{finding}</span>)}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="comparison-empty">Finish a session with <strong>New session</strong>. It becomes the automatic baseline for the next run.</div>
+        )}
       </section>}
 
       {section === "session" && <section className="card coach-span">
@@ -826,7 +1203,10 @@ export default function CoachTab({ character }: { character: string }) {
               type="button"
               className={`coach-row session-history-row${selectedHistoryId === row.id ? " active" : ""}`}
               key={row.id}
-              onClick={() => setSelectedHistoryId(row.id)}
+              onClick={() => {
+                setSelectedHistoryId(row.id);
+                setViewScope("past");
+              }}
             >
               <strong>{new Date(row.startedTs).toLocaleString()}</strong>
               <span>{fmtDuration(row.durationSecs)}, {row.zones.slice(0, 2).join(" / ") || "Unknown zone"}</span>
@@ -873,7 +1253,10 @@ export default function CoachTab({ character }: { character: string }) {
             <div className="coach-row compact" key={row.name}>
               <strong>{row.name}</strong>
               <span>{fmtNum(row.total)} damage</span>
-              <span>{pct(visiblePlayerDamage, row.total)} of damage</span>
+              <span>
+                {pct(visiblePlayerDamage, row.total)} of damage
+                {(row.casts ?? row.hits ?? 0) > 0 ? ` · ${fmtNum(Math.round(row.total / Math.max(1, row.casts ?? row.hits ?? 0)))} per ${row.casts ? "cast" : "hit"}` : ""}
+              </span>
             </div>
           ))}
           {visiblePlayerSources.length === 0 && <div className="hint">Damage sources appear here once parsed for the selected session.</div>}
@@ -899,7 +1282,10 @@ export default function CoachTab({ character }: { character: string }) {
             <div className="coach-row compact" key={row.name}>
               <strong>{row.name}</strong>
               <span>{fmtNum(row.total)} damage</span>
-              <span>{pct(visiblePlayerDamage, row.total)} of damage</span>
+              <span>
+                {pct(visiblePlayerDamage, row.total)} of damage
+                {(row.casts ?? row.hits ?? 0) > 0 ? ` · ${fmtNum(Math.round(row.total / Math.max(1, row.casts ?? row.hits ?? 0)))} per ${row.casts ? "cast" : "hit"}` : ""}
+              </span>
             </div>
           ))}
           {visiblePlayerSources.length === 0 && <div className="hint">Damage sources will appear here once the selected session has parsed damage.</div>}
@@ -907,29 +1293,26 @@ export default function CoachTab({ character }: { character: string }) {
       </section>}
 
       {section === "efficiency" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">XP by Zone</span></div>
-        {store.difficulty === "Unknown" && (
-          <div className="hint">Set the current difficulty whenever you change instance difficulty. Rows below stay split by zone and difficulty.</div>
-        )}
-        {currentXpHour !== null && (
-          <div className="hint">Current bucket pace: {currentXpHour.toFixed(2)}% XP/hr. Treat small samples cautiously.</div>
-        )}
+        <div className="card-head">
+          <span className="section-title">Route segments</span>
+          <span className="hint">Wall-clock rates include travel, recovery, and downtime.</span>
+        </div>
         <div className="coach-table">
-          {(overallBucket.xp > 0 || overallBucket.kills > 0 || overallBucket.damage > 0) && (
-            <div className="coach-row compact">
-              <strong>Overall session</strong>
-              <span>{overallBucket.seconds > 0 ? `${((overallBucket.xp / overallBucket.seconds) * 3600).toFixed(2)}% XP/hr` : `${overallBucket.xp.toFixed(3)}% XP`}</span>
-              <span>{overallBucket.kills} kills, {overallBucket.deaths} deaths, {fmtNum(overallBucket.damage)} dmg</span>
+          {visibleRoutes.slice(0, 10).map((route, index) => {
+            const hours = Math.max(1, route.durationSecs) / 3600;
+            return (
+            <div className="coach-row compact route-row" key={`${route.label}:${index}`}>
+              <strong>{route.label}</strong>
+              <span>{fmtDuration(route.durationSecs)}</span>
+              <span>
+                {route.xp != null ? `${(route.xp / hours).toFixed(2)}% XP/hr` : "XP --"}
+                {route.aaPoints != null ? ` · ${(route.aaPoints / hours).toFixed(1)} AA/hr` : ""}
+                {route.motes != null ? ` · ${(route.motes / hours).toFixed(1)} motes/hr` : ""}
+              </span>
+              <span>{route.damage != null ? `${fmtNum(Math.round(route.damage / Math.max(1, route.durationSecs)))} DPS` : "Damage --"}</span>
             </div>
-          )}
-          {buckets.slice(0, 8).map((b) => (
-            <div className="coach-row compact" key={b.key}>
-              <strong>{b.zone} / {b.difficulty}</strong>
-              <span>{b.seconds > 0 ? `${((b.xp / b.seconds) * 3600).toFixed(2)}% XP/hr` : `${b.xp.toFixed(3)}% XP`}</span>
-              <span>{b.kills} kills, {b.deaths} deaths, {fmtNum(b.damage)} dmg</span>
-            </div>
-          ))}
-          {buckets.length === 0 && <div className="hint">XP, kills, deaths, and fight damage will accumulate by zone and difficulty.</div>}
+          )})}
+          {visibleRoutes.length === 0 && <div className="hint">Route segments appear as this session records activity by zone and difficulty.</div>}
         </div>
       </section>}
 
