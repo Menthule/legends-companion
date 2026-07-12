@@ -893,6 +893,28 @@ fn invis_buffs_share_one_timer_that_clears_on_drop() {
     assert!(sink.cancels.contains(&"Invisibility".to_string()));
 }
 
+#[test]
+fn invis_early_warning_is_large_loud_and_enabled_by_default() {
+    let profile = CharacterProfile::new("Nyasha");
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(0, "You feel yourself starting to appear."), &mut sink);
+
+    assert_eq!(sink.sounds, vec!["danger.wav"]);
+    assert!(sink.cancels.contains(&"Invisibility".to_string()));
+    let (overlay, fields, config) = sink
+        .overlays
+        .iter()
+        .find(|(_, fields, _)| fields.get("text").map(String::as_str) == Some("INVIS DROPPING"))
+        .expect("default invis warning should emit a large Alerts overlay action");
+    assert_eq!(overlay, "alerts");
+    assert_eq!(fields.get("icon").map(String::as_str), Some("!"));
+    assert_eq!(config.get("severity"), Some(&serde_json::json!("alarm")));
+    assert_eq!(config.get("fontSize"), Some(&serde_json::json!(64)));
+    assert_eq!(config.get("durationMs"), Some(&serde_json::json!(8000)));
+}
+
 // --- real-fixture pass with the shipped trigger library ----------------------
 
 fn load_library() -> Vec<Trigger> {

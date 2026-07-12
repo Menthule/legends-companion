@@ -15,10 +15,12 @@ release of Menthule/legends-companion, then downloads + sha256-verifies each
 file (see app/src-tauri/src/datapack.rs).
 
 Usage:
-  python tools/release/make_data_pack.py [YYYY-MM-DD]
+  python tools/release/make_data_pack.py [YYYY-MM-DD[.REVISION]]
 
 The optional argument sets the manifest version; it defaults to today's
-date (UTC). Idempotent: safe to re-run, always rebuilds dist-data/ from the
+date (UTC). Add a positive numeric revision (for example, ``2026-07-11.1``)
+when publishing more than once on the same day so installed clients detect
+the new pack. Idempotent: safe to re-run, always rebuilds dist-data/ from the
 current repo contents. Finishes by printing the `gh release` commands that
 publish (or re-publish) the artifacts to the `data-latest` tag.
 """
@@ -80,8 +82,11 @@ def main() -> None:
         sys.exit(__doc__)
     if len(sys.argv) == 2:
         version = sys.argv[1]
-        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", version):
-            sys.exit(f"error: version must be YYYY-MM-DD, got {version!r}")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:\.[1-9]\d*)?", version):
+            sys.exit(
+                "error: version must be YYYY-MM-DD or YYYY-MM-DD.REVISION, "
+                f"got {version!r}"
+            )
     else:
         version = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d")
 

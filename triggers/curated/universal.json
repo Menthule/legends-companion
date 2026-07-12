@@ -110,11 +110,25 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Universal/Survival",
-      "comments": "eqstr 275 — the early warning before invisibility breaks. Also clears the shared 'Invisibility' buff bar (generated invis timers all use that name).",
+      "comments": "eqstr 275 — the early warning before invisibility breaks. Loud by default: a large alarm-tier Alerts message plus danger sound. Also clears the shared 'Invisibility' buff bar (generated invis timers all use that name).",
       "actions": [
         {
-          "DisplayText": {
-            "template": "invis dropping"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "INVIS DROPPING",
+              "icon": "!"
+            },
+            "config": {
+              "severity": "alarm",
+              "fontSize": 64,
+              "durationMs": 8000
+            }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "danger.wav"
           }
         },
         {
