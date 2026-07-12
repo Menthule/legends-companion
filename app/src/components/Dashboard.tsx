@@ -127,7 +127,7 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
       { id: "meters", label: "Meters", icon: IconMeters },
       { id: "fights", label: "Fights", icon: IconFights },
       { id: "timers", label: "Timers", icon: IconTimers },
-      { id: "coach", label: "Insights", icon: IconInsights },
+      { id: "coach", label: "Session", icon: IconInsights },
       { id: "triggers", label: "Triggers", icon: IconTriggers },
     ],
   },

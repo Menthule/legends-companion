@@ -13,6 +13,13 @@ import type {
   EffectObservedPayload,
 } from "../types";
 import { petRowsForCharacter, summedRowsTotal } from "../lib/sessionInsights";
+import {
+  loadPaceState,
+  PACE_STATE_EVENT,
+  savePaceState,
+  type PaceState,
+} from "../lib/pace";
+import PaceRates from "./PaceRates";
 
 const COACH_KEY = "eqlogs.coach.v1";
 const NPC_KEY = "eqlogs.npcMemory.v1";
@@ -232,7 +239,8 @@ export default function CoachTab({ character }: { character: string }) {
   const [profile, setProfile] = useState<CharacterProfile | null>(null);
   const [logs, setLogs] = useState<DiscoveredLog[]>([]);
   const [store, setStore] = useState<CoachStore>(() => loadStore());
-  const [section, setSection] = useState<"session" | "damage" | "pets" | "efficiency" | "npcs">("session");
+  const [section, setSection] = useState<"rates" | "session" | "damage" | "pets" | "efficiency" | "npcs">("rates");
+  const [pace, setPace] = useState<PaceState>(() => loadPaceState());
   const [effects, setEffects] = useState<Map<string, EffectAgg>>(() => new Map());
   const [petAggs, setPetAggs] = useState<Map<string, PetAgg>>(() => new Map());
   const [sessionBuckets, setSessionBuckets] = useState<EfficiencyBucket[]>([]);
@@ -260,6 +268,17 @@ export default function CoachTab({ character }: { character: string }) {
     getProfile().then(setProfile).catch(() => setProfile(null));
     discoverLogs().then(setLogs).catch(() => setLogs([]));
   }, []);
+
+  useEffect(() => {
+    const reload = () => setPace(loadPaceState());
+    window.addEventListener(PACE_STATE_EVENT, reload);
+    return () => window.removeEventListener(PACE_STATE_EVENT, reload);
+  }, []);
+
+  const updatePace = (next: PaceState) => {
+    savePaceState(next);
+    setPace(next);
+  };
 
   const activeLoadout = profile?.loadouts.find((l) => l.name === profile.active_loadout);
   const scopedKey = storeKey(profile?.character || character, activeLoadout?.name || profile?.active_loadout || "Default");
@@ -369,7 +388,7 @@ export default function CoachTab({ character }: { character: string }) {
       sessionHasData();
     if (
       hasData &&
-      !window.confirm("Start a new Insights session? Fight history and NPC notes are not deleted.")
+      !window.confirm("Start a new session? Fight history and NPC notes are not deleted.")
     ) {
       return;
     }
@@ -379,7 +398,7 @@ export default function CoachTab({ character }: { character: string }) {
   function clearSessionHistory() {
     if (
       store.history.length > 0 &&
-      !window.confirm("Clear previous Insights session summaries for this character/loadout?")
+      !window.confirm("Clear previous session summaries for this character/loadout?")
     ) {
       return;
     }
@@ -670,7 +689,7 @@ export default function CoachTab({ character }: { character: string }) {
               id="coach-session-context"
               value={selectedHistoryId || "current"}
               onChange={(e) => setSelectedHistoryId(e.target.value === "current" ? "" : e.target.value)}
-              aria-label="Insights session"
+              aria-label="Session"
             >
               <option value="current">Current session</option>
               {sessionHistory.map((row) => (
@@ -718,7 +737,7 @@ export default function CoachTab({ character }: { character: string }) {
                   ))}
                 </select>
               </label>
-              <label className="context-afk" title="Starts a fresh Insights session after a long idle gap. Zone changes stay inside the same active play session.">
+              <label className="context-afk" title="Starts a fresh session after a long idle gap. Zone changes stay inside the same active play session.">
                 <input
                   type="checkbox"
                   className="switch"
@@ -759,6 +778,7 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
         <div className="coach-tabs">
           {[
+            ["rates", "Rates"],
             ["session", "Overview"],
             ["damage", "Damage"],
             ["pets", "Pets"],
@@ -775,6 +795,14 @@ export default function CoachTab({ character }: { character: string }) {
           ))}
         </div>
       </section>
+
+      {section === "rates" && <section className="card coach-span session-rates-card">
+        <div className="card-head">
+          <span className="section-title">XP, AA, and Mote Rates</span>
+          <span className="hint">Start a measured grind sample; pause it during breaks.</span>
+        </div>
+        <PaceRates pace={pace} onChange={updatePace} />
+      </section>}
 
       {section === "session" && <section className="card coach-span">
         <div className="card-head"><span className="section-title">Session Takeaways</span></div>
