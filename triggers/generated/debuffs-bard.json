@@ -4,7 +4,7 @@
     {
       "id": "debuffs/bard/cast/ancient-lullaby-of-shadow",
       "name": "Enemy timer: Ancient: Lullaby of Shadow",
-      "pattern": "^You begin singing Ancient: Lullaby of Shadow(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Ancient: Lullaby of Shadow(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/bard/cast/angstlich-s-appalling-screech",
       "name": "Enemy timer: Angstlich's Appalling Screech",
-      "pattern": "^You begin singing Angstlich['`]s Appalling Screech(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Angstlich['`]s Appalling Screech(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/bard/cast/angstlich-s-assonance",
       "name": "Enemy timer: Angstlich's Assonance",
-      "pattern": "^You begin singing Angstlich['`]s Assonance(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Angstlich['`]s Assonance(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/bard/cast/cassindra-s-insipid-ditty",
       "name": "Enemy timer: Cassindra's Insipid Ditty",
-      "pattern": "^You begin singing Cassindra['`]s Insipid Ditty(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Cassindra['`]s Insipid Ditty(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/bard/cast/chant-of-chaos",
       "name": "Enemy timer: Chant of Chaos",
-      "pattern": "^You begin singing Chant of Chaos(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chant of Chaos(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -133,7 +133,7 @@
     {
       "id": "debuffs/bard/cast/chant-of-flame",
       "name": "Enemy timer: Chant of Flame",
-      "pattern": "^You begin singing Chant of Flame(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chant of Flame(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -158,7 +158,7 @@
     {
       "id": "debuffs/bard/cast/chant-of-frost",
       "name": "Enemy timer: Chant of Frost",
-      "pattern": "^You begin singing Chant of Frost(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chant of Frost(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -183,7 +183,7 @@
     {
       "id": "debuffs/bard/cast/chant-of-magic",
       "name": "Enemy timer: Chant of Magic",
-      "pattern": "^You begin singing Chant of Magic(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chant of Magic(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -208,7 +208,7 @@
     {
       "id": "debuffs/bard/cast/chant-of-plague",
       "name": "Enemy timer: Chant of Plague",
-      "pattern": "^You begin singing Chant of Plague(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chant of Plague(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -233,7 +233,7 @@
     {
       "id": "debuffs/bard/cast/chant-of-venom",
       "name": "Enemy timer: Chant of Venom",
-      "pattern": "^You begin singing Chant of Venom(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chant of Venom(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -258,7 +258,7 @@
     {
       "id": "debuffs/bard/cast/chords-of-dissonance",
       "name": "Enemy timer: Chords of Dissonance",
-      "pattern": "^You begin singing Chords of Dissonance(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Chords of Dissonance(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -284,7 +284,7 @@
     {
       "id": "debuffs/bard/cast/crission-s-pixie-strike",
       "name": "Enemy timer: Crission's Pixie Strike",
-      "pattern": "^You begin singing Crission['`]s Pixie Strike(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Crission['`]s Pixie Strike(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -310,7 +310,7 @@
     {
       "id": "debuffs/bard/cast/denon-s-bereavement",
       "name": "Enemy timer: Denon's Bereavement",
-      "pattern": "^You begin singing Denon['`]s Bereavement(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Denon['`]s Bereavement(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -336,7 +336,7 @@
     {
       "id": "debuffs/bard/cast/denon-s-disruptive-discord",
       "name": "Enemy timer: Denon's Disruptive Discord",
-      "pattern": "^You begin singing Denon['`]s Disruptive Discord(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Denon['`]s Disruptive Discord(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -362,7 +362,7 @@
     {
       "id": "debuffs/bard/cast/dreams-of-ayonae",
       "name": "Enemy timer: Dreams of Ayonae",
-      "pattern": "^You begin singing Dreams of Ayonae(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Dreams of Ayonae(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -388,7 +388,7 @@
     {
       "id": "debuffs/bard/cast/fufil-s-curtailing-chant",
       "name": "Enemy timer: Fufil's Curtailing Chant",
-      "pattern": "^You begin singing Fufil['`]s Curtailing Chant(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Fufil['`]s Curtailing Chant(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -414,7 +414,7 @@
     {
       "id": "debuffs/bard/cast/fufil-s-diminishing-dirge",
       "name": "Enemy timer: Fufil's Diminishing Dirge",
-      "pattern": "^You begin singing Fufil['`]s Diminishing Dirge(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Fufil['`]s Diminishing Dirge(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -440,7 +440,7 @@
     {
       "id": "debuffs/bard/cast/jaxan-s-jig-o-vigor",
       "name": "Enemy timer: Jaxan's Jig o` Vigor",
-      "pattern": "^You begin singing Jaxan['`]s Jig o['`] Vigor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Jaxan['`]s Jig o['`] Vigor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -466,7 +466,7 @@
     {
       "id": "debuffs/bard/cast/kelin-s-lucid-lullaby",
       "name": "Enemy timer: Kelin's Lucid Lullaby",
-      "pattern": "^You begin singing Kelin['`]s Lucid Lullaby(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Kelin['`]s Lucid Lullaby(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -492,7 +492,7 @@
     {
       "id": "debuffs/bard/cast/largo-s-assonant-binding",
       "name": "Enemy timer: Largo's Assonant Binding",
-      "pattern": "^You begin singing Largo['`]s Assonant Binding(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Largo['`]s Assonant Binding(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -518,7 +518,7 @@
     {
       "id": "debuffs/bard/cast/largo-s-melodic-binding",
       "name": "Enemy timer: Largo's Melodic Binding",
-      "pattern": "^You begin singing Largo['`]s Melodic Binding(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Largo['`]s Melodic Binding(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -544,7 +544,7 @@
     {
       "id": "debuffs/bard/cast/occlusion-of-sound",
       "name": "Enemy timer: Occlusion of Sound",
-      "pattern": "^You begin singing Occlusion of Sound(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Occlusion of Sound(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -570,7 +570,7 @@
     {
       "id": "debuffs/bard/cast/selo-s-assonant-strain",
       "name": "Enemy timer: Selo's Assonant Strain",
-      "pattern": "^You begin singing Selo['`]s Assonant Strain(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Selo['`]s Assonant Strain(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -596,7 +596,7 @@
     {
       "id": "debuffs/bard/cast/selo-s-chords-of-cessation",
       "name": "Enemy timer: Selo's Chords of Cessation",
-      "pattern": "^You begin singing Selo['`]s Chords of Cessation(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Selo['`]s Chords of Cessation(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -622,7 +622,7 @@
     {
       "id": "debuffs/bard/cast/selo-s-consonant-chain",
       "name": "Enemy timer: Selo's Consonant Chain",
-      "pattern": "^You begin singing Selo['`]s Consonant Chain(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Selo['`]s Consonant Chain(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -648,7 +648,7 @@
     {
       "id": "debuffs/bard/cast/sionachie-s-dreams",
       "name": "Enemy timer: Sionachie's Dreams",
-      "pattern": "^You begin singing Sionachie['`]s Dreams(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Sionachie['`]s Dreams(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -674,7 +674,7 @@
     {
       "id": "debuffs/bard/cast/solon-s-bewitching-bravura",
       "name": "Enemy timer: Solon's Bewitching Bravura",
-      "pattern": "^You begin singing Solon['`]s Bewitching Bravura(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Solon['`]s Bewitching Bravura(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -700,7 +700,7 @@
     {
       "id": "debuffs/bard/cast/solon-s-song-of-the-sirens",
       "name": "Enemy timer: Solon's Song of the Sirens",
-      "pattern": "^You begin singing Solon['`]s Song of the Sirens(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Solon['`]s Song of the Sirens(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -726,7 +726,7 @@
     {
       "id": "debuffs/bard/cast/song-of-midnight",
       "name": "Enemy timer: Song of Midnight",
-      "pattern": "^You begin singing Song of Midnight(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Song of Midnight(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -752,7 +752,7 @@
     {
       "id": "debuffs/bard/cast/song-of-twilight",
       "name": "Enemy timer: Song of Twilight",
-      "pattern": "^You begin singing Song of Twilight(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Song of Twilight(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -778,7 +778,7 @@
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-disease",
       "name": "Enemy timer: Tuyen's Chant of Disease",
-      "pattern": "^You begin singing Tuyen['`]s Chant of Disease(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Tuyen['`]s Chant of Disease(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -804,7 +804,7 @@
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-flame",
       "name": "Enemy timer: Tuyen's Chant of Flame",
-      "pattern": "^You begin singing Tuyen['`]s Chant of Flame(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Tuyen['`]s Chant of Flame(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -830,7 +830,7 @@
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-frost",
       "name": "Enemy timer: Tuyen's Chant of Frost",
-      "pattern": "^You begin singing Tuyen['`]s Chant of Frost(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Tuyen['`]s Chant of Frost(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -856,7 +856,7 @@
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-poison",
       "name": "Enemy timer: Tuyen's Chant of Poison",
-      "pattern": "^You begin singing Tuyen['`]s Chant of Poison(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Tuyen['`]s Chant of Poison(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -882,7 +882,7 @@
     {
       "id": "debuffs/worn/ancient-lullaby-of-shadow",
       "name": "Enemy timer cleared: Ancient: Lullaby of Shadow",
-      "pattern": "^Your Ancient: Lullaby of Shadow(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ancient: Lullaby of Shadow(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -913,7 +913,7 @@
     {
       "id": "debuffs/worn/angstlich-s-appalling-screech",
       "name": "Enemy timer cleared: Angstlich's Appalling Screech",
-      "pattern": "^Your Angstlich['`]s Appalling Screech(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Angstlich['`]s Appalling Screech(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -944,7 +944,7 @@
     {
       "id": "debuffs/worn/angstlich-s-assonance",
       "name": "Enemy timer cleared: Angstlich's Assonance",
-      "pattern": "^Your Angstlich['`]s Assonance(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Angstlich['`]s Assonance(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -975,7 +975,7 @@
     {
       "id": "debuffs/worn/cassindra-s-insipid-ditty",
       "name": "Enemy timer cleared: Cassindra's Insipid Ditty",
-      "pattern": "^Your Cassindra['`]s Insipid Ditty(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cassindra['`]s Insipid Ditty(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1006,7 +1006,7 @@
     {
       "id": "debuffs/worn/chant-of-chaos",
       "name": "Enemy timer cleared: Chant of Chaos",
-      "pattern": "^Your Chant of Chaos(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chant of Chaos(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1037,7 +1037,7 @@
     {
       "id": "debuffs/worn/chant-of-flame",
       "name": "Enemy timer cleared: Chant of Flame",
-      "pattern": "^Your Chant of Flame(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chant of Flame(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1068,7 +1068,7 @@
     {
       "id": "debuffs/worn/chant-of-frost",
       "name": "Enemy timer cleared: Chant of Frost",
-      "pattern": "^Your Chant of Frost(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chant of Frost(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1099,7 +1099,7 @@
     {
       "id": "debuffs/worn/chant-of-magic",
       "name": "Enemy timer cleared: Chant of Magic",
-      "pattern": "^Your Chant of Magic(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chant of Magic(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1130,7 +1130,7 @@
     {
       "id": "debuffs/worn/chant-of-plague",
       "name": "Enemy timer cleared: Chant of Plague",
-      "pattern": "^Your Chant of Plague(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chant of Plague(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1161,7 +1161,7 @@
     {
       "id": "debuffs/worn/chant-of-venom",
       "name": "Enemy timer cleared: Chant of Venom",
-      "pattern": "^Your Chant of Venom(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chant of Venom(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1192,7 +1192,7 @@
     {
       "id": "debuffs/worn/chords-of-dissonance",
       "name": "Enemy timer cleared: Chords of Dissonance",
-      "pattern": "^Your Chords of Dissonance(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chords of Dissonance(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1223,7 +1223,7 @@
     {
       "id": "debuffs/worn/crission-s-pixie-strike",
       "name": "Enemy timer cleared: Crission's Pixie Strike",
-      "pattern": "^Your Crission['`]s Pixie Strike(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Crission['`]s Pixie Strike(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1254,7 +1254,7 @@
     {
       "id": "debuffs/worn/denon-s-bereavement",
       "name": "Enemy timer cleared: Denon's Bereavement",
-      "pattern": "^Your Denon['`]s Bereavement(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Denon['`]s Bereavement(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1285,7 +1285,7 @@
     {
       "id": "debuffs/worn/denon-s-disruptive-discord",
       "name": "Enemy timer cleared: Denon's Disruptive Discord",
-      "pattern": "^Your Denon['`]s Disruptive Discord(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Denon['`]s Disruptive Discord(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1316,7 +1316,7 @@
     {
       "id": "debuffs/worn/dreams-of-ayonae",
       "name": "Enemy timer cleared: Dreams of Ayonae",
-      "pattern": "^Your Dreams of Ayonae(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dreams of Ayonae(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1347,7 +1347,7 @@
     {
       "id": "debuffs/worn/fufil-s-curtailing-chant",
       "name": "Enemy timer cleared: Fufil's Curtailing Chant",
-      "pattern": "^Your Fufil['`]s Curtailing Chant(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fufil['`]s Curtailing Chant(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1378,7 +1378,7 @@
     {
       "id": "debuffs/worn/fufil-s-diminishing-dirge",
       "name": "Enemy timer cleared: Fufil's Diminishing Dirge",
-      "pattern": "^Your Fufil['`]s Diminishing Dirge(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fufil['`]s Diminishing Dirge(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1409,7 +1409,7 @@
     {
       "id": "debuffs/worn/jaxan-s-jig-o-vigor",
       "name": "Enemy timer cleared: Jaxan's Jig o` Vigor",
-      "pattern": "^Your Jaxan['`]s Jig o['`] Vigor(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Jaxan['`]s Jig o['`] Vigor(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1440,7 +1440,7 @@
     {
       "id": "debuffs/worn/kelin-s-lucid-lullaby",
       "name": "Enemy timer cleared: Kelin's Lucid Lullaby",
-      "pattern": "^Your Kelin['`]s Lucid Lullaby(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Kelin['`]s Lucid Lullaby(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1471,7 +1471,7 @@
     {
       "id": "debuffs/worn/largo-s-assonant-binding",
       "name": "Enemy timer cleared: Largo's Assonant Binding",
-      "pattern": "^Your Largo['`]s Assonant Binding(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Largo['`]s Assonant Binding(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1502,7 +1502,7 @@
     {
       "id": "debuffs/worn/largo-s-melodic-binding",
       "name": "Enemy timer cleared: Largo's Melodic Binding",
-      "pattern": "^Your Largo['`]s Melodic Binding(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Largo['`]s Melodic Binding(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1533,7 +1533,7 @@
     {
       "id": "debuffs/worn/occlusion-of-sound",
       "name": "Enemy timer cleared: Occlusion of Sound",
-      "pattern": "^Your Occlusion of Sound(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Occlusion of Sound(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1564,7 +1564,7 @@
     {
       "id": "debuffs/worn/selo-s-assonant-strain",
       "name": "Enemy timer cleared: Selo's Assonant Strain",
-      "pattern": "^Your Selo['`]s Assonant Strain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Selo['`]s Assonant Strain(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1595,7 +1595,7 @@
     {
       "id": "debuffs/worn/selo-s-chords-of-cessation",
       "name": "Enemy timer cleared: Selo's Chords of Cessation",
-      "pattern": "^Your Selo['`]s Chords of Cessation(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Selo['`]s Chords of Cessation(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1626,7 +1626,7 @@
     {
       "id": "debuffs/worn/selo-s-consonant-chain",
       "name": "Enemy timer cleared: Selo's Consonant Chain",
-      "pattern": "^Your Selo['`]s Consonant Chain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Selo['`]s Consonant Chain(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1657,7 +1657,7 @@
     {
       "id": "debuffs/worn/sionachie-s-dreams",
       "name": "Enemy timer cleared: Sionachie's Dreams",
-      "pattern": "^Your Sionachie['`]s Dreams(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Sionachie['`]s Dreams(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1688,7 +1688,7 @@
     {
       "id": "debuffs/worn/solon-s-bewitching-bravura",
       "name": "Enemy timer cleared: Solon's Bewitching Bravura",
-      "pattern": "^Your Solon['`]s Bewitching Bravura(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Solon['`]s Bewitching Bravura(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1719,7 +1719,7 @@
     {
       "id": "debuffs/worn/solon-s-song-of-the-sirens",
       "name": "Enemy timer cleared: Solon's Song of the Sirens",
-      "pattern": "^Your Solon['`]s Song of the Sirens(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Solon['`]s Song of the Sirens(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1750,7 +1750,7 @@
     {
       "id": "debuffs/worn/song-of-midnight",
       "name": "Enemy timer cleared: Song of Midnight",
-      "pattern": "^Your Song of Midnight(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Song of Midnight(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1781,7 +1781,7 @@
     {
       "id": "debuffs/worn/song-of-twilight",
       "name": "Enemy timer cleared: Song of Twilight",
-      "pattern": "^Your Song of Twilight(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Song of Twilight(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1812,7 +1812,7 @@
     {
       "id": "debuffs/worn/tuyen-s-chant-of-disease",
       "name": "Enemy timer cleared: Tuyen's Chant of Disease",
-      "pattern": "^Your Tuyen['`]s Chant of Disease(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tuyen['`]s Chant of Disease(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1843,7 +1843,7 @@
     {
       "id": "debuffs/worn/tuyen-s-chant-of-flame",
       "name": "Enemy timer cleared: Tuyen's Chant of Flame",
-      "pattern": "^Your Tuyen['`]s Chant of Flame(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tuyen['`]s Chant of Flame(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1874,7 +1874,7 @@
     {
       "id": "debuffs/worn/tuyen-s-chant-of-frost",
       "name": "Enemy timer cleared: Tuyen's Chant of Frost",
-      "pattern": "^Your Tuyen['`]s Chant of Frost(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tuyen['`]s Chant of Frost(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1905,7 +1905,7 @@
     {
       "id": "debuffs/worn/tuyen-s-chant-of-poison",
       "name": "Enemy timer cleared: Tuyen's Chant of Poison",
-      "pattern": "^Your Tuyen['`]s Chant of Poison(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tuyen['`]s Chant of Poison(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

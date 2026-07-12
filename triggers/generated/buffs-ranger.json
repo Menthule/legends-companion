@@ -4,7 +4,7 @@
     {
       "id": "buffs/ranger/cast/bind-sight",
       "name": "Buff timer: Bind Sight",
-      "pattern": "^You begin casting Bind Sight(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Bind Sight(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/ranger/cast/call-of-earth",
       "name": "Buff timer: Call of Earth",
-      "pattern": "^You begin casting Call of Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Call of Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/ranger/cast/call-of-fire",
       "name": "Buff timer: Call of Fire",
-      "pattern": "^You begin casting Call of Fire(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Call of Fire(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/ranger/cast/call-of-ice",
       "name": "Buff timer: Call of Ice",
-      "pattern": "^You begin casting Call of Ice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Call of Ice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/ranger/cast/call-of-the-predator",
       "name": "Buff timer: Call of the Predator",
-      "pattern": "^You begin casting Call of the Predator(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Call of the Predator(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/ranger/cast/calm-animal",
       "name": "Buff timer: Calm Animal",
-      "pattern": "^You begin casting Calm Animal(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Calm Animal(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/ranger/cast/camouflage",
       "name": "Buff timer: Camouflage",
-      "pattern": "^You begin casting Camouflage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Camouflage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/ranger/cast/chloroplast",
       "name": "Buff timer: Chloroplast",
-      "pattern": "^You begin casting Chloroplast(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Chloroplast(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/ranger/cast/eagle-eye",
       "name": "Buff timer: Eagle Eye",
-      "pattern": "^You begin casting Eagle Eye(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Eagle Eye(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/ranger/cast/endure-cold",
       "name": "Buff timer: Endure Cold",
-      "pattern": "^You begin casting Endure Cold(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Cold(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/ranger/cast/endure-fire",
       "name": "Buff timer: Endure Fire",
-      "pattern": "^You begin casting Endure Fire(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Fire(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/ranger/cast/enduring-breath",
       "name": "Buff timer: Enduring Breath",
-      "pattern": "^You begin casting Enduring Breath(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Enduring Breath(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/ranger/cast/falcon-eye",
       "name": "Buff timer: Falcon Eye",
-      "pattern": "^You begin casting Falcon Eye(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Falcon Eye(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/ranger/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -367,7 +367,7 @@
     {
       "id": "buffs/ranger/cast/feet-like-cat",
       "name": "Buff timer: Feet like Cat",
-      "pattern": "^You begin casting Feet like Cat(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Feet like Cat(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -393,7 +393,7 @@
     {
       "id": "buffs/ranger/cast/harmony",
       "name": "Buff timer: Harmony",
-      "pattern": "^You begin casting Harmony(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Harmony(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -419,7 +419,7 @@
     {
       "id": "buffs/ranger/cast/harmony-of-nature",
       "name": "Buff timer: Harmony of Nature",
-      "pattern": "^You begin casting Harmony of Nature(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Harmony of Nature(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -445,7 +445,7 @@
     {
       "id": "buffs/ranger/cast/jolting-blades",
       "name": "Buff timer: Jolting Blades",
-      "pattern": "^You begin casting Jolting Blades(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Jolting Blades(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -471,7 +471,7 @@
     {
       "id": "buffs/ranger/cast/levitate",
       "name": "Buff timer: Levitate",
-      "pattern": "^You begin casting Levitate(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Levitate(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -497,7 +497,7 @@
     {
       "id": "buffs/ranger/cast/lull-animal",
       "name": "Buff timer: Lull Animal",
-      "pattern": "^You begin casting Lull Animal(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Lull Animal(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -523,7 +523,7 @@
     {
       "id": "buffs/ranger/cast/mark-of-the-predator",
       "name": "Buff timer: Mark of the Predator",
-      "pattern": "^You begin casting Mark of the Predator(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mark of the Predator(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -549,7 +549,7 @@
     {
       "id": "buffs/ranger/cast/pack-shrew",
       "name": "Buff timer: Pack Shrew",
-      "pattern": "^You begin casting Pack Shrew(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pack Shrew(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -575,7 +575,7 @@
     {
       "id": "buffs/ranger/cast/resist-cold",
       "name": "Buff timer: Resist Cold",
-      "pattern": "^You begin casting Resist Cold(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Cold(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -601,7 +601,7 @@
     {
       "id": "buffs/ranger/cast/resist-fire",
       "name": "Buff timer: Resist Fire",
-      "pattern": "^You begin casting Resist Fire(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Fire(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -627,7 +627,7 @@
     {
       "id": "buffs/ranger/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -652,7 +652,7 @@
     {
       "id": "buffs/ranger/cast/riftwind-s-protection",
       "name": "Buff timer: Riftwind's Protection",
-      "pattern": "^You begin casting Riftwind['`]s Protection(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Riftwind['`]s Protection(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -678,7 +678,7 @@
     {
       "id": "buffs/ranger/cast/see-invisible",
       "name": "Buff timer: See Invisible",
-      "pattern": "^You begin casting See Invisible(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting See Invisible(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -704,7 +704,7 @@
     {
       "id": "buffs/ranger/cast/shield-of-brambles",
       "name": "Buff timer: Shield of Brambles",
-      "pattern": "^You begin casting Shield of Brambles(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Brambles(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -730,7 +730,7 @@
     {
       "id": "buffs/ranger/cast/shield-of-spikes",
       "name": "Buff timer: Shield of Spikes",
-      "pattern": "^You begin casting Shield of Spikes(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Spikes(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -756,7 +756,7 @@
     {
       "id": "buffs/ranger/cast/shield-of-thistles",
       "name": "Buff timer: Shield of Thistles",
-      "pattern": "^You begin casting Shield of Thistles(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Thistles(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -782,7 +782,7 @@
     {
       "id": "buffs/ranger/cast/skin-like-diamond",
       "name": "Buff timer: Skin like Diamond",
-      "pattern": "^You begin casting Skin like Diamond(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Diamond(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -808,7 +808,7 @@
     {
       "id": "buffs/ranger/cast/skin-like-nature",
       "name": "Buff timer: Skin like Nature",
-      "pattern": "^You begin casting Skin like Nature(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Nature(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -834,7 +834,7 @@
     {
       "id": "buffs/ranger/cast/skin-like-rock",
       "name": "Buff timer: Skin like Rock",
-      "pattern": "^You begin casting Skin like Rock(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Rock(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -860,7 +860,7 @@
     {
       "id": "buffs/ranger/cast/skin-like-steel",
       "name": "Buff timer: Skin like Steel",
-      "pattern": "^You begin casting Skin like Steel(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Steel(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -886,7 +886,7 @@
     {
       "id": "buffs/ranger/cast/skin-like-wood",
       "name": "Buff timer: Skin like Wood",
-      "pattern": "^You begin casting Skin like Wood(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Wood(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -912,7 +912,7 @@
     {
       "id": "buffs/ranger/cast/spirit-of-wolf",
       "name": "Buff timer: Spirit of Wolf",
-      "pattern": "^You begin casting Spirit of Wolf(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Wolf(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -938,7 +938,7 @@
     {
       "id": "buffs/ranger/cast/spirit-of-the-shrew",
       "name": "Buff timer: Spirit of the Shrew",
-      "pattern": "^You begin casting Spirit of the Shrew(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of the Shrew(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -964,7 +964,7 @@
     {
       "id": "buffs/ranger/cast/storm-strength",
       "name": "Buff timer: Storm Strength",
-      "pattern": "^You begin casting Storm Strength(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Storm Strength(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -990,7 +990,7 @@
     {
       "id": "buffs/ranger/cast/strength-of-earth",
       "name": "Buff timer: Strength of Earth",
-      "pattern": "^You begin casting Strength of Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Strength of Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1016,7 +1016,7 @@
     {
       "id": "buffs/ranger/cast/strength-of-nature",
       "name": "Buff timer: Strength of Nature",
-      "pattern": "^You begin casting Strength of Nature(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Strength of Nature(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1042,7 +1042,7 @@
     {
       "id": "buffs/ranger/cast/superior-camouflage",
       "name": "Buff timer: Superior Camouflage",
-      "pattern": "^You begin casting Superior Camouflage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Superior Camouflage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1068,7 +1068,7 @@
     {
       "id": "buffs/ranger/cast/trueshot-discipline",
       "name": "Buff timer: Trueshot Discipline",
-      "pattern": "^You begin casting Trueshot Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Trueshot Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1093,7 +1093,7 @@
     {
       "id": "buffs/ranger/cast/warder-s-protection",
       "name": "Buff timer: Warder's Protection",
-      "pattern": "^You begin casting Warder['`]s Protection(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Warder['`]s Protection(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

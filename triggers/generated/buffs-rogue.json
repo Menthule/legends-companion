@@ -4,7 +4,7 @@
     {
       "id": "buffs/rogue/cast/blinding-speed-discipline",
       "name": "Buff timer: Blinding Speed Discipline",
-      "pattern": "^You begin casting Blinding Speed Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Blinding Speed Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -29,7 +29,7 @@
     {
       "id": "buffs/rogue/cast/deadeye-discipline",
       "name": "Buff timer: Deadeye Discipline",
-      "pattern": "^You begin casting Deadeye Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Deadeye Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -54,7 +54,7 @@
     {
       "id": "buffs/rogue/cast/duelist-discipline",
       "name": "Buff timer: Duelist Discipline",
-      "pattern": "^You begin casting Duelist Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Duelist Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -79,7 +79,7 @@
     {
       "id": "buffs/rogue/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -104,7 +104,7 @@
     {
       "id": "buffs/rogue/cast/focused-will-discipline",
       "name": "Buff timer: Focused Will Discipline",
-      "pattern": "^You begin casting Focused Will Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Focused Will Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -129,7 +129,7 @@
     {
       "id": "buffs/rogue/cast/kinesthetics-discipline",
       "name": "Buff timer: Kinesthetics Discipline",
-      "pattern": "^You begin casting Kinesthetics Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Kinesthetics Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -154,7 +154,7 @@
     {
       "id": "buffs/rogue/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -179,7 +179,7 @@
     {
       "id": "buffs/rogue/cast/sneak-attack",
       "name": "Buff timer: Sneak Attack",
-      "pattern": "^You begin casting Sneak Attack(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Sneak Attack(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -204,7 +204,7 @@
     {
       "id": "buffs/rogue/cast/thief-s-vengeance",
       "name": "Buff timer: Thief's Vengeance",
-      "pattern": "^You begin casting Thief['`]s Vengeance(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Thief['`]s Vengeance(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

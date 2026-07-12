@@ -10,7 +10,7 @@ use regex::{Captures, Regex, RegexSet};
 
 use crate::model::{
     duration_ticks_at_level, infer_timer_lane, Action, ChannelOverride, CharacterProfile,
-    TimerLane, TimerStartMode, Trigger,
+    TimerLane, TimerStartMode, TimerTiming, Trigger,
 };
 use crate::profile::{effective_enabled, zone_scope_for};
 use eqlog_core::events::{Entity, Event, ParsedLine};
@@ -548,6 +548,54 @@ fn scale_timer_durations(trigger: &mut Trigger, level: u32) {
     }
 }
 
+fn normalize_rank(rank: &str) -> String {
+    rank.trim().to_ascii_uppercase()
+}
+
+/// Merge per-loadout manual timings into the action's library rank table.
+/// Manual values win field-by-field, so changing only cast time continues to
+/// inherit the library duration.
+fn apply_timing_overrides(trigger: &mut Trigger, overrides: &BTreeMap<String, TimerTiming>) {
+    for action in &mut trigger.actions {
+        let Action::StartTimer { rank_variants, .. } = action else {
+            continue;
+        };
+        for (rank, manual) in overrides {
+            let value = rank_variants.entry(normalize_rank(rank)).or_default();
+            if manual.duration_secs.is_some() {
+                value.duration_secs = manual.duration_secs;
+            }
+            if manual.cast_time_secs.is_some() {
+                value.cast_time_secs = manual.cast_time_secs;
+            }
+        }
+    }
+}
+
+fn resolve_rank_timing(
+    duration_secs: u64,
+    cast_time_secs: Option<u64>,
+    rank_variants: &BTreeMap<String, TimerTiming>,
+    rank: Option<&str>,
+) -> TimerTiming {
+    let variant = rank.and_then(|rank| {
+        rank_variants
+            .iter()
+            .find(|(key, _)| key.eq_ignore_ascii_case(rank.trim()))
+            .map(|(_, value)| value)
+    });
+    TimerTiming {
+        duration_secs: Some(
+            variant
+                .and_then(|value| value.duration_secs)
+                .unwrap_or(duration_secs),
+        ),
+        cast_time_secs: variant
+            .and_then(|value| value.cast_time_secs)
+            .or(cast_time_secs),
+    }
+}
+
 impl TriggerEngine {
     /// Compile `triggers` for `character_name`. Disabled triggers are
     /// skipped; triggers whose pattern fails to compile are skipped with a
@@ -1029,6 +1077,7 @@ impl TriggerEngine {
         let level = profile.level;
         let loadout = profile.active_loadout();
         let channel_overrides = &loadout.channel_overrides;
+        let timing_overrides = &loadout.timing_overrides;
         let selected: Vec<Trigger> = triggers
             .into_iter()
             .filter(|t| t.enabled && effective_enabled(t, profile))
@@ -1036,6 +1085,13 @@ impl TriggerEngine {
                 scale_timer_durations(&mut t, level);
                 if let Some(ov) = channel_overrides.get(&t.effective_id()) {
                     apply_channel_override(&mut t, ov);
+                }
+                if let Some(overrides) = timing_overrides
+                    .iter()
+                    .find(|(id, _)| id.eq_ignore_ascii_case(&t.effective_id()))
+                    .map(|(_, value)| value)
+                {
+                    apply_timing_overrides(&mut t, overrides);
                 }
                 // A per-loadout zone scope replaces the pack-authored one.
                 if let Some(zones) = zone_scope_for(&t, loadout) {
@@ -1212,6 +1268,7 @@ impl TriggerEngine {
                         warn_at_secs,
                         lane,
                         cast_time_secs,
+                        rank_variants,
                         mode,
                         repeat_secs,
                         stopwatch,
@@ -1225,8 +1282,16 @@ impl TriggerEngine {
                         // The trigger fires at cast START; the buff only
                         // exists once the cast completes. Lead the timer in
                         // by the cast time so expiry lands on the truth.
-                        let lead_in = cast_time_secs.unwrap_or(0);
-                        let shown_duration = *duration_secs + lead_in;
+                        let rank = caps.name("rank").map(|m| m.as_str());
+                        let timing = resolve_rank_timing(
+                            *duration_secs,
+                            *cast_time_secs,
+                            rank_variants,
+                            rank,
+                        );
+                        let lead_in = timing.cast_time_secs.unwrap_or(0);
+                        let shown_duration =
+                            timing.duration_secs.unwrap_or(*duration_secs) + lead_in;
                         let expires_at = ts + shown_duration as i64;
                         let warn_at = warn_at_secs
                             .map(|w| expires_at - w as i64)
@@ -1591,6 +1656,7 @@ mod tests {
                 duration_cap_ticks: None,
                 lane: Some(TimerLane::Buff),
                 cast_time_secs: Some(cast),
+                rank_variants: BTreeMap::new(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,
@@ -1616,6 +1682,7 @@ mod tests {
                 duration_cap_ticks: None,
                 lane: Some(TimerLane::Other),
                 cast_time_secs: None,
+                rank_variants: BTreeMap::new(),
                 mode: None,
                 repeat_secs: Some(30),
                 stopwatch: false,
@@ -1695,6 +1762,7 @@ mod tests {
                 duration_cap_ticks: None,
                 lane: Some(TimerLane::Buff),
                 cast_time_secs: None,
+                rank_variants: BTreeMap::new(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,

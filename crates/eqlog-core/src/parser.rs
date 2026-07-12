@@ -87,6 +87,7 @@ struct Regexes {
     chat_you_say: Regex,
     // Misc
     xp: Regex,
+    aa_point_gain: Regex,
     level_up: Regex,
     faction: Regex,
     zone: Regex,
@@ -218,6 +219,10 @@ impl Parser {
             chat_you_say: Regex::new(r"^You say, '(?P<t>.*)'$").unwrap(),
             xp: Regex::new(r"^You gain (?P<party>party )?experience!(?: \((?P<p>\d+(?:\.\d+)?)%\))?$")
                 .unwrap(),
+            aa_point_gain: Regex::new(
+                r"^You have gained an ability point!\s+You now have (?P<n>\d+) ability points?\.$",
+            )
+            .unwrap(),
             level_up: Regex::new(r"^You have gained a level! Welcome to level (?P<l>\d+)!$")
                 .unwrap(),
             faction: Regex::new(
@@ -562,6 +567,14 @@ impl Parser {
                 return Event::XpGain {
                     percent,
                     party: c.name("party").is_some(),
+                };
+            }
+        }
+        if m.starts_with("You have gained an ability point!") {
+            if let Some(c) = self.re.aa_point_gain.captures(m) {
+                return Event::AaPointGain {
+                    points: 1,
+                    balance: c["n"].parse().unwrap_or(0),
                 };
             }
         }

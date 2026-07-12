@@ -4,7 +4,7 @@
     {
       "id": "debuffs/necromancer/cast/asystole",
       "name": "Enemy timer: Asystole",
-      "pattern": "^You begin casting Asystole(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Asystole(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/necromancer/cast/auspice",
       "name": "Enemy timer: Auspice",
-      "pattern": "^You begin casting Auspice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Auspice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/necromancer/cast/beguile-undead",
       "name": "Enemy timer: Beguile Undead",
-      "pattern": "^You begin casting Beguile Undead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Beguile Undead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/necromancer/cast/boil-blood",
       "name": "Enemy timer: Boil Blood",
-      "pattern": "^You begin casting Boil Blood(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Boil Blood(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/necromancer/cast/bond-of-death",
       "name": "Enemy timer: Bond of Death",
-      "pattern": "^You begin casting Bond of Death(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Bond of Death(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/necromancer/cast/cajole-undead",
       "name": "Enemy timer: Cajole Undead",
-      "pattern": "^You begin casting Cajole Undead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Cajole Undead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/necromancer/cast/cancelling-of-life",
       "name": "Enemy timer: Cancelling of Life",
-      "pattern": "^You begin casting Cancelling of Life(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Cancelling of Life(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/necromancer/cast/cascading-darkness",
       "name": "Enemy timer: Cascading Darkness",
-      "pattern": "^You begin casting Cascading Darkness(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Cascading Darkness(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/necromancer/cast/cessation-of-cor",
       "name": "Enemy timer: Cessation of Cor",
-      "pattern": "^You begin casting Cessation of Cor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Cessation of Cor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/necromancer/cast/cessation-of-life",
       "name": "Enemy timer: Cessation of Life",
-      "pattern": "^You begin casting Cessation of Life(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Cessation of Life(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/necromancer/cast/chill-bones",
       "name": "Enemy timer: Chill Bones",
-      "pattern": "^You begin casting Chill Bones(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Chill Bones(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/necromancer/cast/chilling-embrace",
       "name": "Enemy timer: Chilling Embrace",
-      "pattern": "^You begin casting Chilling Embrace(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Chilling Embrace(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/necromancer/cast/clinging-darkness",
       "name": "Enemy timer: Clinging Darkness",
-      "pattern": "^You begin casting Clinging Darkness(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Clinging Darkness(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/necromancer/cast/crippling-claudication",
       "name": "Enemy timer: Crippling Claudication",
-      "pattern": "^You begin casting Crippling Claudication(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Crippling Claudication(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/necromancer/cast/dark-soul",
       "name": "Enemy timer: Dark Soul",
-      "pattern": "^You begin casting Dark Soul(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Dark Soul(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "debuffs/necromancer/cast/degeneration",
       "name": "Enemy timer: Degeneration",
-      "pattern": "^You begin casting Degeneration(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Degeneration(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "debuffs/necromancer/cast/devouring-darkness",
       "name": "Enemy timer: Devouring Darkness",
-      "pattern": "^You begin casting Devouring Darkness(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Devouring Darkness(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "debuffs/necromancer/cast/disease-cloud",
       "name": "Enemy timer: Disease Cloud",
-      "pattern": "^You begin casting Disease Cloud(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Disease Cloud(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "debuffs/necromancer/cast/dominate-undead",
       "name": "Enemy timer: Dominate Undead",
-      "pattern": "^You begin casting Dominate Undead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Dominate Undead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "debuffs/necromancer/cast/dooming-darkness",
       "name": "Enemy timer: Dooming Darkness",
-      "pattern": "^You begin casting Dooming Darkness(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Dooming Darkness(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "debuffs/necromancer/cast/dread-of-night",
       "name": "Enemy timer: Dread of Night",
-      "pattern": "^You begin casting Dread of Night(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Dread of Night(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "debuffs/necromancer/cast/eidolon-voice",
       "name": "Enemy timer: Eidolon Voice",
-      "pattern": "^You begin casting Eidolon Voice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Eidolon Voice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "debuffs/necromancer/cast/engulfing-darkness",
       "name": "Enemy timer: Engulfing Darkness",
-      "pattern": "^You begin casting Engulfing Darkness(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Engulfing Darkness(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "debuffs/necromancer/cast/enslave-death",
       "name": "Enemy timer: Enslave Death",
-      "pattern": "^You begin casting Enslave Death(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Enslave Death(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "debuffs/necromancer/cast/envenomed-bolt",
       "name": "Enemy timer: Envenomed Bolt",
-      "pattern": "^You begin casting Envenomed Bolt(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Envenomed Bolt(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "debuffs/necromancer/cast/eternities-torment",
       "name": "Enemy timer: Eternities Torment",
-      "pattern": "^You begin casting Eternities Torment(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Eternities Torment(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "debuffs/necromancer/cast/fear",
       "name": "Enemy timer: Fear",
-      "pattern": "^You begin casting Fear(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fear(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "debuffs/necromancer/cast/funeral-pyre-of-kelador",
       "name": "Enemy timer: Funeral Pyre of Kelador",
-      "pattern": "^You begin casting Funeral Pyre of Kelador(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Funeral Pyre of Kelador(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "debuffs/necromancer/cast/heart-flutter",
       "name": "Enemy timer: Heart Flutter",
-      "pattern": "^You begin casting Heart Flutter(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Heart Flutter(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "debuffs/necromancer/cast/heat-blood",
       "name": "Enemy timer: Heat Blood",
-      "pattern": "^You begin casting Heat Blood(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Heat Blood(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "debuffs/necromancer/cast/hungry-earth",
       "name": "Enemy timer: Hungry Earth",
-      "pattern": "^You begin casting Hungry Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Hungry Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "debuffs/necromancer/cast/ignite-blood",
       "name": "Enemy timer: Ignite Blood",
-      "pattern": "^You begin casting Ignite Blood(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Ignite Blood(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "debuffs/necromancer/cast/ignite-bones",
       "name": "Enemy timer: Ignite Bones",
-      "pattern": "^You begin casting Ignite Bones(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Ignite Bones(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "debuffs/necromancer/cast/immobilize",
       "name": "Enemy timer: Immobilize",
-      "pattern": "^You begin casting Immobilize(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Immobilize(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "debuffs/necromancer/cast/imprecation",
       "name": "Enemy timer: Imprecation",
-      "pattern": "^You begin casting Imprecation(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Imprecation(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "debuffs/necromancer/cast/infectious-cloud",
       "name": "Enemy timer: Infectious Cloud",
-      "pattern": "^You begin casting Infectious Cloud(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Infectious Cloud(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "debuffs/necromancer/cast/insidious-retrogression",
       "name": "Enemy timer: Insidious Retrogression",
-      "pattern": "^You begin casting Insidious Retrogression(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Insidious Retrogression(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "debuffs/necromancer/cast/instill",
       "name": "Enemy timer: Instill",
-      "pattern": "^You begin casting Instill(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Instill(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "debuffs/necromancer/cast/invoke-fear",
       "name": "Enemy timer: Invoke Fear",
-      "pattern": "^You begin casting Invoke Fear(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Invoke Fear(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "debuffs/necromancer/cast/leech",
       "name": "Enemy timer: Leech",
-      "pattern": "^You begin casting Leech(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Leech(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "debuffs/necromancer/cast/negation-of-life",
       "name": "Enemy timer: Negation of Life",
-      "pattern": "^You begin casting Negation of Life(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Negation of Life(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1070,7 +1070,7 @@
     {
       "id": "debuffs/necromancer/cast/panic-the-dead",
       "name": "Enemy timer: Panic the Dead",
-      "pattern": "^You begin casting Panic the Dead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Panic the Dead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1096,7 +1096,7 @@
     {
       "id": "debuffs/necromancer/cast/paralyzing-earth",
       "name": "Enemy timer: Paralyzing Earth",
-      "pattern": "^You begin casting Paralyzing Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Paralyzing Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1122,7 +1122,7 @@
     {
       "id": "debuffs/necromancer/cast/plague",
       "name": "Enemy timer: Plague",
-      "pattern": "^You begin casting Plague(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Plague(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1148,7 +1148,7 @@
     {
       "id": "debuffs/necromancer/cast/poison-bolt",
       "name": "Enemy timer: Poison Bolt",
-      "pattern": "^You begin casting Poison Bolt(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Poison Bolt(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1174,7 +1174,7 @@
     {
       "id": "debuffs/necromancer/cast/pyrocruor",
       "name": "Enemy timer: Pyrocruor",
-      "pattern": "^You begin casting Pyrocruor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pyrocruor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1200,7 +1200,7 @@
     {
       "id": "debuffs/necromancer/cast/root",
       "name": "Enemy timer: Root",
-      "pattern": "^You begin casting Root(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Root(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1226,7 +1226,7 @@
     {
       "id": "debuffs/necromancer/cast/scent-of-darkness",
       "name": "Enemy timer: Scent of Darkness",
-      "pattern": "^You begin casting Scent of Darkness(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Scent of Darkness(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1252,7 +1252,7 @@
     {
       "id": "debuffs/necromancer/cast/scent-of-dusk",
       "name": "Enemy timer: Scent of Dusk",
-      "pattern": "^You begin casting Scent of Dusk(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Scent of Dusk(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1278,7 +1278,7 @@
     {
       "id": "debuffs/necromancer/cast/scent-of-shadow",
       "name": "Enemy timer: Scent of Shadow",
-      "pattern": "^You begin casting Scent of Shadow(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Scent of Shadow(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1304,7 +1304,7 @@
     {
       "id": "debuffs/necromancer/cast/scent-of-terris",
       "name": "Enemy timer: Scent of Terris",
-      "pattern": "^You begin casting Scent of Terris(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Scent of Terris(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1330,7 +1330,7 @@
     {
       "id": "debuffs/necromancer/cast/scourge",
       "name": "Enemy timer: Scourge",
-      "pattern": "^You begin casting Scourge(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Scourge(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1356,7 +1356,7 @@
     {
       "id": "debuffs/necromancer/cast/screaming-terror",
       "name": "Enemy timer: Screaming Terror",
-      "pattern": "^You begin casting Screaming Terror(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Screaming Terror(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1382,7 +1382,7 @@
     {
       "id": "debuffs/necromancer/cast/shackle-of-bone",
       "name": "Enemy timer: Shackle of Bone",
-      "pattern": "^You begin casting Shackle of Bone(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shackle of Bone(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1408,7 +1408,7 @@
     {
       "id": "debuffs/necromancer/cast/shackle-of-spirit",
       "name": "Enemy timer: Shackle of Spirit",
-      "pattern": "^You begin casting Shackle of Spirit(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shackle of Spirit(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1434,7 +1434,7 @@
     {
       "id": "debuffs/necromancer/cast/shadow-vortex",
       "name": "Enemy timer: Shadow Vortex",
-      "pattern": "^You begin casting Shadow Vortex(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shadow Vortex(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1460,7 +1460,7 @@
     {
       "id": "debuffs/necromancer/cast/siphon-strength",
       "name": "Enemy timer: Siphon Strength",
-      "pattern": "^You begin casting Siphon Strength(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Siphon Strength(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1486,7 +1486,7 @@
     {
       "id": "debuffs/necromancer/cast/splurt",
       "name": "Enemy timer: Splurt",
-      "pattern": "^You begin casting Splurt(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Splurt(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1512,7 +1512,7 @@
     {
       "id": "debuffs/necromancer/cast/spook-the-dead",
       "name": "Enemy timer: Spook the Dead",
-      "pattern": "^You begin casting Spook the Dead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spook the Dead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1538,7 +1538,7 @@
     {
       "id": "debuffs/necromancer/cast/succussion-of-shadows",
       "name": "Enemy timer: Succussion of Shadows",
-      "pattern": "^You begin casting Succussion of Shadows(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Succussion of Shadows(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1564,7 +1564,7 @@
     {
       "id": "debuffs/necromancer/cast/surge-of-enfeeblement",
       "name": "Enemy timer: Surge of Enfeeblement",
-      "pattern": "^You begin casting Surge of Enfeeblement(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Surge of Enfeeblement(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1590,7 +1590,7 @@
     {
       "id": "debuffs/necromancer/cast/thrall-of-bones",
       "name": "Enemy timer: Thrall of Bones",
-      "pattern": "^You begin casting Thrall of Bones(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Thrall of Bones(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1616,7 +1616,7 @@
     {
       "id": "debuffs/necromancer/cast/trepidation",
       "name": "Enemy timer: Trepidation",
-      "pattern": "^You begin casting Trepidation(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Trepidation(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1642,7 +1642,7 @@
     {
       "id": "debuffs/necromancer/cast/unholy-voice",
       "name": "Enemy timer: Unholy Voice",
-      "pattern": "^You begin casting Unholy Voice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Unholy Voice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1668,7 +1668,7 @@
     {
       "id": "debuffs/necromancer/cast/vampiric-curse",
       "name": "Enemy timer: Vampiric Curse",
-      "pattern": "^You begin casting Vampiric Curse(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Vampiric Curse(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1694,7 +1694,7 @@
     {
       "id": "debuffs/necromancer/cast/venom-of-the-snake",
       "name": "Enemy timer: Venom of the Snake",
-      "pattern": "^You begin casting Venom of the Snake(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Venom of the Snake(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1720,7 +1720,7 @@
     {
       "id": "debuffs/necromancer/cast/vexing-mordinia",
       "name": "Enemy timer: Vexing Mordinia",
-      "pattern": "^You begin casting Vexing Mordinia(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Vexing Mordinia(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1746,7 +1746,7 @@
     {
       "id": "debuffs/necromancer/cast/wave-of-enfeeblement",
       "name": "Enemy timer: Wave of Enfeeblement",
-      "pattern": "^You begin casting Wave of Enfeeblement(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Wave of Enfeeblement(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1772,7 +1772,7 @@
     {
       "id": "debuffs/necromancer/cast/zevfeer-s-theft-of-vitae",
       "name": "Enemy timer: Zevfeer's Theft of Vitae",
-      "pattern": "^You begin casting Zevfeer['`]s Theft of Vitae(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Zevfeer['`]s Theft of Vitae(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1798,7 +1798,7 @@
     {
       "id": "debuffs/worn/auspice",
       "name": "Enemy timer cleared: Auspice",
-      "pattern": "^Your Auspice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Auspice(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1829,7 +1829,7 @@
     {
       "id": "debuffs/worn/beguile-undead",
       "name": "Enemy timer cleared: Beguile Undead",
-      "pattern": "^Your Beguile Undead(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Beguile Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1860,7 +1860,7 @@
     {
       "id": "debuffs/worn/bond-of-death",
       "name": "Enemy timer cleared: Bond of Death",
-      "pattern": "^Your Bond of Death(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Bond of Death(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1891,7 +1891,7 @@
     {
       "id": "debuffs/worn/cajole-undead",
       "name": "Enemy timer cleared: Cajole Undead",
-      "pattern": "^Your Cajole Undead(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cajole Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1922,7 +1922,7 @@
     {
       "id": "debuffs/worn/cessation-of-cor",
       "name": "Enemy timer cleared: Cessation of Cor",
-      "pattern": "^Your Cessation of Cor(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cessation of Cor(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1953,7 +1953,7 @@
     {
       "id": "debuffs/worn/cessation-of-life",
       "name": "Enemy timer cleared: Cessation of Life",
-      "pattern": "^Your Cessation of Life(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cessation of Life(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1984,7 +1984,7 @@
     {
       "id": "debuffs/worn/chill-bones",
       "name": "Enemy timer cleared: Chill Bones",
-      "pattern": "^Your Chill Bones(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chill Bones(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2015,7 +2015,7 @@
     {
       "id": "debuffs/worn/chilling-embrace",
       "name": "Enemy timer cleared: Chilling Embrace",
-      "pattern": "^Your Chilling Embrace(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Chilling Embrace(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2046,7 +2046,7 @@
     {
       "id": "debuffs/worn/crippling-claudication",
       "name": "Enemy timer cleared: Crippling Claudication",
-      "pattern": "^Your Crippling Claudication(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Crippling Claudication(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2077,7 +2077,7 @@
     {
       "id": "debuffs/worn/dark-soul",
       "name": "Enemy timer cleared: Dark Soul",
-      "pattern": "^Your Dark Soul(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dark Soul(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2108,7 +2108,7 @@
     {
       "id": "debuffs/worn/degeneration",
       "name": "Enemy timer cleared: Degeneration",
-      "pattern": "^Your Degeneration(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Degeneration(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2139,7 +2139,7 @@
     {
       "id": "debuffs/worn/devouring-darkness",
       "name": "Enemy timer cleared: Devouring Darkness",
-      "pattern": "^Your Devouring Darkness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Devouring Darkness(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2170,7 +2170,7 @@
     {
       "id": "debuffs/worn/dominate-undead",
       "name": "Enemy timer cleared: Dominate Undead",
-      "pattern": "^Your Dominate Undead(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dominate Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2201,7 +2201,7 @@
     {
       "id": "debuffs/worn/eidolon-voice",
       "name": "Enemy timer cleared: Eidolon Voice",
-      "pattern": "^Your Eidolon Voice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Eidolon Voice(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2232,7 +2232,7 @@
     {
       "id": "debuffs/worn/enslave-death",
       "name": "Enemy timer cleared: Enslave Death",
-      "pattern": "^Your Enslave Death(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Enslave Death(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2263,7 +2263,7 @@
     {
       "id": "debuffs/worn/eternities-torment",
       "name": "Enemy timer cleared: Eternities Torment",
-      "pattern": "^Your Eternities Torment(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Eternities Torment(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2294,7 +2294,7 @@
     {
       "id": "debuffs/worn/funeral-pyre-of-kelador",
       "name": "Enemy timer cleared: Funeral Pyre of Kelador",
-      "pattern": "^Your Funeral Pyre of Kelador(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Funeral Pyre of Kelador(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2325,7 +2325,7 @@
     {
       "id": "debuffs/worn/hungry-earth",
       "name": "Enemy timer cleared: Hungry Earth",
-      "pattern": "^Your Hungry Earth(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Hungry Earth(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2356,7 +2356,7 @@
     {
       "id": "debuffs/worn/ignite-blood",
       "name": "Enemy timer cleared: Ignite Blood",
-      "pattern": "^Your Ignite Blood(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ignite Blood(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2387,7 +2387,7 @@
     {
       "id": "debuffs/worn/ignite-bones",
       "name": "Enemy timer cleared: Ignite Bones",
-      "pattern": "^Your Ignite Bones(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ignite Bones(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2418,7 +2418,7 @@
     {
       "id": "debuffs/worn/imprecation",
       "name": "Enemy timer cleared: Imprecation",
-      "pattern": "^Your Imprecation(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Imprecation(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2449,7 +2449,7 @@
     {
       "id": "debuffs/worn/insidious-retrogression",
       "name": "Enemy timer cleared: Insidious Retrogression",
-      "pattern": "^Your Insidious Retrogression(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Insidious Retrogression(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2480,7 +2480,7 @@
     {
       "id": "debuffs/worn/leech",
       "name": "Enemy timer cleared: Leech",
-      "pattern": "^Your Leech(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Leech(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2511,7 +2511,7 @@
     {
       "id": "debuffs/worn/poison-bolt",
       "name": "Enemy timer cleared: Poison Bolt",
-      "pattern": "^Your Poison Bolt(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Poison Bolt(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2542,7 +2542,7 @@
     {
       "id": "debuffs/worn/pyrocruor",
       "name": "Enemy timer cleared: Pyrocruor",
-      "pattern": "^Your Pyrocruor(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Pyrocruor(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2573,7 +2573,7 @@
     {
       "id": "debuffs/worn/scent-of-darkness",
       "name": "Enemy timer cleared: Scent of Darkness",
-      "pattern": "^Your Scent of Darkness(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scent of Darkness(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2604,7 +2604,7 @@
     {
       "id": "debuffs/worn/scent-of-dusk",
       "name": "Enemy timer cleared: Scent of Dusk",
-      "pattern": "^Your Scent of Dusk(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scent of Dusk(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2635,7 +2635,7 @@
     {
       "id": "debuffs/worn/scent-of-shadow",
       "name": "Enemy timer cleared: Scent of Shadow",
-      "pattern": "^Your Scent of Shadow(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scent of Shadow(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2666,7 +2666,7 @@
     {
       "id": "debuffs/worn/scent-of-terris",
       "name": "Enemy timer cleared: Scent of Terris",
-      "pattern": "^Your Scent of Terris(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Scent of Terris(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2697,7 +2697,7 @@
     {
       "id": "debuffs/worn/screaming-terror",
       "name": "Enemy timer cleared: Screaming Terror",
-      "pattern": "^Your Screaming Terror(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Screaming Terror(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2728,7 +2728,7 @@
     {
       "id": "debuffs/worn/shackle-of-bone",
       "name": "Enemy timer cleared: Shackle of Bone",
-      "pattern": "^Your Shackle of Bone(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shackle of Bone(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2759,7 +2759,7 @@
     {
       "id": "debuffs/worn/shackle-of-spirit",
       "name": "Enemy timer cleared: Shackle of Spirit",
-      "pattern": "^Your Shackle of Spirit(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Shackle of Spirit(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2790,7 +2790,7 @@
     {
       "id": "debuffs/worn/splurt",
       "name": "Enemy timer cleared: Splurt",
-      "pattern": "^Your Splurt(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Splurt(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2821,7 +2821,7 @@
     {
       "id": "debuffs/worn/succussion-of-shadows",
       "name": "Enemy timer cleared: Succussion of Shadows",
-      "pattern": "^Your Succussion of Shadows(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Succussion of Shadows(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2852,7 +2852,7 @@
     {
       "id": "debuffs/worn/surge-of-enfeeblement",
       "name": "Enemy timer cleared: Surge of Enfeeblement",
-      "pattern": "^Your Surge of Enfeeblement(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Surge of Enfeeblement(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2883,7 +2883,7 @@
     {
       "id": "debuffs/worn/thrall-of-bones",
       "name": "Enemy timer cleared: Thrall of Bones",
-      "pattern": "^Your Thrall of Bones(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Thrall of Bones(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2914,7 +2914,7 @@
     {
       "id": "debuffs/worn/unholy-voice",
       "name": "Enemy timer cleared: Unholy Voice",
-      "pattern": "^Your Unholy Voice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Unholy Voice(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2945,7 +2945,7 @@
     {
       "id": "debuffs/worn/vexing-mordinia",
       "name": "Enemy timer cleared: Vexing Mordinia",
-      "pattern": "^Your Vexing Mordinia(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Vexing Mordinia(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2976,7 +2976,7 @@
     {
       "id": "debuffs/worn/zevfeer-s-theft-of-vitae",
       "name": "Enemy timer cleared: Zevfeer's Theft of Vitae",
-      "pattern": "^Your Zevfeer['`]s Theft of Vitae(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Zevfeer['`]s Theft of Vitae(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

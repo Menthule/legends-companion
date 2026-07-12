@@ -4,7 +4,7 @@
     {
       "id": "debuffs/berserker/cast/leg-cut",
       "name": "Enemy timer: Leg Cut",
-      "pattern": "^You begin casting Leg Cut(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Leg Cut(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -29,7 +29,7 @@
     {
       "id": "debuffs/berserker/cast/leg-slice",
       "name": "Enemy timer: Leg Slice",
-      "pattern": "^You begin casting Leg Slice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Leg Slice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -54,7 +54,7 @@
     {
       "id": "debuffs/berserker/cast/leg-strike",
       "name": "Enemy timer: Leg Strike",
-      "pattern": "^You begin casting Leg Strike(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Leg Strike(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -79,7 +79,7 @@
     {
       "id": "debuffs/worn/leg-cut",
       "name": "Enemy timer cleared: Leg Cut",
-      "pattern": "^Your Leg Cut(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Leg Cut(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -110,7 +110,7 @@
     {
       "id": "debuffs/worn/leg-slice",
       "name": "Enemy timer cleared: Leg Slice",
-      "pattern": "^Your Leg Slice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Leg Slice(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -141,7 +141,7 @@
     {
       "id": "debuffs/worn/leg-strike",
       "name": "Enemy timer cleared: Leg Strike",
-      "pattern": "^Your Leg Strike(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Leg Strike(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

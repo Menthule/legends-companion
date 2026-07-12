@@ -38,6 +38,19 @@ import {
   windowRemainingSecs,
 } from "../lib/timers";
 import {
+  inferredRespawnContext,
+  loadRespawnContext,
+  loadRespawnTimingProfiles,
+  removeRespawnTimingProfile,
+  resolveRespawnTiming,
+  respawnZoneKey,
+  saveRespawnContext,
+  saveRespawnTimingProfiles,
+  upsertRespawnTimingProfile,
+  type RespawnContext,
+  type RespawnTimingProfile,
+} from "../lib/respawnTiming";
+import {
   resolveLiveZoneShortName,
   useLiveZoneEnabled,
   useLiveZoneName,
@@ -228,6 +241,13 @@ export default function TimersTab() {
   );
   const [liveZoneEnabled] = useLiveZoneEnabled();
   const [liveZoneName] = useLiveZoneName();
+  const [timingProfiles, setTimingProfiles] = useState<RespawnTimingProfile[]>(
+    () => loadRespawnTimingProfiles(),
+  );
+  const [respawnContext, setRespawnContextState] = useState<RespawnContext>(
+    () => inferredRespawnContext(IS_MOCK ? "Ruins of Old Guk" : null),
+  );
+  const [editingTiming, setEditingTiming] = useState<Timer | null>(null);
 
   // Custom quick-add form.
   const [durInput, setDurInput] = useState("30m");
@@ -249,6 +269,34 @@ export default function TimersTab() {
   const killSeq = useRef(0);
   // Bumped when a lazy respawn lookup resolves, so kill rows re-render.
   const [, setLookupTick] = useState(0);
+
+  const timingZoneKey = respawnZoneKey(zoneShort, zoneLong);
+  const setRespawnContext = useCallback(
+    (context: RespawnContext) => {
+      saveRespawnContext(timingZoneKey, context);
+      setRespawnContextState(context);
+    },
+    [timingZoneKey],
+  );
+
+  useEffect(() => {
+    const fallback = inferredRespawnContext(zoneLong);
+    setRespawnContextState(loadRespawnContext(timingZoneKey, fallback));
+  }, [timingZoneKey, zoneLong]);
+
+  const resolvedRespawn = useCallback(
+    (name: string, referenceSecs: number, fallbackSecs?: number) =>
+      resolveRespawnTiming(timingProfiles, {
+        mob: name,
+        zoneShort,
+        zoneLong,
+        context: respawnContext,
+        referenceSecs,
+        fallbackSecs:
+          fallbackSecs ?? (zoneDefaultRef.current || DEFAULT_RESPAWN_SECS),
+      }),
+    [timingProfiles, zoneShort, zoneLong, respawnContext],
+  );
 
   // Zone long→short map + picker list, loaded once (the ZoneEnter event gives
   // the long name; refdbZoneInfo wants the short one). No new Tauri command.
@@ -370,6 +418,7 @@ export default function TimersTab() {
           return;
         }
       }
+      const timing = resolvedRespawn(name, info.respawnSecs);
       upsertTimer({
         id: `r_${name.toLowerCase()}`,
         kind: "respawn",
@@ -377,7 +426,7 @@ export default function TimersTab() {
         zoneShort,
         zoneLong: info.zoneLong ?? zoneLong,
         startedAt: Date.now(),
-        durationSecs: info.respawnSecs,
+        durationSecs: timing.durationSecs,
         varianceSecs: 0,
         warnSecs: 0,
         warnAnnounced: false,
@@ -385,9 +434,12 @@ export default function TimersTab() {
         ttsOnPop: false,
         announced: false,
         source,
+        timingContext: respawnContext,
+        timingSource: timing.source,
+        referenceDurationSecs: info.respawnSecs,
       });
     },
-    [upsertTimer, zoneShort, zoneLong],
+    [upsertTimer, zoneShort, zoneLong, resolvedRespawn, respawnContext],
   );
 
   /** Look up a mob's respawn once, cache it, then run `then`. */
@@ -457,6 +509,11 @@ export default function TimersTab() {
       // Keep the log's long name even when it isn't in the reference DB, so
       // the header still reflects where you are.
       loadZoneRares(short, long);
+      const inferred = inferredRespawnContext(long);
+      if (inferred === "private") {
+        saveRespawnContext(respawnZoneKey(short, long), inferred);
+        setRespawnContextState(inferred);
+      }
       return;
     }
 
@@ -572,10 +629,9 @@ export default function TimersTab() {
   const trackKill = useCallback(
     (name: string, atMs: number) => {
       withRespawn(name, (info) => {
-        const secs =
-          info && info.respawnSecs > 0
-            ? info.respawnSecs
-            : zoneDefaultRef.current || DEFAULT_RESPAWN_SECS;
+        const referenceSecs = info?.respawnSecs ?? 0;
+        const fallbackSecs = zoneDefaultRef.current || DEFAULT_RESPAWN_SECS;
+        const timing = resolvedRespawn(name, referenceSecs, fallbackSecs);
         upsertTimer({
           id: `r_${name.toLowerCase()}`,
           kind: "respawn",
@@ -583,7 +639,7 @@ export default function TimersTab() {
           zoneShort,
           zoneLong: info?.zoneLong ?? zoneLong,
           startedAt: atMs,
-          durationSecs: secs,
+          durationSecs: timing.durationSecs,
           varianceSecs: 0,
           warnSecs: 0,
           warnAnnounced: false,
@@ -591,18 +647,19 @@ export default function TimersTab() {
           ttsOnPop: false,
           announced: false,
           source: "manual",
+          timingContext: respawnContext,
+          timingSource: timing.source,
+          referenceDurationSecs: referenceSecs || fallbackSecs,
         });
       });
     },
-    [withRespawn, upsertTimer, zoneShort, zoneLong],
+    [withRespawn, upsertTimer, zoneShort, zoneLong, resolvedRespawn, respawnContext],
   );
 
   const armRare = useCallback(
     (mob: ZoneNamedMob) => {
-      const secs =
-        mob.respawnSecs > 0
-          ? mob.respawnSecs
-          : zoneDefaultRef.current || DEFAULT_RESPAWN_SECS;
+      const fallbackSecs = zoneDefaultRef.current || DEFAULT_RESPAWN_SECS;
+      const timing = resolvedRespawn(mob.name, mob.respawnSecs, fallbackSecs);
       upsertTimer({
         id: `r_${mob.name.toLowerCase()}`,
         kind: "respawn",
@@ -610,7 +667,7 @@ export default function TimersTab() {
         zoneShort,
         zoneLong,
         startedAt: Date.now(),
-        durationSecs: secs,
+        durationSecs: timing.durationSecs,
         varianceSecs: 0,
         warnSecs: 0,
         warnAnnounced: false,
@@ -618,9 +675,12 @@ export default function TimersTab() {
         ttsOnPop: false,
         announced: false,
         source: "manual",
+        timingContext: respawnContext,
+        timingSource: timing.source,
+        referenceDurationSecs: mob.respawnSecs || fallbackSecs,
       });
     },
-    [upsertTimer, zoneShort, zoneLong],
+    [upsertTimer, zoneShort, zoneLong, resolvedRespawn, respawnContext],
   );
 
   const addCustom = useCallback(() => {
@@ -683,6 +743,77 @@ export default function TimersTab() {
     announced.current.delete(id);
     warned.current.delete(id);
   }, []);
+
+  const saveTimingOverride = useCallback(
+    (timer: Timer, durationSecs: number, source: "manual" | "observed") => {
+      const context = timer.timingContext ?? respawnContext;
+      const zone = respawnZoneKey(timer.zoneShort, timer.zoneLong);
+      const profile: RespawnTimingProfile = {
+        mob: timer.label,
+        zone,
+        context,
+        durationSecs,
+        source,
+        updatedAt: Date.now(),
+      };
+      setTimingProfiles((prev) => {
+        const next = upsertRespawnTimingProfile(prev, profile);
+        saveRespawnTimingProfiles(next);
+        return next;
+      });
+      setTimers((prev) => {
+        const next = prev.map((t) =>
+          t.id === timer.id
+            ? {
+                ...t,
+                durationSecs,
+                timingContext: context,
+                timingSource: source,
+                announced: false,
+                warnAnnounced: false,
+              }
+            : t,
+        );
+        saveTimers(next);
+        return next;
+      });
+      announced.current.delete(timer.id);
+      warned.current.delete(timer.id);
+      setEditingTiming(null);
+    },
+    [respawnContext],
+  );
+
+  const resetTimingOverride = useCallback(
+    (timer: Timer) => {
+      const context = timer.timingContext ?? respawnContext;
+      const zone = respawnZoneKey(timer.zoneShort, timer.zoneLong);
+      setTimingProfiles((prev) => {
+        const next = removeRespawnTimingProfile(prev, timer.label, zone, context);
+        saveRespawnTimingProfiles(next);
+        return next;
+      });
+      const durationSecs = timer.referenceDurationSecs ?? timer.durationSecs;
+      setTimers((prev) => {
+        const next = prev.map((t) =>
+          t.id === timer.id
+            ? {
+                ...t,
+                durationSecs,
+                timingContext: context,
+                timingSource: "reference" as const,
+                announced: false,
+                warnAnnounced: false,
+              }
+            : t,
+        );
+        saveTimers(next);
+        return next;
+      });
+      setEditingTiming(null);
+    },
+    [respawnContext],
+  );
 
   // --- Derived --------------------------------------------------------------
 
@@ -856,6 +987,7 @@ export default function TimersTab() {
                       onReset={() => resetTimer(t.id)}
                       onDismiss={() => dismiss(t.id)}
                       onCycleWarn={() => cycleWarn(t.id)}
+                      onTiming={() => setEditingTiming(t)}
                     />
                   ))}
                 </div>
@@ -898,6 +1030,22 @@ export default function TimersTab() {
               )}
             </span>
             <div className="tmr-zone-pick">
+              <div className="tmr-context" role="group" aria-label="Respawn context">
+                {(["public", "private", "custom"] as const).map((context) => (
+                  <button
+                    key={context}
+                    className={`kchip${respawnContext === context ? " active" : ""}`}
+                    onClick={() => setRespawnContext(context)}
+                    title={`Use ${context} respawn timing for this zone`}
+                  >
+                    {context === "public"
+                      ? "Public"
+                      : context === "private"
+                        ? "Private"
+                        : "Custom"}
+                  </button>
+                ))}
+              </div>
               <SearchSelect
                 value={zoneShort ?? ""}
                 anyLabel="Set zone…"
@@ -931,6 +1079,11 @@ export default function TimersTab() {
                 .map((m) => {
                   const tracking = trackedLabels.has(m.name.toLowerCase());
                   const lowArticle = /^(an?|the)\s/i.test(m.name);
+                  const timing = resolvedRespawn(
+                    m.name,
+                    m.respawnSecs,
+                    fallbackRespawn,
+                  );
                   return (
                     <div className="tmr-row" key={`${m.id}_${m.name}`}>
                       <div className="tmr-row-main">
@@ -941,7 +1094,10 @@ export default function TimersTab() {
                         </span>
                       </div>
                       <span className="tmr-row-val num">
-                        {fmtLen(m.respawnSecs)}
+                        {fmtLen(timing.durationSecs)}
+                        {timing.source !== "reference" && (
+                          <small className="tmr-source"> {timing.source}</small>
+                        )}
                       </span>
                       <button
                         className="tmr-btn"
@@ -994,7 +1150,11 @@ export default function TimersTab() {
                 // zone's typical respawn (spawn points share a cadence). An
                 // estimate is flagged with a leading "~".
                 const known = info != null && info.respawnSecs > 0;
-                const secs = known ? info!.respawnSecs : fallbackRespawn;
+                const timing = resolvedRespawn(
+                  k.name,
+                  known ? info!.respawnSecs : 0,
+                  fallbackRespawn,
+                );
                 return (
                   <div className="tmr-row" key={k.id}>
                     <div className="tmr-row-main">
@@ -1006,8 +1166,8 @@ export default function TimersTab() {
                       </span>
                     </div>
                     <span className="tmr-row-val num">
-                      {known ? "" : "~"}
-                      {fmtLen(secs)}
+                      {timing.source === "zone-default" ? "~" : ""}
+                      {fmtLen(timing.durationSecs)}
                     </span>
                     <button
                       className={`tmr-btn${tracking ? "" : " primary"}`}
@@ -1027,6 +1187,14 @@ export default function TimersTab() {
           )}
         </div>
       </div>
+      {editingTiming && (
+        <RespawnTimingDialog
+          timer={editingTiming}
+          onClose={() => setEditingTiming(null)}
+          onSave={saveTimingOverride}
+          onReset={resetTimingOverride}
+        />
+      )}
     </div>
   );
 }
@@ -1039,6 +1207,7 @@ function ActiveRow({
   onReset,
   onDismiss,
   onCycleWarn,
+  onTiming,
 }: {
   t: TimerView;
   now: number;
@@ -1046,6 +1215,7 @@ function ActiveRow({
   onReset: () => void;
   onDismiss: () => void;
   onCycleWarn: () => void;
+  onTiming?: () => void;
 }) {
   const width = t.state === "up" ? 100 : (t.progress * 100).toFixed(2);
   // Variance targets stay "UP" for their whole spawn window; show how much of
@@ -1078,6 +1248,14 @@ function ActiveRow({
         {t.kind === "respawn" && t.source === "auto" && (
           <span className="tmr-badge">rare</span>
         )}
+        {t.kind === "respawn" && t.timingContext && (
+          <span className="tmr-badge timing">
+            {t.timingContext}
+            {t.timingSource === "manual" || t.timingSource === "observed"
+              ? ` · ${t.timingSource}`
+              : ""}
+          </span>
+        )}
         {t.kind === "custom" && t.repeat && (
           <span className="tmr-badge repeat">&#8635; repeat</span>
         )}
@@ -1101,9 +1279,88 @@ function ActiveRow({
         <button className="tmr-reset" title={resetTitle} onClick={onReset}>
           {resetLabel}
         </button>
+        {isRespawn && onTiming && (
+          <button className="tmr-reset" title="Edit respawn timing" onClick={onTiming}>
+            Timing
+          </button>
+        )}
         <button className="tmr-x" title="Dismiss" onClick={onDismiss}>
           &#10005;
         </button>
+      </div>
+    </div>
+  );
+}
+
+function RespawnTimingDialog({
+  timer,
+  onClose,
+  onSave,
+  onReset,
+}: {
+  timer: Timer;
+  onClose: () => void;
+  onSave: (timer: Timer, durationSecs: number, source: "manual" | "observed") => void;
+  onReset: (timer: Timer) => void;
+}) {
+  const [duration, setDuration] = useState(fmtLen(timer.durationSecs));
+  const [source, setSource] = useState<"manual" | "observed">("manual");
+  const [error, setError] = useState<string | null>(null);
+  const observedSecs = Math.max(1, Math.round((Date.now() - timer.startedAt) / 1000));
+
+  const save = () => {
+    const secs = parseDuration(duration);
+    if (secs == null) {
+      setError("Enter a duration such as 18m, 16:30, or 1:02:00.");
+      return;
+    }
+    onSave(timer, secs, source);
+  };
+
+  return (
+    <div className="modal-scrim" onClick={onClose}>
+      <div className="modal respawn-timing-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="card-head">
+          <span className="section-title">Respawn timing · {timer.label}</span>
+          <span className="tmr-badge timing">{timer.timingContext ?? "public"}</span>
+        </div>
+        <label className="field">
+          <span>Duration</span>
+          <input
+            value={duration}
+            onChange={(e) => {
+              setDuration(e.target.value);
+              setSource("manual");
+              setError(null);
+            }}
+            autoFocus
+          />
+        </label>
+        <div className="timing-reference">
+          <span>Reference</span>
+          <span className="num">
+            {fmtLen(timer.referenceDurationSecs ?? timer.durationSecs)}
+          </span>
+          <span>Observed since kill</span>
+          <span className="num">{fmtLen(observedSecs)}</span>
+        </div>
+        {error && <div className="error-banner">{error}</div>}
+        <div className="editor-foot">
+          <button
+            className="ghost"
+            onClick={() => {
+              setDuration(fmtLen(observedSecs));
+              setSource("observed");
+              setError(null);
+            }}
+          >
+            Use popped now
+          </button>
+          <button className="primary" onClick={save}>Save for this context</button>
+          <button className="ghost" onClick={() => onReset(timer)}>Use reference</button>
+          <span className="spacer" />
+          <button className="ghost" onClick={onClose}>Cancel</button>
+        </div>
       </div>
     </div>
   );

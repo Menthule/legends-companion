@@ -26,6 +26,11 @@ export interface AppConfig {
 export type TimerLane = "buff" | "enemy" | "on-others" | "other";
 export type TimerStartMode = "restart" | "ignore-if-running" | "start-new-instance";
 
+export interface TimerTiming {
+  duration_secs?: number | null;
+  cast_time_secs?: number | null;
+}
+
 /** Extensible trigger overlay identifier. Known overlays get autocomplete,
  * while plugins/future builds can introduce another string id. */
 export type OverlayId = "alerts" | "impact" | (string & {});
@@ -63,6 +68,8 @@ export type TriggerAction =
         lane?: TimerLane | null;
         /** Cast-time lead-in so expiry is anchored to the effect landing. */
         cast_time_secs?: number | null;
+        /** Exact timing by captured Roman rank; missing fields inherit base. */
+        rank_variants?: Record<string, TimerTiming>;
         mode?: TimerStartMode | null;
         repeat_secs?: number | null;
         stopwatch?: boolean;
@@ -159,6 +166,8 @@ export interface Loadout {
   severity_overrides?: Record<string, string>;
   /** Trigger id/category prefix -> replacement zone scope for this loadout. */
   zone_scopes?: Record<string, string[]>;
+  /** Trigger id -> Roman rank -> exact timing for this character/loadout. */
+  timing_overrides?: Record<string, Record<string, TimerTiming>>;
 }
 
 /** Per-character trigger settings (profiles/<slug>.json on the Rust side).
@@ -471,6 +480,7 @@ export const OVERLAY_METER = "overlay-meter";
 export const OVERLAY_STANCE = "overlay-stance";
 export const OVERLAY_ONOTHERS = "overlay-onothers";
 export const OVERLAY_XP = "overlay-xp";
+export const OVERLAY_PACE = "overlay-pace";
 export const OVERLAY_RESPAWN = "overlay-respawn";
 export const OVERLAY_IMPACT = "overlay-impact";
 export const OVERLAY_SCOREBOARD = "overlay-scoreboard";
@@ -483,6 +493,7 @@ export const OVERLAY_LABELS = [
   OVERLAY_TARGET,
   OVERLAY_METER,
   OVERLAY_XP,
+  OVERLAY_PACE,
   OVERLAY_STANCE,
   OVERLAY_RESPAWN,
   OVERLAY_IMPACT,

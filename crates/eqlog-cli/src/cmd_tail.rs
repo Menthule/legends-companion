@@ -386,6 +386,9 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
             let p = if *party { " (party)" } else { "" };
             (GREEN, format!("+{percent}% xp{p}"))
         }
+        Event::AaPointGain { points, balance } => {
+            (GREEN, format!("+{points} AA point (unspent: {balance})"))
+        }
         Event::LevelUp { level } => (GREEN, format!("LEVEL UP -> {level}")),
         Event::Faction { faction, delta } => (BLUE, format!("{faction} {delta:+}")),
         Event::ZoneEnter { zone } => (BLUE, format!("entered {zone}")),

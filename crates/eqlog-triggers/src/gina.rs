@@ -3,6 +3,7 @@
 //! bare XML is accepted too. Import is best-effort: individual malformed
 //! triggers are skipped with a warning, only unreadable input is an error.
 
+use std::collections::BTreeMap;
 use std::io::Read;
 
 use quick_xml::events::Event as XmlEvent;
@@ -294,6 +295,7 @@ fn build_trigger(
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                rank_variants: BTreeMap::new(),
                 lane: None,
                 mode,
                 repeat_secs: repeating.then_some(duration).filter(|s| *s > 0),

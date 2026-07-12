@@ -20,7 +20,7 @@ pub use engine::{
 pub use gina::{import_gtp, GinaImport, GinaImportError};
 pub use model::{
     duration_ticks_at_level, infer_timer_lane, Action, ChannelOverride, CharacterProfile, Loadout,
-    ProfileError, TimerLane, TimerStartMode, Trigger, TriggerPack, TriggerSource,
+    ProfileError, TimerLane, TimerStartMode, TimerTiming, Trigger, TriggerPack, TriggerSource,
     DEFAULT_LOADOUT_NAME,
 };
 pub use packs::{load_packs, LoadedPacks};

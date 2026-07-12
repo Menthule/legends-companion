@@ -4,7 +4,7 @@
     {
       "id": "debuffs/cleric/cast/blinding-luminance",
       "name": "Enemy timer: Blinding Luminance",
-      "pattern": "^You begin casting Blinding Luminance(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Blinding Luminance(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/cleric/cast/cower-the-dead",
       "name": "Enemy timer: Cower the Dead",
-      "pattern": "^You begin casting Cower the Dead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Cower the Dead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/cleric/cast/deistic-voice",
       "name": "Enemy timer: Deistic Voice",
-      "pattern": "^You begin casting Deistic Voice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Deistic Voice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/cleric/cast/dread-of-night",
       "name": "Enemy timer: Dread of Night",
-      "pattern": "^You begin casting Dread of Night(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Dread of Night(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/cleric/cast/epitaph-of-life",
       "name": "Enemy timer: Epitaph of Life",
-      "pattern": "^You begin casting Epitaph of Life(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Epitaph of Life(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/cleric/cast/fear",
       "name": "Enemy timer: Fear",
-      "pattern": "^You begin casting Fear(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fear(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/cleric/cast/flash-of-light",
       "name": "Enemy timer: Flash of Light",
-      "pattern": "^You begin casting Flash of Light(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Flash of Light(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/cleric/cast/immobilize",
       "name": "Enemy timer: Immobilize",
-      "pattern": "^You begin casting Immobilize(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Immobilize(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/cleric/cast/inspire-fear",
       "name": "Enemy timer: Inspire Fear",
-      "pattern": "^You begin casting Inspire Fear(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Inspire Fear(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/cleric/cast/instill",
       "name": "Enemy timer: Instill",
-      "pattern": "^You begin casting Instill(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Instill(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/cleric/cast/invoke-fear",
       "name": "Enemy timer: Invoke Fear",
-      "pattern": "^You begin casting Invoke Fear(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Invoke Fear(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/cleric/cast/mark-of-karn",
       "name": "Enemy timer: Mark of Karn",
-      "pattern": "^You begin casting Mark of Karn(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mark of Karn(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/cleric/cast/mark-of-retribution",
       "name": "Enemy timer: Mark of Retribution",
-      "pattern": "^You begin casting Mark of Retribution(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mark of Retribution(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/cleric/cast/panic-the-dead",
       "name": "Enemy timer: Panic the Dead",
-      "pattern": "^You begin casting Panic the Dead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Panic the Dead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/cleric/cast/paralyzing-earth",
       "name": "Enemy timer: Paralyzing Earth",
-      "pattern": "^You begin casting Paralyzing Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Paralyzing Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "debuffs/cleric/cast/root",
       "name": "Enemy timer: Root",
-      "pattern": "^You begin casting Root(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Root(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "debuffs/cleric/cast/sermon-of-the-righteous",
       "name": "Enemy timer: Sermon of the Righteous",
-      "pattern": "^You begin casting Sermon of the Righteous(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Sermon of the Righteous(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "debuffs/cleric/cast/spook-the-dead",
       "name": "Enemy timer: Spook the Dead",
-      "pattern": "^You begin casting Spook the Dead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spook the Dead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "debuffs/cleric/cast/trepidation",
       "name": "Enemy timer: Trepidation",
-      "pattern": "^You begin casting Trepidation(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Trepidation(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "debuffs/cleric/cast/turning-of-the-unnatural",
       "name": "Enemy timer: Turning of the Unnatural",
-      "pattern": "^You begin casting Turning of the Unnatural(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Turning of the Unnatural(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "debuffs/cleric/cast/wave-of-fear",
       "name": "Enemy timer: Wave of Fear",
-      "pattern": "^You begin casting Wave of Fear(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Wave of Fear(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "debuffs/worn/blinding-luminance",
       "name": "Enemy timer cleared: Blinding Luminance",
-      "pattern": "^Your Blinding Luminance(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Blinding Luminance(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -582,7 +582,7 @@
     {
       "id": "debuffs/worn/cower-the-dead",
       "name": "Enemy timer cleared: Cower the Dead",
-      "pattern": "^Your Cower the Dead(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cower the Dead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -613,7 +613,7 @@
     {
       "id": "debuffs/worn/deistic-voice",
       "name": "Enemy timer cleared: Deistic Voice",
-      "pattern": "^Your Deistic Voice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Deistic Voice(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -644,7 +644,7 @@
     {
       "id": "debuffs/worn/dread-of-night",
       "name": "Enemy timer cleared: Dread of Night",
-      "pattern": "^Your Dread of Night(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dread of Night(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -676,7 +676,7 @@
     {
       "id": "debuffs/worn/epitaph-of-life",
       "name": "Enemy timer cleared: Epitaph of Life",
-      "pattern": "^Your Epitaph of Life(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Epitaph of Life(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -707,7 +707,7 @@
     {
       "id": "debuffs/worn/fear",
       "name": "Enemy timer cleared: Fear",
-      "pattern": "^Your Fear(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fear(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -741,7 +741,7 @@
     {
       "id": "debuffs/worn/flash-of-light",
       "name": "Enemy timer cleared: Flash of Light",
-      "pattern": "^Your Flash of Light(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Flash of Light(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -775,7 +775,7 @@
     {
       "id": "debuffs/worn/immobilize",
       "name": "Enemy timer cleared: Immobilize",
-      "pattern": "^Your Immobilize(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Immobilize(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "debuffs/worn/inspire-fear",
       "name": "Enemy timer cleared: Inspire Fear",
-      "pattern": "^Your Inspire Fear(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Inspire Fear(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -841,7 +841,7 @@
     {
       "id": "debuffs/worn/instill",
       "name": "Enemy timer cleared: Instill",
-      "pattern": "^Your Instill(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Instill(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -877,7 +877,7 @@
     {
       "id": "debuffs/worn/invoke-fear",
       "name": "Enemy timer cleared: Invoke Fear",
-      "pattern": "^Your Invoke Fear(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Invoke Fear(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -911,7 +911,7 @@
     {
       "id": "debuffs/worn/mark-of-karn",
       "name": "Enemy timer cleared: Mark of Karn",
-      "pattern": "^Your Mark of Karn(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Mark of Karn(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -942,7 +942,7 @@
     {
       "id": "debuffs/worn/mark-of-retribution",
       "name": "Enemy timer cleared: Mark of Retribution",
-      "pattern": "^Your Mark of Retribution(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Mark of Retribution(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -973,7 +973,7 @@
     {
       "id": "debuffs/worn/panic-the-dead",
       "name": "Enemy timer cleared: Panic the Dead",
-      "pattern": "^Your Panic the Dead(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Panic the Dead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1006,7 +1006,7 @@
     {
       "id": "debuffs/worn/paralyzing-earth",
       "name": "Enemy timer cleared: Paralyzing Earth",
-      "pattern": "^Your Paralyzing Earth(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Paralyzing Earth(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1041,7 +1041,7 @@
     {
       "id": "debuffs/worn/root",
       "name": "Enemy timer cleared: Root",
-      "pattern": "^Your Root(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Root(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1075,7 +1075,7 @@
     {
       "id": "debuffs/worn/sermon-of-the-righteous",
       "name": "Enemy timer cleared: Sermon of the Righteous",
-      "pattern": "^Your Sermon of the Righteous(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Sermon of the Righteous(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1106,7 +1106,7 @@
     {
       "id": "debuffs/worn/spook-the-dead",
       "name": "Enemy timer cleared: Spook the Dead",
-      "pattern": "^Your Spook the Dead(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Spook the Dead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1140,7 +1140,7 @@
     {
       "id": "debuffs/worn/trepidation",
       "name": "Enemy timer cleared: Trepidation",
-      "pattern": "^Your Trepidation(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Trepidation(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1173,7 +1173,7 @@
     {
       "id": "debuffs/worn/turning-of-the-unnatural",
       "name": "Enemy timer cleared: Turning of the Unnatural",
-      "pattern": "^Your Turning of the Unnatural(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Turning of the Unnatural(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1204,7 +1204,7 @@
     {
       "id": "debuffs/worn/wave-of-fear",
       "name": "Enemy timer cleared: Wave of Fear",
-      "pattern": "^Your Wave of Fear(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Wave of Fear(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

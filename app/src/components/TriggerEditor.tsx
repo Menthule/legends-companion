@@ -14,6 +14,7 @@ import {
   expandTemplateJs,
   formatDuration,
   formatDurationWords,
+  parseNonNegativeDuration,
   parseDuration,
   stripTimestamp,
 } from "../lib/patternJs";
@@ -83,6 +84,9 @@ interface RowState {
   /** Timer name (Start timer) or timer to cancel (Cancel timer). */
   timerName: string;
   durationText: string;
+  castTimeText: string;
+  /** Exact rank timings, one per line: `IV = 3:36, 2` (duration, cast). */
+  rankTimingsText: string;
   warnMode: "none" | "5" | "10" | "custom";
   warnText: string;
   /** "End early when my <spell> wears off" (first Start-timer row only). */
@@ -113,6 +117,8 @@ function blankRow(kind: RowKind): RowState {
     webhookName: "",
     timerName: "",
     durationText: "0:30",
+    castTimeText: "0",
+    rankTimingsText: "",
     warnMode: "none",
     warnText: "",
     endEarlySpell: "",
@@ -188,6 +194,12 @@ export function rowsFromActions(actions: TriggerAction[]): RowState[] {
       ...blankRow("timer"),
       timerName: t.name,
       durationText: formatDuration(t.duration_secs),
+      castTimeText: String(t.cast_time_secs ?? 0),
+      rankTimingsText: Object.entries(t.rank_variants ?? {})
+        .map(([rank, timing]) =>
+          `${rank} = ${timing.duration_secs != null ? formatDuration(timing.duration_secs) : "-"}, ${timing.cast_time_secs ?? "-"}`,
+        )
+        .join("\n"),
       warnMode:
         warn == null ? "none" : warn === 5 ? "5" : warn === 10 ? "10" : "custom",
       warnText: warn != null ? String(warn) : "",
@@ -220,6 +232,32 @@ function warnSecsOf(row: RowState): number | null {
   if (row.warnMode === "10") return 10;
   const n = parseDuration(row.warnText);
   return n !== null && n > 0 ? n : null;
+}
+
+function parseRankTimings(
+  text: string,
+): Record<string, { duration_secs?: number; cast_time_secs?: number }> | string {
+  const result: Record<string, { duration_secs?: number; cast_time_secs?: number }> = {};
+  for (const [index, raw] of text.split(/\r?\n/).entries()) {
+    const line = raw.trim();
+    if (!line) continue;
+    const match = /^([IVXLCDM]+)\s*=\s*([^,]+)(?:,\s*(.+))?$/i.exec(line);
+    if (!match) return `Rank timing line ${index + 1} must look like “IV = 3:36, 2”.`;
+    const rank = match[1].toUpperCase();
+    const duration = match[2].trim() === "-" ? null : parseDuration(match[2].trim());
+    const cast =
+      !match[3] || match[3].trim() === "-"
+        ? null
+        : parseNonNegativeDuration(match[3].trim());
+    if (duration !== null && duration <= 0) return `Rank ${rank} needs a positive duration.`;
+    if (cast !== null && cast < 0) return `Rank ${rank} cast time cannot be negative.`;
+    if (duration === null && cast === null) return `Rank ${rank} must override duration or cast time.`;
+    result[rank] = {
+      ...(duration !== null ? { duration_secs: duration } : {}),
+      ...(cast !== null ? { cast_time_secs: cast } : {}),
+    };
+  }
+  return result;
 }
 
 /** Build actions from rows; returns an error message instead on bad input. */
@@ -283,13 +321,25 @@ export function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
       }
       case "timer": {
         const secs = parseDuration(row.durationText);
+        const castTime = parseNonNegativeDuration(row.castTimeText);
         if (!row.timerName.trim()) return "The timer needs a name.";
         if (secs === null || secs <= 0) {
           return `Timer duration "${row.durationText}" — use seconds (90), m:ss (1:30), or 35m.`;
         }
+        if (castTime === null || castTime < 0) return "Cast time must be zero or a duration.";
+        const rankTimings = parseRankTimings(row.rankTimingsText);
+        if (typeof rankTimings === "string") return rankTimings;
         const warn = warnSecsOf(row);
         if (warn !== null && warn >= secs) {
           return "The timer warning must be shorter than the duration.";
+        }
+        if (
+          warn !== null &&
+          Object.entries(rankTimings).some(
+            ([, timing]) => timing.duration_secs != null && warn >= timing.duration_secs,
+          )
+        ) {
+          return "The timer warning must be shorter than every rank duration.";
         }
         const preserved =
           row.preservedAction && "StartTimer" in row.preservedAction
@@ -303,6 +353,19 @@ export function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
             warn_at_secs: warn,
           },
         };
+        if (castTime > 0) timer.StartTimer.cast_time_secs = castTime;
+        else if (preserved && "cast_time_secs" in preserved) {
+          timer.StartTimer.cast_time_secs = null;
+        } else {
+          delete timer.StartTimer.cast_time_secs;
+        }
+        if (Object.keys(rankTimings).length > 0) {
+          timer.StartTimer.rank_variants = rankTimings;
+        } else if (preserved && "rank_variants" in preserved) {
+          timer.StartTimer.rank_variants = {};
+        } else {
+          delete timer.StartTimer.rank_variants;
+        }
         if (row.formula != null) timer.StartTimer.duration_formula = row.formula;
         if (row.capTicks != null) {
           timer.StartTimer.duration_cap_ticks = row.capTicks;
@@ -1631,6 +1694,19 @@ export default function TriggerEditor({
                       })()}
                     </span>
                     <label className="ted-inline-field">
+                      <span>cast</span>
+                      <input
+                        type="text"
+                        className="ted-duration"
+                        value={row.castTimeText}
+                        aria-label="Base cast time"
+                        placeholder="0"
+                        onChange={(e) =>
+                          updateRow(row.id, { castTimeText: e.target.value })
+                        }
+                      />
+                    </label>
+                    <label className="ted-inline-field">
                       <span>warn</span>
                       <select
                         value={row.warnMode}
@@ -1675,9 +1751,29 @@ export default function TriggerEditor({
                 ))}
               </div>
               {row.kind === "timer" && (
-                <div className="hint">
-                  A new match with the same timer name restarts the bar.
-                </div>
+                <>
+                  <div className="hint">
+                    A new match with the same timer name restarts the bar.
+                  </div>
+                  <details className="ted-rank-timings">
+                    <summary>Rank timing variants</summary>
+                    <label className="field">
+                      <span>One Roman rank per line: duration, cast time</span>
+                      <textarea
+                        rows={3}
+                        value={row.rankTimingsText}
+                        placeholder={"II = 3:12, 3\nIII = 3:24, 2\nIV = 3:36, 2"}
+                        aria-label="Rank timing variants"
+                        onChange={(e) =>
+                          updateRow(row.id, { rankTimingsText: e.target.value })
+                        }
+                      />
+                    </label>
+                    <div className="hint">
+                      The trigger pattern must capture the suffix as <code>(?P&lt;rank&gt;[IVXLCDM]+)</code>. Use <code>-</code> to inherit either base value.
+                    </div>
+                  </details>
+                </>
               )}
               {row.kind === "timer" && isFirstTimer && (
                 <label className="field ted-endearly">

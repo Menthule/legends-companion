@@ -149,6 +149,9 @@ export default function OverlayRespawn() {
                   <span className="orsp-name">
                     <span className={`orsp-kind k-${t.kind}`} aria-hidden="true" />
                     {t.label}
+                    {t.kind === "respawn" && t.timingContext && (
+                      <span className="orsp-context">{t.timingContext}</span>
+                    )}
                   </span>
                   <span className="orsp-count num">
                     {up && windowLeft !== null

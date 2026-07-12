@@ -13,7 +13,7 @@ import {
 
 describe("overlay module catalog", () => {
   it("has unique ids, routes, and Tauri window labels", () => {
-    expect(OVERLAY_MODULES).toHaveLength(10);
+    expect(OVERLAY_MODULES).toHaveLength(11);
     for (const values of [
       OVERLAY_MODULES.map((module) => module.id),
       OVERLAY_MODULES.map((module) => module.route),

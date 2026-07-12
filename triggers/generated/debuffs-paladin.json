@@ -4,7 +4,7 @@
     {
       "id": "debuffs/paladin/cast/flash-of-light",
       "name": "Enemy timer: Flash of Light",
-      "pattern": "^You begin casting Flash of Light(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Flash of Light(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/paladin/cast/instill",
       "name": "Enemy timer: Instill",
-      "pattern": "^You begin casting Instill(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Instill(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/paladin/cast/root",
       "name": "Enemy timer: Root",
-      "pattern": "^You begin casting Root(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Root(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/paladin/cast/spook-the-dead",
       "name": "Enemy timer: Spook the Dead",
-      "pattern": "^You begin casting Spook the Dead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spook the Dead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

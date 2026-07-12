@@ -8,6 +8,8 @@
 // Supersedes lib/campTimers.ts. Nothing here touches sqlite — all state is
 // localStorage; the bundled reference DB stays read-only.
 
+import type { RespawnContext, RespawnTimingSource } from "./respawnTiming";
+
 export type TimerKind = "respawn" | "custom";
 
 export interface Timer {
@@ -39,6 +41,11 @@ export interface Timer {
   announced: boolean;
   /** auto = kill-detected rare; manual = tracked kill / armed rare / custom. */
   source: "auto" | "manual";
+  /** Timing provenance for respawns; absent on legacy/custom timers. */
+  timingContext?: RespawnContext;
+  timingSource?: RespawnTimingSource;
+  /** Unmodified database/fallback value, retained so Reset can remove an override. */
+  referenceDurationSecs?: number;
 }
 
 export const TIMERS_KEY = "eqlogs.timers.v1";
@@ -87,6 +94,23 @@ function coerceTimer(e: Record<string, unknown>): Timer | null {
       e.source === "auto" || e.source === "manual"
         ? (e.source as "auto" | "manual")
         : "manual",
+    timingContext:
+      e.timingContext === "public" ||
+      e.timingContext === "private" ||
+      e.timingContext === "custom"
+        ? e.timingContext
+        : undefined,
+    timingSource:
+      e.timingSource === "reference" ||
+      e.timingSource === "zone-default" ||
+      e.timingSource === "manual" ||
+      e.timingSource === "observed"
+        ? e.timingSource
+        : undefined,
+    referenceDurationSecs:
+      typeof e.referenceDurationSecs === "number" && e.referenceDurationSecs > 0
+        ? e.referenceDurationSecs
+        : undefined,
   };
 }
 

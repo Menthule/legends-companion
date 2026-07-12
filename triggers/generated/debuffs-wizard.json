@@ -4,7 +4,7 @@
     {
       "id": "debuffs/wizard/cast/atol-s-spectral-shackles",
       "name": "Enemy timer: Atol's Spectral Shackles",
-      "pattern": "^You begin casting Atol['`]s Spectral Shackles(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Atol['`]s Spectral Shackles(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/wizard/cast/bonds-of-force",
       "name": "Enemy timer: Bonds of Force",
-      "pattern": "^You begin casting Bonds of Force(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Bonds of Force(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/wizard/cast/elnerick-s-entombment-of-ice",
       "name": "Enemy timer: Elnerick's Entombment of Ice",
-      "pattern": "^You begin casting Elnerick['`]s Entombment of Ice(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Elnerick['`]s Entombment of Ice(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/wizard/cast/fetter",
       "name": "Enemy timer: Fetter",
-      "pattern": "^You begin casting Fetter(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fetter(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/wizard/cast/immobilize",
       "name": "Enemy timer: Immobilize",
-      "pattern": "^You begin casting Immobilize(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Immobilize(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/wizard/cast/instill",
       "name": "Enemy timer: Instill",
-      "pattern": "^You begin casting Instill(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Instill(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/wizard/cast/paralyzing-earth",
       "name": "Enemy timer: Paralyzing Earth",
-      "pattern": "^You begin casting Paralyzing Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Paralyzing Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/worn/atol-s-spectral-shackles",
       "name": "Enemy timer cleared: Atol's Spectral Shackles",
-      "pattern": "^Your Atol['`]s Spectral Shackles(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Atol['`]s Spectral Shackles(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -217,7 +217,7 @@
     {
       "id": "debuffs/worn/bonds-of-force",
       "name": "Enemy timer cleared: Bonds of Force",
-      "pattern": "^Your Bonds of Force(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Bonds of Force(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -248,7 +248,7 @@
     {
       "id": "debuffs/worn/elnerick-s-entombment-of-ice",
       "name": "Enemy timer cleared: Elnerick's Entombment of Ice",
-      "pattern": "^Your Elnerick['`]s Entombment of Ice(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Elnerick['`]s Entombment of Ice(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -279,7 +279,7 @@
     {
       "id": "debuffs/worn/fetter",
       "name": "Enemy timer cleared: Fetter",
-      "pattern": "^Your Fetter(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fetter(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

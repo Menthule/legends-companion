@@ -44,6 +44,18 @@ import {
 } from "../lib/wishlist";
 import { splitPetDamageRows } from "../lib/meterRows";
 import {
+  applyPaceEvent,
+  completePaceSample,
+  loadPaceState,
+  paceSnapshot,
+  pausePaceSample,
+  resetPaceSample,
+  resumePaceSample,
+  savePaceState,
+  startPaceSample,
+  type PaceState,
+} from "../lib/pace";
+import {
   emptyPlayer,
   isPlayerName,
   saveScoreboard,
@@ -416,6 +428,7 @@ export default function FightsTab({ character }: { character: string }) {
   const [procTts, setProcTts] = useState(() => loadProcTts());
   const [ownedNames, setOwnedNames] = useState<Set<string>>(() => new Set());
   const [xp, setXp] = useState<XpSession>(() => loadXpSession());
+  const [pace, setPace] = useState<PaceState>(() => loadPaceState());
   // Position within the current level is only trustworthy after this app sees
   // a ding; before then, per-level ETA stays blank instead of asking for input.
   // Both persist (P9) so the XP overlay and later sessions keep the position.
@@ -749,6 +762,18 @@ export default function FightsTab({ character }: { character: string }) {
         corpse: d.corpse == null ? null : String(d.corpse),
       };
       setLoot((prev) => [entry, ...prev].slice(0, SESSION_CAP));
+      setPace((prev) => {
+        const next = applyPaceEvent(prev, {
+          kind: "loot",
+          item: entry.item,
+          quantity: entry.qty,
+          looter: entry.who,
+          atMs: Date.now(),
+          replayed: catchingUp.current,
+        });
+        if (next !== prev) savePaceState(next);
+        return next;
+      });
       // Wishlist drop alert: spoken + toast (star items in the Drops tab).
       // Muted during catch-up: a replayed loot line is old news.
       if (!catchingUp.current && isWishlisted(entry.item)) {
@@ -781,6 +806,16 @@ export default function FightsTab({ character }: { character: string }) {
       // Replayed gains skip the stamp — anchoring an old gain at "now"
       // would corrupt the live XP/hour rate.
       setXp(appendXpSession(entry, { stampNow: !catchingUp.current }));
+      setPace((prev) => {
+        const next = applyPaceEvent(prev, {
+          kind: "xp",
+          percent,
+          atMs: Date.now(),
+          replayed: catchingUp.current,
+        });
+        if (next !== prev) savePaceState(next);
+        return next;
+      });
       // Advance level position on live gains only — replaying old gains would
       // double-count against the persisted position (P9).
       if (!catchingUp.current && levelAnchorKnown) {
@@ -790,6 +825,19 @@ export default function FightsTab({ character }: { character: string }) {
           return next;
         });
       }
+    } else if ("AaPointGain" in ev) {
+      const d = ev.AaPointGain as Record<string, unknown>;
+      const points = typeof d.points === "number" ? d.points : 1;
+      setPace((prev) => {
+        const next = applyPaceEvent(prev, {
+          kind: "aa-point",
+          points,
+          atMs: Date.now(),
+          replayed: catchingUp.current,
+        });
+        if (next !== prev) savePaceState(next);
+        return next;
+      });
     } else if ("LevelUp" in ev) {
       // Ding: you're at 0% of the new level. From here, later XP gains can
       // estimate time/kills to the next ding without any manual percent entry.
@@ -996,6 +1044,7 @@ export default function FightsTab({ character }: { character: string }) {
         endTs,
         details: {
           xp,
+          pace,
           level: { progress: levelProgress, anchorKnown: levelAnchorKnown },
           kills: Object.values(kills),
           effects: procs,
@@ -1369,6 +1418,11 @@ export default function FightsTab({ character }: { character: string }) {
           saveProcTts(value);
         }}
         xp={xp}
+        pace={pace}
+        onSetPace={(next) => {
+          savePaceState(next);
+          setPace(next);
+        }}
         levelProgress={levelProgress}
         levelAnchorKnown={levelAnchorKnown}
         recaps={recaps}
@@ -1453,6 +1507,205 @@ function groupRolls(rolls: RollEntry[]): RollGroup[] {
 
 const RECENT_ROLLS = 12;
 
+function optionalPercent(value: string): number | null {
+  if (!value.trim()) return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 100 ? parsed : null;
+}
+
+function paceRate(value: number | null, suffix: string): string {
+  return value == null ? "Measuring" : `${value.toFixed(1)}${suffix}`;
+}
+
+function PaceRates({
+  pace,
+  onChange,
+}: {
+  pace: PaceState;
+  onChange: (next: PaceState) => void;
+}) {
+  const nowMs = useNowMs(1_000);
+  const [startAa, setStartAa] = useState("");
+  const [endAa, setEndAa] = useState("");
+  const [finishing, setFinishing] = useState(false);
+  const active = pace.active;
+  const snapshot = useMemo(
+    () => (active ? paceSnapshot(active, pace.lootMetrics, nowMs) : null),
+    [active, nowMs, pace.lootMetrics],
+  );
+
+  const start = () => {
+    const value = optionalPercent(startAa);
+    if (startAa.trim() && value == null) return;
+    onChange(startPaceSample(pace, { nowMs: Date.now(), aaStartPercent: value }));
+    setFinishing(false);
+    setEndAa("");
+  };
+  const finish = () => {
+    const value = optionalPercent(endAa);
+    if (endAa.trim() && value == null) return;
+    onChange(completePaceSample(pace, { nowMs: Date.now(), aaEndPercent: value }));
+    setStartAa("");
+    setEndAa("");
+    setFinishing(false);
+  };
+
+  return (
+    <Collapsible
+      title="Rates"
+      count={pace.history.length}
+      storageKey="rates"
+      headerAside={
+        active ? (
+          <span className={`pace-status ${active.status}`}>{active.status}</span>
+        ) : undefined
+      }
+    >
+      {!active ? (
+        <div className="pace-start">
+          <div>
+            <div className="pace-heading">Start a grind sample</div>
+            <div className="hint">
+              XP, AA points, and your Mote loot are counted automatically.
+            </div>
+          </div>
+          <label className="pace-aa-field">
+            <span>Starting AA % <em>optional</em></span>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              inputMode="decimal"
+              value={startAa}
+              onChange={(e) => setStartAa(e.target.value)}
+              placeholder="0.0"
+              aria-label="Starting AA percentage"
+            />
+          </label>
+          <button className="primary pace-start-btn" onClick={start}>
+            Start sample
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="pace-live-head">
+            <div>
+              <span className="pace-clock num">
+                {fmtDuration(Math.floor((snapshot?.elapsedMs ?? 0) / 1000))}
+              </span>
+              <span className="hint"> active time</span>
+            </div>
+            <div className="pace-controls">
+              {active.status === "paused" ? (
+                <button
+                  className="ghost small"
+                  onClick={() => onChange(resumePaceSample(pace, Date.now()))}
+                >
+                  Resume
+                </button>
+              ) : (
+                <button
+                  className="ghost small"
+                  onClick={() => onChange(pausePaceSample(pace, Date.now()))}
+                >
+                  Pause
+                </button>
+              )}
+              <button className="primary small" onClick={() => setFinishing(true)}>
+                Stop
+              </button>
+              <button
+                className="ghost small"
+                onClick={() => onChange(resetPaceSample(pace))}
+                title="Discard this sample"
+              >
+                Discard
+              </button>
+            </div>
+          </div>
+          <div className="pace-metrics">
+            <div className="pace-metric">
+              <span>XP</span>
+              <strong className="num">{paceRate(snapshot?.xpPerHour ?? null, "%/hr")}</strong>
+              <small className="num">{(snapshot?.xpPercent ?? 0).toFixed(2)}% gained</small>
+            </div>
+            <div className="pace-metric">
+              <span>AA</span>
+              <strong className="num">
+                {paceRate(snapshot?.aaPointsPerHour ?? null, " pts/hr")}
+              </strong>
+              <small className="num">{snapshot?.aaPointsEarned ?? 0} points earned</small>
+            </div>
+            {(snapshot?.loot ?? []).map((lootRate) => (
+              <div className="pace-metric" key={lootRate.metricId}>
+                <span>{lootRate.label}</span>
+                <strong className="num">{paceRate(lootRate.perHour, "/hr")}</strong>
+                <small className="num">{lootRate.total} looted</small>
+              </div>
+            ))}
+          </div>
+          {finishing && (
+            <div className="pace-finish">
+              <div>
+                <strong>Finish sample</strong>
+                <div className="hint">
+                  Add your ending AA percentage for an exact AA %/hour result.
+                </div>
+              </div>
+              <label className="pace-aa-field">
+                <span>Ending AA % <em>optional</em></span>
+                <input
+                  autoFocus
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={endAa}
+                  onChange={(e) => setEndAa(e.target.value)}
+                  placeholder="0.0"
+                  aria-label="Ending AA percentage"
+                />
+              </label>
+              <button className="primary" onClick={finish}>Save result</button>
+              <button className="ghost" onClick={() => setFinishing(false)}>Cancel</button>
+            </div>
+          )}
+        </>
+      )}
+      {pace.history.length > 0 && (
+        <div className="pace-history">
+          <div className="pace-history-head">
+            <span>Recent samples</span>
+            <span>Duration</span>
+            <span>XP/hr</span>
+            <span>AA/hr</span>
+            <span>Motes/hr</span>
+          </div>
+          {pace.history.slice(0, 5).map((sample) => {
+            const result = paceSnapshot(sample, pace.lootMetrics, sample.endedAtMs ?? nowMs);
+            const motes = result.loot.find((row) => row.metricId === "motes");
+            return (
+              <div className="pace-history-row" key={sample.id}>
+                <span>{new Date(sample.startedAtMs).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
+                <span className="num">{fmtDuration(Math.floor(result.elapsedMs / 1000))}</span>
+                <span className="num">{paceRate(result.xpPerHour, "%")}</span>
+                <span className="num">
+                  {result.aaPercentPerHour != null
+                    ? `${result.aaPercentPerHour.toFixed(1)}%`
+                    : paceRate(result.aaPointsPerHour, " pts")}
+                </span>
+                <span className="num">{paceRate(motes?.perHour ?? null, "")}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </Collapsible>
+  );
+}
+
 function SessionSection({
   loot,
   rolls,
@@ -1462,6 +1715,8 @@ function SessionSection({
   onSetProcAlerts,
   onSetProcTts,
   xp,
+  pace,
+  onSetPace,
   levelProgress,
   levelAnchorKnown,
   recaps,
@@ -1481,6 +1736,8 @@ function SessionSection({
   onSetProcAlerts: (value: boolean) => void;
   onSetProcTts: (value: boolean) => void;
   xp: XpSession;
+  pace: PaceState;
+  onSetPace: (next: PaceState) => void;
   levelProgress: number;
   levelAnchorKnown: boolean;
   recaps: DeathRecap[];
@@ -1494,7 +1751,7 @@ function SessionSection({
   onExport: () => void;
 }) {
   const [lootQuery, setLootQuery] = useState("");
-  const [tab, setTab] = useState<"xp" | "kills" | "effects" | "deaths" | "loot" | "wishlist" | "rolls">("xp");
+  const [tab, setTab] = useState<"rates" | "xp" | "kills" | "effects" | "deaths" | "loot" | "wishlist" | "rolls">("rates");
 
   const shownLoot = useMemo(() => {
     const q = lootQuery.trim().toLowerCase();
@@ -1576,6 +1833,7 @@ function SessionSection({
     <div className="session-tabs-card card">
       <div className="session-tabs settings-tabs">
         {[
+          ["rates", "Rates", pace.history.length],
           ["xp", "XP", xp.count],
           ["kills", "Kills", killRows.length],
           ["effects", "Effects", procs.length],
@@ -1603,6 +1861,7 @@ function SessionSection({
           {exporting ? "Exporting…" : "Export session"}
         </button>
       </div>
+      {tab === "rates" && <PaceRates pace={pace} onChange={onSetPace} />}
       {tab === "xp" && <Collapsible
         title="XP"
         count={xp.count}

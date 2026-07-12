@@ -63,6 +63,11 @@ pub const OVERLAYS: &[OverlayDescriptor] = &[
         route: "index.html?overlay=xp",
     },
     OverlayDescriptor {
+        id: "pace",
+        window_label: "overlay-pace",
+        route: "index.html?overlay=pace",
+    },
+    OverlayDescriptor {
         id: "stance",
         window_label: "overlay-stance",
         route: "index.html?overlay=stance",

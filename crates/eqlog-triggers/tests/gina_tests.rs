@@ -108,6 +108,7 @@ fn import_from_zip_maps_all_three_trigger_kinds() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,

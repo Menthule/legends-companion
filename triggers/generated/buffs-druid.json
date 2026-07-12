@@ -4,7 +4,7 @@
     {
       "id": "buffs/druid/cast/ancient-legacy-of-blades",
       "name": "Buff timer: Ancient: Legacy of Blades",
-      "pattern": "^You begin casting Ancient: Legacy of Blades(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Ancient: Legacy of Blades(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/druid/cast/bladecoat",
       "name": "Buff timer: Bladecoat",
-      "pattern": "^You begin casting Bladecoat(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Bladecoat(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/druid/cast/calm-animal",
       "name": "Buff timer: Calm Animal",
-      "pattern": "^You begin casting Calm Animal(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Calm Animal(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/druid/cast/camouflage",
       "name": "Buff timer: Camouflage",
-      "pattern": "^You begin casting Camouflage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Camouflage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/druid/cast/chloroplast",
       "name": "Buff timer: Chloroplast",
-      "pattern": "^You begin casting Chloroplast(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Chloroplast(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/druid/cast/circle-of-seasons",
       "name": "Buff timer: Circle of Seasons",
-      "pattern": "^You begin casting Circle of Seasons(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Circle of Seasons(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/druid/cast/circle-of-summer",
       "name": "Buff timer: Circle of Summer",
-      "pattern": "^You begin casting Circle of Summer(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Circle of Summer(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/druid/cast/circle-of-winter",
       "name": "Buff timer: Circle of Winter",
-      "pattern": "^You begin casting Circle of Winter(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Circle of Winter(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/druid/cast/endure-cold",
       "name": "Buff timer: Endure Cold",
-      "pattern": "^You begin casting Endure Cold(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Cold(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/druid/cast/endure-disease",
       "name": "Buff timer: Endure Disease",
-      "pattern": "^You begin casting Endure Disease(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Disease(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/druid/cast/endure-fire",
       "name": "Buff timer: Endure Fire",
-      "pattern": "^You begin casting Endure Fire(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Fire(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/druid/cast/endure-magic",
       "name": "Buff timer: Endure Magic",
-      "pattern": "^You begin casting Endure Magic(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Magic(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/druid/cast/endure-poison",
       "name": "Buff timer: Endure Poison",
-      "pattern": "^You begin casting Endure Poison(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Poison(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/druid/cast/enduring-breath",
       "name": "Buff timer: Enduring Breath",
-      "pattern": "^You begin casting Enduring Breath(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Enduring Breath(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "buffs/druid/cast/everlasting-breath",
       "name": "Buff timer: Everlasting Breath",
-      "pattern": "^You begin casting Everlasting Breath(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Everlasting Breath(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "buffs/druid/cast/feral-pack",
       "name": "Buff timer: Feral Pack",
-      "pattern": "^You begin casting Feral Pack(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Feral Pack(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "buffs/druid/cast/feral-spirit",
       "name": "Buff timer: Feral Spirit",
-      "pattern": "^You begin casting Feral Spirit(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Feral Spirit(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "buffs/druid/cast/foliage-shield",
       "name": "Buff timer: Foliage Shield",
-      "pattern": "^You begin casting Foliage Shield(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Foliage Shield(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -472,7 +472,7 @@
     {
       "id": "buffs/druid/cast/form-of-the-howler",
       "name": "Buff timer: Form of the Howler",
-      "pattern": "^You begin casting Form of the Howler(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Form of the Howler(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -498,7 +498,7 @@
     {
       "id": "buffs/druid/cast/form-of-the-hunter",
       "name": "Buff timer: Form of the Hunter",
-      "pattern": "^You begin casting Form of the Hunter(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Form of the Hunter(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -524,7 +524,7 @@
     {
       "id": "buffs/druid/cast/girdle-of-karana",
       "name": "Buff timer: Girdle of Karana",
-      "pattern": "^You begin casting Girdle of Karana(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Girdle of Karana(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -550,7 +550,7 @@
     {
       "id": "buffs/druid/cast/harmony",
       "name": "Buff timer: Harmony",
-      "pattern": "^You begin casting Harmony(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Harmony(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -576,7 +576,7 @@
     {
       "id": "buffs/druid/cast/harmony-of-nature",
       "name": "Buff timer: Harmony of Nature",
-      "pattern": "^You begin casting Harmony of Nature(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Harmony of Nature(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -602,7 +602,7 @@
     {
       "id": "buffs/druid/cast/improved-superior-camouflage",
       "name": "Buff timer: Improved Superior Camouflage",
-      "pattern": "^You begin casting Improved Superior Camouflage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Improved Superior Camouflage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -628,7 +628,7 @@
     {
       "id": "buffs/druid/cast/invisibility-versus-animals",
       "name": "Buff timer: Invisibility Versus Animals",
-      "pattern": "^You begin casting Invisibility Versus Animals(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Invisibility Versus Animals(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -654,7 +654,7 @@
     {
       "id": "buffs/druid/cast/legacy-of-spike",
       "name": "Buff timer: Legacy of Spike",
-      "pattern": "^You begin casting Legacy of Spike(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Legacy of Spike(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -680,7 +680,7 @@
     {
       "id": "buffs/druid/cast/legacy-of-thorn",
       "name": "Buff timer: Legacy of Thorn",
-      "pattern": "^You begin casting Legacy of Thorn(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Legacy of Thorn(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -706,7 +706,7 @@
     {
       "id": "buffs/druid/cast/levitate",
       "name": "Buff timer: Levitate",
-      "pattern": "^You begin casting Levitate(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Levitate(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -732,7 +732,7 @@
     {
       "id": "buffs/druid/cast/levitation",
       "name": "Buff timer: Levitation",
-      "pattern": "^You begin casting Levitation(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Levitation(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -758,7 +758,7 @@
     {
       "id": "buffs/druid/cast/lull-animal",
       "name": "Buff timer: Lull Animal",
-      "pattern": "^You begin casting Lull Animal(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Lull Animal(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -784,7 +784,7 @@
     {
       "id": "buffs/druid/cast/mask-of-the-hunter",
       "name": "Buff timer: Mask of the Hunter",
-      "pattern": "^You begin casting Mask of the Hunter(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mask of the Hunter(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -810,7 +810,7 @@
     {
       "id": "buffs/druid/cast/mask-of-the-stalker",
       "name": "Buff timer: Mask of the Stalker",
-      "pattern": "^You begin casting Mask of the Stalker(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mask of the Stalker(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -836,7 +836,7 @@
     {
       "id": "buffs/druid/cast/nature-s-recovery",
       "name": "Buff timer: Nature's Recovery",
-      "pattern": "^You begin casting Nature['`]s Recovery(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Nature['`]s Recovery(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -862,7 +862,7 @@
     {
       "id": "buffs/druid/cast/natureskin",
       "name": "Buff timer: Natureskin",
-      "pattern": "^You begin casting Natureskin(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Natureskin(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -888,7 +888,7 @@
     {
       "id": "buffs/druid/cast/pack-chloroplast",
       "name": "Buff timer: Pack Chloroplast",
-      "pattern": "^You begin casting Pack Chloroplast(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pack Chloroplast(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -914,7 +914,7 @@
     {
       "id": "buffs/druid/cast/pack-regeneration",
       "name": "Buff timer: Pack Regeneration",
-      "pattern": "^You begin casting Pack Regeneration(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pack Regeneration(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -940,7 +940,7 @@
     {
       "id": "buffs/druid/cast/pack-shrew",
       "name": "Buff timer: Pack Shrew",
-      "pattern": "^You begin casting Pack Shrew(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pack Shrew(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -966,7 +966,7 @@
     {
       "id": "buffs/druid/cast/pack-spirit",
       "name": "Buff timer: Pack Spirit",
-      "pattern": "^You begin casting Pack Spirit(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pack Spirit(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -992,7 +992,7 @@
     {
       "id": "buffs/druid/cast/protection-of-diamond",
       "name": "Buff timer: Protection of Diamond",
-      "pattern": "^You begin casting Protection of Diamond(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of Diamond(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1018,7 +1018,7 @@
     {
       "id": "buffs/druid/cast/protection-of-nature",
       "name": "Buff timer: Protection of Nature",
-      "pattern": "^You begin casting Protection of Nature(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of Nature(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1044,7 +1044,7 @@
     {
       "id": "buffs/druid/cast/protection-of-rock",
       "name": "Buff timer: Protection of Rock",
-      "pattern": "^You begin casting Protection of Rock(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of Rock(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1070,7 +1070,7 @@
     {
       "id": "buffs/druid/cast/protection-of-steel",
       "name": "Buff timer: Protection of Steel",
-      "pattern": "^You begin casting Protection of Steel(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of Steel(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1096,7 +1096,7 @@
     {
       "id": "buffs/druid/cast/protection-of-wood",
       "name": "Buff timer: Protection of Wood",
-      "pattern": "^You begin casting Protection of Wood(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of Wood(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1122,7 +1122,7 @@
     {
       "id": "buffs/druid/cast/protection-of-the-cabbage",
       "name": "Buff timer: Protection of the Cabbage",
-      "pattern": "^You begin casting Protection of the Cabbage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of the Cabbage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1148,7 +1148,7 @@
     {
       "id": "buffs/druid/cast/protection-of-the-glades",
       "name": "Buff timer: Protection of the Glades",
-      "pattern": "^You begin casting Protection of the Glades(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Protection of the Glades(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1174,7 +1174,7 @@
     {
       "id": "buffs/druid/cast/regeneration",
       "name": "Buff timer: Regeneration",
-      "pattern": "^You begin casting Regeneration(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Regeneration(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1200,7 +1200,7 @@
     {
       "id": "buffs/druid/cast/regrowth",
       "name": "Buff timer: Regrowth",
-      "pattern": "^You begin casting Regrowth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Regrowth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1226,7 +1226,7 @@
     {
       "id": "buffs/druid/cast/regrowth-of-the-grove",
       "name": "Buff timer: Regrowth of the Grove",
-      "pattern": "^You begin casting Regrowth of the Grove(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Regrowth of the Grove(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1252,7 +1252,7 @@
     {
       "id": "buffs/druid/cast/resist-cold",
       "name": "Buff timer: Resist Cold",
-      "pattern": "^You begin casting Resist Cold(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Cold(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1278,7 +1278,7 @@
     {
       "id": "buffs/druid/cast/resist-disease",
       "name": "Buff timer: Resist Disease",
-      "pattern": "^You begin casting Resist Disease(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Disease(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1304,7 +1304,7 @@
     {
       "id": "buffs/druid/cast/resist-fire",
       "name": "Buff timer: Resist Fire",
-      "pattern": "^You begin casting Resist Fire(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Fire(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1330,7 +1330,7 @@
     {
       "id": "buffs/druid/cast/resist-magic",
       "name": "Buff timer: Resist Magic",
-      "pattern": "^You begin casting Resist Magic(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Magic(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1356,7 +1356,7 @@
     {
       "id": "buffs/druid/cast/resist-poison",
       "name": "Buff timer: Resist Poison",
-      "pattern": "^You begin casting Resist Poison(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Poison(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1382,7 +1382,7 @@
     {
       "id": "buffs/druid/cast/savage-spirit",
       "name": "Buff timer: Savage Spirit",
-      "pattern": "^You begin casting Savage Spirit(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Savage Spirit(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1408,7 +1408,7 @@
     {
       "id": "buffs/druid/cast/scale-of-wolf",
       "name": "Buff timer: Scale of Wolf",
-      "pattern": "^You begin casting Scale of Wolf(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Scale of Wolf(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1434,7 +1434,7 @@
     {
       "id": "buffs/druid/cast/see-invisible",
       "name": "Buff timer: See Invisible",
-      "pattern": "^You begin casting See Invisible(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting See Invisible(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1460,7 +1460,7 @@
     {
       "id": "buffs/druid/cast/share-form-of-the-great-wolf",
       "name": "Buff timer: Share Form of the Great Wolf",
-      "pattern": "^You begin casting Share Form of the Great Wolf(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Share Form of the Great Wolf(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1486,7 +1486,7 @@
     {
       "id": "buffs/druid/cast/shield-of-barbs",
       "name": "Buff timer: Shield of Barbs",
-      "pattern": "^You begin casting Shield of Barbs(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Barbs(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1512,7 +1512,7 @@
     {
       "id": "buffs/druid/cast/shield-of-blades",
       "name": "Buff timer: Shield of Blades",
-      "pattern": "^You begin casting Shield of Blades(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Blades(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1538,7 +1538,7 @@
     {
       "id": "buffs/druid/cast/shield-of-brambles",
       "name": "Buff timer: Shield of Brambles",
-      "pattern": "^You begin casting Shield of Brambles(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Brambles(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1564,7 +1564,7 @@
     {
       "id": "buffs/druid/cast/shield-of-spikes",
       "name": "Buff timer: Shield of Spikes",
-      "pattern": "^You begin casting Shield of Spikes(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Spikes(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1590,7 +1590,7 @@
     {
       "id": "buffs/druid/cast/shield-of-thistles",
       "name": "Buff timer: Shield of Thistles",
-      "pattern": "^You begin casting Shield of Thistles(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Thistles(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1616,7 +1616,7 @@
     {
       "id": "buffs/druid/cast/shield-of-thorns",
       "name": "Buff timer: Shield of Thorns",
-      "pattern": "^You begin casting Shield of Thorns(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Thorns(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1642,7 +1642,7 @@
     {
       "id": "buffs/druid/cast/skin-like-diamond",
       "name": "Buff timer: Skin like Diamond",
-      "pattern": "^You begin casting Skin like Diamond(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Diamond(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1668,7 +1668,7 @@
     {
       "id": "buffs/druid/cast/skin-like-nature",
       "name": "Buff timer: Skin like Nature",
-      "pattern": "^You begin casting Skin like Nature(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Nature(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1694,7 +1694,7 @@
     {
       "id": "buffs/druid/cast/skin-like-rock",
       "name": "Buff timer: Skin like Rock",
-      "pattern": "^You begin casting Skin like Rock(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Rock(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1720,7 +1720,7 @@
     {
       "id": "buffs/druid/cast/skin-like-steel",
       "name": "Buff timer: Skin like Steel",
-      "pattern": "^You begin casting Skin like Steel(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Steel(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1746,7 +1746,7 @@
     {
       "id": "buffs/druid/cast/skin-like-wood",
       "name": "Buff timer: Skin like Wood",
-      "pattern": "^You begin casting Skin like Wood(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Skin like Wood(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1772,7 +1772,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-ash",
       "name": "Buff timer: Spirit of Ash",
-      "pattern": "^You begin casting Spirit of Ash(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Ash(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1798,7 +1798,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-cheetah",
       "name": "Buff timer: Spirit of Cheetah",
-      "pattern": "^You begin casting Spirit of Cheetah(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Cheetah(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1824,7 +1824,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-eagle",
       "name": "Buff timer: Spirit of Eagle",
-      "pattern": "^You begin casting Spirit of Eagle(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Eagle(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1850,7 +1850,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-oak",
       "name": "Buff timer: Spirit of Oak",
-      "pattern": "^You begin casting Spirit of Oak(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Oak(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1876,7 +1876,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-scale",
       "name": "Buff timer: Spirit of Scale",
-      "pattern": "^You begin casting Spirit of Scale(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Scale(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1902,7 +1902,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-wolf",
       "name": "Buff timer: Spirit of Wolf",
-      "pattern": "^You begin casting Spirit of Wolf(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of Wolf(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1928,7 +1928,7 @@
     {
       "id": "buffs/druid/cast/spirit-of-the-shrew",
       "name": "Buff timer: Spirit of the Shrew",
-      "pattern": "^You begin casting Spirit of the Shrew(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit of the Shrew(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1954,7 +1954,7 @@
     {
       "id": "buffs/druid/cast/storm-strength",
       "name": "Buff timer: Storm Strength",
-      "pattern": "^You begin casting Storm Strength(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Storm Strength(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1980,7 +1980,7 @@
     {
       "id": "buffs/druid/cast/strength-of-earth",
       "name": "Buff timer: Strength of Earth",
-      "pattern": "^You begin casting Strength of Earth(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Strength of Earth(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2006,7 +2006,7 @@
     {
       "id": "buffs/druid/cast/strength-of-stone",
       "name": "Buff timer: Strength of Stone",
-      "pattern": "^You begin casting Strength of Stone(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Strength of Stone(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2032,7 +2032,7 @@
     {
       "id": "buffs/druid/cast/superior-camouflage",
       "name": "Buff timer: Superior Camouflage",
-      "pattern": "^You begin casting Superior Camouflage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Superior Camouflage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2058,7 +2058,7 @@
     {
       "id": "buffs/druid/cast/treeform",
       "name": "Buff timer: Treeform",
-      "pattern": "^You begin casting Treeform(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Treeform(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

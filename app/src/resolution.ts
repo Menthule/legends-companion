@@ -3,7 +3,12 @@
 // mode (which has no Rust engine) and by the Triggers tab when it prunes
 // stale override keys before a group toggle.
 
-import { DEFAULT_LOADOUT_NAME, type CharacterProfile, type Loadout } from "./types";
+import {
+  DEFAULT_LOADOUT_NAME,
+  type CharacterProfile,
+  type Loadout,
+  type TimerTiming,
+} from "./types";
 
 /** Rust `slugify`: alphanumerics kept (lowercased), other runs collapse to `-`. */
 export function slugify(s: string): string {
@@ -93,6 +98,14 @@ export function cloneLoadout(loadout: Loadout, name: string): Loadout {
         [...zones],
       ]),
     ),
+    timing_overrides: Object.fromEntries(
+      Object.entries(loadout.timing_overrides ?? {}).map(([id, ranks]) => [
+        id,
+        Object.fromEntries(
+          Object.entries(ranks).map(([rank, timing]) => [rank, { ...timing }]),
+        ),
+      ]),
+    ),
   };
 }
 
@@ -111,6 +124,7 @@ export function updateActiveLoadout(
       | "channel_overrides"
       | "severity_overrides"
       | "zone_scopes"
+      | "timing_overrides"
     >
   >,
 ): CharacterProfile {
@@ -124,6 +138,30 @@ export function updateActiveLoadout(
         )
       : [...profile.loadouts, { ...active, ...patch }],
   };
+}
+
+/** Set or clear one exact Roman-rank timing in the active loadout. Empty rank
+ * and trigger maps are pruned so reset/discovery state remains truthful. */
+export function withTimingOverride(
+  profile: CharacterProfile,
+  triggerId: string,
+  rank: string,
+  timing: TimerTiming | null,
+): CharacterProfile {
+  const loadout = activeLoadout(profile);
+  const timing_overrides = Object.fromEntries(
+    Object.entries(loadout.timing_overrides ?? {}).map(([id, ranks]) => [
+      id,
+      { ...ranks },
+    ]),
+  );
+  const normalized = rank.trim().toUpperCase();
+  const ranks = { ...(timing_overrides[triggerId] ?? {}) };
+  if (timing) ranks[normalized] = { ...timing };
+  else delete ranks[normalized];
+  if (Object.keys(ranks).length > 0) timing_overrides[triggerId] = ranks;
+  else delete timing_overrides[triggerId];
+  return updateActiveLoadout(profile, { timing_overrides });
 }
 
 /**

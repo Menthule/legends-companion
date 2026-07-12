@@ -10,6 +10,7 @@ import {
   OVERLAY_IMPACT,
   OVERLAY_METER,
   OVERLAY_ONOTHERS,
+  OVERLAY_PACE,
   OVERLAY_RESPAWN,
   OVERLAY_SCOREBOARD,
   OVERLAY_STANCE,
@@ -92,6 +93,14 @@ export const OVERLAY_MODULES: readonly OverlayModule[] = [
     displayName: "XP rate",
     description: "session XP pace and ETA",
     component: lazy(() => import("./OverlayXp")),
+  },
+  {
+    id: "pace",
+    route: "pace",
+    windowLabel: OVERLAY_PACE,
+    displayName: "Pace",
+    description: "live XP, AA, and loot rates",
+    component: lazy(() => import("./OverlayPace")),
   },
   {
     id: "stance",

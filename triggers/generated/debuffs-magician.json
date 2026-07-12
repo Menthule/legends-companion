@@ -4,7 +4,7 @@
     {
       "id": "debuffs/magician/cast/elemental-maelstrom",
       "name": "Enemy timer: Elemental Maelstrom",
-      "pattern": "^You begin casting Elemental Maelstrom(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Elemental Maelstrom(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/magician/cast/mala",
       "name": "Enemy timer: Mala",
-      "pattern": "^You begin casting Mala(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mala(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/magician/cast/malaise",
       "name": "Enemy timer: Malaise",
-      "pattern": "^You begin casting Malaise(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Malaise(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/magician/cast/malaisement",
       "name": "Enemy timer: Malaisement",
-      "pattern": "^You begin casting Malaisement(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Malaisement(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/magician/cast/malosi",
       "name": "Enemy timer: Malosi",
-      "pattern": "^You begin casting Malosi(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Malosi(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/magician/cast/malosini",
       "name": "Enemy timer: Malosini",
-      "pattern": "^You begin casting Malosini(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Malosini(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/magician/cast/wrath-of-the-elements",
       "name": "Enemy timer: Wrath of the Elements",
-      "pattern": "^You begin casting Wrath of the Elements(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Wrath of the Elements(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/worn/elemental-maelstrom",
       "name": "Enemy timer cleared: Elemental Maelstrom",
-      "pattern": "^Your Elemental Maelstrom(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Elemental Maelstrom(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -217,7 +217,7 @@
     {
       "id": "debuffs/worn/mala",
       "name": "Enemy timer cleared: Mala",
-      "pattern": "^Your Mala(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Mala(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -248,7 +248,7 @@
     {
       "id": "debuffs/worn/wrath-of-the-elements",
       "name": "Enemy timer cleared: Wrath of the Elements",
-      "pattern": "^Your Wrath of the Elements(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Wrath of the Elements(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

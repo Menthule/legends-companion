@@ -77,7 +77,9 @@ CLASSES = [
 ]
 CLASS_NAME = dict(CLASSES)
 CLASS_ORDER = [lc for lc, _ in CLASSES]
-RANK_SUFFIX = r"(?: [IVXLCDM]+)?"
+# Named so the timer engine can select a rank timing variant without creating
+# one trigger per rank. `rank` is absent for the base spell.
+RANK_SUFFIX = r"(?: (?P<rank>[IVXLCDM]+))?"
 
 MIN_BUFF_DURATION_SECS = 30
 MIN_DEBUFF_DURATION_SECS = 12  # 2 ticks — captures short real DoTs (Ignite
@@ -309,8 +311,8 @@ def spell_rx(name: str) -> str:
 
     Legends now appends roman rank suffixes to many spell cast/wear-off
     messages ("Togor's Insects VII") while spell data and timer names remain
-    keyed by the base spell name. Generated trigger patterns accept the suffix
-    but keep the base name for timer identity.
+    keyed by the base spell name. Generated trigger patterns capture the suffix
+    as `rank` for exact timing resolution but keep the base timer identity.
     """
     return rx_escape(name) + RANK_SUFFIX
 

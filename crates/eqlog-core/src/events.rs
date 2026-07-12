@@ -171,6 +171,14 @@ pub enum Event {
     Chat { channel: ChatChannel, speaker: Entity, text: String },
     /// `You gain experience! (2.429%)` / `You gain party experience! (0.5%)`
     XpGain { percent: f64, party: bool },
+    /// `You have gained an ability point! You now have 6 ability points.`
+    AaPointGain {
+        /// Number earned by this event. Currently one, but kept explicit so
+        /// the downstream pace engine does not have to infer it from text.
+        points: u32,
+        /// Unspent ability-point balance reported by the client.
+        balance: u32,
+    },
     /// `You have gained a level! Welcome to level 16!`
     LevelUp { level: u32 },
     /// `Your faction standing with Befallen Inhabitants has been adjusted by -1.`

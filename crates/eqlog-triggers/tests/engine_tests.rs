@@ -6,7 +6,7 @@
 use eqlog_core::events::{ChatChannel, Entity, Event, LogLine, ParsedLine};
 use eqlog_triggers::{
     Action, ActionSink, ChannelOverride, CharacterProfile, OverlayFire, TimerFireKind, TimerLane,
-    TimerStartMode, Trigger, TriggerEngine, TriggerFireInfo,
+    TimerStartMode, TimerTiming, Trigger, TriggerEngine, TriggerFireInfo,
 };
 
 type RecordedOverlay = (
@@ -110,6 +110,7 @@ fn start_timer_action(
         duration_formula: None,
         duration_cap_ticks: None,
         cast_time_secs: None,
+        rank_variants: Default::default(),
         mode,
         repeat_secs,
         stopwatch: false,
@@ -119,6 +120,71 @@ fn start_timer_action(
         expire_sound: None,
         lane: None,
     }
+}
+
+#[test]
+fn ranked_timer_uses_exact_variant_and_loadout_override_without_duplicate_triggers() {
+    let mut trigger = Trigger::new(
+        "Heat Blood timer",
+        r"^You begin casting Heat Blood(?: (?P<rank>[IVXLCDM]+))?\.$",
+        vec![Action::StartTimer {
+            name: "Heat Blood".into(),
+            duration_secs: 180,
+            warn_at_secs: None,
+            duration_formula: None,
+            duration_cap_ticks: None,
+            lane: Some(TimerLane::Enemy),
+            cast_time_secs: Some(3),
+            rank_variants: [
+                (
+                    "II".into(),
+                    TimerTiming {
+                        duration_secs: Some(192),
+                        cast_time_secs: Some(2),
+                    },
+                ),
+                (
+                    "IV".into(),
+                    TimerTiming {
+                        duration_secs: Some(216),
+                        cast_time_secs: None,
+                    },
+                ),
+            ]
+            .into(),
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
+        }],
+    );
+    trigger.id = Some("debuffs/necromancer/cast/heat-blood".into());
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().timing_overrides.insert(
+        trigger.effective_id(),
+        [(
+            "iv".into(),
+            TimerTiming {
+                duration_secs: None,
+                cast_time_secs: Some(1),
+            },
+        )]
+        .into(),
+    );
+    let mut engine = TriggerEngine::new_with_profile(vec![trigger], "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(100, "You begin casting Heat Blood."), &mut sink);
+    engine.process(&line(200, "You begin casting Heat Blood II."), &mut sink);
+    engine.process(&line(300, "You begin casting Heat Blood IV."), &mut sink);
+
+    assert_eq!(sink.timers[0].1, 183); // base duration + base cast
+    assert_eq!(sink.timers[1].1, 194); // exact II duration + cast
+    assert_eq!(sink.timers[2].1, 217); // library IV duration + manual cast
+    assert_eq!(engine.active_trigger_count(), 1);
 }
 
 #[test]
@@ -387,6 +453,7 @@ fn timer_warn_then_expire_ordering() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -435,6 +502,7 @@ fn timer_big_jump_yields_warn_before_expire() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -466,6 +534,7 @@ fn rematch_restarts_same_named_timer() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -512,6 +581,7 @@ fn cancel_timer_end_to_end() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -578,6 +648,7 @@ fn timer_lanes_flow_from_action_or_category_to_sink_and_fires() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -601,6 +672,7 @@ fn timer_lanes_flow_from_action_or_category_to_sink_and_fires() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -623,6 +695,7 @@ fn timer_lanes_flow_from_action_or_category_to_sink_and_fires() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -748,6 +821,7 @@ fn profile_level_scales_generated_timer_durations() {
                 duration_formula: Some(3), // level * 30 ticks
                 duration_cap_ticks: Some(360),
                 cast_time_secs: None,
+                rank_variants: Default::default(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,
@@ -770,6 +844,7 @@ fn profile_level_scales_generated_timer_durations() {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                rank_variants: Default::default(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,
@@ -836,6 +911,7 @@ fn scaled_short_durations_clamp_the_warning_lead() {
             duration_formula: Some(6),
             duration_cap_ticks: Some(35),
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -1182,6 +1258,7 @@ fn enemy_dot_trigger(name: &str, pattern: &str) -> Trigger {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -1357,6 +1434,7 @@ fn failed_casts_cancel_their_dot_timers() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -1492,6 +1570,7 @@ fn dot_timers_bind_to_tick_target_and_die_with_it() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -1607,6 +1686,7 @@ fn redotting_same_visible_target_refreshes_the_existing_bar() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -1714,6 +1794,7 @@ fn mixed_case_target_binds_reuse_the_first_seen_casing() {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                rank_variants: Default::default(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,
@@ -1817,6 +1898,7 @@ fn targeted_wear_off_clears_refreshed_visible_target_bar() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -1907,6 +1989,7 @@ fn death_clears_every_spell_bound_to_the_victim() {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                rank_variants: Default::default(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,
@@ -1996,6 +2079,7 @@ fn cast_time_leads_the_timer_so_expiry_matches_landing() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: Some(5),
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -2053,6 +2137,7 @@ fn dot_reaping_survives_log_case_differences() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -2373,6 +2458,7 @@ fn sow_trigger() -> Trigger {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -2438,6 +2524,7 @@ fn non_damaging_debuff_binds_on_land_line_and_dies_with_the_mob() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -2532,6 +2619,7 @@ fn reapplying_land_bound_enemy_debuff_replaces_same_visible_target() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
@@ -2720,6 +2808,7 @@ fn ambiguous_land_line_binds_nothing() {
             duration_formula: None,
             duration_cap_ticks: None,
             cast_time_secs: None,
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,

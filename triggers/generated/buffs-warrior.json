@@ -4,7 +4,7 @@
     {
       "id": "buffs/warrior/cast/aggressive-discipline",
       "name": "Buff timer: Aggressive Discipline",
-      "pattern": "^You begin casting Aggressive Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Aggressive Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -29,7 +29,7 @@
     {
       "id": "buffs/warrior/cast/charge-discipline",
       "name": "Buff timer: Charge Discipline",
-      "pattern": "^You begin casting Charge Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Charge Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -54,7 +54,7 @@
     {
       "id": "buffs/warrior/cast/defensive-discipline",
       "name": "Buff timer: Defensive Discipline",
-      "pattern": "^You begin casting Defensive Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Defensive Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -79,7 +79,7 @@
     {
       "id": "buffs/warrior/cast/evasive-discipline",
       "name": "Buff timer: Evasive Discipline",
-      "pattern": "^You begin casting Evasive Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Evasive Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -104,7 +104,7 @@
     {
       "id": "buffs/warrior/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -129,7 +129,7 @@
     {
       "id": "buffs/warrior/cast/fellstrike-discipline",
       "name": "Buff timer: Fellstrike Discipline",
-      "pattern": "^You begin casting Fellstrike Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fellstrike Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -154,7 +154,7 @@
     {
       "id": "buffs/warrior/cast/focused-will-discipline",
       "name": "Buff timer: Focused Will Discipline",
-      "pattern": "^You begin casting Focused Will Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Focused Will Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -179,7 +179,7 @@
     {
       "id": "buffs/warrior/cast/mighty-strike-discipline",
       "name": "Buff timer: Mighty Strike Discipline",
-      "pattern": "^You begin casting Mighty Strike Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Mighty Strike Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -204,7 +204,7 @@
     {
       "id": "buffs/warrior/cast/precision-discipline",
       "name": "Buff timer: Precision Discipline",
-      "pattern": "^You begin casting Precision Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Precision Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -229,7 +229,7 @@
     {
       "id": "buffs/warrior/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

@@ -27,6 +27,7 @@ import {
   pathHasPrefix,
   slugifyPath,
   updateActiveLoadout,
+  withTimingOverride,
 } from "../resolution";
 import {
   CLASS_NAMES,
@@ -39,6 +40,11 @@ import {
 } from "../types";
 import { buildShareString, parseShareString } from "../lib/share";
 import { getOverlayDefinition } from "../lib/overlayRegistry";
+import {
+  formatDuration,
+  parseDuration,
+  parseNonNegativeDuration,
+} from "../lib/patternJs";
 import Empty from "./Empty";
 import { savedLocation } from "./QuickTriggerModal";
 import { ImportDialog, ShareDialog, type ShareRequest } from "./ShareDialogs";
@@ -60,6 +66,14 @@ interface TreeNode {
   items: TriggerTreeEntry[];
   total: number;
   on: number;
+}
+
+interface TimingEditorState {
+  id: string;
+  name: string;
+  rank: string;
+  duration: string;
+  castTime: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -415,6 +429,7 @@ export default function TriggersTab({
   const [editorNonce, setEditorNonce] = useState(0);
   const [query, setQuery] = useState("");
   const [triggerFilter, setTriggerFilter] = useState<TriggerFilter>("all");
+  const [timingEditor, setTimingEditor] = useState<TimingEditorState | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const expandedSeeded = useRef(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -1065,6 +1080,7 @@ export default function TriggersTab({
     return (
       Object.prototype.hasOwnProperty.call(loadout.overrides, e.id) ||
       Object.prototype.hasOwnProperty.call(loadout.channel_overrides ?? {}, e.id)
+      || Object.prototype.hasOwnProperty.call(loadout.timing_overrides ?? {}, e.id)
     );
   }
 
@@ -1074,10 +1090,84 @@ export default function TriggersTab({
     delete overrides[e.id];
     const channel_overrides = { ...(loadout.channel_overrides ?? {}) };
     delete channel_overrides[e.id];
+    const timing_overrides = { ...(loadout.timing_overrides ?? {}) };
+    delete timing_overrides[e.id];
     await saveProfile(
-      updateActiveLoadout(profile, { overrides, channel_overrides }),
+      updateActiveLoadout(profile, { overrides, channel_overrides, timing_overrides }),
     );
     setStatus(note ?? `Reset “${e.name}” to loadout defaults.`);
+  }
+
+  function openTimingEditor(e: TriggerTreeEntry) {
+    const existing = loadout?.timing_overrides?.[e.id] ?? {};
+    const rank = Object.keys(existing)[0] ?? "II";
+    const timing = existing[rank] ?? {};
+    setTimingEditor({
+      id: e.id,
+      name: e.name,
+      rank,
+      duration:
+        timing.duration_secs != null ? formatDuration(timing.duration_secs) : "",
+      castTime:
+        timing.cast_time_secs != null ? formatDuration(timing.cast_time_secs) : "",
+    });
+  }
+
+  function selectTimingRank(triggerId: string, rank: string) {
+    if (!timingEditor) return;
+    const timing = loadout?.timing_overrides?.[triggerId]?.[rank] ?? {};
+    setTimingEditor({
+      ...timingEditor,
+      rank,
+      duration:
+        timing.duration_secs != null ? formatDuration(timing.duration_secs) : "",
+      castTime:
+        timing.cast_time_secs != null ? formatDuration(timing.cast_time_secs) : "",
+    });
+  }
+
+  async function saveTimingEditor() {
+    if (!profile || !timingEditor) return;
+    const rank = timingEditor.rank.trim().toUpperCase();
+    if (!/^[IVXLCDM]+$/.test(rank)) {
+      setError("Spell rank must be a Roman numeral such as II, IV, or VII.");
+      return;
+    }
+    const duration = timingEditor.duration.trim()
+      ? parseDuration(timingEditor.duration)
+      : null;
+    const castTime = timingEditor.castTime.trim()
+      ? parseNonNegativeDuration(timingEditor.castTime)
+      : null;
+    if (duration !== null && duration <= 0) {
+      setError("Rank duration must be positive (for example 3:36 or 216).");
+      return;
+    }
+    if (castTime !== null && castTime < 0) {
+      setError("Rank cast time cannot be negative.");
+      return;
+    }
+    if (duration === null && castTime === null) {
+      setError("Enter a duration, a cast time, or clear this rank override.");
+      return;
+    }
+    await saveProfile(
+      withTimingOverride(profile, timingEditor.id, rank, {
+        ...(duration !== null ? { duration_secs: duration } : {}),
+        ...(castTime !== null ? { cast_time_secs: castTime } : {}),
+      }),
+    );
+    setStatus(`Saved ${timingEditor.name} ${rank} timing for ${loadout?.name ?? "this loadout"}.`);
+    setTimingEditor(null);
+  }
+
+  async function clearTimingEditor() {
+    if (!profile || !timingEditor) return;
+    await saveProfile(
+      withTimingOverride(profile, timingEditor.id, timingEditor.rank, null),
+    );
+    setStatus(`Cleared ${timingEditor.name} ${timingEditor.rank.toUpperCase()} timing override.`);
+    setTimingEditor(null);
   }
 
   function revertCustomizedTrigger(e: TriggerTreeEntry) {
@@ -1121,12 +1211,17 @@ export default function TriggersTab({
             ),
       ),
     );
+    const timingCount = Object.keys(loadout?.timing_overrides?.[e.id] ?? {}).length;
+    const editingTiming = timingEditor?.id === e.id;
+    const hasCurrentTiming = Boolean(
+      timingEditor && loadout?.timing_overrides?.[e.id]?.[timingEditor.rank],
+    );
     return (
-      <div
-        className={`tt-row${e.effectiveEnabled ? "" : " off"}`}
-        style={{ paddingLeft: 10 + depth * 18 }}
-        key={`${e.id}-${e.userIndex ?? "p"}`}
-      >
+      <div className="tt-entry" key={`${e.id}-${e.userIndex ?? "p"}`}>
+        <div
+          className={`tt-row${e.effectiveEnabled ? "" : " off"}`}
+          style={{ paddingLeft: 10 + depth * 18 }}
+        >
         <input
           type="checkbox"
           className="tree-check"
@@ -1187,9 +1282,20 @@ export default function TriggersTab({
             </span>
           )}
           {e.timer && (
-            <span className="chan-chip on" title="Runs a timer bar">
-              Timer
-            </span>
+            <button
+              type="button"
+              className={`chan-chip on${timingCount > 0 ? " timing-custom" : ""}`}
+              title={
+                timingCount > 0
+                  ? `${timingCount} custom rank timing${timingCount === 1 ? "" : "s"} in this loadout`
+                  : "Set exact duration and cast time by spell rank"
+              }
+              onClick={() =>
+                editingTiming ? setTimingEditor(null) : openTimingEditor(e)
+              }
+            >
+              {timingCount > 0 ? `Timing ${timingCount}` : "Timer"}
+            </button>
           )}
           {destinations.filter((destination) => destination !== "alerts").map((destination) => (
             <span
@@ -1232,7 +1338,7 @@ export default function TriggersTab({
             {resettable && (
               <button
                 className="ghost small"
-                title="Clear enabled, TTS, and alert overrides for this loadout"
+                title="Clear enabled, TTS, alert, and timing overrides for this loadout"
                 onClick={() => void resetEntryOverrides(e)}
               >
                 Reset
@@ -1244,7 +1350,7 @@ export default function TriggersTab({
             {resettable && (
               <button
                 className="ghost small"
-                title="Clear enabled, TTS, and alert overrides for this loadout"
+                title="Clear enabled, TTS, alert, and timing overrides for this loadout"
                 onClick={() => void resetEntryOverrides(e)}
               >
                 Reset
@@ -1258,6 +1364,75 @@ export default function TriggersTab({
               Customize
             </button>
           </span>
+        )}
+        </div>
+        {editingTiming && timingEditor && (
+          <div
+            className="tt-timing-editor"
+            style={{ marginLeft: 36 + depth * 18 }}
+          >
+            <div className="tt-timing-copy">
+              <strong>{e.name}</strong>
+              <span className="hint">
+                Exact values for {loadout?.name ?? "this loadout"}; blank fields inherit the library timing.
+              </span>
+            </div>
+            <label className="field compact">
+              <span>Rank</span>
+              <select
+                className="tt-rank-input"
+                value={timingEditor.rank}
+                aria-label={`Spell rank for ${e.name}`}
+                onChange={(event) =>
+                  selectTimingRank(e.id, event.target.value)
+                }
+              >
+                {Array.from(
+                  new Set([
+                    "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
+                    ...Object.keys(loadout?.timing_overrides?.[e.id] ?? {}),
+                  ]),
+                ).map((rank) => (
+                  <option value={rank} key={rank}>{rank}</option>
+                ))}
+              </select>
+            </label>
+            <label className="field compact">
+              <span>Duration</span>
+              <input
+                value={timingEditor.duration}
+                placeholder="3:36"
+                aria-label={`Duration for ${e.name}`}
+                onChange={(event) =>
+                  setTimingEditor({ ...timingEditor, duration: event.target.value })
+                }
+              />
+            </label>
+            <label className="field compact">
+              <span>Cast time</span>
+              <input
+                value={timingEditor.castTime}
+                placeholder="2"
+                aria-label={`Cast time for ${e.name}`}
+                onChange={(event) =>
+                  setTimingEditor({ ...timingEditor, castTime: event.target.value })
+                }
+              />
+            </label>
+            <div className="tt-timing-actions">
+              {hasCurrentTiming && (
+                <button className="ghost small" onClick={() => void clearTimingEditor()}>
+                  Clear rank
+                </button>
+              )}
+              <button className="ghost small" onClick={() => setTimingEditor(null)}>
+                Cancel
+              </button>
+              <button className="primary small" onClick={() => void saveTimingEditor()}>
+                Save timing
+              </button>
+            </div>
+          </div>
         )}
       </div>
     );

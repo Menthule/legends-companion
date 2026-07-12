@@ -169,6 +169,11 @@ export function parseDuration(raw: string): number | null {
   return null;
 }
 
+/** Parse fields where zero is meaningful, such as an instant cast time. */
+export function parseNonNegativeDuration(raw: string): number | null {
+  return raw.trim() === "0" ? 0 : parseDuration(raw);
+}
+
 /** Render seconds in words for the duration echo — "10" must read back as
  *  "10 seconds", not an ambiguous "0:10" (naive users type minutes). */
 export function formatDurationWords(secs: number): string {

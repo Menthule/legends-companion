@@ -4,7 +4,7 @@
     {
       "id": "debuffs/ranger/cast/drones-of-doom",
       "name": "Enemy timer: Drones of Doom",
-      "pattern": "^You begin casting Drones of Doom(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Drones of Doom(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "debuffs/ranger/cast/ensnare",
       "name": "Enemy timer: Ensnare",
-      "pattern": "^You begin casting Ensnare(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Ensnare(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "debuffs/ranger/cast/ensnaring-roots",
       "name": "Enemy timer: Ensnaring Roots",
-      "pattern": "^You begin casting Ensnaring Roots(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Ensnaring Roots(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "debuffs/ranger/cast/enveloping-roots",
       "name": "Enemy timer: Enveloping Roots",
-      "pattern": "^You begin casting Enveloping Roots(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Enveloping Roots(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "debuffs/ranger/cast/fire-swarm",
       "name": "Enemy timer: Fire Swarm",
-      "pattern": "^You begin casting Fire Swarm(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fire Swarm(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "debuffs/ranger/cast/flame-lick",
       "name": "Enemy timer: Flame Lick",
-      "pattern": "^You begin casting Flame Lick(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Flame Lick(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "debuffs/ranger/cast/grasping-roots",
       "name": "Enemy timer: Grasping Roots",
-      "pattern": "^You begin casting Grasping Roots(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Grasping Roots(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "debuffs/ranger/cast/immolate",
       "name": "Enemy timer: Immolate",
-      "pattern": "^You begin casting Immolate(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Immolate(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "debuffs/ranger/cast/panic-animal",
       "name": "Enemy timer: Panic Animal",
-      "pattern": "^You begin casting Panic Animal(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Panic Animal(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "debuffs/ranger/cast/snare",
       "name": "Enemy timer: Snare",
-      "pattern": "^You begin casting Snare(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Snare(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "debuffs/ranger/cast/stinging-swarm",
       "name": "Enemy timer: Stinging Swarm",
-      "pattern": "^You begin casting Stinging Swarm(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Stinging Swarm(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "debuffs/ranger/cast/swarm-of-pain",
       "name": "Enemy timer: Swarm of Pain",
-      "pattern": "^You begin casting Swarm of Pain(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Swarm of Pain(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "debuffs/ranger/cast/tangle",
       "name": "Enemy timer: Tangle",
-      "pattern": "^You begin casting Tangle(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Tangle(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "debuffs/ranger/cast/tangling-weeds",
       "name": "Enemy timer: Tangling Weeds",
-      "pattern": "^You begin casting Tangling Weeds(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Tangling Weeds(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "debuffs/worn/drones-of-doom",
       "name": "Enemy timer cleared: Drones of Doom",
-      "pattern": "^Your Drones of Doom(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Drones of Doom(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -400,7 +400,7 @@
     {
       "id": "debuffs/worn/ensnare",
       "name": "Enemy timer cleared: Ensnare",
-      "pattern": "^Your Ensnare(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ensnare(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -432,7 +432,7 @@
     {
       "id": "debuffs/worn/ensnaring-roots",
       "name": "Enemy timer cleared: Ensnaring Roots",
-      "pattern": "^Your Ensnaring Roots(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Ensnaring Roots(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -464,7 +464,7 @@
     {
       "id": "debuffs/worn/enveloping-roots",
       "name": "Enemy timer cleared: Enveloping Roots",
-      "pattern": "^Your Enveloping Roots(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Enveloping Roots(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -496,7 +496,7 @@
     {
       "id": "debuffs/worn/fire-swarm",
       "name": "Enemy timer cleared: Fire Swarm",
-      "pattern": "^Your Fire Swarm(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Fire Swarm(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -527,7 +527,7 @@
     {
       "id": "debuffs/worn/flame-lick",
       "name": "Enemy timer cleared: Flame Lick",
-      "pattern": "^Your Flame Lick(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Flame Lick(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -559,7 +559,7 @@
     {
       "id": "debuffs/worn/grasping-roots",
       "name": "Enemy timer cleared: Grasping Roots",
-      "pattern": "^Your Grasping Roots(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Grasping Roots(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -591,7 +591,7 @@
     {
       "id": "debuffs/worn/immolate",
       "name": "Enemy timer cleared: Immolate",
-      "pattern": "^Your Immolate(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Immolate(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -623,7 +623,7 @@
     {
       "id": "debuffs/worn/panic-animal",
       "name": "Enemy timer cleared: Panic Animal",
-      "pattern": "^Your Panic Animal(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Panic Animal(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -655,7 +655,7 @@
     {
       "id": "debuffs/worn/snare",
       "name": "Enemy timer cleared: Snare",
-      "pattern": "^Your Snare(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Snare(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -687,7 +687,7 @@
     {
       "id": "debuffs/worn/stinging-swarm",
       "name": "Enemy timer cleared: Stinging Swarm",
-      "pattern": "^Your Stinging Swarm(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Stinging Swarm(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -719,7 +719,7 @@
     {
       "id": "debuffs/worn/swarm-of-pain",
       "name": "Enemy timer cleared: Swarm of Pain",
-      "pattern": "^Your Swarm of Pain(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Swarm of Pain(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -750,7 +750,7 @@
     {
       "id": "debuffs/worn/tangle",
       "name": "Enemy timer cleared: Tangle",
-      "pattern": "^Your Tangle(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tangle(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -782,7 +782,7 @@
     {
       "id": "debuffs/worn/tangling-weeds",
       "name": "Enemy timer cleared: Tangling Weeds",
-      "pattern": "^Your Tangling Weeds(?: [IVXLCDM]+)? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Tangling Weeds(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

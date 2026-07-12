@@ -295,6 +295,12 @@ pub enum Action {
         /// Additive: absent = 0.
         #[serde(default, skip_serializing_if = "Option::is_none")]
         cast_time_secs: Option<u64>,
+        /// Exact timing variants keyed by Roman spell rank (`"II"`, `"IV"`,
+        /// etc.). Generated cast patterns capture the suffix as `rank`; when
+        /// present, the engine replaces either supplied field without needing
+        /// a duplicate trigger. Missing fields inherit the base timer value.
+        #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+        rank_variants: BTreeMap<String, TimerTiming>,
         /// Duplicate-name behavior. Absent = restart, preserving legacy packs.
         #[serde(default, skip_serializing_if = "Option::is_none")]
         mode: Option<TimerStartMode>,
@@ -367,6 +373,17 @@ pub enum Action {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         color: Option<String>,
     },
+}
+
+/// A partial exact timer timing. Used both by pack-authored rank tables and
+/// per-loadout manual overrides; omitted values inherit the next less-specific
+/// timing source.
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct TimerTiming {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub duration_secs: Option<u64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub cast_time_secs: Option<u64>,
 }
 
 /// Classic EQ buff-duration formula → duration in ticks (1 tick = 6 s) at
@@ -467,6 +484,11 @@ pub struct Loadout {
     /// the pack default.
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub zone_scopes: BTreeMap<String, Vec<String>>,
+    /// `<trigger-id>` -> Roman rank -> exact manual timing. This is scoped to
+    /// the active character loadout because rank progression can differ
+    /// between characters while the shared trigger library remains immutable.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub timing_overrides: BTreeMap<String, BTreeMap<String, TimerTiming>>,
 }
 
 impl Loadout {
@@ -479,6 +501,7 @@ impl Loadout {
             channel_overrides: BTreeMap::new(),
             severity_overrides: BTreeMap::new(),
             zone_scopes: BTreeMap::new(),
+            timing_overrides: BTreeMap::new(),
         }
     }
 }
@@ -492,6 +515,7 @@ static EMPTY_LOADOUT: Loadout = Loadout {
     channel_overrides: BTreeMap::new(),
     severity_overrides: BTreeMap::new(),
     zone_scopes: BTreeMap::new(),
+    timing_overrides: BTreeMap::new(),
 };
 
 /// Per-character trigger settings: level (drives generated timer durations)
@@ -567,6 +591,7 @@ impl From<ProfileWire> for CharacterProfile {
                     channel_overrides: BTreeMap::new(),
                     severity_overrides: BTreeMap::new(),
                     zone_scopes: BTreeMap::new(),
+                    timing_overrides: BTreeMap::new(),
                 }],
             },
         }
@@ -697,6 +722,7 @@ mod tests {
                         duration_formula: Some(3),
                         duration_cap_ticks: Some(360),
                         cast_time_secs: None,
+                        rank_variants: BTreeMap::new(),
                         mode: None,
                         repeat_secs: None,
                         stopwatch: false,
@@ -795,6 +821,7 @@ mod tests {
                 duration_formula: None,
                 duration_cap_ticks: None,
                 cast_time_secs: None,
+                rank_variants: BTreeMap::new(),
                 mode: None,
                 repeat_secs: None,
                 stopwatch: false,

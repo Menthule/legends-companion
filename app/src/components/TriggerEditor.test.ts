@@ -20,6 +20,10 @@ describe("trigger action editor codec", () => {
           duration_cap_ticks: 25,
           lane: "enemy",
           cast_time_secs: 3,
+          rank_variants: {
+            II: { duration_secs: 102, cast_time_secs: 2 },
+            IV: { duration_secs: 114 },
+          },
           mode: "start-new-instance",
           repeat_secs: 90,
           stopwatch: true,
@@ -32,6 +36,55 @@ describe("trigger action editor codec", () => {
     ];
 
     expect(roundTrip(actions)).toEqual(actions);
+  });
+
+  it("normalizes manually entered Roman rank timing rows", () => {
+    const rows = rowsFromActions([
+      {
+        StartTimer: {
+          name: "Heat Blood",
+          duration_secs: 90,
+          warn_at_secs: null,
+          cast_time_secs: 3,
+          rank_variants: { II: { duration_secs: 102, cast_time_secs: 2 } },
+        },
+      },
+    ]);
+    rows[0].rankTimingsText = "ii = 1:42, 2\nIV = 1:54, -";
+
+    expect(actionsFromRows(rows)).toMatchObject([
+      {
+        StartTimer: {
+          rank_variants: {
+            II: { duration_secs: 102, cast_time_secs: 2 },
+            IV: { duration_secs: 114 },
+          },
+        },
+      },
+    ]);
+  });
+
+  it("accepts instant-cast base and rank timings", () => {
+    const rows = rowsFromActions([
+      {
+        StartTimer: {
+          name: "Instant Ward",
+          duration_secs: 90,
+          warn_at_secs: null,
+        },
+      },
+    ]);
+    rows[0].castTimeText = "0";
+    rows[0].rankTimingsText = "VII = 2:00, 0";
+
+    expect(actionsFromRows(rows)).toMatchObject([
+      {
+        StartTimer: {
+          duration_secs: 90,
+          rank_variants: { VII: { duration_secs: 120, cast_time_secs: 0 } },
+        },
+      },
+    ]);
   });
 
   it("migrates legacy visual actions to generic overlay actions", () => {

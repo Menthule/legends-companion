@@ -4,7 +4,7 @@
     {
       "id": "buffs/bard/cast/amplification",
       "name": "Buff timer: Amplification",
-      "pattern": "^You begin singing Amplification(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Amplification(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/bard/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin singing Fearless Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Fearless Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -55,7 +55,7 @@
     {
       "id": "buffs/bard/cast/kelin-s-lugubrious-lament",
       "name": "Buff timer: Kelin's Lugubrious Lament",
-      "pattern": "^You begin singing Kelin['`]s Lugubrious Lament(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Kelin['`]s Lugubrious Lament(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -81,7 +81,7 @@
     {
       "id": "buffs/bard/cast/puretone-discipline",
       "name": "Buff timer: Puretone Discipline",
-      "pattern": "^You begin singing Puretone Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Puretone Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -106,7 +106,7 @@
     {
       "id": "buffs/bard/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin singing Resistant Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Resistant Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -131,7 +131,7 @@
     {
       "id": "buffs/bard/cast/selo-s-accelerating-chorus",
       "name": "Buff timer: Selo's Accelerating Chorus",
-      "pattern": "^You begin singing Selo['`]s Accelerating Chorus(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Selo['`]s Accelerating Chorus(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -157,7 +157,7 @@
     {
       "id": "buffs/bard/cast/song-of-sustenance",
       "name": "Buff timer: Song of Sustenance",
-      "pattern": "^You begin singing Song of Sustenance(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin singing Song of Sustenance(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

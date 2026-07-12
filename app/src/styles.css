@@ -2226,6 +2226,48 @@ button.coach-row.active {
   border-radius: 8px;
 }
 
+/* Pace overlay: compact, scan-first rows over the game. */
+.opace {
+  width: 100%;
+  min-width: 220px;
+  overflow: hidden;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+.opace-head,
+.opace-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+.opace-head {
+  padding: 7px 10px 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  font-weight: 700;
+}
+.opace-rows { padding: 4px 10px 7px; }
+.opace-row {
+  min-height: 22px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+}
+.opace-row strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.opace-empty {
+  padding: 14px 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  text-align: center;
+}
+
 /* alerts */
 .ov-alert-stack {
   display: flex;
@@ -3213,6 +3255,52 @@ button.chan-chip:hover {
 }
 .tt-row:hover .tt-btns {
   visibility: visible;
+}
+.chan-chip.timing-custom {
+  color: color-mix(in srgb, var(--warning) 85%, var(--ink));
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+  background: color-mix(in srgb, var(--warning) 12%, transparent);
+}
+.tt-timing-editor {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  padding: 10px 12px;
+  margin: 2px 10px 8px;
+  border-left: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+.tt-timing-copy {
+  display: flex;
+  flex: 1;
+  min-width: 180px;
+  flex-direction: column;
+  gap: 2px;
+}
+.tt-timing-editor .field.compact {
+  width: 112px;
+  gap: 3px;
+}
+.tt-timing-editor .field.compact input {
+  width: 100%;
+}
+.tt-timing-editor .field.compact .tt-rank-input {
+  width: 72px;
+  text-transform: uppercase;
+}
+.tt-timing-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+@media (max-width: 900px) {
+  .tt-timing-editor {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  .tt-timing-copy {
+    flex-basis: 100%;
+  }
 }
 
 /* --------------------------------------------------- trigger editor (ted) */
@@ -4584,6 +4672,107 @@ textarea.share-str:focus {
 }
 .session-search {
   max-width: 200px;
+}
+
+/* One explicit grind sample shared by XP, AA, and tracked loot rates. */
+.pace-start,
+.pace-finish {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 150px auto;
+  gap: 12px;
+  align-items: end;
+}
+.pace-heading { font-weight: 650; margin-bottom: 3px; }
+.pace-aa-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--ink-2);
+  font-size: 11px;
+}
+.pace-aa-field em {
+  color: var(--ink-muted);
+  font-style: normal;
+  font-weight: 400;
+}
+.pace-aa-field input { width: 100%; min-width: 0; }
+.pace-status {
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--ink-muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.pace-status.running {
+  border-color: color-mix(in srgb, var(--ok) 45%, var(--border));
+  color: var(--ok);
+}
+.pace-live-head,
+.pace-controls { display: flex; align-items: center; gap: 8px; }
+.pace-live-head { justify-content: space-between; margin-bottom: 10px; }
+.pace-clock { font-size: 20px; font-weight: 700; }
+.pace-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.pace-metric {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background: var(--surface-raised);
+}
+.pace-metric + .pace-metric { border-left: 1px solid var(--border); }
+.pace-metric > span,
+.pace-metric small {
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.pace-metric strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pace-finish {
+  grid-template-columns: minmax(220px, 1fr) 150px auto auto;
+  margin-top: 10px;
+  padding: 10px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-raised);
+}
+.pace-history { margin-top: 14px; border-top: 1px solid var(--hairline); }
+.pace-history-head,
+.pace-history-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) repeat(4, minmax(72px, 0.8fr));
+  gap: 8px;
+  align-items: center;
+  padding: 6px 8px;
+}
+.pace-history-head {
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.pace-history-row { border-top: 1px solid var(--hairline); font-size: 12px; }
+@media (max-width: 760px) {
+  .pace-start,
+  .pace-finish { grid-template-columns: 1fr; align-items: stretch; }
+  .pace-aa-field { max-width: 180px; }
+  .pace-metrics { grid-template-columns: 1fr; }
+  .pace-metric + .pace-metric { border-top: 1px solid var(--border); border-left: 0; }
+  .pace-history { overflow-x: auto; }
+  .pace-history-head,
+  .pace-history-row { min-width: 520px; }
 }
 
 /* Collapsible section cards (Fights tab: history / loot / rolls) */
@@ -6017,6 +6206,13 @@ button.drops-item.active {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.orsp-context {
+  margin-left: 5px;
+  color: var(--series-7);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 .orsp-count {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -6257,6 +6453,10 @@ button.drops-item.active {
   background: color-mix(in srgb, var(--ink-muted) 22%, transparent);
   color: var(--ink-2);
 }
+.tmr-badge.timing {
+  background: color-mix(in srgb, var(--series-7) 18%, transparent);
+  color: var(--series-7);
+}
 .tmr-t-time {
   font-weight: 600;
   font-size: 14px;
@@ -6379,8 +6579,53 @@ button.drops-item.active {
 /* Manual zone picker in the "This zone" card head — reuses the SearchSelect
    combobox (type-to-filter) from the Database tabs. */
 .tmr-zone-pick {
-  width: 240px;
-  max-width: 60%;
+  width: min(440px, 68%);
+  max-width: 68%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.tmr-zone-pick > .search-select {
+  width: 220px;
+  min-width: 150px;
+}
+.tmr-context {
+  display: flex;
+  flex: none;
+  gap: 4px;
+}
+.tmr-context .kchip {
+  min-height: 26px;
+}
+.tmr-source {
+  color: var(--series-7);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.timing-reference {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 16px;
+  padding: 10px 0;
+  color: var(--ink-2);
+}
+.respawn-timing-modal {
+  width: min(520px, calc(100vw - 32px));
+}
+@media (max-width: 760px) {
+  .tmr-zone-pick {
+    width: 100%;
+    max-width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .tmr-zone-pick > .search-select {
+    width: 100%;
+  }
+  .tmr-context {
+    flex-wrap: wrap;
+  }
 }
 
 /* Buttons (Arm / Track / Start). */

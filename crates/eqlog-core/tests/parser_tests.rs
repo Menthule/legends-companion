@@ -858,6 +858,13 @@ fn xp_level_faction() {
         }
     );
     assert_eq!(
+        parse("[Fri Jul 03 12:09:51 2026] You have gained an ability point!  You now have 6 ability points."),
+        Event::AaPointGain {
+            points: 1,
+            balance: 6,
+        }
+    );
+    assert_eq!(
         parse("[Thu Jul 02 23:59:03 2026] You have gained a level! Welcome to level 16!"),
         Event::LevelUp { level: 16 }
     );

@@ -4,7 +4,7 @@
     {
       "id": "buffs/paladin/cast/armor-of-faith",
       "name": "Buff timer: Armor of Faith",
-      "pattern": "^You begin casting Armor of Faith(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Armor of Faith(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -30,7 +30,7 @@
     {
       "id": "buffs/paladin/cast/austerity",
       "name": "Buff timer: Austerity",
-      "pattern": "^You begin casting Austerity(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Austerity(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -56,7 +56,7 @@
     {
       "id": "buffs/paladin/cast/blessing-of-austerity",
       "name": "Buff timer: Blessing of Austerity",
-      "pattern": "^You begin casting Blessing of Austerity(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Blessing of Austerity(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -82,7 +82,7 @@
     {
       "id": "buffs/paladin/cast/breath-of-tunare",
       "name": "Buff timer: Breath of Tunare",
-      "pattern": "^You begin casting Breath of Tunare(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Breath of Tunare(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -108,7 +108,7 @@
     {
       "id": "buffs/paladin/cast/brell-s-mountainous-barrier",
       "name": "Buff timer: Brell's Mountainous Barrier",
-      "pattern": "^You begin casting Brell['`]s Mountainous Barrier(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Brell['`]s Mountainous Barrier(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -134,7 +134,7 @@
     {
       "id": "buffs/paladin/cast/brell-s-steadfast-aegis",
       "name": "Buff timer: Brell's Steadfast Aegis",
-      "pattern": "^You begin casting Brell['`]s Steadfast Aegis(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Brell['`]s Steadfast Aegis(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -160,7 +160,7 @@
     {
       "id": "buffs/paladin/cast/calm",
       "name": "Buff timer: Calm",
-      "pattern": "^You begin casting Calm(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Calm(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -186,7 +186,7 @@
     {
       "id": "buffs/paladin/cast/center",
       "name": "Buff timer: Center",
-      "pattern": "^You begin casting Center(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Center(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -212,7 +212,7 @@
     {
       "id": "buffs/paladin/cast/courage",
       "name": "Buff timer: Courage",
-      "pattern": "^You begin casting Courage(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Courage(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -238,7 +238,7 @@
     {
       "id": "buffs/paladin/cast/daring",
       "name": "Buff timer: Daring",
-      "pattern": "^You begin casting Daring(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Daring(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -264,7 +264,7 @@
     {
       "id": "buffs/paladin/cast/divine-favor",
       "name": "Buff timer: Divine Favor",
-      "pattern": "^You begin casting Divine Favor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Divine Favor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -290,7 +290,7 @@
     {
       "id": "buffs/paladin/cast/divine-glory",
       "name": "Buff timer: Divine Glory",
-      "pattern": "^You begin casting Divine Glory(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Divine Glory(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -316,7 +316,7 @@
     {
       "id": "buffs/paladin/cast/divine-strength",
       "name": "Buff timer: Divine Strength",
-      "pattern": "^You begin casting Divine Strength(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Divine Strength(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -342,7 +342,7 @@
     {
       "id": "buffs/paladin/cast/divine-vigor",
       "name": "Buff timer: Divine Vigor",
-      "pattern": "^You begin casting Divine Vigor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Divine Vigor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -368,7 +368,7 @@
     {
       "id": "buffs/paladin/cast/endure-disease",
       "name": "Buff timer: Endure Disease",
-      "pattern": "^You begin casting Endure Disease(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Disease(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -394,7 +394,7 @@
     {
       "id": "buffs/paladin/cast/endure-magic",
       "name": "Buff timer: Endure Magic",
-      "pattern": "^You begin casting Endure Magic(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Magic(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -420,7 +420,7 @@
     {
       "id": "buffs/paladin/cast/endure-poison",
       "name": "Buff timer: Endure Poison",
-      "pattern": "^You begin casting Endure Poison(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Endure Poison(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -446,7 +446,7 @@
     {
       "id": "buffs/paladin/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -471,7 +471,7 @@
     {
       "id": "buffs/paladin/cast/frenzied-strength",
       "name": "Buff timer: Frenzied Strength",
-      "pattern": "^You begin casting Frenzied Strength(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Frenzied Strength(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -497,7 +497,7 @@
     {
       "id": "buffs/paladin/cast/guard",
       "name": "Buff timer: Guard",
-      "pattern": "^You begin casting Guard(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Guard(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -523,7 +523,7 @@
     {
       "id": "buffs/paladin/cast/guard-of-piety",
       "name": "Buff timer: Guard of Piety",
-      "pattern": "^You begin casting Guard of Piety(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Guard of Piety(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -548,7 +548,7 @@
     {
       "id": "buffs/paladin/cast/holy-armor",
       "name": "Buff timer: Holy Armor",
-      "pattern": "^You begin casting Holy Armor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Holy Armor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -574,7 +574,7 @@
     {
       "id": "buffs/paladin/cast/holyforge-discipline",
       "name": "Buff timer: Holyforge Discipline",
-      "pattern": "^You begin casting Holyforge Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Holyforge Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -599,7 +599,7 @@
     {
       "id": "buffs/paladin/cast/invisibility-versus-undead",
       "name": "Buff timer: Invisibility Versus Undead",
-      "pattern": "^You begin casting Invisibility Versus Undead(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Invisibility Versus Undead(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -625,7 +625,7 @@
     {
       "id": "buffs/paladin/cast/lull",
       "name": "Buff timer: Lull",
-      "pattern": "^You begin casting Lull(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Lull(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -651,7 +651,7 @@
     {
       "id": "buffs/paladin/cast/pacify",
       "name": "Buff timer: Pacify",
-      "pattern": "^You begin casting Pacify(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Pacify(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -677,7 +677,7 @@
     {
       "id": "buffs/paladin/cast/reckless-strength",
       "name": "Buff timer: Reckless Strength",
-      "pattern": "^You begin casting Reckless Strength(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Reckless Strength(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -703,7 +703,7 @@
     {
       "id": "buffs/paladin/cast/resist-disease",
       "name": "Buff timer: Resist Disease",
-      "pattern": "^You begin casting Resist Disease(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Disease(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -729,7 +729,7 @@
     {
       "id": "buffs/paladin/cast/resist-magic",
       "name": "Buff timer: Resist Magic",
-      "pattern": "^You begin casting Resist Magic(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resist Magic(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -755,7 +755,7 @@
     {
       "id": "buffs/paladin/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -780,7 +780,7 @@
     {
       "id": "buffs/paladin/cast/resolution",
       "name": "Buff timer: Resolution",
-      "pattern": "^You begin casting Resolution(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resolution(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -806,7 +806,7 @@
     {
       "id": "buffs/paladin/cast/shield-of-words",
       "name": "Buff timer: Shield of Words",
-      "pattern": "^You begin casting Shield of Words(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Shield of Words(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -832,7 +832,7 @@
     {
       "id": "buffs/paladin/cast/soothe",
       "name": "Buff timer: Soothe",
-      "pattern": "^You begin casting Soothe(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Soothe(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -858,7 +858,7 @@
     {
       "id": "buffs/paladin/cast/spirit-armor",
       "name": "Buff timer: Spirit Armor",
-      "pattern": "^You begin casting Spirit Armor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Spirit Armor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -884,7 +884,7 @@
     {
       "id": "buffs/paladin/cast/symbol-of-naltron",
       "name": "Buff timer: Symbol of Naltron",
-      "pattern": "^You begin casting Symbol of Naltron(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Symbol of Naltron(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -910,7 +910,7 @@
     {
       "id": "buffs/paladin/cast/symbol-of-pinzarn",
       "name": "Buff timer: Symbol of Pinzarn",
-      "pattern": "^You begin casting Symbol of Pinzarn(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Symbol of Pinzarn(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -936,7 +936,7 @@
     {
       "id": "buffs/paladin/cast/symbol-of-ryltan",
       "name": "Buff timer: Symbol of Ryltan",
-      "pattern": "^You begin casting Symbol of Ryltan(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Symbol of Ryltan(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -962,7 +962,7 @@
     {
       "id": "buffs/paladin/cast/symbol-of-transal",
       "name": "Buff timer: Symbol of Transal",
-      "pattern": "^You begin casting Symbol of Transal(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Symbol of Transal(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -988,7 +988,7 @@
     {
       "id": "buffs/paladin/cast/valor",
       "name": "Buff timer: Valor",
-      "pattern": "^You begin casting Valor(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Valor(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

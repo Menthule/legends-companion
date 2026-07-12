@@ -4,7 +4,7 @@
     {
       "id": "buffs/monk/cast/ashenhand-discipline",
       "name": "Buff timer: Ashenhand Discipline",
-      "pattern": "^You begin casting Ashenhand Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Ashenhand Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -29,7 +29,7 @@
     {
       "id": "buffs/monk/cast/fearless-discipline",
       "name": "Buff timer: Fearless Discipline",
-      "pattern": "^You begin casting Fearless Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Fearless Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -54,7 +54,7 @@
     {
       "id": "buffs/monk/cast/focused-will-discipline",
       "name": "Buff timer: Focused Will Discipline",
-      "pattern": "^You begin casting Focused Will Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Focused Will Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -79,7 +79,7 @@
     {
       "id": "buffs/monk/cast/hundred-fists-discipline",
       "name": "Buff timer: Hundred Fists Discipline",
-      "pattern": "^You begin casting Hundred Fists Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Hundred Fists Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -104,7 +104,7 @@
     {
       "id": "buffs/monk/cast/innerflame-discipline",
       "name": "Buff timer: Innerflame Discipline",
-      "pattern": "^You begin casting Innerflame Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Innerflame Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -129,7 +129,7 @@
     {
       "id": "buffs/monk/cast/resistant-discipline",
       "name": "Buff timer: Resistant Discipline",
-      "pattern": "^You begin casting Resistant Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Resistant Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -154,7 +154,7 @@
     {
       "id": "buffs/monk/cast/silentfist-discipline",
       "name": "Buff timer: Silentfist Discipline",
-      "pattern": "^You begin casting Silentfist Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Silentfist Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -179,7 +179,7 @@
     {
       "id": "buffs/monk/cast/thunderkick-discipline",
       "name": "Buff timer: Thunderkick Discipline",
-      "pattern": "^You begin casting Thunderkick Discipline(?: [IVXLCDM]+)?\\.$",
+      "pattern": "^You begin casting Thunderkick Discipline(?: (?P<rank>[IVXLCDM]+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",

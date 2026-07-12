@@ -37,6 +37,7 @@ fn sample_triggers() -> Vec<Trigger> {
             duration_formula: Some(3),
             duration_cap_ticks: Some(7),
             cast_time_secs: Some(2),
+            rank_variants: Default::default(),
             mode: None,
             repeat_secs: None,
             stopwatch: false,
