@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { discoverLogs, getConfig, getProfile } from "../api";
 import { fmtDuration, fmtNum, useTauriEvent } from "../hooks";
 import type {
@@ -24,7 +24,6 @@ import {
 import {
   compareSessions,
   type ComparisonGoal,
-  type ComparisonMetric,
   type SessionComparisonSample,
   type SessionRouteSample,
 } from "../lib/sessionComparison";
@@ -311,6 +310,26 @@ function sourceSkills(sources: MeterSourceRow[]): SessionComparisonSample["skill
   }));
 }
 
+function mergeMeterSources(...groups: MeterSourceRow[][]): MeterSourceRow[] {
+  const merged = new Map<string, MeterSourceRow>();
+  for (const sources of groups) {
+    for (const source of sources) {
+      const key = source.name.toLowerCase();
+      const previous = merged.get(key);
+      merged.set(key, {
+        name: previous?.name ?? source.name,
+        total: (previous?.total ?? 0) + source.total,
+        hits: (previous?.hits ?? 0) + (source.hits ?? 0),
+        crits: (previous?.crits ?? 0) + (source.crits ?? 0),
+        maxHit: Math.max(previous?.maxHit ?? 0, source.maxHit ?? 0),
+        misses: (previous?.misses ?? 0) + (source.misses ?? 0),
+        casts: (previous?.casts ?? 0) + (source.casts ?? 0),
+      });
+    }
+  }
+  return [...merged.values()].sort((a, b) => b.total - a.total);
+}
+
 function historySample(row: SessionHistoryRow): SessionComparisonSample {
   const legacyCombatSecs = (row.buckets ?? []).reduce((sum, bucket) => sum + bucket.seconds, 0);
   return {
@@ -334,21 +353,70 @@ function historySample(row: SessionHistoryRow): SessionComparisonSample {
   };
 }
 
-function formatMetricValue(metric: ComparisonMetric, value: number | null): string {
-  if (value === null) return "--";
-  if (metric.unit === "percent") return `${value.toFixed(1)}%`;
-  if (metric.unit === "percentPerHour") return `${value.toFixed(2)}%/hr`;
-  if (metric.unit === "dps") return `${fmtNum(Math.round(value))} DPS`;
-  return `${value.toFixed(value >= 100 ? 0 : 1)}/hr`;
+type BoardMetricId = "duration" | "xp" | "aa" | "motes" | "dps" | "damage" | "kills" | "deaths" | "downtime";
+
+interface BoardMetric {
+  id: BoardMetricId;
+  label: string;
+  higherIsBetter: boolean;
 }
 
-function metricDelta(metric: ComparisonMetric): string {
-  if (metric.delta === null) return "--";
-  const sign = metric.delta > 0 ? "+" : "";
-  if (metric.unit === "percent") return `${sign}${metric.delta.toFixed(1)} pts`;
-  if (metric.unit === "percentPerHour") return `${sign}${metric.delta.toFixed(2)}%/hr`;
-  if (metric.unit === "dps") return `${sign}${fmtNum(Math.round(metric.delta))}`;
-  return `${sign}${metric.delta.toFixed(Math.abs(metric.delta) >= 100 ? 0 : 1)}/hr`;
+const BOARD_METRICS: BoardMetric[] = [
+  { id: "duration", label: "Time", higherIsBetter: true },
+  { id: "xp", label: "XP / hour", higherIsBetter: true },
+  { id: "aa", label: "AA / hour", higherIsBetter: true },
+  { id: "motes", label: "Motes / hour", higherIsBetter: true },
+  { id: "dps", label: "DPS", higherIsBetter: true },
+  { id: "damage", label: "Damage", higherIsBetter: true },
+  { id: "kills", label: "Kills / hour", higherIsBetter: true },
+  { id: "deaths", label: "Deaths / hour", higherIsBetter: false },
+  { id: "downtime", label: "Downtime", higherIsBetter: false },
+];
+
+function perHourValue(value: number | null | undefined, durationSecs: number): number | null {
+  return typeof value === "number" && Number.isFinite(value) && durationSecs > 0
+    ? (value / durationSecs) * 3600
+    : null;
+}
+
+function boardMetricValue(sample: SessionComparisonSample | null, id: BoardMetricId, aaPointsMode: boolean): number | null {
+  if (!sample) return null;
+  if (id === "duration") return sample.durationSecs > 0 ? sample.durationSecs : null;
+  if (id === "xp") return perHourValue(sample.xp, sample.durationSecs);
+  if (id === "aa") return perHourValue(aaPointsMode ? sample.aaPoints : sample.aaPercent, sample.durationSecs);
+  if (id === "motes") return perHourValue(sample.motes, sample.durationSecs);
+  if (id === "dps") {
+    if (sample.damage == null) return null;
+    return sample.damage / Math.max(1, sample.combatSecs || sample.durationSecs);
+  }
+  if (id === "damage") return sample.damage ?? null;
+  if (id === "kills") return perHourValue(sample.kills, sample.durationSecs);
+  if (id === "deaths") return perHourValue(sample.deaths, sample.durationSecs);
+  if (sample.activeSecs == null || sample.durationSecs <= 0) return null;
+  return Math.max(0, Math.min(100, (1 - sample.activeSecs / sample.durationSecs) * 100));
+}
+
+function formatBoardValue(id: BoardMetricId, value: number | null, aaPointsMode: boolean): string {
+  if (value === null) return "--";
+  if (id === "duration") return fmtDuration(Math.round(value));
+  if (id === "xp") return `${value.toFixed(2)}%`;
+  if (id === "aa") return aaPointsMode ? `${value.toFixed(1)} pts` : `${value.toFixed(1)}%`;
+  if (id === "motes" || id === "kills" || id === "deaths") return value.toFixed(value >= 100 ? 0 : 1);
+  if (id === "downtime") return `${value.toFixed(1)}%`;
+  return fmtNum(Math.round(value));
+}
+
+function boardDelta(current: number | null, baseline: number | null, higherIsBetter: boolean): { text: string; direction: "improved" | "declined" | "unchanged" } | null {
+  if (current === null || baseline === null) return null;
+  const delta = current - baseline;
+  const tolerance = Math.max(0.001, Math.abs(baseline) * 0.001);
+  if (Math.abs(delta) <= tolerance) return { text: "Same", direction: "unchanged" };
+  const direction = (delta > 0) === higherIsBetter ? "improved" : "declined";
+  if (baseline === 0) return { text: delta > 0 ? "Higher" : "Lower", direction };
+  return {
+    text: `${delta > 0 ? "+" : ""}${Math.round((delta / Math.abs(baseline)) * 100)}%`,
+    direction,
+  };
 }
 
 export default function CoachTab({ character }: { character: string }) {
@@ -814,13 +882,6 @@ export default function CoachTab({ character }: { character: string }) {
     }
   });
 
-  const newestLog = useMemo(
-    () =>
-      logs
-        .filter((l) => l.modifiedTs != null)
-        .sort((a, b) => (b.modifiedTs ?? 0) - (a.modifiedTs ?? 0))[0] ?? null,
-    [logs],
-  );
   const currentLog = logs.find((l) => l.path === config?.logPath) ?? null;
   const sessionHistory = store.history ?? [];
   const selectedHistory = viewScope === "past"
@@ -837,7 +898,8 @@ export default function CoachTab({ character }: { character: string }) {
     .filter((s) => !/\s+\(pet\)$/i.test(s.name))
     .sort((a, b) => b.total - a.total);
   const sessionSources = [...sourceAggs.values()].sort((a, b) => b.total - a.total);
-  const visiblePlayerSources = selectedHistory?.damageSources ?? (isViewingFight ? playerSources : sessionSources);
+  const liveSessionSources = fight?.active ? mergeMeterSources(sessionSources, playerSources) : sessionSources;
+  const visiblePlayerSources = selectedHistory?.damageSources ?? (isViewingFight ? playerSources : liveSessionSources);
   const visiblePlayerDamage = visiblePlayerSources.reduce((sum, row) => sum + row.total, 0) || (isViewingFight ? playerDamage : playerDamageTotal);
   // Old session caches may contain the removed proc/skill classifications.
   const visibleEffectsRows = (selectedHistory?.effects ?? effectsRows).filter(
@@ -879,10 +941,17 @@ export default function CoachTab({ character }: { character: string }) {
     return bxp - axp;
   });
   const bestBucket = buckets[0] ?? null;
-  const livePaceSample = pace.active && pace.active.startedAtMs >= sessionStart
+  const livePaceSample = pace.active
     ? pace.active
     : pace.history.find((sample) => sample.startedAtMs >= sessionStart) ?? null;
   const livePace = livePaceSample ? paceSnapshot(livePaceSample, pace.lootMetrics, now) : null;
+  const recoveredPace = Boolean(pace.active && pace.active.startedAtMs < sessionStart);
+  const recoveredMotes = livePace?.loot.find((row) => row.metricId === "motes")?.total ?? 0;
+  const currentSessionDuration = Math.max(
+    elapsedSecs,
+    fight?.active ? fight.durationSecs : 0,
+    recoveredPace ? Math.round((livePace?.elapsedMs ?? 0) / 1000) : 0,
+  );
   const sessionRoutes: SessionRouteSample[] = routeSegments.map((route) => ({
     label: route.label,
     durationSecs: Math.max(1, Math.round((Math.max(route.endedAtMs, now) - route.startedAtMs) / 1000)),
@@ -894,20 +963,20 @@ export default function CoachTab({ character }: { character: string }) {
   const currentSessionSample: SessionComparisonSample = {
     id: "current-session",
     label: "Current session",
-    durationSecs: elapsedSecs,
-    combatSecs,
-    activeSecs: combatSecs,
-    observations: fightCount,
-    fights: fightCount,
-    kills,
-    deaths,
-    xp: xpSession,
-    aaPoints,
+    durationSecs: currentSessionDuration,
+    combatSecs: combatSecs + (fight?.active ? fight.durationSecs : 0),
+    activeSecs: fightCount > 0 || fight?.active ? combatSecs + (fight?.active ? fight.durationSecs : 0) : null,
+    observations: fightCount + (fight?.active ? 1 : 0),
+    fights: fightCount + (fight?.active ? 1 : 0),
+    kills: recoveredPace ? null : kills,
+    deaths: recoveredPace ? null : deaths,
+    xp: recoveredPace ? livePace?.xpPercent ?? xpSession : xpSession,
+    aaPoints: recoveredPace ? livePace?.aaPointsEarned ?? aaPoints : aaPoints,
     aaPercent: livePace?.aaPercentGained ?? null,
-    motes,
-    damage: playerDamageTotal,
-    damageTaken: damageTakenTotal,
-    skills: sourceSkills(sessionSources),
+    motes: recoveredPace ? recoveredMotes : motes,
+    damage: playerDamageTotal + (fight?.active ? playerDamage : 0),
+    damageTaken: damageTakenTotal + (fight?.active ? playerRow?.damageTaken ?? 0 : 0),
+    skills: sourceSkills(liveSessionSources),
     routes: sessionRoutes,
   };
   const currentFightSample: SessionComparisonSample = {
@@ -918,8 +987,8 @@ export default function CoachTab({ character }: { character: string }) {
     activeSecs: fight?.durationSecs ?? 0,
     observations: fight ? 1 : 0,
     fights: fight ? 1 : 0,
-    damage: playerDamage,
-    damageTaken: playerRow?.damageTaken ?? 0,
+    damage: fight ? playerDamage : null,
+    damageTaken: fight ? playerRow?.damageTaken ?? 0 : null,
     skills: sourceSkills(playerSources),
   };
   const viewedSample = selectedHistory
@@ -930,15 +999,15 @@ export default function CoachTab({ character }: { character: string }) {
     ? baselineCandidates.find((row) => row.id === store.baselineSessionId) ?? null
     : null;
   const baselineRow = configuredBaseline ?? baselineCandidates[0] ?? null;
-  const comparison = baselineRow
-    ? compareSessions(viewedSample, historySample(baselineRow), store.comparisonGoal ?? "xp")
+  const baselineSample = baselineRow ? historySample(baselineRow) : null;
+  const comparison = baselineSample
+    ? compareSessions(currentSessionSample, baselineSample, store.comparisonGoal ?? "xp")
     : null;
   const visibleRoutes = selectedHistory?.routes ?? (isViewingFight ? [] : sessionRoutes);
-  const comparisonMetricGroups = comparison ? [
-    { label: "Progress", metrics: comparison.metrics.filter((metric) => (metric.id === comparison.primaryMetricId && metric.id !== "dps") || metric.id === "killsPerHour") },
-    { label: "Combat", metrics: comparison.metrics.filter((metric) => metric.id === "dps" || metric.id === "damageTakenPerHour" || metric.id === "deathsPerHour") },
-    { label: "Route", metrics: comparison.metrics.filter((metric) => metric.id === "downtimePercent") },
-  ].filter((group) => group.metrics.length > 0) : [];
+  const aaPointsMode = [currentSessionSample, baselineSample]
+    .some((sample) => (sample?.aaPoints ?? 0) > 0);
+  const boardSamples = [currentFightSample, currentSessionSample, baselineSample] as const;
+  const boardSources = [playerSources, liveSessionSources, baselineRow?.damageSources ?? []] as const;
 
   // One-click postable session summary (same cultural fit as the per-fight
   // "Parse copied" button): plain text for Discord/guild chat.
@@ -974,7 +1043,7 @@ export default function CoachTab({ character }: { character: string }) {
       <section className="card coach-span coach-context-card">
         <div className="coach-context-bar">
           <div className="coach-context-picker">
-            <div className="coach-scope-switch" role="group" aria-label="View scope">
+            {section !== "session" && <div className="coach-scope-switch" role="group" aria-label="View scope">
               {([
                 ["fight", fight?.active ? "Current fight" : "Last fight"],
                 ["session", "Current session"],
@@ -995,8 +1064,8 @@ export default function CoachTab({ character }: { character: string }) {
                   {label}
                 </button>
               ))}
-            </div>
-            {viewScope === "past" && (
+            </div>}
+            {section !== "session" && viewScope === "past" && (
               <select
                 id="coach-session-context"
                 value={selectedHistory?.id ?? ""}
@@ -1012,7 +1081,10 @@ export default function CoachTab({ character }: { character: string }) {
                 ))}
               </select>
             )}
-            {viewScope === "session" && (
+            {section !== "session" && viewScope === "past" && sessionHistory.length > 0 && (
+              <button className="ghost small" onClick={clearSessionHistory}>Clear history</button>
+            )}
+            {(section === "session" || viewScope === "session") && (
               <button className="ghost small" onClick={clearSession}>
                 New session
               </button>
@@ -1079,19 +1151,21 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
       </section>
 
-      <section className="card coach-span">
-        <div className="card-head">
-          <span className="section-title">{viewedSample.label}</span>
-          <span className="hint">{isViewingHistory ? selectedHistory.endReason : isViewingFight ? fight?.target : "Live session totals"}</span>
-        </div>
-        <div className="coach-summary">
-          <Stat label="XP" value={viewedSample.xp == null ? "--" : `${viewedSample.xp.toFixed(3)}%`} />
-          <Stat label="AA" value={viewedSample.aaPoints == null ? "--" : String(viewedSample.aaPoints)} />
-          <Stat label="Motes" value={viewedSample.motes == null ? "--" : String(viewedSample.motes)} />
-          <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "--" : fmtNum(viewedSample.damage)} />
-          <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "--"} / ${viewedSample.deaths ?? "--"}`} />
-          <Stat label="Time" value={fmtDuration(visibleDurationSecs)} />
-        </div>
+      <section className={`card coach-span${section === "session" ? " coach-tabs-card" : ""}`}>
+        {section !== "session" && <>
+          <div className="card-head">
+            <span className="section-title">{viewedSample.label}</span>
+            <span className="hint">{isViewingHistory ? selectedHistory.endReason : isViewingFight ? fight?.target : "Live session totals"}</span>
+          </div>
+          <div className="coach-summary">
+            <Stat label="XP" value={viewedSample.xp == null ? "--" : `${viewedSample.xp.toFixed(3)}%`} />
+            <Stat label="AA" value={viewedSample.aaPoints == null ? "--" : String(viewedSample.aaPoints)} />
+            <Stat label="Motes" value={viewedSample.motes == null ? "--" : String(viewedSample.motes)} />
+            <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "--" : fmtNum(viewedSample.damage)} />
+            <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "--"} / ${viewedSample.deaths ?? "--"}`} />
+            <Stat label="Time" value={fmtDuration(visibleDurationSecs)} />
+          </div>
+        </>}
         <div className="coach-tabs">
           {[
             ["session", "Overview"],
@@ -1111,18 +1185,10 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
       </section>
 
-      {section === "session" && viewScope === "session" && <section className="card coach-span session-rates-card">
-        <div className="card-head">
-          <span className="section-title">XP, AA, and Mote Rates</span>
-          <span className="hint">Optional manual sample for AA percentage and planned breaks.</span>
-        </div>
-        <PaceRates pace={pace} onChange={updatePace} />
-      </section>}
-
       {section === "session" && <section className="card coach-span comparison-card">
         <div className="comparison-toolbar">
           <div>
-            <span className="section-title">Compare performance</span>
+            <span className="section-title">Performance</span>
             <span className={`comparison-confidence ${comparison?.confidence.level ?? "insufficient"}`}>
               {comparison?.confidence.label ?? "Start a new session to create a baseline"}
             </span>
@@ -1157,122 +1223,81 @@ export default function CoachTab({ character }: { character: string }) {
             </label>
           </div>
         </div>
-        {comparison ? (
-          <>
-            <div className="comparison-groups">
-              {comparisonMetricGroups.map((group) => (
-                <div className="comparison-group" key={group.label}>
-                  <div className="comparison-group-head">
-                    <strong>{group.label}</strong>
-                    <span>Now</span><span>Baseline</span><span>Change</span>
-                  </div>
-                  {group.metrics.map((metric) => (
-                    <div className="comparison-metric" key={metric.id}>
-                      <strong>{metric.label}</strong>
-                      <span>{formatMetricValue(metric, metric.current)}</span>
-                      <span>{formatMetricValue(metric, metric.baseline)}</span>
-                      <span className={metric.direction}>{metricDelta(metric)}</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
+        <div className="comparison-board">
+          <div className="comparison-board-head">
+            <span>Metric</span>
+            <div>
+              <strong>{fight?.active ? "Current fight" : "Last fight"}</strong>
+              <small>{fight?.target ?? "Waiting for combat"}</small>
             </div>
-            {comparison.confidence.level !== "insufficient" && comparison.findings.length > 0 && (
-              <div className="comparison-findings">
-                {comparison.findings.map((finding) => <span key={finding}>{finding}</span>)}
+            <div>
+              <strong>Current session</strong>
+              <small>{currentSessionSample.fights ?? 0} observed fight{currentSessionSample.fights === 1 ? "" : "s"} · {currentZone}</small>
+            </div>
+            <div>
+              <strong>Baseline session</strong>
+              <small>{baselineRow ? new Date(baselineRow.startedTs).toLocaleString() : "Finish a session to create one"}</small>
+            </div>
+          </div>
+          {BOARD_METRICS.map((metric) => {
+            const values = boardSamples.map((sample) => boardMetricValue(sample, metric.id, aaPointsMode));
+            const delta = metric.id === "duration" || metric.id === "damage" || comparison?.confidence.level === "insufficient"
+              ? null
+              : boardDelta(values[1], values[2], metric.higherIsBetter);
+            const goalMetric = store.comparisonGoal === "xp" ? "xp"
+              : store.comparisonGoal === "aa" ? "aa"
+                : store.comparisonGoal === "motes" ? "motes" : "dps";
+            return (
+              <div className={`comparison-board-row${metric.id === goalMetric ? " goal" : ""}`} key={metric.id}>
+                <strong>{metric.label}</strong>
+                {values.map((value, index) => (
+                  <span className="comparison-board-value" key={index}>
+                    <b>{formatBoardValue(metric.id, value, aaPointsMode)}</b>
+                    {index === 1 && delta && <small className={delta.direction}>{delta.text} vs baseline</small>}
+                  </span>
+                ))}
               </div>
-            )}
-          </>
-        ) : (
-          <div className="comparison-empty">Finish a session with <strong>New session</strong>. It becomes the automatic baseline for the next run.</div>
+            );
+          })}
+        </div>
+        <div className="comparison-skills-head">
+          <span className="section-title">Top skills</span>
+          <span className="hint">Damage shields are included as their own damage source.</span>
+        </div>
+        <div className="comparison-skills">
+          {boardSources.map((sources, column) => {
+            const total = sources.reduce((sum, source) => sum + source.total, 0);
+            return (
+              <div className="comparison-skill-column" key={column}>
+                <strong>{column === 0 ? "Current fight" : column === 1 ? "Current session" : "Baseline session"}</strong>
+                {sources.slice(0, 5).map((source) => {
+                  const uses = source.casts ?? source.hits ?? 0;
+                  return (
+                    <div className="comparison-skill" key={source.name}>
+                      <span>{source.name}</span>
+                      <b>{fmtNum(source.total)}</b>
+                      <small>{pct(total, source.total)}{uses > 0 ? ` · ${fmtNum(Math.round(source.total / uses))}/${source.casts ? "cast" : "hit"}` : ""}</small>
+                    </div>
+                  );
+                })}
+                {sources.length === 0 && <span className="comparison-skill-empty">No damage recorded</span>}
+              </div>
+            );
+          })}
+        </div>
+        {comparison && comparison.confidence.level !== "insufficient" && comparison.findings.length > 0 && (
+          <div className="comparison-findings">
+            {comparison.findings.map((finding) => <span key={finding}>{finding}</span>)}
+          </div>
         )}
       </section>}
 
-      {section === "session" && <section className="card coach-span">
+      {section === "session" && <section className="card coach-span session-rates-card compact">
         <div className="card-head">
-          <span className="section-title">Previous Sessions</span>
-          {sessionHistory.length > 0 && (
-            <button className="ghost small" onClick={clearSessionHistory}>
-              Clear history
-            </button>
-          )}
+          <span className="section-title">Manual AA measurement</span>
+          <span className="hint">Optional when the log cannot report partial AA progress.</span>
         </div>
-        <div className="coach-table">
-          {sessionHistory.slice(0, 8).map((row) => (
-            <button
-              type="button"
-              className={`coach-row session-history-row${selectedHistoryId === row.id ? " active" : ""}`}
-              key={row.id}
-              onClick={() => {
-                setSelectedHistoryId(row.id);
-                setViewScope("past");
-              }}
-            >
-              <strong>{new Date(row.startedTs).toLocaleString()}</strong>
-              <span>{fmtDuration(row.durationSecs)}, {row.zones.slice(0, 2).join(" / ") || "Unknown zone"}</span>
-              <span>{row.xp.toFixed(3)}% XP, {row.kills} kills, {row.deaths} deaths</span>
-              <span>{row.topMob ? `${row.topMob} x${row.topMobKills}` : row.endReason}</span>
-            </button>
-          ))}
-          {sessionHistory.length === 0 && <div className="hint">Previous sessions appear here after you start a new session or AFK auto-reset ends one.</div>}
-        </div>
-      </section>}
-
-      {section === "session" && <section className="card">
-        <div className="card-head"><span className="section-title">Zones / Camps</span></div>
-        <div className="coach-table">
-          {buckets.slice(0, 6).map((b) => (
-            <div className="coach-row compact" key={b.key}>
-              <strong>{b.zone}</strong>
-              <span>{b.difficulty}</span>
-              <span>{b.kills} kills, {b.xp.toFixed(3)}% XP, {fmtNum(b.damage)} dmg</span>
-            </div>
-          ))}
-          {buckets.length === 0 && <div className="hint">Zones appear here after zone, XP, kill, or fight lines are parsed.</div>}
-        </div>
-      </section>}
-
-      {section === "session" && <section className="card">
-        <div className="card-head"><span className="section-title">Mobs Killed</span></div>
-        <div className="coach-table">
-          {visibleTopKills.map((row) => (
-            <div className="coach-row compact" key={row.name}>
-              <strong>{row.name}</strong>
-              <span>{row.count} kill{row.count === 1 ? "" : "s"}</span>
-              <span>{visibleXp > 0 ? "contributed to session XP sample" : "waiting for XP sample"}</span>
-            </div>
-          ))}
-          {visibleTopKills.length === 0 && <div className="hint">Kill counts appear here after slain lines are parsed.</div>}
-        </div>
-      </section>}
-
-      {section === "session" && <section className="card">
-        <div className="card-head"><span className="section-title">{isViewingHistory ? "Saved Damage Sources" : "Current Fight Damage"}</span></div>
-        <div className="coach-table">
-          {visiblePlayerSources.slice(0, 8).map((row) => (
-            <div className="coach-row compact" key={row.name}>
-              <strong>{row.name}</strong>
-              <span>{fmtNum(row.total)} damage</span>
-              <span>
-                {pct(visiblePlayerDamage, row.total)} of damage
-                {(row.casts ?? row.hits ?? 0) > 0 ? ` · ${fmtNum(Math.round(row.total / Math.max(1, row.casts ?? row.hits ?? 0)))} per ${row.casts ? "cast" : "hit"}` : ""}
-              </span>
-            </div>
-          ))}
-          {visiblePlayerSources.length === 0 && <div className="hint">Damage sources appear here once parsed for the selected session.</div>}
-        </div>
-      </section>}
-
-      {section === "session" && <section className="card">
-        <div className="card-head"><span className="section-title">Setup Details</span></div>
-        <div className="coach-kv">
-          <span>Current</span><strong>{currentLog ? `${currentLog.character} / ${currentLog.server}` : character || "Unknown"}</strong>
-          <span>Newest</span><strong>{newestLog ? `${newestLog.character} / ${newestLog.server}` : "No logs found"}</strong>
-          <span>Loadout</span><strong>{activeLoadout?.name ?? "Default"}</strong>
-          <span>Classes</span><strong>{activeLoadout?.classes.join(" / ") || "No classes set"}</strong>
-          <span>Scope</span><strong>Saved for this character and loadout</strong>
-        </div>
-        <p className="hint">Dashboard prompts when another discovered log is newer than the active tailed log.</p>
+        <PaceRates pace={pace} onChange={updatePace} compact />
       </section>}
 
       {section === "damage" && <section className="card coach-span">
@@ -1313,6 +1338,34 @@ export default function CoachTab({ character }: { character: string }) {
             </div>
           )})}
           {visibleRoutes.length === 0 && <div className="hint">Route segments appear as this session records activity by zone and difficulty.</div>}
+        </div>
+      </section>}
+
+      {section === "efficiency" && <section className="card">
+        <div className="card-head"><span className="section-title">Zones / Camps</span></div>
+        <div className="coach-table">
+          {buckets.slice(0, 6).map((bucket) => (
+            <div className="coach-row compact" key={bucket.key}>
+              <strong>{bucket.zone}</strong>
+              <span>{bucket.difficulty}</span>
+              <span>{bucket.kills} kills · {bucket.xp.toFixed(3)}% XP · {fmtNum(bucket.damage)} damage</span>
+            </div>
+          ))}
+          {buckets.length === 0 && <div className="hint">Zone and camp totals appear as the selected session records activity.</div>}
+        </div>
+      </section>}
+
+      {section === "efficiency" && <section className="card">
+        <div className="card-head"><span className="section-title">Mobs Killed</span></div>
+        <div className="coach-table">
+          {visibleTopKills.map((row) => (
+            <div className="coach-row compact" key={row.name}>
+              <strong>{row.name}</strong>
+              <span>{row.count} kill{row.count === 1 ? "" : "s"}</span>
+              <span>{visibleXp > 0 ? `${visibleXp.toFixed(3)}% session XP` : "No XP recorded"}</span>
+            </div>
+          ))}
+          {visibleTopKills.length === 0 && <div className="hint">Kill counts appear after slain lines are parsed.</div>}
         </div>
       </section>}
 

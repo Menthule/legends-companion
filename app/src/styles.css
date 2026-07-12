@@ -1941,6 +1941,13 @@ input[type="checkbox"].live-feature-switch:checked {
   flex-wrap: wrap;
   gap: 6px;
 }
+.coach-tabs-card {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.coach-tabs-card .coach-tabs {
+  margin-top: 0;
+}
 .comparison-card {
   display: flex;
   flex-direction: column;
@@ -1985,53 +1992,147 @@ input[type="checkbox"].live-feature-switch:checked {
 .comparison-controls label:last-child select {
   min-width: 220px;
 }
-.comparison-groups {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-.comparison-group {
-  min-width: 0;
+.comparison-board {
   border: 1px solid var(--hairline);
   border-radius: 6px;
-  overflow: hidden;
+  overflow-x: auto;
 }
-.comparison-group-head,
-.comparison-metric {
+.comparison-board-head,
+.comparison-board-row {
   display: grid;
-  grid-template-columns: minmax(90px, 1fr) repeat(3, minmax(62px, 0.72fr));
-  gap: 8px;
-  align-items: baseline;
-  padding: 7px 9px;
+  grid-template-columns: minmax(95px, 0.55fr) repeat(3, minmax(135px, 1fr));
+  min-width: 620px;
 }
-.comparison-group-head {
+.comparison-board-head {
   background: var(--surface);
   color: var(--ink-muted);
+  border-bottom: 1px solid var(--hairline);
+}
+.comparison-board-head > span,
+.comparison-board-head > div,
+.comparison-board-row > strong,
+.comparison-board-value {
+  min-width: 0;
+  padding: 8px 10px;
+}
+.comparison-board-head > span {
+  align-self: end;
   font-size: 10px;
   text-transform: uppercase;
 }
-.comparison-group-head strong {
+.comparison-board-head > div,
+.comparison-board-value {
+  border-left: 1px solid var(--hairline);
+}
+.comparison-board-head strong,
+.comparison-board-head small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.comparison-board-head strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+.comparison-board-head small {
+  margin-top: 2px;
+  font-size: 10px;
+}
+.comparison-board-row {
+  border-top: 1px solid var(--hairline);
+  align-items: stretch;
+}
+.comparison-board-head + .comparison-board-row {
+  border-top: 0;
+}
+.comparison-board-row.goal {
+  box-shadow: inset 3px 0 0 var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.comparison-board-row > strong {
+  align-self: center;
   color: var(--ink-2);
   font-size: 11px;
 }
-.comparison-metric {
-  border-top: 1px solid var(--hairline);
-  font-size: 12px;
+.comparison-board-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
 }
-.comparison-metric > span,
-.comparison-group-head > span {
-  text-align: right;
+.comparison-board-value b {
+  color: var(--ink);
+  font-size: 14px;
   white-space: nowrap;
 }
-.comparison-metric .improved {
+.comparison-board-value small {
+  overflow: hidden;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.comparison-board-value .improved {
   color: var(--good);
 }
-.comparison-metric .declined {
+.comparison-board-value .declined {
   color: var(--warning);
 }
-.comparison-metric .unavailable,
-.comparison-metric .unchanged {
+.comparison-board-value .unchanged {
   color: var(--ink-muted);
+}
+.comparison-skills-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 2px;
+}
+.comparison-skills {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.comparison-skill-column {
+  min-width: 0;
+  padding: 8px 10px;
+}
+.comparison-skill-column + .comparison-skill-column {
+  border-left: 1px solid var(--hairline);
+}
+.comparison-skill-column > strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink-2);
+  font-size: 11px;
+}
+.comparison-skill {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) auto;
+  gap: 2px 8px;
+  padding: 4px 0;
+  border-top: 1px solid var(--hairline);
+}
+.comparison-skill span,
+.comparison-skill small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.comparison-skill b {
+  font-size: 12px;
+}
+.comparison-skill small {
+  grid-column: 1 / -1;
+  color: var(--ink-muted);
+  font-size: 10px;
+}
+.comparison-skill-empty {
+  color: var(--ink-muted);
+  font-size: 11px;
 }
 .comparison-findings {
   display: flex;
@@ -2048,13 +2149,6 @@ input[type="checkbox"].live-feature-switch:checked {
   margin: 0 6px 2px 0;
   border-radius: 50%;
   background: var(--accent);
-}
-.comparison-empty {
-  padding: 12px;
-  border: 1px dashed var(--border);
-  border-radius: 6px;
-  color: var(--ink-muted);
-  font-size: 12px;
 }
 .diag-grid {
   display: grid;
@@ -2236,9 +2330,6 @@ button.coach-row.active {
   }
   .coach-scope-switch button {
     white-space: normal;
-  }
-  .comparison-groups {
-    grid-template-columns: 1fr;
   }
   .coach-summary {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -4951,6 +5042,15 @@ textarea.share-str:focus {
   text-transform: uppercase;
 }
 .pace-history-row { border-top: 1px solid var(--hairline); font-size: 12px; }
+.session-rates-card.compact .card-head {
+  margin-bottom: 8px;
+}
+.pace-rates.compact .pace-live-head {
+  margin-bottom: 0;
+}
+.pace-rates.compact .pace-start {
+  grid-template-columns: minmax(220px, 1fr) 150px auto;
+}
 @media (max-width: 760px) {
   .pace-start,
   .pace-finish { grid-template-columns: 1fr; align-items: stretch; }

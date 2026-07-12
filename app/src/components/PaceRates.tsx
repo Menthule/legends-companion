@@ -23,9 +23,11 @@ function paceRate(value: number | null, suffix: string): string {
 export default function PaceRates({
   pace,
   onChange,
+  compact = false,
 }: {
   pace: PaceState;
   onChange: (next: PaceState) => void;
+  compact?: boolean;
 }) {
   const nowMs = useNowMs(1_000);
   const [startAa, setStartAa] = useState("");
@@ -54,13 +56,15 @@ export default function PaceRates({
   };
 
   return (
-    <div className="pace-rates">
+    <div className={`pace-rates${compact ? " compact" : ""}`}>
       {!active ? (
         <div className="pace-start">
           <div>
-            <div className="pace-heading">Start a grind sample</div>
+            <div className="pace-heading">{compact ? "Start measurement" : "Start a grind sample"}</div>
             <div className="hint">
-              XP, AA points, and your Mote loot are counted automatically.
+              {compact
+                ? "Enter AA percentage only when you want partial-progress rates."
+                : "XP, AA points, and your Mote loot are counted automatically."}
             </div>
           </div>
           <label className="pace-aa-field">
@@ -78,7 +82,7 @@ export default function PaceRates({
             />
           </label>
           <button className="primary pace-start-btn" onClick={start}>
-            Start sample
+            {compact ? "Start" : "Start sample"}
           </button>
         </div>
       ) : (
@@ -119,7 +123,7 @@ export default function PaceRates({
               </button>
             </div>
           </div>
-          <div className="pace-metrics">
+          {!compact && <div className="pace-metrics">
             <div className="pace-metric">
               <span>XP</span>
               <strong className="num">{paceRate(snapshot?.xpPerHour ?? null, "%/hr")}</strong>
@@ -139,7 +143,7 @@ export default function PaceRates({
                 <small className="num">{lootRate.total} looted</small>
               </div>
             ))}
-          </div>
+          </div>}
           {finishing && (
             <div className="pace-finish">
               <div>
@@ -169,7 +173,7 @@ export default function PaceRates({
           )}
         </>
       )}
-      {pace.history.length > 0 && (
+      {!compact && pace.history.length > 0 && (
         <div className="pace-history">
           <div className="pace-history-head">
             <span>Date</span>
