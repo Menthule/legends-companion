@@ -15,7 +15,6 @@ import {
   OVERLAY_ALERTS,
   type CharacterProfile,
   type OverlayLockPayload,
-  type ProcAlertPayload,
   type TriggerFiredPayload,
   type TriggerIdentity,
   type TriggerOverlayPayload,
@@ -196,21 +195,6 @@ export default function OverlayAlerts() {
   useTauriEvent<TriggerOverlayPayload>("trigger-overlay", (p) => {
     const view = alertOverlayView(p);
     if (view) pushAlert(view.text, p.trigger, view);
-  });
-
-  useTauriEvent<ProcAlertPayload>("proc-alert", (p) => {
-    if (!p?.spell) return;
-    const crit = p.critical ? " crit" : "";
-    const amt =
-      typeof p.amount === "number" && Number.isFinite(p.amount)
-        ? ` ${Math.round(p.amount)}${crit}`
-        : crit;
-    const label =
-      p.kind === "skill" ? "Skill" : p.kind === "spell" ? "Spell" : "Proc";
-    pushAlert(`${label}: ${p.spell}${amt}`, {
-      id: `system/${p.kind}-alert`,
-      name: `${label} alert`,
-    });
   });
 
   // Camp respawn (FightsTab): a timed mob is back up. Visual only — the

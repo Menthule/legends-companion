@@ -299,13 +299,14 @@ export interface ImpactPayload {
 /** The `impact` event payload as emitted by the backend (no local `id`). */
 export type ImpactEvent = Omit<ImpactPayload, "id">;
 
-/** Frontend-detected proc alert payload. */
-export interface ProcAlertPayload {
-  kind: "proc" | "skill" | "spell";
+/** Parsed combat effect forwarded to analytics views. Alerts and TTS are
+ * deliberately trigger-owned and never consume this event. */
+export interface EffectObservedPayload {
+  kind: "spell";
   spell: string;
   target: string;
-  amount?: number | null;
-  critical?: boolean;
+  amount: number | null;
+  critical: boolean;
 }
 
 /** "timer" event payload. */

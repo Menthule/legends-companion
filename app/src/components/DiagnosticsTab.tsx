@@ -5,7 +5,7 @@ import type {
   AppConfig,
   DiscoveredLog,
   LogLinePayload,
-  ProcAlertPayload,
+  EffectObservedPayload,
   TailStatsPayload,
 } from "../types";
 import QuickTriggerModal from "./QuickTriggerModal";
@@ -56,7 +56,7 @@ export default function DiagnosticsTab() {
       ].slice(0, 80));
     }
   });
-  useTauriEvent<ProcAlertPayload>("proc-alert", (p) => {
+  useTauriEvent<EffectObservedPayload>("effect-observed", (p) => {
     setEffects((prev) => [
       {
         id: seq++,
@@ -181,15 +181,15 @@ export default function DiagnosticsTab() {
 
       <section className="card diag-span">
         <div className="card-head">
-          <span className="section-title">Effect Alert Debug</span>
+          <span className="section-title">Observed Spell Effects</span>
         </div>
         <div className="coach-table">
           {effects.length === 0 ? (
-            <div className="hint">Proc, skill, and spell alerts will appear here as they fire.</div>
+            <div className="hint">Parsed spell damage will appear here. Trigger output is inspected in the Triggers tab.</div>
           ) : (
             effects.map((e) => (
               <div className="coach-row compact" key={e.id}>
-                <strong>{e.kind}: {e.spell}</strong>
+                <strong>Spell: {e.spell}</strong>
                 <span>{e.target}</span>
                 <span>{e.amount == null ? "no damage amount" : e.amount}</span>
               </div>

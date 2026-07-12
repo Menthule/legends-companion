@@ -9,7 +9,6 @@ import {
   analyzeLog,
   confirmDiscard,
   deleteFight,
-  dropsEffects,
   exportFight,
   exportSession,
   getConfig,
@@ -29,6 +28,7 @@ import {
   useTauriEvent,
 } from "../hooks";
 import { recordConflict } from "../lib/buffConflicts";
+import { observedSpellEffect } from "../lib/effects";
 import {
   type DamageSummary,
   incomingDamage,
@@ -70,14 +70,9 @@ import {
   computeXpStats,
   loadLevelAnchorKnown,
   loadLevelProgress,
-  loadProcAlerts,
-  loadProcTts,
   loadXpSession,
-  PROC_PREF_EVENT,
   saveLevelAnchorKnown,
   saveLevelProgress,
-  saveProcAlerts,
-  saveProcTts,
   type XpSession,
 } from "../overlayState";
 import type {
@@ -86,7 +81,7 @@ import type {
   FightRecord,
   FightUpdatePayload,
   LogLinePayload,
-  ProcAlertPayload,
+  EffectObservedPayload,
   RespawnInfo,
 } from "../types";
 import Empty from "./Empty";
@@ -129,10 +124,10 @@ interface XpEntry {
   at?: number;
 }
 
-interface ProcEntry {
+interface EffectEntry {
   id: number;
   ts: number;
-  kind: "proc" | "skill" | "spell";
+  kind: "spell";
   spell: string;
   target: string;
   amount: number | null;
@@ -162,15 +157,12 @@ const SESSION_CAP = 200;
 const RECAP_WINDOW_SECS = 15;
 const RECAP_LINE_CAP = 25;
 const RECAP_DAMAGE_CAP = 60;
-const PROC_CAST_SUPPRESS_SECS = 8;
-const CAST_LAND_MARKER_SECS = 2;
-const SPELLBLADE_ACTIVE_SECS = 30 * 60;
 
 const PAGE_SIZE = 25;
 
-function publishProcAlert(payload: ProcAlertPayload): void {
-  if (IS_MOCK) mockEmit("proc-alert", payload);
-  else void emit("proc-alert", payload);
+function publishObservedEffect(payload: EffectObservedPayload): void {
+  if (IS_MOCK) mockEmit("effect-observed", payload);
+  else void emit("effect-observed", payload);
 }
 
 /** Does this hit's flags carry the Finishing Blow AA tag? The Legends parser
@@ -210,72 +202,12 @@ function scoreHit(
   return null;
 }
 
-function skillSpellForVerb(verb: string): string | null {
-  const v = verb.toLowerCase();
-  switch (v) {
-    case "kick":
-    case "kicks":
-    case "round kick":
-    case "round kicks":
-    case "flying kick":
-    case "flying kicks":
-      return "Kick";
-    case "bash":
-    case "bashes":
-      return "Bash";
-    case "slam":
-    case "slams":
-      return "Slam";
-    case "backstab":
-    case "backstabs":
-      return "Backstab";
-    case "frenzy on":
-    case "frenzies on":
-      return "Frenzy";
-    case "smite":
-    case "smites":
-      return "Smite";
-    // Plain "strike(s)"/"claw(s)" are ordinary auto-attack verbs (pets claw
-    // every round) — only the multi-word skill forms alert, or every swing
-    // would fire a proc alert.
-    case "eagle strike":
-    case "eagle strikes":
-      return "Eagle Strike";
-    case "tiger claw":
-    case "tiger claws":
-      return "Tiger Claw";
-    case "dragon punch":
-    case "dragon punches":
-      return "Dragon Punch";
-    case "tail rake":
-    case "tail rakes":
-      return "Tail Rake";
-    default:
-      return null;
-  }
-}
-
-function isSkillAlertAttacker(
-  attacker: string,
-  character: string,
-  ownedNames: Set<string>,
-) {
-  const key = attacker.toLowerCase();
-  return attacker === "You" || key === character.toLowerCase() || ownedNames.has(key);
-}
-
-function effectKindLabel(kind: ProcEntry["kind"]): string {
-  if (kind === "proc") return "Proc";
-  if (kind === "skill") return "Skill";
-  return "Spell";
-}
-
-function effectName(entry: Pick<ProcEntry, "kind" | "spell">): string {
-  return `${effectKindLabel(entry.kind)}: ${entry.spell}`;
+function effectName(entry: Pick<EffectEntry, "spell">): string {
+  return `Spell: ${entry.spell}`;
 }
 
 function effectAmountText(
-  entry: Pick<ProcEntry, "amount" | "critical">,
+  entry: Pick<EffectEntry, "amount" | "critical">,
 ): string {
   if (entry.amount == null) return entry.critical ? "crit" : "";
   return `${fmtNum(entry.amount)}${entry.critical ? " crit" : ""}`;
@@ -423,9 +355,7 @@ export default function FightsTab({ character }: { character: string }) {
   // regardless of which tab is showing (this component stays mounted).
   const [loot, setLoot] = useState<LootEntry[]>([]);
   const [rolls, setRolls] = useState<RollEntry[]>([]);
-  const [procs, setProcs] = useState<ProcEntry[]>([]);
-  const [procAlerts, setProcAlerts] = useState(() => loadProcAlerts());
-  const [procTts, setProcTts] = useState(() => loadProcTts());
+  const [effects, setEffects] = useState<EffectEntry[]>([]);
   const [ownedNames, setOwnedNames] = useState<Set<string>>(() => new Set());
   const [xp, setXp] = useState<XpSession>(() => loadXpSession());
   const [pace, setPace] = useState<PaceState>(() => loadPaceState());
@@ -446,11 +376,6 @@ export default function FightsTab({ character }: { character: string }) {
   const recentLines = useRef<{ ts: number; message: string; kind: string }[]>([]);
   // Structured incoming-damage ring for the death recap (P25).
   const recentDamage = useRef<({ ts: number } & IncomingHit)[]>([]);
-  const recentCasts = useRef<{ ts: number; spell: string }[]>([]);
-  const recentCastLands = useRef<{ ts: number }[]>([]);
-  const recentSkills = useRef<{ ts: number; spell: string; target: string }[]>([]);
-  const procEffectNames = useRef<Set<string>>(new Set());
-  const spellbladeActiveUntil = useRef(0);
   // Replay catch-up (item 13): the backend suppresses trigger audio for
   // replayed lines; side-effectful features here must stay quiet too — no
   // late "X dropped!" speech, no camp timers anchored at Date.now() for
@@ -472,20 +397,6 @@ export default function FightsTab({ character }: { character: string }) {
   // Bumped when a lazy respawn lookup resolves so the kills card re-renders.
   const [, setRespawnTick] = useState(0);
 
-  useEffect(() => {
-    dropsEffects(99)
-      .then((effects) => {
-        procEffectNames.current = new Set(
-          effects
-            .filter((e) => e.kind === "proc" || e.kind === "click")
-            .map((e) => e.name.toLowerCase()),
-        );
-      })
-      .catch(() => {
-        procEffectNames.current = new Set();
-      });
-  }, []);
-
   const syncOwnedNames = useCallback((config: AppConfig) => {
     setOwnedNames(
       new Set(
@@ -501,19 +412,6 @@ export default function FightsTab({ character }: { character: string }) {
   }, [syncOwnedNames]);
 
   useTauriEvent<AppConfig>("config-changed", syncOwnedNames);
-
-  useEffect(() => {
-    const onProcPref = () => {
-      setProcAlerts(loadProcAlerts());
-      setProcTts(loadProcTts());
-    };
-    window.addEventListener(PROC_PREF_EVENT, onProcPref);
-    window.addEventListener("storage", onProcPref);
-    return () => {
-      window.removeEventListener(PROC_PREF_EVENT, onProcPref);
-      window.removeEventListener("storage", onProcPref);
-    };
-  }, []);
 
   const handleNamedSlain = useCallback((victim: string) => {
     const key = victim.toLowerCase();
@@ -579,69 +477,25 @@ export default function FightsTab({ character }: { character: string }) {
       ...recentLines.current.filter((l) => p.ts - l.ts <= RECAP_WINDOW_SECS),
       { ts: p.ts, message: p.message, kind },
     ].slice(-RECAP_LINE_CAP);
-    if (p.message === "You begin reciting the spellblade invocation.") {
-      spellbladeActiveUntil.current = p.ts + SPELLBLADE_ACTIVE_SECS;
-    }
-    if (p.message === "You regain your concentration and continue your casting.") {
-      recentCastLands.current = [
-        ...recentCastLands.current.filter(
-          (c) => p.ts - c.ts <= CAST_LAND_MARKER_SECS,
-        ),
-        { ts: p.ts },
-      ];
-    }
-    const publishEffect = (entry: ProcEntry) => {
-      setProcs((prev) => [entry, ...prev].slice(0, SESSION_CAP));
-      const payload: ProcAlertPayload = {
+    const publishEffect = (entry: EffectEntry) => {
+      setEffects((prev) => [entry, ...prev].slice(0, SESSION_CAP));
+      const payload: EffectObservedPayload = {
         kind: entry.kind,
         spell: entry.spell,
         target: entry.target,
         amount: entry.amount,
         critical: entry.critical,
       };
-      if (procAlerts) publishProcAlert(payload);
-      if (procTts) {
-        const amountText = effectAmountText(entry);
-        void speakText(`${effectName(entry)}${amountText ? ` ${amountText}` : ""}`);
-      }
+      publishObservedEffect(payload);
     };
-    const spellbladeHit = /^(.+) is stung by a dozen flashes of the blade\.$/i.exec(
-      p.message,
-    );
-    if (spellbladeHit && p.ts <= spellbladeActiveUntil.current) {
-      publishEffect({
-        id: sessionSeq.current++,
-        ts: p.ts,
-        kind: "skill",
-        spell: "Spellblade",
-        target: spellbladeHit[1],
-        amount: null,
-        critical: false,
-      });
-    }
     // "Skill: Reave" was formerly hardcoded here; it is now the curated,
     // per-taste-toggleable trigger `skills/melee/reave` (default OFF) in
     // triggers/curated/skills.json — see the "everything configurable"
     // principle. Removed so it no longer double-fires as a built-in alert.
     if (typeof ev !== "object" || ev === null) return;
-    if ("CastBegin" in ev) {
-      const d = ev.CastBegin as Record<string, unknown>;
-      const caster = entityName(d.caster);
-      const spell = String(d.spell ?? "").trim();
-      if ((caster === "You" || caster === character) && spell) {
-        recentCasts.current = [
-          ...recentCasts.current.filter(
-            (c) => p.ts - c.ts <= PROC_CAST_SUPPRESS_SECS,
-          ),
-          { ts: p.ts, spell },
-        ];
-      }
-    }
     if ("MeleeHit" in ev) {
       const d = ev.MeleeHit as Record<string, unknown>;
       const attacker = entityName(d.attacker);
-      const target = entityName(d.target);
-      const verb = String(d.verb ?? "");
       const flags = d.flags as Record<string, unknown> | undefined;
       // Finishing Blow AA: the hit line is tagged "(Finishing Blow)". We count
       // it toward the Scoreboard leaderboard here; the DRAMATIC moment (the
@@ -651,20 +505,6 @@ export default function FightsTab({ character }: { character: string }) {
       if (hasFinishingBlowFlag(flags)) {
         bumpPlayer(attacker).finishingBlows++;
         scoreDirty.current = true;
-      }
-      const skillSpell = skillSpellForVerb(verb);
-      // Skill alerts (Kick, Bash, …) are now individually-configurable curated
-      // triggers (triggers/curated/skills.json) — see the "everything
-      // configurable" principle. We no longer publish a built-in Skill alert
-      // here; we only keep the recentSkills correlation so a skill's follow-up
-      // SpellDamage line isn't misclassified as a separate proc below.
-      if (skillSpell && isSkillAlertAttacker(attacker, character, ownedNames)) {
-        recentSkills.current = [
-          ...recentSkills.current.filter(
-            (s) => p.ts - s.ts <= PROC_CAST_SUPPRESS_SECS,
-          ),
-          { ts: p.ts, spell: skillSpell, target },
-        ];
       }
     }
     // Track incoming damage for the death recap (P25) — any damage event
@@ -696,24 +536,6 @@ export default function FightsTab({ character }: { character: string }) {
       const spell = String(d.spell ?? "").trim();
       const amount = typeof d.amount === "number" ? d.amount : 0;
       const target = entityName(d.target);
-      const recentCastIndex = recentCasts.current.findIndex(
-        (c) =>
-          c.spell === spell &&
-          p.ts - c.ts >= 0 &&
-          p.ts - c.ts <= PROC_CAST_SUPPRESS_SECS,
-      );
-      const recentCastLandIndex = recentCastLands.current.findIndex(
-        (c) =>
-          p.ts - c.ts >= 0 &&
-          p.ts - c.ts <= CAST_LAND_MARKER_SECS,
-      );
-      const matchedSkill = recentSkills.current.find(
-        (s) =>
-          s.spell === spell &&
-          s.target === target &&
-          p.ts - s.ts >= 0 &&
-          p.ts - s.ts <= PROC_CAST_SUPPRESS_SECS,
-      );
       if (
         (caster === "You" || caster === character) &&
         target !== "You" &&
@@ -721,32 +543,16 @@ export default function FightsTab({ character }: { character: string }) {
         amount > 0
       ) {
         const flags = d.flags as Record<string, unknown> | undefined;
-        const wasRecentlyCast = recentCastIndex >= 0;
-        const effectKind: ProcEntry["kind"] = matchedSkill
-          ? "skill"
-          : wasRecentlyCast
-            ? "spell"
-            : procEffectNames.current.has(spell.toLowerCase())
-              ? "proc"
-              : "spell";
-        if (wasRecentlyCast) {
-          recentCasts.current = recentCasts.current.filter(
-            (_, i) => i !== recentCastIndex,
-          );
-          if (recentCastLandIndex >= 0) {
-            recentCastLands.current = recentCastLands.current.filter(
-              (_, i) => i !== recentCastLandIndex,
-            );
-          }
-        }
-        const entry: ProcEntry = {
-          id: sessionSeq.current++,
-          ts: p.ts,
-          kind: effectKind,
+        const observed = observedSpellEffect(
           spell,
           target,
           amount,
-          critical: flags?.critical === true,
+          flags?.critical === true,
+        );
+        const entry: EffectEntry = {
+          id: sessionSeq.current++,
+          ts: p.ts,
+          ...observed,
         };
         publishEffect(entry);
       }
@@ -1047,7 +853,7 @@ export default function FightsTab({ character }: { character: string }) {
           pace,
           level: { progress: levelProgress, anchorKnown: levelAnchorKnown },
           kills: Object.values(kills),
-          effects: procs,
+          effects,
           deathRecaps: recaps.map(({ id, ts, killer, damage }) => ({
             id,
             ts,
@@ -1406,17 +1212,7 @@ export default function FightsTab({ character }: { character: string }) {
       <SessionSection
         loot={loot}
         rolls={rolls}
-        procs={procs}
-        procAlerts={procAlerts}
-        procTts={procTts}
-        onSetProcAlerts={(value) => {
-          setProcAlerts(value);
-          saveProcAlerts(value);
-        }}
-        onSetProcTts={(value) => {
-          setProcTts(value);
-          saveProcTts(value);
-        }}
+        effects={effects}
         xp={xp}
         pace={pace}
         onSetPace={(next) => {
@@ -1709,11 +1505,7 @@ function PaceRates({
 function SessionSection({
   loot,
   rolls,
-  procs,
-  procAlerts,
-  procTts,
-  onSetProcAlerts,
-  onSetProcTts,
+  effects,
   xp,
   pace,
   onSetPace,
@@ -1730,11 +1522,7 @@ function SessionSection({
 }: {
   loot: LootEntry[];
   rolls: RollEntry[];
-  procs: ProcEntry[];
-  procAlerts: boolean;
-  procTts: boolean;
-  onSetProcAlerts: (value: boolean) => void;
-  onSetProcTts: (value: boolean) => void;
+  effects: EffectEntry[];
   xp: XpSession;
   pace: PaceState;
   onSetPace: (next: PaceState) => void;
@@ -1766,11 +1554,11 @@ function SessionSection({
 
   const groups = useMemo(() => groupRolls(rolls), [rolls]);
   const recentRolls = useMemo(() => rolls.slice(0, RECENT_ROLLS), [rolls]);
-  const procRows = useMemo(() => {
+  const effectRows = useMemo(() => {
     const bySpell = new Map<
       string,
       {
-        kind: ProcEntry["kind"];
+        kind: EffectEntry["kind"];
         spell: string;
         count: number;
         damage: number;
@@ -1779,7 +1567,7 @@ function SessionSection({
         lastTs: number;
       }
     >();
-    for (const p of procs) {
+    for (const p of effects) {
       const key = `${p.kind}:${p.spell.toLowerCase()}`;
       const cur = bySpell.get(key);
       if (cur) {
@@ -1803,7 +1591,7 @@ function SessionSection({
     return [...bySpell.values()]
       .sort((a, b) => b.count - a.count || b.damage - a.damage || b.lastTs - a.lastTs)
       .slice(0, 12);
-  }, [procs]);
+  }, [effects]);
   // Live XP rate: the window extends to "now" (ticking every 15 s), so the
   // rate decays between kills instead of freezing at the last gain.
   const nowMs = useNowMs();
@@ -1836,7 +1624,7 @@ function SessionSection({
           ["rates", "Rates", pace.history.length],
           ["xp", "XP", xp.count],
           ["kills", "Kills", killRows.length],
-          ["effects", "Effects", procs.length],
+          ["effects", "Effects", effects.length],
           ["deaths", "Death recaps", recaps.length],
           ["loot", "Loot", loot.length],
           ["wishlist", "Wishlist", wishlist.length],
@@ -1991,31 +1779,13 @@ function SessionSection({
 
       {tab === "effects" && <Collapsible
         title="Effects"
-        count={procs.length}
-        storageKey="procs"
-        headerAside={
-          <>
-            <button
-              className={`ghost small${procAlerts ? " active" : ""}`}
-              onClick={() => onSetProcAlerts(!procAlerts)}
-              title="Show proc, skill, and spell text in the Alerts overlay"
-            >
-              Alerts {procAlerts ? "on" : "off"}
-            </button>
-            <button
-              className={`ghost small${procTts ? " active" : ""}`}
-              onClick={() => onSetProcTts(!procTts)}
-              title="Speak proc, skill, and spell effect names with TTS"
-            >
-              TTS {procTts ? "on" : "off"}
-            </button>
-          </>
-        }
+        count={effects.length}
+        storageKey="effects"
       >
-        {procs.length === 0 ? (
+        {effects.length === 0 ? (
           <Empty
             title="No effects yet"
-            body="Weapon procs, skill riders, and direct spell hits from you appear here."
+            body="Parsed skill riders and direct spell hits from you appear here. Alerts and TTS are configured through triggers."
           />
         ) : (
           <>
@@ -2026,7 +1796,7 @@ function SessionSection({
                 <span className="num">Damage</span>
                 <span className="num">Last</span>
               </div>
-              {procRows.map((p) => (
+              {effectRows.map((p) => (
                 <div className="kills-row" key={`${p.kind}:${p.spell}`}>
                   <span className="session-item">{effectName(p)}</span>
                   <span className="num">
@@ -2044,7 +1814,7 @@ function SessionSection({
                 <span>Effect</span>
                 <span>Target</span>
               </div>
-              {procs.slice(0, 20).map((p) => (
+              {effects.slice(0, 20).map((p) => (
                 <div className="session-loot-row" key={p.id}>
                   <span className="session-time num">{fmtClock(p.ts)}</span>
                   <span className="session-item">

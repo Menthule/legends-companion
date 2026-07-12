@@ -10,7 +10,7 @@ import type {
   FightUpdatePayload,
   LogLinePayload,
   MeterSourceRow,
-  ProcAlertPayload,
+  EffectObservedPayload,
 } from "../types";
 import { petRowsForCharacter, summedRowsTotal } from "../lib/sessionInsights";
 
@@ -22,7 +22,7 @@ const DIFFICULTIES = ["Unknown", "D1", "D2", "D3", "D4", "D5", "Custom"];
 
 interface EffectAgg {
   key: string;
-  kind: ProcAlertPayload["kind"];
+  kind: EffectObservedPayload["kind"];
   name: string;
   total: number;
   hits: number;
@@ -441,7 +441,7 @@ export default function CoachTab({ character }: { character: string }) {
     }
   });
 
-  useTauriEvent<ProcAlertPayload>("proc-alert", (p) => {
+  useTauriEvent<EffectObservedPayload>("effect-observed", (p) => {
     const key = `${p.kind}:${p.spell}`;
     setEffects((prev) => {
       const next = new Map(prev);
@@ -557,7 +557,10 @@ export default function CoachTab({ character }: { character: string }) {
     .sort((a, b) => b.total - a.total);
   const visiblePlayerSources = selectedHistory?.damageSources ?? playerSources;
   const visiblePlayerDamage = visiblePlayerSources.reduce((sum, row) => sum + row.total, 0) || playerDamage;
-  const visibleEffectsRows = selectedHistory?.effects ?? effectsRows;
+  // Old session caches may contain the removed proc/skill classifications.
+  const visibleEffectsRows = (selectedHistory?.effects ?? effectsRows).filter(
+    (row) => row.kind === "spell",
+  );
   const visibleEffectDamage = visibleEffectsRows.reduce((sum, row) => sum + row.total, 0);
   const petSources = petRows
     .flatMap((row) => row.sources ?? [])
@@ -654,7 +657,7 @@ export default function CoachTab({ character }: { character: string }) {
     bestBucket && currentBucket && bestBucket.key !== currentBucket.key
       ? `${bestBucket.difficulty} in ${bestBucket.zone} is your best stored XP pace.`
       : "",
-    visibleEffectsRows[0] ? `${visibleEffectsRows[0].name} leads tracked proc/skill/spell damage.` : "",
+    visibleEffectsRows[0] ? `${visibleEffectsRows[0].name} leads observed spell damage.` : "",
     visiblePetDamage > 0 ? `Pets have contributed ${fmtNum(visiblePetDamage)} damage.` : "",
   ].filter(Boolean);
 
@@ -903,17 +906,17 @@ export default function CoachTab({ character }: { character: string }) {
       </section>}
 
       {section === "damage" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">Proc / Skill / Spell Totals</span></div>
-        <p className="hint">Aggregate tracked alert contribution for this session. Line-level alert debugging lives in Diagnostics.</p>
+        <div className="card-head"><span className="section-title">Spell Effect Totals</span></div>
+        <p className="hint">Aggregate parsed spell damage for this session. Alerting and TTS are configured through triggers.</p>
         <div className="coach-table">
           {visibleEffectsRows.slice(0, 12).map((row) => (
             <div className="coach-row compact" key={row.key}>
-              <strong>{row.kind}: {row.name}</strong>
+              <strong>Spell: {row.name}</strong>
               <span>{fmtNum(row.total)} damage</span>
               <span>{row.hits} hits, {pct(visibleEffectDamage, row.total)} share</span>
             </div>
           ))}
-          {visibleEffectsRows.length === 0 && <div className="hint">Proc, skill, and spell alert totals will appear here as they fire.</div>}
+          {visibleEffectsRows.length === 0 && <div className="hint">Parsed spell damage will appear here as it occurs.</div>}
         </div>
       </section>}
 
