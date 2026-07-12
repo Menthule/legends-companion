@@ -66,6 +66,8 @@ import GlobalSearchModal from "./GlobalSearchModal";
 import CoachTab from "./CoachTab";
 import DiagnosticsTab from "./DiagnosticsTab";
 import PatchNotesTab from "./PatchNotesTab";
+import QuestsTab from "./QuestsTab";
+import { loadQuestCatalog, questsForGiver, type QuestRecord } from "../lib/quests";
 import {
   IconAbilities,
   IconEye,
@@ -74,6 +76,7 @@ import {
   IconDiagnostics,
   IconInsights,
   IconPatchNotes,
+  IconQuests,
   IconLive,
   IconLock,
   IconMacros,
@@ -104,6 +107,7 @@ type TabId =
   | "patch-notes"
   | "drops"
   | "mobs"
+  | "quests"
   | "recipes"
   | "spells"
   | "abilities"
@@ -136,6 +140,7 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
     tabs: [
       { id: "drops", label: "Drops", icon: IconDrops },
       { id: "mobs", label: "Mobs", icon: IconMobs },
+      { id: "quests", label: "Quests", icon: IconQuests },
       { id: "recipes", label: "Recipes", icon: IconRecipes },
       { id: "spells", label: "Spells", icon: IconSpells },
       { id: "abilities", label: "Abilities", icon: IconAbilities },
@@ -285,6 +290,7 @@ export default function Dashboard() {
     query: string;
     seq: number;
   } | null>(null);
+  const [questsRequest, setQuestsRequest] = useState<{ query: string; seq: number } | null>(null);
   const [triggersRequest, setTriggersRequest] = useState<{
     query: string;
     seq: number;
@@ -309,6 +315,7 @@ export default function Dashboard() {
   const [suggestedLog, setSuggestedLog] = useState<DiscoveredLog | null>(null);
   const [dismissedLogPath, setDismissedLogPath] = useState("");
   const [hailCard, setHailCard] = useState<{ name: string; ts: number } | null>(null);
+  const [hailQuests, setHailQuests] = useState<QuestRecord[]>([]);
   const [liveMenuOpen, setLiveMenuOpen] = useState(false);
   const [overlayMenuOpen, setOverlayMenuOpen] = useState(false);
   const [sessionMenuOpen, setSessionMenuOpen] = useState(false);
@@ -326,6 +333,19 @@ export default function Dashboard() {
     closeTopbarPopovers,
   );
   const pendingHailUntil = useRef(0);
+  useEffect(() => {
+    let stale = false;
+    if (!hailCard) {
+      setHailQuests([]);
+      return;
+    }
+    void loadQuestCatalog().then((catalog) => {
+      if (!stale) setHailQuests(questsForGiver(hailCard.name, currentZone ?? "", catalog.quests));
+    });
+    return () => {
+      stale = true;
+    };
+  }, [hailCard?.name, currentZone]);
   useEffect(() => {
     const onOpenMobs = (e: Event) => {
       const query = String((e as CustomEvent).detail ?? "").trim();
@@ -749,6 +769,13 @@ export default function Dashboard() {
             }));
             setTab("mobs");
             break;
+          case "quests":
+            setQuestsRequest((prev) => ({
+              query: action.query,
+              seq: (prev?.seq ?? 0) + 1,
+            }));
+            setTab("quests");
+            break;
           case "recipes":
             setRecipesRequest((prev) => ({
               query: action.query,
@@ -1156,7 +1183,21 @@ export default function Dashboard() {
             <div className="hail-card" role="status">
               <span className="hail-card-main">
                 <strong>Hail:</strong> {hailCard.name}
+                {hailQuests.length > 0 && (
+                  <small>{hailQuests.length} quest{hailQuests.length === 1 ? "" : "s"}: {hailQuests.slice(0, 3).map((quest) => quest.name).join(", ")}</small>
+                )}
               </span>
+              {hailQuests.length > 0 && (
+                <button
+                  className="primary small"
+                  onClick={() => {
+                    setQuestsRequest((prev) => ({ query: hailCard.name, seq: (prev?.seq ?? 0) + 1 }));
+                    setTab("quests");
+                  }}
+                >
+                  Quests ({hailQuests.length})
+                </button>
+              )}
               <button
                 className="ghost small"
                 onClick={() => {
@@ -1231,6 +1272,9 @@ export default function Dashboard() {
           </section>
           <section className={`page${tab === "mobs" ? "" : " hidden"}`}>
             {visited.has("mobs") && <MobsTab searchRequest={mobsRequest} />}
+          </section>
+          <section className={`page${tab === "quests" ? "" : " hidden"}`}>
+            {visited.has("quests") && <QuestsTab character={character} searchRequest={questsRequest} />}
           </section>
           <section className={`page${tab === "recipes" ? "" : " hidden"}`}>
             {visited.has("recipes") && (

@@ -19,11 +19,13 @@ import {
   type SpellRow,
   type TriggerTreeEntry,
 } from "../types";
+import { loadQuestCatalog, searchQuests, type QuestRecord } from "./quests";
 
 export type GlobalSearchGroupId =
   | "logs"
   | "items"
   | "mobs"
+  | "quests"
   | "spells"
   | "abilities"
   | "recipes"
@@ -34,6 +36,7 @@ export type GlobalSearchTab =
   | "live"
   | "drops"
   | "mobs"
+  | "quests"
   | "spells"
   | "abilities"
   | "recipes"
@@ -110,6 +113,7 @@ const GROUP_TITLES: Record<GlobalSearchGroupId, string> = {
   logs: "Recent log lines",
   items: "Items / drops",
   mobs: "Mobs",
+  quests: "Quests",
   spells: "Spells",
   abilities: "Abilities",
   recipes: "Recipes",
@@ -133,6 +137,7 @@ export async function globalSearch(
   const [
     items,
     mobs,
+    quests,
     spells,
     abilities,
     recipes,
@@ -141,6 +146,7 @@ export async function globalSearch(
   ] = await Promise.all([
     searchItems(query, limit, eraMax, zoneHint),
     searchMobs(query, limit, eraMax, zoneHint),
+    searchQuestRecords(query, limit),
     searchSpells(query, false, limit),
     searchSpells(query, true, limit),
     searchRecipes(query, limit),
@@ -154,6 +160,7 @@ export async function globalSearch(
       group("logs", searchRecentLogLines(query, Math.max(limit, 8)), recentLines.length),
       group("items", items.rows, items.total),
       group("mobs", mobs.rows, mobs.total),
+      group("quests", quests.rows, quests.total),
       group("spells", spells.rows, spells.total),
       group("abilities", abilities.rows, abilities.total),
       group("recipes", recipes.rows, recipes.total),
@@ -281,6 +288,15 @@ async function searchMobs(
   }
 }
 
+async function searchQuestRecords(
+  query: string,
+  limit: number,
+): Promise<{ rows: GlobalSearchResult[]; total: number }> {
+  const catalog = await loadQuestCatalog();
+  const matches = searchQuests(query, { limit: 5000 }, catalog.quests);
+  return { total: matches.length, rows: matches.slice(0, limit).map(questResult) };
+}
+
 async function searchSpells(
   query: string,
   isAbility: boolean,
@@ -396,6 +412,20 @@ function mobResult(row: MobRow, zoneHint: ZoneHint | null): GlobalSearchResult {
       row.lootCount > 0 ? `${row.lootCount} loot` : "",
     ].filter(Boolean),
     action: { kind: "open-tab-search", tab: "mobs", query: row.name },
+  };
+}
+
+function questResult(row: QuestRecord): GlobalSearchResult {
+  return {
+    id: `quest:${row.id}`,
+    group: "quests",
+    title: row.name,
+    subtitle: [row.zone, row.givers[0] ? `Giver: ${row.givers[0]}` : ""].filter(Boolean).join(" · "),
+    meta: [
+      row.classes.join(" / "),
+      row.requirements.length > 0 ? `${row.requirements.length} required items` : "",
+    ].filter(Boolean),
+    action: { kind: "open-tab-search", tab: "quests", query: row.name },
   };
 }
 

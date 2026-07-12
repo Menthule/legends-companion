@@ -27,6 +27,7 @@ import {
 } from "./mock";
 import { buildShareString } from "./lib/share";
 import { formatParse, type ParseInput } from "./lib/parseText";
+import type { InventorySnapshot } from "./lib/quests";
 import type {
   ActiveTimerSnapshot,
   AppConfig,
@@ -597,6 +598,30 @@ export async function pickLogFile(): Promise<string | null> {
     filters: [{ name: "EverQuest log", extensions: ["txt", "log"] }],
   });
   return typeof sel === "string" ? sel : null;
+}
+
+export async function pickInventoryFile(): Promise<string | null> {
+  if (IS_MOCK) return null;
+  const selected = await dialogOpen({
+    multiple: false,
+    directory: false,
+    filters: [{ name: "EverQuest inventory export", extensions: ["txt"] }],
+  });
+  return typeof selected === "string" ? selected : null;
+}
+
+export function inventoryDiscover(args: {
+  logPath: string;
+  character: string;
+  server: string;
+}): Promise<InventorySnapshot | null> {
+  if (IS_MOCK) return Promise.resolve(null);
+  return invoke<InventorySnapshot | null>("inventory_discover", args);
+}
+
+export function inventoryImport(path: string): Promise<InventorySnapshot> {
+  if (IS_MOCK) return Promise.reject(new Error("Inventory import needs the desktop app."));
+  return invoke<InventorySnapshot>("inventory_import", { path });
 }
 
 /**

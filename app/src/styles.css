@@ -4431,12 +4431,199 @@ input[type="text"].ted-duration {
   padding: 8px 12px;
 }
 .hail-card-main {
+  display: flex;
+  flex: 1 1 260px;
+  flex-direction: column;
+  gap: 2px;
   margin-right: 4px;
+}
+.hail-card-main small {
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .button-link {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+}
+
+/* -------------------------------------------------------------- quests */
+.quests-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.quest-toolbar-band {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: var(--surface-raised);
+}
+.quest-search-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(150px, 220px) minmax(130px, 190px) auto;
+  gap: 8px;
+  align-items: center;
+}
+.quest-inventory-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px solid var(--hairline);
+}
+.quest-inventory-bar > div {
+  display: grid;
+  grid-template-columns: auto minmax(140px, auto) minmax(200px, 1fr);
+  gap: 4px 10px;
+  align-items: baseline;
+  flex: 1;
+  min-width: 0;
+}
+.quest-inventory-bar span,
+.quest-inventory-bar small {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.quest-inventory-bar small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.quest-inventory-bar .error-text {
+  color: var(--critical);
+}
+.quest-inventory-bar .warning-text {
+  color: var(--warning);
+}
+.quest-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.quest-row-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+  padding: 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: var(--surface-raised);
+}
+.quest-row-card > header,
+.quest-row-card > footer,
+.quest-requirements-head,
+.quest-rewards {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.quest-row-card h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.quest-row-card header div > span,
+.quest-row-card p,
+.quest-row-card footer,
+.quest-requirements-head span {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.quest-row-card p {
+  margin: 0;
+  line-height: 1.45;
+}
+.quest-sky-badge {
+  flex: none;
+  padding: 2px 6px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 10px;
+}
+.quest-meta-line {
+  display: grid;
+  grid-template-columns: auto minmax(100px, 1fr) auto auto;
+  gap: 4px 8px;
+  align-items: baseline;
+}
+.quest-meta-line span,
+.quest-rewards span {
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.quest-meta-line strong,
+.quest-rewards strong {
+  font-size: 12px;
+}
+.quest-requirements {
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.quest-requirements-head {
+  padding: 6px 0;
+  font-size: 11px;
+}
+.quest-requirements label {
+  display: grid;
+  grid-template-columns: 18px minmax(120px, 1fr) auto;
+  gap: 4px 7px;
+  align-items: center;
+  padding: 5px 0;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-2);
+}
+.quest-requirements label.complete {
+  color: var(--good);
+}
+.quest-requirements label input {
+  width: 14px;
+  height: 14px;
+}
+.quest-requirements label small {
+  grid-column: 2 / -1;
+  color: var(--ink-muted);
+  font-size: 10px;
+}
+.quest-row-card > footer {
+  margin-top: auto;
+  padding-top: 2px;
+}
+.quest-row-card > footer a {
+  color: var(--accent);
+}
+.quest-empty {
+  grid-column: 1 / -1;
+  padding: 32px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+.quest-attribution {
+  padding: 4px 2px 12px;
+  color: var(--ink-muted);
+  font-size: 10px;
+}
+@media (max-width: 980px) {
+  .quest-search-row,
+  .quest-results {
+    grid-template-columns: 1fr;
+  }
+  .quest-inventory-bar > div {
+    grid-template-columns: auto 1fr;
+  }
+  .quest-inventory-bar small {
+    grid-column: 1 / -1;
+  }
 }
 
 /* pack-warnings banner (amber, dismissible) */

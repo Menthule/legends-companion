@@ -9,6 +9,7 @@ mod data_root;
 mod datapack;
 mod discover;
 mod dropdb;
+mod inventory;
 mod library;
 mod logging;
 mod meters;
@@ -312,6 +313,8 @@ pub fn run() {
             spelldb::spells_search,
             spelldb::unlocks_at_level,
             library::get_profile,
+            inventory::inventory_discover,
+            inventory::inventory_import,
             library::set_profile,
             library::set_active_character,
             library::switch_loadout,

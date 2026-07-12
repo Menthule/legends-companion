@@ -1,6 +1,6 @@
 [package]
 name = "eqlogs-app"
-version = "0.2.12"
+version = "0.2.13"
 edition = "2021"
 license = "MIT"
 description = "Legends Companion — EverQuest Legends log companion (dashboard + overlays)"

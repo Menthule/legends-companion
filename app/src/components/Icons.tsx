@@ -164,6 +164,16 @@ export function IconRecipes({ size = 16 }: IconProps) {
   );
 }
 
+/** Quest database: an open journal with a center binding. */
+export function IconQuests({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <path d="M2.2 3.2c2.1-.5 3.8 0 5.8 1.2v9c-2-1.2-3.7-1.7-5.8-1.2z" />
+      <path d="M13.8 3.2c-2.1-.5-3.8 0-5.8 1.2v9c2-1.2 3.7-1.7 5.8-1.2z" />
+    </svg>
+  );
+}
+
 /** Macros: a hotbutton square with command lines. */
 export function IconMacros({ size = 16 }: IconProps) {
   return (
