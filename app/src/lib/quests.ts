@@ -1,3 +1,5 @@
+import type { DropItemRow, QuestItemReference } from "../types";
+
 export interface QuestRequirement {
   itemName: string;
   itemId: number | null;
@@ -156,4 +158,46 @@ export function matchQuestRequirements(
       locations: [...new Set(matches.flatMap((item) => item.locations))].sort(),
     };
   });
+}
+
+export function questDropSourceSummary(reference: QuestItemReference | undefined): string {
+  if (!reference?.item) return "No matching item in the classic reference database.";
+  if (reference.sources.length === 0) {
+    return "No known mob drop; may be quested, crafted, sold, or Legends-specific.";
+  }
+  const shown = reference.sources.slice(0, 2).map((source) => {
+    const chance = source.chance >= 1 ? `${Math.round(source.chance)}%` : `${source.chance.toFixed(1)}%`;
+    const zone = source.zoneLong === "Plane of Air" ? "Plane of Sky" : source.zoneLong;
+    return `${source.npc} · ${zone ?? "unknown zone"} (${chance})`;
+  });
+  const remaining = reference.item.sources - shown.length;
+  return `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
+}
+
+export function questItemDetailLines(item: DropItemRow | null): string[] {
+  if (!item) return ["No item details in the classic reference database."];
+  const lines: string[] = [];
+  const stats = [
+    item.ac ? `AC ${item.ac}` : "",
+    item.hp ? `HP ${item.hp}` : "",
+    item.mana ? `Mana ${item.mana}` : "",
+    item.astr ? `STR ${item.astr}` : "",
+    item.asta ? `STA ${item.asta}` : "",
+    item.aagi ? `AGI ${item.aagi}` : "",
+    item.adex ? `DEX ${item.adex}` : "",
+    item.awis ? `WIS ${item.awis}` : "",
+    item.aint ? `INT ${item.aint}` : "",
+    item.acha ? `CHA ${item.acha}` : "",
+  ].filter(Boolean);
+  if (stats.length > 0) lines.push(stats.join(" · "));
+  if (item.damage > 0) lines.push(`${item.damage} damage · ${item.delay} delay`);
+  if (item.haste > 0) lines.push(`Haste ${item.haste}%`);
+  if (item.procName) lines.push(`Proc: ${item.procName}`);
+  if (item.clickName) lines.push(`Click: ${item.clickName}`);
+  if (item.wornName) lines.push(`Worn: ${item.wornName}`);
+  if (item.focusName) lines.push(`Focus: ${item.focusName}`);
+  if (item.reqlevel > 0) lines.push(`Required level ${item.reqlevel}`);
+  const flags = [item.noDrop ? "NO DROP" : "", item.loregroup ? "LORE" : ""].filter(Boolean);
+  if (flags.length > 0) lines.push(flags.join(" · "));
+  return lines.length > 0 ? lines : ["No combat stats recorded."];
 }

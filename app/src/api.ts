@@ -37,6 +37,7 @@ import type {
   DropEffect,
   DropSearchResult,
   DropSource,
+  QuestItemReference,
   DropZone,
   FightPage,
   FightRecord,
@@ -833,6 +834,14 @@ export function dropsItemSources(
 ): Promise<DropSource[]> {
   if (IS_MOCK) return Promise.resolve([]);
   return invoke<DropSource[]>("drops_item_sources", { itemId, eraMax });
+}
+
+export function dropsQuestItemReferences(
+  names: string[],
+  eraMax: number,
+): Promise<QuestItemReference[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<QuestItemReference[]>("drops_quest_item_references", { names, eraMax });
 }
 
 // ---------------------------------------------------------------------------

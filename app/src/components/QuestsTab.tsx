@@ -1,13 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
-import { getConfig, inventoryDiscover, inventoryImport, pickInventoryFile } from "../api";
+import { dropsQuestItemReferences, getConfig, inventoryDiscover, inventoryImport, pickInventoryFile } from "../api";
 import {
   matchQuestRequirements,
   loadQuestCatalog,
+  normalizeQuestName,
+  questDropSourceSummary,
+  questItemDetailLines,
   searchQuests,
   type InventorySnapshot,
   type QuestCatalog,
   type QuestRecord,
 } from "../lib/quests";
+import { useEraMax } from "../lib/refFilters";
+import type { QuestItemReference } from "../types";
 
 const INVENTORY_PATH_KEY = "eqlogs.inventory.path.v1";
 const INVENTORY_SNAPSHOT_KEY = "eqlogs.inventory.snapshot.v1";
@@ -69,6 +74,9 @@ export default function QuestsTab({
   const [inventoryLoading, setInventoryLoading] = useState(false);
   const [inventoryError, setInventoryError] = useState("");
   const [catalog, setCatalog] = useState<QuestCatalog | null>(null);
+  const [itemReferences, setItemReferences] = useState<Map<string, QuestItemReference>>(new Map());
+  const [referenceError, setReferenceError] = useState("");
+  const [eraMax] = useEraMax();
   const inventoryStale = inventory != null && Date.now() - inventory.sourceModifiedMs > 24 * 60 * 60 * 1000;
 
   useEffect(() => {
@@ -141,6 +149,34 @@ export default function QuestsTab({
     () => searchQuests(query, { zone, className, limit: 150 }, catalog?.quests ?? []),
     [query, zone, className, catalog],
   );
+  const referenceNames = useMemo(
+    () => [...new Set(results.flatMap((quest) => [
+      ...quest.requirements.map((requirement) => requirement.itemName),
+      ...quest.rewards,
+    ]).filter(Boolean))],
+    [results],
+  );
+  const referenceKey = referenceNames.join("\u0000");
+
+  useEffect(() => {
+    let stale = false;
+    const timer = window.setTimeout(() => {
+      setReferenceError("");
+      void dropsQuestItemReferences(referenceNames, eraMax)
+        .then((references) => {
+          if (!stale) {
+            setItemReferences(new Map(references.map((reference) => [normalizeQuestName(reference.queryName), reference])));
+          }
+        })
+        .catch((error) => {
+          if (!stale) setReferenceError(String(error));
+        });
+    }, 120);
+    return () => {
+      stale = true;
+      window.clearTimeout(timer);
+    };
+  }, [referenceKey, eraMax]);
 
   return (
     <div className="quests-page">
@@ -182,10 +218,16 @@ export default function QuestsTab({
             Browse
           </button>
         </div>
+        <div className="quest-reference-note">
+          Drop locations and reward stats use the bundled classic reference database.
+          {referenceError && <span className="error-text"> {referenceError}</span>}
+        </div>
       </section>
 
       <section className="quest-results" aria-live="polite">
-        {results.map((quest) => <QuestRow key={quest.id} quest={quest} inventory={inventory} />)}
+        {results.map((quest) => (
+          <QuestRow key={quest.id} quest={quest} inventory={inventory} itemReferences={itemReferences} />
+        ))}
         {results.length === 0 && (
           <div className="quest-empty">No quests match these filters.</div>
         )}
@@ -198,7 +240,15 @@ export default function QuestsTab({
   );
 }
 
-function QuestRow({ quest, inventory }: { quest: QuestRecord; inventory: InventorySnapshot | null }) {
+function QuestRow({
+  quest,
+  inventory,
+  itemReferences,
+}: {
+  quest: QuestRecord;
+  inventory: InventorySnapshot | null;
+  itemReferences: Map<string, QuestItemReference>;
+}) {
   const requirements = matchQuestRequirements(quest.requirements, inventory);
   const completed = requirements.filter((requirement) => requirement.satisfied).length;
   return (
@@ -226,18 +276,46 @@ function QuestRow({ quest, inventory }: { quest: QuestRecord; inventory: Invento
               <input type="checkbox" checked={requirement.satisfied} readOnly disabled />
               <span>{requirement.itemName}</span>
               <strong>{inventory ? `${requirement.owned}/${requirement.quantity}` : `x${requirement.quantity}`}</strong>
-              {requirement.locations.length > 0 && <small>{requirement.locations.join(", ")}</small>}
+              {requirement.locations.length > 0 && <small>Owned: {requirement.locations.join(", ")}</small>}
+              <small className="quest-drop-source">
+                Drops: {questDropSourceSummary(itemReferences.get(normalizeQuestName(requirement.itemName)))}
+              </small>
             </label>
           ))}
         </div>
       )}
       {quest.rewards.length > 0 && (
-        <div className="quest-rewards"><span>Rewards</span><strong>{quest.rewards.join(" / ")}</strong></div>
+        <div className="quest-rewards">
+          <span>Rewards</span>
+          <div className="quest-reward-items">
+            {quest.rewards.map((reward, index) => (
+              <RewardItem
+                key={`${reward}:${index}`}
+                name={reward}
+                reference={itemReferences.get(normalizeQuestName(reward))}
+              />
+            ))}
+          </div>
+        </div>
       )}
       <footer>
         <span>Source revision {quest.sourceRevisionId} · {new Date(quest.sourceRevisionAt).toLocaleDateString()}</span>
         <a href={quest.sourceUrl} target="_blank" rel="noreferrer">Open source</a>
       </footer>
     </article>
+  );
+}
+
+function RewardItem({ name, reference }: { name: string; reference?: QuestItemReference }) {
+  const lines = questItemDetailLines(reference?.item ?? null);
+  return (
+    <span className="quest-reward-item" tabIndex={0}>
+      {name}
+      <span className="quest-item-tip" role="tooltip">
+        <strong>{reference?.item?.name ?? name}</strong>
+        {lines.map((line) => <span key={line}>{line}</span>)}
+        <span className="quest-item-tip-source">Drops: {questDropSourceSummary(reference)}</span>
+      </span>
+    </span>
   );
 }

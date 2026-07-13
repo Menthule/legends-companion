@@ -3,11 +3,14 @@ import {
   matchQuestRequirements,
   loadQuestCatalog,
   normalizeInventoryItem,
+  questDropSourceSummary,
+  questItemDetailLines,
   questsForGiver,
   searchQuests,
   type InventorySnapshot,
   type QuestRecord,
 } from "./quests";
+import type { DropItemRow, QuestItemReference } from "../types";
 
 const base: QuestRecord = {
   id: "q1", name: "Test", summary: "", zone: "Plane of Sky", classes: ["Monk"],
@@ -65,5 +68,33 @@ describe("catalog completeness", () => {
     const monkQuests = questsForGiver("Holwin", "Plane of Sky", questCatalog.quests);
     expect(monkQuests).toHaveLength(6);
     expect(monkQuests.every((quest) => quest.classes.includes("Monk"))).toBe(true);
+  });
+});
+
+describe("quest item references", () => {
+  const item = {
+    id: 1, name: "Sky Item", itemtype: 0, slots: 0, classes: 0, races: 0,
+    ac: 5, hp: 10, mana: 0, astr: 0, asta: 0, aagi: 0, adex: 0,
+    awis: 0, aint: 0, acha: 0, damage: 0, delay: 0, magic: 1,
+    noDrop: 1, noRent: 0, loregroup: 0, weight: 0, reqlevel: 46,
+    haste: 0, procName: null, clickName: null, wornName: null, focusName: null,
+    sources: 3, topNpc: "an azarack", topZone: "Plane of Sky",
+  } satisfies DropItemRow;
+  const reference = {
+    queryName: "Sky Item",
+    item,
+    sources: [
+      { npc: "an azarack", level: 52, zone: "airplane", zoneLong: "Plane of Air", era: 0, chance: 12.5, spawns: 2 },
+    ],
+  } satisfies QuestItemReference;
+
+  it("summarizes bounded drop sources and missing reference data", () => {
+    expect(questDropSourceSummary(reference)).toBe("an azarack · Plane of Sky (13%); +2 more");
+    expect(questDropSourceSummary(undefined)).toContain("No matching item");
+  });
+
+  it("builds compact reward detail lines", () => {
+    expect(questItemDetailLines(item)).toEqual(["AC 5 · HP 10", "Required level 46", "NO DROP"]);
+    expect(questItemDetailLines(null)).toHaveLength(1);
   });
 });

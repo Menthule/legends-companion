@@ -299,6 +299,7 @@ pub fn run() {
             store::analyze_log,
             dropdb::drops_search_items,
             dropdb::drops_item_sources,
+            dropdb::drops_quest_item_references,
             dropdb::drops_zones,
             dropdb::drops_effects,
             refdb::refdb_item_vendors,

@@ -593,6 +593,12 @@ export interface DropSource {
   spawns: number | null;
 }
 
+export interface QuestItemReference {
+  queryName: string;
+  item: DropItemRow | null;
+  sources: DropSource[];
+}
+
 /** Result of refdb_respawn_for: reference respawn data for a slain NPC
  *  (bundled classic-era database). Null from the command = unknown NPC. */
 export interface RespawnInfo {

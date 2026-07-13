@@ -6,7 +6,7 @@
 
 use std::path::{Path, PathBuf};
 
-use rusqlite::{Connection, OpenFlags};
+use rusqlite::{Connection, OpenFlags, OptionalExtension};
 use serde::Serialize;
 use tauri::path::BaseDirectory;
 use tauri::{AppHandle, Manager};
@@ -112,6 +112,14 @@ pub struct DropSource {
     pub spawns: Option<i64>,
 }
 
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct QuestItemReference {
+    pub query_name: String,
+    pub item: Option<DropItemRow>,
+    pub sources: Vec<DropSource>,
+}
+
 const ITEM_COLS: &str = "i.id, i.name, i.itemtype, i.slots, i.classes, i.races, i.ac, i.hp, \
      i.mana, i.astr, i.asta, i.aagi, i.adex, i.awis, i.aint, i.acha, \
      i.damage, i.delay, i.magic, i.no_drop, i.no_rent, i.loregroup, \
@@ -153,6 +161,100 @@ fn item_from_row(row: &rusqlite::Row<'_>, sources: i64) -> rusqlite::Result<Drop
         top_npc: None,
         top_zone: None,
     })
+}
+
+fn item_sources(
+    conn: &Connection,
+    item_id: i64,
+    era_max: i64,
+    limit: Option<i64>,
+) -> Result<Vec<DropSource>, String> {
+    let sql = "SELECT n.name, n.level, nz.zone, z.long_name, z.era, d.chance, nz.spawns \
+               FROM drops d \
+               JOIN npcs n ON n.id = d.npc_id \
+               LEFT JOIN npc_zones nz ON nz.npc_id = n.id \
+               LEFT JOIN zones z ON z.short_name = nz.zone \
+               WHERE d.item_id = ?1 AND (z.era IS NULL OR z.era <= ?2) \
+               ORDER BY d.chance DESC, n.name ASC";
+    let bounded = limit.map(|value| format!("{sql} LIMIT {}", value.clamp(1, 20)));
+    let mut stmt = conn
+        .prepare(bounded.as_deref().unwrap_or(sql))
+        .map_err(|e| e.to_string())?;
+    let rows = stmt
+        .query_map(rusqlite::params![item_id, era_max], |row| {
+            Ok(DropSource {
+                npc: row.get(0)?,
+                level: row.get(1)?,
+                zone: row.get(2)?,
+                zone_long: row.get(3)?,
+                era: row.get(4)?,
+                chance: row.get(5)?,
+                spawns: row.get(6)?,
+            })
+        })
+        .map_err(|e| e.to_string())?
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|e| e.to_string())?;
+    Ok(rows)
+}
+
+/// Resolve the required/reward item names visible on the quest page in one
+/// desktop call. Exact names avoid silently attaching a similarly named item.
+#[tauri::command]
+pub fn drops_quest_item_references(
+    app: AppHandle,
+    names: Vec<String>,
+    era_max: i64,
+) -> Result<Vec<QuestItemReference>, String> {
+    let conn = open(&app)?;
+    let sql = format!(
+        "SELECT {ITEM_COLS}, \
+         (SELECT COUNT(DISTINCT d.npc_id) FROM drops d \
+          LEFT JOIN npc_zones nz ON nz.npc_id = d.npc_id \
+          LEFT JOIN zones z ON z.short_name = nz.zone \
+          WHERE d.item_id = i.id AND (z.era IS NULL OR z.era <= ?1)) AS era_sources, \
+         (SELECT n.name FROM drops d JOIN npcs n ON n.id = d.npc_id \
+          LEFT JOIN npc_zones nz ON nz.npc_id = n.id \
+          LEFT JOIN zones z ON z.short_name = nz.zone \
+          WHERE d.item_id = i.id AND (z.era IS NULL OR z.era <= ?1) \
+          ORDER BY d.chance DESC, n.name ASC LIMIT 1) AS top_npc, \
+         (SELECT z.long_name FROM drops d JOIN npcs n ON n.id = d.npc_id \
+          LEFT JOIN npc_zones nz ON nz.npc_id = n.id \
+          LEFT JOIN zones z ON z.short_name = nz.zone \
+          WHERE d.item_id = i.id AND (z.era IS NULL OR z.era <= ?1) \
+          ORDER BY d.chance DESC, n.name ASC LIMIT 1) AS top_zone \
+         FROM items i WHERE i.name_lc = ?2 \
+         ORDER BY i.source_count DESC, i.id ASC LIMIT 1"
+    );
+    let mut item_stmt = conn.prepare(&sql).map_err(|e| e.to_string())?;
+    let mut seen = std::collections::HashSet::new();
+    let mut references = Vec::new();
+    for query_name in names.into_iter().take(600) {
+        let key = query_name.trim().to_lowercase();
+        if key.is_empty() || !seen.insert(key.clone()) {
+            continue;
+        }
+        let item = item_stmt
+            .query_row(rusqlite::params![era_max.clamp(0, 3), key], |row| {
+                let sources: i64 = row.get(29)?;
+                let mut item = item_from_row(row, sources)?;
+                item.top_npc = row.get(30)?;
+                item.top_zone = row.get(31)?;
+                Ok(item)
+            })
+            .optional()
+            .map_err(|e| e.to_string())?;
+        let sources = match &item {
+            Some(item) => item_sources(&conn, item.id, era_max.clamp(0, 3), Some(4))?,
+            None => Vec::new(),
+        };
+        references.push(QuestItemReference {
+            query_name,
+            item,
+            sources,
+        });
+    }
+    Ok(references)
 }
 
 /// Search/browse the item catalog. `era_max`: 0 classic, 1 +kunark,
@@ -416,31 +518,5 @@ pub fn drops_item_sources(
     era_max: i64,
 ) -> Result<Vec<DropSource>, String> {
     let conn = open(&app)?;
-    let mut stmt = conn
-        .prepare(
-            "SELECT n.name, n.level, nz.zone, z.long_name, z.era, d.chance, nz.spawns \
-             FROM drops d \
-             JOIN npcs n ON n.id = d.npc_id \
-             LEFT JOIN npc_zones nz ON nz.npc_id = n.id \
-             LEFT JOIN zones z ON z.short_name = nz.zone \
-             WHERE d.item_id = ?1 AND (z.era IS NULL OR z.era <= ?2) \
-             ORDER BY d.chance DESC, n.name ASC",
-        )
-        .map_err(|e| e.to_string())?;
-    let rows = stmt
-        .query_map(rusqlite::params![item_id, era_max], |row| {
-            Ok(DropSource {
-                npc: row.get(0)?,
-                level: row.get(1)?,
-                zone: row.get(2)?,
-                zone_long: row.get(3)?,
-                era: row.get(4)?,
-                chance: row.get(5)?,
-                spawns: row.get(6)?,
-            })
-        })
-        .map_err(|e| e.to_string())?
-        .collect::<Result<Vec<_>, _>>()
-        .map_err(|e| e.to_string())?;
-    Ok(rows)
+    item_sources(&conn, item_id, era_max, None)
 }
