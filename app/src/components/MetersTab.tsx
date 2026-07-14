@@ -8,6 +8,7 @@ import type {
   LogLinePayload,
   MeterRow,
 } from "../types";
+import { openTimers } from "../lib/deepLinks";
 import {
   isPetSourceName,
   petDamageOf,
@@ -16,7 +17,6 @@ import {
 } from "../lib/meterRows";
 import Empty from "./Empty";
 import MeterTable, { type MeterMode, StatTile } from "./MeterTable";
-import TimerBars from "./TimerBars";
 import { useToast } from "./Toast";
 
 // ---------------------------------------------------------------------------
@@ -107,13 +107,10 @@ export default function MetersTab({ character }: { character: string }) {
     }
   });
 
+  // Live timers render on the Timers tab (and its overlays) — Meters keeps
+  // only a one-line count that links there, so the same bar never renders
+  // with two different layouts.
   const timers = useTimers();
-  // Lane split (overlay-lanes spec): "buff" + "other" stack under Buffs so
-  // recast/user timers aren't orphaned; "enemy" lands under On enemies.
-  // Unlike the in-game overlays, this dashboard list shows every buff — the
-  // show threshold only declutters the overlays.
-  const buffTimers = timers.filter((t) => t.lane !== "enemy");
-  const enemyTimers = timers.filter((t) => t.lane === "enemy");
   const rows = fight?.rows ?? [];
   const you = rows.find(
     (r) => r.name.toLowerCase() === character.toLowerCase(),
@@ -441,36 +438,17 @@ export default function MetersTab({ character }: { character: string }) {
         )}
       </div>
 
-      <div className="card">
-        <div className="card-head">
-          <span className="section-title">Active timers</span>
+      {timers.length > 0 && (
+        <div className="hint meters-timers-link">
+          <button
+            className="ghost small"
+            onClick={openTimers}
+            title="Open the Timers tab — the single live-timers surface"
+          >
+            {timers.length} timer{timers.length === 1 ? "" : "s"} running → Timers
+          </button>
         </div>
-        {timers.length === 0 ? (
-          <Empty
-            title="No active timers"
-            body="Trigger timers count down here — buff durations, recast windows, effects on enemies."
-          />
-        ) : (
-          <div className="timer-sections">
-            <div className="timer-section">
-              <span className="timer-section-title">Buffs</span>
-              {buffTimers.length > 0 ? (
-                <TimerBars timers={buffTimers} />
-              ) : (
-                <span className="hint">No buff timers running.</span>
-              )}
-            </div>
-            <div className="timer-section">
-              <span className="timer-section-title">On enemies</span>
-              {enemyTimers.length > 0 ? (
-                <TimerBars timers={enemyTimers} />
-              ) : (
-                <span className="hint">Nothing ticking on enemies.</span>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
+      )}
         </>
       )}
       {toastNode}

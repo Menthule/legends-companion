@@ -236,7 +236,7 @@ export default function MacrosTab() {
           <input
             className="macro-name-input"
             type="text"
-            placeholder="Name for Tankname, Dragger, Leadername..."
+            placeholder="Name for Tankname, Dragger, Leadername…"
             value={macroName}
             onChange={(e) => setMacroName(e.target.value)}
             title="Replaces common macro placeholders before copy/paste"

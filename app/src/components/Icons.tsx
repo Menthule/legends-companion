@@ -90,17 +90,6 @@ export function IconDiagnostics({ size = 16 }: IconProps) {
   );
 }
 
-/** Patch notes: document with short change lines. */
-export function IconPatchNotes({ size = 16 }: IconProps) {
-  return (
-    <svg {...svgProps(size)}>
-      <path d="M4 2.5h5l3 3v8H4z" />
-      <path d="M9 2.5v3h3" />
-      <path d="M6 8h4M6 10.2h4M6 12.4h2.5" />
-    </svg>
-  );
-}
-
 export function IconSettings({ size = 16 }: IconProps) {
   return (
     <svg {...svgProps(size)}>
@@ -126,18 +115,6 @@ export function IconSpells({ size = 16 }: IconProps) {
     <svg {...svgProps(size)}>
       <path d="M6.5 2 7.7 5.8 11.5 7 7.7 8.2 6.5 12 5.3 8.2 1.5 7 5.3 5.8Z" />
       <path d="M12.2 10l.6 1.9 1.9.6-1.9.6-.6 1.9-.6-1.9-1.9-.6 1.9-.6Z" />
-    </svg>
-  );
-}
-
-/** Abilities database: a sword — endurance-costed combat skills. */
-export function IconAbilities({ size = 16 }: IconProps) {
-  return (
-    <svg {...svgProps(size)}>
-      <path d="M13.5 2.5 6.9 9.1" />
-      <path d="M13.5 2.5c-1.9.1-3.3.5-4.6 1.3" />
-      <path d="M4.7 8.3l3 3" />
-      <path d="M6.2 9.8 3 13" />
     </svg>
   );
 }

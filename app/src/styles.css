@@ -1282,23 +1282,10 @@ input[type="checkbox"].live-feature-switch:checked {
   text-shadow: var(--ov-text-shadow);
 }
 
-/* dashboard Active Timers panel: stacked Buffs / On enemies sections */
-.timer-sections {
+/* Meters "N timers running → Timers" one-liner (the Timers tab is the
+   single live-timers surface). */
+.meters-timers-link {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.timer-section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.timer-section-title {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
 }
 
 /* ------------------------------------------------------------- live feed */
@@ -2106,14 +2093,6 @@ input[type="checkbox"].live-feature-switch:checked {
 }
 .diag-span {
   grid-column: 1 / -1;
-}
-.patch-notes {
-  width: 100%;
-}
-.patch-notes .card {
-  width: 100%;
-  max-width: none;
-  min-height: calc(100vh - 92px);
 }
 .patch-release h2 {
   margin: 16px 0 10px;
@@ -4101,6 +4080,13 @@ input[type="text"].ted-duration {
   display: inline-flex;
   gap: 6px;
 }
+/* Read-only classes/level in Settings → Loadouts (edited on Triggers). */
+.lo-readonly {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink-2);
+}
 .lo-classes select {
   padding: 4px 6px;
   font-size: 12px;
@@ -5049,9 +5035,6 @@ textarea.share-str:focus {
   text-transform: uppercase;
 }
 .pace-history-row { border-top: 1px solid var(--hairline); font-size: 12px; }
-.session-rates-card.compact .card-head {
-  margin-bottom: 8px;
-}
 .pace-rates.compact .pace-live-head {
   margin-bottom: 0;
 }
@@ -5781,10 +5764,6 @@ button.drops-item.active {
 .settings-tab.active {
   color: var(--ink);
   border-bottom-color: var(--accent);
-}
-.session-tabs.settings-tabs {
-  align-items: center;
-  flex-wrap: wrap;
 }
 .settings-switch-row {
   display: grid;

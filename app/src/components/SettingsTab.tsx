@@ -29,7 +29,9 @@ import {
   saveCampRaresOnly,
 } from "../lib/timers";
 import { useLiveZoneEnabled } from "../lib/refFilters";
+import { openTriggers } from "../lib/deepLinks";
 import { ShareDialog, type ShareRequest } from "./ShareDialogs";
+import PatchNotesTab from "./PatchNotesTab";
 import { emit } from "@tauri-apps/api/event";
 import { useTauriEvent } from "../hooks";
 import { IS_MOCK, mockEmit } from "../mock";
@@ -427,17 +429,6 @@ export default function SettingsTab({
     void saveProfile(next, `Saved classes for “${l.name}”.`);
   }
 
-  function commitLevel(raw: string) {
-    if (!profile) return;
-    const n = parseInt(raw, 10);
-    if (!Number.isFinite(n)) return;
-    // Legends' level cap is 50; level scales generated buff-timer durations.
-    const level = Math.max(1, Math.min(50, n));
-    if (level !== profile.level) {
-      void saveProfile({ ...profile, level }, "Level saved.");
-    }
-  }
-
   function commitAlertSize(raw: string) {
     // Clamp on COMMIT (blur/Enter), never per keystroke — mid-typing "2"
     // of "24" must not snap to 10 and persist.
@@ -653,9 +644,12 @@ export default function SettingsTab({
         ))}
       </nav>
 
+      {/* General is grouped by what the user is trying to do — where the log
+          comes from, what the app sounds like, what history it keeps — not by
+          AppConfig field order. */}
       <section className={`card${section === "general" ? "" : " hidden"}`}>
         <div className="card-head">
-          <span className="section-title">Log</span>
+          <span className="section-title">Log & character</span>
         </div>
         <label className="field">
           <span>Log file (default folder: {displayPath(DEFAULT_LOG_DIR)})</span>
@@ -726,37 +720,12 @@ export default function SettingsTab({
             onChange={(e) => setLiveZoneEnabled(e.target.checked)}
           />
         </label>
-        <label className="field">
-          <span>
-            Trigger pack file (blank = triggers.json in the app config folder)
-          </span>
-          <input
-            type="text"
-            value={displayPath(config.triggerPackPath)}
-            onChange={(e) =>
-              setConfigState({ ...config, triggerPackPath: e.target.value })
-            }
-            onBlur={() => void save(config)}
-          />
-        </label>
-        <label className="field">
-          <span>
-            Fight history retention (days, 0 = keep forever) — pruned at startup
-          </span>
-          <input
-            type="number"
-            min={0}
-            step={1}
-            value={config.fightRetentionDays ?? 0}
-            onChange={(e) =>
-              setConfigState({
-                ...config,
-                fightRetentionDays: Math.max(0, Math.floor(Number(e.target.value) || 0)),
-              })
-            }
-            onBlur={() => void save(config)}
-          />
-        </label>
+      </section>
+
+      <section className={`card${section === "general" ? "" : " hidden"}`}>
+        <div className="card-head">
+          <span className="section-title">Audio & speech</span>
+        </div>
         <label className="settings-switch-row">
           <span>
             <strong>Mute all alert audio</strong>
@@ -820,33 +789,78 @@ export default function SettingsTab({
         </label>
       </section>
 
+      <section className={`card${section === "general" ? "" : " hidden"}`}>
+        <div className="card-head">
+          <span className="section-title">Fights & history</span>
+        </div>
+        <label className="field">
+          <span>
+            Fight history retention (days, 0 = keep forever) — pruned at startup
+          </span>
+          <input
+            type="number"
+            min={0}
+            step={1}
+            value={config.fightRetentionDays ?? 0}
+            onChange={(e) =>
+              setConfigState({
+                ...config,
+                fightRetentionDays: Math.max(0, Math.floor(Number(e.target.value) || 0)),
+              })
+            }
+            onBlur={() => void save(config)}
+          />
+        </label>
+      </section>
+
+      <section className={`card${section === "general" ? "" : " hidden"}`}>
+        <div className="card-head">
+          <span className="section-title">Advanced</span>
+        </div>
+        <label className="field">
+          <span>
+            Trigger pack file (blank = triggers.json in the app config folder)
+          </span>
+          <input
+            type="text"
+            value={displayPath(config.triggerPackPath)}
+            onChange={(e) =>
+              setConfigState({ ...config, triggerPackPath: e.target.value })
+            }
+            onBlur={() => void save(config)}
+          />
+        </label>
+      </section>
+
       <section className={`card${section === "loadouts" ? "" : " hidden"}`}>
         <div className="card-head">
           <span className="section-title">Loadouts</span>
           <span className="hint">
             Named trigger set-ups (classes + per-trigger overrides). Switch
-            from the loadout menu in the top bar.
+            from the loadout menu in the top bar; the active loadout's
+            classes and your level are edited on the Triggers tab's My
+            classes bar.
           </span>
         </div>
         {profile ? (
           <>
-            <label className="field lo-level">
+            {/* Classes/level for the ACTIVE loadout have one editor: the
+                Triggers tab's "My classes" bar (the same profile data). */}
+            <div className="field lo-level">
               <span>
                 Character level (1–50) — scales generated buff-timer durations
               </span>
-              <input
-                type="number"
-                min={1}
-                max={50}
-                defaultValue={profile.level}
-                key={profile.level}
-                onBlur={(e) => commitLevel(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    commitLevel((e.target as HTMLInputElement).value);
-                }}
-              />
-            </label>
+              <span className="lo-readonly">
+                <strong className="num">{profile.level}</strong>
+                <button
+                  className="ghost small"
+                  onClick={openTriggers}
+                  title="Level is edited on the Triggers tab's My classes bar"
+                >
+                  Edit on the Triggers tab
+                </button>
+              </span>
+            </div>
             <div className="lo-list">
               {profile.loadouts.map((l) => {
                 const isActive = l.name === profile.active_loadout;
@@ -880,21 +894,39 @@ export default function SettingsTab({
                       </span>
                     </div>
                     <div className="lo-classes">
-                      {[0, 1, 2].map((slot) => (
-                        <select
-                          key={slot}
-                          value={l.classes[slot] ?? ""}
-                          onChange={(e) => setLoadoutClass(l, slot, e.target.value)}
-                          aria-label={`${l.name} class ${slot + 1}`}
-                        >
-                          <option value="">— class {slot + 1} —</option>
-                          {CLASS_NAMES.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      ))}
+                      {isActive ? (
+                        // The active loadout's classes are edited in one
+                        // place: the Triggers tab's "My classes" bar.
+                        <span className="lo-readonly">
+                          <span>
+                            {l.classes.filter(Boolean).join(" / ") ||
+                              "No classes picked"}
+                          </span>
+                          <button
+                            className="ghost small"
+                            onClick={openTriggers}
+                            title="The active loadout's classes are edited on the Triggers tab's My classes bar"
+                          >
+                            Edit on the Triggers tab
+                          </button>
+                        </span>
+                      ) : (
+                        [0, 1, 2].map((slot) => (
+                          <select
+                            key={slot}
+                            value={l.classes[slot] ?? ""}
+                            onChange={(e) => setLoadoutClass(l, slot, e.target.value)}
+                            aria-label={`${l.name} class ${slot + 1}`}
+                          >
+                            <option value="">— class {slot + 1} —</option>
+                            {CLASS_NAMES.map((c) => (
+                              <option key={c} value={c}>
+                                {c}
+                              </option>
+                            ))}
+                          </select>
+                        ))
+                      )}
                     </div>
                     <div className="lo-actions">
                       {!isActive && (
@@ -1218,6 +1250,10 @@ export default function SettingsTab({
           tailing session picks up new triggers the next time you press Start
           (or when a loadout/trigger change rebuilds the engine).
         </p>
+      </section>
+
+      <section className={`card${section === "updates" ? "" : " hidden"}`}>
+        <PatchNotesTab />
       </section>
       {share && <ShareDialog request={share} onClose={() => setShare(null)} />}
     </div>

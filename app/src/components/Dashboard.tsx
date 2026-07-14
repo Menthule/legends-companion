@@ -32,6 +32,7 @@ import {
   useLiveZoneName,
 } from "../lib/refFilters";
 import { useDeepLink } from "../lib/deepLinks";
+import { onSessionNotice, startSessionLog } from "../lib/sessionLog";
 import {
   type AppConfig,
   type CatchUpPayload,
@@ -68,17 +69,14 @@ import WelcomeCard from "./WelcomeCard";
 import GlobalSearchModal from "./GlobalSearchModal";
 import CoachTab from "./CoachTab";
 import DiagnosticsTab from "./DiagnosticsTab";
-import PatchNotesTab from "./PatchNotesTab";
 import QuestsTab from "./QuestsTab";
 import { loadQuestCatalog, questsForGiver, type QuestRecord } from "../lib/quests";
 import {
-  IconAbilities,
   IconEye,
   IconEyeOff,
   IconFights,
   IconDiagnostics,
   IconInsights,
-  IconPatchNotes,
   IconQuests,
   IconLive,
   IconLock,
@@ -107,13 +105,11 @@ type TabId =
   | "timers"
   | "coach"
   | "diagnostics"
-  | "patch-notes"
   | "drops"
   | "mobs"
   | "quests"
   | "recipes"
   | "spells"
-  | "abilities"
   | "macros"
   | "triggers"
   | "settings";
@@ -146,14 +142,12 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
       { id: "quests", label: "Quests", icon: IconQuests },
       { id: "recipes", label: "Recipes", icon: IconRecipes },
       { id: "spells", label: "Spells", icon: IconSpells },
-      { id: "abilities", label: "Abilities", icon: IconAbilities },
       { id: "macros", label: "Macros", icon: IconMacros },
     ],
   },
   {
     label: null,
     tabs: [
-      { id: "patch-notes", label: "Patch Notes", icon: IconPatchNotes },
       { id: "diagnostics", label: "Diagnostics", icon: IconDiagnostics },
       { id: "settings", label: "Settings", icon: IconSettings },
     ],
@@ -166,6 +160,11 @@ const TAB_IDS: readonly string[] = NAV_GROUPS.flatMap((g) =>
 
 function initialTab(): TabId {
   const t = new URLSearchParams(window.location.search).get("tab");
+  // Retired tab ids from older builds keep working: Abilities is now the
+  // second segment of the Spells tab (SpellsTab reads the same URL param),
+  // and Patch notes lives under Settings → Updates.
+  if (t === "abilities") return "spells";
+  if (t === "patch-notes") return "settings";
   return t && TAB_IDS.includes(t) ? (t as TabId) : "live";
 }
 
@@ -235,9 +234,10 @@ export default function Dashboard() {
   // Lazy-mount the query-heavy Database tabs (P23): each fires its sqlite
   // queries on mount, so mounting all of them at boot did a pile of work no
   // one asked for. Render one only after it's first visited, then keep it
-  // mounted so re-visits are instant. Live tabs (meters/fights/timers) stay
-  // always-mounted — they accumulate session state from log events while
-  // hidden and must not be deferred.
+  // mounted so re-visits are instant. Live tabs (meters/coach/timers) stay
+  // always-mounted — they accumulate per-run view state from log events
+  // while hidden. Session data itself (loot/rolls/XP/kills/effects) is
+  // accumulated by lib/sessionLog, started below, independent of any tab.
   const [visited, setVisited] = useState<Set<TabId>>(
     () => new Set([initialTab()]),
   );
@@ -289,6 +289,8 @@ export default function Dashboard() {
     setQuestsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
     setTab("quests");
   });
+  // Deep-link from the Meters "N timers running" line: jump to Timers.
+  useDeepLink("timers", () => setTab("timers"));
   const [currentZone, setCurrentZone] = useState<string | null>(null);
   const [liveZoneEnabled, setLiveZoneEnabled] = useLiveZoneEnabled();
   const [liveZoneName] = useLiveZoneName();
@@ -354,8 +356,11 @@ export default function Dashboard() {
       isAbility,
       seq: (prev?.seq ?? 0) + 1,
     }));
-    setTab(isAbility ? "abilities" : "spells");
+    setTab("spells");
   });
+  // Deep-link from Settings → Loadouts: classes/level are edited on the
+  // Triggers tab's "My classes" bar.
+  useDeepLink("triggers", () => setTab("triggers"));
   const [tailing, setTailing] = useState(false);
   const [character, setCharacter] = useState("");
   /** Discovered eqlog_* characters for the quiet top-bar switcher. */
@@ -409,6 +414,14 @@ export default function Dashboard() {
       seq: (prev?.seq ?? 0) + 1,
     }));
   }, []);
+
+  // Session accumulation (loot/rolls/XP/kills/effects/recaps/scoreboard)
+  // lives in lib/sessionLog so it keeps working no matter which tab is
+  // mounted; its user-facing notices surface through the app toast.
+  useEffect(() => {
+    startSessionLog();
+    return onSessionNotice((message) => showToast(message));
+  }, [showToast]);
 
   useEffect(() => {
     isTailing()
@@ -766,13 +779,12 @@ export default function Dashboard() {
             setTab("recipes");
             break;
           case "spells":
-          case "abilities":
             setSpellsRequest((prev) => ({
               query: action.query,
-              isAbility: action.tab === "abilities",
+              isAbility: action.isAbility === true,
               seq: (prev?.seq ?? 0) + 1,
             }));
-            setTab(action.tab);
+            setTab("spells");
             break;
           case "triggers":
             setTriggersRequest((prev) => ({
@@ -1023,11 +1035,11 @@ export default function Dashboard() {
                 setOverlayMenuOpen(false);
                 setSessionMenuOpen((o) => !o);
               }}
-              title="Session controls"
+              title="Tailing controls — start/stop following the log, silence audio"
               aria-expanded={sessionMenuOpen}
             >
               {tailing ? <IconStop /> : <IconPlay />}
-              Session
+              Tailing
             </button>
             {sessionMenuOpen && (
               <div className="topbar-popover" role="menu">
@@ -1115,6 +1127,20 @@ export default function Dashboard() {
                 disabled={installing}
               >
                 {installing ? "Installing…" : "Install & restart"}
+              </button>
+              <button
+                className="ghost small"
+                onClick={() => {
+                  setSettingsSectionRequest((prev) => ({
+                    section: "updates",
+                    seq: (prev?.seq ?? 0) + 1,
+                  }));
+                  setTab("settings");
+                }}
+                disabled={installing}
+                title="Patch notes — what changed in recent releases"
+              >
+                What’s new
               </button>
               <button
                 className="ghost small"
@@ -1229,7 +1255,7 @@ export default function Dashboard() {
                 setCharacter(name);
                 setNeedsSetup(false);
                 // The user just picked a log to follow — start tailing right
-                // away instead of pointing at the collapsed Session menu.
+                // away instead of pointing at the collapsed Tailing menu.
                 void startTailingNow().then((ok) => {
                   if (ok) showToast(`Following ${name}'s log`);
                 });
@@ -1260,9 +1286,6 @@ export default function Dashboard() {
           <section className={`page${tab === "diagnostics" ? "" : " hidden"}`}>
             <DiagnosticsTab />
           </section>
-          <section className={`page${tab === "patch-notes" ? "" : " hidden"}`}>
-            <PatchNotesTab />
-          </section>
           <section className={`page${tab === "drops" ? "" : " hidden"}`}>
             {visited.has("drops") && <DropsTab searchRequest={dropsRequest} />}
           </section>
@@ -1279,24 +1302,7 @@ export default function Dashboard() {
           </section>
           <section className={`page${tab === "spells" ? "" : " hidden"}`}>
             {visited.has("spells") && (
-              <SpellsTab
-                kind="spells"
-                searchRequest={
-                  spellsRequest && !spellsRequest.isAbility
-                    ? spellsRequest
-                    : null
-                }
-              />
-            )}
-          </section>
-          <section className={`page${tab === "abilities" ? "" : " hidden"}`}>
-            {visited.has("abilities") && (
-              <SpellsTab
-                kind="abilities"
-                searchRequest={
-                  spellsRequest && spellsRequest.isAbility ? spellsRequest : null
-                }
-              />
+              <SpellsTab searchRequest={spellsRequest} />
             )}
           </section>
           <section className={`page${tab === "macros" ? "" : " hidden"}`}>

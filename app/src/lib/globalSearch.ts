@@ -38,7 +38,6 @@ export type GlobalSearchTab =
   | "mobs"
   | "quests"
   | "spells"
-  | "abilities"
   | "recipes"
   | "triggers"
   | "settings";
@@ -50,6 +49,9 @@ export type GlobalSearchAction =
       query: string;
       /** Explicit unsourced item selections must bypass Drops' source filter. */
       revealUnsourced?: boolean;
+      /** Spells tab only: land on the Abilities segment (abilities are the
+       *  is_ability half of the same tab, not a tab of their own). */
+      isAbility?: boolean;
     }
   | {
       kind: "open-character-log";
@@ -456,8 +458,9 @@ function spellResult(row: SpellRow, isAbility: boolean): GlobalSearchResult {
     ].filter(Boolean),
     action: {
       kind: "open-tab-search",
-      tab: isAbility ? "abilities" : "spells",
+      tab: "spells",
       query: row.name,
+      isAbility,
     },
   };
 }

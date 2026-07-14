@@ -1,8 +1,8 @@
 // Spell/ability reference tab: search/browse the bundled Legends spell
 // database (spells/spell_classes tables in the same sqlite file the Drops
-// tab uses). One component serves BOTH sidebar tabs — abilities are the
-// is_ability=1 half of the spells table (endurance-costed combat skills),
-// so the Abilities tab is this component with `kind="abilities"`.
+// tab uses). One tab serves BOTH halves — abilities are the is_ability=1
+// half of the spells table (endurance-costed combat skills), selected with
+// the Spells/Abilities segmented toggle in the controls row.
 //
 // Search UX mirrors DropsTab: debounced name search (min 2 chars unless a
 // class filter is active — browse mode), Class + max-level filters,
@@ -33,6 +33,7 @@ import { useDebouncedRefSearch } from "../lib/refSearch";
 import { CLASS_ABBR, CLASS_FULL } from "../lib/classes";
 import { openDrops } from "../lib/deepLinks";
 import { fmtDuration } from "../lib/format";
+import { createLocalStore } from "../lib/localStore";
 
 /** Normalized (lowercase, letters-only) full name → 3-letter code, so
  *  "ShadowKnight" / "Shadow Knight" / "shadowknight" all abbreviate.
@@ -112,15 +113,29 @@ type SortKey =
 // Name | Classes | Mana(End) | Cast | Recast | Duration | Resist
 const GRID_TEMPLATE = "1.3fr 1.1fr 56px 60px 64px 68px 90px";
 
+/** Last user-chosen segment, restored across restarts. No event name: the
+ *  only reader is this tab's own mount-time load. */
+const kindStore = createLocalStore<"spells" | "abilities">(
+  "eqlogs.spellsKind",
+  undefined,
+  (raw) => (raw === "abilities" ? "abilities" : "spells"),
+);
+
 export default function SpellsTab({
-  kind,
   searchRequest,
 }: {
-  kind: "spells" | "abilities";
-  /** Deep-link (ding digest → spell): prefill the query. `seq` bumps so the
-   *  same name can be re-requested. */
-  searchRequest?: { query: string; seq: number } | null;
+  /** Deep-link (ding digest → spell): prefill the query and land on the
+   *  right segment. `seq` bumps so the same name can be re-requested. */
+  searchRequest?: { query: string; isAbility?: boolean; seq: number } | null;
 }) {
+  // Spells/Abilities segment. Abilities used to be a separate sidebar tab;
+  // honor old ?tab=abilities URLs by starting on that segment, otherwise
+  // restore the last user-chosen segment.
+  const [kind, setKind] = useState<"spells" | "abilities">(() =>
+    new URLSearchParams(window.location.search).get("tab") === "abilities"
+      ? "abilities"
+      : kindStore.load(),
+  );
   const isAbility = kind === "abilities";
   // Abilities cost endurance; the cost column (and its sort) follows suit.
   const costLabel = isAbility ? "End" : "Mana";
@@ -128,11 +143,13 @@ export default function SpellsTab({
 
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  // Deep-link prefill: adopt the requested query when the seq changes, and
-  // focus the search box so the user can refine immediately.
+  // Deep-link prefill: adopt the requested query when the seq changes, land
+  // on the requested segment, and focus the search box so the user can
+  // refine immediately.
   useEffect(() => {
     if (searchRequest && searchRequest.query) {
       setQuery(searchRequest.query);
+      setKind(searchRequest.isAbility ? "abilities" : "spells");
       inputRef.current?.focus();
     }
   }, [searchRequest?.seq]);
@@ -228,6 +245,19 @@ export default function SpellsTab({
     resetPaging();
   }
 
+  /** Switch the Spells/Abilities segment, keeping query and filters. The
+   *  cost sort follows the segment (mana ↔ endurance). Explicit switches
+   *  persist; deep-link arrivals stay transient. */
+  function switchKind(next: "spells" | "abilities") {
+    if (next === kind) return;
+    setKind(next);
+    kindStore.save(next);
+    if (sort === "mana" || sort === "endurance") {
+      setSort(next === "abilities" ? "endurance" : "mana");
+    }
+    resetPaging();
+  }
+
   const noun = isAbility ? "ability" : "spell";
 
   function sortHeader(key: SortKey, label: string, numeric: boolean) {
@@ -255,6 +285,20 @@ export default function SpellsTab({
         </span>
       </div>
       <div className="drops-controls">
+        <div className="seg" role="group" aria-label="Spells or abilities">
+          <button
+            className={isAbility ? "" : "active"}
+            onClick={() => switchKind("spells")}
+          >
+            Spells
+          </button>
+          <button
+            className={isAbility ? "active" : ""}
+            onClick={() => switchKind("abilities")}
+          >
+            Abilities
+          </button>
+        </div>
         <input
           ref={inputRef}
           type="search"

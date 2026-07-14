@@ -16,6 +16,8 @@ const EVENT = {
   recipes: "eqlogs-open-recipes",
   quests: "eqlogs-open-quests",
   spells: "eqlogs-open-spells",
+  timers: "eqlogs-open-timers",
+  triggers: "eqlogs-open-triggers",
 } as const;
 
 type Target = keyof typeof EVENT;
@@ -28,6 +30,8 @@ interface DetailMap {
   recipes: string;
   quests: string;
   spells: { name: string; isAbility?: boolean };
+  timers: null;
+  triggers: null;
 }
 
 function dispatch<T extends Target>(target: T, detail: DetailMap[T]): void {
@@ -57,6 +61,16 @@ export function openQuests(name: string): void {
 /** Open a spell (or ability) in the matching Database tab. */
 export function openSpells(name: string, isAbility = false): void {
   dispatch("spells", { name, isAbility });
+}
+
+/** Jump to the Timers tab (the single live-timers surface). */
+export function openTimers(): void {
+  dispatch("timers", null);
+}
+
+/** Jump to the Triggers tab (the single classes/level editing surface). */
+export function openTriggers(): void {
+  dispatch("triggers", null);
 }
 
 /** Subscribe to one deep-link target for the component's lifetime. The

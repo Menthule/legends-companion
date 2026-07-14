@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { discoverLogs, getConfig, getProfile } from "../api";
+import { save } from "@tauri-apps/plugin-dialog";
+import { discoverLogs, exportSession, getConfig, getProfile } from "../api";
 import {
   fmtDuration,
   fmtNum,
@@ -34,8 +35,20 @@ import {
   type SessionRouteSample,
 } from "../lib/sessionComparison";
 import { createLocalStore } from "../lib/localStore";
+import {
+  RECAP_CAP,
+  SESSION_CAP,
+  sessionBounds,
+  sessionScoreboard,
+  useSessionLog,
+} from "../lib/sessionLog";
+import { loadWishlist, onWishlistChanged, type WishlistEntry } from "../lib/wishlist";
 import Empty from "./Empty";
-import PaceRates from "./PaceRates";
+import SessionPanel, {
+  SESSION_PANELS,
+  type SessionPanelId,
+} from "./SessionPanels";
+import { useToast } from "./Toast";
 
 const COACH_KEY = "eqlogs.coach.v1";
 const COACH_EVENT = "eqlogs-coach-changed";
@@ -397,7 +410,7 @@ function boardMetricValue(sample: SessionComparisonSample | null, id: BoardMetri
 }
 
 function formatBoardValue(id: BoardMetricId, value: number | null, aaPointsMode: boolean): string {
-  if (value === null) return "--";
+  if (value === null) return "—";
   if (id === "duration") return fmtDuration(Math.round(value));
   if (id === "xp") return `${value.toFixed(2)}%`;
   if (id === "aa") return aaPointsMode ? `${value.toFixed(1)} pts` : `${value.toFixed(1)}%`;
@@ -419,12 +432,33 @@ function boardDelta(current: number | null, baseline: number | null, higherIsBet
   };
 }
 
+/** Session-tab sections: the Overview + insight views CoachTab always had,
+ *  plus the session-data panels absorbed from FightsTab's session card. */
+type CoachSection =
+  | "session"
+  | SessionPanelId
+  | "damage"
+  | "pets"
+  | "efficiency"
+  | "npcs";
+
+/** Sections that show the scoped (fight/session/past) insight views — the
+ *  scope switcher and summary header only make sense for these. */
+const INSIGHT_SECTIONS: readonly CoachSection[] = [
+  "damage",
+  "pets",
+  "efficiency",
+  "npcs",
+];
+
+const SESSION_PANEL_IDS: readonly string[] = SESSION_PANELS.map((p) => p.id);
+
 export default function CoachTab({ character }: { character: string }) {
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [profile, setProfile] = useState<CharacterProfile | null>(null);
   const [logs, setLogs] = useState<DiscoveredLog[]>([]);
   const [store, setStore] = useState<CoachStore>(() => loadStore());
-  const [section, setSection] = useState<"session" | "damage" | "pets" | "efficiency" | "npcs">("session");
+  const [section, setSection] = useState<CoachSection>("session");
   const [viewScope, setViewScope] = useState<"fight" | "session" | "past">("session");
   const [pace, setPace] = useState<PaceState>(() => loadPaceState());
   const [effects, setEffects] = useState<Map<string, EffectAgg>>(() => new Map());
@@ -436,6 +470,13 @@ export default function CoachTab({ character }: { character: string }) {
   const [sessionStart, setSessionStart] = useState(Date.now());
   const [recapCopied, copyRecapText] = useCopyFeedback<boolean>(2000);
   const now = useNowMs(1000);
+  // Session-data panels (Rates/XP/Kills/…): accumulated app-run data from
+  // lib/sessionLog — this tab is just a view over it.
+  const sessionLog = useSessionLog();
+  const [wishlist, setWishlist] = useState<WishlistEntry[]>(() => loadWishlist());
+  useEffect(() => onWishlistChanged(() => setWishlist(loadWishlist())), []);
+  const [exportingSession, setExportingSession] = useState(false);
+  const [toastNode, showToast] = useToast();
   const [xpSession, setXpSession] = useState(0);
   const [kills, setKills] = useState(0);
   const [killCounts, setKillCounts] = useState<Map<string, number>>(() => new Map());
@@ -900,7 +941,6 @@ export default function CoachTab({ character }: { character: string }) {
     : null;
   const isViewingHistory = viewScope === "past" && selectedHistory !== null;
   const isViewingFight = viewScope === "fight";
-  const effectsRows = [...effects.values()].sort((a, b) => b.total - a.total);
   const petRows = fight ? petRowsForCharacter(fight.rows, character) : [];
   const petTotal = summedRowsTotal(petRows);
   const playerRow = fight?.rows.find((r) => r.name.toLowerCase() === character.toLowerCase());
@@ -912,11 +952,6 @@ export default function CoachTab({ character }: { character: string }) {
   const liveSessionSources = fight?.active ? mergeMeterSources(sessionSources, playerSources) : sessionSources;
   const visiblePlayerSources = selectedHistory?.damageSources ?? (isViewingFight ? playerSources : liveSessionSources);
   const visiblePlayerDamage = visiblePlayerSources.reduce((sum, row) => sum + row.total, 0) || (isViewingFight ? playerDamage : playerDamageTotal);
-  // Old session caches may contain the removed proc/skill classifications.
-  const visibleEffectsRows = (selectedHistory?.effects ?? effectsRows).filter(
-    (row) => row.kind === "spell",
-  );
-  const visibleEffectDamage = visibleEffectsRows.reduce((sum, row) => sum + row.total, 0);
   const petSources = petRows
     .flatMap((row) => row.sources ?? [])
     .sort((a, b) => b.total - a.total);
@@ -1044,12 +1079,84 @@ export default function CoachTab({ character }: { character: string }) {
     await copyRecapText(lines.join("\n"), true);
   }
 
+  // One-file session export (moved from the old Fights session card): this
+  // app run's XP, kills, effects, death recaps, loot, rolls, and scoreboard.
+  async function exportCurrentSession() {
+    const { startTs, endTs } = sessionBounds();
+    if (startTs === null || endTs === null) {
+      showToast("No session activity to export yet");
+      return;
+    }
+    const safeCharacter = character.replace(/[^\w-]+/g, "_") || "character";
+    const day = new Date().toISOString().slice(0, 10);
+    setExportingSession(true);
+    try {
+      const path = await save({
+        defaultPath: `legends-session-${safeCharacter}-${day}.json`,
+        filters: [
+          { name: "Legends Companion session", extensions: ["json"] },
+        ],
+      });
+      if (typeof path !== "string") return;
+      await exportSession({
+        path,
+        character,
+        startTs,
+        endTs,
+        details: {
+          xp: sessionLog.xp,
+          pace,
+          level: {
+            progress: sessionLog.levelProgress,
+            anchorKnown: sessionLog.levelAnchorKnown,
+          },
+          kills: Object.values(sessionLog.kills),
+          effects: sessionLog.effects,
+          deathRecaps: sessionLog.recaps.map(({ id, ts, killer, damage }) => ({
+            id,
+            ts,
+            killer,
+            damage,
+          })),
+          loot: sessionLog.loot,
+          rolls: sessionLog.rolls,
+          scoreboard: sessionScoreboard(),
+          captureLimits: {
+            collectionRows: SESSION_CAP,
+            deathRecaps: RECAP_CAP,
+            rawLogLinesIncluded: false,
+          },
+        },
+      });
+      showToast("Session exported");
+    } catch (e) {
+      showToast(`Could not export session: ${String(e)}`);
+    } finally {
+      setExportingSession(false);
+    }
+  }
+
+  // Scoped insight sections show the fight/session/past switcher and summary;
+  // session-data panels are app-run data with their own headers.
+  const isInsight = INSIGHT_SECTIONS.includes(section);
+  const isSessionPanel = SESSION_PANEL_IDS.includes(section);
+  const panelCounts: Record<SessionPanelId, number> = {
+    rates: pace.history.length,
+    xp: sessionLog.xp.count,
+    kills: Object.keys(sessionLog.kills).length,
+    effects: sessionLog.effects.length,
+    deaths: sessionLog.recaps.length,
+    loot: sessionLog.loot.length,
+    wishlist: wishlist.length,
+    rolls: sessionLog.rolls.length,
+  };
+
   return (
     <div className="coach-grid">
       <section className="card coach-span coach-context-card">
         <div className="coach-context-bar">
           <div className="coach-context-picker">
-            {section !== "session" && <div className="coach-scope-switch" role="group" aria-label="View scope">
+            {isInsight && <div className="coach-scope-switch" role="group" aria-label="View scope">
               {([
                 ["fight", fight?.active ? "Current fight" : "Last fight"],
                 ["session", "Current session"],
@@ -1071,7 +1178,7 @@ export default function CoachTab({ character }: { character: string }) {
                 </button>
               ))}
             </div>}
-            {section !== "session" && viewScope === "past" && (
+            {isInsight && viewScope === "past" && (
               <select
                 id="coach-session-context"
                 value={selectedHistory?.id ?? ""}
@@ -1087,10 +1194,10 @@ export default function CoachTab({ character }: { character: string }) {
                 ))}
               </select>
             )}
-            {section !== "session" && viewScope === "past" && sessionHistory.length > 0 && (
+            {isInsight && viewScope === "past" && sessionHistory.length > 0 && (
               <button className="ghost small" onClick={clearSessionHistory}>Clear history</button>
             )}
-            {(section === "session" || viewScope === "session") && (
+            {(section === "session" || (isInsight && viewScope === "session")) && (
               <button className="ghost small" onClick={clearSession}>
                 New session
               </button>
@@ -1101,6 +1208,14 @@ export default function CoachTab({ character }: { character: string }) {
               title="Copy a postable text summary of this session"
             >
               {recapCopied ? "Copied ✓" : "Copy recap"}
+            </button>
+            <button
+              className="ghost small"
+              onClick={() => void exportCurrentSession()}
+              disabled={!sessionLog.hasActivity || exportingSession}
+              title="Save this session's fights, XP, kills, effects, loot, and rolls"
+            >
+              {exportingSession ? "Exporting…" : "Export session"}
             </button>
           </div>
           <span className="context-chip">
@@ -1117,7 +1232,7 @@ export default function CoachTab({ character }: { character: string }) {
             <span>{isViewingHistory ? "Zones" : "Zone"}</span>
             <strong>{isViewingHistory ? selectedHistory.zones.join(" / ") || "Unknown zone" : currentZone}</strong>
           </span>
-          {viewScope === "session" && (
+          {!isSessionPanel && viewScope === "session" && (
             <>
               <label className="context-field" title="Best-effort auto-detects when a log line includes difficulty/tier/instance D1-D5. Otherwise set it here.">
                 <span>Difficulty</span>
@@ -1157,39 +1272,64 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
       </section>
 
-      <section className={`card coach-span${section === "session" ? " coach-tabs-card" : ""}`}>
-        {section !== "session" && <>
+      <section className={`card coach-span${isInsight ? "" : " coach-tabs-card"}`}>
+        {isInsight && <>
           <div className="card-head">
             <span className="section-title">{viewedSample.label}</span>
             <span className="hint">{isViewingHistory ? selectedHistory.endReason : isViewingFight ? fight?.target : "Live session totals"}</span>
           </div>
           <div className="coach-summary">
-            <Stat label="XP" value={viewedSample.xp == null ? "--" : `${viewedSample.xp.toFixed(3)}%`} />
-            <Stat label="AA" value={viewedSample.aaPoints == null ? "--" : String(viewedSample.aaPoints)} />
-            <Stat label="Motes" value={viewedSample.motes == null ? "--" : String(viewedSample.motes)} />
-            <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "--" : fmtNum(viewedSample.damage)} />
-            <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "--"} / ${viewedSample.deaths ?? "--"}`} />
+            <Stat label="XP" value={viewedSample.xp == null ? "—" : `${viewedSample.xp.toFixed(3)}%`} />
+            <Stat label="AA" value={viewedSample.aaPoints == null ? "—" : String(viewedSample.aaPoints)} />
+            <Stat label="Motes" value={viewedSample.motes == null ? "—" : String(viewedSample.motes)} />
+            <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "—" : fmtNum(viewedSample.damage)} />
+            <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "—"} / ${viewedSample.deaths ?? "—"}`} />
             <Stat label="Time" value={fmtDuration(visibleDurationSecs)} />
           </div>
         </>}
         <div className="coach-tabs">
-          {[
-            ["session", "Overview"],
+          <button
+            className={`settings-tab${section === "session" ? " active" : ""}`}
+            onClick={() => setSection("session")}
+          >
+            Overview
+          </button>
+          {SESSION_PANELS.map((p) => (
+            <button
+              key={p.id}
+              className={`settings-tab${section === p.id ? " active" : ""}`}
+              onClick={() => setSection(p.id)}
+            >
+              {p.label}
+              <span className="pill">{panelCounts[p.id]}</span>
+            </button>
+          ))}
+          {([
             ["damage", "Damage"],
             ["pets", "Pets"],
             ["efficiency", "Routes"],
-            ["npcs", "NPC History"],
-          ].map(([id, label]) => (
+            ["npcs", "NPC history"],
+          ] as const).map(([id, label]) => (
             <button
               key={id}
               className={`settings-tab${section === id ? " active" : ""}`}
-              onClick={() => setSection(id as typeof section)}
+              onClick={() => setSection(id)}
             >
               {label}
             </button>
           ))}
         </div>
       </section>
+
+      {isSessionPanel && (
+        <SessionPanel
+          tab={section as SessionPanelId}
+          snap={sessionLog}
+          wishlist={wishlist}
+          pace={pace}
+          onSetPace={updatePace}
+        />
+      )}
 
       {section === "session" && <section className="card coach-span comparison-card">
         <div className="comparison-toolbar">
@@ -1298,16 +1438,8 @@ export default function CoachTab({ character }: { character: string }) {
         )}
       </section>}
 
-      {section === "session" && <section className="card coach-span session-rates-card compact">
-        <div className="card-head">
-          <span className="section-title">Manual AA measurement</span>
-          <span className="hint">Optional when the log cannot report partial AA progress.</span>
-        </div>
-        <PaceRates pace={pace} onChange={updatePace} compact />
-      </section>}
-
       {section === "damage" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">Player Damage Sources</span></div>
+        <div className="card-head"><span className="section-title">Player damage sources</span></div>
         <div className="coach-table">
           {visiblePlayerSources.slice(0, 12).map((row) => (
             <div className="coach-row compact" key={row.name}>
@@ -1358,7 +1490,7 @@ export default function CoachTab({ character }: { character: string }) {
       </section>}
 
       {section === "efficiency" && <section className="card">
-        <div className="card-head"><span className="section-title">Zones / Camps</span></div>
+        <div className="card-head"><span className="section-title">Zones / camps</span></div>
         <div className="coach-table">
           {buckets.slice(0, 6).map((bucket) => (
             <div className="coach-row compact" key={bucket.key}>
@@ -1376,47 +1508,8 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
       </section>}
 
-      {section === "efficiency" && <section className="card">
-        <div className="card-head"><span className="section-title">Mobs Killed</span></div>
-        <div className="coach-table">
-          {visibleTopKills.map((row) => (
-            <div className="coach-row compact" key={row.name}>
-              <strong>{row.name}</strong>
-              <span>{row.count} kill{row.count === 1 ? "" : "s"}</span>
-              <span>{visibleXp > 0 ? `${visibleXp.toFixed(3)}% session XP` : "No XP recorded"}</span>
-            </div>
-          ))}
-          {visibleTopKills.length === 0 && (
-            <Empty
-              title="No kills yet"
-              body="Kill counts appear after slain lines are parsed."
-            />
-          )}
-        </div>
-      </section>}
-
-      {section === "damage" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">Spell Effect Totals</span></div>
-        <p className="hint">Aggregate parsed spell damage for this session. Alerting and TTS are configured through triggers.</p>
-        <div className="coach-table">
-          {visibleEffectsRows.slice(0, 12).map((row) => (
-            <div className="coach-row compact" key={row.key}>
-              <strong>Spell: {row.name}</strong>
-              <span>{fmtNum(row.total)} damage</span>
-              <span>{row.hits} hits, {pct(visibleEffectDamage, row.total)} share</span>
-            </div>
-          ))}
-          {visibleEffectsRows.length === 0 && (
-            <Empty
-              title="No spell damage yet"
-              body="Parsed spell damage will appear here as it occurs."
-            />
-          )}
-        </div>
-      </section>}
-
       {section === "pets" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">Pet Contribution</span></div>
+        <div className="card-head"><span className="section-title">Pet contribution</span></div>
         <div className="coach-kv">
           <span>Detected pet</span><strong>{currentPetName || config?.pets?.join(", ") || "None yet"}</strong>
           <span>Configured pets</span><strong>{config?.pets?.join(", ") || "None"}</strong>
@@ -1470,7 +1563,7 @@ export default function CoachTab({ character }: { character: string }) {
       </section>}
 
       {section === "npcs" && <section className="card coach-span">
-        <div className="card-head"><span className="section-title">NPC History</span></div>
+        <div className="card-head"><span className="section-title">NPC history</span></div>
         <div className="coach-table">
           {npcMemory.slice(0, 12).map((npc) => (
             <div className="coach-row" key={npc.name}>
@@ -1490,6 +1583,7 @@ export default function CoachTab({ character }: { character: string }) {
           )}
         </div>
       </section>}
+      {toastNode}
     </div>
   );
 }

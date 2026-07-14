@@ -57,6 +57,15 @@ conveyed by color alone — pair with an icon or label.
 - Big stat-tile values: 24–28px semibold, proportional figures, label under in
   `--ink-2`.
 
+### Copy conventions
+
+- Section titles and button labels are sentence case ("Fight history",
+  "Trigger library"), not Title Case.
+- Missing/empty values render as an em-dash "—", never ASCII "--".
+- In-progress and truncation use the ellipsis glyph "…" ("Loading sources…"),
+  never three dots.
+- Quotes around user-supplied names are curly ("Trigger “X” saved").
+
 ## Layout
 
 - Left icon+label sidebar nav (Live, Meters, Triggers, Settings), 200px, `--page`

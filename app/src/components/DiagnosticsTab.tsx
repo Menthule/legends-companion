@@ -103,7 +103,7 @@ export default function DiagnosticsTab() {
     <div className="diag-grid">
       <section className="card">
         <div className="card-head">
-          <span className="section-title">Parser Health</span>
+          <span className="section-title">Parser health</span>
           <button
             className="ghost small"
             onClick={() => void copyText(diagnosticsBundle(), "Diagnostics")}
@@ -115,7 +115,7 @@ export default function DiagnosticsTab() {
           <span>Recent window</span>
           <strong>rolling parser sample</strong>
           <span>Unrecognized</span>
-          <strong>{stats ? `${stats.unclassifiedPct.toFixed(1)}%` : "--"}</strong>
+          <strong>{stats ? `${stats.unclassifiedPct.toFixed(1)}%` : "—"}</strong>
           <span>Status</span>
           <strong>
             {!stats
@@ -131,7 +131,7 @@ export default function DiagnosticsTab() {
 
       <section className="card">
         <div className="card-head">
-          <span className="section-title">Active Log</span>
+          <span className="section-title">Active log</span>
         </div>
         <div className="coach-kv">
           <span>Configured</span>
@@ -145,7 +145,7 @@ export default function DiagnosticsTab() {
 
       <section className="card diag-span">
         <div className="card-head">
-          <span className="section-title">Recent Unrecognized Lines</span>
+          <span className="section-title">Recent unrecognized lines</span>
         </div>
         <div className="coach-table">
           {lines.length === 0 ? (
@@ -181,7 +181,7 @@ export default function DiagnosticsTab() {
 
       <section className="card diag-span">
         <div className="card-head">
-          <span className="section-title">Observed Spell Effects</span>
+          <span className="section-title">Observed spell effects</span>
         </div>
         <div className="coach-table">
           {effects.length === 0 ? (

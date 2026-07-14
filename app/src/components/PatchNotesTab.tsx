@@ -31,40 +31,41 @@ function parsePatchNotes(raw: string): Release[] {
   return releases;
 }
 
+/** Patch-notes card content. Rendered inside Settings → Updates (the old
+ *  top-level Patch Notes tab retired into it) — the caller supplies the
+ *  `.card` wrapper so the settings sub-tab show/hide applies. */
 export default function PatchNotesTab() {
   const releases = parsePatchNotes(notesText);
   return (
-    <div className="patch-notes">
-      <section className="card">
-        <div className="card-head">
-          <span className="section-title">Patch Notes</span>
-          <span className="hint">High-level changes users should know about.</span>
-        </div>
-        {releases.length === 0 ? (
-          <Empty
-            title="No patch notes"
-            body="No patch notes are available for this build."
-          />
-        ) : (
-          releases.map((release) => (
-            <div className="patch-release" key={release.title}>
-              <h2>{release.title}</h2>
-              <div className="patch-section-grid">
-                {release.sections.map((section) => (
-                  <article className="patch-section" key={section.title}>
-                    <h3>{section.title}</h3>
-                    <ul>
-                      {section.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
+    <>
+      <div className="card-head">
+        <span className="section-title">Patch notes</span>
+        <span className="hint">High-level changes users should know about.</span>
+      </div>
+      {releases.length === 0 ? (
+        <Empty
+          title="No patch notes"
+          body="No patch notes are available for this build."
+        />
+      ) : (
+        releases.map((release) => (
+          <div className="patch-release" key={release.title}>
+            <h2>{release.title}</h2>
+            <div className="patch-section-grid">
+              {release.sections.map((section) => (
+                <article className="patch-section" key={section.title}>
+                  <h3>{section.title}</h3>
+                  <ul>
+                    {section.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
             </div>
-          ))
-        )}
-      </section>
-    </div>
+          </div>
+        ))
+      )}
+    </>
   );
 }
