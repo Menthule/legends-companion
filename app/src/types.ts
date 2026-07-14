@@ -631,7 +631,7 @@ export interface RespawnInfo {
 export interface SpellRow {
   id: number;
   name: string;
-  /** 1 = endurance-costed combat ability, 0 = spell. */
+  /** 1 = endurance discipline or maintained learned skill, 0 = spell. */
   isAbility: number;
   mana: number;
   endurance: number;

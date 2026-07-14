@@ -2,8 +2,8 @@
 //! `spell_classes` tables in the SAME bundled sqlite file the Drops tab uses
 //! (`refdata/drops.sqlite` resource, `assets/data/drops.sqlite` in dev —
 //! see `dropdb::open`). Abilities are the `is_ability = 1` half of the
-//! `spells` table (endurance-costed combat skills); the Spells and
-//! Abilities tabs are the same query with that flag flipped.
+//! `spells` table (endurance disciplines plus maintained learned skills);
+//! the Spells and Abilities tabs are the same query with that flag flipped.
 
 use rusqlite::Row;
 use serde::Serialize;

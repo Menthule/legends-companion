@@ -8,7 +8,9 @@ EXISTING `assets/data/drops.sqlite` without touching the drop-research
 tables:
 
     spells         — one row per castable spell/ability: costs, timings,
-                     level-50 duration estimate, targeting, log messages
+                     level-50 duration estimate, targeting, log messages.
+                     Learned skills absent from spells_us are merged from
+                     the maintained ACTIVE_SKILLS catalog below.
     spell_classes  — (spell_id, class, level) for the 16 Legends classes
 
 Column map (0-based field indices, empirically verified against classic
@@ -39,7 +41,10 @@ The flag catches upkeep-only/free disciplines (e.g. Fearless Discipline,
 rogue poison crafting, Mercenary Taunt) that cost no endurance up front;
 in this data every endurance-costing row also has the flag set, but both
 are checked for safety. Everything else (including bard songs) is a
-mana spell (is_ability = 0).
+mana spell (is_ability = 0). Active combat/utility skills such as Kick and
+Flying Kick do not exist as class-usable rows in spells_us; maintained rows
+use negative IDs and is_ability = 1 so they share the Abilities UI without
+colliding with client spell IDs.
 
 duration_secs is a level-50 estimate via extract_spells.calc_duration_ticks
 (1 tick = 6 s); 432000 means "permanent until dispelled".
@@ -69,6 +74,75 @@ CLASSES = [
     "Magician", "Enchanter", "Beastlord", "Berserker",
 ]
 CLASS_LEVEL_FIELD_BASE = 36
+
+# Learned skill buttons are not represented as class-usable rows in the
+# client spell file. Keep this deliberately small: active, class-granted
+# skills that belong beside disciplines in the Abilities browser. Levels are
+# from the EverQuest Legends class skill tables (reviewed 2026-07-14):
+# https://eqlwiki.com/Skills plus the linked class pages.
+# Negative IDs reserve a namespace that cannot collide with client spell IDs.
+#
+# Row fields: (id, name, classes-and-levels, recast_ms, target_type,
+#              beneficial). A zero recast means the reference only documents
+# a shared/named timer, not a reliable numeric cooldown.
+ACTIVE_SKILLS = [
+    (-1, "Bash", (("Warrior", 6), ("Paladin", 6),
+                  ("ShadowKnight", 6)), 8_000, 5, 0),
+    (-2, "Kick", (("Warrior", 1), ("Ranger", 5), ("Monk", 1),
+                  ("Bard", 17)), 0, 5, 0),
+    (-3, "Cleave", (("Warrior", 5),), 12_000, 5, 0),
+    (-4, "Smite", (("Paladin", 9),), 0, 5, 0),
+    (-5, "Reave", (("ShadowKnight", 9),), 0, 5, 0),
+    (-6, "Backstab", (("Rogue", 10),), 10_000, 5, 0),
+    (-7, "Frenzy", (("Berserker", 1),), 0, 5, 0),
+    (-8, "Mend", (("Monk", 1),), 0, 6, 1),
+    (-9, "Round Kick", (("Monk", 5),), 0, 5, 0),
+    (-10, "Tiger Claw", (("Monk", 10),), 0, 5, 0),
+    (-11, "Feign Death", (("Monk", 17),), 0, 6, 1),
+    (-12, "Eagle Strike", (("Monk", 20),), 0, 5, 0),
+    (-13, "Dragon Punch", (("Monk", 25),), 0, 5, 0),
+    (-14, "Tail Rake", (("Monk", 25),), 0, 5, 0),
+    (-15, "Flying Kick", (("Monk", 30),), 0, 5, 0),
+]
+
+
+def append_active_skills(spell_rows: list, class_rows: list) -> None:
+    """Merge maintained learned skills, deferring to real ability rows."""
+    real_ability_names = {
+        row[1].casefold() for row in spell_rows if row[3] == 1
+    }
+    for sid, name, classes, recast_ms, target_type, beneficial in ACTIVE_SKILLS:
+        if name.casefold() in real_ability_names:
+            continue
+        spell_rows.append((
+            sid, name, name.lower(), 1,
+            0, 0, 0, recast_ms, 0, 0, target_type, 0, 0, beneficial,
+            "", "", "",
+        ))
+        class_rows.extend((sid, cls, lvl) for cls, lvl in classes)
+
+
+def validate_active_skills(db: sqlite3.Connection) -> None:
+    """Fail the build if a maintained skill or class mapping was lost."""
+    for _, name, expected_classes, _, _, _ in ACTIVE_SKILLS:
+        row = db.execute(
+            "SELECT id FROM spells WHERE name = ? AND is_ability = 1 "
+            "ORDER BY id < 0 DESC LIMIT 1",
+            (name,),
+        ).fetchone()
+        if row is None:
+            raise RuntimeError(f"missing maintained active skill: {name}")
+        actual_classes = tuple(db.execute(
+            "SELECT class, level FROM spell_classes WHERE spell_id = ? "
+            "ORDER BY class",
+            (row[0],),
+        ).fetchall())
+        expected_sorted = tuple(sorted(expected_classes))
+        if actual_classes != expected_sorted:
+            raise RuntimeError(
+                f"bad class mappings for {name}: "
+                f"expected {expected_sorted}, got {actual_classes}"
+            )
 
 
 def keep_name(name: str) -> bool:
@@ -139,6 +213,8 @@ def main() -> int:
             ))
             class_rows.extend((sid, cls, lvl) for cls, lvl in classes)
 
+    append_active_skills(spell_rows, class_rows)
+
     db = sqlite3.connect(DB)
     db.executescript(
         """
@@ -166,6 +242,7 @@ def main() -> int:
     )
     db.executemany("INSERT INTO spell_classes VALUES (?,?,?)", class_rows)
     db.commit()
+    validate_active_skills(db)
 
     n_abil = db.execute(
         "SELECT COUNT(*) FROM spells WHERE is_ability = 1").fetchone()[0]

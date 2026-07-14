@@ -40,9 +40,8 @@ const MAX_PAYLOAD_BYTES: usize = 32 * 1024 * 1024;
 ///
 /// The `version`/`author`/`notes` metadata is additive (added for
 /// version-aware re-import): every field is `Option` + `skip_serializing_if`
-/// + `default`, so payloads without them decode exactly as before and
-/// payloads that omit them serialize byte-identically to the original v1
-/// shape — the `LCS1:` wire prefix does NOT bump.
+/// plus `default`. Payloads without them decode exactly as before, and omit
+/// them when serialized, so the `LCS1:` wire prefix does NOT bump.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct SharePayload {
     /// Human label for the bundle ("Kael Raid Pack", a loadout name, …).
@@ -781,12 +780,18 @@ mod tests {
         let entries = diff_triggers(&incoming, &existing);
 
         assert_eq!(entries.len(), 4);
-        assert_eq!((entries[0].id.as_str(), entries[0].kind), ("pack/new", DiffKind::Added));
+        assert_eq!(
+            (entries[0].id.as_str(), entries[0].kind),
+            ("pack/new", DiffKind::Added)
+        );
         assert_eq!(entries[1].kind, DiffKind::Changed);
         assert_eq!(entries[1].changed_fields, vec!["pattern", "cooldown_secs"]);
         assert_eq!(entries[2].kind, DiffKind::Unchanged);
         assert!(entries[2].changed_fields.is_empty());
-        assert_eq!((entries[3].id.as_str(), entries[3].kind), ("pack/gone", DiffKind::Removed));
+        assert_eq!(
+            (entries[3].id.as_str(), entries[3].kind),
+            ("pack/gone", DiffKind::Removed)
+        );
     }
 
     #[test]
@@ -795,10 +800,15 @@ mod tests {
         let mut a = trig("x", "X", "^x$");
         a.source = TriggerSource::Shared;
         let b = trig("x", "X", "^x$");
-        assert_eq!(diff_triggers(&[a.clone()], &[b.clone()])[0].kind, DiffKind::Unchanged);
+        assert_eq!(
+            diff_triggers(std::slice::from_ref(&a), std::slice::from_ref(&b))[0].kind,
+            DiffKind::Unchanged
+        );
         // An action change is semantic.
         let mut c = b.clone();
-        c.actions = vec![Action::Speak { template: "hi".into() }];
+        c.actions = vec![Action::Speak {
+            template: "hi".into(),
+        }];
         let entries = diff_triggers(&[c], &[b]);
         assert_eq!(entries[0].kind, DiffKind::Changed);
         assert_eq!(entries[0].changed_fields, vec!["actions"]);
@@ -814,7 +824,10 @@ mod tests {
         tail.source = TriggerSource::User;
         let mut pack = vec![user_own, old_shared, tail];
 
-        let incoming = vec![trig("pack/t", "New name", "^new$"), trig("pack/extra", "Extra", "^e$")];
+        let incoming = vec![
+            trig("pack/t", "New name", "^new$"),
+            trig("pack/extra", "Extra", "^e$"),
+        ];
         let outcome = merge_update_user_pack(incoming, &mut pack, &HashSet::new());
 
         assert_eq!(outcome.updated, vec!["pack/t"]);
@@ -839,7 +852,10 @@ mod tests {
         let mut pack = vec![user_own];
         let external: HashSet<String> = ["bundled/x".to_string()].into();
 
-        let incoming = vec![trig("mine", "Mine v2", "^m2$"), trig("bundled/x", "X", "^x$")];
+        let incoming = vec![
+            trig("mine", "Mine v2", "^m2$"),
+            trig("bundled/x", "X", "^x$"),
+        ];
         let outcome = merge_update_user_pack(incoming, &mut pack, &external);
 
         assert!(outcome.updated.is_empty());
@@ -862,10 +878,16 @@ mod tests {
         let mut old_shared = trig("pack/t", "Old", "^old$");
         old_shared.source = TriggerSource::Shared;
         let mut pack = vec![old_shared];
-        let incoming = vec![trig("pack/t", "First", "^1$"), trig("pack/t", "Second", "^2$")];
+        let incoming = vec![
+            trig("pack/t", "First", "^1$"),
+            trig("pack/t", "Second", "^2$"),
+        ];
         let outcome = merge_update_user_pack(incoming, &mut pack, &HashSet::new());
         assert_eq!(outcome.updated, vec!["pack/t"]);
-        assert_eq!(outcome.renamed, vec![("pack/t".to_string(), "pack/t-2".to_string())]);
+        assert_eq!(
+            outcome.renamed,
+            vec![("pack/t".to_string(), "pack/t-2".to_string())]
+        );
         assert_eq!(pack[0].name, "First");
         assert_eq!(pack[1].effective_id(), "pack/t-2");
     }

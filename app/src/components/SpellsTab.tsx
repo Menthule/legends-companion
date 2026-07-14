@@ -1,8 +1,9 @@
 // Spell/ability reference tab: search/browse the bundled Legends spell
 // database (spells/spell_classes tables in the same sqlite file the Drops
 // tab uses). One tab serves BOTH halves — abilities are the is_ability=1
-// half of the spells table (endurance-costed combat skills), selected with
-// the Spells/Abilities segmented toggle in the controls row.
+// half of the spells table (endurance disciplines plus maintained learned
+// skills such as Kick and Backstab), selected with the Spells/Abilities
+// segmented toggle in the controls row.
 //
 // Search UX mirrors DropsTab: debounced name search (min 2 chars unless a
 // class filter is active — browse mode), Class + max-level filters,
@@ -137,7 +138,8 @@ export default function SpellsTab({
       : kindStore.load(),
   );
   const isAbility = kind === "abilities";
-  // Abilities cost endurance; the cost column (and its sort) follows suit.
+  // Disciplines use endurance; learned skill rows leave this cost blank.
+  // The cost column (and its sort) follows the selected segment.
   const costLabel = isAbility ? "End" : "Mana";
   const costSort: SortKey = isAbility ? "endurance" : "mana";
 
@@ -383,7 +385,14 @@ export default function SpellsTab({
                 >
                   <span className="drops-name">
                     {r.name}
-                    {r.beneficial ? null : (
+                    {r.id < 0 ? (
+                      <span
+                        className="drops-badge"
+                        title="Learned class skill"
+                      >
+                        SKILL
+                      </span>
+                    ) : r.beneficial ? null : (
                       <span className="drops-badge warn">DET</span>
                     )}
                     {conflictsForMap(conflictMap, r.name).length > 0 && (
@@ -416,7 +425,13 @@ export default function SpellsTab({
                 {expanded === r.id && (
                   <div className="drops-detail">
                     <div className="drops-statline">
-                      <span>{r.beneficial ? "Beneficial" : "Detrimental"}</span>
+                      <span>
+                        {r.id < 0
+                          ? "Learned skill"
+                          : r.beneficial
+                            ? "Beneficial"
+                            : "Detrimental"}
+                      </span>
                       <span>
                         Target: {TARGET_TYPES[r.targetType] ?? `#${r.targetType}`}
                       </span>

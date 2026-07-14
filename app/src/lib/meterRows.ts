@@ -87,3 +87,20 @@ export function splitPetDamageRows(
   }
   return split.sort((a, b) => b.total - a.total || a.name.localeCompare(b.name));
 }
+
+/** Combatants that took damage during a fight, ranked by incoming damage.
+ * Keeping this separate from outgoing rows lets fight detail present the
+ * enemy's contribution without inventing mob stats the log cannot observe. */
+export function incomingDamageRows(rows: MeterRow[]): MeterRow[] {
+  return rows
+    .filter((row) => (row.damageTaken ?? 0) > 0)
+    .sort(
+      (a, b) =>
+        (b.damageTaken ?? 0) - (a.damageTaken ?? 0) ||
+        a.name.localeCompare(b.name),
+    );
+}
+
+export function incomingDamageTotal(rows: MeterRow[]): number {
+  return rows.reduce((sum, row) => sum + (row.damageTaken ?? 0), 0);
+}

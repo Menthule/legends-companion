@@ -18,7 +18,11 @@ import {
   pruneFights,
 } from "../api";
 import { fmtDuration, fmtNum, useTauriEvent } from "../hooks";
-import { splitPetDamageRows } from "../lib/meterRows";
+import {
+  incomingDamageRows,
+  incomingDamageTotal,
+  splitPetDamageRows,
+} from "../lib/meterRows";
 import { IS_MOCK } from "../mock";
 import type { FightRecord, FightUpdatePayload } from "../types";
 import Empty from "./Empty";
@@ -409,6 +413,8 @@ export default function FightsTab({ character }: { character: string }) {
   if (selected) {
     const dps = yourDps(selected);
     const detailRows = splitPetRows(selected.rows);
+    const enemyRows = incomingDamageRows(selected.rows);
+    const enemyTotal = incomingDamageTotal(enemyRows);
     return (
       <>
         <div className="toolbar">
@@ -433,19 +439,35 @@ export default function FightsTab({ character }: { character: string }) {
         </div>
         <div className="stat-tiles">
           <StatTile value={fmtDuration(selected.durationSecs)} label="Fight duration" />
-          <StatTile value={fmtNum(selected.totalDamage)} label="Total damage" />
+          <StatTile value={fmtNum(selected.totalDamage)} label="Damage dealt" />
           <StatTile value={dps === null ? "—" : fmtNum(dps)} label="Your DPS" />
           <StatTile value={fmtWhen(selected.startTs)} label="When" />
         </div>
         <div className="card">
           <div className="card-head">
-            <span className="section-title">Damage — {selected.target}</span>
+            <span className="section-title">Players — damage to {selected.target}</span>
             {selected.targetSlain && <span className="slain-chip">slain</span>}
           </div>
           {detailRows.length === 0 ? (
             <Empty title="No damage rows" body="This fight recorded no damage contributions." />
           ) : (
             <MeterTable rows={detailRows} />
+          )}
+        </div>
+        <div className="card">
+          <div className="card-head">
+            <span className="section-title">Enemies — damage to players</span>
+            <span className="hint">
+              {fmtNum(enemyTotal)} during {selected.target}
+            </span>
+          </div>
+          {enemyRows.length === 0 ? (
+            <Empty
+              title="No enemy damage recorded"
+              body="This fight did not contain damage from the target to a tracked player or pet."
+            />
+          ) : (
+            <MeterTable rows={enemyRows} mode="taken" />
           )}
         </div>
         {toastNode}

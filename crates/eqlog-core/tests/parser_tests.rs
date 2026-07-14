@@ -844,7 +844,9 @@ fn money_corpse_two_denominations_with_and() {
 #[test]
 fn money_corpse_three_denominations() {
     assert_eq!(
-        parse("[Thu Jul 02 23:54:19 2026] You receive 2 gold, 4 silver and 8 copper from the corpse."),
+        parse(
+            "[Thu Jul 02 23:54:19 2026] You receive 2 gold, 4 silver and 8 copper from the corpse."
+        ),
         Event::Money {
             kind: MoneyKind::CorpseLoot,
             coins: coins(0, 2, 4, 8),
@@ -886,7 +888,9 @@ fn money_from_item() {
         }
     );
     assert_eq!(
-        parse("[Fri Jul 03 02:23:18 2026] You received 6 gold, 4 silver and 3 copper from that item."),
+        parse(
+            "[Fri Jul 03 02:23:18 2026] You received 6 gold, 4 silver and 3 copper from that item."
+        ),
         Event::Money {
             kind: MoneyKind::ItemSale,
             coins: coins(0, 6, 4, 3),

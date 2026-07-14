@@ -449,9 +449,9 @@ type CoachSection =
   | "efficiency"
   | "npcs";
 
-/** Sections that show the scoped (fight/session/past) insight views — the
- *  scope switcher and summary header only make sense for these. */
+/** Sections that show the scoped (fight/session/past) insight views. */
 const INSIGHT_SECTIONS: readonly CoachSection[] = [
+  "session",
   "damage",
   "pets",
   "efficiency",
@@ -1192,7 +1192,7 @@ export default function CoachTab({ character }: { character: string }) {
       <section className="card coach-span coach-context-card">
         <div className="coach-context-bar">
           <div className="coach-context-picker">
-            {isInsight && <div className="coach-scope-switch" role="group" aria-label="View scope">
+            <div className="coach-scope-switch" role="group" aria-label="View scope">
               {([
                 ["fight", fight?.active ? "Current fight" : "Last fight"],
                 ["session", "Current session"],
@@ -1205,6 +1205,9 @@ export default function CoachTab({ character }: { character: string }) {
                   disabled={(id === "fight" && !fight) || (id === "past" && sessionHistory.length === 0)}
                   onClick={() => {
                     setViewScope(id);
+                    if (isSessionPanel && id !== "session") {
+                      setSection("session");
+                    }
                     if (id === "past" && !selectedHistoryId && sessionHistory[0]) {
                       setSelectedHistoryId(sessionHistory[0].id);
                     }
@@ -1213,7 +1216,7 @@ export default function CoachTab({ character }: { character: string }) {
                   {label}
                 </button>
               ))}
-            </div>}
+            </div>
             {isInsight && viewScope === "past" && (
               <select
                 id="coach-session-context"
@@ -1233,7 +1236,7 @@ export default function CoachTab({ character }: { character: string }) {
             {isInsight && viewScope === "past" && sessionHistory.length > 0 && (
               <button className="ghost small" onClick={clearSessionHistory}>Clear history</button>
             )}
-            {(section === "session" || (isInsight && viewScope === "session")) && (
+            {viewScope === "session" && (
               <button className="ghost small" onClick={clearSession}>
                 New session
               </button>
@@ -1268,7 +1271,7 @@ export default function CoachTab({ character }: { character: string }) {
             <span>{isViewingHistory ? "Zones" : "Zone"}</span>
             <strong>{isViewingHistory ? selectedHistory.zones.join(" / ") || "Unknown zone" : currentZone}</strong>
           </span>
-          {!isSessionPanel && viewScope === "session" && (
+          {viewScope === "session" && (
             <>
               <label className="context-field" title="Best-effort auto-detects when a log line includes difficulty/tier/instance D1-D5. Otherwise set it here.">
                 <span>Difficulty</span>
@@ -1308,21 +1311,7 @@ export default function CoachTab({ character }: { character: string }) {
         </div>
       </section>
 
-      <section className={`card coach-span${isInsight ? "" : " coach-tabs-card"}`}>
-        {isInsight && <>
-          <div className="card-head">
-            <span className="section-title">{viewedSample.label}</span>
-            <span className="hint">{isViewingHistory ? selectedHistory.endReason : isViewingFight ? fight?.target : "Live session totals"}</span>
-          </div>
-          <div className="coach-summary">
-            <Stat label="XP" value={viewedSample.xp == null ? "—" : `${viewedSample.xp.toFixed(3)}%`} />
-            <Stat label="AA" value={viewedSample.aaPoints == null ? "—" : String(viewedSample.aaPoints)} />
-            <Stat label="Motes" value={viewedSample.motes == null ? "—" : String(viewedSample.motes)} />
-            <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "—" : fmtNum(viewedSample.damage)} />
-            <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "—"} / ${viewedSample.deaths ?? "—"}`} />
-            <Stat label="Time" value={fmtDuration(visibleDurationSecs)} />
-          </div>
-        </>}
+      <section className="card coach-span coach-tabs-card">
         <div className="coach-tabs">
           <button
             className={`settings-tab${section === "session" ? " active" : ""}`}
@@ -1334,7 +1323,10 @@ export default function CoachTab({ character }: { character: string }) {
             <button
               key={p.id}
               className={`settings-tab${section === p.id ? " active" : ""}`}
-              onClick={() => setSection(p.id)}
+              onClick={() => {
+                setViewScope("session");
+                setSection(p.id);
+              }}
             >
               {p.label}
               <span className="pill">{panelCounts[p.id]}</span>
@@ -1356,6 +1348,21 @@ export default function CoachTab({ character }: { character: string }) {
           ))}
         </div>
       </section>
+
+      {isInsight && <section className="card coach-span coach-summary-card">
+        <div className="card-head">
+          <span className="section-title">{viewedSample.label}</span>
+          <span className="hint">{isViewingHistory ? selectedHistory.endReason : isViewingFight ? fight?.target : "Live session totals"}</span>
+        </div>
+        <div className="coach-summary">
+          <Stat label="XP" value={viewedSample.xp == null ? "—" : `${viewedSample.xp.toFixed(3)}%`} />
+          <Stat label="AA" value={viewedSample.aaPoints == null ? "—" : String(viewedSample.aaPoints)} />
+          <Stat label="Motes" value={viewedSample.motes == null ? "—" : String(viewedSample.motes)} />
+          <Stat label="Damage (includes shields)" value={viewedSample.damage == null ? "—" : fmtNum(viewedSample.damage)} />
+          <Stat label="Kills / Deaths" value={`${viewedSample.kills ?? "—"} / ${viewedSample.deaths ?? "—"}`} />
+          <Stat label="Time" value={fmtDuration(visibleDurationSecs)} />
+        </div>
+      </section>}
 
       {isSessionPanel && (
         <SessionPanel
