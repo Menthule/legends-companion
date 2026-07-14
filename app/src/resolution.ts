@@ -201,6 +201,40 @@ export function effectiveEnabledInLoadout(
   );
 }
 
+/**
+ * The replacement zone scope `loadout.zone_scopes` defines for trigger `t`,
+ * or null when the loadout leaves the trigger's own `zones` in force
+ * (mirrors Rust `zone_scope_for`): an exact trigger-id entry wins, else the
+ * longest matching path-prefix entry (tried against both the category path
+ * and the id, ties to the alphabetically-first key). An empty returned list
+ * means "scoped to no zone" — the trigger is muted everywhere — which is
+ * distinct from null (keep the pack-authored zones).
+ */
+export function zoneScopeFor(
+  t: { id: string; category: string | null },
+  loadout: Loadout,
+): string[] | null {
+  const scopes = loadout.zone_scopes ?? {};
+  // Sorted keys mirror the Rust BTreeMap iteration order for tie-breaks.
+  const keys = Object.keys(scopes).sort();
+  if (keys.length === 0) return null;
+
+  const idLower = t.id.toLowerCase();
+  for (const key of keys) {
+    if (key.toLowerCase() === idLower) return scopes[key];
+  }
+
+  const category = t.category ?? "";
+  let best: { len: number; zones: string[] } | null = null;
+  for (const key of keys) {
+    if (!(pathHasPrefix(category, key) || pathHasPrefix(t.id, key))) continue;
+    if (best === null || key.length > best.len) {
+      best = { len: key.length, zones: scopes[key] };
+    }
+  }
+  return best?.zones ?? null;
+}
+
 /** Back-compat wrapper: resolution against the profile's ACTIVE loadout. */
 export function effectiveEnabled(
   t: ResolvableTrigger,

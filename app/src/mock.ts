@@ -12,11 +12,16 @@ import {
   effectiveEnabled,
   updateActiveLoadout,
 } from "./resolution";
-import { dedupeSharedTriggers, parseShareString } from "./lib/share";
+import {
+  dedupeSharedTriggers,
+  mergeUpdateSharedTriggers,
+  parseShareString,
+} from "./lib/share";
 import type {
   AppConfig,
   CharacterProfile,
   DiscoveredLog,
+  DropZone,
   FightPage,
   FightRecord,
   LogLinePayload,
@@ -172,6 +177,8 @@ const DEFAULT_MOCK_TRIGGERS: Trigger[] = [
     comments:
       "Necro/SK nukes and snares seen throughout Befallen and Neriak trash.",
     actions: [{ Speak: { template: "${2} incoming" } }],
+    // Zone-scoped demo: exercises the zone badge + editor chips in mock mode.
+    zones: ["Befallen", "Neriak Third Gate"],
   },
   {
     name: "Encumbered",
@@ -380,6 +387,21 @@ export function mockSwitchLoadout(name: string): CharacterProfile {
   return cloneProfile(mockProfile);
 }
 
+/** Small classic-zone sample standing in for the refdb `drops_zones` list,
+ *  so the zone pickers (trigger zone scopes, Timers tab) work in mock mode. */
+export const MOCK_ZONES: DropZone[] = [
+  { shortName: "befallen", longName: "Befallen", era: 1 },
+  { shortName: "commons", longName: "West Commonlands", era: 1 },
+  { shortName: "crushbone", longName: "Crushbone", era: 1 },
+  { shortName: "gukbottom", longName: "Ruins of Old Guk", era: 1 },
+  { shortName: "guktop", longName: "Upper Guk", era: 1 },
+  { shortName: "mistmoore", longName: "Castle Mistmoore", era: 1 },
+  { shortName: "neriakc", longName: "Neriak Third Gate", era: 1 },
+  { shortName: "oasis", longName: "Oasis of Marr", era: 1 },
+  { shortName: "permafrost", longName: "Permafrost Keep", era: 1 },
+  { shortName: "soldunga", longName: "Solusek's Eye", era: 1 },
+];
+
 /** Mirrors get_trigger_tree: bundled pack sample + the user pack. */
 export function mockGetTriggerTree(): TriggerTreeEntry[] {
   // The mock pack list carries no actions, so approximate channels from the
@@ -433,6 +455,7 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
     name: p.name,
     category: p.category || null,
     classes: p.classes,
+    zones: [],
     defaultEnabled: p.defaultEnabled,
     effectiveEnabled: effectiveEnabled(
       { id: p.id, category: p.category || null, classes: p.classes, defaultEnabled: p.defaultEnabled },
@@ -457,6 +480,7 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
       name: t.name,
       category: t.category ?? null,
       classes: t.classes ?? [],
+      zones: t.zones ?? [],
       defaultEnabled: t.default_enabled ?? true,
       effectiveEnabled: t.enabled && effectiveEnabled(resolvable, mockProfile),
       enabled: t.enabled,
@@ -697,15 +721,30 @@ export function mockGetFight(id: number): FightRecord | null {
 // Share import (mirrors the share_import command)
 // ---------------------------------------------------------------------------
 
-export async function mockShareImport(text: string): Promise<ShareImportResult> {
+export async function mockShareImport(
+  text: string,
+  updateInPlace = false,
+): Promise<ShareImportResult> {
   const payload = await parseShareString(text);
+  if (updateInPlace) {
+    // Mirror of the desktop share_import update path: replace Shared-source
+    // id matches in place, rename-append everything else that collides.
+    const externalIds = new Set<string>(MOCK_PACK_TRIGGERS.map((p) => p.id));
+    const { pack, updated, added, renamed } = mergeUpdateSharedTriggers(
+      payload.triggers,
+      mockTriggers,
+      externalIds,
+    );
+    mockSaveTriggers(pack);
+    return { imported: updated.length + added.length, updated: updated.length, renamed };
+  }
   const existing = new Set<string>([
     ...MOCK_PACK_TRIGGERS.map((p) => p.id),
     ...mockTriggers.map((t) => deriveId(t.id, t.category, t.name)),
   ]);
   const { triggers, renamed } = dedupeSharedTriggers(payload, existing);
   mockSaveTriggers([...mockTriggers, ...triggers]);
-  return { imported: triggers.length, renamed };
+  return { imported: triggers.length, updated: 0, renamed };
 }
 
 // ---------------------------------------------------------------------------
@@ -906,6 +945,78 @@ const SESSION_DEMO: LogLinePayload[] = [
   },
 ];
 
+// Session analytics demo: structured Money / Faction / SkillUp events plus an
+// auto-sold Loot (sold_for) so the Wallet, Factions, and Skills panels
+// populate in browser mock mode. Shapes mirror the serde wire contract from
+// eqlog-core exactly (MoneyKind unit variants serialize as bare strings).
+const ANALYTICS_DEMO: LogLinePayload[] = [
+  {
+    ts: 0,
+    message: "You receive 1 platinum, 8 gold, 9 silver and 6 copper from the corpse.",
+    event: {
+      Money: {
+        kind: "CorpseLoot",
+        coins: { platinum: 1, gold: 8, silver: 9, copper: 6 },
+      },
+    },
+  },
+  {
+    ts: 0,
+    message:
+      "You receive 4 platinum from Klok Koglin for the Enchanted Fine Steel Morning Star +2(s).",
+    event: {
+      Money: {
+        kind: "VendorSale",
+        coins: { platinum: 4, gold: 0, silver: 0, copper: 0 },
+      },
+    },
+  },
+  {
+    ts: 0,
+    message: "You received 6 gold, 4 silver and 3 copper from that item.",
+    event: {
+      Money: {
+        kind: "ItemSale",
+        coins: { platinum: 0, gold: 6, silver: 4, copper: 3 },
+      },
+    },
+  },
+  {
+    ts: 0,
+    message:
+      "You looted a Rusty Warhammer +2 from a lesser mummy's corpse and sold it for 1 gold, 2 silver and 9 copper.",
+    event: {
+      Loot: {
+        looter: "You",
+        item: "Rusty Warhammer +2",
+        quantity: 1,
+        corpse: "a lesser mummy",
+        sold_for: { platinum: 0, gold: 1, silver: 2, copper: 9 },
+      },
+    },
+  },
+  {
+    ts: 0,
+    message: "Your faction standing with Befallen Inhabitants has been adjusted by -2.",
+    event: { Faction: { faction: "Befallen Inhabitants", delta: -2 } },
+  },
+  {
+    ts: 0,
+    message: "Your faction standing with Priests of Life has been adjusted by 1.",
+    event: { Faction: { faction: "Priests of Life", delta: 1 } },
+  },
+  {
+    ts: 0,
+    message: "You have become better at Channeling! (118)",
+    event: { SkillUp: { skill: "Channeling", value: 118 } },
+  },
+  {
+    ts: 0,
+    message: "You have become better at Meditate! (63)",
+    event: { SkillUp: { skill: "Meditate", value: 63 } },
+  },
+];
+
 // Rolls across two ranges so the leaderboard groups and marks a winner.
 const ROLL_DEMO: { roller: string; min: number; max: number; result: number }[] =
   [
@@ -1046,6 +1157,12 @@ export function startMockDriver(): void {
         event: { Roll: r },
       });
     });
+    ANALYTICS_DEMO.forEach((line, i) => {
+      mockEmit("log-line", {
+        ...line,
+        ts: now - (ANALYTICS_DEMO.length - i) * 6,
+      });
+    });
   }, 300);
   // A fresh drop + roll every so often to show the cards updating live.
   let sessionIdx = 0;
@@ -1059,6 +1176,9 @@ export function startMockDriver(): void {
       message: `**A Magic Die is rolled by ${r.roller}. It could have been any number from ${r.min} to ${r.max}, but this time it turned up a ${r.result}.`,
       event: { Roll: { ...r, result: Math.floor(Math.random() * (r.max - r.min + 1)) + r.min } },
     });
+    // One analytics line per tick keeps the Wallet/Factions panels moving.
+    const analytics = ANALYTICS_DEMO[sessionIdx % ANALYTICS_DEMO.length];
+    mockEmit("log-line", { ...analytics, ts: now });
     sessionIdx += 1;
   }, 8000);
 

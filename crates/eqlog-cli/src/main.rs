@@ -8,7 +8,7 @@
 //!   eqlog tail <file> [--char NAME] [--triggers PATH] [--profile PATH | --classes A,B,C] [--level N]
 //!   eqlog triggers <logfile> [--classes A,B,C] [--level N] [--top N]
 //!   eqlog detect <logfile> [--spells PATH]
-//!   eqlog share export <pack.json> [--name LABEL] [--gtp OUT.gtp]
+//!   eqlog share export <pack.json> [--name LABEL] [--version V] [--author WHO] [--notes TEXT] [--gtp OUT.gtp]
 //!   eqlog share import <STRING|FILE> [--out PACK.json]
 
 mod cmd_casts;
@@ -66,7 +66,7 @@ USAGE:
         the spell data (default fixtures/local/spell_summary.json) and print
         ranked class guesses.
 
-    eqlog share export <pack.json> [--name LABEL] [--gtp OUT.gtp]
+    eqlog share export <pack.json> [--name LABEL] [--version V] [--author WHO] [--notes TEXT] [--gtp OUT.gtp]
         Print an LCS1: share string for a trigger pack file (TriggerPack
         JSON or bare trigger array). --gtp additionally writes a
         GINA-compatible .gtp archive for cross-tool sharing.

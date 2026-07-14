@@ -2,12 +2,15 @@
 // string (with optional GINA .gtp export), and import a pasted string with a
 // preview (count + categories) before committing.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { save } from "@tauri-apps/plugin-dialog";
-import { shareExport, shareExportGtp, shareImport } from "../api";
+import { getProfile, getTriggers, shareExport, shareExportGtp, shareImport } from "../api";
+import { lintTriggersForShare, type LintFinding } from "../lib/packLint";
 import {
+  diffIncomingTriggers,
   parseShareString,
   summarizeShare,
+  type SharePayload,
   type SharePreview,
 } from "../lib/share";
 import { IS_MOCK } from "../mock";
@@ -27,6 +30,8 @@ export interface ShareRequest {
   triggers: Trigger[];
 }
 
+const MAX_LINT_SHOWN = 8;
+
 export function ShareDialog({
   request,
   onClose,
@@ -37,6 +42,7 @@ export function ShareDialog({
   const [text, setText] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
+  const [lint, setLint] = useState<LintFinding[]>([]);
   const boxRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -47,6 +53,14 @@ export function ShareDialog({
       })
       .catch((e) => {
         if (!cancelled) setError(String(e));
+      });
+    // Portability lint over the selected triggers — advisory only, never
+    // blocks the share. The active character name feeds the {C} check.
+    getProfile()
+      .then((p) => p.character)
+      .catch(() => "")
+      .then((character) => {
+        if (!cancelled) setLint(lintTriggersForShare(request.triggers, character));
       });
     return () => {
       cancelled = true;
@@ -111,6 +125,29 @@ export function ShareDialog({
                 (Import) — imported triggers keep their timers, sounds, and
                 categories, and show a “shared” badge.
               </p>
+              {lint.length > 0 && (
+                <div className="share-lint" role="note">
+                  <div className="share-lint-title">
+                    {lint.length} portability warning
+                    {lint.length === 1 ? "" : "s"} — the string works, but
+                    importers may hit these:
+                  </div>
+                  <ul className="share-lint-list">
+                    {lint.slice(0, MAX_LINT_SHOWN).map((f, i) => (
+                      <li key={`${f.triggerId}-${f.rule}-${i}`}>
+                        <span className="share-lint-name">{f.triggerName}</span>{" "}
+                        {f.message}
+                      </li>
+                    ))}
+                  </ul>
+                  {lint.length > MAX_LINT_SHOWN && (
+                    <div className="hint">
+                      +{lint.length - MAX_LINT_SHOWN} more warning
+                      {lint.length - MAX_LINT_SHOWN === 1 ? "" : "s"}
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )
         )}
@@ -140,6 +177,7 @@ export function ShareDialog({
 // ---------------------------------------------------------------------------
 
 const MAX_PREVIEW_CATEGORIES = 8;
+const MAX_DIFF_SHOWN = 6;
 
 export function ImportDialog({
   initialText,
@@ -157,9 +195,29 @@ export function ImportDialog({
 }) {
   const [text, setText] = useState(initialText ?? "");
   const [preview, setPreview] = useState<SharePreview | null>(null);
+  const [payload, setPayload] = useState<SharePayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [mode, setMode] = useState<"update" | "copies">("update");
+  const [installedShared, setInstalledShared] = useState<Trigger[] | null>(null);
   const parseNonce = useRef(0);
+
+  // The already-installed Shared-source triggers, for the re-import diff.
+  useEffect(() => {
+    let cancelled = false;
+    getTriggers()
+      .then((all) => {
+        if (!cancelled) {
+          setInstalledShared(all.filter((t) => t.source === "shared"));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setInstalledShared([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Live preview: parse (async — decompression) whenever the paste changes.
   useEffect(() => {
@@ -167,27 +225,54 @@ export function ImportDialog({
     const nonce = ++parseNonce.current;
     if (trimmed.length === 0) {
       setPreview(null);
+      setPayload(null);
       setError(null);
       return;
     }
     parseShareString(trimmed)
-      .then((payload) => {
+      .then((parsed) => {
         if (parseNonce.current !== nonce) return;
-        setPreview(summarizeShare(payload));
+        setPreview(summarizeShare(parsed));
+        setPayload(parsed);
         setError(null);
       })
       .catch((e) => {
         if (parseNonce.current !== nonce) return;
         setPreview(null);
+        setPayload(null);
         setError(e instanceof Error ? e.message : String(e));
       });
   }, [text]);
+
+  // Per-trigger diff against installed Shared triggers (stable-id keyed).
+  // Non-null only when >=1 incoming id already exists as a Shared trigger —
+  // that's when "Update in place" vs "Import as copies" is a real choice.
+  const diff = useMemo(() => {
+    if (!payload || !installedShared || installedShared.length === 0) return null;
+    const entries = diffIncomingTriggers(payload.triggers, installedShared);
+    return entries.some((e) => e.kind !== "added") ? entries : null;
+  }, [payload, installedShared]);
+  const diffCounts = useMemo(() => {
+    if (!diff) return null;
+    return {
+      added: diff.filter((e) => e.kind === "added").length,
+      changed: diff.filter((e) => e.kind === "changed").length,
+      unchanged: diff.filter((e) => e.kind === "unchanged").length,
+    };
+  }, [diff]);
+  const changedEntries = diff?.filter((e) => e.kind === "changed") ?? [];
 
   async function confirm() {
     setBusy(true);
     setError(null);
     try {
-      const result: ShareImportResult = await shareImport(text.trim());
+      const updateInPlace = diff !== null && mode === "update";
+      const result: ShareImportResult = await shareImport(
+        text.trim(),
+        updateInPlace,
+      );
+      const updates =
+        result.updated > 0 ? ` (${result.updated} updated in place)` : "";
       const renames =
         result.renamed.length > 0
           ? ` (${result.renamed.length} renamed to avoid id collisions)`
@@ -195,7 +280,7 @@ export function ImportDialog({
       onImported(
         `Imported ${result.imported} shared trigger${
           result.imported === 1 ? "" : "s"
-        }${renames}.`,
+        }${updates}${renames}.`,
       );
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -243,6 +328,16 @@ export function ImportDialog({
               {preview.name ? `“${preview.name}” — ` : ""}
               {preview.count} trigger{preview.count === 1 ? "" : "s"}
             </div>
+            {(preview.version || preview.author) && (
+              <div className="import-preview-meta hint">
+                {preview.version ? `v${preview.version}` : ""}
+                {preview.version && preview.author ? " · " : ""}
+                {preview.author ? `by ${preview.author}` : ""}
+              </div>
+            )}
+            {preview.notes && (
+              <div className="import-preview-notes hint">{preview.notes}</div>
+            )}
             {shownCategories && shownCategories.length > 0 && (
               <div className="import-preview-cats">
                 {shownCategories.map((c) => (
@@ -257,10 +352,70 @@ export function ImportDialog({
                 )}
               </div>
             )}
-            <p className="hint">
-              Imports into your custom triggers with a “shared” badge. Id
-              collisions are renamed automatically — nothing gets overwritten.
-            </p>
+            {diff && diffCounts ? (
+              <div className="import-diff">
+                <div className="import-diff-title">
+                  You already have {diffCounts.changed + diffCounts.unchanged}{" "}
+                  of these as shared triggers
+                  {preview.version ? ` (this paste is v${preview.version})` : ""}
+                  :
+                </div>
+                <div className="import-diff-counts num">
+                  {diffCounts.added} new · {diffCounts.changed} changed ·{" "}
+                  {diffCounts.unchanged} unchanged
+                </div>
+                {changedEntries.length > 0 && (
+                  <ul className="import-diff-list">
+                    {changedEntries.slice(0, MAX_DIFF_SHOWN).map((e) => (
+                      <li key={e.id}>
+                        <span className="import-diff-name">{e.name}</span>{" "}
+                        <span className="hint">
+                          {e.changedFields.join(", ")}
+                        </span>
+                      </li>
+                    ))}
+                    {changedEntries.length > MAX_DIFF_SHOWN && (
+                      <li className="hint">
+                        +{changedEntries.length - MAX_DIFF_SHOWN} more changed
+                      </li>
+                    )}
+                  </ul>
+                )}
+                <div className="import-mode" role="radiogroup" aria-label="Import mode">
+                  <label className="import-mode-option">
+                    <input
+                      type="radio"
+                      name="import-mode"
+                      checked={mode === "update"}
+                      onChange={() => setMode("update")}
+                    />
+                    <span>
+                      <b>Update in place</b> — replace your copies with this
+                      version. Your per-trigger settings (enables, voice/alert
+                      overrides) stay: they follow the trigger id.
+                    </span>
+                  </label>
+                  <label className="import-mode-option">
+                    <input
+                      type="radio"
+                      name="import-mode"
+                      checked={mode === "copies"}
+                      onChange={() => setMode("copies")}
+                    />
+                    <span>
+                      <b>Import as copies</b> — keep your current versions and
+                      add renamed duplicates (-2/-3 ids).
+                    </span>
+                  </label>
+                </div>
+              </div>
+            ) : (
+              <p className="hint">
+                Imports into your custom triggers with a “shared” badge. Id
+                collisions are renamed automatically — nothing gets
+                overwritten.
+              </p>
+            )}
           </div>
         )}
         <div className="editor-foot">
@@ -272,7 +427,7 @@ export function ImportDialog({
             {busy
               ? "Importing…"
               : preview
-                ? `Import ${preview.count} trigger${preview.count === 1 ? "" : "s"}`
+                ? `${diff && mode === "update" ? "Update" : "Import"} ${preview.count} trigger${preview.count === 1 ? "" : "s"}`
                 : "Import"}
           </button>
           <span className="spacer" />

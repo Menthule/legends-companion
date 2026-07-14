@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { open, save } from "@tauri-apps/plugin-dialog";
 import {
   confirmDiscard,
+  dropsZones,
   getProfile,
   getTriggers,
   getTriggerTree,
@@ -28,10 +29,12 @@ import {
   slugifyPath,
   updateActiveLoadout,
   withTimingOverride,
+  zoneScopeFor,
 } from "../resolution";
 import {
   CLASS_NAMES,
   type CharacterProfile,
+  type DropZone,
   type PackWarningsPayload,
   type Trigger,
   type TriggerAction,
@@ -48,6 +51,7 @@ import {
 import Empty from "./Empty";
 import { fmtBytes as formatUpdateBytes } from "../lib/format";
 import { savedLocation } from "./QuickTriggerModal";
+import { SearchSelect } from "./SearchSelect";
 import { ImportDialog, ShareDialog, type ShareRequest } from "./ShareDialogs";
 import { useToast } from "./Toast";
 import TriggerEditor from "./TriggerEditor";
@@ -76,6 +80,16 @@ interface TimingEditorState {
   rank: string;
   duration: string;
   castTime: string;
+}
+
+/** Draft state for the per-category zone-scope editor (loadout
+ *  `zone_scopes`, keyed by the group's category-path prefix). */
+interface ZoneScopeEditorState {
+  /** The group's override path (TreeNode.overridePath). */
+  path: string;
+  /** The group label, for copy. */
+  label: string;
+  zones: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -420,6 +434,10 @@ export default function TriggersTab({
   const [query, setQuery] = useState("");
   const [triggerFilter, setTriggerFilter] = useState<TriggerFilter>("all");
   const [timingEditor, setTimingEditor] = useState<TimingEditorState | null>(null);
+  const [zoneScopeEditor, setZoneScopeEditor] =
+    useState<ZoneScopeEditorState | null>(null);
+  /** Reference zone list for the zone-scope autocomplete (loaded once). */
+  const [zoneOptions, setZoneOptions] = useState<DropZone[]>([]);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const expandedSeeded = useRef(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -448,6 +466,7 @@ export default function TriggersTab({
 
   useEffect(() => {
     void triggerVersion().then(setLibraryVersion).catch(() => {});
+    void dropsZones().then(setZoneOptions).catch(() => {});
   }, []);
 
   useTauriEvent<PackWarningsPayload>("pack-warnings", (p) => {
@@ -1076,6 +1095,64 @@ export default function TriggersTab({
     setStatus(note ?? `Reset “${e.name}” to loadout defaults.`);
   }
 
+  /** The loadout `zone_scopes` key addressing this category path, if any —
+   *  entries may be stored under the display path or its slug form (the same
+   *  duality the enable overrides have), matched case-insensitively. */
+  function zoneScopeKeyFor(path: string): string | null {
+    const scopes = loadout?.zone_scopes;
+    if (!scopes) return null;
+    const lower = path.toLowerCase();
+    const slugLower = slugifyPath(path).toLowerCase();
+    return (
+      Object.keys(scopes)
+        .sort()
+        .find((k) => {
+          const kl = k.toLowerCase();
+          return kl === lower || kl === slugLower;
+        }) ?? null
+    );
+  }
+
+  function openZoneScopeEditor(node: TreeNode) {
+    if (!node.overridePath) return;
+    const key = zoneScopeKeyFor(node.overridePath);
+    setZoneScopeEditor({
+      path: node.overridePath,
+      label: node.label,
+      zones: key ? [...(loadout?.zone_scopes?.[key] ?? [])] : [],
+    });
+  }
+
+  /** Persist (or with `remove`, clear) the drafted category zone scope.
+   *  Same save path as the enable-override group toggle: stale keys under
+   *  the prefix (either address form) would out-rank the new entry, so they
+   *  are pruned first, then the whole map is written to the active loadout. */
+  async function saveZoneScope(remove: boolean) {
+    if (!profile || !loadout || !zoneScopeEditor) return;
+    if (!remove && zoneScopeEditor.zones.length === 0) {
+      setError(
+        "Add at least one zone, or use “Remove limit” to fire everywhere again.",
+      );
+      return;
+    }
+    setError(null);
+    const prefix = zoneScopeEditor.path;
+    const slugPrefix = slugifyPath(prefix);
+    const zone_scopes: Record<string, string[]> = {};
+    for (const [k, v] of Object.entries(loadout.zone_scopes ?? {})) {
+      if (pathHasPrefix(k, prefix) || pathHasPrefix(k, slugPrefix)) continue;
+      zone_scopes[k] = v;
+    }
+    if (!remove) zone_scopes[prefix] = zoneScopeEditor.zones;
+    await saveProfile(updateActiveLoadout(profile, { zone_scopes }));
+    setStatus(
+      remove
+        ? `“${zoneScopeEditor.label}” triggers fire in every zone again (${loadout.name} loadout).`
+        : `“${zoneScopeEditor.label}” triggers now fire only in ${zoneScopeEditor.zones.length} zone${zoneScopeEditor.zones.length === 1 ? "" : "s"} (${loadout.name} loadout).`,
+    );
+    setZoneScopeEditor(null);
+  }
+
   function openTimingEditor(e: TriggerTreeEntry) {
     const existing = loadout?.timing_overrides?.[e.id] ?? {};
     const rank = Object.keys(existing)[0] ?? "II";
@@ -1188,6 +1265,12 @@ export default function TriggersTab({
       ),
     );
     const timingCount = Object.keys(loadout?.timing_overrides?.[e.id] ?? {}).length;
+    // Effective zone scope: a loadout zone_scopes entry replaces the
+    // pack-authored Trigger.zones (empty scope = muted everywhere).
+    const packZones = e.zones ?? [];
+    const zoneScope = loadout ? zoneScopeFor(e, loadout) : null;
+    const effectiveZones = zoneScope ?? packZones;
+    const zoneScoped = zoneScope !== null || packZones.length > 0;
     const editingTiming = timingEditor?.id === e.id;
     const hasCurrentTiming = Boolean(
       timingEditor && loadout?.timing_overrides?.[e.id]?.[timingEditor.rank],
@@ -1282,6 +1365,24 @@ export default function TriggersTab({
               {getOverlayDefinition(destination)?.label ?? destination}
             </span>
           ))}
+          {zoneScoped && (
+            <span
+              className={`chan-chip zone-chip${zoneScope !== null ? " scoped" : ""}`}
+              title={
+                zoneScope !== null
+                  ? zoneScope.length === 0
+                    ? `Loadout zone limit: no zones — never fires (${loadout?.name ?? "active"} loadout)`
+                    : `Loadout zone limit (${loadout?.name ?? "active"}): ${zoneScope.join(", ")}`
+                  : `Fires only in: ${packZones.join(", ")}`
+              }
+            >
+              {effectiveZones.length === 0
+                ? "No zones"
+                : effectiveZones.length === 1
+                  ? effectiveZones[0]
+                  : `${effectiveZones[0]} +${effectiveZones.length - 1}`}
+            </span>
+          )}
         </span>
         {e.userIndex !== null ? (
           <span className="tt-btns">
@@ -1418,6 +1519,11 @@ export default function TriggersTab({
     const isOpen = searching || expanded.has(node.key);
     const allOn = node.total > 0 && node.on === node.total;
     const someOn = node.on > 0 && !allOn;
+    const scopeKey = node.overridePath ? zoneScopeKeyFor(node.overridePath) : null;
+    const scopeCount = scopeKey
+      ? (loadout?.zone_scopes?.[scopeKey]?.length ?? 0)
+      : 0;
+    const editingZones = zoneScopeEditor?.path === node.overridePath;
     return (
       <div className="tt-group" key={node.key}>
         <div
@@ -1448,6 +1554,23 @@ export default function TriggersTab({
           <span className="tt-count num">
             {node.on} on / {node.total}
           </span>
+          {node.overridePath && !node.custom && profile && (
+            <button
+              className={`ghost small tt-zones${scopeKey ? " scoped" : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (editingZones) setZoneScopeEditor(null);
+                else openZoneScopeEditor(node);
+              }}
+              title={
+                scopeKey
+                  ? `This loadout limits “${node.label}” triggers to ${scopeCount} zone${scopeCount === 1 ? "" : "s"} — click to edit`
+                  : `Limit every trigger under “${node.label}” to chosen zones (saved to the active loadout)`
+              }
+            >
+              {scopeKey ? `Zones ${scopeCount}` : "Zones"}
+            </button>
+          )}
           <button
             className="ghost small tt-share"
             onClick={(e) => {
@@ -1459,6 +1582,75 @@ export default function TriggersTab({
             Share
           </button>
         </div>
+        {editingZones && zoneScopeEditor && (
+          <div
+            className="tt-timing-editor tt-zone-editor"
+            style={{ marginLeft: 36 + depth * 18 }}
+          >
+            <div className="tt-timing-copy">
+              <strong>Zones for “{node.label}”</strong>
+              <span className="hint">
+                Every trigger under this group fires only in the listed zones
+                — replacing any zone list the pack set. Saved to the “
+                {loadout?.name ?? "active"}” loadout.
+              </span>
+            </div>
+            <div className="tt-zone-fields">
+              {zoneScopeEditor.zones.length > 0 && (
+                <div className="zone-chiplist">
+                  {zoneScopeEditor.zones.map((z) => (
+                    <button
+                      type="button"
+                      key={z}
+                      className="ted-chip"
+                      title={`Remove ${z}`}
+                      onClick={() =>
+                        setZoneScopeEditor({
+                          ...zoneScopeEditor,
+                          zones: zoneScopeEditor.zones.filter((x) => x !== z),
+                        })
+                      }
+                    >
+                      {z} ✕
+                    </button>
+                  ))}
+                </div>
+              )}
+              <SearchSelect
+                value=""
+                anyLabel="Add a zone…"
+                options={zoneOptions
+                  .filter((z) => !zoneScopeEditor.zones.includes(z.longName))
+                  .map((z) => ({ value: z.longName, label: z.longName }))}
+                onChange={(v) => {
+                  if (v && !zoneScopeEditor.zones.includes(v)) {
+                    setZoneScopeEditor({
+                      ...zoneScopeEditor,
+                      zones: [...zoneScopeEditor.zones, v],
+                    });
+                  }
+                }}
+              />
+            </div>
+            <div className="tt-timing-actions">
+              {scopeKey && (
+                <button
+                  className="ghost small"
+                  title="Clear this zone limit — triggers fire everywhere again"
+                  onClick={() => void saveZoneScope(true)}
+                >
+                  Remove limit
+                </button>
+              )}
+              <button className="ghost small" onClick={() => setZoneScopeEditor(null)}>
+                Cancel
+              </button>
+              <button className="primary small" onClick={() => void saveZoneScope(false)}>
+                Save zones
+              </button>
+            </div>
+          </div>
+        )}
         {isOpen && (
           <div className="tt-children">
             {node.children.map((c) => renderNode(c, depth + 1))}

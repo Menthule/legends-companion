@@ -10,7 +10,7 @@ use std::time::{Duration, Instant};
 
 use anyhow::{bail, Context};
 use crossbeam_channel::RecvTimeoutError;
-use eqlog_core::events::{ChatChannel, Entity, Event, ParsedLine};
+use eqlog_core::events::{ChatChannel, Coins, Entity, Event, MoneyKind, ParsedLine};
 use eqlog_core::parser::Parser;
 use eqlog_core::tail::{Tailer, TailerConfig};
 use eqlog_triggers::{ActionSink, CharacterProfile, TimerFireKind, TriggerEngine};
@@ -185,6 +185,27 @@ fn channel_name(c: &ChatChannel) -> String {
 
 /// One-line colored rendering of a classified event; `None` for lines not
 /// worth echoing (Unclassified).
+/// Compact coin rendering: "1p 8g 9s 6c" (zero denominations omitted;
+/// all-zero — the "sold it for free" case — renders as "0c").
+fn fmt_coins(c: &Coins) -> String {
+    let mut parts = Vec::new();
+    for (n, suffix) in [
+        (c.platinum, "p"),
+        (c.gold, "g"),
+        (c.silver, "s"),
+        (c.copper, "c"),
+    ] {
+        if n > 0 {
+            parts.push(format!("{n}{suffix}"));
+        }
+    }
+    if parts.is_empty() {
+        "0c".to_string()
+    } else {
+        parts.join(" ")
+    }
+}
+
 fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
     let kind = util::event_kind(&parsed.event);
     let (color, body) = match &parsed.event {
@@ -349,6 +370,7 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
             item,
             quantity,
             corpse,
+            sold_for,
         } => {
             let qty = if *quantity > 1 {
                 format!(" x{quantity}")
@@ -359,9 +381,12 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
                 .as_deref()
                 .map(|c| format!(" from {c}"))
                 .unwrap_or_default();
+            let sold = sold_for
+                .map(|c| format!(" (sold: {})", fmt_coins(&c)))
+                .unwrap_or_default();
             (
                 GREEN,
-                format!("{} looted {item}{qty}{from}", entity(looter, you)),
+                format!("{} looted {item}{qty}{from}{sold}", entity(looter, you)),
             )
         }
         Event::Roll {
@@ -390,6 +415,15 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
             (GREEN, format!("+{points} AA point (unspent: {balance})"))
         }
         Event::LevelUp { level } => (GREEN, format!("LEVEL UP -> {level}")),
+        Event::Money { kind, coins } => {
+            let src = match kind {
+                MoneyKind::CorpseLoot => "corpse",
+                MoneyKind::VendorSale => "vendor",
+                MoneyKind::ItemSale => "item",
+            };
+            (GREEN, format!("+{} ({src})", fmt_coins(coins)))
+        }
+        Event::SkillUp { skill, value } => (GREEN, format!("{skill} -> {value}")),
         Event::Faction { faction, delta } => (BLUE, format!("{faction} {delta:+}")),
         Event::ZoneEnter { zone } => (BLUE, format!("entered {zone}")),
         Event::Consider {

@@ -6,6 +6,7 @@ import {
 import soundManifest from "../../assets/sounds/manifest.json";
 import {
   IS_MOCK,
+  MOCK_ZONES,
   mockDiscoverLogs,
   mockEmit,
   mockGetConfig,
@@ -751,16 +752,27 @@ export function shareReadFile(path: string): Promise<string> {
   return invoke<string>("share_read_file", { path });
 }
 
-/** Import an LCS1 share string into the user pack (dedupes id collisions). */
-export async function shareImport(text: string): Promise<ShareImportResult> {
+/** Import an LCS1 share string into the user pack. Default: dedupe id
+ *  collisions with -2/-3 renames. With `updateInPlace`, incoming ids that
+ *  match an existing Shared-source trigger replace it in place (same stable
+ *  id, so per-id overrides keep applying). */
+export async function shareImport(
+  text: string,
+  updateInPlace = false,
+): Promise<ShareImportResult> {
   let result: ShareImportResult;
   if (IS_MOCK) {
-    result = await mockShareImport(text);
+    result = await mockShareImport(text, updateInPlace);
   } else {
-    const raw = await invoke<unknown>("share_import", { text });
-    const o = (raw ?? {}) as { imported?: number; renamed?: [string, string][] };
+    const raw = await invoke<unknown>("share_import", { text, updateInPlace });
+    const o = (raw ?? {}) as {
+      imported?: number;
+      updated?: number;
+      renamed?: [string, string][];
+    };
     result = {
       imported: typeof o.imported === "number" ? o.imported : 0,
+      updated: typeof o.updated === "number" ? o.updated : 0,
       renamed: Array.isArray(o.renamed) ? o.renamed : [],
     };
   }
@@ -827,7 +839,9 @@ export function dropsEffects(eraMax: number): Promise<DropEffect[]> {
 }
 
 export function dropsZones(): Promise<DropZone[]> {
-  if (IS_MOCK) return Promise.resolve([]);
+  // Mock mode gets a small classic-zone sample so the zone pickers
+  // (trigger zone scopes, Timers tab) are exercisable in the browser.
+  if (IS_MOCK) return Promise.resolve(MOCK_ZONES);
   return invoke<DropZone[]>("drops_zones");
 }
 

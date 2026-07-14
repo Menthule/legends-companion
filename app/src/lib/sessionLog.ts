@@ -23,11 +23,33 @@ import {
 } from "./deathRecap";
 import { observedSpellEffect } from "./effects";
 import {
+  applySessionDelta,
+  applyAllTimeDelta,
+  factionStore,
+  type FactionSessionRow,
+} from "./factionLedger";
+import {
   applyPaceEvent,
   loadPaceState,
   type PaceEvent,
   savePaceState,
 } from "./pace";
+import {
+  applySkillUp,
+  beginSkillSession,
+  skillStore,
+} from "./skillUps";
+import {
+  applyWalletGain,
+  emptyWallet,
+  walletGainFromEvent,
+  type WalletState,
+} from "./wallet";
+import {
+  createMezTracker,
+  loadMezBreakSpeak,
+  type MezBreak,
+} from "./mezBreaks";
 import {
   emptyPlayer,
   isPlayerName,
@@ -52,6 +74,7 @@ import type {
   EffectObservedPayload,
   LogLinePayload,
   RespawnInfo,
+  TimerPayload,
 } from "../types";
 
 // ---------------------------------------------------------------------------
@@ -107,6 +130,16 @@ export interface DeathRecap {
   damage: DamageSummary;
 }
 
+/** One skill-up seen this session (value is the new ABSOLUTE skill level;
+ *  delta is vs the persisted previous value, null on first sighting). */
+export interface SkillUpEntry {
+  id: number;
+  ts: number;
+  skill: string;
+  value: number;
+  delta: number | null;
+}
+
 /** Per-mob session kill tally (camp efficiency v1). */
 export interface KillTally {
   name: string;
@@ -127,6 +160,12 @@ export interface SessionLogSnapshot {
   effects: EffectEntry[];
   recaps: DeathRecap[];
   kills: Record<string, KillTally>;
+  /** Session coin income (Money lines + auto-sold loot), reset per app run. */
+  wallet: WalletState;
+  /** Per-faction net standing movement this session (lowercased key). */
+  factions: Record<string, FactionSessionRow>;
+  /** Skill-ups this session, newest first (capped at SESSION_CAP). */
+  skillUps: SkillUpEntry[];
   xp: XpSession;
   /** Position within the current level; only trustworthy after this app sees
    *  a ding (P9). Both persist so the XP overlay and later sessions keep it. */
@@ -146,6 +185,9 @@ let snap: SessionLogSnapshot = {
   effects: [],
   recaps: [],
   kills: {},
+  wallet: emptyWallet(),
+  factions: {},
+  skillUps: [],
   xp: loadXpSession(),
   levelProgress: loadLevelProgress(),
   levelAnchorKnown: loadLevelAnchorKnown(),
@@ -218,6 +260,24 @@ let scoreDirty = false;
 
 export function sessionScoreboard(): Scoreboard {
   return { ...scoreboard };
+}
+
+// Mez-break attribution (lib/mezBreaks heuristic): fed enemy-lane timer
+// events + the same player-damage fold the scoreboard uses. Timer events
+// carry no timestamp, so they're stamped with the latest log-line ts.
+const mezTracker = createMezTracker();
+let lastLogTs = 0;
+
+/** Credit a mez break on the Party Scoreboard; the spoken line is OFF by
+ *  default (alert-fatigue budget) and toggled in the Scoreboard panel.
+ *  Muted during catch-up like every other side-effectful announcement. */
+function creditMezBreak(brk: MezBreak): void {
+  const pl = bumpPlayer(brk.attacker);
+  pl.mezBreaks++;
+  scoreDirty = true;
+  if (!catchingUp && loadMezBreakSpeak()) {
+    void speakText(`${brk.attacker} broke mez on ${brk.target}`);
+  }
 }
 
 // Respawn reference data, fetched once per mob name per app run for the
@@ -329,6 +389,9 @@ function applyPace(event: PaceEvent): void {
 // ---------------------------------------------------------------------------
 
 let sessionSeq = 0;
+/** Skill-up-session index claimed lazily on the first LIVE skill-up of this
+ *  app run (idle runs never advance the stuck-skill counter). */
+let skillSessionIndex: number | null = null;
 let recentLines: { ts: number; message: string; kind: string }[] = [];
 // Structured incoming-damage ring for the death recap (P25).
 let recentDamage: ({ ts: number } & IncomingHit)[] = [];
@@ -380,6 +443,7 @@ function publishEffect(entry: EffectEntry): void {
 
 function handleLogLine(p: LogLinePayload): void {
   const before = snap;
+  lastLogTs = p.ts;
   if (!catchingUp) {
     if (bounds.startTs === null) set({ hasActivity: true });
     bounds.startTs = bounds.startTs === null ? p.ts : Math.min(bounds.startTs, p.ts);
@@ -436,6 +500,12 @@ function handleLogLine(p: LogLinePayload): void {
       pl.highestHitLabel = sh.target ? `${sh.label} → ${sh.target}` : sh.label;
     }
     scoreDirty = true;
+    // Mez-break attribution: first player hit on a mezzed target (or right
+    // after its mez bar dropped early) claims the break.
+    if (sh.target) {
+      const brk = mezTracker.onDamage(sh.attacker, sh.target, p.ts);
+      if (brk) creditMezBreak(brk);
+    }
   }
   if ("SpellDamage" in ev) {
     const d = (ev as Record<string, unknown>).SpellDamage as Record<string, unknown>;
@@ -462,6 +532,22 @@ function handleLogLine(p: LogLinePayload): void {
         ...observed,
       };
       publishEffect(entry);
+    }
+  }
+  // Session wallet: Money lines plus the auto-sell figure riding on Loot
+  // (`sold_for`). Replayed lines stay out — plat/hour anchors to Date.now(),
+  // and hours-old coin at "now" is wrong by construction (kill-tally rule).
+  if (!catchingUp) {
+    const gain = walletGainFromEvent(ev);
+    if (gain) {
+      set({
+        wallet: applyWalletGain(snap.wallet, {
+          id: sessionSeq++,
+          ts: p.ts,
+          atMs: Date.now(),
+          ...gain,
+        }),
+      });
     }
   }
   if ("Loot" in ev) {
@@ -599,6 +685,55 @@ function handleLogLine(p: LogLinePayload): void {
         notice(`Learned: ${spell} won't stack with ${blocker}`);
       }
     }
+  } else if ("Faction" in ev) {
+    // Faction ledger: session map + per-character all-time (since tracking
+    // began — the log only ever carries deltas). Live only: the persisted
+    // all-time map would double-count every catch-up replay after a restart.
+    const d = (ev as Record<string, unknown>).Faction as Record<string, unknown>;
+    const faction = String(d.faction ?? "").trim();
+    const delta = typeof d.delta === "number" ? d.delta : 0;
+    if (faction && !catchingUp) {
+      set({ factions: applySessionDelta(snap.factions, faction, delta, p.ts) });
+      const store = factionStore(character);
+      store.save(applyAllTimeDelta(store.load(), faction, delta, Date.now()));
+    }
+  } else if ("SkillUp" in ev) {
+    // Skill tracker: value is the new ABSOLUTE skill level. Live ups count
+    // toward tonight's list + the stuck heuristic; replayed ups only refresh
+    // the persisted value (absolute, so replay can't double-count).
+    const d = (ev as Record<string, unknown>).SkillUp as Record<string, unknown>;
+    const skill = String(d.skill ?? "").trim();
+    const value = typeof d.value === "number" ? d.value : 0;
+    if (skill) {
+      const store = skillStore(character);
+      let state = store.load();
+      if (!catchingUp) {
+        if (skillSessionIndex === null) {
+          const begun = beginSkillSession(state);
+          state = begun.state;
+          skillSessionIndex = begun.index;
+        }
+        const applied = applySkillUp(state, skill, value, {
+          live: true,
+          nowMs: Date.now(),
+          sessionIndex: skillSessionIndex,
+        });
+        state = applied.state;
+        set({
+          skillUps: [
+            { id: sessionSeq++, ts: p.ts, skill, value, delta: applied.delta },
+            ...snap.skillUps,
+          ].slice(0, SESSION_CAP),
+        });
+      } else {
+        state = applySkillUp(state, skill, value, {
+          live: false,
+          nowMs: Date.now(),
+          sessionIndex: 0,
+        }).state;
+      }
+      store.save(state);
+    }
   }
   if (snap !== before) notify();
 }
@@ -624,6 +759,9 @@ export function startSessionLog(): void {
     catchingUp = p.active;
   });
   onAppEvent<LogLinePayload>("log-line", handleLogLine);
+  // Mez-break attribution follows the enemy-lane mez timer bars. Timer
+  // events have no timestamp of their own — stamp with the latest log ts.
+  onAppEvent<TimerPayload>("timer", (p) => mezTracker.onTimer(p, lastLogTs));
   // Scoreboard: fresh per app run (all-time records persist separately), and
   // flushed to localStorage once a second when dirty so the overlay updates
   // without a write per hit.

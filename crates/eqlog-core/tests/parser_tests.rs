@@ -3,7 +3,7 @@
 use std::collections::HashMap;
 use std::fs;
 
-use eqlog_core::events::{ChatChannel, Entity, Event, HitFlags, MissKind};
+use eqlog_core::events::{ChatChannel, Coins, Entity, Event, HitFlags, MissKind, MoneyKind};
 use eqlog_core::parser::Parser;
 
 fn fixture(name: &str) -> String {
@@ -746,6 +746,7 @@ fn loot_with_quantity() {
             item: "Bone Chips".into(),
             quantity: 2,
             corpse: Some("a greater skeleton".into()),
+            sold_for: None,
         }
     );
 }
@@ -759,6 +760,7 @@ fn loot_single_item_with_article() {
             item: "Pristine Studded Leather Boots +2".into(),
             quantity: 1,
             corpse: Some("skeleton L`rodd".into()),
+            sold_for: None,
         }
     );
 }
@@ -772,6 +774,7 @@ fn loot_stored_in_depot() {
             item: "Flame Agate".into(),
             quantity: 1,
             corpse: Some("a Teir`Dal ranger".into()),
+            sold_for: None,
         }
     );
 }
@@ -782,6 +785,214 @@ fn roll_magic_die() {
     assert_eq!(
         parse("[Fri Jul 03 11:00:00 2026] **A Magic Die is rolled by Nyasha. It could have been any number from 1 to 100, but this time it turned up a 42."),
         Event::Roll { roller: "Nyasha".into(), min: 1, max: 100, result: 42 }
+    );
+}
+
+// ---------------------------------------------------------------------------
+// Money / skill-ups
+// ---------------------------------------------------------------------------
+
+fn coins(platinum: u64, gold: u64, silver: u64, copper: u64) -> Coins {
+    Coins {
+        platinum,
+        gold,
+        silver,
+        copper,
+    }
+}
+
+#[test]
+fn money_corpse_all_denominations() {
+    assert_eq!(
+        parse("[Fri Jul 03 00:22:30 2026] You receive 1 platinum, 8 gold, 9 silver and 6 copper from the corpse."),
+        Event::Money {
+            kind: MoneyKind::CorpseLoot,
+            coins: coins(1, 8, 9, 6),
+        }
+    );
+}
+
+#[test]
+fn money_corpse_single_denomination() {
+    assert_eq!(
+        parse("[Thu Jul 02 23:45:26 2026] You receive 8 copper from the corpse."),
+        Event::Money {
+            kind: MoneyKind::CorpseLoot,
+            coins: coins(0, 0, 0, 8),
+        }
+    );
+}
+
+#[test]
+fn money_corpse_two_denominations_with_and() {
+    assert_eq!(
+        parse("[Thu Jul 02 23:45:38 2026] You receive 4 silver and 9 copper from the corpse."),
+        Event::Money {
+            kind: MoneyKind::CorpseLoot,
+            coins: coins(0, 0, 4, 9),
+        }
+    );
+    assert_eq!(
+        parse("[Fri Jul 03 00:13:15 2026] You receive 1 gold and 6 silver from the corpse."),
+        Event::Money {
+            kind: MoneyKind::CorpseLoot,
+            coins: coins(0, 1, 6, 0),
+        }
+    );
+}
+
+#[test]
+fn money_corpse_three_denominations() {
+    assert_eq!(
+        parse("[Thu Jul 02 23:54:19 2026] You receive 2 gold, 4 silver and 8 copper from the corpse."),
+        Event::Money {
+            kind: MoneyKind::CorpseLoot,
+            coins: coins(0, 2, 4, 8),
+        }
+    );
+}
+
+#[test]
+fn money_vendor_sale_space_separated() {
+    // Vendor lines use a bare space-separated coin phrase, unlike the
+    // comma/"and" list on corpse lines.
+    assert_eq!(
+        parse("[Fri Jul 03 02:15:25 2026] You receive 1 platinum 1 gold 2 silver from Hierophant Sebanlea for the Ringmail Bracelet +1(s)."),
+        Event::Money {
+            kind: MoneyKind::VendorSale,
+            coins: coins(1, 1, 2, 0),
+        }
+    );
+}
+
+#[test]
+fn money_vendor_sale_single_denomination() {
+    assert_eq!(
+        parse("[Fri Jul 03 16:36:00 2026] You receive 4 platinum from Klok Koglin for the Enchanted Fine Steel Morning Star +2(s)."),
+        Event::Money {
+            kind: MoneyKind::VendorSale,
+            coins: coins(4, 0, 0, 0),
+        }
+    );
+}
+
+#[test]
+fn money_from_item() {
+    assert_eq!(
+        parse("[Fri Jul 03 02:02:58 2026] You received 1 copper from that item."),
+        Event::Money {
+            kind: MoneyKind::ItemSale,
+            coins: coins(0, 0, 0, 1),
+        }
+    );
+    assert_eq!(
+        parse("[Fri Jul 03 02:23:18 2026] You received 6 gold, 4 silver and 3 copper from that item."),
+        Event::Money {
+            kind: MoneyKind::ItemSale,
+            coins: coins(0, 6, 4, 3),
+        }
+    );
+}
+
+#[test]
+fn money_lookalikes_are_not_money() {
+    // Non-coin "You receive" shapes stay recognized system noise, not Money.
+    assert_eq!(
+        parse("[Fri Jul 03 00:00:00 2026] You receive your reward from the corpse."),
+        Event::System
+    );
+    // A non-standard denomination word must reject the whole phrase.
+    assert_eq!(
+        parse("[Fri Jul 03 00:00:00 2026] You receive 5 gold pieces from the corpse."),
+        Event::System
+    );
+    // Coin words inside item names must not turn loot into Money.
+    assert_eq!(
+        parse("[Fri Jul 03 00:20:35 2026] --You have looted a Platinum Ring +2 from Gynok Moltor's corpse.--"),
+        Event::Loot {
+            looter: you(),
+            item: "Platinum Ring +2".into(),
+            quantity: 1,
+            corpse: Some("Gynok Moltor".into()),
+            sold_for: None,
+        }
+    );
+}
+
+#[test]
+fn loot_sold_carries_coin_proceeds() {
+    assert_eq!(
+        parse("[Fri Jul 03 11:39:01 2026] You looted an Enchanted Fine Steel Rapier +1 from Korven Nisere's corpse and sold it for 3 platinum, 5 gold, 7 silver and 1 copper."),
+        Event::Loot {
+            looter: you(),
+            item: "Enchanted Fine Steel Rapier +1".into(),
+            quantity: 1,
+            corpse: Some("Korven Nisere".into()),
+            sold_for: Some(coins(3, 5, 7, 1)),
+        }
+    );
+}
+
+#[test]
+fn loot_sold_single_denomination() {
+    assert_eq!(
+        parse("[Fri Jul 03 11:39:29 2026] You looted a Ringmail Pants +1 from a Teir`Dal rogue's corpse and sold it for 3 platinum."),
+        Event::Loot {
+            looter: you(),
+            item: "Ringmail Pants +1".into(),
+            quantity: 1,
+            corpse: Some("a Teir`Dal rogue".into()),
+            sold_for: Some(coins(3, 0, 0, 0)),
+        }
+    );
+}
+
+#[test]
+fn loot_sold_for_free_is_zero_coins() {
+    assert_eq!(
+        parse("[Fri Jul 03 00:42:12 2026] You looted a Mallet Hilt from an elf skeleton's corpse and sold it for free."),
+        Event::Loot {
+            looter: you(),
+            item: "Mallet Hilt".into(),
+            quantity: 1,
+            corpse: Some("an elf skeleton".into()),
+            sold_for: Some(Coins::default()),
+        }
+    );
+}
+
+#[test]
+fn skill_up() {
+    assert_eq!(
+        parse("[Fri Jul 03 11:37:34 2026] You have become better at Channeling! (118)"),
+        Event::SkillUp {
+            skill: "Channeling".into(),
+            value: 118,
+        }
+    );
+    // Skill names may start with a digit.
+    assert_eq!(
+        parse("[Fri Jul 03 11:37:38 2026] You have become better at 1H Blunt! (163)"),
+        Event::SkillUp {
+            skill: "1H Blunt".into(),
+            value: 163,
+        }
+    );
+    // Multi-word with specialization prefix.
+    assert_eq!(
+        parse("[Fri Jul 03 11:38:18 2026] You have become better at Specialize Alteration! (117)"),
+        Event::SkillUp {
+            skill: "Specialize Alteration".into(),
+            value: 117,
+        }
+    );
+}
+
+#[test]
+fn skill_up_lookalike_without_value_is_system() {
+    assert_eq!(
+        parse("[Fri Jul 03 11:37:34 2026] You have become better at nothing in particular."),
+        Event::System
     );
 }
 

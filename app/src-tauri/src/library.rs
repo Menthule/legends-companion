@@ -507,6 +507,10 @@ pub struct TriggerTreeEntry {
     pub name: String,
     pub category: Option<String>,
     pub classes: Vec<String>,
+    /// Pack-authored zone scope ([`Trigger::zones`]); empty = fires
+    /// everywhere. The frontend overlays any loadout `zone_scopes` entry on
+    /// top of this for display.
+    pub zones: Vec<String>,
     pub default_enabled: bool,
     pub effective_enabled: bool,
     pub enabled: bool,
@@ -587,6 +591,7 @@ fn tree_entry(
         name: t.name.clone(),
         category: t.category.clone(),
         classes: t.classes.clone(),
+        zones: t.zones.clone(),
         default_enabled: t.default_enabled,
         effective_enabled: t.enabled && effective_enabled(t, profile),
         enabled: t.enabled,

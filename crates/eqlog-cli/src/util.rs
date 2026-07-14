@@ -65,6 +65,8 @@ pub fn event_kind(event: &Event) -> &'static str {
         Event::XpGain { .. } => "XpGain",
         Event::AaPointGain { .. } => "AaPointGain",
         Event::LevelUp { .. } => "LevelUp",
+        Event::Money { .. } => "Money",
+        Event::SkillUp { .. } => "SkillUp",
         Event::Faction { .. } => "Faction",
         Event::ZoneEnter { .. } => "ZoneEnter",
         Event::Consider { .. } => "Consider",

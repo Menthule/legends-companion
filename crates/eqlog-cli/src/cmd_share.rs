@@ -1,8 +1,10 @@
 //! `eqlog share export|import` — sharing v1 from the terminal.
 //!
-//! - `export <pack.json> [--name LABEL] [--gtp OUT.gtp]` prints an `LCS1:`
-//!   share string for a trigger pack file; `--gtp` also writes a
-//!   GINA-compatible archive for cross-tool sharing.
+//! - `export <pack.json> [--name LABEL] [--version V] [--author WHO]
+//!   [--notes TEXT] [--gtp OUT.gtp]` prints an `LCS1:` share string for a
+//!   trigger pack file; the optional metadata rides in the payload (shown by
+//!   importers); `--gtp` also writes a GINA-compatible archive for
+//!   cross-tool sharing.
 //! - `import <STRING|FILE> [--out PACK.json]` decodes a share string
 //!   (given inline or as a file containing one) into a trigger pack,
 //!   deduping id collisions against the local trigger library.
@@ -27,6 +29,9 @@ pub fn run(args: &[String]) -> anyhow::Result<()> {
 fn run_export(args: &[String]) -> anyhow::Result<()> {
     let mut file: Option<PathBuf> = None;
     let mut name: Option<String> = None;
+    let mut version: Option<String> = None;
+    let mut author: Option<String> = None;
+    let mut notes: Option<String> = None;
     let mut gtp: Option<PathBuf> = None;
 
     let mut it = args.iter();
@@ -36,6 +41,27 @@ fn run_export(args: &[String]) -> anyhow::Result<()> {
                 name = Some(
                     it.next()
                         .context("share export: --name requires a value")?
+                        .clone(),
+                );
+            }
+            "--version" => {
+                version = Some(
+                    it.next()
+                        .context("share export: --version requires a value")?
+                        .clone(),
+                );
+            }
+            "--author" => {
+                author = Some(
+                    it.next()
+                        .context("share export: --author requires a value")?
+                        .clone(),
+                );
+            }
+            "--notes" => {
+                notes = Some(
+                    it.next()
+                        .context("share export: --notes requires a value")?
                         .clone(),
                 );
             }
@@ -64,6 +90,9 @@ fn run_export(args: &[String]) -> anyhow::Result<()> {
 
     let payload = SharePayload {
         name: name.clone(),
+        version,
+        author,
+        notes,
         triggers,
     };
     println!("{}", export_string(&payload));
@@ -137,14 +166,27 @@ fn run_import(args: &[String]) -> anyhow::Result<()> {
         eprintln!("share import: id `{from}` already taken -> `{to}`");
     }
     eprintln!(
-        "share import: {} trigger(s){}",
+        "share import: {} trigger(s){}{}{}",
         import.triggers.len(),
         import
             .name
             .as_deref()
             .map(|n| format!(" from bundle \"{n}\""))
+            .unwrap_or_default(),
+        import
+            .version
+            .as_deref()
+            .map(|v| format!(" v{v}"))
+            .unwrap_or_default(),
+        import
+            .author
+            .as_deref()
+            .map(|a| format!(" by {a}"))
             .unwrap_or_default()
     );
+    if let Some(notes) = import.notes.as_deref().filter(|n| !n.is_empty()) {
+        eprintln!("share import: notes: {notes}");
+    }
 
     let pack = TriggerPack {
         name: import.name.unwrap_or_else(|| "Shared import".to_string()),

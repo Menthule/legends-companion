@@ -172,6 +172,11 @@ export interface TriggerTreeEntry {
   name: string;
   category: string | null;
   classes: string[];
+  /** Pack-authored zone scope (Trigger.zones); empty/absent = fires
+   *  everywhere. A loadout `zone_scopes` entry replaces this at match time —
+   *  resolve with `zoneScopeFor` for the effective list. Optional for wire
+   *  compatibility with backends that predate the field. */
+  zones?: string[];
   defaultEnabled: boolean;
   /** Profile resolution AND the pack-level enabled switch. */
   effectiveEnabled: boolean;
@@ -209,6 +214,22 @@ export interface GinaImportResult {
  * for display, so keep it loose.
  */
 export type EqEvent = string | Record<string, Record<string, unknown>>;
+
+/** eqlog-core Coins: a denominated coin amount (1p = 10g = 100s = 1000c).
+ *  Carried by Money events and the auto-sell figure on Loot (`sold_for`). */
+export interface Coins {
+  platinum: number;
+  gold: number;
+  silver: number;
+  copper: number;
+}
+
+/** eqlog-core MoneyKind (serde unit variants → bare strings): where a coin
+ *  income line came from. Wire shape:
+ *  `{"Money":{"kind":"CorpseLoot","coins":{"platinum":1,...}}}`. Coin from
+ *  auto-sold loot rides on Loot's `sold_for: Coins | null` instead (all-zero
+ *  Coins = "sold it for free"; null = kept in inventory/depot). */
+export type MoneyKind = "CorpseLoot" | "VendorSale" | "ItemSale";
 
 export function eventKind(event: EqEvent): string {
   if (typeof event === "string") return event;
@@ -449,6 +470,9 @@ export interface TailStatsPayload {
 /** Result of the share_import command (and its mock twin). */
 export interface ShareImportResult {
   imported: number;
+  /** How many of `imported` replaced an existing Shared-source trigger in
+   *  place (update-in-place re-import only; 0 in copy mode). */
+  updated: number;
   /** (colliding id, assigned id) pairs from the dedupe pass. */
   renamed: [string, string][];
 }

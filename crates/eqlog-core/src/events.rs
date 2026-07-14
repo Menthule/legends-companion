@@ -57,6 +57,41 @@ pub enum MissKind {
     Invulnerable,
 }
 
+/// A denominated coin amount (1 platinum = 10 gold = 100 silver = 1000
+/// copper). Used by [`Event::Money`] and the auto-sell figure on
+/// [`Event::Loot`].
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Coins {
+    pub platinum: u64,
+    pub gold: u64,
+    pub silver: u64,
+    pub copper: u64,
+}
+
+impl Coins {
+    /// Total value expressed in copper.
+    pub fn total_copper(&self) -> u64 {
+        self.platinum * 1000 + self.gold * 100 + self.silver * 10 + self.copper
+    }
+}
+
+/// Where a coin-income line came from.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum MoneyKind {
+    /// Coin picked up off a corpse.
+    /// Verified in Legends log: `You receive 1 platinum, 8 gold, 9 silver
+    /// and 6 copper from the corpse.`
+    CorpseLoot,
+    /// Proceeds from selling to a vendor.
+    /// Verified in Legends log: `You receive 1 platinum 1 gold 2 silver from
+    /// Hierophant Sebanlea for the Ringmail Bracelet +1(s).`
+    VendorSale,
+    /// Coin produced by using/redeeming an item.
+    /// Verified in Legends log: `You received 6 gold, 4 silver and 3 copper
+    /// from that item.`
+    ItemSale,
+}
+
 /// Chat channel classification.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ChatChannel {
@@ -164,6 +199,13 @@ pub enum Event {
         item: String,
         quantity: u32,
         corpse: Option<String>,
+        /// Coin proceeds when the client auto-sold the loot.
+        /// Verified in Legends log: `You looted a Rusty Warhammer +2 from a
+        /// lesser mummy's corpse and sold it for 1 gold, 2 silver and 9
+        /// copper.` — all-zero `Coins` for the `... and sold it for free.`
+        /// variant; `None` when the item went to inventory/depot instead.
+        #[serde(default)]
+        sold_for: Option<Coins>,
     },
     /// `**A Magic Die is rolled by X. ... turned up a 42.`
     Roll { roller: String, min: u32, max: u32, result: u32 },
@@ -181,6 +223,18 @@ pub enum Event {
     },
     /// `You have gained a level! Welcome to level 16!`
     LevelUp { level: u32 },
+    /// Coin income. See [`MoneyKind`] for the verified line shapes: corpse
+    /// coin uses the comma/`and` list form (`You receive 1 gold, 4 silver
+    /// and 4 copper from the corpse.`), vendor sales use the bare
+    /// space-separated form (`You receive 5 platinum 6 gold from Hierophant
+    /// Sebanlea for the Fine Steel Two Handed Sword +1(s).`), item redemption
+    /// uses past tense (`You received 1 copper from that item.`). Coin from
+    /// auto-sold loot rides on [`Event::Loot::sold_for`] instead, so each
+    /// line stays a single event.
+    Money { kind: MoneyKind, coins: Coins },
+    /// `You have become better at Meditate! (63)` — skill name plus the new
+    /// absolute skill value the client reports.
+    SkillUp { skill: String, value: u32 },
     /// `Your faction standing with Befallen Inhabitants has been adjusted by -1.`
     Faction { faction: String, delta: i64 },
     /// `You have entered New Sebilis Expedition.`

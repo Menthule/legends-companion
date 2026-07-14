@@ -65,6 +65,7 @@ fn share_string_round_trips_triggers() {
     let payload = SharePayload {
         name: Some("Kael Raid Pack".into()),
         triggers: sample_triggers(),
+        ..Default::default()
     };
     let text = export_string(&payload);
     assert!(text.starts_with(SHARE_PREFIX), "got: {text}");
@@ -100,6 +101,7 @@ fn share_string_tolerates_chat_wrapping() {
     let payload = SharePayload {
         name: None,
         triggers: sample_triggers(),
+        ..Default::default()
     };
     let text = export_string(&payload);
     // A chat client wrapped the string and added surrounding whitespace.
@@ -124,6 +126,7 @@ fn import_dedupes_id_collisions_with_numeric_suffixes() {
     let payload = SharePayload {
         name: None,
         triggers: sample_triggers(),
+        ..Default::default()
     };
     let text = export_string(&payload);
 
@@ -163,6 +166,7 @@ fn import_dedupes_collisions_within_the_pasted_set_itself() {
     let text = export_string(&SharePayload {
         name: None,
         triggers: vec![a, b],
+        ..Default::default()
     });
     let import = parse_string(&text, &HashSet::new()).unwrap();
     assert_eq!(import.triggers[0].effective_id(), "stunned");
@@ -257,6 +261,7 @@ fn gtp_export_reimports_through_our_gina_importer() {
     let text = export_string(&SharePayload {
         name: None,
         triggers: reimport.triggers.clone(),
+        ..Default::default()
     });
     let again = parse_string(&text, &HashSet::new()).unwrap();
     assert_eq!(again.triggers.len(), 3);

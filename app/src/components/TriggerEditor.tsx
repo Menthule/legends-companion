@@ -6,7 +6,14 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
-import { getConfig, listSounds, previewSound, type SoundInfo } from "../api";
+import {
+  dropsZones,
+  getConfig,
+  listSounds,
+  previewSound,
+  type SoundInfo,
+} from "../api";
+import { SearchSelect } from "./SearchSelect";
 import spellData from "../data/spell_names.json";
 import {
   compilePreviewRegex,
@@ -42,7 +49,7 @@ import {
   type TemplateDef,
   type TemplateParams,
 } from "../lib/triggerTemplates";
-import type { Trigger, TriggerAction } from "../types";
+import type { DropZone, Trigger, TriggerAction } from "../types";
 
 // ---------------------------------------------------------------------------
 // Spell data
@@ -663,6 +670,10 @@ export default function TriggerEditor({
   const [enabled, setEnabled] = useState(init.enabled);
   /** Refire cooldown in seconds; 0 = fire on every match. */
   const [cooldown, setCooldown] = useState<number>(initial?.cooldown_secs ?? 0);
+  /** Zone scope: names the trigger may fire in; empty = everywhere. */
+  const [zones, setZones] = useState<string[]>(initial?.zones ?? []);
+  /** Reference zone list for the add-a-zone autocomplete. */
+  const [zoneOptions, setZoneOptions] = useState<DropZone[]>([]);
   const [testLine, setTestLine] = useState(init.testLine);
   const [testOpen, setTestOpen] = useState(
     variant === "modal" || Boolean(initialLine),
@@ -717,6 +728,7 @@ export default function TriggerEditor({
     getConfig()
       .then((c) => setCharacter(c.characterName))
       .catch(() => {});
+    dropsZones().then(setZoneOptions).catch(() => {});
   }, []);
 
   // On open: bring the editor into view (Edit on a deep tree row otherwise
@@ -1137,6 +1149,9 @@ export default function TriggerEditor({
       enabled,
       actions,
       cooldown_secs: cooldown > 0 ? cooldown : null,
+      // Empty = fires everywhere; undefined drops the key from the saved
+      // JSON (serde default), and also clears a scope the initial had.
+      zones: zones.length > 0 ? zones : undefined,
     };
     let companion: Trigger | null = null;
     const timerRow = rows.find((r) => r.kind === "timer");
@@ -1999,6 +2014,50 @@ export default function TriggerEditor({
               ))}
             </div>
           )}
+        </div>
+      </div>
+
+      <div className="ted-section">
+        <div className="ted-sec-head">
+          <span className="section-title">Zones</span>
+        </div>
+        {zones.length > 0 && (
+          <div className="ted-chips ted-zone-chips">
+            {zones.map((z) => (
+              <button
+                type="button"
+                key={z}
+                className="ted-chip"
+                title={`Remove ${z}`}
+                onClick={() => {
+                  touch();
+                  setZones(zones.filter((x) => x !== z));
+                }}
+              >
+                {z} ✕
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="ted-zone-add">
+          <SearchSelect
+            value=""
+            anyLabel="Add a zone…"
+            options={zoneOptions
+              .filter((z) => !zones.includes(z.longName))
+              .map((z) => ({ value: z.longName, label: z.longName }))}
+            onChange={(v) => {
+              if (v && !zones.includes(v)) {
+                touch();
+                setZones([...zones, v]);
+              }
+            }}
+          />
+        </div>
+        <div className="hint">
+          {zones.length === 0
+            ? "No zones listed — this trigger fires everywhere."
+            : "Fires only while you are in one of these zones (learned from “You have entered …” lines). Remove them all to fire everywhere."}
         </div>
       </div>
 

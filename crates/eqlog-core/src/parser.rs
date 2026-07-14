@@ -8,7 +8,9 @@
 //!   regex — this runs on every line during combat bursts.
 //! - All regexes are compiled once in [`Parser::new`].
 
-use crate::events::{ChatChannel, Entity, Event, HitFlags, LogLine, MissKind, ParsedLine};
+use crate::events::{
+    ChatChannel, Coins, Entity, Event, HitFlags, LogLine, MissKind, MoneyKind, ParsedLine,
+};
 use regex::Regex;
 
 /// Melee verbs as they appear in third person (`X slashes Y for ...`).
@@ -89,6 +91,8 @@ struct Regexes {
     xp: Regex,
     aa_point_gain: Regex,
     level_up: Regex,
+    skill_up: Regex,
+    money_vendor: Regex,
     faction: Regex,
     zone: Regex,
     location: Regex,
@@ -185,8 +189,14 @@ impl Parser {
                 r"^--(?P<l>.+?) ha(?:s|ve) looted (?P<i>.+) from (?P<c>.+)\.--$",
             )
             .unwrap(),
+            // The auto-sell form carries coin proceeds. Verified in Legends
+            // log: "You looted a Rusty Warhammer +2 from a lesser mummy's
+            // corpse and sold it for 1 gold, 2 silver and 9 copper." /
+            // "You looted a Mallet Hilt from an elf skeleton's corpse and
+            // sold it for free." The lazy sale capture plus optional trailing
+            // period yields the bare phrase ("free" / the coin list).
             loot_sold: Regex::new(
-                r"^You looted (?P<i>.+?) from (?P<c>.+?) and (?:sold it for .+|stored it in .+)$",
+                r"^You looted (?P<i>.+?) from (?P<c>.+?) and (?:sold it for (?P<sale>.+?)\.?$|stored it in .+$)",
             )
             .unwrap(),
             loot_create: Regex::new(r"^You looted (?P<i>.+?) from (?P<c>.+?) to create .+$")
@@ -225,6 +235,20 @@ impl Parser {
             .unwrap(),
             level_up: Regex::new(r"^You have gained a level! Welcome to level (?P<l>\d+)!$")
                 .unwrap(),
+            // Verified in Legends log: "You have become better at Meditate!
+            // (63)" — the parenthesized number is the new absolute skill
+            // value, not a delta.
+            skill_up: Regex::new(r"^You have become better at (?P<s>.+)! \((?P<v>\d+)\)$")
+                .unwrap(),
+            // Vendor sale proceeds use a bare space-separated coin phrase
+            // (no commas/"and"). Verified in Legends log: "You receive
+            // 1 platinum 1 gold 2 silver from Hierophant Sebanlea for the
+            // Ringmail Bracelet +1(s)." The coin phrase is validated by
+            // parse_coins afterwards, so a lookalike line falls through.
+            money_vendor: Regex::new(
+                r"^You receive (?P<m>.+?) from .+ for the .+\(s\)\.$",
+            )
+            .unwrap(),
             faction: Regex::new(
                 r"^Your faction standing with (?P<f>.+?) has been adjusted by (?P<d>-?\d+)\.$",
             )
@@ -585,6 +609,23 @@ impl Parser {
                 };
             }
         }
+        // Skill-ups and coin income are intercepted BEFORE is_system(),
+        // whose "You have become better at" / "You receive" prefixes would
+        // otherwise swallow them (those prefixes stay in the list as the
+        // fallback for unrecognized shapes).
+        if m.starts_with("You have become better at ") {
+            if let Some(c) = self.re.skill_up.captures(m) {
+                return Event::SkillUp {
+                    skill: c["s"].to_string(),
+                    value: c["v"].parse().unwrap_or(0),
+                };
+            }
+        }
+        if m.starts_with("You receive") {
+            if let Some(ev) = self.try_money(m) {
+                return ev;
+            }
+        }
         if m.starts_with("Your faction standing") {
             if let Some(c) = self.re.faction.captures(m) {
                 return Event::Faction {
@@ -911,12 +952,63 @@ impl Parser {
             let raw = c.as_str();
             raw.strip_suffix("'s corpse").unwrap_or(raw).to_string()
         });
+        // Auto-sell proceeds ("...and sold it for 1 gold, 2 silver and 9
+        // copper." / "...and sold it for free."). An unparseable sale phrase
+        // (future format drift) degrades to None rather than dropping the
+        // Loot event.
+        let sold_for = caps.name("sale").and_then(|s| {
+            if s.as_str() == "free" {
+                Some(Coins::default())
+            } else {
+                parse_coins(s.as_str())
+            }
+        });
         Some(Event::Loot {
             looter,
             item,
             quantity,
             corpse,
+            sold_for,
         })
+    }
+
+    /// Coin-income lines. Three verified shapes (see [`MoneyKind`]); the
+    /// coin phrase itself is validated by [`parse_coins`], so lookalike
+    /// lines ("You receive a strange feeling...") return None and fall
+    /// through to the System fallback.
+    fn try_money(&self, m: &str) -> Option<Event> {
+        if let Some(rest) = m.strip_prefix("You receive ") {
+            // Verified in Legends log: "You receive 8 copper from the
+            // corpse." / "You receive 4 silver and 9 copper from the
+            // corpse." / "You receive 1 gold, 4 silver and 4 copper from
+            // the corpse." / "You receive 1 platinum, 8 gold, 9 silver and
+            // 6 copper from the corpse."
+            if let Some(phrase) = rest.strip_suffix(" from the corpse.") {
+                return Some(Event::Money {
+                    kind: MoneyKind::CorpseLoot,
+                    coins: parse_coins(phrase)?,
+                });
+            }
+            // Vendor sale: "You receive 1 platinum 1 gold 2 silver from
+            // Hierophant Sebanlea for the Ringmail Bracelet +1(s)."
+            if let Some(c) = self.re.money_vendor.captures(m) {
+                return Some(Event::Money {
+                    kind: MoneyKind::VendorSale,
+                    coins: parse_coins(&c["m"])?,
+                });
+            }
+        }
+        // Verified in Legends log: "You received 1 copper from that item." /
+        // "You received 6 gold, 4 silver and 3 copper from that item."
+        if let Some(rest) = m.strip_prefix("You received ") {
+            if let Some(phrase) = rest.strip_suffix(" from that item.") {
+                return Some(Event::Money {
+                    kind: MoneyKind::ItemSale,
+                    coins: parse_coins(phrase)?,
+                });
+            }
+        }
+        None
     }
 
     /// Recognized-but-uninteresting lines. Kept distinct from `Unclassified`
@@ -940,6 +1032,9 @@ impl Parser {
             "You overcome",
             "You regain",
             "You purchased",
+            // Coin ("You receive ... from the corpse.") and skill-up lines
+            // are classified earlier; these prefixes are the fallback for
+            // shapes try_money / skill_up don't recognize.
             "You receive",
             "You could not",
             "You have become better at",
@@ -1217,6 +1312,36 @@ fn split_item_quantity(item: &str) -> (u32, String) {
         }
     }
     (1, item.to_string())
+}
+
+/// Parse a coin phrase in either the comma/`and` list form used by corpse
+/// and item lines ("1 platinum, 8 gold, 9 silver and 6 copper", "8 copper",
+/// "1 gold and 6 silver") or the bare space-separated form used by vendor
+/// sales ("5 platinum 6 gold"). Strict: every token must be part of a
+/// `<number> <denomination>` pair (bare "and" separators allowed), and at
+/// least one denomination must be present — anything else returns None so
+/// lookalike lines are rejected rather than misparsed.
+fn parse_coins(phrase: &str) -> Option<Coins> {
+    let normalized = phrase.replace(',', " ");
+    let mut coins = Coins::default();
+    let mut any = false;
+    let mut tokens = normalized.split_whitespace();
+    while let Some(tok) = tokens.next() {
+        if tok == "and" {
+            continue;
+        }
+        let n: u64 = tok.parse().ok()?;
+        let slot = match tokens.next()? {
+            "platinum" => &mut coins.platinum,
+            "gold" => &mut coins.gold,
+            "silver" => &mut coins.silver,
+            "copper" => &mut coins.copper,
+            _ => return None,
+        };
+        *slot += n;
+        any = true;
+    }
+    any.then_some(coins)
 }
 
 const MONTHS: [&[u8; 3]; 12] = [

@@ -16,9 +16,9 @@ import { fmtNum } from "../lib/format";
 
 const MOCK_BOARD: Scoreboard = IS_MOCK
   ? {
-      you: { name: "You", killingBlows: 42, finishingBlows: 11, highestHit: 1204, highestHitLabel: "reave → a ranger", totalDamage: 84210, deaths: 1, curStreak: 8, bestStreak: 14, firstTs: 0, lastTs: 900 },
-      sliq: { name: "Sliq", killingBlows: 38, finishingBlows: 19, highestHit: 940, highestHitLabel: "Blast of Frost", totalDamage: 79110, deaths: 0, curStreak: 12, bestStreak: 12, firstTs: 0, lastTs: 900 },
-      thaggar: { name: "Thaggar", killingBlows: 27, finishingBlows: 6, highestHit: 705, highestHitLabel: "slash", totalDamage: 41880, deaths: 2, curStreak: 0, bestStreak: 9, firstTs: 0, lastTs: 900 },
+      you: { name: "You", killingBlows: 42, finishingBlows: 11, mezBreaks: 0, highestHit: 1204, highestHitLabel: "reave → a ranger", totalDamage: 84210, deaths: 1, curStreak: 8, bestStreak: 14, firstTs: 0, lastTs: 900 },
+      sliq: { name: "Sliq", killingBlows: 38, finishingBlows: 19, mezBreaks: 1, highestHit: 940, highestHitLabel: "Blast of Frost", totalDamage: 79110, deaths: 0, curStreak: 12, bestStreak: 12, firstTs: 0, lastTs: 900 },
+      thaggar: { name: "Thaggar", killingBlows: 27, finishingBlows: 6, mezBreaks: 3, highestHit: 705, highestHitLabel: "slash", totalDamage: 41880, deaths: 2, curStreak: 0, bestStreak: 9, firstTs: 0, lastTs: 900 },
     }
   : {};
 
@@ -54,6 +54,9 @@ export default function OverlayScoreboard() {
                 <th className="ovs-name">Player</th>
                 <th title="Killing blows">KB</th>
                 <th title="Finishing Blows (AA)">FB</th>
+                <th title="CC breaks — heuristic: first hit after a mez break">
+                  Mez
+                </th>
                 <th title="Biggest hit">Hit</th>
                 <th title="Damage per second (engagement span)">DPS</th>
               </tr>
@@ -64,6 +67,7 @@ export default function OverlayScoreboard() {
                   <td className="ovs-name">{r.name}</td>
                   <td className="num">{r.killingBlows}</td>
                   <td className="num">{r.finishingBlows}</td>
+                  <td className="num">{r.mezBreaks ?? 0}</td>
                   <td className="num" title={r.highestHitLabel}>
                     {r.highestHit ? r.highestHit.toLocaleString() : "—"}
                   </td>

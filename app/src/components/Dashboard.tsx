@@ -66,6 +66,7 @@ import MacrosTab from "./MacrosTab";
 import TriggersTab from "./TriggersTab";
 import SettingsTab from "./SettingsTab";
 import WelcomeCard from "./WelcomeCard";
+import WelcomeBack from "./WelcomeBack";
 import GlobalSearchModal from "./GlobalSearchModal";
 import CoachTab from "./CoachTab";
 import DiagnosticsTab from "./DiagnosticsTab";
@@ -1261,6 +1262,14 @@ export default function Dashboard() {
                 });
               }}
               onOpenSettings={() => setTab("settings")}
+            />
+          )}
+          {!needsSetup && (
+            <WelcomeBack
+              character={character}
+              level={profile?.level ?? null}
+              catchingUp={catchingUp}
+              onOpenSession={() => setTab("coach")}
             />
           )}
           <section className={`page page-live${tab === "live" ? "" : " hidden"}`}>

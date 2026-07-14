@@ -7000,3 +7000,298 @@ button.drops-item.active {
 .drops-card .quest-inventory-bar {
   margin-bottom: 12px;
 }
+
+/* ---- welcome-back briefing card ("Where was I?") ------------------------
+   Startup orientation card (components/WelcomeBack.tsx) shown above the
+   page content after a 12h+ away gap. Rows are full-width quiet buttons
+   that deep-link to the owning tab; the muted left label names the
+   category (Then / Killing / Timers / Drops). */
+.wb-card {
+  margin-bottom: 12px;
+  padding: 12px 16px;
+}
+.wb-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.wb-away {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.wb-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.wb-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.wb-row:hover {
+  background: var(--surface-raised);
+}
+.wb-row-label {
+  flex: 0 0 52px;
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+.wb-row-text {
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------- trigger zone scopes (zones) */
+/* Zone badge on zone-scoped trigger rows: shows the effective zone list
+   (first zone + count). `.scoped` = a loadout zone_scopes entry replaces the
+   pack-authored list, tinted like other loadout customizations. */
+.chan-chip.zone-chip {
+  text-transform: none;
+  letter-spacing: 0;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chan-chip.zone-chip.scoped {
+  color: color-mix(in srgb, var(--warning) 85%, var(--ink));
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+  background: color-mix(in srgb, var(--warning) 12%, transparent);
+}
+/* Group-head "Zones" button reads quiet until a scope exists (same
+   hover-reveal convention as .tt-share). */
+.tt-group-head .tt-zones {
+  visibility: hidden;
+  flex: none;
+}
+.tt-group-head:hover .tt-zones,
+.tt-zones:focus-visible,
+.tt-group-head .tt-zones.scoped {
+  visibility: visible;
+}
+.tt-zones.scoped {
+  color: color-mix(in srgb, var(--warning) 85%, var(--ink));
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+}
+/* Per-category zone-scope editor panel (shares the timing-editor frame). */
+.tt-zone-editor .tt-zone-fields {
+  display: flex;
+  flex: 2;
+  min-width: 220px;
+  flex-direction: column;
+  gap: 6px;
+}
+.zone-chiplist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+/* Zones section in the trigger editor: cap the picker width so the section
+   doesn't stretch a bare combobox across the whole card. */
+.ted-zone-add {
+  max-width: 340px;
+}
+.ted-zone-chips {
+  margin-bottom: 6px;
+}
+
+/* ---- Share dialogs: pre-share pack lint + re-import diff ----------------
+   Lint findings are advisory (share always proceeds): a warning-tinted note
+   block under the share string. The import diff block shows added/changed/
+   unchanged counts against the already-installed shared triggers plus the
+   update-in-place vs import-as-copies choice. */
+.share-lint {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--warning) 45%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--warning) 8%, transparent);
+  font-size: 12px;
+}
+.share-lint-title {
+  font-weight: 600;
+  color: var(--warning);
+  margin-bottom: 4px;
+}
+.share-lint-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.share-lint-name {
+  font-weight: 600;
+}
+.import-diff {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  font-size: 12px;
+}
+.import-diff-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.import-diff-counts {
+  margin-bottom: 6px;
+}
+.import-diff-list {
+  margin: 0 0 8px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.import-diff-name {
+  font-weight: 600;
+}
+.import-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.import-mode-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+.import-mode-option input {
+  margin-top: 2px;
+  flex: none;
+}
+.import-preview-meta,
+.import-preview-notes {
+  margin: 2px 0 4px;
+}
+
+/* Session analytics batch: Wallet / Factions / Skills / Trends panels
+   (Session tab). Faction rows are a 4-col grid like .kills-row; trend
+   micro-charts are inline-SVG sparklines in the accent hue only. */
+.faction-callout {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.faction-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 140px 44px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.faction-row:last-child {
+  border-bottom: none;
+}
+.faction-up {
+  color: var(--good);
+}
+.faction-down {
+  color: var(--warning);
+}
+.trend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.trend-chart {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-width: 0;
+}
+.trend-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.trend-label {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.trend-latest {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.trend-spark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.trend-baseline {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+.trend-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.trend-dot {
+  fill: var(--accent);
+}
+.trend-ding {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.trend-hit {
+  fill: transparent;
+}
+.trend-nodata {
+  padding: 12px 0 16px;
+}
+
+/* ---- Session Scoreboard panel (Session tab): Party Scoreboard mirror ----
+   Player | KB | FB | Mez | Hit | DPS | Deaths grid rows (same family as
+   .kills-row / .faction-row) plus the mez-break speech toggle. */
+.scorepanel-row {
+  display: grid;
+  grid-template-columns: 1fr 44px 44px 44px 64px 64px 52px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.scorepanel-row:last-child {
+  border-bottom: none;
+}
+.scorepanel-speak {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: var(--ink-2);
+  font-size: 13px;
+  cursor: pointer;
+}

@@ -26,7 +26,8 @@ pub use model::{
 pub use packs::{load_packs, LoadedPacks};
 pub use profile::{effective_enabled, effective_enabled_in_loadout, zone_scope_for};
 pub use share::{
-    export_gtp, export_string, parse_string, ShareError, ShareImport, SharePayload, SHARE_PREFIX,
+    decode_string, diff_triggers, export_gtp, export_string, merge_update_user_pack, parse_string,
+    DiffKind, MergeOutcome, ShareError, ShareImport, SharePayload, TriggerDiffEntry, SHARE_PREFIX,
 };
 pub use storage::{
     list_characters, load_character, migrate_flat_layout, parse_log_filename, save_character,

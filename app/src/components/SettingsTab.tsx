@@ -28,6 +28,10 @@ import {
   loadCampRaresOnly,
   saveCampRaresOnly,
 } from "../lib/timers";
+import {
+  loadWelcomeBackPrefs,
+  saveWelcomeBackEnabled,
+} from "../lib/welcomeBack";
 import { useLiveZoneEnabled } from "../lib/refFilters";
 import { openTriggers } from "../lib/deepLinks";
 import { ShareDialog, type ShareRequest } from "./ShareDialogs";
@@ -106,6 +110,9 @@ export default function SettingsTab({
   );
   const [campRaresOnly, setCampRaresOnly] = useState<boolean>(() =>
     loadCampRaresOnly()
+  );
+  const [welcomeBackOn, setWelcomeBackOn] = useState<boolean>(
+    () => loadWelcomeBackPrefs().enabled,
   );
   const [buffThreshold, setBuffThreshold] = useState<number>(() =>
     loadBuffThresholdMins()
@@ -718,6 +725,26 @@ export default function SettingsTab({
             className="switch live-feature-switch"
             checked={liveZoneEnabled}
             onChange={(e) => setLiveZoneEnabled(e.target.checked)}
+          />
+        </label>
+        <label className="settings-switch-row">
+          <span>
+            <strong>Welcome-back briefing</strong>
+            <span>
+              After 12+ hours away, show a one-time “Where was I?” card on
+              start: last zone and level, what you were killing, camp timers
+              that popped, and wishlist drops since. Visual only — never
+              spoken.
+            </span>
+          </span>
+          <input
+            type="checkbox"
+            className="switch"
+            checked={welcomeBackOn}
+            onChange={(e) => {
+              setWelcomeBackOn(e.target.checked);
+              saveWelcomeBackEnabled(e.target.checked);
+            }}
           />
         </label>
       </section>

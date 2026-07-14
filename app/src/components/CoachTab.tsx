@@ -42,6 +42,8 @@ import {
   sessionScoreboard,
   useSessionLog,
 } from "../lib/sessionLog";
+import type { TrendSessionInput } from "../lib/trends";
+import { totalCopper, walletGainFromEvent } from "../lib/wallet";
 import { loadWishlist, onWishlistChanged, type WishlistEntry } from "../lib/wishlist";
 import Empty from "./Empty";
 import SessionPanel, {
@@ -122,6 +124,11 @@ interface SessionHistoryRow {
   aaPercent?: number | null;
   motes?: number;
   routes?: SessionRouteSample[];
+  /** Session coin income in copper (Money lines + auto-sold loot). Absent on
+   *  rows persisted before coin tracking — the Trends panel shows a gap. */
+  platCopper?: number;
+  /** Level-ups seen during the session (Trends chart markers). */
+  levelUps?: number;
 }
 
 interface CoachStore {
@@ -483,6 +490,8 @@ export default function CoachTab({ character }: { character: string }) {
   const [deaths, setDeaths] = useState(0);
   const [aaPoints, setAaPoints] = useState(0);
   const [motes, setMotes] = useState(0);
+  const [coinCopper, setCoinCopper] = useState(0);
+  const [levelUpCount, setLevelUpCount] = useState(0);
   const [fightCount, setFightCount] = useState(0);
   const [combatSecs, setCombatSecs] = useState(0);
   const [playerDamageTotal, setPlayerDamageTotal] = useState(0);
@@ -612,6 +621,7 @@ export default function CoachTab({ character }: { character: string }) {
       deaths > 0 ||
       aaPoints > 0 ||
       motes > 0 ||
+      coinCopper > 0 ||
       sessionBuckets.length > 0 ||
       effects.size > 0 ||
       petAggs.size > 0
@@ -679,6 +689,8 @@ export default function CoachTab({ character }: { character: string }) {
       aaPercent: paceResult?.aaPercentGained ?? null,
       motes,
       routes,
+      platCopper: coinCopper,
+      levelUps: levelUpCount,
     };
   }
 
@@ -699,6 +711,8 @@ export default function CoachTab({ character }: { character: string }) {
     setDeaths(0);
     setAaPoints(0);
     setMotes(0);
+    setCoinCopper(0);
+    setLevelUpCount(0);
     setFightCount(0);
     setCombatSecs(0);
     setPlayerDamageTotal(0);
@@ -892,6 +906,11 @@ export default function CoachTab({ character }: { character: string }) {
       }
       if (gainedAa > 0) setAaPoints((value) => value + gainedAa);
       if (gainedMotes > 0) setMotes((value) => value + gainedMotes);
+      // Session coin (Money lines + auto-sold loot) and level-ups persist on
+      // the history row for the Trends panel's plat/hr series and markers.
+      const gain = walletGainFromEvent(p.event);
+      if (gain) setCoinCopper((value) => value + totalCopper(gain.coins));
+      if (eventData(p.event, "LevelUp")) setLevelUpCount((value) => value + 1);
       const victim = slainVictim(p.event);
       const killed = Boolean(victim && victim !== "You" && !/^[A-Z][a-z]+$/.test(victim));
       if (killed && victim) {
@@ -1143,13 +1162,30 @@ export default function CoachTab({ character }: { character: string }) {
   const panelCounts: Record<SessionPanelId, number> = {
     rates: pace.history.length,
     xp: sessionLog.xp.count,
+    wallet: sessionLog.wallet.count,
     kills: Object.keys(sessionLog.kills).length,
+    scoreboard: Object.keys(sessionScoreboard()).length,
     effects: sessionLog.effects.length,
     deaths: sessionLog.recaps.length,
     loot: sessionLog.loot.length,
     wishlist: wishlist.length,
     rolls: sessionLog.rolls.length,
+    factions: Object.keys(sessionLog.factions).length,
+    skills: sessionLog.skillUps.length,
+    trends: sessionHistory.length,
   };
+  // Trends panel input: the persisted per-session history rows (legacy rows
+  // without coin data pass null so the plat series gaps, never fakes a zero).
+  const trendRows: TrendSessionInput[] = sessionHistory.map((row) => ({
+    id: row.id,
+    startedTs: row.startedTs,
+    durationSecs: row.durationSecs,
+    xp: row.xp,
+    kills: row.kills,
+    deaths: row.deaths,
+    platCopper: row.platCopper ?? null,
+    levelUps: row.levelUps ?? 0,
+  }));
 
   return (
     <div className="coach-grid">
@@ -1328,6 +1364,8 @@ export default function CoachTab({ character }: { character: string }) {
           wishlist={wishlist}
           pace={pace}
           onSetPace={updatePace}
+          character={character}
+          history={trendRows}
         />
       )}
 

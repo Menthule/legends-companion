@@ -19,6 +19,10 @@ export interface PlayerScore {
   killingBlows: number;
   /** Finishing Blow AA procs. */
   finishingBlows: number;
+  /** Mez breaks attributed to this player — HEURISTIC (first hit on a
+   *  mezzed target / first hit right after its mez bar drops early; see
+   *  lib/mezBreaks.ts). Label it honestly wherever it renders. */
+  mezBreaks: number;
   /** Biggest single hit + what dealt it (spell/verb → target). */
   highestHit: number;
   highestHitLabel: string;
@@ -48,6 +52,7 @@ export function emptyPlayer(name: string): PlayerScore {
     name,
     killingBlows: 0,
     finishingBlows: 0,
+    mezBreaks: 0,
     highestHit: 0,
     highestHitLabel: "",
     totalDamage: 0,
@@ -86,10 +91,18 @@ export function isPlayerName(name: string, ownedNames: Set<string>): boolean {
 const boardStore = createLocalStore<Scoreboard>(
   SCOREBOARD_KEY,
   SCOREBOARD_EVENT,
-  (raw) =>
-    raw && typeof raw === "object" && !Array.isArray(raw)
-      ? (raw as Scoreboard)
-      : {},
+  (raw) => {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+    // Backfill stats added after a board was persisted (e.g. mezBreaks) so
+    // readers never see `undefined` counters on rows written by an older run.
+    const board: Scoreboard = {};
+    for (const [k, v] of Object.entries(raw as Record<string, unknown>)) {
+      if (!v || typeof v !== "object") continue;
+      const p = v as Partial<PlayerScore>;
+      board[k] = { ...emptyPlayer(p.name ?? k), ...p };
+    }
+    return board;
+  },
 );
 
 const recordsStore = createLocalStore<Records>(RECORDS_KEY, undefined, (raw) =>

@@ -386,6 +386,7 @@ pub fn share_export(
     Ok(eqlog_triggers::export_string(&SharePayload {
         name,
         triggers,
+        ..Default::default()
     }))
 }
 
@@ -406,7 +407,11 @@ pub fn share_export_file(
         return Err("no matching triggers to export".into());
     }
     let count = triggers.len();
-    let text = eqlog_triggers::export_string(&SharePayload { name, triggers });
+    let text = eqlog_triggers::export_string(&SharePayload {
+        name,
+        triggers,
+        ..Default::default()
+    });
     std::fs::write(&path, text).map_err(|e| format!("write {path}: {e}"))?;
     Ok(count)
 }
@@ -448,6 +453,9 @@ pub fn share_read_file(
     }
     Ok(eqlog_triggers::export_string(&SharePayload {
         name: import.name,
+        version: import.version,
+        author: import.author,
+        notes: import.notes,
         triggers,
     }))
 }
@@ -457,6 +465,9 @@ pub fn share_read_file(
 #[serde(rename_all = "camelCase")]
 pub struct ShareImportSummary {
     pub imported: usize,
+    /// How many of `imported` replaced an existing Shared-source trigger in
+    /// place (update-in-place mode only; 0 in copy mode).
+    pub updated: usize,
     /// Bundle label the exporter set, if any.
     pub name: Option<String>,
     /// `[collidingId, assignedId]` pairs renamed by the dedupe.
@@ -465,29 +476,10 @@ pub struct ShareImportSummary {
     pub categories: Vec<String>,
 }
 
-/// Import an `LCS1:` share string into the user pack. Ids colliding with
-/// the local library (or within the paste) get `-2`/`-3` suffixes; every
-/// imported trigger is stamped source "shared". A live session hot-reloads.
-#[tauri::command]
-pub fn share_import(
-    app: AppHandle,
-    state: State<'_, AppState>,
-    text: String,
-) -> Result<ShareImportSummary, String> {
-    let cfg = lock(&state.config, "config")?.clone();
-    let lib = library::load_library(&app, &cfg)?;
-    let existing: HashSet<String> = lib
-        .packs
-        .iter()
-        .chain(lib.user.iter())
-        .map(|t| t.effective_id())
-        .collect();
-    let import = eqlog_triggers::parse_string(&text, &existing).map_err(|e| e.to_string())?;
-    if import.triggers.is_empty() {
-        return Err("share string contains no triggers".into());
-    }
+/// Distinct categories among `triggers`, first-seen order.
+fn distinct_categories(triggers: &[Trigger]) -> Vec<String> {
     let mut categories: Vec<String> = Vec::new();
-    for t in &import.triggers {
+    for t in triggers {
         let c = t
             .category
             .clone()
@@ -496,23 +488,83 @@ pub fn share_import(
             categories.push(c);
         }
     }
-    let summary = ShareImportSummary {
-        imported: import.triggers.len(),
-        name: import.name,
-        renamed: import.renamed,
-        categories,
+    categories
+}
+
+/// Import an `LCS1:` share string into the user pack.
+///
+/// Default (`update_in_place` absent/false): ids colliding with the local
+/// library (or within the paste) get `-2`/`-3` suffixes — nothing existing is
+/// touched. With `update_in_place: true`, incoming ids matching an existing
+/// Shared-source user-pack trigger REPLACE it in place (same stable id, so
+/// per-id user overrides keep applying); everything else appends with the
+/// classic collision rename. Every imported trigger is stamped source
+/// "shared". A live session hot-reloads.
+#[tauri::command]
+pub fn share_import(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    text: String,
+    update_in_place: Option<bool>,
+) -> Result<ShareImportSummary, String> {
+    let cfg = lock(&state.config, "config")?.clone();
+    let lib = library::load_library(&app, &cfg)?;
+
+    let (summary, user) = if update_in_place.unwrap_or(false) {
+        let payload = eqlog_triggers::decode_string(&text).map_err(|e| e.to_string())?;
+        if payload.triggers.is_empty() {
+            return Err("share string contains no triggers".into());
+        }
+        let categories = distinct_categories(&payload.triggers);
+        let external_ids: HashSet<String> =
+            lib.packs.iter().map(|t| t.effective_id()).collect();
+        let mut user = lib.user;
+        let outcome =
+            eqlog_triggers::merge_update_user_pack(payload.triggers, &mut user, &external_ids);
+        (
+            ShareImportSummary {
+                imported: outcome.updated.len() + outcome.added.len(),
+                updated: outcome.updated.len(),
+                name: payload.name,
+                renamed: outcome.renamed,
+                categories,
+            },
+            user,
+        )
+    } else {
+        let existing: HashSet<String> = lib
+            .packs
+            .iter()
+            .chain(lib.user.iter())
+            .map(|t| t.effective_id())
+            .collect();
+        let import = eqlog_triggers::parse_string(&text, &existing).map_err(|e| e.to_string())?;
+        if import.triggers.is_empty() {
+            return Err("share string contains no triggers".into());
+        }
+        let categories = distinct_categories(&import.triggers);
+        let summary = ShareImportSummary {
+            imported: import.triggers.len(),
+            updated: 0,
+            name: import.name,
+            renamed: import.renamed,
+            categories,
+        };
+        let mut user = lib.user;
+        user.extend(import.triggers);
+        (summary, user)
     };
+
     let pack = pack_path(&app, &state)?;
     {
         let _guard = lock(&state.pack_lock, "trigger pack")?;
-        let mut user = lib.user;
-        user.extend(import.triggers);
         config::save_triggers(&pack, &user)?;
     }
     crate::library::rebuild_if_tailing(&app, &state)?;
     crate::logging::info(&format!(
-        "imported {} shared trigger(s){}",
+        "imported {} shared trigger(s) ({} updated in place){}",
         summary.imported,
+        summary.updated,
         summary
             .name
             .as_deref()

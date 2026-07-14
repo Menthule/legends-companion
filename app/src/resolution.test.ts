@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cloneLoadout, withTimingOverride } from "./resolution";
+import { cloneLoadout, withTimingOverride, zoneScopeFor } from "./resolution";
 import type { CharacterProfile, Loadout } from "./types";
 
 describe("cloneLoadout", () => {
@@ -27,6 +27,60 @@ describe("cloneLoadout", () => {
     expect(source.channel_overrides!["cc/root"].speak).toBe(false);
     expect(source.zone_scopes!["cc/root"]).toEqual(["Kael", "Growth"]);
     expect(source.timing_overrides!["cc/root"].IV.duration_secs).toBe(96);
+  });
+});
+
+describe("zoneScopeFor", () => {
+  // Mirrors the Rust zone_scope_for tests in eqlog-triggers profile.rs.
+  const trigger = { id: "class/enchanter/cc/mez-broken", category: "Class/Enchanter/CC" };
+  const loadout = (zone_scopes: Record<string, string[]>): Loadout => ({
+    name: "L",
+    classes: [],
+    overrides: {},
+    zone_scopes,
+  });
+
+  it("returns null when the loadout defines no scopes", () => {
+    expect(zoneScopeFor(trigger, loadout({}))).toBeNull();
+    expect(
+      zoneScopeFor(trigger, { name: "L", classes: [], overrides: {} }),
+    ).toBeNull();
+  });
+
+  it("prefers an exact trigger-id entry over any prefix", () => {
+    const l = loadout({
+      "class/enchanter/cc/mez-broken": ["Kael"],
+      "class/enchanter": ["Growth"],
+    });
+    expect(zoneScopeFor(trigger, l)).toEqual(["Kael"]);
+  });
+
+  it("matches the exact id case-insensitively", () => {
+    const l = loadout({ "Class/Enchanter/CC/Mez-Broken": ["Kael"] });
+    expect(zoneScopeFor(trigger, l)).toEqual(["Kael"]);
+  });
+
+  it("takes the longest matching prefix against category or id", () => {
+    const l = loadout({
+      "class/enchanter": ["Growth"],
+      "class/enchanter/cc": ["Kael"],
+    });
+    expect(zoneScopeFor(trigger, l)).toEqual(["Kael"]);
+    // Display-form category prefix matches too (pathHasPrefix is
+    // case-insensitive).
+    expect(
+      zoneScopeFor(trigger, loadout({ "Class/Enchanter/CC": ["Sky"] })),
+    ).toEqual(["Sky"]);
+  });
+
+  it("returns an empty list distinctly (scoped to no zone)", () => {
+    const l = loadout({ "class/enchanter": [] });
+    expect(zoneScopeFor(trigger, l)).toEqual([]);
+  });
+
+  it("ignores non-matching prefixes (no partial-segment match)", () => {
+    const l = loadout({ "class/ench": ["Kael"] });
+    expect(zoneScopeFor(trigger, l)).toBeNull();
   });
 });
 

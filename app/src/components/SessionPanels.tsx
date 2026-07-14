@@ -5,9 +5,26 @@
 // which tab is mounted. Bodies render directly under a plain card head (the
 // old per-tab Collapsible was double chrome inside a tab strip).
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fmtClock, fmtDuration, fmtNum, useNowMs } from "../hooks";
 import { openDrops } from "../lib/deepLinks";
+import {
+  loadMezBreakSpeak,
+  saveMezBreakSpeak,
+  subscribeMezBreakSpeak,
+} from "../lib/mezBreaks";
+import {
+  dpsOf,
+  loadScoreboard,
+  scoreRows,
+  subscribeScoreboard,
+} from "../lib/scoreboard";
+import {
+  factionStore,
+  mostDamaged,
+  sortSessionRows,
+  trendArrow,
+} from "../lib/factionLedger";
 import type { PaceState } from "../lib/pace";
 import {
   type EffectEntry,
@@ -16,6 +33,25 @@ import {
   type RollEntry,
   type SessionLogSnapshot,
 } from "../lib/sessionLog";
+import {
+  sessionsSinceUp,
+  skillStore,
+  STUCK_SESSIONS,
+  stuckSkills,
+} from "../lib/skillUps";
+import {
+  buildTrendSeries,
+  fmtTrendValue,
+  sparklineLayout,
+  type TrendSessionInput,
+} from "../lib/trends";
+import {
+  fmtCoins,
+  fmtCopperAmount,
+  WALLET_SOURCE_LABELS,
+  walletPlatPerHour,
+  type WalletSource,
+} from "../lib/wallet";
 import { toggleWishlist, type WishlistEntry } from "../lib/wishlist";
 import { computeLevelEta, computeXpStats } from "../overlayState";
 import Empty from "./Empty";
@@ -25,22 +61,32 @@ import PaceRates from "./PaceRates";
 export type SessionPanelId =
   | "rates"
   | "xp"
+  | "wallet"
   | "kills"
+  | "scoreboard"
   | "effects"
   | "deaths"
   | "loot"
   | "wishlist"
-  | "rolls";
+  | "rolls"
+  | "factions"
+  | "skills"
+  | "trends";
 
 export const SESSION_PANELS: { id: SessionPanelId; label: string }[] = [
   { id: "rates", label: "Rates" },
   { id: "xp", label: "XP" },
+  { id: "wallet", label: "Wallet" },
   { id: "kills", label: "Kills" },
+  { id: "scoreboard", label: "Scoreboard" },
   { id: "effects", label: "Effects" },
   { id: "deaths", label: "Death recaps" },
   { id: "loot", label: "Loot" },
   { id: "wishlist", label: "Wishlist" },
   { id: "rolls", label: "Rolls" },
+  { id: "factions", label: "Factions" },
+  { id: "skills", label: "Skills" },
+  { id: "trends", label: "Trends" },
 ];
 
 const KILL_ROW_CAP = 30;
@@ -118,15 +164,32 @@ export default function SessionPanel({
   wishlist,
   pace,
   onSetPace,
+  character,
+  history,
 }: {
   tab: SessionPanelId;
   snap: SessionLogSnapshot;
   wishlist: WishlistEntry[];
   pace: PaceState;
   onSetPace: (next: PaceState) => void;
+  /** Active character (keys the persisted faction/skill stores). */
+  character: string;
+  /** Persisted session-history rows for the Trends panel. */
+  history: TrendSessionInput[];
 }) {
   const { loot, rolls, effects, recaps, kills, xp, levelProgress, levelAnchorKnown } = snap;
   const [lootQuery, setLootQuery] = useState("");
+
+  // Party Scoreboard mirror: sessionLog flushes the board to localStorage
+  // (the overlay's channel) — subscribe to the same store here so the panel
+  // and the overlay always agree.
+  const [board, setBoard] = useState(() => loadScoreboard());
+  useEffect(() => subscribeScoreboard(() => setBoard(loadScoreboard())), []);
+  const [mezSpeak, setMezSpeak] = useState(() => loadMezBreakSpeak());
+  useEffect(
+    () => subscribeMezBreakSpeak(() => setMezSpeak(loadMezBreakSpeak())),
+    [],
+  );
 
   const shownLoot = useMemo(() => {
     const q = lootQuery.trim().toLowerCase();
@@ -203,6 +266,23 @@ export default function SessionPanel({
         .slice(0, KILL_ROW_CAP),
     [kills],
   );
+
+  // Faction ledger: session rows + the persisted all-time map. The store is
+  // re-read whenever the session map moves (sessionLog writes both together).
+  const factionRows = useMemo(() => sortSessionRows(snap.factions), [snap.factions]);
+  const factionAllTime = useMemo(
+    () => factionStore(character).load(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [character, snap.factions],
+  );
+  // Skill store mirrors: re-read on each session skill-up.
+  const skillState = useMemo(
+    () => skillStore(character).load(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [character, snap.skillUps],
+  );
+  const stuck = useMemo(() => stuckSkills(skillState), [skillState]);
+  const trendSeries = useMemo(() => buildTrendSeries(history), [history]);
 
   if (tab === "rates") {
     return (
@@ -300,6 +380,82 @@ export default function SessionPanel({
     );
   }
 
+  if (tab === "wallet") {
+    const wallet = snap.wallet;
+    const platHr = walletPlatPerHour(wallet, nowMs);
+    const sources = (
+      Object.keys(WALLET_SOURCE_LABELS) as WalletSource[]
+    ).filter((s) => (wallet.bySource[s] ?? 0) > 0);
+    return (
+      <section className="card coach-span">
+        <div className="card-head">
+          <span className="section-title">Wallet</span>
+        </div>
+        {wallet.count === 0 ? (
+          <Empty
+            title="No coin yet"
+            body="Coin from corpses, vendor sales, item redemptions, and auto-sold loot totals here with a live plat/hour rate."
+          />
+        ) : (
+          <>
+            <div className="stat-tiles compact">
+              <StatTile
+                value={fmtCopperAmount(wallet.totalCopper)}
+                label="Session income"
+              />
+              <StatTile
+                value={platHr === null ? "—" : `${platHr.toFixed(2)}p`}
+                label="Plat/hour"
+              />
+              <StatTile
+                value={wallet.biggest ? fmtCoins(wallet.biggest.coins) : "—"}
+                label={
+                  wallet.biggest
+                    ? `Biggest gain · ${WALLET_SOURCE_LABELS[wallet.biggest.source].toLowerCase()}`
+                    : "Biggest gain"
+                }
+              />
+            </div>
+            {sources.length > 0 && (
+              <div className="session-loot">
+                <div
+                  className="session-loot-row wishlist-row session-loot-head"
+                  aria-hidden="true"
+                >
+                  <span>Source</span>
+                  <span>Total</span>
+                </div>
+                {sources.map((s) => (
+                  <div className="session-loot-row wishlist-row" key={s}>
+                    <span className="session-item">{WALLET_SOURCE_LABELS[s]}</span>
+                    <span className="num">{fmtCopperAmount(wallet.bySource[s] ?? 0)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="session-loot">
+              <div className="session-loot-row session-loot-head" aria-hidden="true">
+                <span>Time</span>
+                <span>Source</span>
+                <span>Amount</span>
+              </div>
+              {wallet.gains.slice(0, 20).map((g) => (
+                <div className="session-loot-row" key={g.id}>
+                  <span className="session-time num">{fmtClock(g.ts)}</span>
+                  <span className="session-item" title={g.note ?? undefined}>
+                    {WALLET_SOURCE_LABELS[g.source]}
+                    {g.note ? ` · ${g.note}` : ""}
+                  </span>
+                  <span className="num">{fmtCoins(g.coins)}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </section>
+    );
+  }
+
   if (tab === "kills") {
     return (
       <section className="card coach-span">
@@ -342,6 +498,73 @@ export default function SessionPanel({
             })}
           </div>
         )}
+      </section>
+    );
+  }
+
+  if (tab === "scoreboard") {
+    const players = scoreRows(board);
+    return (
+      <section className="card coach-span">
+        <div className="card-head">
+          <span className="section-title">Party Scoreboard</span>
+        </div>
+        {players.length === 0 ? (
+          <Empty
+            title="No scores yet"
+            body="Per-player killing blows, finishing blows, mez breaks, and damage from this app run tally here (and on the Scoreboard overlay)."
+          />
+        ) : (
+          <div className="session-loot">
+            <div className="scorepanel-row session-loot-head" aria-hidden="true">
+              <span>Player</span>
+              <span className="num" title="Killing blows">KB</span>
+              <span className="num" title="Finishing Blows (AA)">FB</span>
+              <span
+                className="num"
+                title="CC breaks — heuristic: first hit after a mez break"
+              >
+                Mez
+              </span>
+              <span className="num" title="Biggest single hit">Hit</span>
+              <span className="num" title="Damage per second (engagement span)">
+                DPS
+              </span>
+              <span className="num" title="Deaths">Deaths</span>
+            </div>
+            {players.map((r) => (
+              <div className="scorepanel-row" key={r.name.toLowerCase()}>
+                <span className="session-item">{r.name}</span>
+                <span className="num">{r.killingBlows}</span>
+                <span className="num">{r.finishingBlows}</span>
+                <span
+                  className="num"
+                  title="Heuristic: first hit after a mez break"
+                >
+                  {r.mezBreaks ?? 0}
+                </span>
+                <span className="num" title={r.highestHitLabel || undefined}>
+                  {r.highestHit ? fmtNum(r.highestHit) : "—"}
+                </span>
+                <span className="num">{fmtNum(dpsOf(r))}</span>
+                <span className="num">{r.deaths}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <label className="scorepanel-speak">
+          <input
+            type="checkbox"
+            checked={mezSpeak}
+            onChange={(e) => saveMezBreakSpeak(e.target.checked)}
+          />
+          Speak mez breaks (&ldquo;Sliq broke mez on a gnoll&rdquo;)
+        </label>
+        <div className="hint">
+          Mez breaks are a heuristic — the first player hit on a mezzed target
+          (or right after its mez bar drops early) gets the credit. The spoken
+          alert is off by default.
+        </div>
       </section>
     );
   }
@@ -556,6 +779,233 @@ export default function SessionPanel({
             </div>
           </>
         )}
+      </section>
+    );
+  }
+
+  if (tab === "factions") {
+    const worst = mostDamaged(factionRows);
+    return (
+      <section className="card coach-span">
+        <div className="card-head">
+          <span className="section-title">Factions</span>
+        </div>
+        {factionRows.length === 0 ? (
+          <Empty
+            title="No faction hits yet"
+            body="Faction standing changes seen this session accumulate here, with an all-time net since tracking began."
+          />
+        ) : (
+          <>
+            {worst && (
+              <div className="faction-callout">
+                Most damaged this session: <strong>{worst.faction}</strong>{" "}
+                <span className="num faction-down">{worst.net}</span>
+              </div>
+            )}
+            <div className="session-loot">
+              <div className="faction-row session-loot-head" aria-hidden="true">
+                <span>Faction</span>
+                <span className="num">Session</span>
+                <span className="num">Since tracking began</span>
+                <span className="num">Hits</span>
+              </div>
+              {factionRows.map((f) => {
+                const all = factionAllTime[f.faction.toLowerCase()];
+                return (
+                  <div className="faction-row" key={f.faction.toLowerCase()}>
+                    <span className="session-item">{f.faction}</span>
+                    <span
+                      className={`num ${
+                        f.net > 0 ? "faction-up" : f.net < 0 ? "faction-down" : ""
+                      }`}
+                    >
+                      {trendArrow(f.net)} {f.net > 0 ? `+${f.net}` : f.net}
+                    </span>
+                    <span className="num">
+                      {all ? (all.net > 0 ? `+${all.net}` : all.net) : "—"}
+                    </span>
+                    <span className="num">{f.hits}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="hint">
+              The log carries only deltas, never your absolute standing — the
+              all-time column counts from when this app started tracking this
+              character.
+            </div>
+          </>
+        )}
+      </section>
+    );
+  }
+
+  if (tab === "skills") {
+    return (
+      <section className="card coach-span">
+        <div className="card-head">
+          <span className="section-title">Skills</span>
+        </div>
+        {snap.skillUps.length === 0 && stuck.length === 0 ? (
+          <Empty
+            title="No skill-ups yet"
+            body="Skill increases seen this session appear here, along with skills that look stuck across sessions."
+          />
+        ) : (
+          <>
+            <div className="session-loot">
+              <div className="faction-row session-loot-head" aria-hidden="true">
+                <span>Skill</span>
+                <span className="num">Now</span>
+                <span className="num">Gained</span>
+                <span className="num">Time</span>
+              </div>
+              {snap.skillUps.slice(0, 20).map((s) => (
+                <div className="faction-row" key={s.id}>
+                  <span className="session-item">{s.skill}</span>
+                  <span className="num">{s.value}</span>
+                  <span className="num">
+                    {s.delta === null ? "—" : s.delta > 0 ? `+${s.delta}` : s.delta}
+                  </span>
+                  <span className="session-time num">{fmtClock(s.ts)}</span>
+                </div>
+              ))}
+              {snap.skillUps.length === 0 && (
+                <div className="hint">No skill-ups this session yet.</div>
+              )}
+            </div>
+            {stuck.length > 0 && (
+              <>
+                <div className="card-head">
+                  <span className="section-title">Possibly stuck</span>
+                </div>
+                <div className="session-loot">
+                  {stuck.slice(0, 12).map((row) => (
+                    <div
+                      className="session-loot-row wishlist-row"
+                      key={row.skill.toLowerCase()}
+                    >
+                      <span className="session-item">{row.skill}</span>
+                      <span className="num">
+                        {row.value} · no gain in {sessionsSinceUp(skillState, row)}{" "}
+                        sessions
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="hint">
+                  Heuristic: skills with no increase in your last{" "}
+                  {STUCK_SESSIONS}+ play sessions that had any skill-up. The log
+                  can't see caps, so a maxed skill also shows here.
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </section>
+    );
+  }
+
+  if (tab === "trends") {
+    const chartable = trendSeries.some((s) => s.points.length >= 2);
+    return (
+      <section className="card coach-span">
+        <div className="card-head">
+          <span className="section-title">Trends</span>
+          <span className="hint">Per-session rates, oldest → newest</span>
+        </div>
+        {!chartable ? (
+          <Empty
+            title="Not enough sessions yet"
+            body="Finish at least two sessions (the New session button archives the current one) and per-session XP, kill, death, and plat rates chart here."
+          />
+        ) : (
+          <div className="trend-grid">
+            {trendSeries.map((series) => {
+              const layout = sparklineLayout(
+                series.points.map((p) => p.value),
+                240,
+                56,
+                4,
+              );
+              const hasData = series.points.some((p) => p.value !== null);
+              return (
+                <div className="trend-chart" key={series.id}>
+                  <div className="trend-head">
+                    <span className="trend-label">{series.label}</span>
+                    <span className="trend-latest num">
+                      {series.latest === null
+                        ? "—"
+                        : `${fmtTrendValue(series.latest)}${series.unit}`}
+                    </span>
+                  </div>
+                  {!hasData ? (
+                    <div className="trend-nodata hint">
+                      {series.id === "plat"
+                        ? "Older sessions predate coin tracking."
+                        : "No data yet."}
+                    </div>
+                  ) : (
+                    <svg
+                      className="trend-spark"
+                      viewBox="0 0 240 56"
+                      role="img"
+                      aria-label={`${series.label} per hour across recent sessions`}
+                    >
+                      <line
+                        className="trend-baseline"
+                        x1="4"
+                        y1="52"
+                        x2="236"
+                        y2="52"
+                      />
+                      {layout.path && (
+                        <path className="trend-line" d={layout.path} />
+                      )}
+                      {layout.points.map((pt, i) => {
+                        if (!pt) return null;
+                        const point = series.points[i];
+                        const ding = series.id === "xp" && point.levelUps > 0;
+                        return (
+                          <g key={point.id}>
+                            <title>
+                              {`${new Date(point.startedTs).toLocaleString()} — ${
+                                point.value === null
+                                  ? "—"
+                                  : fmtTrendValue(point.value)
+                              }${series.unit}${
+                                ding
+                                  ? ` · ${point.levelUps} level-up${point.levelUps === 1 ? "" : "s"}`
+                                  : ""
+                              }`}
+                            </title>
+                            <circle
+                              className="trend-hit"
+                              cx={pt.x}
+                              cy={pt.y}
+                              r="7"
+                            />
+                            <circle
+                              className={ding ? "trend-ding" : "trend-dot"}
+                              cx={pt.x}
+                              cy={pt.y}
+                              r={ding ? 3.5 : 2}
+                            />
+                          </g>
+                        );
+                      })}
+                    </svg>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        <div className="hint">
+          One point per archived session (sessions under a minute are skipped).
+          Rings on the XP chart mark sessions with a level-up.
+        </div>
       </section>
     );
   }
