@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { dropsQuestItemReferences, getConfig, inventoryDiscover, inventoryImport, pickInventoryFile } from "../api";
 import {
   matchQuestRequirements,
+  isQuestReady,
   loadQuestCatalog,
   normalizeQuestName,
   questDropSourceSummary,
@@ -70,6 +71,7 @@ export default function QuestsTab({
   const [query, setQuery] = useState("");
   const [zone, setZone] = useState("");
   const [className, setClassName] = useState("");
+  const [readyOnly, setReadyOnly] = useState(false);
   const [inventory, setInventory] = useState<InventorySnapshot | null>(() => savedInventorySnapshot(character));
   const [inventoryLoading, setInventoryLoading] = useState(false);
   const [inventoryError, setInventoryError] = useState("");
@@ -133,6 +135,10 @@ export default function QuestsTab({
   }, [character]);
 
   useEffect(() => {
+    if (!inventory) setReadyOnly(false);
+  }, [inventory]);
+
+  useEffect(() => {
     if (!searchRequest?.query) return;
     setQuery(searchRequest.query);
   }, [searchRequest?.seq]);
@@ -145,9 +151,17 @@ export default function QuestsTab({
     () => [...new Set((catalog?.quests ?? []).flatMap((quest) => quest.classes).filter(Boolean))].sort(),
     [catalog],
   );
-  const results = useMemo(
-    () => searchQuests(query, { zone, className, limit: 150 }, catalog?.quests ?? []),
+  const filteredQuests = useMemo(
+    () => searchQuests(query, { zone, className, limit: 5000 }, catalog?.quests ?? []),
     [query, zone, className, catalog],
+  );
+  const readyCount = useMemo(
+    () => filteredQuests.filter((quest) => isQuestReady(quest, inventory)).length,
+    [filteredQuests, inventory],
+  );
+  const results = useMemo(
+    () => (readyOnly ? filteredQuests.filter((quest) => isQuestReady(quest, inventory)) : filteredQuests).slice(0, 150),
+    [filteredQuests, inventory, readyOnly],
   );
   const referenceNames = useMemo(
     () => [...new Set(results.flatMap((quest) => [
@@ -197,7 +211,23 @@ export default function QuestsTab({
             <option value="">All classes</option>
             {classes.map((value) => <option key={value} value={value}>{value}</option>)}
           </select>
-          <span className="hint">{catalog ? `${results.length} shown · ${catalog.quests.length} quests` : "Loading catalog..."}</span>
+          <label className="quest-ready-filter" title={inventory ? "Show quests with every required item available" : "Load an inventory export to filter ready quests"}>
+            <input
+              type="checkbox"
+              checked={readyOnly}
+              disabled={!inventory}
+              onChange={(event) => setReadyOnly(event.target.checked)}
+            />
+            <span>Ready</span>
+            {inventory && <strong>{readyCount}</strong>}
+          </label>
+          <span className="hint">
+            {catalog
+              ? readyOnly
+                ? `${results.length} of ${readyCount} ready · ${catalog.quests.length} quests`
+                : `${results.length} shown · ${catalog.quests.length} quests`
+              : "Loading catalog..."}
+          </span>
         </div>
         <div className="quest-inventory-bar">
           <div>

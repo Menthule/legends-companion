@@ -160,6 +160,14 @@ export function matchQuestRequirements(
   });
 }
 
+export function isQuestReady(
+  quest: Pick<QuestRecord, "requirements">,
+  snapshot: InventorySnapshot | null,
+): boolean {
+  if (!snapshot || quest.requirements.length === 0) return false;
+  return matchQuestRequirements(quest.requirements, snapshot).every((requirement) => requirement.satisfied);
+}
+
 export function questDropSourceSummary(reference: QuestItemReference | undefined): string {
   if (!reference?.item) return "No matching item in the classic reference database.";
   if (reference.sources.length === 0) {

@@ -4466,9 +4466,41 @@ input[type="text"].ted-duration {
 }
 .quest-search-row {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(150px, 220px) minmax(130px, 190px) auto;
+  grid-template-columns: minmax(260px, 1fr) minmax(150px, 220px) minmax(130px, 190px) auto auto;
   gap: 8px;
   align-items: center;
+}
+.quest-ready-filter {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 9px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--ink-2);
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.quest-ready-filter:has(input:checked) {
+  border-color: color-mix(in srgb, var(--good) 55%, var(--border));
+  background: color-mix(in srgb, var(--good) 10%, transparent);
+  color: var(--good);
+}
+.quest-ready-filter:has(input:disabled) {
+  color: var(--ink-muted);
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.quest-ready-filter input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+.quest-ready-filter strong {
+  color: inherit;
+  font-size: 10px;
 }
 .quest-inventory-bar {
   display: flex;

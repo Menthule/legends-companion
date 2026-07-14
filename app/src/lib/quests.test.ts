@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   matchQuestRequirements,
+  isQuestReady,
   loadQuestCatalog,
   normalizeInventoryItem,
   questDropSourceSummary,
@@ -56,6 +57,21 @@ describe("inventory matching", () => {
     ], snapshot);
     expect(rows[0]).toMatchObject({ owned: 2, satisfied: true, matchedBy: "id", locations: ["Bank1"] });
     expect(rows[1]).toMatchObject({ owned: 1, satisfied: false, matchedBy: "name" });
+  });
+
+  it("marks only fully satisfied documented quests ready", () => {
+    const ready = {
+      ...base,
+      requirements: [{ itemName: "Wind Rune Caza", itemId: 100, quantity: 2, choiceGroup: null }],
+    };
+    const short = {
+      ...base,
+      requirements: [{ itemName: "Tear of Quellious", itemId: 200, quantity: 2, choiceGroup: null }],
+    };
+    expect(isQuestReady(ready, snapshot)).toBe(true);
+    expect(isQuestReady(short, snapshot)).toBe(false);
+    expect(isQuestReady({ ...base, requirements: [] }, snapshot)).toBe(false);
+    expect(isQuestReady(ready, null)).toBe(false);
   });
 });
 
