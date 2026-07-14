@@ -35,6 +35,10 @@ fn is_user_source(source: &TriggerSource) -> bool {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Trigger {
     pub name: String,
+    /// Portable reference to presentation artwork. EverQuest spell gems use
+    /// `spell:<new_icon id>` so trigger packs never bundle client assets.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub icon: Option<String>,
     /// Regex applied to the message portion of each log line. Supports
     /// GINA-style tokens ({C} = character name) expanded before compile.
     pub pattern: String,
@@ -97,6 +101,7 @@ impl Trigger {
     pub fn new(name: impl Into<String>, pattern: impl Into<String>, actions: Vec<Action>) -> Self {
         Trigger {
             name: name.into(),
+            icon: None,
             pattern: pattern.into(),
             enabled: true,
             actions,
@@ -695,6 +700,7 @@ mod tests {
             triggers: vec![
                 Trigger {
                     name: "stun".into(),
+                    icon: Some("spell:21".into()),
                     pattern: "^You are stunned!".into(),
                     enabled: true,
                     actions: vec![Action::Speak {

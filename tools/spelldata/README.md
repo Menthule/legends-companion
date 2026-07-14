@@ -100,6 +100,10 @@ Berserker; empty = all), `default_enabled` (bool, default true) and
 the pack-level hard switch; effective enablement is the character
 profile's override resolution AND `enabled`.
 
+Spell-backed triggers may also carry `icon: "spell:<new_icon id>"`. The id
+comes from the client spell file; the app crops the corresponding installed
+`gemiconsNN.tga` cell at runtime, so proprietary artwork is never committed.
+
 ## Regex constraints
 
 The real matcher is the Rust `regex` crate: **no lookarounds, no

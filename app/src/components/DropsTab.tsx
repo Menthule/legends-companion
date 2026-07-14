@@ -270,11 +270,15 @@ export default function DropsTab({
   searchRequest,
 }: {
   /** Deep-link from the session loot log: bump `seq` to re-trigger. */
-  searchRequest: { query: string; seq: number; revealUnsourced?: boolean } | null;
+  searchRequest: { query: string; seq: number; revealUnsourced?: boolean; targetId?: number } | null;
 }) {
   const [query, setQuery] = useState("");
   const [eraMax] = useEraMax();
-  const [onlySourced, setOnlySourced] = useState(true);
+  // Item references without a known mob source are still useful: many quest
+  // turn-ins (including Plane of Sky gems) exist in the item table but PEQ's
+  // classic loot graph has no source row for them. Keep them visible by
+  // default; the Source filter can still narrow to confirmed mob drops.
+  const [onlySourced, setOnlySourced] = useState(false);
   const [slotMask, setSlotMask] = useState(0);
   const [classMask, setClassMask] = useClassMask();
   const [zone, setZone] = useState("");
@@ -298,6 +302,7 @@ export default function DropsTab({
   const [recipes, setRecipes] = useState<ItemRecipes | null>(null);
   const [questUses, setQuestUses] = useState<QuestRecord[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pendingTargetId = useRef<number | null>(null);
   const filtersRef = useRef<HTMLDivElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
   // Re-render the star column whenever the wishlist changes — including
@@ -365,6 +370,7 @@ export default function DropsTab({
   useEffect(() => {
     if (!searchRequest) return;
     setQuery(searchRequest.query);
+    pendingTargetId.current = searchRequest.targetId ?? null;
     if (searchRequest.revealUnsourced) setOnlySourced(false);
     setSlotMask(0);
     setClassMask(0);
@@ -374,8 +380,15 @@ export default function DropsTab({
     setPage(0);
     setExpanded(null);
     setSuggestOpen(false);
-    inputRef.current?.focus();
+    if (searchRequest.targetId == null) inputRef.current?.focus();
   }, [searchRequest]);
+
+  useEffect(() => {
+    const targetId = pendingTargetId.current;
+    if (targetId == null || !rows.some((row) => row.id === targetId)) return;
+    pendingTargetId.current = null;
+    if (expanded !== targetId) toggleExpand(targetId);
+  }, [rows, searchRequest?.seq]);
 
   // Effects respect the era filter: a Classic search shouldn't offer
   // Luclin-era focus lines. Refetch on era change; drop a selected effect

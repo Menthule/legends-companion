@@ -98,6 +98,8 @@ export type TriggerSource = "generated" | "curated" | "user" | "gina" | "shared"
 /** eqlog-triggers Trigger model (snake/plain field names, no rename). */
 export interface Trigger {
   name: string;
+  /** Portable reference to the EverQuest spell-gem art, e.g. `spell:10`. */
+  icon?: string | null;
   pattern: string;
   enabled: boolean;
   actions: TriggerAction[];
@@ -248,6 +250,7 @@ export interface LogLinePayload {
 export interface TriggerIdentity {
   id: string;
   name: string;
+  icon?: string | null;
 }
 
 /** "trigger-fired" event payload. */
@@ -318,6 +321,7 @@ export interface EffectObservedPayload {
 /** "timer" event payload. */
 export interface TimerPayload {
   name: string;
+  icon?: string | null;
   kind: "started" | "warning" | "expired" | "cancelled" | "landed";
   /** Present on "started". */
   durationSecs?: number;
@@ -336,6 +340,7 @@ export interface TimerPayload {
  *  state from these so live countdowns survive a reload. */
 export interface ActiveTimerSnapshot {
   name: string;
+  icon?: string | null;
   durationSecs: number;
   elapsedSecs: number;
   warnAtSecs: number | null;

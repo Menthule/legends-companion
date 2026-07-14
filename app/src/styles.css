@@ -1186,6 +1186,18 @@ input[type="checkbox"].live-feature-switch:checked {
   white-space: nowrap;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
+.spell-gem-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  max-width: none;
+  object-fit: contain;
+  image-rendering: auto;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.spell-gem-icon.placeholder {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
 :root[data-theme="light"] .timer-name {
   text-shadow: none;
 }
@@ -2387,6 +2399,10 @@ button.coach-row.active {
   text-align: center;
 }
 .alert-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
   background: var(--pill-bg);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -3426,6 +3442,24 @@ button.chan-chip:hover {
 }
 .ted-namecat .field:last-child {
   flex: 1;
+}
+.ted-namecat .ted-icon-field {
+  flex: 1.4;
+  min-width: 220px;
+}
+.ted-icon-field small {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+.ted-icon-picker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 30px;
+}
+.ted-icon-picker .ted-combo {
+  flex: 1;
+  min-width: 0;
 }
 .ted-section {
   border-top: 1px solid var(--hairline);

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   matchQuestRequirements,
+  hasOwnedQuestReward,
   isQuestReady,
   loadQuestCatalog,
   normalizeInventoryItem,
@@ -93,6 +94,19 @@ describe("inventory matching", () => {
     expect(isQuestReady(short, snapshot)).toBe(false);
     expect(isQuestReady({ ...base, requirements: [] }, snapshot)).toBe(false);
     expect(isQuestReady(ready, null)).toBe(false);
+  });
+
+  it("recognizes owned final rewards without treating materials as rewards", () => {
+    const quest = {
+      ...base,
+      requirements: [{ itemName: "Wind Rune Caza", itemId: 100, quantity: 1, choiceGroup: null }],
+      rewards: ["Tear of Quellious"],
+    };
+    expect(hasOwnedQuestReward(quest, snapshot)).toBe(true);
+    // Owning every required material does not hide a quest whose final item
+    // is not owned.
+    expect(hasOwnedQuestReward({ ...quest, rewards: ["Unknown Reward"] }, snapshot)).toBe(false);
+    expect(hasOwnedQuestReward(quest, null)).toBe(false);
   });
 });
 

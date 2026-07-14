@@ -25,7 +25,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60.",
+      "icon": "spell:374"
     },
     {
       "id": "buffs/necromancer/cast/arch-lich",
@@ -51,7 +52,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60.",
+      "icon": "spell:374"
     },
     {
       "id": "buffs/necromancer/cast/augment-death",
@@ -77,7 +79,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 35."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 35.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/necromancer/cast/augmentation-of-death",
@@ -103,7 +106,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 55."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 55.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/necromancer/cast/dead-man-floating",
@@ -129,7 +133,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 41."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 41.",
+      "icon": "spell:14"
     },
     {
       "id": "buffs/necromancer/cast/dead-men-floating",
@@ -155,7 +160,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 45."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 45.",
+      "icon": "spell:14"
     },
     {
       "id": "buffs/necromancer/cast/demi-lich",
@@ -181,7 +187,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 56."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 56.",
+      "icon": "spell:374"
     },
     {
       "id": "buffs/necromancer/cast/diamondskin",
@@ -207,7 +214,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 43."
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 43.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/necromancer/cast/endure-cold",
@@ -233,7 +241,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 3."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 3.",
+      "icon": "spell:47"
     },
     {
       "id": "buffs/necromancer/cast/endure-disease",
@@ -259,7 +268,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 11."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 11.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/necromancer/cast/focus-death",
@@ -285,7 +295,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 11."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 11.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/necromancer/cast/form-of-bleached-bone",
@@ -311,7 +322,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 44."
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 44.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/necromancer/cast/form-of-chilled-bone",
@@ -337,7 +349,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 16."
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 16.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/necromancer/cast/form-of-mottled-bone",
@@ -363,7 +376,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 56."
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 56.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/necromancer/cast/gather-shadows",
@@ -389,7 +403,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Necromancer level 7. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Necromancer level 7. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/necromancer/cast/guard-of-calliav",
@@ -415,7 +430,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 58."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 58.",
+      "icon": "spell:163"
     },
     {
       "id": "buffs/necromancer/cast/impart-strength",
@@ -441,7 +457,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Necromancer level 8."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Necromancer level 8.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/necromancer/cast/improved-invisibility-to-undead",
@@ -467,7 +484,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Necromancer level 50. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Necromancer level 50. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:315"
     },
     {
       "id": "buffs/necromancer/cast/intensify-death",
@@ -493,7 +511,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 23."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 23.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/necromancer/cast/invisibility-versus-undead",
@@ -519,7 +538,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 1. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 1. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:28"
     },
     {
       "id": "buffs/necromancer/cast/leatherskin",
@@ -545,7 +565,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Necromancer level 22."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Necromancer level 22.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/necromancer/cast/manaskin",
@@ -571,7 +592,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 52."
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 52.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/necromancer/cast/numb-the-dead",
@@ -597,7 +619,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~2m00s at level 50 (formula 8, cap 20 ticks); the engine rescales to the profile's level; Necromancer level 2."
+      "comments": "~2m00s at level 50 (formula 8, cap 20 ticks); the engine rescales to the profile's level; Necromancer level 2.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/necromancer/cast/resist-cold",
@@ -623,7 +646,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 24."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 24.",
+      "icon": "spell:47"
     },
     {
       "id": "buffs/necromancer/cast/resist-disease",
@@ -649,7 +673,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 31."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 31.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/necromancer/cast/rest-the-dead",
@@ -675,7 +700,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); the engine rescales to the profile's level; Necromancer level 23."
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); the engine rescales to the profile's level; Necromancer level 23.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/necromancer/cast/shield-of-the-magi",
@@ -701,7 +727,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 54."
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 54.",
+      "icon": "spell:69"
     },
     {
       "id": "buffs/necromancer/cast/shieldskin",
@@ -727,7 +754,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 14."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 14.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/necromancer/cast/sight-graft",
@@ -753,7 +781,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 9."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 9.",
+      "icon": "spell:73"
     },
     {
       "id": "buffs/necromancer/cast/skin-of-the-shadow",
@@ -779,7 +808,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 10, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 55."
+      "comments": "~36m00s at level 50 (formula 10, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 55.",
+      "icon": "spell:314"
     },
     {
       "id": "buffs/necromancer/cast/spirit-armor",
@@ -805,7 +835,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 16."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 16.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/necromancer/cast/steelskin",
@@ -831,7 +862,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 32."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 32.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/necromancer/cast/voice-graft",
@@ -857,7 +889,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 15."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 15.",
+      "icon": "spell:75"
     },
     {
       "id": "buffs/necromancer/cast/ward-of-calliav",
@@ -883,7 +916,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 49."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 49.",
+      "icon": "spell:163"
     },
     {
       "id": "buffs/wear-off/guard-of-calliav",
@@ -905,7 +939,8 @@
         "Magician",
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The guard fades away.\""
+      "comments": "Wear-off message: \"The guard fades away.\"",
+      "icon": "spell:163"
     },
     {
       "id": "buffs/wear-off/ward-of-calliav",
@@ -927,7 +962,8 @@
         "Magician",
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The ward fades away.\""
+      "comments": "Wear-off message: \"The ward fades away.\"",
+      "icon": "spell:163"
     },
     {
       "id": "buffs/wear-off/dead-man-floating",
@@ -947,7 +983,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Wear-off message: \"You return to life.\" — shared by 9 spells in spells_us_str (2 castable; also: Dead Men Floating). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"You return to life.\" — shared by 9 spells in spells_us_str (2 castable; also: Dead Men Floating). Named after the alphabetically-first castable spell.",
+      "icon": "spell:14"
     },
     {
       "id": "buffs/wear-off/ancient-master-of-death",
@@ -967,7 +1004,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Wear-off message: \"Your flesh returns.\" — shared by 8 spells in spells_us_str (3 castable; also: Arch Lich, Demi Lich). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your flesh returns.\" — shared by 8 spells in spells_us_str (3 castable; also: Arch Lich, Demi Lich). Named after the alphabetically-first castable spell.",
+      "icon": "spell:374"
     },
     {
       "id": "buffs/wear-off/boon-of-the-garou",
@@ -988,7 +1026,8 @@
         "Necromancer",
         "Enchanter"
       ],
-      "comments": "Wear-off message: \"Your illusion fades.\" — shared by 462 spells in spells_us_str (189 castable; also: Form of Bleached Bone, Form of Chilled Bone, Form of Mottled Bone, Illusion: Air Elemental, Illusion: Akheva). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your illusion fades.\" — shared by 462 spells in spells_us_str (189 castable; also: Form of Bleached Bone, Form of Chilled Bone, Form of Mottled Bone, Illusion: Air Elemental, Illusion: Akheva). Named after the alphabetically-first castable spell.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/wear-off/shield-of-the-magi",
@@ -1011,7 +1050,8 @@
         "Magician",
         "Enchanter"
       ],
-      "comments": "Wear-off message: \"Your shielding fades.\" — shared by 10 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your shielding fades.\" — shared by 10 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:69"
     },
     {
       "id": "buffs/wear-off/impart-strength",
@@ -1031,7 +1071,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Wear-off message: \"Your strength leaves you.\""
+      "comments": "Wear-off message: \"Your strength leaves you.\"",
+      "icon": "spell:4"
     }
   ]
 }

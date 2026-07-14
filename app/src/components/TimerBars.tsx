@@ -1,10 +1,12 @@
 import { fmtTimerLeft, type TimerView } from "../hooks";
 import { IconWarn } from "./Icons";
+import SpellGemIcon from "./SpellGemIcon";
 
 function TimerText({ t }: { t: TimerView }) {
   return (
     <>
       <span className="timer-name">
+        <SpellGemIcon icon={t.icon} size={18} label={`${t.name} spell icon`} />
         {t.warn && (
           <span className="timer-warn-mark">
             <IconWarn />

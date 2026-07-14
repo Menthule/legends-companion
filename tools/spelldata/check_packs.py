@@ -209,6 +209,9 @@ def main():
             src = t.get("source", "user")
             if src not in VALID_SOURCES:
                 fail(f"{where}: invalid source {src!r}")
+            icon = t.get("icon")
+            if icon is not None and not re.fullmatch(r"spell:\d+", icon):
+                fail(f"{where}: invalid portable icon {icon!r}")
             for key in ("enabled", "default_enabled", "case_insensitive"):
                 if key in t and not isinstance(t[key], bool):
                     fail(f"{where}: {key} must be bool")

@@ -25,7 +25,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 60."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 60.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/bladecoat",
@@ -51,7 +52,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 56."
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 56.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/calm-animal",
@@ -77,7 +79,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Druid level 15."
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Druid level 15.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/druid/cast/camouflage",
@@ -103,7 +106,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 4. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 4. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/druid/cast/chloroplast",
@@ -129,7 +133,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 42."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 42.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/druid/cast/circle-of-seasons",
@@ -155,7 +160,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Druid level 58."
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Druid level 58.",
+      "icon": "spell:46"
     },
     {
       "id": "buffs/druid/cast/circle-of-summer",
@@ -181,7 +187,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 52."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 52.",
+      "icon": "spell:148"
     },
     {
       "id": "buffs/druid/cast/circle-of-winter",
@@ -207,7 +214,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 51."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 51.",
+      "icon": "spell:46"
     },
     {
       "id": "buffs/druid/cast/endure-cold",
@@ -233,7 +241,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 9."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 9.",
+      "icon": "spell:47"
     },
     {
       "id": "buffs/druid/cast/endure-disease",
@@ -259,7 +268,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/druid/cast/endure-fire",
@@ -285,7 +295,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 1."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 1.",
+      "icon": "spell:46"
     },
     {
       "id": "buffs/druid/cast/endure-magic",
@@ -311,7 +322,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 34."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 34.",
+      "icon": "spell:50"
     },
     {
       "id": "buffs/druid/cast/endure-poison",
@@ -337,7 +349,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/enduring-breath",
@@ -363,7 +376,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 6."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 6.",
+      "icon": "spell:14"
     },
     {
       "id": "buffs/druid/cast/everlasting-breath",
@@ -389,7 +403,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 50."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 50.",
+      "icon": "spell:14"
     },
     {
       "id": "buffs/druid/cast/feral-pack",
@@ -415,7 +430,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 52."
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 52.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/druid/cast/feral-spirit",
@@ -441,7 +457,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 18."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 18.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/foliage-shield",
@@ -467,7 +484,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 52."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 52.",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/druid/cast/form-of-the-howler",
@@ -493,7 +511,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 54."
+      "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 54.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/druid/cast/form-of-the-hunter",
@@ -519,7 +538,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60."
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/druid/cast/girdle-of-karana",
@@ -545,7 +565,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 55."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 55.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/druid/cast/harmony",
@@ -571,7 +592,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Druid level 5."
+      "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Druid level 5.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/druid/cast/harmony-of-nature",
@@ -597,7 +619,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Druid level 29."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Druid level 29.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/druid/cast/improved-superior-camouflage",
@@ -623,7 +646,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Druid level 48. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Druid level 48. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:314"
     },
     {
       "id": "buffs/druid/cast/invisibility-versus-animals",
@@ -649,7 +673,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 8. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 8. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:29"
     },
     {
       "id": "buffs/druid/cast/legacy-of-spike",
@@ -675,7 +700,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 49."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 49.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/legacy-of-thorn",
@@ -701,7 +727,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 59."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 59.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/levitate",
@@ -727,7 +754,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 14."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 14.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/levitation",
@@ -753,7 +781,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 50."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 50.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/lull-animal",
@@ -779,7 +808,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Druid level 1."
+      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Druid level 1.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/druid/cast/mask-of-the-hunter",
@@ -805,7 +835,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60."
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60.",
+      "icon": "spell:89"
     },
     {
       "id": "buffs/druid/cast/mask-of-the-stalker",
@@ -831,7 +862,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60."
+      "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60.",
+      "icon": "spell:89"
     },
     {
       "id": "buffs/druid/cast/nature-s-recovery",
@@ -857,7 +889,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~3m00s at level 50 (formula 4, cap 30 ticks); the engine rescales to the profile's level; Druid level 60."
+      "comments": "~3m00s at level 50 (formula 4, cap 30 ticks); the engine rescales to the profile's level; Druid level 60.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/natureskin",
@@ -883,7 +916,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Druid level 57."
+      "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Druid level 57.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/pack-chloroplast",
@@ -909,7 +943,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 45."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 45.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/druid/cast/pack-regeneration",
@@ -935,7 +970,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 39."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 39.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/druid/cast/pack-shrew",
@@ -961,7 +997,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35.",
+      "icon": "spell:66"
     },
     {
       "id": "buffs/druid/cast/pack-spirit",
@@ -987,7 +1024,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/protection-of-diamond",
@@ -1013,7 +1051,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 39."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 39.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/protection-of-nature",
@@ -1039,7 +1078,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 49."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 49.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/protection-of-rock",
@@ -1065,7 +1105,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/protection-of-steel",
@@ -1091,7 +1132,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 27."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 27.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/protection-of-wood",
@@ -1117,7 +1159,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 9."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 9.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/protection-of-the-cabbage",
@@ -1143,7 +1186,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 59."
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 59.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/protection-of-the-glades",
@@ -1169,7 +1213,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 60."
+      "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 60.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/regeneration",
@@ -1195,7 +1240,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 34."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 34.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/druid/cast/regrowth",
@@ -1221,7 +1267,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 54."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 54.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/druid/cast/regrowth-of-the-grove",
@@ -1247,7 +1294,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 58."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 58.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/druid/cast/resist-cold",
@@ -1273,7 +1321,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30.",
+      "icon": "spell:47"
     },
     {
       "id": "buffs/druid/cast/resist-disease",
@@ -1299,7 +1348,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/druid/cast/resist-fire",
@@ -1325,7 +1375,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 20."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 20.",
+      "icon": "spell:46"
     },
     {
       "id": "buffs/druid/cast/resist-magic",
@@ -1351,7 +1402,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 49."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 49.",
+      "icon": "spell:50"
     },
     {
       "id": "buffs/druid/cast/resist-poison",
@@ -1377,7 +1429,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/savage-spirit",
@@ -1403,7 +1456,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 41."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 41.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/scale-of-wolf",
@@ -1429,7 +1483,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Druid level 26."
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Druid level 26.",
+      "icon": "spell:94"
     },
     {
       "id": "buffs/druid/cast/see-invisible",
@@ -1455,7 +1510,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 13."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 13.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/druid/cast/share-form-of-the-great-wolf",
@@ -1481,7 +1537,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~360m00s at level 50 (formula 3600, cap 3600 ticks); the engine rescales to the profile's level; Druid level 45."
+      "comments": "~360m00s at level 50 (formula 3600, cap 3600 ticks); the engine rescales to the profile's level; Druid level 45.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/druid/cast/shield-of-barbs",
@@ -1507,7 +1564,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 17."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 17.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/shield-of-blades",
@@ -1533,7 +1591,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 58."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 58.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/shield-of-brambles",
@@ -1559,7 +1618,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 27."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 27.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/shield-of-spikes",
@@ -1585,7 +1645,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 37."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 37.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/shield-of-thistles",
@@ -1611,7 +1672,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 7."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 7.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/shield-of-thorns",
@@ -1637,7 +1699,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 47."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 47.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/druid/cast/skin-like-diamond",
@@ -1663,7 +1726,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 36."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 36.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/skin-like-nature",
@@ -1689,7 +1753,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 46."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 46.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/skin-like-rock",
@@ -1715,7 +1780,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 14."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 14.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/skin-like-steel",
@@ -1741,7 +1807,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 24."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 24.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/skin-like-wood",
@@ -1767,7 +1834,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 1."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 1.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/druid/cast/spirit-of-ash",
@@ -1793,7 +1861,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 36."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 36.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/druid/cast/spirit-of-cheetah",
@@ -1819,7 +1888,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Druid level 21."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Druid level 21.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/spirit-of-eagle",
@@ -1845,7 +1915,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Druid level 54."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Druid level 54.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/druid/cast/spirit-of-oak",
@@ -1871,7 +1942,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 59."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 59.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/druid/cast/spirit-of-scale",
@@ -1897,7 +1969,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 53."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 53.",
+      "icon": "spell:94"
     },
     {
       "id": "buffs/druid/cast/spirit-of-wolf",
@@ -1923,7 +1996,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 10."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 10.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/druid/cast/spirit-of-the-shrew",
@@ -1949,7 +2023,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30.",
+      "icon": "spell:66"
     },
     {
       "id": "buffs/druid/cast/storm-strength",
@@ -1975,7 +2050,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 44."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 44.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/druid/cast/strength-of-earth",
@@ -2001,7 +2077,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 7."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 7.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/druid/cast/strength-of-stone",
@@ -2027,7 +2104,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 34."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 34.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/druid/cast/superior-camouflage",
@@ -2053,7 +2131,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Druid level 18. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Druid level 18. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/druid/cast/treeform",
@@ -2079,7 +2158,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 6."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 6.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/wear-off/spirit-of-eagle",
@@ -2099,7 +2179,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"The avian spirit departs.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The avian spirit departs.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/wear-off/shield-of-blades",
@@ -2119,7 +2200,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"The blades fall away.\""
+      "comments": "Wear-off message: \"The blades fall away.\"",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/wear-off/foliage-shield",
@@ -2139,7 +2221,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"The mystical foliage vanishes.\""
+      "comments": "Wear-off message: \"The mystical foliage vanishes.\"",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/wear-off/scale-of-wolf",
@@ -2160,7 +2243,8 @@
         "Druid",
         "Shaman"
       ],
-      "comments": "Wear-off message: \"The scale of wolf leaves you.\""
+      "comments": "Wear-off message: \"The scale of wolf leaves you.\"",
+      "icon": "spell:94"
     },
     {
       "id": "buffs/wear-off/circle-of-seasons",
@@ -2180,7 +2264,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"The seasonal haze clears.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The seasonal haze clears.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:46"
     },
     {
       "id": "buffs/wear-off/spirit-of-cheetah",
@@ -2201,7 +2286,8 @@
         "Druid",
         "Shaman"
       ],
-      "comments": "Wear-off message: \"The spirit of cheetah fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The spirit of cheetah fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spirit-of-scale",
@@ -2222,7 +2308,8 @@
         "Druid",
         "Shaman"
       ],
-      "comments": "Wear-off message: \"The spirit of scale leaves you.\""
+      "comments": "Wear-off message: \"The spirit of scale leaves you.\"",
+      "icon": "spell:94"
     },
     {
       "id": "buffs/wear-off/spirit-of-ash",
@@ -2242,7 +2329,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"You are no longer a tree.\" — shared by 5 spells in spells_us_str (3 castable; also: Spirit of Oak, Treeform). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"You are no longer a tree.\" — shared by 5 spells in spells_us_str (3 castable; also: Spirit of Oak, Treeform). Named after the alphabetically-first castable spell.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/wear-off/form-of-the-howler",
@@ -2262,7 +2350,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"You are no longer a wolf.\" — shared by 8 spells in spells_us_str (3 castable; also: Form of the Hunter, Share Form of the Great Wolf). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"You are no longer a wolf.\" — shared by 8 spells in spells_us_str (3 castable; also: Form of the Hunter, Share Form of the Great Wolf). Named after the alphabetically-first castable spell.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/wear-off/feral-pack",
@@ -2282,7 +2371,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"You return to your true form.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"You return to your true form.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:58"
     },
     {
       "id": "buffs/wear-off/girdle-of-karana",
@@ -2302,7 +2392,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"Your Karanic strength fades.\""
+      "comments": "Wear-off message: \"Your Karanic strength fades.\"",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/wear-off/mask-of-the-hunter",
@@ -2322,7 +2413,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"Your features return to normal.\" — shared by 47 spells in spells_us_str (2 castable; also: Mask of the Stalker). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your features return to normal.\" — shared by 47 spells in spells_us_str (2 castable; also: Mask of the Stalker). Named after the alphabetically-first castable spell.",
+      "icon": "spell:89"
     },
     {
       "id": "buffs/wear-off/invisibility-versus-animals",
@@ -2343,7 +2435,8 @@
         "Druid",
         "Shaman"
       ],
-      "comments": "Wear-off message: \"Your image returns.\" — shared by 9 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer."
+      "comments": "Wear-off message: \"Your image returns.\" — shared by 9 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer.",
+      "icon": "spell:29"
     },
     {
       "id": "buffs/wear-off/circle-of-summer",
@@ -2363,7 +2456,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"Your summer haze clears.\""
+      "comments": "Wear-off message: \"Your summer haze clears.\"",
+      "icon": "spell:148"
     },
     {
       "id": "buffs/wear-off/circle-of-winter",
@@ -2383,7 +2477,8 @@
       "classes": [
         "Druid"
       ],
-      "comments": "Wear-off message: \"Your winter haze clears.\""
+      "comments": "Wear-off message: \"Your winter haze clears.\"",
+      "icon": "spell:46"
     }
   ]
 }

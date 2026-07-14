@@ -24,7 +24,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 58."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 58.",
+      "icon": "spell:182"
     },
     {
       "id": "buffs/rogue/cast/deadeye-discipline",
@@ -49,7 +50,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 54."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 54.",
+      "icon": "spell:184"
     },
     {
       "id": "buffs/rogue/cast/duelist-discipline",
@@ -74,7 +76,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 59."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 59.",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/rogue/cast/fearless-discipline",
@@ -99,7 +102,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Rogue level 40."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Rogue level 40.",
+      "icon": "spell:181"
     },
     {
       "id": "buffs/rogue/cast/focused-will-discipline",
@@ -124,7 +128,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Rogue level 10."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Rogue level 10.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/rogue/cast/kinesthetics-discipline",
@@ -149,7 +154,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 57."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 57.",
+      "icon": "spell:176"
     },
     {
       "id": "buffs/rogue/cast/resistant-discipline",
@@ -174,7 +180,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Rogue level 30."
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Rogue level 30.",
+      "icon": "spell:111"
     },
     {
       "id": "buffs/rogue/cast/sneak-attack",
@@ -199,7 +206,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~0m30s at level 50 (formula 2, cap 5 ticks); the engine rescales to the profile's level; Rogue level 20."
+      "comments": "~0m30s at level 50 (formula 2, cap 5 ticks); the engine rescales to the profile's level; Rogue level 20.",
+      "icon": "spell:184"
     },
     {
       "id": "buffs/rogue/cast/thief-s-vengeance",
@@ -224,7 +232,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "~0m30s at level 50 (formula 2, cap 5 ticks); the engine rescales to the profile's level; Rogue level 52."
+      "comments": "~0m30s at level 50 (formula 2, cap 5 ticks); the engine rescales to the profile's level; Rogue level 52.",
+      "icon": "spell:184"
     },
     {
       "id": "buffs/wear-off/kinesthetics-discipline",
@@ -244,7 +253,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "Wear-off message: \"The mystic energy fades.\""
+      "comments": "Wear-off message: \"The mystic energy fades.\"",
+      "icon": "spell:176"
     },
     {
       "id": "buffs/wear-off/deadeye-discipline",
@@ -264,7 +274,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "Wear-off message: \"Your confidence fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your confidence fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:184"
     },
     {
       "id": "buffs/wear-off/duelist-discipline",
@@ -284,7 +295,8 @@
       "classes": [
         "Rogue"
       ],
-      "comments": "Wear-off message: \"Your fury fades.\" — shared by 29 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your fury fades.\" — shared by 29 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:185"
     }
   ]
 }

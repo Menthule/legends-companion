@@ -6,9 +6,16 @@
 import type { TimerView } from "../hooks";
 import type { TimerLane } from "../types";
 
-function bar(name: string, lane: TimerLane, frac: number, warn = false): TimerView {
+function bar(
+  name: string,
+  lane: TimerLane,
+  frac: number,
+  warn = false,
+  icon?: string,
+): TimerView {
   return {
     name,
+    icon,
     durationSecs: 300,
     left: Math.round(300 * frac),
     frac,
@@ -23,7 +30,10 @@ function bar(name: string, lane: TimerLane, frac: number, warn = false): TimerVi
 export function sampleTimers(lane: "buff" | "on-others" | "enemy"): TimerView[] {
   switch (lane) {
     case "buff":
-      return [bar("Clarity", "buff", 0.68), bar("Spirit of Wolf", "buff", 0.12, true)];
+      return [
+        bar("Clarity", "buff", 0.68, false, "spell:6"),
+        bar("Spirit of Wolf", "buff", 0.12, true, "spell:10"),
+      ];
     case "on-others":
       return [
         bar("Regrowth — Vibarn", "on-others", 0.55),

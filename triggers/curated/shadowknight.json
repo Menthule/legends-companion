@@ -4,6 +4,7 @@
     {
       "id": "class/shadowknight/abilities/harm-touch-recast",
       "name": "Harm Touch recast",
+      "icon": "spell:0",
       "pattern": "^You begin casting Harm Touch\\.",
       "enabled": true,
       "default_enabled": true,
@@ -26,6 +27,7 @@
     {
       "id": "class/shadowknight/cc/darkness-landed",
       "name": "Clinging Darkness landed",
+      "icon": "spell:0",
       "pattern": "^(.+) has been instilled with the dread of night\\.",
       "enabled": true,
       "default_enabled": true,

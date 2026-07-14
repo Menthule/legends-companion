@@ -25,7 +25,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/ancient-eternal-rapture",
@@ -51,7 +52,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/enchanter/cast/asphyxiate",
@@ -77,7 +79,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/enchanter/cast/beguile",
@@ -103,7 +106,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/boltran-s-agacerie",
@@ -129,7 +133,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); CC; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); CC; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/cajoling-whispers",
@@ -155,7 +160,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/charm",
@@ -181,7 +187,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/chase-the-moon",
@@ -207,7 +214,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/enchanter/cast/choke",
@@ -233,7 +241,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/enchanter/cast/cripple",
@@ -259,7 +268,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/enchanter/cast/curse-of-the-simple-mind",
@@ -285,7 +295,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 90 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 90 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:8"
     },
     {
       "id": "debuffs/enchanter/cast/dazzle",
@@ -311,7 +322,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m36s at level 50 (formula 10, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 10, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/enchanter/cast/dictate",
@@ -337,7 +349,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); CC; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); CC; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/disempower",
@@ -363,7 +376,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/dyn-s-dizzying-draught",
@@ -389,7 +403,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m12s at level 50 (formula 1, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m12s at level 50 (formula 1, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:64"
     },
     {
       "id": "debuffs/enchanter/cast/ebbing-strength",
@@ -415,7 +430,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/enchanter/cast/enfeeblement",
@@ -441,7 +457,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/enchanter/cast/eye-of-confusion",
@@ -467,7 +484,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:20"
     },
     {
       "id": "debuffs/enchanter/cast/fascination",
@@ -493,7 +511,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/enchanter/cast/fear",
@@ -519,7 +538,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Enchanter level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Enchanter level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/enchanter/cast/feckless-might",
@@ -545,7 +565,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/enchanter/cast/fetter",
@@ -571,7 +592,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/forlorn-deeds",
@@ -597,7 +619,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/gasping-embrace",
@@ -623,7 +646,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/enchanter/cast/glamour-of-kintaz",
@@ -649,7 +673,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m54s at level 50 (formula 7, cap 9 ticks); CC; the engine rescales to the profile's level; Enchanter level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 7, cap 9 ticks); CC; the engine rescales to the profile's level; Enchanter level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/enchanter/cast/immobilize",
@@ -675,7 +700,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Enchanter level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Enchanter level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/incapacitate",
@@ -701,7 +727,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/insipid-weakness",
@@ -727,7 +754,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/enchanter/cast/instill",
@@ -753,7 +781,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/invoke-fear",
@@ -779,7 +808,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/enchanter/cast/languid-pace",
@@ -805,7 +835,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/listless-power",
@@ -831,7 +862,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/mesmerization",
@@ -857,7 +889,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/enchanter/cast/ordinance",
@@ -883,7 +916,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/enchanter/cast/paralyzing-earth",
@@ -909,7 +943,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/phobia",
@@ -935,7 +970,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/enchanter/cast/rapture",
@@ -961,7 +997,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/enchanter/cast/scryer-s-trespass",
@@ -987,7 +1024,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:15"
     },
     {
       "id": "debuffs/enchanter/cast/shallow-breath",
@@ -1013,7 +1051,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/enchanter/cast/shiftless-deeds",
@@ -1039,7 +1078,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/suffocate",
@@ -1065,7 +1105,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/enchanter/cast/suffocating-sphere",
@@ -1091,7 +1132,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 9, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 9, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/enchanter/cast/tashani",
@@ -1117,7 +1159,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/enchanter/cast/tashania",
@@ -1143,7 +1186,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/enchanter/cast/tashanian",
@@ -1169,7 +1213,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/enchanter/cast/tashina",
@@ -1195,7 +1240,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/enchanter/cast/tepid-deeds",
@@ -1221,7 +1267,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/enchanter/cast/torment-of-argli",
@@ -1247,7 +1294,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:9"
     },
     {
       "id": "debuffs/enchanter/cast/trepidation",
@@ -1273,7 +1321,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/enchanter/cast/wandering-mind",
@@ -1299,7 +1348,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m00s at level 50 (formula 3, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m00s at level 50 (formula 3, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:15"
     },
     {
       "id": "debuffs/enchanter/cast/weaken",
@@ -1325,7 +1375,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/enchanter/cast/weakness",
@@ -1351,7 +1402,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/enchanter/cast/wind-of-tashani",
@@ -1377,7 +1429,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/enchanter/cast/wind-of-tashanian",
@@ -1403,7 +1456,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/allure",
@@ -1434,7 +1488,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/ancient-eternal-rapture",
@@ -1465,7 +1520,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/asphyxiate",
@@ -1496,7 +1552,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/beguile",
@@ -1527,7 +1584,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/boltran-s-agacerie",
@@ -1558,7 +1616,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/cajoling-whispers",
@@ -1589,7 +1648,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/charm",
@@ -1620,7 +1680,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/chase-the-moon",
@@ -1651,7 +1712,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/choke",
@@ -1682,7 +1744,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/curse-of-the-simple-mind",
@@ -1713,7 +1776,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:8"
     },
     {
       "id": "debuffs/worn/dazzle",
@@ -1744,7 +1808,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/dictate",
@@ -1775,7 +1840,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/dyn-s-dizzying-draught",
@@ -1806,7 +1872,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:64"
     },
     {
       "id": "debuffs/worn/ebbing-strength",
@@ -1837,7 +1904,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/enfeeblement",
@@ -1868,7 +1936,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/eye-of-confusion",
@@ -1899,7 +1968,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:20"
     },
     {
       "id": "debuffs/worn/fascination",
@@ -1930,7 +2000,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/feckless-might",
@@ -1961,7 +2032,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/forlorn-deeds",
@@ -1992,7 +2064,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/gasping-embrace",
@@ -2023,7 +2096,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/glamour-of-kintaz",
@@ -2054,7 +2128,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/insipid-weakness",
@@ -2085,7 +2160,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/languid-pace",
@@ -2117,7 +2193,8 @@
         "Enchanter",
         "Beastlord"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/mesmerization",
@@ -2148,7 +2225,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/ordinance",
@@ -2179,7 +2257,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/phobia",
@@ -2210,7 +2289,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/rapture",
@@ -2241,7 +2321,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/scryer-s-trespass",
@@ -2272,7 +2353,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:15"
     },
     {
       "id": "debuffs/worn/shallow-breath",
@@ -2303,7 +2385,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/shiftless-deeds",
@@ -2334,7 +2417,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/suffocate",
@@ -2365,7 +2449,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/suffocating-sphere",
@@ -2396,7 +2481,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/tashani",
@@ -2427,7 +2513,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/tashania",
@@ -2458,7 +2545,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/tashanian",
@@ -2489,7 +2577,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/tashina",
@@ -2520,7 +2609,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/tepid-deeds",
@@ -2551,7 +2641,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/torment-of-argli",
@@ -2582,7 +2673,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:9"
     },
     {
       "id": "debuffs/worn/wandering-mind",
@@ -2613,7 +2705,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:15"
     },
     {
       "id": "debuffs/worn/weaken",
@@ -2644,7 +2737,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/weakness",
@@ -2675,7 +2769,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/wind-of-tashani",
@@ -2706,7 +2801,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/wind-of-tashanian",
@@ -2737,7 +2833,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     }
   ]
 }

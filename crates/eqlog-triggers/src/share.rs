@@ -225,6 +225,9 @@ fn changed_fields(a: &Trigger, b: &Trigger) -> Vec<&'static str> {
     if a.name != b.name {
         out.push("name");
     }
+    if a.icon != b.icon {
+        out.push("icon");
+    }
     if a.pattern != b.pattern {
         out.push("pattern");
     }

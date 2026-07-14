@@ -185,6 +185,20 @@ export function isQuestReady(
   return matchQuestRequirements(quest.requirements, snapshot).every((requirement) => requirement.satisfied);
 }
 
+/** True when the inventory already contains at least one documented final
+ * quest reward. Required turn-in materials deliberately do not participate:
+ * owning those means the quest is in progress, not obsolete. */
+export function hasOwnedQuestReward(
+  quest: Pick<QuestRecord, "rewards">,
+  snapshot: InventorySnapshot | null,
+): boolean {
+  if (!snapshot || quest.rewards.length === 0) return false;
+  const ownedNames = new Set(
+    snapshot.items.flatMap((item) => [item.name, ...item.names]).map(normalizeInventoryItem),
+  );
+  return quest.rewards.some((reward) => ownedNames.has(normalizeInventoryItem(reward)));
+}
+
 export function questDropSourceSummary(reference: QuestItemReference | undefined): string {
   if (!reference?.item) return "No matching item in the classic reference database.";
   if (reference.sources.length === 0) {

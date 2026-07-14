@@ -3058,6 +3058,36 @@ fn generic_overlays_fan_out_with_tts_and_explicit_attribution() {
 }
 
 #[test]
+fn trigger_icon_flows_to_overlays_and_timer_lifecycle() {
+    use std::collections::BTreeMap;
+
+    let mut trigger = Trigger::new(
+        "Root timer",
+        "^rooted$",
+        vec![
+            Action::Overlay {
+                overlay: "alerts".into(),
+                fields: BTreeMap::from([("text".into(), "Rooted".into())]),
+                config: BTreeMap::new(),
+            },
+            start_timer_action("Root", 12, None, None),
+        ],
+    );
+    trigger.icon = Some("spell:10".into());
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    let fired = engine.process_traced(&line(100, "rooted"), &mut sink);
+    assert_eq!(fired[0].icon.as_deref(), Some("spell:10"));
+    assert_eq!(sink.overlays[0].1["icon"], "spell:10");
+    assert_eq!(
+        engine.timer_snapshots(101)[0].icon.as_deref(),
+        Some("spell:10")
+    );
+    assert_eq!(engine.due(112)[0].icon.as_deref(), Some("spell:10"));
+}
+
+#[test]
 fn skipped_action_does_not_shift_attribution_to_the_previous_trigger() {
     let mut timer = Trigger::new(
         "conditional timer",

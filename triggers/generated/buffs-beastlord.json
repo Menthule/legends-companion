@@ -25,7 +25,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Beastlord level 60."
+      "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Beastlord level 60.",
+      "icon": "spell:11"
     },
     {
       "id": "buffs/beastlord/cast/bestial-fury-discipline",
@@ -50,7 +51,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Beastlord level 60."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Beastlord level 60.",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/beastlord/cast/bond-of-the-wild",
@@ -76,7 +78,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 52."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 52.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/chloroplast",
@@ -102,7 +105,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 55."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 55.",
+      "icon": "spell:0"
     },
     {
       "id": "buffs/beastlord/cast/deftness",
@@ -128,7 +132,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 53."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 53.",
+      "icon": "spell:5"
     },
     {
       "id": "buffs/beastlord/cast/dexterity",
@@ -154,7 +159,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57."
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57.",
+      "icon": "spell:5"
     },
     {
       "id": "buffs/beastlord/cast/endure-cold",
@@ -180,7 +186,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 3."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 3.",
+      "icon": "spell:47"
     },
     {
       "id": "buffs/beastlord/cast/endure-disease",
@@ -206,7 +213,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 22."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 22.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/beastlord/cast/endure-fire",
@@ -232,7 +240,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 9."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 9.",
+      "icon": "spell:46"
     },
     {
       "id": "buffs/beastlord/cast/endure-magic",
@@ -258,7 +267,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 34."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 34.",
+      "icon": "spell:50"
     },
     {
       "id": "buffs/beastlord/cast/endure-poison",
@@ -284,7 +294,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 18."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 18.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/enduring-breath",
@@ -310,7 +321,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 25."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 25.",
+      "icon": "spell:14"
     },
     {
       "id": "buffs/beastlord/cast/fearless-discipline",
@@ -335,7 +347,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Beastlord level 54."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Beastlord level 54.",
+      "icon": "spell:181"
     },
     {
       "id": "buffs/beastlord/cast/furious-strength",
@@ -361,7 +374,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 54."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 54.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/beastlord/cast/guard-of-calliav",
@@ -387,7 +401,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 58."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 58.",
+      "icon": "spell:163"
     },
     {
       "id": "buffs/beastlord/cast/health",
@@ -413,7 +428,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 52."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 52.",
+      "icon": "spell:7"
     },
     {
       "id": "buffs/beastlord/cast/inner-fire",
@@ -439,7 +455,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 7."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 7.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/beastlord/cast/invisibility",
@@ -465,7 +482,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Beastlord level 43. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Beastlord level 43. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/beastlord/cast/levitate",
@@ -491,7 +509,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 32."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 32.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/omakin-s-alacrity",
@@ -517,7 +536,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 55."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 55.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/pack-shrew",
@@ -543,7 +563,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 44."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 44.",
+      "icon": "spell:66"
     },
     {
       "id": "buffs/beastlord/cast/protect",
@@ -569,7 +590,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 48."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 48.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/raging-strength",
@@ -595,7 +617,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41."
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/beastlord/cast/resist-disease",
@@ -621,7 +644,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/beastlord/cast/resist-poison",
@@ -647,7 +671,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 54."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 54.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/resistant-discipline",
@@ -672,7 +697,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Beastlord level 51."
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Beastlord level 51.",
+      "icon": "spell:111"
     },
     {
       "id": "buffs/beastlord/cast/savagery",
@@ -698,7 +724,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Beastlord level 60."
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Beastlord level 60.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/scale-skin",
@@ -724,7 +751,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 10."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 10.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/serpent-sight",
@@ -750,7 +778,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 16."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 16.",
+      "icon": "spell:65"
     },
     {
       "id": "buffs/beastlord/cast/sha-s-ferocity",
@@ -776,7 +805,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 59."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 59.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/shifting-shield",
@@ -802,7 +832,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 56."
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 56.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/spirit-sight",
@@ -828,7 +859,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 29."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 29.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/beastlord/cast/spirit-strength",
@@ -854,7 +886,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 28."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 28.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-bear",
@@ -880,7 +913,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 17."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 17.",
+      "icon": "spell:7"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-flame",
@@ -906,7 +940,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 56."
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 56.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-inferno",
@@ -932,7 +967,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~44m00s at level 50 (formula 3, cap 440 ticks); the engine rescales to the profile's level; Beastlord level 28."
+      "comments": "~44m00s at level 50 (formula 3, cap 440 ticks); the engine rescales to the profile's level; Beastlord level 28.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-lightning",
@@ -958,7 +994,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Beastlord level 13."
+      "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Beastlord level 13.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-monkey",
@@ -984,7 +1021,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 38."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 38.",
+      "icon": "spell:5"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-ox",
@@ -1010,7 +1048,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 37."
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 37.",
+      "icon": "spell:7"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-snow",
@@ -1036,7 +1075,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 54."
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 54.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-vermin",
@@ -1062,7 +1102,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 46."
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 46.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-wind",
@@ -1088,7 +1129,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 51."
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 51.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-wolf",
@@ -1114,7 +1156,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 24."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 24.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-the-blizzard",
@@ -1140,7 +1183,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~42m00s at level 50 (formula 3, cap 420 ticks); the engine rescales to the profile's level; Beastlord level 18."
+      "comments": "~42m00s at level 50 (formula 3, cap 420 ticks); the engine rescales to the profile's level; Beastlord level 18.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-the-scorpion",
@@ -1166,7 +1210,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Beastlord level 38."
+      "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Beastlord level 38.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-the-shrew",
@@ -1192,7 +1237,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 39."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 39.",
+      "icon": "spell:66"
     },
     {
       "id": "buffs/beastlord/cast/spirit-of-the-storm",
@@ -1218,7 +1264,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 53."
+      "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 53.",
+      "icon": "spell:85"
     },
     {
       "id": "buffs/beastlord/cast/spiritual-brawn",
@@ -1244,7 +1291,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 42."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 42.",
+      "icon": "spell:2"
     },
     {
       "id": "buffs/beastlord/cast/spiritual-light",
@@ -1270,7 +1318,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~45m00s at level 50 (formula 11, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41."
+      "comments": "~45m00s at level 50 (formula 11, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/spiritual-purity",
@@ -1296,7 +1345,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 59."
+      "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 59.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/spiritual-radiance",
@@ -1322,7 +1372,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 52."
+      "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 52.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/spiritual-strength",
@@ -1348,7 +1399,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 60."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 60.",
+      "icon": "spell:2"
     },
     {
       "id": "buffs/beastlord/cast/stamina",
@@ -1374,7 +1426,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57."
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57.",
+      "icon": "spell:7"
     },
     {
       "id": "buffs/beastlord/cast/strengthen",
@@ -1400,7 +1453,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 14."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 14.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/beastlord/cast/talisman-of-altuna",
@@ -1426,7 +1480,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 58."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 58.",
+      "icon": "spell:69"
     },
     {
       "id": "buffs/beastlord/cast/talisman-of-tnarg",
@@ -1452,7 +1507,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 53."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 53.",
+      "icon": "spell:69"
     },
     {
       "id": "buffs/beastlord/cast/turtle-skin",
@@ -1478,7 +1534,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 26."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 26.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/beastlord/cast/ultravision",
@@ -1504,7 +1561,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51.",
+      "icon": "spell:66"
     },
     {
       "id": "buffs/beastlord/cast/ward-of-calliav",
@@ -1530,7 +1588,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 49."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 49.",
+      "icon": "spell:163"
     },
     {
       "id": "buffs/beastlord/cast/yekan-s-quickening",
@@ -1556,7 +1615,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 37."
+      "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 37.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spiritual-light",
@@ -1576,7 +1636,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The aura of light fades.\""
+      "comments": "Wear-off message: \"The aura of light fades.\"",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spiritual-purity",
@@ -1596,7 +1657,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The aura of purity fades.\" — shared by 82 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The aura of purity fades.\" — shared by 82 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spiritual-radiance",
@@ -1616,7 +1678,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The aura of radiance fades.\""
+      "comments": "Wear-off message: \"The aura of radiance fades.\"",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/bestial-fury-discipline",
@@ -1636,7 +1699,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The bestial fury fades.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The bestial fury fades.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/wear-off/savagery",
@@ -1656,7 +1720,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"The savagery fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The savagery fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spiritual-brawn",
@@ -1676,7 +1741,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"Your spiritual brawn fades.\""
+      "comments": "Wear-off message: \"Your spiritual brawn fades.\"",
+      "icon": "spell:2"
     },
     {
       "id": "buffs/wear-off/spiritual-strength",
@@ -1696,7 +1762,8 @@
       "classes": [
         "Beastlord"
       ],
-      "comments": "Wear-off message: \"Your spiritual strength fades.\""
+      "comments": "Wear-off message: \"Your spiritual strength fades.\"",
+      "icon": "spell:2"
     }
   ]
 }

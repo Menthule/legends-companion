@@ -330,6 +330,7 @@ fn build_trigger(
     Ok((
         Trigger {
             name,
+            icon: None,
             pattern,
             enabled: true,
             actions,

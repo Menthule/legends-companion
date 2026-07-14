@@ -25,7 +25,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/asystole",
@@ -51,7 +52,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/shadowknight/cast/blood-of-pain",
@@ -77,7 +79,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/boil-blood",
@@ -103,7 +106,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/cancelling-of-life",
@@ -129,7 +133,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/cascading-darkness",
@@ -155,7 +160,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/clinging-darkness",
@@ -181,7 +187,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/despair",
@@ -207,7 +214,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/disease-cloud",
@@ -233,7 +241,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/shadowknight/cast/dooming-darkness",
@@ -259,7 +268,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/engulfing-darkness",
@@ -285,7 +295,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/fear",
@@ -311,7 +322,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shadowknight/cast/heart-flutter",
@@ -337,7 +349,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/heat-blood",
@@ -363,7 +376,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/invoke-fear",
@@ -389,7 +403,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shadowknight/cast/negation-of-life",
@@ -415,7 +430,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/shadowknight/cast/panic-the-dead",
@@ -441,7 +457,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shadowknight/cast/scream-of-hate",
@@ -467,7 +484,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/scream-of-pain",
@@ -493,7 +511,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/shadow-voice",
@@ -519,7 +538,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shadowknight/cast/shadow-vortex",
@@ -545,7 +565,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/shroud-of-hate",
@@ -571,7 +592,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/shroud-of-pain",
@@ -597,7 +619,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/siphon-strength",
@@ -623,7 +646,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/soulless-fear",
@@ -649,7 +673,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shadowknight/cast/spook-the-dead",
@@ -675,7 +700,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shadowknight/cast/torrent-of-fatigue",
@@ -701,7 +727,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/torrent-of-hate",
@@ -727,7 +754,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/torrent-of-pain",
@@ -753,7 +781,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/vampiric-curse",
@@ -779,7 +808,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/shadowknight/cast/wave-of-enfeeblement",
@@ -805,7 +835,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/abduction-of-strength",
@@ -836,7 +867,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/asystole",
@@ -868,7 +900,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/blood-of-pain",
@@ -899,7 +932,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/boil-blood",
@@ -931,7 +965,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/cancelling-of-life",
@@ -963,7 +998,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/cascading-darkness",
@@ -995,7 +1031,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/clinging-darkness",
@@ -1027,7 +1064,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/despair",
@@ -1058,7 +1096,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/disease-cloud",
@@ -1090,7 +1129,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/dooming-darkness",
@@ -1122,7 +1162,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/engulfing-darkness",
@@ -1154,7 +1195,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/heart-flutter",
@@ -1186,7 +1228,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/heat-blood",
@@ -1218,7 +1261,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/negation-of-life",
@@ -1250,7 +1294,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/scream-of-hate",
@@ -1281,7 +1326,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/scream-of-pain",
@@ -1312,7 +1358,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/shadow-voice",
@@ -1343,7 +1390,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/shadow-vortex",
@@ -1375,7 +1423,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/shroud-of-hate",
@@ -1406,7 +1455,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/shroud-of-pain",
@@ -1437,7 +1487,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/siphon-strength",
@@ -1469,7 +1520,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/soulless-fear",
@@ -1500,7 +1552,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/torrent-of-fatigue",
@@ -1531,7 +1584,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/torrent-of-hate",
@@ -1562,7 +1616,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/torrent-of-pain",
@@ -1593,7 +1648,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/vampiric-curse",
@@ -1625,7 +1681,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/wave-of-enfeeblement",
@@ -1657,7 +1714,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     }
   ]
 }

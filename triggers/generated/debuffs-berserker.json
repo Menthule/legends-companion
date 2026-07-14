@@ -24,7 +24,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/berserker/cast/leg-slice",
@@ -49,7 +50,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/berserker/cast/leg-strike",
@@ -74,7 +76,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Berserker level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/leg-cut",
@@ -105,7 +108,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/leg-slice",
@@ -136,7 +140,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/leg-strike",
@@ -167,7 +172,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     }
   ]
 }

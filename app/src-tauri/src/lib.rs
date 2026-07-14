@@ -15,6 +15,7 @@ mod logging;
 mod meters;
 mod refdb;
 mod sounds;
+mod spell_icons;
 mod spelldb;
 mod store;
 mod tailing;
@@ -313,6 +314,8 @@ pub fn run() {
             refdb::refdb_respawn_for,
             spelldb::spells_search,
             spelldb::unlocks_at_level,
+            spell_icons::spell_icon_data,
+            spell_icons::spell_icons_for_names,
             library::get_profile,
             inventory::inventory_discover,
             inventory::inventory_import,

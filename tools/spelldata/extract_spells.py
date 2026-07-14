@@ -178,7 +178,8 @@ def main() -> None:
 
     with open(args.spells, encoding="latin-1") as f:
         for line in f:
-            fl = line.rstrip("\r\n").split("^")
+            pipe = line.rstrip("\r\n").split("|")
+            fl = pipe[0].split("^")
             if len(fl) < 173:
                 continue
             total_rows += 1
@@ -208,6 +209,9 @@ def main() -> None:
             entry = {
                 "id": sid,
                 "name": name,
+                # The first extension field is the client's `new_icon` id.
+                # Packs store only this portable number, never the artwork.
+                "icon_id": parse_int(pipe[1]) if len(pipe) > 1 else None,
                 "classes": classes,
                 "beneficial": beneficial,
                 "target_type": TARGET_TYPES.get(parse_int(fl[30]),

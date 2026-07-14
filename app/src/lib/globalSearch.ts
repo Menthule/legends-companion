@@ -47,6 +47,9 @@ export type GlobalSearchAction =
       kind: "open-tab-search";
       tab: Exclude<GlobalSearchTab, "settings">;
       query: string;
+      /** Exact result selected in global search; destination tabs use it to
+       * open the detail row after their async search resolves. */
+      targetId?: number | string;
       /** Explicit unsourced item selections must bypass Drops' source filter. */
       revealUnsourced?: boolean;
       /** Spells tab only: land on the Abilities segment (abilities are the
@@ -399,12 +402,13 @@ function itemResult(row: DropItemRow, zoneHint: ZoneHint | null): GlobalSearchRe
 }
 
 export function itemNavigationAction(
-  row: Pick<DropItemRow, "name" | "sources">,
+  row: Pick<DropItemRow, "id" | "name" | "sources">,
 ): Extract<GlobalSearchAction, { kind: "open-tab-search" }> {
   return {
     kind: "open-tab-search",
     tab: "drops",
     query: row.name,
+    targetId: row.id,
     revealUnsourced: row.sources === 0,
   };
 }
@@ -426,7 +430,7 @@ function mobResult(row: MobRow, zoneHint: ZoneHint | null): GlobalSearchResult {
       row.merchant ? "Merchant" : "",
       row.lootCount > 0 ? `${row.lootCount} loot` : "",
     ].filter(Boolean),
-    action: { kind: "open-tab-search", tab: "mobs", query: row.name },
+    action: { kind: "open-tab-search", tab: "mobs", query: row.name, targetId: row.id },
   };
 }
 
@@ -440,7 +444,7 @@ function questResult(row: QuestRecord): GlobalSearchResult {
       row.classes.join(" / "),
       row.requirements.length > 0 ? `${row.requirements.length} required items` : "",
     ].filter(Boolean),
-    action: { kind: "open-tab-search", tab: "quests", query: row.name },
+    action: { kind: "open-tab-search", tab: "quests", query: row.name, targetId: row.id },
   };
 }
 
@@ -460,6 +464,7 @@ function spellResult(row: SpellRow, isAbility: boolean): GlobalSearchResult {
       kind: "open-tab-search",
       tab: "spells",
       query: row.name,
+      targetId: row.id,
       isAbility,
     },
   };
@@ -472,7 +477,7 @@ function recipeResult(row: RecipeRef): GlobalSearchResult {
     title: row.name,
     subtitle: tradeskillName(row.tradeskill),
     meta: [row.trivial > 0 ? `Trivial ${row.trivial}` : "No fail"].filter(Boolean),
-    action: { kind: "open-tab-search", tab: "recipes", query: row.name },
+    action: { kind: "open-tab-search", tab: "recipes", query: row.name, targetId: row.id },
   };
 }
 

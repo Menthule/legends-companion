@@ -4,6 +4,7 @@
     {
       "id": "class/ranger/cc/snare-landed",
       "name": "Snare landed",
+      "icon": "spell:10",
       "pattern": "^(.+) has been ensnared\\.",
       "enabled": true,
       "default_enabled": true,
@@ -24,6 +25,7 @@
     {
       "id": "class/ranger/cc/snare-off-self",
       "name": "Snare off you",
+      "icon": "spell:10",
       "pattern": "^You are no longer ensnared\\.",
       "enabled": true,
       "default_enabled": true,

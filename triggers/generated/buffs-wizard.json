@@ -25,7 +25,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Wizard level 16."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Wizard level 16.",
+      "icon": "spell:73"
     },
     {
       "id": "buffs/wizard/cast/diamondskin",
@@ -51,7 +52,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Wizard level 40."
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Wizard level 40.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/wizard/cast/elemental-cloak",
@@ -77,7 +79,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 54."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 54.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wizard/cast/eye-of-tallon",
@@ -103,7 +106,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); the engine rescales to the profile's level; Wizard level 57."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); the engine rescales to the profile's level; Wizard level 57.",
+      "icon": "spell:67"
     },
     {
       "id": "buffs/wizard/cast/eye-of-zomm",
@@ -129,7 +133,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Wizard level 8."
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Wizard level 8.",
+      "icon": "spell:67"
     },
     {
       "id": "buffs/wizard/cast/familiar",
@@ -155,7 +160,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 54."
+      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 54.",
+      "icon": "spell:475"
     },
     {
       "id": "buffs/wizard/cast/gaze",
@@ -181,7 +187,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~2m30s at level 50 (formula 1, cap 33 ticks); the engine rescales to the profile's level; Wizard level 11."
+      "comments": "~2m30s at level 50 (formula 1, cap 33 ticks); the engine rescales to the profile's level; Wizard level 11.",
+      "icon": "spell:87"
     },
     {
       "id": "buffs/wizard/cast/greater-familiar",
@@ -207,7 +214,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 60."
+      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 60.",
+      "icon": "spell:475"
     },
     {
       "id": "buffs/wizard/cast/guard-of-calrena",
@@ -233,7 +241,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Wizard level 57."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Wizard level 57.",
+      "icon": "spell:161"
     },
     {
       "id": "buffs/wizard/cast/heat-sight",
@@ -259,7 +268,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Wizard level 16."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Wizard level 16.",
+      "icon": "spell:65"
     },
     {
       "id": "buffs/wizard/cast/improved-invisibility",
@@ -285,7 +295,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Wizard level 55. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Wizard level 55. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:314"
     },
     {
       "id": "buffs/wizard/cast/invisibility",
@@ -311,7 +322,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Wizard level 16. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Wizard level 16. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:12"
     },
     {
       "id": "buffs/wizard/cast/invisibility-to-undead",
@@ -337,7 +349,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~5m00s at level 50 (formula 3, cap 50 ticks); the engine rescales to the profile's level; Wizard level 39. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~5m00s at level 50 (formula 3, cap 50 ticks); the engine rescales to the profile's level; Wizard level 39. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:28"
     },
     {
       "id": "buffs/wizard/cast/leatherskin",
@@ -363,7 +376,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Wizard level 21."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Wizard level 21.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/wizard/cast/lesser-familiar",
@@ -389,7 +403,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 45."
+      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 45.",
+      "icon": "spell:475"
     },
     {
       "id": "buffs/wizard/cast/levitate",
@@ -415,7 +430,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Wizard level 22."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Wizard level 22.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wizard/cast/levitation",
@@ -441,7 +457,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Wizard level 50."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Wizard level 50.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wizard/cast/magi-ward",
@@ -467,7 +484,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Wizard level 54."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Wizard level 54.",
+      "icon": "spell:161"
     },
     {
       "id": "buffs/wizard/cast/magnify",
@@ -493,7 +511,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~2m30s at level 50 (formula 1, cap 33 ticks); the engine rescales to the profile's level; Wizard level 29."
+      "comments": "~2m30s at level 50 (formula 1, cap 33 ticks); the engine rescales to the profile's level; Wizard level 29.",
+      "icon": "spell:87"
     },
     {
       "id": "buffs/wizard/cast/manasink",
@@ -519,7 +538,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 58."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 58.",
+      "icon": "spell:78"
     },
     {
       "id": "buffs/wizard/cast/manaskin",
@@ -545,7 +565,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Wizard level 52."
+      "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Wizard level 52.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/wizard/cast/minor-familiar",
@@ -571,7 +592,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 25."
+      "comments": "~360m00s at level 50 (formula 3600, cap 0 ticks); the engine rescales to the profile's level; Wizard level 25.",
+      "icon": "spell:475"
     },
     {
       "id": "buffs/wizard/cast/o-keil-s-embers",
@@ -597,7 +619,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 50 ticks); the engine rescales to the profile's level; Wizard level 10."
+      "comments": "~3m00s at level 50 (formula 2, cap 50 ticks); the engine rescales to the profile's level; Wizard level 10.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/wizard/cast/o-keil-s-flickering-flame",
@@ -623,7 +646,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~5m00s at level 50 (formula 10, cap 50 ticks); the engine rescales to the profile's level; Wizard level 31."
+      "comments": "~5m00s at level 50 (formula 10, cap 50 ticks); the engine rescales to the profile's level; Wizard level 31.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/wizard/cast/o-keil-s-radiation",
@@ -649,7 +673,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 50 ticks); the engine rescales to the profile's level; Wizard level 2."
+      "comments": "~3m00s at level 50 (formula 2, cap 50 ticks); the engine rescales to the profile's level; Wizard level 2.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/wizard/cast/plainsight",
@@ -675,7 +700,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 55."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 55.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/wizard/cast/see-invisible",
@@ -701,7 +727,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Wizard level 4."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Wizard level 4.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/wizard/cast/shield-of-the-magi",
@@ -727,7 +754,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Wizard level 54."
+      "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Wizard level 54.",
+      "icon": "spell:69"
     },
     {
       "id": "buffs/wizard/cast/shieldskin",
@@ -753,7 +781,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Wizard level 13."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Wizard level 13.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/wizard/cast/shifting-sight",
@@ -779,7 +808,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Wizard level 38."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Wizard level 38.",
+      "icon": "spell:73"
     },
     {
       "id": "buffs/wizard/cast/sight",
@@ -805,7 +835,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~2m30s at level 50 (formula 1, cap 33 ticks); the engine rescales to the profile's level; Wizard level 19."
+      "comments": "~2m30s at level 50 (formula 1, cap 33 ticks); the engine rescales to the profile's level; Wizard level 19.",
+      "icon": "spell:87"
     },
     {
       "id": "buffs/wizard/cast/spellshield",
@@ -831,7 +862,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~110m00s at level 50 (formula 3, cap 1100 ticks); the engine rescales to the profile's level; Wizard level 58."
+      "comments": "~110m00s at level 50 (formula 3, cap 1100 ticks); the engine rescales to the profile's level; Wizard level 58.",
+      "icon": "spell:78"
     },
     {
       "id": "buffs/wizard/cast/steelskin",
@@ -857,7 +889,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 30."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Wizard level 30.",
+      "icon": "spell:55"
     },
     {
       "id": "buffs/wizard/cast/vision-shift",
@@ -883,7 +916,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Wizard level 40."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Wizard level 40.",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/wizard/cast/ward-of-calrena",
@@ -909,7 +943,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Wizard level 49."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Wizard level 49.",
+      "icon": "spell:161"
     },
     {
       "id": "buffs/wear-off/guard-of-calrena",
@@ -930,7 +965,8 @@
         "Wizard",
         "Enchanter"
       ],
-      "comments": "Wear-off message: \"The blue aura fades.\" — shared by 86 spells in spells_us_str (5 castable; also: Magi Ward, Protection of Alendar, Ward of Alendar, Ward of Calrena). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The blue aura fades.\" — shared by 86 spells in spells_us_str (5 castable; also: Magi Ward, Protection of Alendar, Ward of Alendar, Ward of Calrena). Named after the alphabetically-first castable spell.",
+      "icon": "spell:161"
     },
     {
       "id": "buffs/wear-off/spellshield",
@@ -950,7 +986,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"The magical barrier fades.\""
+      "comments": "Wear-off message: \"The magical barrier fades.\"",
+      "icon": "spell:78"
     },
     {
       "id": "buffs/wear-off/o-keil-s-embers",
@@ -970,7 +1007,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"The radiation fades.\" — shared by 7 spells in spells_us_str (3 castable; also: O`Keil's Flickering Flame, O`Keil's Radiation). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The radiation fades.\" — shared by 7 spells in spells_us_str (3 castable; also: O`Keil's Flickering Flame, O`Keil's Radiation). Named after the alphabetically-first castable spell.",
+      "icon": "spell:59"
     },
     {
       "id": "buffs/wear-off/vision-shift",
@@ -990,7 +1028,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"The vision shift fades.\""
+      "comments": "Wear-off message: \"The vision shift fades.\"",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/wear-off/familiar",
@@ -1010,7 +1049,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"Your Familiar departs.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your Familiar departs.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:475"
     },
     {
       "id": "buffs/wear-off/elemental-cloak",
@@ -1031,7 +1071,8 @@
         "Wizard",
         "Magician"
       ],
-      "comments": "Wear-off message: \"Your elemental armor fades.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your elemental armor fades.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/eye-of-tallon",
@@ -1052,7 +1093,8 @@
         "Wizard",
         "Magician"
       ],
-      "comments": "Wear-off message: \"Your extra eye departs.\" — shared by 12 spells in spells_us_str (2 castable; also: Eye of Zomm). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your extra eye departs.\" — shared by 12 spells in spells_us_str (2 castable; also: Eye of Zomm). Named after the alphabetically-first castable spell.",
+      "icon": "spell:67"
     },
     {
       "id": "buffs/wear-off/greater-familiar",
@@ -1072,7 +1114,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"Your familiar departs.\" — shared by 44 spells in spells_us_str (3 castable; also: Lesser Familiar, Minor Familiar). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your familiar departs.\" — shared by 44 spells in spells_us_str (3 castable; also: Lesser Familiar, Minor Familiar). Named after the alphabetically-first castable spell.",
+      "icon": "spell:475"
     },
     {
       "id": "buffs/wear-off/plainsight",
@@ -1092,7 +1135,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"Your plainsight fades.\""
+      "comments": "Wear-off message: \"Your plainsight fades.\"",
+      "icon": "spell:13"
     },
     {
       "id": "buffs/wear-off/shifting-sight",
@@ -1113,7 +1157,8 @@
         "Wizard",
         "Enchanter"
       ],
-      "comments": "Wear-off message: \"Your shifting sight ends.\""
+      "comments": "Wear-off message: \"Your shifting sight ends.\"",
+      "icon": "spell:73"
     },
     {
       "id": "buffs/wear-off/gaze",
@@ -1133,7 +1178,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "Wear-off message: \"Your vision fades.\" — shared by 15 spells in spells_us_str (3 castable; also: Magnify, Sight). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your vision fades.\" — shared by 15 spells in spells_us_str (3 castable; also: Magnify, Sight). Named after the alphabetically-first castable spell.",
+      "icon": "spell:87"
     }
   ]
 }

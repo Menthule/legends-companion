@@ -344,7 +344,7 @@ def alternation(names) -> str:
 
 
 def trigger(tid, name, pattern, actions, category, classes=(), default_enabled=True,
-            comments=None):
+            comments=None, icon_id=None):
     t = {
         "id": tid,
         "name": name,
@@ -359,6 +359,8 @@ def trigger(tid, name, pattern, actions, category, classes=(), default_enabled=T
         t["classes"] = list(classes)
     if comments:
         t["comments"] = comments
+    if icon_id is not None:
+        t["icon"] = f"spell:{icon_id}"
     return t
 
 
@@ -518,6 +520,7 @@ def build_buff_packs(spells):
             classes=[CLASS_NAME[cls]],
             default_enabled=True,
             comments=comments,
+            icon_id=s.get("icon_id"),
         ))
 
     # --- wear-off Speak triggers, one per distinct message.
@@ -586,6 +589,8 @@ def build_buff_packs(spells):
             classes=[CLASS_NAME[c] for c in union],
             default_enabled=default_en,
             comments=comments,
+            icon_id=next((g.get("icon_id") for g in group
+                          if g["name"] == first), None),
         ))
         n_wear += 1
 
@@ -649,6 +654,7 @@ def build_debuff_packs(spells):
     per_class_triggers = {lc: [] for lc in CLASS_ORDER}
     used_ids = set()
     worn_classes = defaultdict(set)      # spell name -> classes with a timer
+    icon_by_name = {}
     for (cls, name), s in sorted(best.items()):
         dur = s["duration_secs_estimate"]
         # Ending warnings are spoken by the app ("X ending"): reserve them
@@ -685,8 +691,10 @@ def build_debuff_packs(spells):
                      f"{CLASS_NAME[cls]} level {s['classes'][cls]}. v1 keys "
                      f"enemy timers by spell name only — two mobs under the "
                      f"same spell share one bar.",
+            icon_id=s.get("icon_id"),
         ))
         worn_classes[name].add(cls)
+        icon_by_name.setdefault(name, s.get("icon_id"))
 
     # Wear-off companions: ONE per spell, in the first class's file with the
     # class union — CancelTimer (early break) + Alerts re-announce.
@@ -723,6 +731,7 @@ def build_debuff_packs(spells):
             comments="Cancels the cast-start countdown early (mez break, "
                      "mob death) and re-announces on the overlay. Overlay "
                      "text only — curated packs own the spoken wear-offs.",
+            icon_id=icon_by_name.get(name),
         ))
         n_worn += 1
 

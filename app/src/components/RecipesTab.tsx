@@ -47,7 +47,7 @@ export default function RecipesTab({
   searchRequest,
 }: {
   /** Deep-link from the Drops tab: bump `seq` to re-trigger. */
-  searchRequest: { query: string; seq: number } | null;
+  searchRequest: { query: string; seq: number; targetId?: number } | null;
 }) {
   const [query, setQuery] = useState("");
   const [tradeskill, setTradeskill] = useState(0);
@@ -57,6 +57,7 @@ export default function RecipesTab({
   const [zones, setZones] = useState<DropZone[]>([]);
   const [detail, setDetail] = useState<RecipeDetail | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pendingTargetId = useRef<number | null>(null);
 
   const active = query.trim().length >= 2 || tradeskill !== 0;
 
@@ -89,12 +90,20 @@ export default function RecipesTab({
   useEffect(() => {
     if (!searchRequest) return;
     setQuery(searchRequest.query);
+    pendingTargetId.current = searchRequest.targetId ?? null;
     setTradeskill(0);
     setMaxTrivial(0);
     setPage(0);
     setExpanded(null);
-    inputRef.current?.focus();
+    if (searchRequest.targetId == null) inputRef.current?.focus();
   }, [searchRequest]);
+
+  useEffect(() => {
+    const targetId = pendingTargetId.current;
+    if (targetId == null || !rows.some((row) => row.id === targetId)) return;
+    pendingTargetId.current = null;
+    setExpanded(targetId);
+  }, [rows, searchRequest?.seq, setExpanded]);
 
   useEffect(() => {
     dropsZones().then(setZones).catch(() => {});

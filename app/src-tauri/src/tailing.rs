@@ -135,6 +135,8 @@ fn cast_rows_payload(casts: &CastStats) -> Vec<CastRowPayload> {
 struct TriggerRef {
     id: String,
     name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    icon: Option<String>,
 }
 
 #[derive(Serialize, Clone)]
@@ -151,6 +153,8 @@ struct TriggerFiredPayload {
 #[serde(rename_all = "camelCase")]
 struct TimerPayload {
     name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    icon: Option<String>,
     kind: &'static str,
     #[serde(skip_serializing_if = "Option::is_none")]
     duration_secs: Option<u64>,
@@ -176,6 +180,8 @@ struct TimerPayload {
 #[serde(rename_all = "camelCase")]
 pub struct ActiveTimerPayload {
     pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon: Option<String>,
     pub duration_secs: u64,
     pub elapsed_secs: u64,
     pub warn_at_secs: Option<u64>,
@@ -360,6 +366,7 @@ impl EmitSink {
                     "timer",
                     TimerPayload {
                         name: name.clone(),
+                        icon: trigger.as_ref().and_then(|value| value.icon.clone()),
                         kind: "started",
                         duration_secs: Some(duration_secs),
                         warn_at_secs: Some(warn_at_secs),
@@ -376,6 +383,7 @@ impl EmitSink {
                     "timer",
                     TimerPayload {
                         name: name.clone(),
+                        icon: None,
                         kind: "cancelled",
                         duration_secs: None,
                         warn_at_secs: None,
@@ -434,6 +442,7 @@ impl ActionSink for EmitSink {
         self.current_trigger = Some(TriggerRef {
             id: trigger.id.clone(),
             name: trigger.name.clone(),
+            icon: trigger.icon.clone(),
         });
     }
 
@@ -906,6 +915,7 @@ fn run_loop(
                 "timer",
                 TimerPayload {
                     name: fire.name,
+                    icon: fire.icon,
                     kind,
                     duration_secs,
                     warn_at_secs,
@@ -924,6 +934,7 @@ fn run_loop(
                 .into_iter()
                 .map(|t| ActiveTimerPayload {
                     name: t.name,
+                    icon: t.icon,
                     duration_secs: t.duration_secs,
                     elapsed_secs: t.elapsed_secs,
                     warn_at_secs: t.warn_at_secs,

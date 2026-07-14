@@ -116,6 +116,7 @@ export function useSeriesSlots(names: string[]): (name: string) => number {
 
 interface InternalTimer {
   name: string;
+  icon?: string | null;
   durationSecs: number;
   warnAtSecs: number | null;
   endsAt: number; // Date.now() ms
@@ -129,6 +130,7 @@ interface InternalTimer {
 
 export interface TimerView {
   name: string;
+  icon?: string | null;
   durationSecs: number;
   /** Seconds remaining (>= 0). */
   left: number;
@@ -157,6 +159,7 @@ export function useTimers(): TimerView[] {
         ...prev.filter((x) => x.name !== p.name),
         {
           name: p.name,
+          icon: p.icon,
           durationSecs: duration,
           warnAtSecs: p.warnAtSecs ?? null,
           endsAt,
@@ -203,6 +206,7 @@ export function useTimers(): TimerView[] {
           .filter((s) => !have.has(s.name))
           .map((s) => ({
             name: s.name,
+            icon: s.icon,
             durationSecs: s.durationSecs,
             warnAtSecs: s.warnAtSecs,
             endsAt: now + (s.durationSecs - s.elapsedSecs) * 1000,
@@ -244,6 +248,7 @@ export function useTimers(): TimerView[] {
       const pending = !expired && x.pendingUntil != null && now < x.pendingUntil;
       return {
         name: x.name,
+        icon: x.icon,
         durationSecs: x.durationSecs,
         left,
         frac: x.durationSecs > 0 ? left / x.durationSecs : 0,

@@ -25,7 +25,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Paladin level 48."
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Paladin level 48.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/austerity",
@@ -51,7 +52,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Paladin level 55."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Paladin level 55.",
+      "icon": "spell:148"
     },
     {
       "id": "buffs/paladin/cast/blessing-of-austerity",
@@ -77,7 +79,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Paladin level 58."
+      "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Paladin level 58.",
+      "icon": "spell:148"
     },
     {
       "id": "buffs/paladin/cast/breath-of-tunare",
@@ -103,7 +106,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~17m30s at level 50 (formula 3, cap 175 ticks); the engine rescales to the profile's level; Paladin level 56."
+      "comments": "~17m30s at level 50 (formula 3, cap 175 ticks); the engine rescales to the profile's level; Paladin level 56.",
+      "icon": "spell:15"
     },
     {
       "id": "buffs/paladin/cast/brell-s-mountainous-barrier",
@@ -129,7 +133,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Paladin level 60."
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Paladin level 60.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/brell-s-steadfast-aegis",
@@ -155,7 +160,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Paladin level 49."
+      "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Paladin level 49.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/calm",
@@ -181,7 +187,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Paladin level 43."
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Paladin level 43.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/paladin/cast/center",
@@ -207,7 +214,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 20."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 20.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/paladin/cast/courage",
@@ -233,7 +241,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Paladin level 8."
+      "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Paladin level 8.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/paladin/cast/daring",
@@ -259,7 +268,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 37."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 37.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/paladin/cast/divine-favor",
@@ -285,7 +295,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~5m00s at level 50 (formula 3, cap 50 ticks); the engine rescales to the profile's level; Paladin level 55."
+      "comments": "~5m00s at level 50 (formula 3, cap 50 ticks); the engine rescales to the profile's level; Paladin level 55.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/divine-glory",
@@ -311,7 +322,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 53."
+      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 53.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/divine-strength",
@@ -337,7 +349,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 60."
+      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 60.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/divine-vigor",
@@ -363,7 +376,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 35."
+      "comments": "~50m00s at level 50 (formula 3, cap 500 ticks); the engine rescales to the profile's level; Paladin level 35.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/endure-disease",
@@ -389,7 +403,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 38."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 38.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/paladin/cast/endure-magic",
@@ -415,7 +430,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 29."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 29.",
+      "icon": "spell:50"
     },
     {
       "id": "buffs/paladin/cast/endure-poison",
@@ -441,7 +457,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 21."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 21.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/fearless-discipline",
@@ -466,7 +483,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Paladin level 54."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Paladin level 54.",
+      "icon": "spell:181"
     },
     {
       "id": "buffs/paladin/cast/frenzied-strength",
@@ -492,7 +510,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Paladin level 52."
+      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Paladin level 52.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/paladin/cast/guard",
@@ -518,7 +537,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Paladin level 39."
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Paladin level 39.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/guard-of-piety",
@@ -543,7 +563,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Paladin level 56."
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Paladin level 56.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/holy-armor",
@@ -569,7 +590,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 15."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 15.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/holyforge-discipline",
@@ -594,7 +616,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Paladin level 55."
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Paladin level 55.",
+      "icon": "spell:169"
     },
     {
       "id": "buffs/paladin/cast/invisibility-versus-undead",
@@ -620,7 +643,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 17. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 17. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
+      "icon": "spell:28"
     },
     {
       "id": "buffs/paladin/cast/lull",
@@ -646,7 +670,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Paladin level 10."
+      "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Paladin level 10.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/paladin/cast/pacify",
@@ -672,7 +697,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Paladin level 49."
+      "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Paladin level 49.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/paladin/cast/reckless-strength",
@@ -698,7 +724,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Paladin level 18."
+      "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Paladin level 18.",
+      "icon": "spell:4"
     },
     {
       "id": "buffs/paladin/cast/resist-disease",
@@ -724,7 +751,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 50."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 50.",
+      "icon": "spell:49"
     },
     {
       "id": "buffs/paladin/cast/resist-magic",
@@ -750,7 +778,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 55."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 55.",
+      "icon": "spell:50"
     },
     {
       "id": "buffs/paladin/cast/resistant-discipline",
@@ -775,7 +804,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Paladin level 51."
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Paladin level 51.",
+      "icon": "spell:111"
     },
     {
       "id": "buffs/paladin/cast/resolution",
@@ -801,7 +831,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Paladin level 60."
+      "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Paladin level 60.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/paladin/cast/shield-of-words",
@@ -827,7 +858,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Paladin level 60."
+      "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Paladin level 60.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/soothe",
@@ -853,7 +885,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Paladin level 25."
+      "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Paladin level 25.",
+      "icon": "spell:30"
     },
     {
       "id": "buffs/paladin/cast/spirit-armor",
@@ -879,7 +912,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 30."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 30.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/symbol-of-naltron",
@@ -905,7 +939,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Paladin level 58."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Paladin level 58.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/symbol-of-pinzarn",
@@ -931,7 +966,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Paladin level 46."
+      "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Paladin level 46.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/symbol-of-ryltan",
@@ -957,7 +993,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 33."
+      "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Paladin level 33.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/symbol-of-transal",
@@ -983,7 +1020,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 24."
+      "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Paladin level 24.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/paladin/cast/valor",
@@ -1009,7 +1047,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Paladin level 47."
+      "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Paladin level 47.",
+      "icon": "spell:1"
     },
     {
       "id": "buffs/wear-off/divine-favor",
@@ -1029,7 +1068,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"The Divine Favor fades.\""
+      "comments": "Wear-off message: \"The Divine Favor fades.\"",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/holyforge-discipline",
@@ -1049,7 +1089,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"The holy light fades from your weapon.\""
+      "comments": "Wear-off message: \"The holy light fades from your weapon.\"",
+      "icon": "spell:169"
     },
     {
       "id": "buffs/wear-off/breath-of-tunare",
@@ -1069,7 +1110,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"You no longer feel Tunare's breath upon you.\""
+      "comments": "Wear-off message: \"You no longer feel Tunare's breath upon you.\"",
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/guard-of-piety",
@@ -1089,7 +1131,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"Your armor stops glowing.\""
+      "comments": "Wear-off message: \"Your armor stops glowing.\"",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/divine-vigor",
@@ -1109,7 +1152,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"Your divine favor fades.\""
+      "comments": "Wear-off message: \"Your divine favor fades.\"",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/divine-glory",
@@ -1129,7 +1173,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"Your divine glory fades.\""
+      "comments": "Wear-off message: \"Your divine glory fades.\"",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/brell-s-mountainous-barrier",
@@ -1149,7 +1194,8 @@
       "classes": [
         "Paladin"
       ],
-      "comments": "Wear-off message: \"Your divine strength fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Brell's Steadfast Aegis, Divine Strength). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"Your divine strength fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Brell's Steadfast Aegis, Divine Strength). Named after the alphabetically-first castable spell.",
+      "icon": "spell:10"
     }
   ]
 }

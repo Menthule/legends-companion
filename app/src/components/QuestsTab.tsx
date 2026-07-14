@@ -10,6 +10,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { dropsQuestItemReferences, getConfig, inventoryDiscover, inventoryImport, pickInventoryFile } from "../api";
 import {
   matchQuestRequirements,
+  hasOwnedQuestReward,
   isQuestReady,
   loadQuestCatalog,
   normalizeQuestName,
@@ -68,11 +69,13 @@ export default function QuestsTab({
   searchRequest,
 }: {
   character: string;
-  searchRequest?: { query: string; seq: number } | null;
+  searchRequest?: { query: string; seq: number; targetId?: string } | null;
 }) {
   const [query, setQuery] = useState("");
+  const [selectedQuestId, setSelectedQuestId] = useState<string | null>(null);
   const [zone, setZone] = useState("");
   const [readyOnly, setReadyOnly] = useState(false);
+  const [hideOwnedRewards, setHideOwnedRewards] = useState(false);
   const [page, setPage] = useState(0);
   const [inventory, setInventory] = useState<InventorySnapshot | null>(() => savedInventorySnapshot(character));
   const [inventoryLoading, setInventoryLoading] = useState(false);
@@ -148,15 +151,19 @@ export default function QuestsTab({
   }, [character]);
 
   useEffect(() => {
-    if (!inventory) setReadyOnly(false);
+    if (!inventory) {
+      setReadyOnly(false);
+      setHideOwnedRewards(false);
+    }
   }, [inventory]);
 
   // Deep-link (e.g. a quest giver clicked elsewhere): clean lookup.
   useEffect(() => {
     if (!searchRequest?.query) return;
     setQuery(searchRequest.query);
+    setSelectedQuestId(searchRequest.targetId ?? null);
     setPage(0);
-    inputRef.current?.focus();
+    if (!searchRequest.targetId) inputRef.current?.focus();
   }, [searchRequest?.seq]);
 
   const zones = useMemo(
@@ -192,6 +199,10 @@ export default function QuestsTab({
     [classMask],
   );
   const filteredQuests = useMemo(() => {
+    if (selectedQuestId) {
+      const selected = catalog?.quests.find((quest) => quest.id === selectedQuestId);
+      return selected ? [selected] : [];
+    }
     const matches = searchQuests(query, { zone, limit: catalog?.quests.length ?? 1 }, catalog?.quests ?? []);
     if (selectedClasses.length === 0) return matches;
     return matches.filter((quest) =>
@@ -200,15 +211,23 @@ export default function QuestsTab({
         return name === "allclasses" || selectedClasses.includes(name);
       }),
     );
-  }, [query, zone, selectedClasses, catalog]);
+  }, [query, zone, selectedClasses, selectedQuestId, catalog]);
   const readyCount = useMemo(
     () => filteredQuests.filter((quest) => isQuestReady(quest, inventory)).length,
     [filteredQuests, inventory],
   );
-  const results = useMemo(
-    () => (readyOnly ? filteredQuests.filter((quest) => isQuestReady(quest, inventory)) : filteredQuests),
-    [filteredQuests, inventory, readyOnly],
-  );
+  const results = useMemo(() => {
+    // A global-search selection is an explicit request for this quest; local
+    // filters must not make the destination disappear after navigation.
+    if (selectedQuestId) return filteredQuests;
+    let next = readyOnly
+      ? filteredQuests.filter((quest) => isQuestReady(quest, inventory))
+      : filteredQuests;
+    if (hideOwnedRewards) {
+      next = next.filter((quest) => !hasOwnedQuestReward(quest, inventory));
+    }
+    return next;
+  }, [filteredQuests, hideOwnedRewards, inventory, readyOnly, selectedQuestId]);
   const pages = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
   const safePage = Math.min(page, pages - 1);
   const pageRows = useMemo(
@@ -247,8 +266,10 @@ export default function QuestsTab({
 
   function clearAll() {
     setQuery("");
+    setSelectedQuestId(null);
     setZone("");
     setReadyOnly(false);
+    setHideOwnedRewards(false);
     setPage(0);
   }
 
@@ -269,6 +290,7 @@ export default function QuestsTab({
           value={query}
           onChange={(event) => {
             setQuery(event.target.value);
+            setSelectedQuestId(null);
             setPage(0);
           }}
           aria-label="Search quests"
@@ -299,7 +321,19 @@ export default function QuestsTab({
           <span>Ready</span>
           {inventory && <strong>{readyCount}</strong>}
         </label>
-        {(query !== "" || zone !== "" || readyOnly) && (
+        <label className="quest-ready-filter" title={inventory ? "Hide quests when a documented final reward is already in your inventory" : "Load an inventory export to hide owned rewards"}>
+          <input
+            type="checkbox"
+            checked={hideOwnedRewards}
+            disabled={!inventory}
+            onChange={(event) => {
+              setHideOwnedRewards(event.target.checked);
+              setPage(0);
+            }}
+          />
+          <span>Hide owned rewards</span>
+        </label>
+        {(query !== "" || zone !== "" || readyOnly || hideOwnedRewards) && (
           <button className="ghost small" onClick={clearAll}>
             Clear
           </button>
@@ -336,6 +370,8 @@ export default function QuestsTab({
           body={
             readyOnly
               ? "No quests are fully ready with the current inventory export — uncheck Ready, or refresh the export in game."
+              : hideOwnedRewards
+                ? "Every matching quest has a documented reward already in this inventory — uncheck Hide owned rewards to include them."
               : "No quests match these filters — try clearing the zone or class filter, or widening the search."
           }
         />

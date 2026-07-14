@@ -70,7 +70,7 @@ export default function MobsTab({
   searchRequest,
 }: {
   /** Deep-link (e.g. a mob name clicked in the Drops tab); bump seq to re-trigger. */
-  searchRequest?: { query: string; seq: number } | null;
+  searchRequest?: { query: string; seq: number; targetId?: number } | null;
 }) {
   const [query, setQuery] = useState("");
   const [eraMax] = useEraMax();
@@ -85,6 +85,7 @@ export default function MobsTab({
   const [zoneInfoOpen, setZoneInfoOpen] = useState(false);
   const [zoneInfo, setZoneInfo] = useState<ZoneInfo | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pendingTargetId = useRef<number | null>(null);
 
   const active =
     query.trim().length >= 2 || zone !== "" || minLevel > 0 || maxLevel > 0;
@@ -123,13 +124,21 @@ export default function MobsTab({
   useEffect(() => {
     if (!searchRequest) return;
     setQuery(searchRequest.query);
+    pendingTargetId.current = searchRequest.targetId ?? null;
     setZone("");
     setMinLevel(0);
     setMaxLevel(0);
     setPage(0);
     setExpanded(null);
-    inputRef.current?.focus();
+    if (searchRequest.targetId == null) inputRef.current?.focus();
   }, [searchRequest]);
+
+  useEffect(() => {
+    const targetId = pendingTargetId.current;
+    if (targetId == null || !rows.some((row) => row.id === targetId)) return;
+    pendingTargetId.current = null;
+    if (expanded !== targetId) toggleExpand(targetId);
+  }, [rows, searchRequest?.seq]);
 
   // The almanac belongs to the selected zone: drop it when that changes.
   useEffect(() => {

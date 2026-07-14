@@ -25,7 +25,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:20"
     },
     {
       "id": "debuffs/cleric/cast/cower-the-dead",
@@ -51,7 +52,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/deistic-voice",
@@ -77,7 +79,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/dread-of-night",
@@ -103,7 +106,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/epitaph-of-life",
@@ -129,7 +133,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/cleric/cast/fear",
@@ -155,7 +160,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/flash-of-light",
@@ -181,7 +187,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:20"
     },
     {
       "id": "debuffs/cleric/cast/immobilize",
@@ -207,7 +214,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Cleric level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Cleric level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/cleric/cast/inspire-fear",
@@ -233,7 +241,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 1, cap 5 ticks); CC; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 1, cap 5 ticks); CC; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/instill",
@@ -259,7 +268,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Cleric level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Cleric level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/cleric/cast/invoke-fear",
@@ -285,7 +295,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Cleric level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Cleric level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/mark-of-karn",
@@ -311,7 +322,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~3m30s at level 50 (formula 8, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m30s at level 50 (formula 8, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:59"
     },
     {
       "id": "debuffs/cleric/cast/mark-of-retribution",
@@ -337,7 +349,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:121"
     },
     {
       "id": "debuffs/cleric/cast/panic-the-dead",
@@ -363,7 +376,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Cleric level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Cleric level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/paralyzing-earth",
@@ -389,7 +403,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/cleric/cast/root",
@@ -415,7 +430,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Cleric level 7. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Cleric level 7. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/cleric/cast/sermon-of-the-righteous",
@@ -441,7 +457,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/cleric/cast/spook-the-dead",
@@ -467,7 +484,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/trepidation",
@@ -493,7 +511,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/cleric/cast/turning-of-the-unnatural",
@@ -519,7 +538,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/cleric/cast/wave-of-fear",
@@ -545,7 +565,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m18s at level 50 (formula 1, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 1, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/blinding-luminance",
@@ -577,7 +598,8 @@
         "Cleric",
         "Shaman"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:20"
     },
     {
       "id": "debuffs/worn/cower-the-dead",
@@ -608,7 +630,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/deistic-voice",
@@ -639,7 +662,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/dread-of-night",
@@ -671,7 +695,8 @@
         "Cleric",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/epitaph-of-life",
@@ -702,7 +727,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/fear",
@@ -736,7 +762,8 @@
         "Necromancer",
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/flash-of-light",
@@ -770,7 +797,8 @@
         "Shaman",
         "Beastlord"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:20"
     },
     {
       "id": "debuffs/worn/immobilize",
@@ -805,7 +833,8 @@
         "Wizard",
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/inspire-fear",
@@ -836,7 +865,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/instill",
@@ -872,7 +902,8 @@
         "Wizard",
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/invoke-fear",
@@ -906,7 +937,8 @@
         "Necromancer",
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/mark-of-karn",
@@ -937,7 +969,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:59"
     },
     {
       "id": "debuffs/worn/mark-of-retribution",
@@ -968,7 +1001,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:121"
     },
     {
       "id": "debuffs/worn/panic-the-dead",
@@ -1001,7 +1035,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/paralyzing-earth",
@@ -1036,7 +1071,8 @@
         "Wizard",
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/root",
@@ -1070,7 +1106,8 @@
         "Shaman",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/sermon-of-the-righteous",
@@ -1101,7 +1138,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/spook-the-dead",
@@ -1135,7 +1173,8 @@
         "ShadowKnight",
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/trepidation",
@@ -1168,7 +1207,8 @@
         "Necromancer",
         "Enchanter"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/turning-of-the-unnatural",
@@ -1199,7 +1239,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/wave-of-fear",
@@ -1230,7 +1271,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     }
   ]
 }

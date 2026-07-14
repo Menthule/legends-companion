@@ -881,6 +881,34 @@ export function spellsSearch(args: {
   return invoke<SpellSearchResult>("spells_search", args);
 }
 
+export interface SpellIconMatch {
+  name: string;
+  iconId: number | null;
+}
+
+/** Resolve spell names to the icon ids in the player's installed client. */
+export function spellIconsForNames(names: string[]): Promise<SpellIconMatch[]> {
+  if (IS_MOCK) {
+    const known: Record<string, number> = {
+      "spirit of wolf": 10,
+      root: 10,
+      invisibility: 12,
+      "arch lich": 374,
+    };
+    return Promise.resolve(names.map((name) => ({
+      name,
+      iconId: known[name.toLowerCase()] ?? null,
+    })));
+  }
+  return invoke<SpellIconMatch[]>("spell_icons_for_names", { names });
+}
+
+/** Crop one installed EverQuest gem icon to a small PNG data URL. */
+export function spellIconData(iconId: number): Promise<string> {
+  if (IS_MOCK) return Promise.reject(new Error("Spell art is unavailable in browser mock mode."));
+  return invoke<string>("spell_icon_data", { iconId });
+}
+
 /** Spells/abilities newly trainable at `level` for a class set (P8 ding
  *  digest). `classes` is comma-separated full class names. */
 export async function unlocksAtLevel(

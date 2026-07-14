@@ -24,7 +24,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:92"
     },
     {
       "id": "debuffs/warrior/cast/berate",
@@ -49,7 +50,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:92"
     },
     {
       "id": "debuffs/warrior/cast/provoke",
@@ -74,7 +76,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:92"
     },
     {
       "id": "debuffs/worn/bellow",
@@ -105,7 +108,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:92"
     },
     {
       "id": "debuffs/worn/berate",
@@ -136,7 +140,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:92"
     },
     {
       "id": "debuffs/worn/provoke",
@@ -167,7 +172,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:92"
     }
   ]
 }

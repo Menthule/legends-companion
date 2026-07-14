@@ -11,9 +11,11 @@ import {
   getConfig,
   listSounds,
   previewSound,
+  spellIconsForNames,
   type SoundInfo,
 } from "../api";
 import { SearchSelect } from "./SearchSelect";
+import SpellGemIcon from "./SpellGemIcon";
 import spellData from "../data/spell_names.json";
 import {
   compilePreviewRegex,
@@ -547,6 +549,7 @@ interface InitState {
   variantIx: number;
   advPattern: string;
   name: string;
+  icon: string;
   category: string;
   rows: RowState[];
   enabled: boolean;
@@ -605,6 +608,7 @@ function computeInit(
       variantIx: hit?.variantIx ?? 0,
       advPattern: initial.pattern,
       name: initial.name,
+      icon: initial.icon ?? "",
       category: initial.category ?? "",
       rows,
       enabled: initial.enabled,
@@ -629,6 +633,7 @@ function computeInit(
     variantIx: 0,
     advPattern: "",
     name: t.suggestName(params),
+    icon: "",
     category: t.defaultCategory,
     rows: rowsFromActions(t.defaultActions(params, TEMPLATE_CTX)),
     enabled: true,
@@ -664,6 +669,8 @@ export default function TriggerEditor({
   const [advOpen, setAdvOpen] = useState(init.mode === "advanced");
   const [caseIns, setCaseIns] = useState(init.caseIns);
   const [name, setName] = useState(init.name);
+  const [icon, setIcon] = useState(init.icon);
+  const [iconSearch, setIconSearch] = useState("");
   const [category, setCategory] = useState(init.category);
   const [rows, setRows] = useState<RowState[]>(init.rows);
   const [addMenuOpen, setAddMenuOpen] = useState(false);
@@ -706,6 +713,23 @@ export default function TriggerEditor({
     if (!touched.current) {
       touched.current = true;
       onDirtyChange?.(true);
+    }
+  }
+
+  async function chooseSpellIcon(spell: string) {
+    const trimmed = spell.trim();
+    if (!trimmed) return;
+    try {
+      const [match] = await spellIconsForNames([trimmed]);
+      if (match?.iconId == null) {
+        fail(`No EverQuest spell-gem icon was found for “${trimmed}”.`);
+        return;
+      }
+      touch();
+      setIcon(`spell:${match.iconId}`);
+      setIconSearch("");
+    } catch (e) {
+      fail(`Could not load spell-gem icons: ${String(e)}`);
     }
   }
 
@@ -1144,6 +1168,7 @@ export default function TriggerEditor({
       ...(initial ?? {}),
       case_insensitive: caseIns,
       name: trimmedName,
+      icon: icon || null,
       pattern,
       category: category.trim() || (variant === "modal" ? "Custom" : null),
       enabled,
@@ -1161,6 +1186,7 @@ export default function TriggerEditor({
       if (worn) {
         companion = {
           name: `${trimmedName} — end early`,
+          icon: icon || null,
           pattern: worn.build({ spell, withTarget: false }, 1),
           enabled: true,
           case_insensitive: true,
@@ -1854,6 +1880,32 @@ export default function TriggerEditor({
             }}
           />
         </label>
+        <div className="field ted-icon-field">
+          <span>Icon <small>(optional)</small></span>
+          <div className="ted-icon-picker">
+            <SpellGemIcon icon={icon} size={25} label="Selected spell icon" />
+            <SpellCombo
+              value={iconSearch}
+              onChange={setIconSearch}
+              onPick={(spell) => void chooseSpellIcon(spell)}
+              source="all"
+              placeholder={icon ? "Change spell icon" : "Find a spell"}
+              ariaLabel="Trigger spell icon"
+            />
+            {icon && (
+              <button
+                type="button"
+                className="ghost small"
+                onClick={() => {
+                  touch();
+                  setIcon("");
+                }}
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="ted-section">

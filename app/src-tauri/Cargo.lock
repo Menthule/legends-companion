@@ -1223,9 +1223,11 @@ dependencies = [
 name = "eqlogs-app"
 version = "0.2.19"
 dependencies = [
+ "base64 0.22.1",
  "eqlog-core",
  "eqlog-store",
  "eqlog-triggers",
+ "png 0.17.16",
  "rodio",
  "rusqlite",
  "serde",

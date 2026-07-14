@@ -250,6 +250,7 @@ export default function Dashboard() {
     query: string;
     seq: number;
     revealUnsourced?: boolean;
+    targetId?: number;
   } | null>(null);
   useDeepLink("drops", (detail) => {
     const query = String(detail ?? "").trim();
@@ -261,12 +262,18 @@ export default function Dashboard() {
   const [recipesRequest, setRecipesRequest] = useState<{
     query: string;
     seq: number;
+    targetId?: number;
   } | null>(null);
   const [mobsRequest, setMobsRequest] = useState<{
     query: string;
     seq: number;
+    targetId?: number;
   } | null>(null);
-  const [questsRequest, setQuestsRequest] = useState<{ query: string; seq: number } | null>(null);
+  const [questsRequest, setQuestsRequest] = useState<{
+    query: string;
+    seq: number;
+    targetId?: string;
+  } | null>(null);
   const [triggersRequest, setTriggersRequest] = useState<{
     query: string;
     seq: number;
@@ -347,6 +354,7 @@ export default function Dashboard() {
     query: string;
     isAbility: boolean;
     seq: number;
+    targetId?: number;
   } | null>(null);
   useDeepLink("spells", (detail) => {
     const query = String(detail?.name ?? "").trim();
@@ -755,12 +763,14 @@ export default function Dashboard() {
               query: action.query,
               seq: (prev?.seq ?? 0) + 1,
               revealUnsourced: action.revealUnsourced,
+              targetId: typeof action.targetId === "number" ? action.targetId : undefined,
             }));
             setTab("drops");
             break;
           case "mobs":
             setMobsRequest((prev) => ({
               query: action.query,
+              targetId: typeof action.targetId === "number" ? action.targetId : undefined,
               seq: (prev?.seq ?? 0) + 1,
             }));
             setTab("mobs");
@@ -768,6 +778,7 @@ export default function Dashboard() {
           case "quests":
             setQuestsRequest((prev) => ({
               query: action.query,
+              targetId: typeof action.targetId === "string" ? action.targetId : undefined,
               seq: (prev?.seq ?? 0) + 1,
             }));
             setTab("quests");
@@ -775,6 +786,7 @@ export default function Dashboard() {
           case "recipes":
             setRecipesRequest((prev) => ({
               query: action.query,
+              targetId: typeof action.targetId === "number" ? action.targetId : undefined,
               seq: (prev?.seq ?? 0) + 1,
             }));
             setTab("recipes");
@@ -783,6 +795,7 @@ export default function Dashboard() {
             setSpellsRequest((prev) => ({
               query: action.query,
               isAbility: action.isAbility === true,
+              targetId: typeof action.targetId === "number" ? action.targetId : undefined,
               seq: (prev?.seq ?? 0) + 1,
             }));
             setTab("spells");

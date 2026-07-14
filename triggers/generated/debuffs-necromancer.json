@@ -25,7 +25,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/necromancer/cast/auspice",
@@ -51,7 +52,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/beguile-undead",
@@ -77,7 +79,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/necromancer/cast/boil-blood",
@@ -103,7 +106,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/bond-of-death",
@@ -129,7 +133,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/cajole-undead",
@@ -155,7 +160,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/necromancer/cast/cancelling-of-life",
@@ -181,7 +187,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/cascading-darkness",
@@ -207,7 +214,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/cessation-of-cor",
@@ -233,7 +241,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/necromancer/cast/cessation-of-life",
@@ -259,7 +268,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/chill-bones",
@@ -285,7 +295,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/chilling-embrace",
@@ -311,7 +322,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m36s at level 50 (formula 3, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 3, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/clinging-darkness",
@@ -337,7 +349,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; Necromancer level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; Necromancer level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/crippling-claudication",
@@ -363,7 +376,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/dark-soul",
@@ -389,7 +403,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:116"
     },
     {
       "id": "debuffs/necromancer/cast/degeneration",
@@ -415,7 +430,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/devouring-darkness",
@@ -441,7 +457,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m18s at level 50 (formula 1, cap 13 ticks); CC; the engine rescales to the profile's level; Necromancer level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m18s at level 50 (formula 1, cap 13 ticks); CC; the engine rescales to the profile's level; Necromancer level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/disease-cloud",
@@ -467,7 +484,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/necromancer/cast/dominate-undead",
@@ -493,7 +511,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/necromancer/cast/dooming-darkness",
@@ -519,7 +538,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; Necromancer level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; Necromancer level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/dread-of-night",
@@ -545,7 +565,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/eidolon-voice",
@@ -571,7 +592,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/engulfing-darkness",
@@ -597,7 +619,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; Necromancer level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; Necromancer level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/enslave-death",
@@ -623,7 +646,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m30s at level 50 (formula 10, cap 5 ticks); CC; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 10, cap 5 ticks); CC; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/necromancer/cast/envenomed-bolt",
@@ -649,7 +673,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/eternities-torment",
@@ -675,7 +700,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~2m06s at level 50 (formula 1, cap 21 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m06s at level 50 (formula 1, cap 21 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/fear",
@@ -701,7 +727,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Necromancer level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Necromancer level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/funeral-pyre-of-kelador",
@@ -727,7 +754,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/heart-flutter",
@@ -753,7 +781,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 13. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 13. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/heat-blood",
@@ -779,7 +808,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/hungry-earth",
@@ -805,7 +835,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/necromancer/cast/ignite-blood",
@@ -831,7 +862,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/ignite-bones",
@@ -857,7 +889,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/necromancer/cast/immobilize",
@@ -883,7 +916,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Necromancer level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Necromancer level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/imprecation",
@@ -909,7 +943,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:116"
     },
     {
       "id": "debuffs/necromancer/cast/infectious-cloud",
@@ -935,7 +970,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~2m06s at level 50 (formula 10, cap 21 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m06s at level 50 (formula 10, cap 21 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/necromancer/cast/insidious-retrogression",
@@ -961,7 +997,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/necromancer/cast/instill",
@@ -987,7 +1024,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Necromancer level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Necromancer level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/invoke-fear",
@@ -1013,7 +1051,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Necromancer level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Necromancer level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/leech",
@@ -1039,7 +1078,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/negation-of-life",
@@ -1065,7 +1105,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/panic-the-dead",
@@ -1091,7 +1132,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Necromancer level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Necromancer level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/paralyzing-earth",
@@ -1117,7 +1159,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Necromancer level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Necromancer level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/plague",
@@ -1143,7 +1186,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m18s at level 50 (formula 10, cap 13 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m18s at level 50 (formula 10, cap 13 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/necromancer/cast/poison-bolt",
@@ -1169,7 +1213,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m24s at level 50 (formula 2, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m24s at level 50 (formula 2, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/pyrocruor",
@@ -1195,7 +1240,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/necromancer/cast/root",
@@ -1221,7 +1267,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Necromancer level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Necromancer level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/scent-of-darkness",
@@ -1247,7 +1294,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/scent-of-dusk",
@@ -1273,7 +1321,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/scent-of-shadow",
@@ -1299,7 +1348,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/scent-of-terris",
@@ -1325,7 +1375,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/scourge",
@@ -1351,7 +1402,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/necromancer/cast/screaming-terror",
@@ -1377,7 +1429,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/necromancer/cast/shackle-of-bone",
@@ -1403,7 +1456,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 17. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 17. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/shackle-of-spirit",
@@ -1429,7 +1483,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/shadow-vortex",
@@ -1455,7 +1510,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/siphon-strength",
@@ -1481,7 +1537,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/splurt",
@@ -1507,7 +1564,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/spook-the-dead",
@@ -1533,7 +1591,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/succussion-of-shadows",
@@ -1559,7 +1618,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:1"
     },
     {
       "id": "debuffs/necromancer/cast/surge-of-enfeeblement",
@@ -1585,7 +1645,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~6m00s at level 50 (formula 10, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~6m00s at level 50 (formula 10, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/necromancer/cast/thrall-of-bones",
@@ -1611,7 +1672,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Necromancer level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/necromancer/cast/trepidation",
@@ -1637,7 +1699,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/unholy-voice",
@@ -1663,7 +1726,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/necromancer/cast/vampiric-curse",
@@ -1689,7 +1753,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 29. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 29. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/venom-of-the-snake",
@@ -1715,7 +1780,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Necromancer level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/necromancer/cast/vexing-mordinia",
@@ -1741,7 +1807,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/necromancer/cast/wave-of-enfeeblement",
@@ -1767,7 +1834,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/necromancer/cast/zevfeer-s-theft-of-vitae",
@@ -1793,7 +1861,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar."
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Necromancer level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/auspice",
@@ -1824,7 +1893,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/beguile-undead",
@@ -1855,7 +1925,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/bond-of-death",
@@ -1886,7 +1957,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/cajole-undead",
@@ -1917,7 +1989,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/cessation-of-cor",
@@ -1948,7 +2021,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/cessation-of-life",
@@ -1979,7 +2053,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/chill-bones",
@@ -2010,7 +2085,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/chilling-embrace",
@@ -2041,7 +2117,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/crippling-claudication",
@@ -2072,7 +2149,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/dark-soul",
@@ -2103,7 +2181,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:116"
     },
     {
       "id": "debuffs/worn/degeneration",
@@ -2134,7 +2213,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/devouring-darkness",
@@ -2165,7 +2245,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/dominate-undead",
@@ -2196,7 +2277,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/eidolon-voice",
@@ -2227,7 +2309,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/enslave-death",
@@ -2258,7 +2341,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/eternities-torment",
@@ -2289,7 +2373,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/funeral-pyre-of-kelador",
@@ -2320,7 +2405,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/hungry-earth",
@@ -2351,7 +2437,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/ignite-blood",
@@ -2382,7 +2469,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/ignite-bones",
@@ -2413,7 +2501,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/imprecation",
@@ -2444,7 +2533,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:116"
     },
     {
       "id": "debuffs/worn/insidious-retrogression",
@@ -2475,7 +2565,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:79"
     },
     {
       "id": "debuffs/worn/leech",
@@ -2506,7 +2597,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/poison-bolt",
@@ -2537,7 +2629,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/pyrocruor",
@@ -2568,7 +2661,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:0"
     },
     {
       "id": "debuffs/worn/scent-of-darkness",
@@ -2599,7 +2693,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/scent-of-dusk",
@@ -2630,7 +2725,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/scent-of-shadow",
@@ -2661,7 +2757,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/scent-of-terris",
@@ -2692,7 +2789,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:36"
     },
     {
       "id": "debuffs/worn/screaming-terror",
@@ -2723,7 +2821,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:31"
     },
     {
       "id": "debuffs/worn/shackle-of-bone",
@@ -2754,7 +2853,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/shackle-of-spirit",
@@ -2785,7 +2885,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/splurt",
@@ -2816,7 +2917,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/succussion-of-shadows",
@@ -2847,7 +2949,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:1"
     },
     {
       "id": "debuffs/worn/surge-of-enfeeblement",
@@ -2878,7 +2981,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:4"
     },
     {
       "id": "debuffs/worn/thrall-of-bones",
@@ -2909,7 +3013,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:22"
     },
     {
       "id": "debuffs/worn/unholy-voice",
@@ -2940,7 +3045,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/vexing-mordinia",
@@ -2971,7 +3077,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     },
     {
       "id": "debuffs/worn/zevfeer-s-theft-of-vitae",
@@ -3002,7 +3109,8 @@
       "classes": [
         "Necromancer"
       ],
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs."
+      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "icon": "spell:10"
     }
   ]
 }

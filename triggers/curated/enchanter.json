@@ -3,7 +3,8 @@
  "triggers": [
   {
    "id": "class/enchanter/cc/mez-landed",
-   "name": "Mez landed",
+      "name": "Mez landed",
+      "icon": "spell:31",
    "pattern": "^(.+) has been mesmerized\\.$",
    "enabled": true,
    "default_enabled": true,
@@ -24,7 +25,8 @@
   },
   {
    "id": "class/enchanter/cc/mesmerize-timer",
-   "name": "Mesmerize duration",
+      "name": "Mesmerize duration",
+      "icon": "spell:31",
    "pattern": "^You begin casting Mesmerize\\.",
    "enabled": true,
    "default_enabled": true,
@@ -47,7 +49,8 @@
   },
   {
    "id": "class/enchanter/cc/enthrall-timer",
-   "name": "Enthrall duration",
+      "name": "Enthrall duration",
+      "icon": "spell:31",
    "pattern": "^You begin casting Enthrall\\.",
    "enabled": true,
    "default_enabled": true,
@@ -69,7 +72,8 @@
   },
   {
    "id": "class/enchanter/cc/entrance-timer",
-   "name": "Entrance duration",
+      "name": "Entrance duration",
+      "icon": "spell:31",
    "pattern": "^You begin casting Entrance\\.",
    "enabled": true,
    "default_enabled": true,
@@ -91,7 +95,8 @@
   },
   {
    "id": "class/enchanter/cc/mez-worn-target",
-   "name": "Mez worn off target",
+      "name": "Mez worn off target",
+      "icon": "spell:31",
    "pattern": "^Your (Mesmerize|Enthrall|Entrance|Dazzle) spell has worn off(?: of (.+))?\\.",
    "enabled": true,
    "default_enabled": true,
@@ -122,7 +127,8 @@
   },
   {
    "id": "class/enchanter/cc/charm-broken",
-   "name": "Charm broke",
+      "name": "Charm broke",
+      "icon": "spell:22",
    "pattern": "^Your charm spell has worn off\\.",
    "enabled": true,
    "default_enabled": true,
@@ -149,7 +155,8 @@
   },
   {
    "id": "class/enchanter/cc/root-landed",
-   "name": "Root landed",
+      "name": "Root landed",
+      "icon": "spell:10",
    "pattern": "^(.+)'s feet adhere to the ground\\.",
    "enabled": true,
    "default_enabled": true,
@@ -178,7 +185,8 @@
   },
   {
    "id": "class/enchanter/debuffs/tash-landed",
-   "name": "Tash landed",
+      "name": "Tash landed",
+      "icon": "spell:36",
    "pattern": "^(.+) glances nervously about\\.",
    "enabled": true,
    "default_enabled": true,
@@ -198,7 +206,8 @@
   },
   {
    "id": "class/enchanter/buffs/clarity-on",
-   "name": "Clarity on you",
+      "name": "Clarity on you",
+      "icon": "spell:10",
    "pattern": "^A soft breeze slips through your mind\\.",
    "enabled": true,
    "default_enabled": true,
@@ -217,7 +226,8 @@
   },
   {
    "id": "class/enchanter/buffs/clarity-fading",
-   "name": "Clarity fading",
+      "name": "Clarity fading",
+      "icon": "spell:10",
    "pattern": "^The soft breeze fades\\.",
    "enabled": true,
    "default_enabled": true,
@@ -236,7 +246,8 @@
   },
   {
    "id": "class/enchanter/buffs/rune-fading",
-   "name": "Rune gone",
+      "name": "Rune gone",
+      "icon": "spell:55",
    "pattern": "^Your shielding fades\\.",
    "enabled": true,
    "default_enabled": true,
@@ -255,7 +266,8 @@
   },
   {
    "id": "class/enchanter/buffs/haste-landed",
-   "name": "Haste landed",
+      "name": "Haste landed",
+      "icon": "spell:11",
    "pattern": "^(.+) begins to move with wonderous rapidity\\.",
    "enabled": true,
    "default_enabled": true,

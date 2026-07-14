@@ -24,7 +24,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 30."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 30.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/berserker/cast/battle-cry-of-dravel",
@@ -49,7 +50,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 57."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 57.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/berserker/cast/blind-rage-discipline",
@@ -74,7 +76,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 58."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 58.",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/berserker/cast/burning-rage-discipline",
@@ -99,7 +102,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 60."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 60.",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/berserker/cast/cleaving-rage-discipline",
@@ -124,7 +128,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 54."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 54.",
+      "icon": "spell:169"
     },
     {
       "id": "buffs/berserker/cast/fearless-discipline",
@@ -149,7 +154,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 40."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 40.",
+      "icon": "spell:181"
     },
     {
       "id": "buffs/berserker/cast/focused-fury-discipline",
@@ -174,7 +180,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 57."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 57.",
+      "icon": "spell:183"
     },
     {
       "id": "buffs/berserker/cast/focused-will-discipline",
@@ -199,7 +206,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 10."
+      "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 10.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/berserker/cast/inspired-anger-discipline",
@@ -224,7 +232,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 53."
+      "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 53.",
+      "icon": "spell:184"
     },
     {
       "id": "buffs/berserker/cast/resistant-discipline",
@@ -249,7 +258,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Berserker level 30."
+      "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Berserker level 30.",
+      "icon": "spell:111"
     },
     {
       "id": "buffs/berserker/cast/war-cry",
@@ -274,7 +284,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 50."
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 50.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/battle-cry",
@@ -294,7 +305,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Wear-off message: \"The berserker energy fades.\" — shared by 5 spells in spells_us_str (3 castable; also: Battle Cry of Dravel, War Cry). Named after the alphabetically-first castable spell."
+      "comments": "Wear-off message: \"The berserker energy fades.\" — shared by 5 spells in spells_us_str (3 castable; also: Battle Cry of Dravel, War Cry). Named after the alphabetically-first castable spell.",
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/blind-rage-discipline",
@@ -314,7 +326,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Wear-off message: \"The blind rage fades.\""
+      "comments": "Wear-off message: \"The blind rage fades.\"",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/wear-off/burning-rage-discipline",
@@ -334,7 +347,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Wear-off message: \"The burning rage fades.\""
+      "comments": "Wear-off message: \"The burning rage fades.\"",
+      "icon": "spell:185"
     },
     {
       "id": "buffs/wear-off/cleaving-rage-discipline",
@@ -354,7 +368,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Wear-off message: \"The cleaving rage fades.\""
+      "comments": "Wear-off message: \"The cleaving rage fades.\"",
+      "icon": "spell:169"
     },
     {
       "id": "buffs/wear-off/focused-fury-discipline",
@@ -374,7 +389,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Wear-off message: \"The focused fury fades.\""
+      "comments": "Wear-off message: \"The focused fury fades.\"",
+      "icon": "spell:183"
     },
     {
       "id": "buffs/wear-off/inspired-anger-discipline",
@@ -394,7 +410,8 @@
       "classes": [
         "Berserker"
       ],
-      "comments": "Wear-off message: \"The inspired anger fades.\""
+      "comments": "Wear-off message: \"The inspired anger fades.\"",
+      "icon": "spell:184"
     }
   ]
 }

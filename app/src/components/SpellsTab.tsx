@@ -126,7 +126,7 @@ export default function SpellsTab({
 }: {
   /** Deep-link (ding digest → spell): prefill the query and land on the
    *  right segment. `seq` bumps so the same name can be re-requested. */
-  searchRequest?: { query: string; isAbility?: boolean; seq: number } | null;
+  searchRequest?: { query: string; isAbility?: boolean; seq: number; targetId?: number } | null;
 }) {
   // Spells/Abilities segment. Abilities used to be a separate sidebar tab;
   // honor old ?tab=abilities URLs by starting on that segment, otherwise
@@ -143,14 +143,16 @@ export default function SpellsTab({
 
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const pendingTargetId = useRef<number | null>(null);
   // Deep-link prefill: adopt the requested query when the seq changes, land
   // on the requested segment, and focus the search box so the user can
   // refine immediately.
   useEffect(() => {
     if (searchRequest && searchRequest.query) {
       setQuery(searchRequest.query);
+      pendingTargetId.current = searchRequest.targetId ?? null;
       setKind(searchRequest.isAbility ? "abilities" : "spells");
-      inputRef.current?.focus();
+      if (searchRequest.targetId == null) inputRef.current?.focus();
     }
   }, [searchRequest?.seq]);
 
@@ -205,6 +207,13 @@ export default function SpellsTab({
       }),
     deps: [query, isAbility, classes, maxLevel, sort, descending],
   });
+
+  useEffect(() => {
+    const targetId = pendingTargetId.current;
+    if (targetId == null || !rows.some((row) => row.id === targetId)) return;
+    pendingTargetId.current = null;
+    if (expanded !== targetId) toggleExpand(targetId);
+  }, [expanded, rows, searchRequest?.seq, toggleExpand]);
 
   useEffect(() => {
     dropsZones().then(setZones).catch(() => {});

@@ -109,6 +109,7 @@ pub enum TimerFireKind {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TimerFire {
     pub name: String,
+    pub icon: Option<String>,
     pub kind: TimerFireKind,
     /// Overlay lane of the timer that fired (see [`TimerLane`]).
     pub lane: TimerLane,
@@ -129,6 +130,7 @@ pub struct TimerFire {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TimerSnapshot {
     pub name: String,
+    pub icon: Option<String>,
     pub duration_secs: u64,
     /// Seconds already elapsed; the frontend derives remaining = duration
     /// − elapsed and rebuilds its countdown from its own clock.
@@ -147,11 +149,13 @@ pub struct TriggerFireInfo {
     /// The trigger's effective id (see [`Trigger::effective_id`]).
     pub id: String,
     pub name: String,
+    pub icon: Option<String>,
     pub category: Option<String>,
 }
 
 struct ActiveTimer {
     name: String,
+    icon: Option<String>,
     duration_secs: u64,
     expires_at: i64,
     warn_at_secs: Option<u64>,
@@ -1229,6 +1233,7 @@ impl TriggerEngine {
             let fire = TriggerFireInfo {
                 id: ct.trigger.effective_id(),
                 name: ct.trigger.name.clone(),
+                icon: ct.trigger.icon.clone(),
                 category: ct.trigger.category.clone(),
             };
             fired.push(fire.clone());
@@ -1247,7 +1252,7 @@ impl TriggerEngine {
                         fields,
                         config,
                     } => {
-                        let fields = fields
+                        let mut fields: BTreeMap<String, String> = fields
                             .iter()
                             .map(|(key, value)| {
                                 (
@@ -1256,6 +1261,11 @@ impl TriggerEngine {
                                 )
                             })
                             .collect();
+                        if !fields.contains_key("icon") {
+                            if let Some(icon) = &ct.trigger.icon {
+                                fields.insert("icon".to_string(), icon.clone());
+                            }
+                        }
                         sink.overlay(OverlayFire {
                             overlay,
                             fields,
@@ -1319,6 +1329,7 @@ impl TriggerEngine {
                         sink.start_timer(&name, shown_duration, *warn_at_secs, lane, lead_in);
                         new_timers.push(ActiveTimer {
                             name,
+                            icon: ct.trigger.icon.clone(),
                             duration_secs: shown_duration,
                             expires_at,
                             warn_at_secs: *warn_at_secs,
@@ -1407,6 +1418,7 @@ impl TriggerEngine {
                 }
                 Some(TimerSnapshot {
                     name: t.name.clone(),
+                    icon: t.icon.clone(),
                     duration_secs: t.duration_secs,
                     elapsed_secs: t.duration_secs.saturating_sub(remaining as u64),
                     warn_at_secs: t.warn_at_secs,
@@ -1430,6 +1442,7 @@ impl TriggerEngine {
                     timer.lands_at = None;
                     fires.push(TimerFire {
                         name: timer.name.clone(),
+                        icon: timer.icon.clone(),
                         kind: TimerFireKind::Landed,
                         lane: timer.lane,
                         duration_secs: None,
@@ -1444,6 +1457,7 @@ impl TriggerEngine {
                     timer.warned = true;
                     fires.push(TimerFire {
                         name: timer.name.clone(),
+                        icon: timer.icon.clone(),
                         kind: TimerFireKind::Warn,
                         lane: timer.lane,
                         duration_secs: None,
@@ -1456,6 +1470,7 @@ impl TriggerEngine {
             if !timer.stopwatch && now_ts >= timer.expires_at {
                 fires.push(TimerFire {
                     name: timer.name.clone(),
+                    icon: timer.icon.clone(),
                     kind: TimerFireKind::Expire,
                     lane: timer.lane,
                     text: timer.expire_text.clone(),
@@ -1476,6 +1491,7 @@ impl TriggerEngine {
                     timer.warned = false;
                     fires.push(TimerFire {
                         name: timer.name.clone(),
+                        icon: timer.icon.clone(),
                         kind: TimerFireKind::Restarted,
                         lane: timer.lane,
                         text: None,
