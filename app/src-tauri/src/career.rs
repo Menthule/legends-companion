@@ -90,6 +90,11 @@ fn active_identity(cfg: &AppConfig) -> Result<(String, String), String> {
     Err("no active character configured (set a log file in Settings first)".to_string())
 }
 
+fn active_state_identity(state: &AppState) -> Result<(String, String), String> {
+    let config = lock(&state.config, "config")?;
+    active_identity(&config)
+}
+
 /// Session-split gap for the importer: `careerGapMins` from settings.json,
 /// `0`/absent = the store default (30 min). No Settings UI yet — the field
 /// exists so the split is user-configurable without a rebuild.
@@ -353,7 +358,7 @@ pub fn career_summary(
     state: State<'_, AppState>,
 ) -> Result<Option<CareerSummary>, String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     store.summary(&character, &server).map_err(|e| e.to_string())
@@ -368,7 +373,7 @@ pub fn career_sessions(
     offset: u32,
 ) -> Result<CareerPage<CareerSession>, String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     let (total, rows) = store
@@ -384,7 +389,7 @@ pub fn career_level_timeline(
     state: State<'_, AppState>,
 ) -> Result<Vec<CareerLevelUp>, String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     store
@@ -402,7 +407,7 @@ pub fn career_loot(
     offset: u32,
 ) -> Result<CareerPage<CareerLootRow>, String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     let (total, rows) = store
@@ -421,7 +426,7 @@ pub fn career_mob_kills(
     offset: u32,
 ) -> Result<CareerPage<CareerMobKills>, String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     let (total, rows) = store
@@ -438,7 +443,7 @@ pub fn career_mob_drops(
     mob: String,
 ) -> Result<Vec<CareerMobDrop>, String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     store
@@ -451,7 +456,7 @@ pub fn career_mob_drops(
 #[tauri::command(async)]
 pub fn career_reset(app: AppHandle, state: State<'_, AppState>) -> Result<(), String> {
     ensure_career(&app, state.inner())?;
-    let (character, server) = active_identity(&lock(&state.config, "config")?)?;
+    let (character, server) = active_state_identity(state.inner())?;
     let mut guard = lock(&state.career, "career store")?;
     let store = guard.as_mut().ok_or(NO_CAREER)?;
     let removed = store
