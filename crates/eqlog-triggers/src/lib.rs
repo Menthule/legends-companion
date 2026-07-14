@@ -15,13 +15,13 @@ pub mod storage;
 pub use classdetect::{detect_classes, ClassDetection};
 pub use engine::{
     apply_channel_override, ActionSink, OverlayFire, TimerFire, TimerFireKind, TriggerEngine,
-    TriggerFireInfo,
+    TriggerFireInfo, TriggerSignal,
 };
 pub use gina::{import_gtp, GinaImport, GinaImportError};
 pub use model::{
     duration_ticks_at_level, infer_timer_lane, Action, ChannelOverride, CharacterProfile, Loadout,
-    ProfileError, TimerLane, TimerStartMode, TimerTiming, Trigger, TriggerPack, TriggerSource,
-    DEFAULT_LOADOUT_NAME,
+    ProfileError, TimerLane, TimerStartMode, TimerTiming, Trigger, TriggerEvent, TriggerPack,
+    TriggerSource, DEFAULT_LOADOUT_NAME,
 };
 pub use packs::{load_packs, LoadedPacks};
 pub use profile::{effective_enabled, effective_enabled_in_loadout, zone_scope_for};

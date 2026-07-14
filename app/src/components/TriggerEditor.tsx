@@ -70,6 +70,32 @@ const TEMPLATE_CTX: TemplateContext = {
   },
 };
 
+const WATCH_EVENT_FIELDS: CaptureChip[] = [
+  { group: 0, label: "item", token: "${item}" },
+  { group: 0, label: "quantity", token: "${quantity}" },
+  { group: 0, label: "applied quantity", token: "${appliedQuantity}" },
+  { group: 0, label: "corpse", token: "${corpse}" },
+  { group: 0, label: "remaining", token: "${remaining}" },
+  { group: 0, label: "quests", token: "${quests}" },
+  { group: 0, label: "completed", token: "${completed}" },
+];
+
+const WATCH_EVENT_PREVIEW: Record<string, string> = {
+  item: "Large Sky Sapphire",
+  quantity: "1",
+  appliedQuantity: "1",
+  corpse: "Eye of Veeshan",
+  remaining: "2",
+  quests: "Test of Tone",
+  completed: "false",
+};
+
+function expandWatchEventPreview(template: string): string {
+  return template.replace(/\$\{([a-zA-Z][a-zA-Z0-9_]*)\}/g, (_, key: string) =>
+    WATCH_EVENT_PREVIEW[key] ?? "",
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Action-row model (1:1 with Trigger.actions, order preserved)
 // ---------------------------------------------------------------------------
@@ -693,6 +719,7 @@ export default function TriggerEditor({
   const [previewState, setPreviewState] = useState<
     Record<number, "playing" | "failed">
   >({});
+  const signalEvent = initial?.event ?? null;
   const dirty = useRef({
     name: init.dirty,
     category: init.dirty,
@@ -811,6 +838,7 @@ export default function TriggerEditor({
   }, [mode, templateId, params, sounds]);
 
   const chips: CaptureChip[] = useMemo(() => {
+    if (signalEvent === "watched-loot") return WATCH_EVENT_FIELDS;
     if (template) return template.captures(params, variantIx);
     // Advanced mode: generic labels for however many groups the pattern has.
     const groups = (advPattern.match(/\((?!\?)/g) ?? []).length;
@@ -819,18 +847,19 @@ export default function TriggerEditor({
       label: `capture ${i + 1}`,
       token: `$\{${i + 1}}`,
     }));
-  }, [template, params, variantIx, advPattern]);
+  }, [signalEvent, template, params, variantIx, advPattern]);
 
   // Compile state, independent of the test line — surfaces regex errors in
   // the Advanced section itself (the test box may be collapsed).
   const compileError = useMemo(() => {
+    if (signalEvent) return null;
     try {
       compilePreviewRegex(expandPatternJs(pattern, character), caseIns);
       return null;
     } catch (e) {
       return e instanceof Error ? e.message : String(e);
     }
-  }, [pattern, character, caseIns]);
+  }, [signalEvent, pattern, character, caseIns]);
 
   // Duplicate-pattern hint: the built pattern already fires elsewhere.
   const dupe = useMemo(() => {
@@ -850,6 +879,7 @@ export default function TriggerEditor({
 
   // Live test evaluation of the FIRST line (drives captures + will-do preview).
   const test = useMemo(() => {
+    if (signalEvent) return null;
     let re: RegExp;
     try {
       re = compilePreviewRegex(expandPatternJs(pattern, character), caseIns);
@@ -870,7 +900,7 @@ export default function TriggerEditor({
           text: "Pattern does not match this line",
           match: null,
         };
-  }, [pattern, character, caseIns, testLines]);
+  }, [signalEvent, pattern, character, caseIns, testLines]);
 
   // Batch evaluation across all pasted lines (P34) — a match count + per-line
   // hit/miss list, so anti-spam generalization can be tuned on real volume.
@@ -892,7 +922,12 @@ export default function TriggerEditor({
 
   function willDo(row: RowState, match: RegExpExecArray | null): string {
     const render = (tpl: string) =>
-      expandTemplateJs(tpl, match, character || "you", nowSecs);
+      expandTemplateJs(
+        signalEvent === "watched-loot" ? expandWatchEventPreview(tpl) : tpl,
+        match,
+        character || "you",
+        nowSecs,
+      );
     switch (row.kind) {
       case "speak":
         return `Will say: “${render(row.text)}”`;
@@ -1143,7 +1178,7 @@ export default function TriggerEditor({
       fail("Give the trigger a name.");
       return;
     }
-    if (!pattern.trim()) {
+    if (!signalEvent && !pattern.trim()) {
       fail(
         template
           ? "Fill in the highlighted fields above — the pattern is empty."
@@ -1151,13 +1186,15 @@ export default function TriggerEditor({
       );
       return;
     }
-    try {
-      compilePreviewRegex(expandPatternJs(pattern, character), caseIns);
-    } catch (e) {
-      fail(
-        `The pattern does not compile: ${e instanceof Error ? e.message : String(e)}`,
-      );
-      return;
+    if (!signalEvent) {
+      try {
+        compilePreviewRegex(expandPatternJs(pattern, character), caseIns);
+      } catch (e) {
+        fail(
+          `The pattern does not compile: ${e instanceof Error ? e.message : String(e)}`,
+        );
+        return;
+      }
     }
     const actions = actionsFromRows(rows);
     if (typeof actions === "string") {
@@ -1911,38 +1948,54 @@ export default function TriggerEditor({
       <div className="ted-section">
         <div className="ted-sec-head">
           <span className="section-title">When</span>
-          <button
-            type="button"
-            className="ghost small"
-            aria-expanded={advOpen}
-            onClick={() => setAdvOpen((v) => !v)}
-          >
-            Advanced {advOpen ? "▾" : "▸"}
-          </button>
+          {!signalEvent && (
+            <button
+              type="button"
+              className="ghost small"
+              aria-expanded={advOpen}
+              onClick={() => setAdvOpen((v) => !v)}
+            >
+              Advanced {advOpen ? "▾" : "▸"}
+            </button>
+          )}
         </div>
-        <select
-          className="ted-template"
-          value={mode === "advanced" ? "__custom__" : templateId}
-          aria-label="When"
-          onChange={(e) => pickTemplate(e.target.value)}
-        >
-          {TEMPLATES.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.label}
-            </option>
-          ))}
-          <option value="__custom__">Custom pattern (regex)…</option>
-        </select>
+        {signalEvent === "watched-loot" ? (
+          <div className="ted-event-source">
+            <strong>Watched item is looted</strong>
+            <span>
+              Fires only for your live, kept loot after it matches this
+              character&apos;s watched items.
+            </span>
+            <div className="hint">
+              Available fields: ${"{item}"}, ${"{quantity}"}, ${"{corpse}"},
+              ${"{remaining}"}, and ${"{quests}"}.
+            </div>
+          </div>
+        ) : (
+          <>
+            <select
+              className="ted-template"
+              value={mode === "advanced" ? "__custom__" : templateId}
+              aria-label="When"
+              onChange={(e) => pickTemplate(e.target.value)}
+            >
+              {TEMPLATES.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.label}
+                </option>
+              ))}
+              <option value="__custom__">Custom pattern (regex)…</option>
+            </select>
 
-        {template && template.params.length > 0 && (
-          <div className="ted-params">{template.params.map(renderParam)}</div>
-        )}
-        {template && (
-          <div className="ted-sentence">{template.sentence(params)}</div>
-        )}
+            {template && template.params.length > 0 && (
+              <div className="ted-params">{template.params.map(renderParam)}</div>
+            )}
+            {template && (
+              <div className="ted-sentence">{template.sentence(params)}</div>
+            )}
 
-        {(advOpen || mode === "advanced") && (
-          <div className="ted-advanced">
+            {(advOpen || mode === "advanced") && (
+              <div className="ted-advanced">
             {mode === "builder" ? (
               <>
                 <label className="field">
@@ -2020,7 +2073,9 @@ export default function TriggerEditor({
                 )}
               </>
             )}
-          </div>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -2113,7 +2168,7 @@ export default function TriggerEditor({
         </div>
       </div>
 
-      <div className="ted-section">
+      {!signalEvent && <div className="ted-section">
         <div className="ted-sec-head">
           <button
             type="button"
@@ -2204,7 +2259,7 @@ export default function TriggerEditor({
             </div>
           </div>
         )}
-      </div>
+      </div>}
 
       {dupe && (
         <div className="ted-warn ted-dupe" role="status">

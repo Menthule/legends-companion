@@ -57,8 +57,12 @@ import { useDismissOnOutsidePointer } from "../hooks";
 import { openMobs, openQuests, openRecipes } from "../lib/deepLinks";
 import {
   isWishlisted,
+  loadWishlist,
   onWishlistChanged,
+  removeWatchedItem,
   toggleWishlist,
+  updateWatchGoal,
+  watchRemainingQuantity,
 } from "../lib/wishlist";
 
 const COLUMNS_KEY = "eqlogs.drops.columns.v2";
@@ -291,6 +295,7 @@ export default function DropsTab({
   const [visibleCols, setVisibleCols] = useState<string[]>(() => loadColumns());
   const [pickerOpen, setPickerOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [watchManagerOpen, setWatchManagerOpen] = useState(false);
   const [suggestOpen, setSuggestOpen] = useState(false);
   const [suggestIdx, setSuggestIdx] = useState(0);
   const [sort, setSort] = useState<SortKey>("name");
@@ -309,6 +314,10 @@ export default function DropsTab({
   // removals from the Fights-tab panel (localStorage + custom-event sync).
   const [, bumpWishlist] = useState(0);
   useEffect(() => onWishlistChanged(() => bumpWishlist((n) => n + 1)), []);
+  const watchedItems = loadWishlist();
+  const runWatchMutation = (operation: Promise<unknown>) => {
+    operation.catch((watchError) => setError(String(watchError)));
+  };
 
   const hasFilters =
     slotMask !== 0 ||
@@ -862,12 +871,90 @@ export default function DropsTab({
             </div>
           )}
         </div>
+        <button
+          className={`ghost small${watchManagerOpen ? " active" : ""}`}
+          onClick={() => {
+            setWatchManagerOpen((open) => !open);
+            setFiltersOpen(false);
+            setPickerOpen(false);
+          }}
+          aria-expanded={watchManagerOpen}
+        >
+          Watched ({watchedItems.length})
+        </button>
         {(hasFilters || query) && (
           <button className="ghost small" onClick={clearAll}>
             Clear
           </button>
         )}
       </div>
+      {watchManagerOpen && (
+        <section className="watch-manager" aria-label="Watched items">
+          <header>
+            <div>
+              <strong>Watched items</strong>
+              <span>Loot alerts run through the Watched item looted trigger.</span>
+            </div>
+            <button className="ghost small" onClick={() => setWatchManagerOpen(false)}>Close</button>
+          </header>
+          {watchedItems.length === 0 ? (
+            <div className="hint">Star an item below, or watch quest requirements from Quests.</div>
+          ) : watchedItems.map((item) => (
+            <div className="watch-manager-item" key={item.key}>
+              <button
+                className="watch-manager-name"
+                onClick={() => {
+                  setQuery(item.name);
+                  resetPaging();
+                  setWatchManagerOpen(false);
+                }}
+                title="Find this item in Drops"
+              >
+                {item.name}
+              </button>
+              <span className="num">{watchRemainingQuantity(item)} remaining</span>
+              <div className="watch-manager-goals">
+                {item.goals.map((goal) => (
+                  <div key={`${goal.id}:${goal.remainingQuantity}`}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={goal.enabled}
+                        onChange={(event) => runWatchMutation(updateWatchGoal(item.name, goal.id, { enabled: event.target.checked }))}
+                      />
+                      <span>{goal.source.kind === "quest" ? goal.source.questName : "Manual watch"}</span>
+                    </label>
+                    <label className="watch-manager-quantity">
+                      Remaining
+                      <input
+                        type="number"
+                        min={0}
+                        defaultValue={goal.remainingQuantity}
+                        aria-label={`Remaining quantity for ${item.name}`}
+                        onBlur={(event) => {
+                          const value = Math.max(0, Math.floor(Number(event.target.value) || 0));
+                          if (value !== goal.remainingQuantity) {
+                            runWatchMutation(updateWatchGoal(item.name, goal.id, { remainingQuantity: value }));
+                          }
+                        }}
+                      />
+                    </label>
+                    <label title="Remove this goal when its quantity is complete">
+                      <input
+                        type="checkbox"
+                        checked={goal.autoRemove}
+                        onChange={(event) => runWatchMutation(updateWatchGoal(item.name, goal.id, { autoRemove: event.target.checked }))}
+                      />
+                      Auto-remove
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <button className="ghost small" onClick={() => runWatchMutation(removeWatchedItem(item.name))}>Remove</button>
+            </div>
+          ))}
+        </section>
+      )}
       {chips.length > 0 && (
         <div className="drops-chips">
           {chips.map((c) => (
@@ -965,13 +1052,13 @@ export default function DropsTab({
                       }
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggleWishlist(it.name);
+                        runWatchMutation(toggleWishlist(it.name));
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           e.stopPropagation();
-                          toggleWishlist(it.name);
+                          runWatchMutation(toggleWishlist(it.name));
                         }
                       }}
                     >

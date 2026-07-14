@@ -332,6 +332,7 @@ fn build_trigger(
             name,
             icon: None,
             pattern,
+            event: None,
             enabled: true,
             actions,
             category,

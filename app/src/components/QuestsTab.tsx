@@ -40,6 +40,15 @@ import { SearchSelect } from "./SearchSelect";
 import Empty from "./Empty";
 import Pager from "./Pager";
 import type { QuestItemReference } from "../types";
+import {
+  addQuestWatches,
+  loadWishlist,
+  onWishlistChanged,
+  questGoal,
+  reconcileWishlistInventory,
+  removeQuestWatch,
+  removeQuestWatches,
+} from "../lib/wishlist";
 
 const PAGE_SIZE = 50;
 
@@ -89,6 +98,16 @@ export default function QuestsTab({
   const [liveZoneName] = useLiveZoneName();
   const inputRef = useRef<HTMLInputElement>(null);
   const inventoryStale = inventory != null && Date.now() - inventory.sourceModifiedMs > 24 * 60 * 60 * 1000;
+  const [, bumpWatches] = useState(0);
+  const watchRevision = loadWishlist()
+    .flatMap((item) => item.goals.map((goal) => `${item.key}:${goal.id}`))
+    .join("|");
+
+  useEffect(() => onWishlistChanged(() => bumpWatches((value) => value + 1)), []);
+
+  useEffect(() => {
+    if (inventory) void reconcileWishlistInventory(inventory).catch(() => {});
+  }, [inventory, watchRevision]);
 
   useEffect(() => {
     void loadQuestCatalog().then(setCatalog);
@@ -410,7 +429,81 @@ function QuestRow({
   itemReferences: Map<string, QuestItemReference>;
 }) {
   const requirements = matchQuestRequirements(quest.requirements, inventory);
-  const completed = requirements.filter((requirement) => requirement.satisfied).length;
+  const groupedRequirements = [...requirements.reduce((groups, requirement) => {
+    const key = normalizeQuestName(requirement.itemName);
+    const existing = groups.get(key);
+    if (existing) {
+      existing.quantity += requirement.quantity;
+      existing.owned = Math.max(existing.owned, requirement.owned);
+      existing.satisfied = existing.owned >= existing.quantity;
+    } else {
+      groups.set(key, { ...requirement });
+    }
+    return groups;
+  }, new Map<string, (typeof requirements)[number]>()).values()];
+  const completed = groupedRequirements.filter((requirement) => requirement.satisfied).length;
+  const missing = groupedRequirements.filter((requirement) => !requirement.satisfied);
+  const watchedCount = groupedRequirements.filter((requirement) => questGoal(requirement.itemName, quest.id)).length;
+  const hasUnwatchedMissing = missing.some((requirement) => !questGoal(requirement.itemName, quest.id));
+  const [watchBusy, setWatchBusy] = useState(false);
+  const [watchError, setWatchError] = useState("");
+
+  const watchMissing = async () => {
+    setWatchBusy(true);
+    setWatchError("");
+    try {
+      await addQuestWatches(missing.map((requirement) => ({
+        itemName: requirement.itemName,
+        questId: quest.id,
+        questName: quest.name,
+        requiredQuantity: requirement.quantity,
+        ownedQuantity: requirement.owned,
+        autoRemove: true,
+      })));
+    } catch (error) {
+      setWatchError(String(error));
+    } finally {
+      setWatchBusy(false);
+    }
+  };
+
+  const removeAll = async () => {
+    setWatchBusy(true);
+    setWatchError("");
+    try {
+      await removeQuestWatches(quest.id);
+    } catch (error) {
+      setWatchError(String(error));
+    } finally {
+      setWatchBusy(false);
+    }
+  };
+
+  const toggleRequirement = async (
+    requirement: (typeof requirements)[number],
+    watched: boolean,
+  ) => {
+    setWatchBusy(true);
+    setWatchError("");
+    try {
+      if (watched) {
+        await removeQuestWatch(requirement.itemName, quest.id);
+      } else {
+        await addQuestWatches([{
+          itemName: requirement.itemName,
+          questId: quest.id,
+          questName: quest.name,
+          requiredQuantity: requirement.quantity,
+          ownedQuantity: requirement.owned,
+          autoRemove: true,
+        }]);
+      }
+    } catch (error) {
+      setWatchError(String(error));
+    } finally {
+      setWatchBusy(false);
+    }
+  };
   return (
     <article className="quest-row-card">
       <header>
@@ -429,19 +522,51 @@ function QuestRow({
         <div className="quest-requirements">
           <div className="quest-requirements-head">
             <strong>Required items</strong>
-            <span>{inventory ? `${completed}/${requirements.length} ready` : `${requirements.length} items`}</span>
+            <div className="quest-watch-actions">
+              <span>{inventory ? `${completed}/${groupedRequirements.length} ready` : `${groupedRequirements.length} items`}</span>
+              {missing.length > 0 && hasUnwatchedMissing && (
+                <button className="ghost small" disabled={watchBusy} onClick={() => void watchMissing()}>
+                  Watch missing ({missing.length})
+                </button>
+              )}
+              {watchedCount > 0 && (
+                <button className="ghost small" disabled={watchBusy} onClick={() => void removeAll()}>
+                  Remove watches
+                </button>
+              )}
+            </div>
           </div>
-          {requirements.map((requirement, index) => (
-            <label className={requirement.satisfied ? "complete" : ""} key={`${requirement.itemName}:${index}`}>
-              <input type="checkbox" checked={requirement.satisfied} readOnly disabled />
+          {requirements.map((requirement, index) => {
+            const grouped = groupedRequirements.find((candidate) =>
+              normalizeQuestName(candidate.itemName) === normalizeQuestName(requirement.itemName)) ?? requirement;
+            const watched = questGoal(grouped.itemName, quest.id) !== null;
+            return (
+            <div className={`quest-requirement-row${grouped.satisfied ? " complete" : ""}`} key={`${requirement.itemName}:${index}`}>
+              <input type="checkbox" checked={grouped.satisfied} readOnly disabled />
               <span>{requirement.itemName}</span>
-              <strong>{inventory ? `${requirement.owned}/${requirement.quantity}` : `x${requirement.quantity}`}</strong>
+              <strong>{inventory ? `${grouped.owned}/${grouped.quantity}` : `x${grouped.quantity}`}</strong>
+              <button
+                className={`quest-watch-toggle${watched ? " on" : ""}`}
+                title={watched
+                  ? `Stop watching ${requirement.itemName} for this quest`
+                  : grouped.satisfied
+                    ? `${requirement.itemName} is already available`
+                    : `Watch ${requirement.itemName} for this quest`}
+                aria-label={watched ? `Stop watching ${requirement.itemName}` : `Watch ${requirement.itemName}`}
+                aria-pressed={watched}
+                disabled={watchBusy || (grouped.satisfied && !watched)}
+                onClick={() => void toggleRequirement(grouped, watched)}
+              >
+                {watched ? "★" : "☆"}
+              </button>
               {requirement.locations.length > 0 && <small>Owned: {requirement.locations.join(", ")}</small>}
               <small className="quest-drop-source">
                 Drops: {questDropSourceSummary(itemReferences.get(normalizeQuestName(requirement.itemName)))}
               </small>
-            </label>
-          ))}
+            </div>
+            );
+          })}
+          {watchError && <div className="quest-watch-error">{watchError}</div>}
         </div>
       )}
       {quest.rewards.length > 0 && (

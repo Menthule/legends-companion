@@ -54,6 +54,16 @@ describe("overlay registry", () => {
     });
     expect(overlayDefaults("future-overlay")).toEqual({ fields: {}, config: {} });
   });
+
+  it("offers the loot chest as an Impact action style", () => {
+    const style = getOverlayDefinition("impact")?.config.find(
+      (field) => field.key === "style",
+    );
+    expect(style?.options).toContainEqual({
+      value: "loot-chest",
+      label: "Loot chest",
+    });
+  });
 });
 
 describe("overlay payload interpretation", () => {

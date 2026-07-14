@@ -25,6 +25,18 @@ pub enum TriggerSource {
     Shared,
 }
 
+/// A structured application event that can fire a trigger without matching
+/// raw log text. Absent on legacy triggers, which continue to use `pattern`.
+///
+/// Event-specific eligibility (for example, whether a looted item is on the
+/// active character's watch list) belongs to the host. The host submits a
+/// [`crate::engine::TriggerSignal`] only after that typed condition is true.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum TriggerEvent {
+    WatchedLoot,
+}
+
 fn is_user_source(source: &TriggerSource) -> bool {
     *source == TriggerSource::User
 }
@@ -42,6 +54,11 @@ pub struct Trigger {
     /// Regex applied to the message portion of each log line. Supports
     /// GINA-style tokens ({C} = character name) expanded before compile.
     pub pattern: String,
+    /// Structured event source. `None` preserves the legacy raw-line regex
+    /// behavior; when present, `pattern` is retained for wire compatibility
+    /// but is not compiled or evaluated.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub event: Option<TriggerEvent>,
     #[serde(default = "default_true")]
     pub enabled: bool,
     pub actions: Vec<Action>,
@@ -103,6 +120,7 @@ impl Trigger {
             name: name.into(),
             icon: None,
             pattern: pattern.into(),
+            event: None,
             enabled: true,
             actions,
             category: None,
@@ -702,6 +720,7 @@ mod tests {
                     name: "stun".into(),
                     icon: Some("spell:21".into()),
                     pattern: "^You are stunned!".into(),
+                    event: None,
                     enabled: true,
                     actions: vec![Action::Speak {
                         template: "stunned".into(),
@@ -765,11 +784,26 @@ mod tests {
         assert!(t.case_insensitive);
         assert!(t.category.is_none());
         assert!(t.comments.is_none());
+        assert_eq!(t.event, None);
         // v2 fields default: id absent, all classes, on by default, user-made.
         assert!(t.id.is_none());
         assert!(t.classes.is_empty());
         assert!(t.default_enabled);
         assert_eq!(t.source, TriggerSource::User);
+    }
+
+    #[test]
+    fn structured_event_round_trips_and_legacy_serialization_stays_sparse() {
+        let legacy = Trigger::new("legacy", "^line$", Vec::new());
+        let legacy_json = serde_json::to_value(&legacy).unwrap();
+        assert!(legacy_json.get("event").is_none());
+
+        let mut typed = Trigger::new("watched", "", Vec::new());
+        typed.event = Some(TriggerEvent::WatchedLoot);
+        let typed_json = serde_json::to_value(&typed).unwrap();
+        assert_eq!(typed_json["event"], "watched-loot");
+        let decoded: Trigger = serde_json::from_value(typed_json).unwrap();
+        assert_eq!(decoded.event, Some(TriggerEvent::WatchedLoot));
     }
 
     #[test]

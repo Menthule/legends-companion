@@ -14,6 +14,7 @@ import {
   type ImpactPayload,
   type TriggerOverlayPayload,
 } from "../types";
+import { ImpactPresentation } from "./ImpactPresentation";
 import OverlayShell from "./OverlayShell";
 
 // How long an impact lingers before it fades out.
@@ -27,27 +28,11 @@ interface Shown {
   leaving: boolean;
 }
 
-/** Inline slab medal for badge/medal styles (CSP blocks external assets, so
- *  it's hand-drawn). Bold but restrained: a geometric disc + ring + ribbon. */
-function Medal({ glyph }: { glyph: string }) {
-  return (
-    <div className="ov-medal" aria-hidden="true">
-      <svg viewBox="0 0 48 48" width="100%" height="100%">
-        <polygon className="ov-medal-ribbon" points="17,4 24,20 31,4" />
-        <circle className="ov-medal-disc" cx="24" cy="30" r="13" />
-        <circle className="ov-medal-ring" cx="24" cy="30" r="13" />
-      </svg>
-      <span className="ov-medal-glyph">{glyph}</span>
-    </div>
-  );
-}
-
 /** Impact overlay: the channel for big dramatic moments. It is entirely
  *  TRIGGER-DRIVEN — the backend emits an `impact` event whenever a trigger's
  *  Impact action fires, carrying a `style` (slash / big-number / level /
- *  badge / medal) plus template-expanded text. Nothing about any specific
- *  moment (Finishing Blow, level-up, AA procs, crits) is hardcoded here; each
- *  is a curated/user trigger that decides its own look. */
+ *  badge / medal / loot-chest) plus template-expanded text. Nothing about a
+ *  specific moment is hardcoded here; its trigger decides the look. */
 export default function OverlayImpact() {
   const [shown, setShown] = useState<Shown | null>(null);
   const fadeTimer = useRef<number | undefined>(undefined);
@@ -143,6 +128,12 @@ export default function OverlayImpact() {
       { style: "level", headline: "LEVEL UP", big: "32", sub: "Ding!" },
       { style: "badge", headline: "ACHIEVEMENT", big: "Dragon Slayer", sub: "Veeshan's Peak", glyph: "★" },
       { style: "medal", headline: "AA PROC", big: "Divine Intervention", sub: "saved you from death", glyph: "✦" },
+      {
+        style: "loot-chest",
+        headline: "YOU LOOTED",
+        big: "Large Sky Sapphire",
+        sub: "1/2 for Test of Wind",
+      },
     ];
     let i = 0;
     fire({ ...demos[0], id: nextId.current++ });
@@ -156,11 +147,6 @@ export default function OverlayImpact() {
 
   const p = shown?.payload;
   const leaving = shown?.leaving ?? false;
-  const accent = p?.color
-    ? ({ "--impact-accent": p.color } as React.CSSProperties)
-    : undefined;
-  const style = p?.style ?? "badge";
-
   return (
     <OverlayShell
       label={OVERLAY_IMPACT}
@@ -168,43 +154,11 @@ export default function OverlayImpact() {
       className="impact-shell"
     >
       {p && (
-        <div
+        <ImpactPresentation
           key={p.id}
-          className={`ov-impact impact-${style}${leaving ? " leaving" : ""}`}
-          style={accent}
-        >
-          {p.headline && <div className="ovi-headline">{p.headline}</div>}
-
-          {style === "slash" && p.big != null && (
-            <div className="ovf-strike">
-              <span className="ovf-num whole">{p.big}</span>
-              <span className="ovf-num top" aria-hidden="true">{p.big}</span>
-              <span className="ovf-num bottom" aria-hidden="true">{p.big}</span>
-              <span className="ovf-blade" aria-hidden="true" />
-            </div>
-          )}
-
-          {(style === "big-number" || style === "level") && p.big != null && (
-            <div className="ovi-big">{p.big}</div>
-          )}
-
-          {(style === "badge" || style === "medal") && (
-            <>
-              <Medal glyph={p.glyph ?? "✦"} />
-              {p.big && <div className="ovi-name">{p.big}</div>}
-            </>
-          )}
-
-          {/* Fallback for any unknown style: at least show the focal text. */}
-          {style !== "slash" &&
-            style !== "big-number" &&
-            style !== "level" &&
-            style !== "badge" &&
-            style !== "medal" &&
-            p.big && <div className="ovi-big">{p.big}</div>}
-
-          {p.sub && <div className="ovi-sub">{p.sub}</div>}
-        </div>
+          payload={p}
+          leaving={leaving}
+        />
       )}
     </OverlayShell>
   );

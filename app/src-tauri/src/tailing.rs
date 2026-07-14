@@ -18,8 +18,11 @@ use eqlog_core::events::Event;
 use eqlog_core::fights::{FightConfig, FightTracker};
 use eqlog_core::parser::Parser;
 use eqlog_core::tail::{Tailer, TailerConfig};
-use eqlog_triggers::engine::{ActionSink, ImpactFire, OverlayFire, TimerFireKind, TriggerFireInfo};
-use eqlog_triggers::model::TimerLane;
+use eqlog_triggers::engine::{
+    ActionSink, ImpactFire, OverlayFire, TimerFireKind, TriggerFireInfo, TriggerSignal,
+};
+use eqlog_triggers::model::{TimerLane, TriggerEvent};
+use eqlog_triggers::storage::CharacterId;
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, Manager};
 
@@ -29,6 +32,7 @@ use crate::library::EngineBuild;
 use crate::logging;
 use crate::meters::LiveMeter;
 use crate::store::SharedStore;
+use crate::watches::SharedWatchStore;
 
 /// Tick period: timer polling + fight-update flush cadence.
 const TICK_MS: u64 = 250;
@@ -547,7 +551,14 @@ pub fn start(
     build: EngineBuild,
     audio: AudioHandle,
     store: SharedStore,
+    watches: SharedWatchStore,
 ) -> Result<TailSession, String> {
+    let watch_character = config
+        .active_character
+        .as_ref()
+        .map(|active| CharacterId::new(&active.character, &active.server))
+        .or_else(|| CharacterId::from_log_path(&config.log_path))
+        .unwrap_or_else(|| CharacterId::new(&config.character_name, ""));
     let tailer = Tailer::spawn(TailerConfig {
         path: PathBuf::from(config.log_path.trim()),
         from_start: false,
@@ -587,6 +598,8 @@ pub fn start(
                     loop_stop,
                     sink,
                     store,
+                    watches,
+                    watch_character,
                     loop_snapshots,
                 )
             }));
@@ -659,6 +672,19 @@ fn persist_fights(
     );
 }
 
+fn watched_self_loot(event: &Event) -> Option<(&str, u32, Option<&str>)> {
+    match event {
+        Event::Loot {
+            looter: eqlog_core::events::Entity::You,
+            item,
+            quantity,
+            corpse,
+            sold_for: None,
+        } => Some((item, *quantity, corpse.as_deref())),
+        _ => None,
+    }
+}
+
 /// Returns `None` on a clean (user-requested) stop, `Some(reason)` when the
 /// session dies on its own (tailer thread ended on fatal I/O).
 #[allow(clippy::too_many_arguments)]
@@ -671,6 +697,8 @@ fn run_loop(
     stop: Arc<AtomicBool>,
     mut sink: EmitSink,
     store: SharedStore,
+    watches: SharedWatchStore,
+    watch_character: CharacterId,
     snapshots: Arc<Mutex<Vec<ActiveTimerPayload>>>,
 ) -> Option<String> {
     let mut engine = build.engine;
@@ -832,6 +860,66 @@ fn run_loop(
                 casts.ingest(&parsed);
                 fights_dirty = true;
                 let _fires = engine.process_traced(&parsed, &mut sink);
+                // Item watch eligibility is decided from the parser's typed
+                // Loot event, never by another raw-line pattern. Replayed,
+                // auto-sold, and someone-else's loot cannot advance watches.
+                if !catchup.is_active() {
+                    if let Some((item, quantity, corpse)) = watched_self_loot(&parsed.event) {
+                        let outcome = match watches.lock() {
+                            Ok(mut shared) => shared.as_mut().map(|store| {
+                                let matched =
+                                    store.apply_self_loot(&watch_character, item, quantity);
+                                let list = matched
+                                    .as_ref()
+                                    .ok()
+                                    .and_then(|value| value.as_ref())
+                                    .and_then(|_| store.list(&watch_character).ok());
+                                (matched, list)
+                            }),
+                            Err(_) => {
+                                logging::warn("watched loot store lock poisoned");
+                                None
+                            }
+                        };
+                        if let Some((matched, list)) = outcome {
+                            match matched {
+                                Ok(Some(matched)) => {
+                                    let mut fields = BTreeMap::new();
+                                    fields.insert("item".into(), matched.item);
+                                    fields.insert("quantity".into(), matched.quantity.to_string());
+                                    fields.insert(
+                                        "appliedQuantity".into(),
+                                        matched.applied_quantity.to_string(),
+                                    );
+                                    fields.insert(
+                                        "remaining".into(),
+                                        matched.remaining_quantity.to_string(),
+                                    );
+                                    fields.insert("quests".into(), matched.quests.join(", "));
+                                    fields.insert(
+                                        "corpse".into(),
+                                        corpse.unwrap_or_default().to_string(),
+                                    );
+                                    fields
+                                        .insert("completed".into(), matched.completed.to_string());
+                                    let signal = TriggerSignal::new(
+                                        TriggerEvent::WatchedLoot,
+                                        parsed.line.timestamp,
+                                        fields,
+                                    );
+                                    let _ = engine.process_signal_traced(&signal, &mut sink);
+                                    if let Some(list) = list {
+                                        let _ = app.emit("watch-changed", list);
+                                    }
+                                }
+                                Ok(None) => {}
+                                Err(error) => logging::warn(&format!(
+                                    "apply watched loot for {item}: {error}"
+                                )),
+                            }
+                        }
+                    }
+                }
                 sink.flush();
                 let _ = app.emit(
                     "log-line",
@@ -991,4 +1079,30 @@ fn run_loop(
         persist_fights(&app, &store, &completed);
     }
     end_reason
+}
+
+#[cfg(test)]
+mod watch_tests {
+    use super::*;
+    use eqlog_core::events::{Coins, Entity};
+
+    fn loot(looter: Entity, sold_for: Option<Coins>) -> Event {
+        Event::Loot {
+            looter,
+            item: "Large Sky Sapphire".into(),
+            quantity: 2,
+            corpse: Some("Eye of Veeshan".into()),
+            sold_for,
+        }
+    }
+
+    #[test]
+    fn watched_loot_candidate_only_accepts_unsold_self_loot() {
+        assert_eq!(
+            watched_self_loot(&loot(Entity::You, None)),
+            Some(("Large Sky Sapphire", 2, Some("Eye of Veeshan")))
+        );
+        assert!(watched_self_loot(&loot(Entity::Named("Friend".into()), None)).is_none());
+        assert!(watched_self_loot(&loot(Entity::You, Some(Coins::default()))).is_none());
+    }
 }

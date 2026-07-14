@@ -650,7 +650,7 @@ export default function TriggersTab({
     }
     // Re-slug the id so the copy never collides with the pack trigger (or
     // an earlier copy) in overrides/shares.
-    const base = deriveId(null, e.category, e.name);
+    const base = e.event ? e.id : deriveId(null, e.category, e.name);
     const taken = new Set(
       userTriggers.map((t) => deriveId(t.id, t.category, t.name)),
     );
@@ -661,6 +661,7 @@ export default function TriggersTab({
       trigger: {
         name: e.name,
         pattern: e.pattern,
+        event: e.event,
         enabled: true,
         case_insensitive: true,
         category: e.category,
@@ -685,6 +686,7 @@ export default function TriggersTab({
     return {
       name: e.name,
       pattern: e.pattern,
+      event: e.event,
       enabled: true,
       category: e.category,
       classes: e.classes,
@@ -1020,6 +1022,19 @@ export default function TriggersTab({
       next.push(companion);
     }
     await saveTriggers(next); // notifies listeners -> tree refreshes
+    // A bundled typed-event trigger is customized as a user copy. Disable the
+    // bundled source while the copy exists so one loot signal produces one
+    // alert, then revert/delete restores the bundled default below.
+    const baseEventId = t.event && t.id
+      ? t.id.replace(/-copy(?:-\d+)?$/, "")
+      : null;
+    if (
+      baseEventId &&
+      baseEventId !== t.id &&
+      entries?.some((entry) => entry.userIndex === null && entry.id === baseEventId)
+    ) {
+      await setOverride(baseEventId, false);
+    }
     editorDirty.current = false;
     setEditor(null);
     // Reveal where it landed: name the path in the status line and expand
@@ -1045,13 +1060,18 @@ export default function TriggersTab({
   function deleteTrigger(index: number) {
     const removed = userTriggers[index];
     if (!removed) return;
+    const treeEntry = entries?.find((entry) => entry.userIndex === index) ?? null;
+    const bundled = treeEntry ? bundledDefaultFor(treeEntry) : null;
     const next = userTriggers.filter((_, j) => j !== index);
     void persistUser(next, null).then(() => {
+      if (removed.event && bundled) void resetEntryOverrides(bundled, null);
       showToast(`Deleted “${removed.name}”`, {
         undo: () => {
           const restored = [...next];
           restored.splice(Math.min(index, restored.length), 0, removed);
-          void persistUser(restored, `Restored “${removed.name}”.`);
+          void persistUser(restored, `Restored “${removed.name}”.`).then(() => {
+            if (removed.event && bundled) void setOverride(bundled.id, false);
+          });
         },
       });
     });
@@ -1291,8 +1311,11 @@ export default function TriggersTab({
         <span className="tt-name" title={e.classes.length ? `Classes: ${e.classes.join(", ")}` : undefined}>
           {e.name}
         </span>
-        <span className="tt-pattern" title={e.pattern}>
-          {e.pattern}
+        <span
+          className="tt-pattern"
+          title={e.event ? "Structured app event" : e.pattern}
+        >
+          {e.event === "watched-loot" ? "Watched item looted" : e.pattern}
         </span>
         <span className="tt-chan">
           <button

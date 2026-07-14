@@ -124,6 +124,10 @@ pub struct AppState {
     /// True while a career import runs — one importer at a time; a
     /// concurrent `career_import` returns an error instead of queueing.
     pub career_importing: Arc<AtomicBool>,
+    /// Character-scoped item watch persistence and progress. Initialized from
+    /// the resolved data root during setup; kept separate from the tailer so
+    /// commands, inventory reconciliation, and typed loot share one owner.
+    pub watches: crate::watches::SharedWatchStore,
     /// Serializes every user-pack read-modify-write (save / append / GINA +
     /// share import) so concurrent mutations can't clobber each other (P15).
     pub pack_lock: Mutex<()>,
@@ -138,6 +142,7 @@ impl AppState {
             store: Arc::new(Mutex::new(None)),
             career: Arc::new(Mutex::new(None)),
             career_importing: Arc::new(AtomicBool::new(false)),
+            watches: Arc::new(Mutex::new(None)),
             pack_lock: Mutex::new(()),
         }
     }
@@ -627,6 +632,7 @@ pub fn start_tailing_inner(app: &AppHandle, state: &AppState) -> Result<(), Stri
         build,
         audio,
         state.store.clone(),
+        state.watches.clone(),
     )?);
     // The frontend may have sampled is_tailing before boot auto-resume ran —
     // push the truth so the topbar never shows Idle while actually tailing.

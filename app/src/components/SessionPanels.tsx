@@ -85,7 +85,7 @@ export const SESSION_PANELS: { id: SessionPanelId; label: string }[] = [
   { id: "effects", label: "Effects" },
   { id: "deaths", label: "Death recaps" },
   { id: "loot", label: "Loot" },
-  { id: "wishlist", label: "Wishlist" },
+  { id: "wishlist", label: "Watched" },
   { id: "rolls", label: "Rolls" },
   { id: "factions", label: "Factions" },
   { id: "skills", label: "Skills" },
@@ -758,12 +758,12 @@ export default function SessionPanel({
     return (
       <section className="card coach-span">
         <div className="card-head">
-          <span className="section-title">Wishlist</span>
+          <span className="section-title">Watched items</span>
         </div>
         {wishlist.length === 0 ? (
           <Empty
-            title="Wishlist is empty"
-            body="Star items in the Drops tab to build a wishlist — when one drops, you get a spoken alert here."
+            title="No watched items"
+            body="Star items in Drops or watch quest requirements. Loot alerts are configured in Triggers."
           />
         ) : (
           <>
@@ -776,8 +776,8 @@ export default function SessionPanel({
                   <span className="session-item">{w.name}</span>
                   <button
                     className="ghost small"
-                    onClick={() => toggleWishlist(w.name)}
-                    title="Remove from wishlist"
+                    onClick={() => void toggleWishlist(w.name)}
+                    title="Remove watched item"
                   >
                     Remove
                   </button>

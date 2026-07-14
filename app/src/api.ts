@@ -73,6 +73,9 @@ import type {
   Trigger,
   TriggerTreeEntry,
   TriggerUpdateInfo,
+  WatchList,
+  QuestWatchInput,
+  InventoryWatchQuantity,
   ZoneInfo,
 } from "./types";
 
@@ -186,6 +189,74 @@ export function getLogStats(): Promise<{ sizeBytes: number | null }> {
 export function getTriggers(): Promise<Trigger[]> {
   if (IS_MOCK) return Promise.resolve(mockGetTriggers());
   return invoke<Trigger[]>("get_triggers");
+}
+
+// ---- character-scoped item watches ----
+
+const EMPTY_WATCH_LIST: WatchList = {
+  server: "",
+  character: "",
+  legacyNamesImported: false,
+  items: [],
+};
+
+export function watchList(): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_list");
+}
+
+export function watchAddManual(
+  itemName: string,
+  quantity = 1,
+  autoRemove = true,
+): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_add_manual", { itemName, quantity, autoRemove });
+}
+
+export function watchAddQuestGoal(goal: QuestWatchInput): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_add_quest_goal", { goal });
+}
+
+export function watchAddQuestGoals(goals: QuestWatchInput[]): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_add_quest_goals", { goals });
+}
+
+export function watchRemoveItem(itemName: string): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_remove_item", { itemName });
+}
+
+export function watchRemoveQuestGoal(itemName: string, questId: string): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_remove_quest_goal", { itemName, questId });
+}
+
+export function watchRemoveQuestGoals(questId: string): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_remove_quest_goals", { questId });
+}
+
+export function watchUpdateGoal(
+  itemName: string,
+  goalId: string,
+  values: { enabled?: boolean; autoRemove?: boolean; remainingQuantity?: number },
+): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_update_goal", { itemName, goalId, ...values });
+}
+
+export function watchReconcileInventory(inventory: InventoryWatchQuantity[]): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_reconcile_inventory", { inventory });
+}
+
+export function watchImportLegacyNames(names: string[]): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<{ watchList: WatchList }>("watch_import_legacy_names", { names })
+    .then((result) => result.watchList);
 }
 
 /** Running timers snapshot for UI resync after a window reload (P3). Mock mode

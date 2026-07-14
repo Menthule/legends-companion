@@ -57,7 +57,6 @@ import {
   type PlayerScore,
   type Scoreboard,
 } from "./scoreboard";
-import { isWishlisted } from "./wishlist";
 import {
   appendXpSession,
   clearXpSession,
@@ -569,12 +568,6 @@ function handleLogLine(p: LogLinePayload): void {
       atMs: Date.now(),
       replayed: catchingUp,
     });
-    // Wishlist drop alert: spoken + toast (star items in the Drops tab).
-    // Muted during catch-up: a replayed loot line is old news.
-    if (!catchingUp && isWishlisted(entry.item)) {
-      void speakText(`${entry.item} dropped!`);
-      notice(`Wishlist drop: ${entry.item}!`);
-    }
   } else if ("Roll" in ev) {
     const d = (ev as Record<string, unknown>).Roll as Record<string, unknown>;
     const roller = String(d.roller ?? "").trim();

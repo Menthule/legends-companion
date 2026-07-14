@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 use eqlog_triggers::engine::TriggerEngine;
-use eqlog_triggers::model::{CharacterProfile, Trigger, TriggerSource};
+use eqlog_triggers::model::{CharacterProfile, Trigger, TriggerEvent, TriggerSource};
 use eqlog_triggers::packs::load_packs;
 use eqlog_triggers::profile::effective_enabled;
 use eqlog_triggers::storage::{self, CharacterId, CharacterOverrides};
@@ -39,6 +39,10 @@ pub fn packs_dir(app: &AppHandle) -> Option<PathBuf> {
     {
         return Some(updated);
     }
+    bundled_packs_dir(app)
+}
+
+fn bundled_packs_dir(app: &AppHandle) -> Option<PathBuf> {
     if let Ok(dir) = app.path().resolve("triggers", BaseDirectory::Resource) {
         if dir.is_dir() {
             return Some(dir);
@@ -65,7 +69,7 @@ pub struct Library {
 pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String> {
     let mut warnings = Vec::new();
     let dir = packs_dir(app);
-    let packs = match &dir {
+    let mut packs = match &dir {
         Some(dir) => match load_packs(dir) {
             Ok(loaded) => {
                 warnings.extend(loaded.warnings);
@@ -84,6 +88,38 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
             Vec::new()
         }
     };
+    // A previously downloaded library intentionally shadows ordinary bundled
+    // regex packs, but it may predate a structured event introduced by a
+    // newer app build. Keep bundled typed-event triggers as a compatibility
+    // floor unless the downloaded library already supplies the same id. This
+    // is generic for future host signals and avoids hardcoded action fallbacks.
+    let updated_dir = crate::data_root::resolve(app)
+        .refdata_update_dir()
+        .join("triggers");
+    if dir
+        .as_ref()
+        .is_some_and(|selected| selected == &updated_dir)
+    {
+        if let Some(bundled_dir) = bundled_packs_dir(app) {
+            match load_packs(&bundled_dir) {
+                Ok(bundled) => {
+                    for trigger in bundled.triggers {
+                        if trigger.event.is_some()
+                            && !packs
+                                .iter()
+                                .any(|current| current.effective_id() == trigger.effective_id())
+                        {
+                            packs.push(trigger);
+                        }
+                    }
+                }
+                Err(error) => warnings.push(format!(
+                    "bundled typed triggers unreadable at {}: {error}",
+                    bundled_dir.display()
+                )),
+            }
+        }
+    }
     // Ground-truth diagnostic: which dir did we load, how many triggers, and are
     // the curated skill triggers among them? (Kept terse; one line per load.)
     let has_kick = packs.iter().any(|t| t.name.eq_ignore_ascii_case("kick"));
@@ -516,6 +552,7 @@ pub struct TriggerTreeEntry {
     pub enabled: bool,
     pub source: &'static str,
     pub pattern: String,
+    pub event: Option<TriggerEvent>,
     /// Output channels this trigger uses, summarized from its actions so the
     /// Triggers tab can show at a glance whether a trigger speaks (TTS), shows
     /// a text alert, plays a sound, runs a timer, or posts to a webhook —
@@ -603,6 +640,7 @@ fn tree_entry(
             TriggerSource::Shared => "shared",
         },
         pattern: t.pattern.clone(),
+        event: t.event,
         speaks,
         shows,
         sound,

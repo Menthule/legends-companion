@@ -98,12 +98,61 @@ export type TriggerAction =
 /** Trigger provenance (serde lowercase of eqlog-triggers TriggerSource). */
 export type TriggerSource = "generated" | "curated" | "user" | "gina" | "shared";
 
+/** Structured trigger inputs emitted by the app after typed event handling. */
+export type TriggerEvent = "watched-loot";
+
+export interface WatchGoalSource {
+  kind: "manual" | "quest";
+  questId?: string;
+  questName?: string;
+}
+
+export interface WatchGoal {
+  id: string;
+  source: WatchGoalSource;
+  requiredQuantity: number;
+  ownedQuantity: number;
+  remainingQuantity: number;
+  enabled: boolean;
+  autoRemove: boolean;
+}
+
+export interface WatchedItem {
+  key: string;
+  name: string;
+  goals: WatchGoal[];
+}
+
+export interface WatchList {
+  server: string;
+  character: string;
+  legacyNamesImported: boolean;
+  items: WatchedItem[];
+}
+
+export interface QuestWatchInput {
+  itemName: string;
+  questId: string;
+  questName: string;
+  requiredQuantity: number;
+  ownedQuantity?: number;
+  autoRemove?: boolean;
+}
+
+export interface InventoryWatchQuantity {
+  name: string;
+  quantity: number;
+}
+
 /** eqlog-triggers Trigger model (snake/plain field names, no rename). */
 export interface Trigger {
   name: string;
   /** Portable reference to the EverQuest spell-gem art, e.g. `spell:10`. */
   icon?: string | null;
   pattern: string;
+  /** Structured event source. When present, `pattern` is intentionally empty
+   * and the trigger receives named fields from that event instead. */
+  event?: TriggerEvent | null;
   enabled: boolean;
   actions: TriggerAction[];
   /** Folder path for UI grouping, e.g. "Combat/Defense". */
@@ -188,6 +237,7 @@ export interface TriggerTreeEntry {
   enabled: boolean;
   source: TriggerSource;
   pattern: string;
+  event?: TriggerEvent | null;
   /** Output channels summarized from the trigger's actions, so the list can
    *  show at a glance whether a trigger speaks / shows a text alert / plays a
    *  sound / runs a timer / posts to a webhook. */
@@ -286,7 +336,13 @@ export interface TriggerOverlayPayload {
 
 /** The visual treatment an Impact moment renders as. Comes from the trigger's
  *  Impact action `style` field; unknown values fall back to "badge". */
-export type ImpactStyle = "slash" | "big-number" | "level" | "badge" | "medal";
+export type ImpactStyle =
+  | "slash"
+  | "big-number"
+  | "level"
+  | "badge"
+  | "medal"
+  | "loot-chest";
 
 /** A trigger-driven Impact moment — the payload of the `impact` event. Every
  *  field is filled by the trigger's Impact action (template-expanded from the

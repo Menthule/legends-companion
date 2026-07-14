@@ -1,78 +1,249 @@
-// Item wishlist (drop alerts): localStorage-backed store shared by the Drops
-// tab (star buttons) and the Fights tab (drop alerts + wishlist card).
-//
-// Cross-view sync mirrors the overlayState pattern: writes dispatch a
-// same-window custom event, and other windows hear the browser "storage"
-// event; onWishlistChanged subscribes to both (via the shared localStore
-// scaffold).
+// Character-scoped item watches. Rust owns persistence and live-loot progress;
+// this module keeps a synchronous UI cache for the existing Drops/Session
+// consumers and exposes async mutations for watch management.
 
-import { createLocalStore } from "./localStore";
+import { listen, type UnlistenFn } from "@tauri-apps/api/event";
+import {
+  watchAddManual,
+  watchAddQuestGoal,
+  watchAddQuestGoals,
+  watchImportLegacyNames,
+  watchList,
+  watchReconcileInventory,
+  watchRemoveItem,
+  watchRemoveQuestGoal,
+  watchRemoveQuestGoals,
+  watchUpdateGoal,
+} from "../api";
+import { IS_MOCK } from "../mock";
+import type {
+  InventoryWatchQuantity,
+  QuestWatchInput,
+  WatchGoal,
+  WatchList,
+  WatchedItem,
+} from "../types";
+import { normalizeInventoryItem, type InventorySnapshot } from "./quests";
 
-/** localStorage key — exported so views can filter "storage" events. */
 export const WISHLIST_KEY = "eqlogs.wishlist.v1";
-
-/** Same-window change event dispatched by toggleWishlist. */
 export const WISHLIST_EVENT = "eqlogs-wishlist-changed";
 
-export interface WishlistEntry {
-  name: string;
+export type WishlistEntry = WatchedItem;
+export type { QuestWatchInput, WatchGoal, WatchList, WatchedItem };
+
+const EMPTY_LIST: WatchList = {
+  server: "",
+  character: "",
+  legacyNamesImported: false,
+  items: [],
+};
+
+let current: WatchList = EMPTY_LIST;
+let activeCharacter = "";
+let activeScope = "";
+let unlisten: UnlistenFn | null = null;
+let listenerStarted = false;
+
+function key(value: string): string {
+  return value.split(/\s+/).filter(Boolean).join(" ").toLowerCase();
 }
 
-/** Tolerant of corrupt/legacy payloads (bad JSON, non-array values, entries
- *  without a name). Case-insensitive unique by name. */
-const store = createLocalStore<WishlistEntry[]>(
-  WISHLIST_KEY,
-  WISHLIST_EVENT,
-  (raw) => {
+function notify(): void {
+  if (typeof window !== "undefined") window.dispatchEvent(new Event(WISHLIST_EVENT));
+}
+
+function adopt(list: WatchList): WatchList {
+  current = list;
+  notify();
+  return list;
+}
+
+function mockList(items = current.items): WatchList {
+  return { ...current, character: activeCharacter, items };
+}
+
+function startListener(): void {
+  if (listenerStarted || IS_MOCK) return;
+  listenerStarted = true;
+  void listen<WatchList>("watch-changed", (event) => adopt(event.payload))
+    .then((stop) => { unlisten = stop; })
+    .catch((error) => console.error("listen(watch-changed) failed", error));
+}
+
+function legacyNames(): string[] {
+  try {
+    const raw = JSON.parse(localStorage.getItem(WISHLIST_KEY) ?? "[]") as unknown;
     if (!Array.isArray(raw)) return [];
-    const seen = new Set<string>();
-    const out: WishlistEntry[] = [];
-    for (const e of raw) {
-      if (typeof e !== "object" || e === null) continue;
-      const name = String((e as { name?: unknown }).name ?? "").trim();
-      const key = name.toLowerCase();
-      if (!name || seen.has(key)) continue;
-      seen.add(key);
-      out.push({ name });
+    return raw
+      .map((value) => typeof value === "string"
+        ? value
+        : value && typeof value === "object" && "name" in value
+          ? String((value as { name: unknown }).name)
+          : "")
+      .map((name) => name.trim())
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+/** Refresh when the active character changes. The backend resolves the
+ * selected character from AppConfig; the string here only guards stale async
+ * responses and labels mock data. */
+export async function setWishlistCharacter(character: string, scope = character): Promise<void> {
+  const requested = character.trim();
+  const requestedScope = scope.trim().toLowerCase();
+  if (requestedScope !== activeScope) {
+    activeScope = requestedScope;
+    current = { ...EMPTY_LIST, character: requested };
+    notify();
+  }
+  activeCharacter = requested;
+  startListener();
+  if (IS_MOCK) {
+    adopt(mockList());
+    return;
+  }
+  try {
+    let list = await watchList();
+    if (activeCharacter !== requested || activeScope !== requestedScope) return;
+    const names = legacyNames();
+    if (!list.legacyNamesImported) {
+      list = await watchImportLegacyNames(names);
+      try { localStorage.removeItem(WISHLIST_KEY); } catch { /* best effort */ }
     }
-    return out;
-  },
-);
+    if (activeCharacter === requested && activeScope === requestedScope) adopt(list);
+  } catch (error) {
+    console.error("load item watches failed", error);
+  }
+}
 
-/** Stored wishlist ([] when unavailable/corrupt). */
+export function wishlistCharacter(): string {
+  return activeCharacter;
+}
+
 export function loadWishlist(): WishlistEntry[] {
-  return store.load();
+  return current.items;
 }
 
-function saveWishlist(entries: WishlistEntry[]): void {
-  store.save(entries);
+export const loadWatchedItems = loadWishlist;
+
+export async function refreshWishlist(): Promise<WishlistEntry[]> {
+  if (IS_MOCK) return loadWishlist();
+  return adopt(await watchList()).items;
 }
 
-/** Whether `name` (case-insensitive) is on the wishlist. */
 export function isWishlisted(name: string): boolean {
-  const key = name.trim().toLowerCase();
-  if (!key) return false;
-  return loadWishlist().some((e) => e.name.toLowerCase() === key);
+  const wanted = key(name);
+  return current.items.some((item) =>
+    item.key === wanted && item.goals.some((goal) => goal.enabled && goal.remainingQuantity > 0));
 }
 
-/** Add or remove `name` (case-insensitive match, original casing kept on
- *  add). Returns the new state: true = now wishlisted. */
-export function toggleWishlist(name: string): boolean {
-  const trimmed = name.trim();
-  const key = trimmed.toLowerCase();
-  if (!key) return false;
-  const entries = loadWishlist();
-  const without = entries.filter((e) => e.name.toLowerCase() !== key);
-  if (without.length < entries.length) {
-    saveWishlist(without);
+export function watchRemainingQuantity(item: Pick<WatchedItem, "goals">): number {
+  return item.goals
+    .filter((goal) => goal.enabled)
+    .reduce((total, goal) => total + goal.remainingQuantity, 0);
+}
+
+export function questGoal(itemName: string, questId: string): WatchGoal | null {
+  const item = current.items.find((row) => row.key === key(itemName));
+  return item?.goals.find((goal) => goal.id === `quest:${questId.trim()}`) ?? null;
+}
+
+export async function addManualWatch(
+  name: string,
+  quantity = 1,
+  autoRemove = true,
+): Promise<WatchList> {
+  if (IS_MOCK) {
+    const item: WatchedItem = {
+      key: key(name),
+      name: name.trim(),
+      goals: [{
+        id: "manual",
+        source: { kind: "manual" },
+        requiredQuantity: quantity,
+        ownedQuantity: 0,
+        remainingQuantity: quantity,
+        enabled: true,
+        autoRemove,
+      }],
+    };
+    return adopt(mockList([...current.items.filter((row) => row.key !== item.key), item]));
+  }
+  return adopt(await watchAddManual(name, quantity, autoRemove));
+}
+
+export async function addQuestWatch(input: QuestWatchInput): Promise<WatchList> {
+  if (IS_MOCK) return current;
+  return adopt(await watchAddQuestGoal(input));
+}
+
+export async function addQuestWatches(inputs: QuestWatchInput[]): Promise<WatchList> {
+  if (inputs.length === 0) return current;
+  if (IS_MOCK) return current;
+  return adopt(await watchAddQuestGoals(inputs));
+}
+
+export async function removeWatchedItem(name: string): Promise<WatchList> {
+  if (IS_MOCK) return adopt(mockList(current.items.filter((item) => item.key !== key(name))));
+  return adopt(await watchRemoveItem(name));
+}
+
+export async function removeQuestWatch(itemName: string, questId: string): Promise<WatchList> {
+  if (IS_MOCK) return current;
+  return adopt(await watchRemoveQuestGoal(itemName, questId));
+}
+
+export async function removeQuestWatches(questId: string): Promise<WatchList> {
+  if (IS_MOCK) return current;
+  return adopt(await watchRemoveQuestGoals(questId));
+}
+
+export async function updateWatchGoal(
+  itemName: string,
+  goalId: string,
+  values: { enabled?: boolean; autoRemove?: boolean; remainingQuantity?: number },
+): Promise<WatchList> {
+  if (IS_MOCK) return current;
+  return adopt(await watchUpdateGoal(itemName, goalId, values));
+}
+
+export async function toggleWishlist(name: string): Promise<boolean> {
+  if (isWishlisted(name)) {
+    await removeWatchedItem(name);
     return false;
   }
-  saveWishlist([...entries, { name: trimmed }]);
+  await addManualWatch(name);
   return true;
 }
 
-/** Subscribe to wishlist changes (same-window toggles AND other windows via
- *  the browser "storage" event). Returns an unsubscribe function. */
-export function onWishlistChanged(cb: () => void): () => void {
-  return store.subscribe(cb);
+/** Absolute inventory refresh; this updates progress silently and never emits
+ * a typed watched-loot signal. */
+export async function reconcileWishlistInventory(
+  snapshot: InventorySnapshot,
+): Promise<WatchList> {
+  const inventory: InventoryWatchQuantity[] = current.items.map((watched) => {
+    const wanted = normalizeInventoryItem(watched.name);
+    const quantity = snapshot.items
+      .filter((item) => [item.name, ...item.names]
+        .some((name) => normalizeInventoryItem(name) === wanted))
+      .reduce((total, item) => total + item.quantity, 0);
+    return { name: watched.name, quantity };
+  });
+  if (IS_MOCK) return current;
+  return adopt(await watchReconcileInventory(inventory));
+}
+
+export function onWishlistChanged(callback: () => void): () => void {
+  const handler = () => callback();
+  window.addEventListener(WISHLIST_EVENT, handler);
+  return () => window.removeEventListener(WISHLIST_EVENT, handler);
+}
+
+/** Test cleanup for the module-level Tauri listener. */
+export function stopWishlistListener(): void {
+  unlisten?.();
+  unlisten = null;
+  listenerStarted = false;
 }

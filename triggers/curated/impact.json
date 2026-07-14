@@ -2,6 +2,39 @@
   "name": "Curated impact triggers",
   "triggers": [
     {
+      "id": "impact/watched-item-looted",
+      "name": "Watched item looted",
+      "event": "watched-loot",
+      "pattern": "",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact/Loot",
+      "comments": "Fires from the typed Loot event only when the item is on this character's watch list. It never parses a raw log pattern. Available fields are ${item}, ${quantity}, ${appliedQuantity}, ${corpse}, ${remaining}, ${quests}, and ${completed}.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "YOU LOOTED",
+              "big": "${item}",
+              "sub": "${quests}"
+            },
+            "config": {
+              "style": "loot-chest",
+              "color": "#f2c14e",
+              "durationMs": 4000
+            }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "success.wav"
+          }
+        }
+      ]
+    },
+    {
       "id": "impact/finishing-blow",
       "name": "Finishing Blow",
       "pattern": "^You \\S+ (.+?) for (\\d+)(?: points? of damage)?\\.? \\(Finishing Blow\\)",

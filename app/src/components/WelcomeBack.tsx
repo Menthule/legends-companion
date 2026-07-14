@@ -171,7 +171,7 @@ export default function WelcomeBack({
           >
             <span className="wb-row-label">Drops</span>
             <span className="wb-row-text">
-              Wishlist drops since you left: {dropText}
+              Watched drops since you left: {dropText}
               {extraDrops > 0 && ` and ${extraDrops} more`}
             </span>
           </button>

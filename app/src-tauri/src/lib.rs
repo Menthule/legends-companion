@@ -21,6 +21,7 @@ mod spelldb;
 mod store;
 mod tailing;
 mod update;
+mod watches;
 
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -220,6 +221,12 @@ pub fn run() {
             if let Ok(mut guard) = app.state::<commands::AppState>().career.lock() {
                 *guard = career::open(app.handle());
             }
+            // Character-scoped item watches are JSON alongside the active
+            // profile. The store resolves the character on each operation,
+            // so switching characters needs no mutable cache migration.
+            if let Ok(mut guard) = app.state::<commands::AppState>().watches.lock() {
+                *guard = Some(watches::WatchStore::new(dr.path.clone()));
+            }
             // Fight-history retention sweep (P28): drop fights older than the
             // configured number of days. 0 = keep forever (the default).
             {
@@ -339,6 +346,16 @@ pub fn run() {
             library::get_profile,
             inventory::inventory_discover,
             inventory::inventory_import,
+            watches::watch_list,
+            watches::watch_add_manual,
+            watches::watch_add_quest_goal,
+            watches::watch_add_quest_goals,
+            watches::watch_remove_item,
+            watches::watch_remove_quest_goal,
+            watches::watch_remove_quest_goals,
+            watches::watch_update_goal,
+            watches::watch_reconcile_inventory,
+            watches::watch_import_legacy_names,
             library::set_profile,
             library::set_active_character,
             library::switch_loadout,

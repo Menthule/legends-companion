@@ -65,6 +65,7 @@ const IMPACT_STYLE_OPTIONS = [
   { value: "level", label: "Level" },
   { value: "badge", label: "Badge" },
   { value: "medal", label: "Medal" },
+  { value: "loot-chest", label: "Loot chest" },
 ] as const;
 
 const DEFINITIONS: readonly OverlayDefinition[] = [

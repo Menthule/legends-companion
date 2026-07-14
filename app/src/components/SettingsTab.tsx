@@ -833,7 +833,7 @@ export default function SettingsTab({
             <span>
               After 12+ hours away, show a one-time “Where was I?” card on
               start: last zone and level, what you were killing, camp timers
-              that popped, and wishlist drops since. Visual only — never
+              that popped, and watched drops since. Visual only — never
               spoken.
             </span>
           </span>

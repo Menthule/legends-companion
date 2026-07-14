@@ -33,6 +33,7 @@ import {
 } from "../lib/refFilters";
 import { useDeepLink } from "../lib/deepLinks";
 import { onSessionNotice, startSessionLog } from "../lib/sessionLog";
+import { setWishlistCharacter } from "../lib/wishlist";
 import {
   type AppConfig,
   type CatchUpPayload,
@@ -407,6 +408,10 @@ export default function Dashboard() {
   /** Newer release found on GitHub (slim banner); null = up to date/unknown. */
   const [update, setUpdate] = useState<UpdateInfo | null>(null);
   const [installing, setInstalling] = useState(false);
+
+  useEffect(() => {
+    if (character.trim()) void setWishlistCharacter(character, activeLogPath);
+  }, [activeLogPath, character]);
 
   useEffect(() => {
     const sync = () => {

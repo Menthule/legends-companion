@@ -10,7 +10,7 @@ use regex::{Captures, Regex, RegexSet};
 
 use crate::model::{
     duration_ticks_at_level, infer_timer_lane, Action, ChannelOverride, CharacterProfile,
-    TimerLane, TimerStartMode, TimerTiming, Trigger,
+    TimerLane, TimerStartMode, TimerTiming, Trigger, TriggerEvent,
 };
 use crate::profile::{effective_enabled, zone_scope_for};
 use eqlog_core::events::{Entity, Event, ParsedLine};
@@ -153,6 +153,27 @@ pub struct TriggerFireInfo {
     pub category: Option<String>,
 }
 
+/// A host-approved structured event submitted to the trigger engine. The
+/// host owns event-specific eligibility; the engine owns profile resolution,
+/// cooldowns, template expansion, action execution, and attribution.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TriggerSignal {
+    pub event: TriggerEvent,
+    pub timestamp: i64,
+    /// Named template values, referenced as `${item}`, `${quantity}`, etc.
+    pub fields: BTreeMap<String, String>,
+}
+
+impl TriggerSignal {
+    pub fn new(event: TriggerEvent, timestamp: i64, fields: BTreeMap<String, String>) -> Self {
+        Self {
+            event,
+            timestamp,
+            fields,
+        }
+    }
+}
+
 struct ActiveTimer {
     name: String,
     icon: Option<String>,
@@ -175,7 +196,8 @@ struct ActiveTimer {
 
 struct CompiledTrigger {
     trigger: Trigger,
-    regex: Regex,
+    /// Present for raw-line triggers; absent for structured event triggers.
+    regex: Option<Regex>,
     numeric_constraints: Vec<NumericConstraint>,
     /// Fire-dedupe group: triggers with an identical expanded pattern share a
     /// key, and at most one of them fires per line (the first).
@@ -209,6 +231,9 @@ pub struct TriggerEngine {
     /// so triggers keep firing, just without the fast-reject pass.
     set: Option<RegexSet>,
     compiled: Vec<CompiledTrigger>,
+    /// `RegexSet` match positions map through this list because structured
+    /// event triggers live in `compiled` but have no regex-set entry.
+    line_indices: Vec<usize>,
     timers: Vec<ActiveTimer>,
     warnings: Vec<String>,
     /// Extra friendly caster names (lowercased), e.g. configured pet names.
@@ -469,10 +494,45 @@ pub fn apply_channel_override(t: &mut Trigger, ov: &ChannelOverride) {
     }
 }
 
+enum TemplateValues<'a> {
+    Captures(&'a Captures<'a>),
+    Fields(&'a BTreeMap<String, String>),
+}
+
+impl TemplateValues<'_> {
+    fn get(&self, key: &str) -> Option<&str> {
+        match self {
+            Self::Captures(caps) => {
+                if key.chars().all(|c| c.is_ascii_digit()) {
+                    key.parse::<usize>()
+                        .ok()
+                        .and_then(|n| caps.get(n))
+                        .map(|m| m.as_str())
+                } else {
+                    caps.name(key)
+                        .map(|m| m.as_str())
+                        // GINA templates reference {S1} tokens by their
+                        // lowercase form too.
+                        .or_else(|| caps.name(&key.to_ascii_uppercase()).map(|m| m.as_str()))
+                }
+            }
+            Self::Fields(fields) => fields
+                .get(key)
+                .or_else(|| fields.get(&key.to_ascii_lowercase()))
+                .map(String::as_str),
+        }
+    }
+}
+
 /// Expand an action *template* after a match: `${1}` positional captures,
-/// `${name}` named captures, `{C}` character name, `{TS}` the line's
-/// timestamp as `HH:MM:SS`. Unknown/unmatched references expand to "".
-fn expand_template(template: &str, caps: &Captures, character: &str, timestamp: i64) -> String {
+/// `${name}` named captures or structured signal fields, `{C}` character
+/// name, and `{TS}` timestamp as `HH:MM:SS`. Unknown references become "".
+fn expand_template_values(
+    template: &str,
+    values: &TemplateValues<'_>,
+    character: &str,
+    timestamp: i64,
+) -> String {
     let mut out = String::with_capacity(template.len());
     let bytes = template.as_bytes();
     let mut i = 0;
@@ -482,19 +542,7 @@ fn expand_template(template: &str, caps: &Captures, character: &str, timestamp: 
             if let Some(close) = rest.find('}') {
                 let key = &rest[2..close];
                 if !key.is_empty() {
-                    let value = if key.chars().all(|c| c.is_ascii_digit()) {
-                        key.parse::<usize>()
-                            .ok()
-                            .and_then(|n| caps.get(n))
-                            .map(|m| m.as_str())
-                    } else {
-                        caps.name(key)
-                            .map(|m| m.as_str())
-                            // GINA templates reference {S1} tokens by their
-                            // lowercase form too.
-                            .or_else(|| caps.name(&key.to_ascii_uppercase()).map(|m| m.as_str()))
-                    };
-                    out.push_str(value.unwrap_or(""));
+                    out.push_str(values.get(key).unwrap_or(""));
                     i += close + 1;
                     continue;
                 }
@@ -520,6 +568,16 @@ fn expand_template(template: &str, caps: &Captures, character: &str, timestamp: 
         i += ch.len_utf8();
     }
     out
+}
+
+#[cfg(test)]
+fn expand_template(template: &str, caps: &Captures, character: &str, timestamp: i64) -> String {
+    expand_template_values(
+        template,
+        &TemplateValues::Captures(caps),
+        character,
+        timestamp,
+    )
 }
 
 /// Rescale every `StartTimer` action that carries duration-formula metadata
@@ -600,6 +658,135 @@ fn resolve_rank_timing(
     }
 }
 
+/// Execute one trigger's normal action list against either regex captures or
+/// structured signal fields. Matching, profile gates, cooldowns, and trigger
+/// attribution stay with the caller; every output channel shares this path.
+fn execute_actions(
+    trigger: &Trigger,
+    values: &TemplateValues<'_>,
+    character: &str,
+    ts: i64,
+    timers: &mut Vec<ActiveTimer>,
+    new_timers: &mut Vec<ActiveTimer>,
+    sink: &mut dyn ActionSink,
+) {
+    let expand = |template: &str| expand_template_values(template, values, character, ts);
+    for action in &trigger.actions {
+        match action {
+            Action::Speak { template } => sink.speak(&expand(template)),
+            Action::PlaySound { path } => sink.play_sound(path),
+            Action::DisplayText { template } => sink.display_text(&expand(template)),
+            Action::Overlay {
+                overlay,
+                fields,
+                config,
+            } => {
+                let mut fields: BTreeMap<String, String> = fields
+                    .iter()
+                    .map(|(key, value)| (key.clone(), expand(value)))
+                    .collect();
+                if !fields.contains_key("icon") {
+                    if let Some(icon) = &trigger.icon {
+                        fields.insert("icon".to_string(), icon.clone());
+                    }
+                }
+                sink.overlay(OverlayFire {
+                    overlay,
+                    fields,
+                    config,
+                });
+            }
+            Action::StartTimer {
+                name,
+                duration_secs,
+                warn_at_secs,
+                lane,
+                cast_time_secs,
+                rank_variants,
+                mode,
+                repeat_secs,
+                stopwatch,
+                warn_text,
+                expire_text,
+                warn_sound,
+                expire_sound,
+                ..
+            } => {
+                let mut name = expand(name);
+                let timing = resolve_rank_timing(
+                    *duration_secs,
+                    *cast_time_secs,
+                    rank_variants,
+                    values.get("rank"),
+                );
+                let lead_in = timing.cast_time_secs.unwrap_or(0);
+                let shown_duration = timing.duration_secs.unwrap_or(*duration_secs) + lead_in;
+                let expires_at = ts + shown_duration as i64;
+                let warn_at = warn_at_secs
+                    .map(|w| expires_at - w as i64)
+                    .filter(|w| *w > ts);
+                let lane = lane.unwrap_or_else(|| {
+                    infer_timer_lane(trigger.category.as_deref(), &trigger.effective_id())
+                });
+                let mode = mode.unwrap_or_default();
+                let exists = timers.iter().any(|t| t.name == name)
+                    || new_timers.iter().any(|t| t.name == name);
+                if mode == TimerStartMode::IgnoreIfRunning && exists {
+                    continue;
+                }
+                if mode == TimerStartMode::StartNewInstance && exists {
+                    name = next_instance_name_among(timers.iter().chain(new_timers.iter()), &name);
+                }
+                sink.start_timer(&name, shown_duration, *warn_at_secs, lane, lead_in);
+                new_timers.push(ActiveTimer {
+                    name,
+                    icon: trigger.icon.clone(),
+                    duration_secs: shown_duration,
+                    expires_at,
+                    warn_at_secs: *warn_at_secs,
+                    warn_at,
+                    warned: false,
+                    lane,
+                    lands_at: (lead_in > 0).then(|| ts + lead_in as i64),
+                    repeat_secs: repeat_secs.filter(|s| *s > 0),
+                    stopwatch: *stopwatch,
+                    warn_text: warn_text.as_deref().map(&expand),
+                    expire_text: expire_text.as_deref().map(&expand),
+                    warn_sound: warn_sound.clone(),
+                    expire_sound: expire_sound.clone(),
+                });
+            }
+            Action::CancelTimer { name } => {
+                let name = expand(name);
+                timers.retain(|t| t.name != name);
+                new_timers.retain(|t| t.name != name);
+                sink.cancel_timer(&name);
+            }
+            Action::PostWebhook { template, webhook } => {
+                sink.post_webhook(webhook.as_deref(), &expand(template));
+            }
+            Action::Impact {
+                style,
+                headline,
+                big,
+                sub,
+                glyph,
+                color,
+            } => {
+                let exp = |template: &Option<String>| template.as_deref().map(&expand);
+                sink.impact(ImpactFire {
+                    style,
+                    headline: exp(headline),
+                    big: exp(big),
+                    sub: exp(sub),
+                    glyph: glyph.as_deref(),
+                    color: color.as_deref(),
+                });
+            }
+        }
+    }
+}
+
 impl TriggerEngine {
     /// Compile `triggers` for `character_name`. Disabled triggers are
     /// skipped; triggers whose pattern fails to compile are skipped with a
@@ -607,6 +794,7 @@ impl TriggerEngine {
     pub fn new(triggers: Vec<Trigger>, character_name: &str) -> Self {
         let mut compiled = Vec::new();
         let mut patterns = Vec::new();
+        let mut line_indices = Vec::new();
         let mut warnings = Vec::new();
         let mut dedupe_keys: HashMap<String, usize> = HashMap::new();
         let mut triggers: Vec<Trigger> = triggers.into_iter().filter(|t| t.enabled).collect();
@@ -616,6 +804,24 @@ impl TriggerEngine {
                 .then_with(|| a.effective_id().cmp(&b.effective_id()))
         });
         for trigger in triggers {
+            let zones = trigger
+                .zones
+                .iter()
+                .map(|z| z.trim().to_lowercase())
+                .filter(|z| !z.is_empty())
+                .collect();
+            if trigger.event.is_some() {
+                compiled.push(CompiledTrigger {
+                    trigger,
+                    regex: None,
+                    numeric_constraints: Vec::new(),
+                    // Structured signals do not participate in line-pattern
+                    // dedupe; the value is never observed for them.
+                    dedupe_key: usize::MAX,
+                    zones,
+                });
+                continue;
+            }
             let (mut expanded, numeric_constraints) =
                 expand_pattern_with_constraints(&trigger.pattern, character_name);
             if trigger.case_insensitive {
@@ -626,15 +832,10 @@ impl TriggerEngine {
                     let next_key = dedupe_keys.len();
                     let dedupe_key = *dedupe_keys.entry(expanded.clone()).or_insert(next_key);
                     patterns.push(expanded);
-                    let zones = trigger
-                        .zones
-                        .iter()
-                        .map(|z| z.trim().to_lowercase())
-                        .filter(|z| !z.is_empty())
-                        .collect();
+                    line_indices.push(compiled.len());
                     compiled.push(CompiledTrigger {
                         trigger,
-                        regex,
+                        regex: Some(regex),
                         numeric_constraints,
                         dedupe_key,
                         zones,
@@ -664,6 +865,7 @@ impl TriggerEngine {
             character: character_name.to_string(),
             set,
             compiled,
+            line_indices,
             timers: Vec::new(),
             warnings,
             friendly: Vec::new(),
@@ -1167,11 +1369,11 @@ impl TriggerEngine {
                     // Fast-reject path: no per-trigger work, no sink calls.
                     return Vec::new();
                 }
-                matches.iter().collect()
+                matches.iter().map(|pos| self.line_indices[pos]).collect()
             }
-            // No fast-reject set: every trigger is a candidate; its own
-            // regex below decides.
-            None => (0..self.compiled.len()).collect(),
+            // No fast-reject set: every line trigger is a candidate; its own
+            // regex below decides. Structured triggers are never candidates.
+            None => self.line_indices.clone(),
         };
         let ts = parsed.line.timestamp;
         // A cast by you or one of your pets must never read as an incoming
@@ -1207,7 +1409,7 @@ impl TriggerEngine {
             {
                 continue;
             }
-            let Some(caps) = ct.regex.captures(message) else {
+            let Some(caps) = ct.regex.as_ref().and_then(|regex| regex.captures(message)) else {
                 continue; // set-path: unreachable in practice; fallback: filter
             };
             if !numeric_constraints_pass(&caps, &ct.numeric_constraints) {
@@ -1238,161 +1440,82 @@ impl TriggerEngine {
             };
             fired.push(fire.clone());
             sink.begin_trigger(&fire);
-            for action in &ct.trigger.actions {
-                match action {
-                    Action::Speak { template } => {
-                        sink.speak(&expand_template(template, &caps, &self.character, ts));
-                    }
-                    Action::PlaySound { path } => sink.play_sound(path),
-                    Action::DisplayText { template } => {
-                        sink.display_text(&expand_template(template, &caps, &self.character, ts));
-                    }
-                    Action::Overlay {
-                        overlay,
-                        fields,
-                        config,
-                    } => {
-                        let mut fields: BTreeMap<String, String> = fields
-                            .iter()
-                            .map(|(key, value)| {
-                                (
-                                    key.clone(),
-                                    expand_template(value, &caps, &self.character, ts),
-                                )
-                            })
-                            .collect();
-                        if !fields.contains_key("icon") {
-                            if let Some(icon) = &ct.trigger.icon {
-                                fields.insert("icon".to_string(), icon.clone());
-                            }
-                        }
-                        sink.overlay(OverlayFire {
-                            overlay,
-                            fields,
-                            config,
-                        });
-                    }
-                    Action::StartTimer {
-                        name,
-                        duration_secs,
-                        warn_at_secs,
-                        lane,
-                        cast_time_secs,
-                        rank_variants,
-                        mode,
-                        repeat_secs,
-                        stopwatch,
-                        warn_text,
-                        expire_text,
-                        warn_sound,
-                        expire_sound,
-                        ..
-                    } => {
-                        let mut name = expand_template(name, &caps, &self.character, ts);
-                        // The trigger fires at cast START; the buff only
-                        // exists once the cast completes. Lead the timer in
-                        // by the cast time so expiry lands on the truth.
-                        let rank = caps.name("rank").map(|m| m.as_str());
-                        let timing = resolve_rank_timing(
-                            *duration_secs,
-                            *cast_time_secs,
-                            rank_variants,
-                            rank,
-                        );
-                        let lead_in = timing.cast_time_secs.unwrap_or(0);
-                        let shown_duration =
-                            timing.duration_secs.unwrap_or(*duration_secs) + lead_in;
-                        let expires_at = ts + shown_duration as i64;
-                        let warn_at = warn_at_secs
-                            .map(|w| expires_at - w as i64)
-                            .filter(|w| *w > ts);
-                        // Explicit lane wins; older packs without one fall
-                        // back to category/id inference.
-                        let lane = lane.unwrap_or_else(|| {
-                            infer_timer_lane(
-                                ct.trigger.category.as_deref(),
-                                &ct.trigger.effective_id(),
-                            )
-                        });
-                        let mode = mode.unwrap_or_default();
-                        let exists = self.timers.iter().any(|t| t.name == name)
-                            || new_timers.iter().any(|t| t.name == name);
-                        if mode == TimerStartMode::IgnoreIfRunning && exists {
-                            continue;
-                        }
-                        if mode == TimerStartMode::StartNewInstance && exists {
-                            name = next_instance_name_among(
-                                self.timers.iter().chain(new_timers.iter()),
-                                &name,
-                            );
-                        }
-                        sink.start_timer(&name, shown_duration, *warn_at_secs, lane, lead_in);
-                        new_timers.push(ActiveTimer {
-                            name,
-                            icon: ct.trigger.icon.clone(),
-                            duration_secs: shown_duration,
-                            expires_at,
-                            warn_at_secs: *warn_at_secs,
-                            warn_at,
-                            warned: false,
-                            lane,
-                            // A cast-time lead-in starts the timer pending
-                            // ("casting…"); due() fires Landed once it ends.
-                            lands_at: (lead_in > 0).then(|| ts + lead_in as i64),
-                            repeat_secs: repeat_secs.filter(|s| *s > 0),
-                            stopwatch: *stopwatch,
-                            warn_text: warn_text
-                                .as_deref()
-                                .map(|s| expand_template(s, &caps, &self.character, ts)),
-                            expire_text: expire_text
-                                .as_deref()
-                                .map(|s| expand_template(s, &caps, &self.character, ts)),
-                            warn_sound: warn_sound.clone(),
-                            expire_sound: expire_sound.clone(),
-                        });
-                    }
-                    Action::CancelTimer { name } => {
-                        let name = expand_template(name, &caps, &self.character, ts);
-                        // Drop matching active timers, and any started
-                        // earlier on this same line, before they register.
-                        self.timers.retain(|t| t.name != name);
-                        new_timers.retain(|t| t.name != name);
-                        sink.cancel_timer(&name);
-                    }
-                    Action::PostWebhook { template, webhook } => {
-                        sink.post_webhook(
-                            webhook.as_deref(),
-                            &expand_template(template, &caps, &self.character, ts),
-                        );
-                    }
-                    Action::Impact {
-                        style,
-                        headline,
-                        big,
-                        sub,
-                        glyph,
-                        color,
-                    } => {
-                        let exp = |t: &Option<String>| {
-                            t.as_deref()
-                                .map(|s| expand_template(s, &caps, &self.character, ts))
-                        };
-                        sink.impact(ImpactFire {
-                            style,
-                            headline: exp(headline),
-                            big: exp(big),
-                            sub: exp(sub),
-                            glyph: glyph.as_deref(),
-                            color: color.as_deref(),
-                        });
-                    }
-                }
-            }
+            execute_actions(
+                &ct.trigger,
+                &TemplateValues::Captures(&caps),
+                &self.character,
+                ts,
+                &mut self.timers,
+                &mut new_timers,
+                sink,
+            );
             sink.end_trigger();
         }
         for timer in new_timers {
             // Re-match restarts the same-named timer unless StartTimer opted
             // into ignore-if-running or start-new-instance above.
+            self.timers.retain(|t| t.name != timer.name);
+            self.timers.push(timer);
+        }
+        fired
+    }
+
+    /// Fire triggers subscribed to a host-approved structured event. Signal
+    /// fields use the same `${name}` template syntax as named regex captures,
+    /// and actions travel through the exact same executor as line triggers.
+    ///
+    /// The host must only submit a signal after its typed eligibility checks
+    /// pass. For `WatchedLoot`, that includes watch-list membership and any
+    /// replay/ownership rules; the trigger engine deliberately knows none of
+    /// those application-specific policies.
+    pub fn process_signal_traced(
+        &mut self,
+        signal: &TriggerSignal,
+        sink: &mut dyn ActionSink,
+    ) -> Vec<TriggerFireInfo> {
+        let ts = signal.timestamp;
+        let mut fired = Vec::new();
+        let mut new_timers = Vec::new();
+        for idx in 0..self.compiled.len() {
+            let ct = &self.compiled[idx];
+            if ct.trigger.event != Some(signal.event) {
+                continue;
+            }
+            if !zone_scope_allows(&ct.zones, self.current_zone.as_deref()) {
+                continue;
+            }
+            if ct.trigger.suppress {
+                break;
+            }
+            let cooldown = ct.trigger.cooldown_secs.unwrap_or(0);
+            if cooldown > 0 {
+                if let Some(last) = self.last_fired[idx] {
+                    if ts >= last && ts - last < cooldown as i64 {
+                        continue;
+                    }
+                }
+            }
+            self.last_fired[idx] = Some(ts);
+            let fire = TriggerFireInfo {
+                id: ct.trigger.effective_id(),
+                name: ct.trigger.name.clone(),
+                icon: ct.trigger.icon.clone(),
+                category: ct.trigger.category.clone(),
+            };
+            fired.push(fire.clone());
+            sink.begin_trigger(&fire);
+            execute_actions(
+                &ct.trigger,
+                &TemplateValues::Fields(&signal.fields),
+                &self.character,
+                ts,
+                &mut self.timers,
+                &mut new_timers,
+                sink,
+            );
+            sink.end_trigger();
+        }
+        for timer in new_timers {
             self.timers.retain(|t| t.name != timer.name);
             self.timers.push(timer);
         }

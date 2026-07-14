@@ -2606,6 +2606,95 @@ button.coach-row.active {
   line-height: 1;
 }
 
+/* loot-chest: the lid lifts, light escapes, then the item settles beneath it. */
+.ov-impact.impact-loot-chest {
+  gap: 3px;
+  animation: trophy-pop 0.5s cubic-bezier(0.16, 1.1, 0.3, 1) both;
+}
+.ov-impact.impact-loot-chest .ovi-name {
+  max-width: 94%;
+  font-size: 23px;
+  color: #fff;
+  overflow-wrap: anywhere;
+  animation: loot-name-in 0.42s 0.32s ease-out both;
+}
+.ov-loot-chest {
+  position: relative;
+  width: 132px;
+  aspect-ratio: 160 / 136;
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.65));
+}
+.ov-loot-chest svg {
+  display: block;
+  overflow: visible;
+}
+.ov-chest-glow {
+  fill: color-mix(in srgb, var(--impact-accent) 24%, transparent);
+  stroke: var(--impact-accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0;
+  transform-origin: 80px 72px;
+  animation: chest-glow 0.85s 0.18s ease-out both;
+}
+.ov-chest-lid {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: chest-open-lid 0.66s cubic-bezier(0.18, 0.9, 0.22, 1.16) both;
+}
+.ov-chest-lid-fill,
+.ov-chest-body {
+  fill: #6f421c;
+  stroke: #22160c;
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.ov-chest-trim {
+  fill: var(--impact-accent);
+  stroke: #4b3213;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.ov-chest-band {
+  fill: color-mix(in srgb, var(--impact-accent) 66%, #5d3c17);
+}
+.ov-chest-lock {
+  fill: #f7dd8b;
+  stroke: #4b3213;
+  stroke-width: 3;
+}
+.ov-chest-glyph {
+  position: absolute;
+  left: 50%;
+  top: 41%;
+  color: #fff7cc;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 0 0 12px var(--impact-accent), 0 2px 4px #000;
+  opacity: 0;
+  animation: chest-glyph-rise 0.7s 0.2s ease-out both;
+}
+@keyframes chest-open-lid {
+  0%, 18% { transform: translateY(13px) scaleY(0.72); }
+  62% { transform: translateY(-12px) scaleY(1.03); }
+  100% { transform: translateY(-8px) scaleY(1); }
+}
+@keyframes chest-glow {
+  0% { opacity: 0; transform: scale(0.55); }
+  45% { opacity: 0.9; transform: scale(1.04); }
+  100% { opacity: 0.5; transform: scale(1); }
+}
+@keyframes chest-glyph-rise {
+  0%, 20% { opacity: 0; transform: translate(-50%, 18px) scale(0.5); }
+  65% { opacity: 1; transform: translate(-50%, -14px) scale(1.15); }
+  100% { opacity: 1; transform: translate(-50%, -8px) scale(1); }
+}
+@keyframes loot-name-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
 @container impact (min-width: 650px) and (min-height: 360px) {
   .ov-impact {
     gap: 10px;
@@ -2637,6 +2726,15 @@ button.coach-row.active {
   .ov-medal-glyph {
     font-size: 38px;
   }
+  .ov-loot-chest {
+    width: 230px;
+  }
+  .ov-chest-glyph {
+    font-size: 52px;
+  }
+  .ov-impact.impact-loot-chest .ovi-name {
+    font-size: 38px;
+  }
 }
 
 @container impact (min-width: 900px) and (min-height: 480px) {
@@ -2665,6 +2763,15 @@ button.coach-row.active {
   }
   .ov-medal-glyph {
     font-size: 52px;
+  }
+  .ov-loot-chest {
+    width: 290px;
+  }
+  .ov-chest-glyph {
+    font-size: 66px;
+  }
+  .ov-impact.impact-loot-chest .ovi-name {
+    font-size: 50px;
   }
 }
 @keyframes trophy-pop {
@@ -2714,7 +2821,11 @@ button.coach-row.active {
 @media (prefers-reduced-motion: reduce) {
   .ov-impact,
   .ov-impact .ovf-num,
-  .ov-impact .ovf-blade {
+  .ov-impact .ovf-blade,
+  .ov-chest-glow,
+  .ov-chest-lid,
+  .ov-chest-glyph,
+  .ov-impact.impact-loot-chest .ovi-name {
     animation-duration: 0.001ms;
   }
 }
@@ -3541,6 +3652,19 @@ button.chan-chip:hover {
   color: var(--ink-2);
   font-size: 12px;
   margin-top: 2px;
+}
+.ted-event-source {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  border-left: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.ted-event-source strong {
+  color: var(--ink);
+  font-size: 13px;
 }
 .ted-advanced {
   margin-top: 10px;
@@ -4378,30 +4502,60 @@ input[type="text"].ted-duration {
   padding: 6px 0;
   font-size: 11px;
 }
-.quest-requirements label {
+.quest-requirement-row {
   display: grid;
-  grid-template-columns: 18px minmax(120px, 1fr) auto;
+  grid-template-columns: 18px minmax(120px, 1fr) auto 28px;
   gap: 4px 7px;
   align-items: center;
   padding: 5px 0;
   border-top: 1px solid var(--hairline);
   color: var(--ink-2);
 }
-.quest-requirements label.complete {
+.quest-requirement-row.complete {
   color: var(--good);
 }
-.quest-requirements label input {
+.quest-requirement-row input {
   width: 14px;
   height: 14px;
 }
-.quest-requirements label small {
+.quest-requirement-row small {
   grid-column: 2 / -1;
   color: var(--ink-muted);
   font-size: 10px;
 }
-.quest-requirements label .quest-drop-source {
+.quest-requirement-row .quest-drop-source {
   color: color-mix(in srgb, var(--ink-2) 75%, var(--ink-muted));
   line-height: 1.35;
+}
+.quest-watch-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.quest-watch-toggle {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.quest-watch-toggle:hover,
+.quest-watch-toggle.on {
+  color: var(--warning);
+}
+.quest-watch-toggle:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.quest-watch-error {
+  padding: 6px 0;
+  color: var(--critical);
+  font-size: 11px;
 }
 .quest-reward-items {
   display: flex;
@@ -7033,6 +7187,85 @@ button.drops-item.active {
    spacing the old flex toolbar band used to provide. */
 .drops-card .quest-inventory-bar {
   margin-bottom: 12px;
+}
+
+.watch-manager {
+  margin: 0 0 12px;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--surface-raised);
+}
+.watch-manager > header,
+.watch-manager-item {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 12px;
+}
+.watch-manager > header {
+  display: flex;
+  justify-content: space-between;
+}
+.watch-manager > header div {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.watch-manager > header span,
+.watch-manager-item > span {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.watch-manager-item {
+  border-top: 1px solid var(--hairline);
+}
+.watch-manager-name {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.watch-manager-name:hover {
+  color: var(--accent);
+}
+.watch-manager-goals {
+  grid-column: 1 / 3;
+  display: grid;
+  gap: 4px;
+}
+.watch-manager-goals > div {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 122px 110px;
+  gap: 10px;
+  align-items: center;
+  color: var(--ink-2);
+  font-size: 11px;
+}
+.watch-manager-goals label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.watch-manager-quantity input {
+  width: 48px;
+  height: 25px;
+  padding: 2px 5px;
+}
+@media (max-width: 760px) {
+  .watch-manager-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .watch-manager-goals {
+    grid-column: 1 / -1;
+  }
+  .watch-manager-goals > div {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---- welcome-back briefing card ("Where was I?") ------------------------

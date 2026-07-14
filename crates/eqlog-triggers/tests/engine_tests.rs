@@ -6,7 +6,8 @@
 use eqlog_core::events::{ChatChannel, Entity, Event, LogLine, ParsedLine};
 use eqlog_triggers::{
     Action, ActionSink, ChannelOverride, CharacterProfile, OverlayFire, TimerFireKind, TimerLane,
-    TimerStartMode, TimerTiming, Trigger, TriggerEngine, TriggerFireInfo,
+    TimerStartMode, TimerTiming, Trigger, TriggerEngine, TriggerEvent, TriggerFireInfo,
+    TriggerSignal,
 };
 
 type RecordedOverlay = (
@@ -3124,4 +3125,144 @@ fn skipped_action_does_not_shift_attribution_to_the_previous_trigger() {
             ("speak".into(), Some(speaker_id)),
         ]
     );
+}
+
+#[test]
+fn structured_signal_expands_fields_through_normal_actions() {
+    use std::collections::BTreeMap;
+
+    let mut trigger = Trigger::new(
+        "Watched item looted",
+        "([invalid raw regex",
+        vec![
+            Action::Overlay {
+                overlay: "impact".into(),
+                fields: BTreeMap::from([
+                    ("headline".into(), "YOU LOOTED".into()),
+                    ("big".into(), "${item}".into()),
+                    (
+                        "sub".into(),
+                        "${quantity} from ${corpse}; ${remaining} left for ${quests}".into(),
+                    ),
+                ]),
+                config: BTreeMap::from([("style".into(), serde_json::json!("loot-chest"))]),
+            },
+            Action::Speak {
+                template: "You looted ${item}".into(),
+            },
+        ],
+    );
+    trigger.id = Some("system/watched-loot".into());
+    trigger.event = Some(TriggerEvent::WatchedLoot);
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    assert!(
+        engine.warnings().is_empty(),
+        "typed pattern must not compile"
+    );
+
+    let mut sink = RecordingSink::default();
+    let signal = TriggerSignal::new(
+        TriggerEvent::WatchedLoot,
+        100,
+        BTreeMap::from([
+            ("item".into(), "Silvery Ring".into()),
+            ("quantity".into(), "1".into()),
+            ("corpse".into(), "a spider".into()),
+            ("remaining".into(), "2".into()),
+            ("quests".into(), "Test of Smash".into()),
+        ]),
+    );
+    let fired = engine.process_signal_traced(&signal, &mut sink);
+
+    assert_eq!(fired.len(), 1);
+    assert_eq!(fired[0].id, "system/watched-loot");
+    assert_eq!(sink.spoken, ["You looted Silvery Ring"]);
+    assert_eq!(sink.overlays.len(), 1);
+    assert_eq!(sink.overlays[0].0, "impact");
+    assert_eq!(sink.overlays[0].1["big"], "Silvery Ring");
+    assert_eq!(
+        sink.overlays[0].1["sub"],
+        "1 from a spider; 2 left for Test of Smash"
+    );
+    assert_eq!(sink.overlays[0].2["style"], "loot-chest");
+    assert_eq!(
+        sink.attributed_calls,
+        vec![
+            ("overlay".into(), Some("system/watched-loot".into())),
+            ("speak".into(), Some("system/watched-loot".into())),
+        ]
+    );
+}
+
+#[test]
+fn structured_triggers_are_separate_from_line_matching_and_share_cooldowns() {
+    use std::collections::BTreeMap;
+
+    let mut signal_trigger = Trigger::new(
+        "watched",
+        "",
+        vec![Action::Speak {
+            template: "${item}".into(),
+        }],
+    );
+    signal_trigger.event = Some(TriggerEvent::WatchedLoot);
+    signal_trigger.cooldown_secs = Some(10);
+    let line_trigger = Trigger::new(
+        "line",
+        "^rooted$",
+        vec![Action::Speak {
+            template: "line fired".into(),
+        }],
+    );
+    let mut engine = TriggerEngine::new(vec![signal_trigger, line_trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(90, "anything at all"), &mut sink);
+    engine.process(&line(91, "rooted"), &mut sink);
+    assert_eq!(sink.spoken, ["line fired"]);
+
+    for ts in [100, 105, 110] {
+        engine.process_signal_traced(
+            &TriggerSignal::new(
+                TriggerEvent::WatchedLoot,
+                ts,
+                BTreeMap::from([("item".into(), format!("item {ts}"))]),
+            ),
+            &mut sink,
+        );
+    }
+    assert_eq!(sink.spoken, ["line fired", "item 100", "item 110"]);
+}
+
+#[test]
+fn profile_can_disable_a_structured_trigger() {
+    use std::collections::BTreeMap;
+
+    let mut trigger = Trigger::new(
+        "watched",
+        "",
+        vec![Action::Speak {
+            template: "${item}".into(),
+        }],
+    );
+    trigger.id = Some("system/watched-loot".into());
+    trigger.event = Some(TriggerEvent::WatchedLoot);
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile
+        .active_loadout_mut()
+        .overrides
+        .insert("system/watched-loot".into(), false);
+    let mut engine = TriggerEngine::new_with_profile(vec![trigger], "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    let fired = engine.process_signal_traced(
+        &TriggerSignal::new(
+            TriggerEvent::WatchedLoot,
+            100,
+            BTreeMap::from([("item".into(), "Silvery Ring".into())]),
+        ),
+        &mut sink,
+    );
+    assert!(fired.is_empty());
+    assert_eq!(sink.total_calls(), 0);
 }
