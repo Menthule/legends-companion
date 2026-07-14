@@ -7,5 +7,11 @@ license.workspace = true
 [dependencies]
 eqlog-core = { path = "../eqlog-core" }
 rusqlite.workspace = true
+serde.workspace = true
 serde_json.workspace = true
+sha2.workspace = true
 thiserror.workspace = true
+
+[dev-dependencies]
+# Integration tests build v1 fixture databases and inspect schema directly.
+rusqlite.workspace = true

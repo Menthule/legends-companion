@@ -57,6 +57,12 @@ pub struct AppConfig {
     /// startup. `0` (default) keeps history forever. Additive.
     #[serde(default)]
     pub fight_retention_days: u32,
+    /// Career-import session-split gap in minutes ("everything
+    /// configurable"); `0` (the default) means the importer default (30 —
+    /// `eqlog_store::career::DEFAULT_GAP_SECS`). Editable in settings.json;
+    /// no Settings UI yet. Additive.
+    #[serde(default)]
+    pub career_gap_mins: u32,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]

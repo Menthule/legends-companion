@@ -19,6 +19,9 @@ export interface AppConfig {
   /** Drop stored fights older than this many days at startup. 0/absent =
    *  keep history forever. */
   fightRetentionDays?: number;
+  /** Career-import session-split gap in minutes. 0/absent = the importer
+   *  default (30). Backend/settings.json only — no Settings UI yet. */
+  careerGapMins?: number;
 }
 
 /** Overlay lane a timer routes to (eqlog-triggers TimerLane, lowercase).
@@ -424,6 +427,9 @@ export interface FightRecord {
   targetSlain: boolean;
   /** Combatant rows shaped like the live meter rows (damage desc). */
   rows: MeterRow[];
+  /** Enemy rows with expandable melee/spell/effect sources. Older app data
+   * can omit this field, so fight detail provides a total-only fallback. */
+  enemyRows?: MeterRow[];
 }
 
 /** One page of fight history. `total` is null when the backend command
@@ -867,4 +873,125 @@ export interface TriggerUpdateInfo {
   updateAvailable: boolean;
   /** Trigger-library download size, in bytes. */
   totalBytes: number;
+}
+
+// ---------------------------------------------------------------------------
+// Career database (eqlog-store career tables — docs/career-db-design.md §6).
+// All `ts` fields are LOG-DOMAIN epoch seconds (naive-local-as-UTC, the
+// fights.startTs convention): format with UTC getters, never Date.now() math.
+// ---------------------------------------------------------------------------
+
+/** Lifetime career totals for the active character (career_summary). */
+export interface CareerSummary {
+  character: string;
+  server: string;
+  sessions: number;
+  totalDurationSecs: number;
+  /** Log-domain; null when sessions == 0. */
+  firstTs: number | null;
+  lastTs: number | null;
+  kills: number;
+  deaths: number;
+  /** Lifetime observed XP sum (percent points). */
+  xpPercent: number;
+  levelUps: number;
+  /** Highest level ever observed; null when no ding was ever seen. */
+  endLevel: number | null;
+  coinCopper: number;
+  lootCount: number;
+  skillUps: number;
+  aaPoints: number;
+  /** TRUE-UTC epoch secs (bookkeeping), null = never imported. */
+  lastImportAt: number | null;
+}
+
+/** One imported play block (career_sessions rows). */
+export interface CareerSession {
+  id: number;
+  /** Log-domain. */
+  startTs: number;
+  endTs: number;
+  durationSecs: number;
+  zones: string[];
+  kills: number;
+  deaths: number;
+  xpPercent: number;
+  partyXpPercent: number;
+  levelUps: number;
+  endLevel: number | null;
+  aaPoints: number;
+  coinCopper: number;
+  skillUps: number;
+  lootCount: number;
+  sourceFile: string;
+}
+
+/** One ding (career_level_timeline rows, ascending ts). */
+export interface CareerLevelUp {
+  id: number;
+  /** Log-domain. */
+  ts: number;
+  level: number;
+  sessionId: number | null;
+}
+
+/** One loot event in the career ledger (career_loot rows). */
+export interface CareerLootRow {
+  id: number;
+  /** Log-domain. */
+  ts: number;
+  item: string;
+  quantity: number;
+  corpse: string | null;
+  looter: string;
+  /** null = kept, 0 = "sold for free". */
+  soldForCopper: number | null;
+  sessionId: number | null;
+}
+
+/** Career kill totals for one mob plus observed loot counts. */
+export interface CareerMobKills {
+  mob: string;
+  kills: number;
+  /** Loot events whose corpse == mob. */
+  lootDrops: number;
+  distinctItems: number;
+  /** Log-domain, most recent kill session end. */
+  lastTs: number;
+}
+
+/** One observed drop count off one mob (career_mob_drops rows). */
+export interface CareerMobDrop {
+  item: string;
+  /** Observed drops of this item off this mob. */
+  count: number;
+}
+
+/** "career-import-progress" event payload; done fires exactly once per file. */
+export interface CareerImportProgress {
+  file: string;
+  /** 0..100 (bytes_read / bytes_total). */
+  percent: number;
+  linesRead: number;
+  sessionsFound: number;
+  done: boolean;
+  /** Non-null => this file failed; the run continues with the next file. */
+  error: string | null;
+}
+
+/** Per-file result of career_import. */
+export interface CareerImportReport {
+  file: string;
+  character: string;
+  server: string;
+  linesRead: number;
+  linesSkipped: number;
+  sessionsAdded: number;
+  sessionsUpdated: number;
+  levelUpsAdded: number;
+  lootAdded: number;
+  killsAdded: number;
+  /** The whole file was a no-op (watermark current or floor-refused). */
+  skipped: boolean;
+  skipReason: string | null;
 }

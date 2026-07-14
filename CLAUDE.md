@@ -18,10 +18,13 @@ design tokens. `PLAN.md` and `docs/now-sprint.md` are historical.
   `storage.rs`), GINA `.gtp` import (`gina.rs`), share strings `LCS1:`
   (`share.rs`), class auto-detect (`classdetect.rs`), buff land-on-other
   binding (`buff_lands.rs`).
-- `crates/eqlog-store` — SQLite fight-history persistence (rusqlite,
-  bundled).
+- `crates/eqlog-store` — the ONE store SQLite (rusqlite, bundled;
+  `fights.db`, `schema.rs` migrations): fight history (`lib.rs`) + career
+  tables and the idempotent log-history importer (`career.rs`,
+  `import.rs` — see `docs/career-db-design.md`).
 - `crates/eqlog-cli` — `eqlog` binary: `parse`, `fights`, `tail`,
-  `triggers` (spam audit), `detect`, `share export/import`.
+  `triggers` (spam audit), `detect`, `share export/import`,
+  `career import/stats/reset`.
 
 **`app/src-tauri/src`** (Windows-only app shell — OUTSIDE the workspace):
 
@@ -53,6 +56,7 @@ design tokens. `PLAN.md` and `docs/now-sprint.md` are historical.
   pubkey in `tauri.conf.json`).
 - Also: `config.rs` (settings), `discover.rs` (first-run log scan),
   `meters.rs` (live meter aggregation), `store.rs` (fight-history wiring),
+  `career.rs` (career-DB commands + import-at-tail-start wiring),
   `sounds.rs`, `logging.rs` (rotating app.log).
 
 **`app/src`** (React + TS + Vite):

@@ -7329,3 +7329,181 @@ button.drops-item.active {
   font-size: 13px;
   cursor: pointer;
 }
+
+/* ---- Career database (Session tab Career / Loot ledger panels + the
+   Settings → General "Career history" import block). Accent-only bars,
+   tabular-nums via the shared .num, grid rows in the .session-loot-row
+   family. ---- */
+
+/* Settings: import block */
+.career-subhead {
+  margin-top: 14px;
+}
+.career-import-files {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.career-import-file {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: var(--surface);
+}
+.career-import-pick {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  cursor: pointer;
+  min-width: 0;
+}
+.career-import-pick input {
+  flex: none;
+  align-self: center;
+}
+.career-import-name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.career-import-path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.career-import-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.career-progress-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-raised);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+}
+.career-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 160ms ease-out;
+}
+.career-progress-fill.error {
+  background: var(--critical);
+}
+
+/* Career panel: level timeline (time-per-level bars, ding dates) */
+.career-levels {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+.career-level-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 84px 88px;
+  gap: 10px;
+  align-items: center;
+  padding: 3px 0;
+}
+.career-level-label {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.career-level-bar-wrap {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+.career-level-bar {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+  opacity: 0.85;
+}
+.career-level-time {
+  text-align: right;
+}
+.career-level-date {
+  text-align: right;
+}
+
+/* Career panel: paged sessions table */
+.career-session-row {
+  display: grid;
+  grid-template-columns: 116px 64px 1fr 48px 52px 110px 90px 44px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.career-session-row:last-child {
+  border-bottom: none;
+}
+.career-ding-chip {
+  margin-left: 6px;
+  padding: 0 5px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* Loot ledger panel */
+.career-loot-row {
+  display: grid;
+  grid-template-columns: 116px 1fr 1fr 110px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.career-loot-row:last-child {
+  border-bottom: none;
+}
+.career-mob-row {
+  display: grid;
+  grid-template-columns: 1fr 56px 80px 48px 88px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.career-mob-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.career-mob-toggle:hover {
+  background: var(--surface-raised);
+}
+.career-mob-caret {
+  display: inline-block;
+  width: 14px;
+  color: var(--ink-muted);
+}
+.career-mob-drops {
+  padding: 2px 0 6px 24px;
+  border-bottom: 1px solid var(--hairline);
+}
+.career-drop-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+  padding: 2px 0;
+}

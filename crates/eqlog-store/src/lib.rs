@@ -1,28 +1,32 @@
-//! eqlog-store — SQLite persistence for completed fights.
+//! eqlog-store — SQLite persistence for completed fights and per-character
+//! career history.
 //!
 //! Fixes the "meters amnesia" gap (APP_REVIEW N7): completed
 //! [`FightSummary`]s were drained and discarded in memory; this crate gives
-//! hosts (the Tauri app, the CLI) a durable, browsable fight history.
+//! hosts (the Tauri app, the CLI) a durable, browsable fight history. The
+//! [`career`] module adds durable per-character career tables plus the
+//! log-history backfill importer (docs/career-db-design.md).
 //!
 //! Design:
 //! - One `fights` table. Hot list/sort columns (`target`, `start_ts`, …) are
 //!   real columns; the full summary (per-combatant rows included) is stored
 //!   as the crate-of-record JSON blob, so the schema never chases
 //!   [`FightSummary`] field additions.
-//! - Schema is versioned via `PRAGMA user_version`. Opening a newer database
+//! - Schema is versioned via `PRAGMA user_version` ([`schema`] module, shared
+//!   by [`FightStore`] and [`career::CareerStore`]). Opening a newer database
 //!   than this crate understands is a hard error (never silently rewrite a
 //!   future schema); older versions are migrated in place.
 //! - SQLite is compiled in (`rusqlite` `bundled`), so there is no system
 //!   library dependency on any platform.
 
+pub mod career;
+mod import;
+mod schema;
+
 use std::path::Path;
 
 use eqlog_core::fights::FightSummary;
 use rusqlite::{params, Connection, OptionalExtension};
-
-/// Schema version written to `PRAGMA user_version`. Bump when the schema
-/// changes and add a migration step in [`migrate`].
-const SCHEMA_VERSION: i64 = 1;
 
 /// Errors from [`FightStore`] operations.
 #[derive(Debug, thiserror::Error)]
@@ -40,6 +44,14 @@ pub enum StoreError {
          update the app instead of downgrading the database"
     )]
     FutureSchema { found: i64, supported: i64 },
+    #[error("career import I/O error on {path}: {source}")]
+    ImportIo {
+        path: std::path::PathBuf,
+        #[source]
+        source: std::io::Error,
+    },
+    #[error("career import error: {0}")]
+    Import(String),
 }
 
 /// A persisted fight: its database id plus the full summary.
@@ -83,7 +95,12 @@ impl FightStore {
         // (in-memory databases reject WAL).
         let _ = conn.pragma_update(None, "journal_mode", "WAL");
         let _ = conn.pragma_update(None, "synchronous", "NORMAL");
-        migrate(&conn)?;
+        // The app runs a second connection to this file (CareerStore, career
+        // importer). WAL allows one writer at a time; without a busy timeout
+        // a fight insert colliding with an import commit fails immediately
+        // with SQLITE_BUSY instead of waiting the few ms it needs.
+        let _ = conn.busy_timeout(std::time::Duration::from_secs(5));
+        schema::migrate(&conn)?;
         Ok(FightStore { conn })
     }
 
@@ -215,37 +232,6 @@ fn parse_summary(id: i64, json: &str) -> Result<FightSummary, StoreError> {
     serde_json::from_str(json).map_err(|source| StoreError::Corrupt { id, source })
 }
 
-/// Bring the schema up to [`SCHEMA_VERSION`]. Version 0 = fresh database.
-fn migrate(conn: &Connection) -> Result<(), StoreError> {
-    let found: i64 = conn.pragma_query_value(None, "user_version", |row| row.get(0))?;
-    if found > SCHEMA_VERSION {
-        return Err(StoreError::FutureSchema {
-            found,
-            supported: SCHEMA_VERSION,
-        });
-    }
-    if found < 1 {
-        conn.execute_batch(
-            "BEGIN;
-             CREATE TABLE IF NOT EXISTS fights (
-                 id            INTEGER PRIMARY KEY,
-                 target        TEXT    NOT NULL,
-                 start_ts      INTEGER NOT NULL,
-                 end_ts        INTEGER NOT NULL,
-                 duration_secs INTEGER NOT NULL,
-                 total_damage  INTEGER NOT NULL,
-                 target_slain  INTEGER NOT NULL,
-                 summary_json  TEXT    NOT NULL
-             );
-             CREATE INDEX IF NOT EXISTS fights_start_ts ON fights (start_ts DESC, id DESC);
-             COMMIT;",
-        )?;
-    }
-    // Future migrations: `if found < 2 { … }` steps, in order.
-    conn.pragma_update(None, "user_version", SCHEMA_VERSION)?;
-    Ok(())
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -293,6 +279,7 @@ mod tests {
             end_ts: start_ts + 30,
             duration_secs: 30,
             total_damage: 2761,
+            total_enemy_damage: 0,
             target_slain: true,
             rows: vec![CombatantRow {
                 name: "Nyasha".to_string(),
@@ -317,6 +304,7 @@ mod tests {
                     casts: 0,
                 }],
             }],
+            enemy_rows: Vec::new(),
         }
     }
 
@@ -504,7 +492,7 @@ mod tests {
         }
         {
             let conn = Connection::open(td.db_path()).unwrap();
-            conn.pragma_update(None, "user_version", SCHEMA_VERSION + 1)
+            conn.pragma_update(None, "user_version", schema::SCHEMA_VERSION + 1)
                 .unwrap();
         }
         let err = FightStore::open(td.db_path())
@@ -512,8 +500,8 @@ mod tests {
             .expect("opening a future-versioned store must fail");
         match err {
             StoreError::FutureSchema { found, supported } => {
-                assert_eq!(found, SCHEMA_VERSION + 1);
-                assert_eq!(supported, SCHEMA_VERSION);
+                assert_eq!(found, schema::SCHEMA_VERSION + 1);
+                assert_eq!(supported, schema::SCHEMA_VERSION);
             }
             other => panic!("expected FutureSchema error, got {other:?}"),
         }

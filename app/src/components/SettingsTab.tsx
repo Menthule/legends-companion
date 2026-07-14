@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
 import {
+  careerImport,
+  careerReset,
+  careerSummary,
   checkUpdate,
   confirmDiscard,
   dataUpdateCheck,
   dataUpdateInstall,
   dataVersion,
+  discoverLogs,
   getConfig,
   getLogStats,
   installUpdate,
@@ -62,14 +66,18 @@ import {
 } from "../overlayState";
 import { effectiveEnabledInLoadout } from "../resolution";
 import { getTheme, setTheme, type Theme } from "../theme";
-import { fmtBytes as formatBytes } from "../lib/format";
+import { fmtBytes as formatBytes, fmtNum } from "../lib/format";
+import { useToast } from "./Toast";
 import {
   CLASS_NAMES,
   DEFAULT_LOG_DIR,
   displayPath,
   type AppConfig,
+  type CareerImportProgress,
+  type CareerSummary,
   type CharacterProfile,
   type DataUpdateInfo,
+  type DiscoveredLog,
   type Loadout,
   type Trigger,
   type TriggerTreeEntry,
@@ -162,6 +170,98 @@ export default function SettingsTab({
   useEffect(() => {
     dataVersion().then(setDataCurrent).catch(() => {});
   }, []);
+
+  // ---- Career history (import + reset) ----
+  const [careerInfo, setCareerInfo] = useState<CareerSummary | null>(null);
+  const [careerLogs, setCareerLogs] = useState<DiscoveredLog[]>([]);
+  const [careerSelected, setCareerSelected] = useState<Record<string, boolean>>(
+    {},
+  );
+  const [careerImporting, setCareerImporting] = useState(false);
+  const [careerProgress, setCareerProgress] = useState<
+    Record<string, CareerImportProgress>
+  >({});
+  const [careerStatus, setCareerStatus] = useState<string | null>(null);
+  const [toastNode, showToast] = useToast();
+  useEffect(() => {
+    careerSummary().then(setCareerInfo);
+    discoverLogs()
+      .then((logs) => {
+        setCareerLogs(logs);
+        // Everything checked by default; the user unchecks archives they
+        // don't want folded in yet.
+        setCareerSelected(Object.fromEntries(logs.map((l) => [l.path, true])));
+      })
+      .catch(() => setCareerLogs([]));
+  }, []);
+  useTauriEvent<CareerImportProgress>("career-import-progress", (p) => {
+    setCareerProgress((prev) => ({ ...prev, [p.file]: p }));
+  });
+
+  /** Fold the selected discovered logs (or the active configured log when
+   *  none are discovered) into the career DB. Watermark-resumed, so re-runs
+   *  are cheap and safe; the user can navigate away while it runs. */
+  async function runCareerImport() {
+    const paths = careerLogs
+      .filter((l) => careerSelected[l.path] !== false)
+      .map((l) => l.path);
+    if (careerLogs.length > 0 && paths.length === 0) {
+      setCareerStatus("Select at least one log file to import.");
+      return;
+    }
+    setCareerImporting(true);
+    setCareerProgress({});
+    setCareerStatus(null);
+    try {
+      const reports = await careerImport(paths);
+      const added = reports.reduce(
+        (s, r) => s + r.sessionsAdded + r.sessionsUpdated,
+        0,
+      );
+      const failed = reports.filter((r) => r.skipReason !== null);
+      if (reports.length > 0 && reports.every((r) => r.skipped)) {
+        showToast("Career history is already up to date.");
+      } else {
+        showToast(
+          `Imported ${added} session${added === 1 ? "" : "s"} from ${reports.length} file${reports.length === 1 ? "" : "s"}.`,
+        );
+      }
+      if (failed.length > 0) {
+        setCareerStatus(
+          failed
+            .map((r) => `${displayPath(r.file)}: ${r.skipReason}`)
+            .join(" · "),
+        );
+      }
+      setCareerInfo(await careerSummary());
+    } catch (e) {
+      setCareerStatus(`Import failed: ${String(e)}`);
+    } finally {
+      setCareerImporting(false);
+    }
+  }
+
+  /** Delete every career row + import watermark for the active character
+   *  (the supported remedy for late-discovered older archives). */
+  async function resetCareer() {
+    const who = config?.characterName || "this character";
+    if (
+      !(await confirmDiscard(
+        `Delete all imported career history for ${who}? Sessions, level-ups, loot, and kill counts are removed. Log files are untouched — re-importing rebuilds everything.`,
+        "Reset career data",
+      ))
+    ) {
+      return;
+    }
+    try {
+      await careerReset();
+      setCareerProgress({});
+      setCareerInfo(await careerSummary());
+      showToast("Career data deleted. Import log history to rebuild it.");
+    } catch (e) {
+      setCareerStatus(`Reset failed: ${String(e)}`);
+    }
+  }
 
   /** App channel: checkUpdate() never rejects (errors resolve null), so a
    *  quiet "up to date" doubles as the offline/dev-build answer. */
@@ -838,6 +938,102 @@ export default function SettingsTab({
             onBlur={() => void save(config)}
           />
         </label>
+
+        <div className="card-head career-subhead">
+          <span className="section-title">Career history</span>
+          <span className="hint">
+            Durable per-character progression, rebuilt from your log files
+          </span>
+        </div>
+        <p className="hint">
+          {careerInfo?.lastImportAt != null
+            ? `Last imported ${new Date(
+                careerInfo.lastImportAt * 1000,
+              ).toLocaleString()} · ${careerInfo.sessions} session${
+                careerInfo.sessions === 1 ? "" : "s"
+              } on record.`
+            : "Never imported — your existing logs hold months of replayable sessions, level-ups, loot, and kills."}
+        </p>
+        {careerLogs.length > 0 && (
+          <div className="career-import-files">
+            {careerLogs.map((log) => {
+              const p = careerProgress[log.path];
+              return (
+                <div className="career-import-file" key={log.path}>
+                  <label className="career-import-pick">
+                    <input
+                      type="checkbox"
+                      checked={careerSelected[log.path] !== false}
+                      disabled={careerImporting}
+                      onChange={(e) =>
+                        setCareerSelected((prev) => ({
+                          ...prev,
+                          [log.path]: e.target.checked,
+                        }))
+                      }
+                    />
+                    <span className="career-import-name">
+                      {log.character || "Unknown"}
+                      {log.server ? ` · ${log.server}` : ""}
+                    </span>
+                    <span className="hint career-import-path" title={log.path}>
+                      {displayPath(log.path)}
+                    </span>
+                  </label>
+                  {p && (
+                    <div className="career-import-progress">
+                      <div
+                        className="career-progress-track"
+                        role="progressbar"
+                        aria-valuenow={Math.round(p.percent)}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`Import progress for ${displayPath(log.path)}`}
+                      >
+                        <div
+                          className={`career-progress-fill${p.error ? " error" : ""}`}
+                          style={{
+                            width: `${Math.min(100, Math.max(0, p.percent))}%`,
+                          }}
+                        />
+                      </div>
+                      <span className="hint num">
+                        {p.error
+                          ? `Failed: ${p.error}`
+                          : p.done
+                            ? "Done"
+                            : `${Math.round(p.percent)}% · ${fmtNum(p.linesRead)} lines`}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        <div className="path-row">
+          <button
+            className="ghost"
+            onClick={() => void runCareerImport()}
+            disabled={careerImporting}
+          >
+            {careerImporting ? "Importing…" : "Import log history"}
+          </button>
+          <button
+            className="danger small"
+            onClick={() => void resetCareer()}
+            disabled={careerImporting || !careerInfo}
+          >
+            Reset career data…
+          </button>
+        </div>
+        <p className="hint">
+          Safe to re-run any time — each import reads only what was appended
+          since the last run. Import archived copies oldest first. You can
+          keep using the app while it runs; career views on the Session tab
+          refresh when it finishes.
+        </p>
+        {careerStatus && <p className="hint">{careerStatus}</p>}
       </section>
 
       <section className={`card${section === "general" ? "" : " hidden"}`}>
@@ -1283,6 +1479,7 @@ export default function SettingsTab({
         <PatchNotesTab />
       </section>
       {share && <ShareDialog request={share} onClose={() => setShare(null)} />}
+      {toastNode}
     </div>
   );
 }

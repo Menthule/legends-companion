@@ -19,6 +19,14 @@ import {
 } from "./lib/share";
 import type {
   AppConfig,
+  CareerImportProgress,
+  CareerImportReport,
+  CareerLevelUp,
+  CareerLootRow,
+  CareerMobDrop,
+  CareerMobKills,
+  CareerSession,
+  CareerSummary,
   CharacterProfile,
   DiscoveredLog,
   DropZone,
@@ -1212,5 +1220,326 @@ export function startMockDriver(): void {
       };
       mockEmit("pack-warnings", warnings);
     }, 1200);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Career database (mirrors the career_* commands + "career-import-progress").
+// A deterministic demo career — ~30 sessions over ~3 months, level 10 → 24 —
+// generated with the shared `seeded` PRNG so screenshots are stable.
+// ---------------------------------------------------------------------------
+
+const CAREER_MOBS: { mob: string; items: string[] }[] = [
+  { mob: "a decaying skeleton", items: ["Bone Chips", "Rusty Scimitar", "Cracked Skull"] },
+  { mob: "a gnoll pup", items: ["Gnoll Fang", "Ruined Pelt"] },
+  { mob: "a greater skeleton", items: ["Bone Chips", "Rusty Two Handed Sword"] },
+  { mob: "an orc centurion", items: ["Centurion's Short Sword", "Orc Scalp", "Chipped Shield"] },
+  { mob: "a shadowed man", items: ["Shadowed Rapier", "Globe of Slush Water"] },
+  { mob: "a lesser mummy", items: ["Rusty Warhammer", "Tattered Bandage"] },
+  { mob: "a fallen knight", items: ["Rune of Impetus", "Tarnished Breastplate"] },
+  { mob: "Kizrak the Cruel", items: ["Kizrak's Bloodied Cleaver", "Sergeant's Signet"] },
+];
+
+const CAREER_ZONES = [
+  "Befallen",
+  "West Commonlands",
+  "Upper Guk",
+  "Castle Mistmoore",
+  "Oasis of Marr",
+  "Neriak Third Gate",
+];
+
+interface MockCareer {
+  summary: CareerSummary;
+  /** Newest first, like the store's start_ts DESC index. */
+  sessions: CareerSession[];
+  /** Ascending ts (the level_timeline contract order). */
+  levelUps: CareerLevelUp[];
+  /** Newest first. */
+  loot: CareerLootRow[];
+  /** Kills descending. */
+  mobKills: CareerMobKills[];
+  mobDrops: Map<string, CareerMobDrop[]>;
+}
+
+function makeMockCareer(): MockCareer {
+  const daySecs = 86_400;
+  const count = 30;
+  const sessions: CareerSession[] = [];
+  const levelUps: CareerLevelUp[] = [];
+  const loot: CareerLootRow[] = [];
+  const killAgg = new Map<string, { kills: number; lastTs: number }>();
+  const dropAgg = new Map<string, Map<string, number>>();
+  let ts = Math.floor(Date.now() / 1000) - 92 * daySecs;
+  let level = 10;
+  let lootId = 1;
+  let upId = 1;
+  for (let k = 0; k < count; k++) {
+    const id = k + 1;
+    const durationSecs = Math.round(3600 * (1 + seeded(id * 3) * 3.5));
+    const startTs = ts;
+    const endTs = startTs + durationSecs;
+    const zoneA = CAREER_ZONES[Math.floor(seeded(id * 5) * CAREER_ZONES.length)];
+    const zoneB = CAREER_ZONES[Math.floor(seeded(id * 11) * CAREER_ZONES.length)];
+    const zones =
+      zoneA !== zoneB && seeded(id * 13) > 0.55 ? [zoneA, zoneB] : [zoneA];
+    const kills = Math.round((durationSecs / 3600) * (18 + seeded(id * 7) * 22));
+    const deaths = seeded(id * 17) > 0.75 ? (seeded(id * 19) > 0.6 ? 2 : 1) : 0;
+    const xpPercent = Math.round(kills * (28 + seeded(id * 23) * 18)) / 100;
+    const partyXpPercent = Math.round(xpPercent * 30) / 100;
+    // 14 dings (11..24) spread evenly across the 30 sessions, oldest first.
+    const dings =
+      Math.floor(((k + 1) * 14) / count) - Math.floor((k * 14) / count);
+    for (let d = 0; d < dings; d++) {
+      level += 1;
+      const at =
+        startTs +
+        Math.round(durationSecs * Math.min(0.95, 0.3 + d * 0.4 + seeded(id * 31 + d) * 0.2));
+      levelUps.push({ id: upId++, ts: at, level, sessionId: id });
+    }
+    // Loot: a handful of drops per session, attributed to real corpse mobs.
+    const lootN = 4 + Math.floor(seeded(id * 37) * 8);
+    let soldCopper = 0;
+    for (let j = 0; j < lootN; j++) {
+      const src = CAREER_MOBS[Math.floor(seeded(id * 41 + j) * CAREER_MOBS.length)];
+      const item = src.items[Math.floor(seeded(id * 43 + j) * src.items.length)];
+      const quantity = item === "Bone Chips" ? 1 + Math.floor(seeded(id * 45 + j) * 4) : 1;
+      const sold = seeded(id * 49 + j) > 0.72;
+      const soldForCopper = sold ? Math.round(seeded(id * 51 + j) * 900) : null;
+      soldCopper += soldForCopper ?? 0;
+      loot.push({
+        id: lootId++,
+        ts: startTs + Math.round((durationSecs * (j + 1)) / (lootN + 1)),
+        item,
+        quantity,
+        corpse: src.mob,
+        looter: "Nyasha",
+        soldForCopper,
+        sessionId: id,
+      });
+      const byItem = dropAgg.get(src.mob) ?? new Map<string, number>();
+      byItem.set(item, (byItem.get(item) ?? 0) + 1);
+      dropAgg.set(src.mob, byItem);
+    }
+    // Kill counts: split across 2–3 mobs of the zone's roster.
+    const mobN = 2 + Math.floor(seeded(id * 53) * 2);
+    let remaining = kills;
+    for (let m = 0; m < mobN; m++) {
+      const src = CAREER_MOBS[Math.floor(seeded(id * 57 + m) * CAREER_MOBS.length)];
+      const share =
+        m === mobN - 1 ? remaining : Math.round(remaining * (0.3 + seeded(id * 59 + m) * 0.4));
+      remaining -= share;
+      if (share <= 0) continue;
+      const agg = killAgg.get(src.mob) ?? { kills: 0, lastTs: 0 };
+      agg.kills += share;
+      agg.lastTs = Math.max(agg.lastTs, endTs);
+      killAgg.set(src.mob, agg);
+    }
+    sessions.push({
+      id,
+      startTs,
+      endTs,
+      durationSecs,
+      zones,
+      kills,
+      deaths,
+      xpPercent,
+      partyXpPercent,
+      levelUps: dings,
+      endLevel: dings > 0 ? level : null,
+      aaPoints: level >= 20 ? Math.floor(seeded(id * 61) * 3) : 0,
+      coinCopper: Math.round(kills * (30 + seeded(id * 63) * 120)) + soldCopper,
+      skillUps: Math.floor(seeded(id * 67) * 6),
+      lootCount: lootN,
+      sourceFile: `${MOCK_LOG_DIR}/eqlog_Nyasha_legends.txt`,
+    });
+    ts = endTs + Math.round((0.4 + seeded(id * 69) * 5) * daySecs);
+  }
+  const mobKills: CareerMobKills[] = [...killAgg.entries()]
+    .map(([mob, agg]) => {
+      const byItem = dropAgg.get(mob);
+      const lootDrops = byItem
+        ? [...byItem.values()].reduce((s, n) => s + n, 0)
+        : 0;
+      return {
+        mob,
+        kills: agg.kills,
+        lootDrops,
+        distinctItems: byItem?.size ?? 0,
+        lastTs: agg.lastTs,
+      };
+    })
+    .sort((a, b) => b.kills - a.kills || a.mob.localeCompare(b.mob));
+  const mobDrops = new Map<string, CareerMobDrop[]>();
+  for (const [mob, byItem] of dropAgg) {
+    mobDrops.set(
+      mob,
+      [...byItem.entries()]
+        .map(([item, n]) => ({ item, count: n }))
+        .sort((a, b) => b.count - a.count || a.item.localeCompare(b.item)),
+    );
+  }
+  const summary: CareerSummary = {
+    character: "Nyasha",
+    server: "legends",
+    sessions: sessions.length,
+    totalDurationSecs: sessions.reduce((s, x) => s + x.durationSecs, 0),
+    firstTs: sessions[0]?.startTs ?? null,
+    lastTs: sessions[sessions.length - 1]?.endTs ?? null,
+    kills: sessions.reduce((s, x) => s + x.kills, 0),
+    deaths: sessions.reduce((s, x) => s + x.deaths, 0),
+    xpPercent: sessions.reduce((s, x) => s + x.xpPercent, 0),
+    levelUps: levelUps.length,
+    endLevel: level,
+    coinCopper: sessions.reduce((s, x) => s + x.coinCopper, 0),
+    lootCount: loot.length,
+    skillUps: sessions.reduce((s, x) => s + x.skillUps, 0),
+    aaPoints: sessions.reduce((s, x) => s + x.aaPoints, 0),
+    lastImportAt: Math.floor(Date.now() / 1000) - 5_400,
+  };
+  return {
+    summary,
+    sessions: [...sessions].reverse(),
+    levelUps,
+    loot: [...loot].reverse(),
+    mobKills,
+    mobDrops,
+  };
+}
+
+const MOCK_CAREER: MockCareer = makeMockCareer();
+
+/** "Reset career data" leaves the demo empty until the next mock import. */
+let mockCareerCleared = false;
+let mockCareerImporting = false;
+let mockCareerLastImportAt: number | null = MOCK_CAREER.summary.lastImportAt;
+
+export function mockCareerSummary(): CareerSummary | null {
+  if (mockCareerCleared) return null;
+  return { ...MOCK_CAREER.summary, lastImportAt: mockCareerLastImportAt };
+}
+
+export function mockCareerSessions(
+  limit: number,
+  offset: number,
+): { total: number; rows: CareerSession[] } {
+  if (mockCareerCleared) return { total: 0, rows: [] };
+  return {
+    total: MOCK_CAREER.sessions.length,
+    rows: MOCK_CAREER.sessions
+      .slice(offset, offset + limit)
+      .map((s) => ({ ...s, zones: [...s.zones] })),
+  };
+}
+
+export function mockCareerLevelTimeline(): CareerLevelUp[] {
+  if (mockCareerCleared) return [];
+  return MOCK_CAREER.levelUps.map((u) => ({ ...u }));
+}
+
+export function mockCareerLoot(
+  search: string,
+  limit: number,
+  offset: number,
+): { total: number; rows: CareerLootRow[] } {
+  if (mockCareerCleared) return { total: 0, rows: [] };
+  const q = search.trim().toLowerCase();
+  const rows = q
+    ? MOCK_CAREER.loot.filter((l) => l.item.toLowerCase().includes(q))
+    : MOCK_CAREER.loot;
+  return {
+    total: rows.length,
+    rows: rows.slice(offset, offset + limit).map((l) => ({ ...l })),
+  };
+}
+
+export function mockCareerMobKills(
+  search: string,
+  limit: number,
+  offset: number,
+): { total: number; rows: CareerMobKills[] } {
+  if (mockCareerCleared) return { total: 0, rows: [] };
+  const q = search.trim().toLowerCase();
+  const rows = q
+    ? MOCK_CAREER.mobKills.filter((m) => m.mob.toLowerCase().includes(q))
+    : MOCK_CAREER.mobKills;
+  return {
+    total: rows.length,
+    rows: rows.slice(offset, offset + limit).map((m) => ({ ...m })),
+  };
+}
+
+export function mockCareerMobDrops(mob: string): CareerMobDrop[] {
+  if (mockCareerCleared) return [];
+  const rows = MOCK_CAREER.mobDrops.get(mob) ?? [];
+  return rows.map((d) => ({ ...d }));
+}
+
+export function mockCareerReset(): void {
+  mockCareerCleared = true;
+  mockCareerLastImportAt = null;
+}
+
+/** Canned import: a short progress sequence per file, then reports. The
+ *  first run after a Reset "re-imports" the demo career; otherwise the
+ *  watermark is current and the report comes back skipped ("Up to date"). */
+export async function mockCareerImport(
+  paths: string[],
+): Promise<CareerImportReport[]> {
+  if (mockCareerImporting) {
+    throw new Error("A career import is already running.");
+  }
+  mockCareerImporting = true;
+  const sleep = (ms: number) => new Promise((r) => window.setTimeout(r, ms));
+  try {
+    const files =
+      paths.length > 0
+        ? paths
+        : [mockConfig.logPath || `${MOCK_LOG_DIR}/eqlog_Nyasha_legends.txt`];
+    const reports: CareerImportReport[] = [];
+    for (const file of files) {
+      for (const percent of [7, 32, 68, 91]) {
+        const p: CareerImportProgress = {
+          file,
+          percent,
+          linesRead: Math.round((84_672 * percent) / 100),
+          sessionsFound: Math.min(3, Math.ceil(percent / 30)),
+          done: false,
+          error: null,
+        };
+        mockEmit("career-import-progress", p);
+        await sleep(220);
+      }
+      const added = mockCareerCleared;
+      mockCareerCleared = false;
+      mockCareerLastImportAt = Math.floor(Date.now() / 1000);
+      const done: CareerImportProgress = {
+        file,
+        percent: 100,
+        linesRead: 84_672,
+        sessionsFound: added ? MOCK_CAREER.sessions.length : 0,
+        done: true,
+        error: null,
+      };
+      mockEmit("career-import-progress", done);
+      reports.push({
+        file,
+        character: "Nyasha",
+        server: "legends",
+        linesRead: 84_672,
+        linesSkipped: 0,
+        sessionsAdded: added ? MOCK_CAREER.sessions.length : 0,
+        sessionsUpdated: 0,
+        levelUpsAdded: added ? MOCK_CAREER.levelUps.length : 0,
+        lootAdded: added ? MOCK_CAREER.loot.length : 0,
+        killsAdded: added ? MOCK_CAREER.summary.kills : 0,
+        skipped: !added,
+        // Real backend sets "no new content" on a watermark-current skip.
+        skipReason: added ? null : "no new content",
+      });
+    }
+    return reports;
+  } finally {
+    mockCareerImporting = false;
   }
 }

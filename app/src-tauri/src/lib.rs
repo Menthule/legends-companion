@@ -3,6 +3,7 @@
 //! engine).
 
 mod audio;
+mod career;
 mod commands;
 mod config;
 mod data_root;
@@ -133,6 +134,11 @@ pub fn run() {
                         if let Ok(mut store) = state.store.lock() {
                             store.take(); // drop FightStore -> checkpoint + close
                         }
+                        // The career store is a second connection to the same
+                        // WAL file — close it cleanly for the same reason.
+                        if let Ok(mut career) = state.career.lock() {
+                            career.take(); // drop CareerStore -> checkpoint + close
+                        }
                     }
                     app.exit(0);
                 }
@@ -207,6 +213,12 @@ pub fn run() {
             // failure the app runs without history; the cause is in app.log.
             if let Ok(mut guard) = app.state::<commands::AppState>().store.lock() {
                 *guard = store::open(app.handle());
+            }
+            // Career history shares fights.db (career tables, schema v2).
+            // On failure career features are disabled; everything else —
+            // including fight history — keeps working.
+            if let Ok(mut guard) = app.state::<commands::AppState>().career.lock() {
+                *guard = career::open(app.handle());
             }
             // Fight-history retention sweep (P28): drop fights older than the
             // configured number of days. 0 = keep forever (the default).
@@ -298,6 +310,14 @@ pub fn run() {
             store::export_fight,
             store::export_session,
             store::analyze_log,
+            career::career_import,
+            career::career_summary,
+            career::career_sessions,
+            career::career_level_timeline,
+            career::career_loot,
+            career::career_mob_kills,
+            career::career_mob_drops,
+            career::career_reset,
             dropdb::drops_search_items,
             dropdb::drops_item_sources,
             dropdb::drops_quest_item_references,

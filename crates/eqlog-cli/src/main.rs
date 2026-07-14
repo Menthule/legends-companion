@@ -10,7 +10,11 @@
 //!   eqlog detect <logfile> [--spells PATH]
 //!   eqlog share export <pack.json> [--name LABEL] [--version V] [--author WHO] [--notes TEXT] [--gtp OUT.gtp]
 //!   eqlog share import <STRING|FILE> [--out PACK.json]
+//!   eqlog career import <logfile>... [--db PATH] [--character NAME] [--server NAME] [--gap-mins N] [--dry-run] [--json]
+//!   eqlog career stats [--db PATH] [--character NAME] [--server NAME] [--sessions N] [--json]
+//!   eqlog career reset --character NAME [--server NAME] [--db PATH] [--yes]
 
+mod cmd_career;
 mod cmd_casts;
 mod cmd_detect;
 mod cmd_fights;
@@ -75,6 +79,25 @@ USAGE:
         Decode an LCS1: share string (inline, or a file containing one)
         into a trigger pack, deduping trigger-id collisions against the
         local trigger library. Writes pack JSON to stdout or --out.
+
+    eqlog career import <logfile>... [--db PATH] [--character NAME] [--server NAME]
+                        [--gap-mins N] [--dry-run] [--json]
+        Fold one or more EQ log files into the career database (sessions,
+        level-ups, loot ledger, per-mob kills). Character and server default
+        to the eqlog_<Character>_<server>.txt filename. Idempotent: re-running
+        only imports bytes appended since the last run. Import archived files
+        OLDEST FIRST. --db defaults to ./fights.sqlite; --gap-mins sets the
+        session-split gap (default 30). Prints one report per file
+        (--json: NDJSON).
+
+    eqlog career stats [--db PATH] [--character NAME] [--server NAME]
+                       [--sessions N] [--json]
+        Print the career summary and the last N sessions (default 10) for one
+        character (default: the only character in the DB; error if ambiguous).
+
+    eqlog career reset --character NAME [--server NAME] [--db PATH] [--yes]
+        Delete all career rows + import watermarks for one character.
+        Prompts unless --yes.
 ";
 
 fn main() -> ExitCode {
@@ -92,6 +115,7 @@ fn main() -> ExitCode {
         "triggers" => cmd_triggers::run(rest),
         "detect" => cmd_detect::run(rest),
         "share" => cmd_share::run(rest),
+        "career" => cmd_career::run(rest),
         "help" | "--help" | "-h" => {
             print!("{USAGE}");
             Ok(())

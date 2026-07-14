@@ -29,3 +29,5 @@ rusqlite = { version = "0.32", features = ["bundled"] }
 # Default features = pure-Rust miniz_oxide backend; bundled-friendly, no C
 # toolchain requirement (approved dependency for sharing v1 deflate strings).
 flate2 = "1"
+# Pure-Rust SHA-256 (career import file-identity watermarks — docs/career-db-design.md §2).
+sha2 = "0.10"

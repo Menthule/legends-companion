@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { save } from "@tauri-apps/plugin-dialog";
-import { discoverLogs, exportSession, getConfig, getProfile } from "../api";
+import {
+  careerSummary,
+  discoverLogs,
+  exportSession,
+  getConfig,
+  getProfile,
+  onCareerChanged,
+} from "../api";
 import {
   fmtDuration,
   fmtNum,
@@ -10,6 +17,7 @@ import {
 } from "../hooks";
 import type {
   AppConfig,
+  CareerImportProgress,
   CatchUpPayload,
   CharacterProfile,
   DiscoveredLog,
@@ -514,6 +522,21 @@ export default function CoachTab({ character }: { character: string }) {
     getProfile().then(setProfile).catch(() => setProfile(null));
     discoverLogs().then(setLogs).catch(() => setLogs([]));
   }, []);
+
+  // Career tab-pill counts (sessions / loot events in the career DB): read
+  // once on mount and again when an import finishes or the data is reset —
+  // never polled.
+  const [careerCounts, setCareerCounts] = useState({ sessions: 0, loot: 0 });
+  const refreshCareerCounts = () => {
+    careerSummary().then((s) =>
+      setCareerCounts({ sessions: s?.sessions ?? 0, loot: s?.lootCount ?? 0 }),
+    );
+  };
+  useEffect(refreshCareerCounts, []);
+  useEffect(() => onCareerChanged(refreshCareerCounts), []);
+  useTauriEvent<CareerImportProgress>("career-import-progress", (p) => {
+    if (p.done && !p.error) refreshCareerCounts();
+  });
 
   useEffect(() => {
     const reload = () => setPace(loadPaceState());
@@ -1173,6 +1196,8 @@ export default function CoachTab({ character }: { character: string }) {
     factions: Object.keys(sessionLog.factions).length,
     skills: sessionLog.skillUps.length,
     trends: sessionHistory.length,
+    career: careerCounts.sessions,
+    ledger: careerCounts.loot,
   };
   // Trends panel input: the persisted per-session history rows (legacy rows
   // without coin data pass null so the plat series gaps, never fakes a zero).

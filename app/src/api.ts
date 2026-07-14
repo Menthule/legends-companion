@@ -7,6 +7,14 @@ import soundManifest from "../../assets/sounds/manifest.json";
 import {
   IS_MOCK,
   MOCK_ZONES,
+  mockCareerImport,
+  mockCareerLevelTimeline,
+  mockCareerLoot,
+  mockCareerMobDrops,
+  mockCareerMobKills,
+  mockCareerReset,
+  mockCareerSessions,
+  mockCareerSummary,
   mockDiscoverLogs,
   mockEmit,
   mockGetConfig,
@@ -32,6 +40,13 @@ import type { InventorySnapshot } from "./lib/quests";
 import type {
   ActiveTimerSnapshot,
   AppConfig,
+  CareerImportReport,
+  CareerLevelUp,
+  CareerLootRow,
+  CareerMobDrop,
+  CareerMobKills,
+  CareerSession,
+  CareerSummary,
   CharacterProfile,
   DataUpdateInfo,
   DiscoveredLog,
@@ -1030,4 +1045,97 @@ export function refdbZoneInfo(shortName: string): Promise<ZoneInfo> {
     });
   }
   return invoke<ZoneInfo>("refdb_zone_info", { shortName });
+}
+
+// ---------------------------------------------------------------------------
+// Career database + log-history backfill (docs/career-db-design.md §6).
+// All queries are implicitly scoped to the active character/server from
+// AppConfig — the backend reads its own config, the frontend never passes
+// names. All `ts` fields are log-domain epoch seconds (lib/career helpers).
+// ---------------------------------------------------------------------------
+
+// Career-data change notifications so career views (Session-tab panels,
+// CoachTab pill counts) refresh after a same-window import or reset without
+// polling. Cross-window import completion additionally arrives via the
+// backend's "career-import-progress" done event.
+type CareerListener = () => void;
+const careerListeners = new Set<CareerListener>();
+
+/** Subscribe to career-data changes; returns an unsubscribe function. */
+export function onCareerChanged(cb: CareerListener): () => void {
+  careerListeners.add(cb);
+  return () => {
+    careerListeners.delete(cb);
+  };
+}
+
+function notifyCareerChanged(): void {
+  for (const cb of [...careerListeners]) cb();
+}
+
+/** Import log history into the career DB. Empty/omitted paths = the active
+ *  configured log file. Emits "career-import-progress" events while running;
+ *  resolves with one report per file. Rejects only on DB-open failure (or
+ *  when an import is already running). */
+export async function careerImport(paths?: string[]): Promise<CareerImportReport[]> {
+  const reports = IS_MOCK
+    ? await mockCareerImport(paths ?? [])
+    : await invoke<CareerImportReport[]>("career_import", { paths: paths ?? [] });
+  notifyCareerChanged();
+  return reports;
+}
+
+/** Career summary for the active character; null = no career data yet. */
+export async function careerSummary(): Promise<CareerSummary | null> {
+  if (IS_MOCK) return Promise.resolve(mockCareerSummary());
+  return invoke<CareerSummary | null>("career_summary").catch(() => null);
+}
+
+/** Paged career sessions, newest first. */
+export async function careerSessions(
+  limit: number,
+  offset: number,
+): Promise<{ total: number; rows: CareerSession[] }> {
+  if (IS_MOCK) return Promise.resolve(mockCareerSessions(limit, offset));
+  return invoke("career_sessions", { limit, offset });
+}
+
+/** Every level-up, ascending ts (level timeline chart). */
+export async function careerLevelTimeline(): Promise<CareerLevelUp[]> {
+  if (IS_MOCK) return Promise.resolve(mockCareerLevelTimeline());
+  return invoke<CareerLevelUp[]>("career_level_timeline").catch(() => []);
+}
+
+/** Paged loot ledger; search filters item substring, "" = all. */
+export async function careerLoot(
+  search: string,
+  limit: number,
+  offset: number,
+): Promise<{ total: number; rows: CareerLootRow[] }> {
+  if (IS_MOCK) return Promise.resolve(mockCareerLoot(search, limit, offset));
+  return invoke("career_loot", { search, limit, offset });
+}
+
+/** Paged per-mob kill counts + observed drop counts; search "" = all. */
+export async function careerMobKills(
+  search: string,
+  limit: number,
+  offset: number,
+): Promise<{ total: number; rows: CareerMobKills[] }> {
+  if (IS_MOCK) return Promise.resolve(mockCareerMobKills(search, limit, offset));
+  return invoke("career_mob_kills", { search, limit, offset });
+}
+
+/** Observed drops off one mob, most-seen first. */
+export async function careerMobDrops(mob: string): Promise<CareerMobDrop[]> {
+  if (IS_MOCK) return Promise.resolve(mockCareerMobDrops(mob));
+  return invoke<CareerMobDrop[]>("career_mob_drops", { mob }).catch(() => []);
+}
+
+/** Delete all career data + import watermarks for the active character.
+ *  Destructive; caller confirms first (confirmDiscard pattern). */
+export async function careerReset(): Promise<void> {
+  if (IS_MOCK) mockCareerReset();
+  else await invoke("career_reset");
+  notifyCareerChanged();
 }

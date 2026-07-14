@@ -18,6 +18,7 @@ const EVENT = {
   spells: "eqlogs-open-spells",
   timers: "eqlogs-open-timers",
   triggers: "eqlogs-open-triggers",
+  settings: "eqlogs-open-settings",
 } as const;
 
 type Target = keyof typeof EVENT;
@@ -32,6 +33,7 @@ interface DetailMap {
   spells: { name: string; isAbility?: boolean };
   timers: null;
   triggers: null;
+  settings: string;
 }
 
 function dispatch<T extends Target>(target: T, detail: DetailMap[T]): void {
@@ -71,6 +73,11 @@ export function openTimers(): void {
 /** Jump to the Triggers tab (the single classes/level editing surface). */
 export function openTriggers(): void {
   dispatch("triggers", null);
+}
+
+/** Jump to a Settings section ("general", "overlays", …). */
+export function openSettingsSection(section: string): void {
+  dispatch("settings", section);
 }
 
 /** Subscribe to one deep-link target for the component's lifetime. The

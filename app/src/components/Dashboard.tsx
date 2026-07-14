@@ -299,6 +299,14 @@ export default function Dashboard() {
   });
   // Deep-link from the Meters "N timers running" line: jump to Timers.
   useDeepLink("timers", () => setTab("timers"));
+  // Deep-link to a Settings section (career panels' "Import log history").
+  useDeepLink("settings", (section) => {
+    setSettingsSectionRequest((prev) => ({
+      section: String(section ?? "").trim() || "general",
+      seq: (prev?.seq ?? 0) + 1,
+    }));
+    setTab("settings");
+  });
   const [currentZone, setCurrentZone] = useState<string | null>(null);
   const [liveZoneEnabled, setLiveZoneEnabled] = useLiveZoneEnabled();
   const [liveZoneName] = useLiveZoneName();

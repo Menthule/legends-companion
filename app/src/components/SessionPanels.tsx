@@ -54,6 +54,7 @@ import {
 } from "../lib/wallet";
 import { toggleWishlist, type WishlistEntry } from "../lib/wishlist";
 import { computeLevelEta, computeXpStats } from "../overlayState";
+import { CareerPanel, LootLedgerPanel } from "./CareerPanels";
 import Empty from "./Empty";
 import { StatTile } from "./MeterTable";
 import PaceRates from "./PaceRates";
@@ -71,7 +72,9 @@ export type SessionPanelId =
   | "rolls"
   | "factions"
   | "skills"
-  | "trends";
+  | "trends"
+  | "career"
+  | "ledger";
 
 export const SESSION_PANELS: { id: SessionPanelId; label: string }[] = [
   { id: "rates", label: "Rates" },
@@ -87,6 +90,8 @@ export const SESSION_PANELS: { id: SessionPanelId; label: string }[] = [
   { id: "factions", label: "Factions" },
   { id: "skills", label: "Skills" },
   { id: "trends", label: "Trends" },
+  { id: "career", label: "Career" },
+  { id: "ledger", label: "Loot ledger" },
 ];
 
 const KILL_ROW_CAP = 30;
@@ -283,6 +288,11 @@ export default function SessionPanel({
   );
   const stuck = useMemo(() => stuckSkills(skillState), [skillState]);
   const trendSeries = useMemo(() => buildTrendSeries(history), [history]);
+
+  // Career panels are durable DB-backed views (components/CareerPanels) —
+  // they read the career store, not the app-run session log snapshot.
+  if (tab === "career") return <CareerPanel />;
+  if (tab === "ledger") return <LootLedgerPanel />;
 
   if (tab === "rates") {
     return (
