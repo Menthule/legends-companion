@@ -1,5 +1,49 @@
 # Patch Notes
 
+## 3.0 - Career History, Sessions & Watched Loot
+
+### Career History
+- Legends Companion now builds a permanent, character-specific career database from your EverQuest log history.
+- Import existing logs from Settings > General > Career History. The initial import runs in the background and leaves the original log files untouched.
+- Future sessions update automatically when log tailing starts. Incremental imports only process new data and prevent duplicate history.
+- The new Career view includes lifetime sessions, play time, XP, AA, kills, deaths, loot, level progression, zones, coin, and skill-up totals.
+- Review historical trends, level timelines, individual sessions, kills by mob, and observed loot from each mob.
+- Career data can be reset and rebuilt from the original logs at any time.
+
+### Sessions & Combat
+- Session is now the central performance workspace, with consistent navigation between the last fight, current session, and a selected previous or baseline session.
+- Compare XP/hour, AA/hour, motes/hour, DPS, total damage, kills, deaths, downtime, routes, camps, and top skills at a glance.
+- Fight details now separate player damage from enemy damage and show the attacks, spells, and abilities used by both sides.
+- Damage shields, pets, martial abilities such as Kick and Flying Kick, and enemy damage sources are now attributed correctly.
+- Fights remains the historical encounter browser while Session focuses on progression, efficiency, and build comparisons.
+
+### Quests, Inventory & Reference Data
+- Added a bundled quest catalog, including Plane of Sky class quests.
+- Quest progress can be checked against EverQuest `/output inventory` files.
+- Filter for quests that are ready to complete or hide quests whose final reward is already owned.
+- Required items show known drop locations, while reward tooltips expose item details before turn-in.
+- Quest items, mobs, drops, spells, abilities, and rewards now cross-link directly to their detailed database pages.
+
+### Watched Loot
+- Star individual items from Drops or add required items directly from a quest.
+- Add every missing requirement for a quest to the watch list in one action.
+- Each watch supports a required quantity and can automatically remove itself once enough copies have been looted.
+- Exact personal loot matches trigger a large Impact alert with an animated treasure chest and the looted item name.
+- Watched loot uses the normal trigger system, so its overlay, sound, speech, and presentation can be customized without separate hardcoded parsing.
+
+### Triggers, Alerts & Timers
+- Triggers now follow a scalable `Trigger -> Actions` model.
+- A single match can send independently configured output to multiple overlays and TTS, while timer, sound, and webhook actions remain dedicated action types.
+- Overlay-specific controls cover text, color, size, icons, duration, and other presentation settings.
+- Removed the old hardcoded proc-alert pipeline; spells, skills, procs, loot, and custom log events now flow through triggers.
+- Added spell-gem icon support, clearer severity defaults, trigger-library updates, and portable trigger import/export.
+- Added rank-aware spell timing profiles and manual duration controls for spell ranks, custom timers, and private-instance respawns.
+
+### Quality of Life
+- Global Search results now open the selected mob, item, spell, quest, or ability directly.
+- Added session export, improved trigger sharing, verified pet macros, clearer zone controls, and a Welcome Back summary.
+- Improved parser attribution for multi-word skills, enemy attacks, pets, damage shields, replayed history, and older saved fights.
+
 ## 0.2.5 - Insights, Search & Alert Discipline
 
 ### Fixes (review pass)
