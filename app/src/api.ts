@@ -434,13 +434,16 @@ export async function previewSound(path: string): Promise<void> {
   await new Audio(path).play();
 }
 
-/** Ask the user to confirm discarding unsaved work. Uses the native dialog
+/** Ask the user to confirm a destructive action. Uses the native dialog
  *  in the desktop app and window.confirm in mock/browser mode. */
-export async function confirmDiscard(message: string): Promise<boolean> {
+export async function confirmDiscard(
+  message: string,
+  title = "Unsaved changes",
+): Promise<boolean> {
   if (!IS_MOCK) {
     try {
       return await dialogConfirm(message, {
-        title: "Unsaved changes",
+        title,
         kind: "warning",
       });
     } catch {

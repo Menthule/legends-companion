@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
 import {
   checkUpdate,
+  confirmDiscard,
   dataUpdateCheck,
   dataUpdateInstall,
   dataVersion,
@@ -364,10 +365,39 @@ export default function SettingsTab({
     void saveProfile(next, `Renamed “${renaming.from}” to “${name}”.`);
   }
 
-  function deleteLoadout(l: Loadout) {
+  /** Everything a loadout accumulates besides its name/classes: per-trigger
+   *  enable, channel, severity, and zone-scope overrides, plus per-rank
+   *  timing overrides. Counted so the delete confirm can say what's lost. */
+  function countLoadoutOverrides(l: Loadout): number {
+    return (
+      Object.keys(l.overrides).length +
+      Object.keys(l.channel_overrides ?? {}).length +
+      Object.keys(l.severity_overrides ?? {}).length +
+      Object.keys(l.zone_scopes ?? {}).length +
+      Object.values(l.timing_overrides ?? {}).reduce(
+        (sum, ranks) => sum + Object.keys(ranks).length,
+        0,
+      )
+    );
+  }
+
+  async function deleteLoadout(l: Loadout) {
     if (!profile) return;
     // Guards mirror the disabled state (last loadout / active loadout).
     if (profile.loadouts.length <= 1 || l.name === profile.active_loadout) {
+      return;
+    }
+    const n = countLoadoutOverrides(l);
+    const what =
+      n === 0
+        ? "It has no trigger overrides."
+        : `Its ${n} trigger override${n === 1 ? "" : "s"} (enable, channel, severity, zone, timing) will be lost.`;
+    if (
+      !(await confirmDiscard(
+        `Delete loadout “${l.name}”? ${what}`,
+        "Delete loadout",
+      ))
+    ) {
       return;
     }
     const next: CharacterProfile = {
@@ -906,7 +936,7 @@ export default function SettingsTab({
                       </button>
                       <button
                         className="danger small"
-                        onClick={() => deleteLoadout(l)}
+                        onClick={() => void deleteLoadout(l)}
                         disabled={lastOne || isActive}
                         title={
                           lastOne

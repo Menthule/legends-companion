@@ -332,6 +332,11 @@ export default function FightsTab({ character }: { character: string }) {
   const [selected, setSelected] = useState<FightRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  // Fight awaiting its deferred backend delete; the undo toast shows while set.
+  const [pendingDelete, setPendingDelete] = useState<FightRecord | null>(null);
+  // "Tell" parse dialog: which fight to format, and the recipient name.
+  const [tellFor, setTellFor] = useState<FightRecord | null>(null);
+  const [tellName, setTellName] = useState("");
   // Offline log import / raid replay (P26): a read-only set of fights parsed
   // from a chosen file, shown in place of live history until closed.
   const [imported, setImported] = useState<{
@@ -757,6 +762,28 @@ export default function FightsTab({ character }: { character: string }) {
     return () => window.clearTimeout(h);
   }, [toast]);
 
+  // Undo window: commit the deferred delete when the toast expires.
+  useEffect(() => {
+    if (!pendingDelete) return;
+    const h = window.setTimeout(() => {
+      commitDelete(pendingDelete);
+      setPendingDelete(null);
+    }, 6000);
+    return () => window.clearTimeout(h);
+  }, [pendingDelete]);
+
+  // Safety net: commit a still-pending delete if this component ever unmounts
+  // mid-window (it normally stays mounted for session capture).
+  const pendingDeleteRef = useRef<FightRecord | null>(null);
+  pendingDeleteRef.current = pendingDelete;
+  useEffect(
+    () => () => {
+      const p = pendingDeleteRef.current;
+      if (p) deleteFight(p.id).catch(() => {});
+    },
+    [],
+  );
+
   // Mock-only screenshot hook: open a fight's detail view directly.
   useEffect(() => {
     if (FIGHT_DEMO === null || demoSeeded.current) return;
@@ -782,27 +809,35 @@ export default function FightsTab({ character }: { character: string }) {
     }
   }
 
-  async function deleteOne(f: FightRecord) {
-    try {
-      await deleteFight(f.id);
-      if (selected?.id === f.id) setSelected(null);
-      load(page);
-      setToast(`Deleted “${f.target}”`);
-    } catch {
-      setToast("Could not delete that fight");
-    }
+  // Per-fight delete with an undo window (mirrors the trigger-delete toast):
+  // the row is hidden immediately but the backend delete is deferred until
+  // the toast expires, so Undo simply reveals the row again — the store has
+  // no restore command.
+  function commitDelete(f: FightRecord) {
+    setFights((prev) => (prev ? prev.filter((x) => x.id !== f.id) : prev));
+    setTotal((t) => (t === null ? t : Math.max(0, t - 1)));
+    deleteFight(f.id).catch(() => setToast("Could not delete that fight"));
+  }
+
+  function deleteOne(f: FightRecord) {
+    if (pendingDelete && pendingDelete.id !== f.id) commitDelete(pendingDelete);
+    if (selected?.id === f.id) setSelected(null);
+    setToast(null);
+    setPendingDelete(f);
   }
 
   async function clearHistory() {
     if (
       !(await confirmDiscard(
         "Delete ALL saved fights? This can't be undone.",
+        "Clear fight history",
       ))
     ) {
       return;
     }
     try {
       const n = await pruneFights({ keepLastN: 0 });
+      setPendingDelete(null);
       setSelected(null);
       setPage(0);
       load(0);
@@ -905,11 +940,12 @@ export default function FightsTab({ character }: { character: string }) {
     }
   }
 
-  async function copyTellParse(f: FightRecord) {
-    const target = window.prompt("Send parse to player");
-    if (!target) return;
-    const who = target.trim();
-    if (!who) return;
+  function openTell(f: FightRecord) {
+    setTellName("");
+    setTellFor(f);
+  }
+
+  async function copyTellParse(f: FightRecord, who: string) {
     try {
       const text = await pasteParse(f.id >= 0 ? f.id : null, {
         character,
@@ -924,7 +960,7 @@ export default function FightsTab({ character }: { character: string }) {
           .map((line) => `/tell ${who} ${line}`)
           .join("\n"),
       );
-      setToast(`Tell parse copied for ${who}`);
+      setToast(`Tell parse copied for ${who} — paste it in game`);
     } catch {
       setToast("Could not copy to the clipboard");
     }
@@ -944,6 +980,66 @@ export default function FightsTab({ character }: { character: string }) {
       selected?.totalDamage ?? 0,
     );
   }
+
+  // "Tell" dialog (rendered in both the list and detail views). EQ character
+  // names are a single word of letters; anything else would garble the /tell.
+  const tellWho = tellName.trim();
+  const tellValid = /^[A-Za-z]+$/.test(tellWho);
+
+  function submitTell() {
+    if (!tellFor || !tellValid) return;
+    const f = tellFor;
+    setTellFor(null);
+    void copyTellParse(f, tellWho);
+  }
+
+  const tellDialog = tellFor && (
+    <div className="modal-scrim" onClick={() => setTellFor(null)}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Tell parse — ${tellFor.target}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="card-head">
+          <span className="section-title">Tell parse — {tellFor.target}</span>
+        </div>
+        <p className="hint">
+          Copies this parse as /tell lines to the clipboard for pasting in
+          game — nothing is sent automatically.
+        </p>
+        <label className="field">
+          <span>Send to</span>
+          <input
+            type="text"
+            value={tellName}
+            placeholder="Player name"
+            autoFocus
+            onChange={(e) => setTellName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setTellFor(null);
+              if (e.key === "Enter") submitTell();
+            }}
+          />
+        </label>
+        {tellWho !== "" && !tellValid && (
+          <p className="hint">
+            Character names are a single word of letters only.
+          </p>
+        )}
+        <div className="editor-foot">
+          <button className="primary" disabled={!tellValid} onClick={submitTell}>
+            Copy /tell lines
+          </button>
+          <span className="spacer" />
+          <button className="ghost" onClick={() => setTellFor(null)}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   // ---- detail view ----
   if (selected) {
@@ -965,8 +1061,8 @@ export default function FightsTab({ character }: { character: string }) {
           </button>
           <button
             className="ghost small"
-            onClick={() => void copyTellParse(selected)}
-            title="Copy this fight as /tell lines"
+            onClick={() => openTell(selected)}
+            title="Copy this fight as /tell lines (nothing is sent)"
           >
             Copy tell
           </button>
@@ -993,11 +1089,22 @@ export default function FightsTab({ character }: { character: string }) {
             {toast}
           </div>
         )}
+        {tellDialog}
       </>
     );
   }
 
   // ---- list view ----
+  // Hide the pending-delete row without touching the loaded page, so Undo is
+  // a pure reveal even if a refresh re-fetched the still-stored row.
+  const visibleFights =
+    fights === null
+      ? null
+      : pendingDelete
+        ? fights.filter((f) => f.id !== pendingDelete.id)
+        : fights;
+  const visibleTotal =
+    total === null ? null : Math.max(0, total - (pendingDelete ? 1 : 0));
   const pageCount =
     total !== null ? Math.max(1, Math.ceil(total / PAGE_SIZE)) : null;
   const hasNext =
@@ -1079,7 +1186,7 @@ export default function FightsTab({ character }: { character: string }) {
       )}
       <Collapsible
         title="Fight history"
-        count={total}
+        count={visibleTotal}
         storageKey="history"
         headerAside={
           <span className="history-actions">
@@ -1094,7 +1201,7 @@ export default function FightsTab({ character }: { character: string }) {
             <button className="ghost small" onClick={() => load(page)}>
               Refresh
             </button>
-            {fights && fights.length > 0 && (
+            {visibleFights && visibleFights.length > 0 && (
               <button className="ghost small" onClick={() => void clearHistory()}>
                 Clear history
               </button>
@@ -1102,9 +1209,9 @@ export default function FightsTab({ character }: { character: string }) {
           </span>
         }
       >
-        {fights === null ? (
+        {visibleFights === null ? (
           <div className="hint">Loading fight history…</div>
-        ) : fights.length === 0 ? (
+        ) : visibleFights.length === 0 ? (
           <Empty
             title="No fights recorded yet"
             body="Completed fights are saved here automatically while tailing. Finish a pull and it will appear at the top."
@@ -1118,7 +1225,7 @@ export default function FightsTab({ character }: { character: string }) {
               <span className="num">Your DPS</span>
               <span />
             </div>
-            {fights.map((f) => {
+            {visibleFights.map((f) => {
               const dps = yourDps(f);
               return (
                 <div
@@ -1155,9 +1262,9 @@ export default function FightsTab({ character }: { character: string }) {
                       className="ghost small"
                       onClick={(e) => {
                         e.stopPropagation();
-                        void copyTellParse(f);
+                        openTell(f);
                       }}
-                      title="Copy this fight as /tell lines"
+                      title="Copy this fight as /tell lines (nothing is sent)"
                     >
                       Tell
                     </button>
@@ -1188,7 +1295,7 @@ export default function FightsTab({ character }: { character: string }) {
             })}
           </div>
         )}
-        {fights !== null && fights.length > 0 && (
+        {visibleFights !== null && visibleFights.length > 0 && (
           <div className="fight-pager">
             <button
               className="ghost small"
@@ -1235,11 +1342,23 @@ export default function FightsTab({ character }: { character: string }) {
         exporting={exportingSession}
         onExport={() => void exportCurrentSession()}
       />
-      {toast && (
+      {toast && !pendingDelete && (
         <div className="toast" role="status">
           {toast}
         </div>
       )}
+      {pendingDelete && (
+        <div className="toast toast-undo" role="status">
+          Deleted “{pendingDelete.target}”
+          <button
+            className="ghost small"
+            onClick={() => setPendingDelete(null)}
+          >
+            Undo
+          </button>
+        </div>
+      )}
+      {tellDialog}
     </>
   );
 }

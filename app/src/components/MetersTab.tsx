@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { listFights, pasteParse } from "../api";
 import { fmtDuration, fmtNum, useTauriEvent, useTimers } from "../hooks";
 import type {
@@ -87,7 +87,18 @@ export default function MetersTab({ character }: { character: string }) {
   const [view, setView] = useState<"combat" | "casts">("combat");
   const [casts, setCasts] = useState<CastRow[]>([]);
 
-  useTauriEvent<FightUpdatePayload>("fight-update", setFight);
+  // Deaths is per-fight like the other three stat tiles: reset it whenever a
+  // new fight begins. The payload has no fight id, so "new fight" is any
+  // transition into `active` from no fight, an ended fight, or another target.
+  const prevFight = useRef<FightUpdatePayload | null>(null);
+  useTauriEvent<FightUpdatePayload>("fight-update", (p) => {
+    const prev = prevFight.current;
+    prevFight.current = p;
+    if (p.active && (!prev || !prev.active || prev.target !== p.target)) {
+      setDeaths(0);
+    }
+    setFight(p);
+  });
   useTauriEvent<CastRow[]>("cast-update", setCasts);
   useTauriEvent<LogLinePayload>("log-line", (p) => {
     if (/^You died\.|^You have been slain/.test(p.message)) {

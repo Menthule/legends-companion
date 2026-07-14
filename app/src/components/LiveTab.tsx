@@ -201,9 +201,15 @@ const MUTE_DEMO: boolean = IS_MOCK
 export default function LiveTab({
   character,
   searchRequest,
+  tailing = false,
+  onStartTailing,
 }: {
   character: string;
   searchRequest?: { query: string; seq: number } | null;
+  /** Whether the tail session is running (drives the empty-state CTA). */
+  tailing?: boolean;
+  /** Start tailing from the empty state — same path as the Session menu. */
+  onStartTailing?: () => void;
 }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [archiveRows, setArchiveRows] = useState<Row[]>([]);
@@ -585,16 +591,29 @@ export default function LiveTab({
         )}
       </div>
       <div className="feed" ref={feedRef}>
-        {shown.length === 0 && (
-          <Empty
-            title={rows.length === 0 ? "Waiting for log lines" : "No matches"}
-            body={
-              rows.length === 0
-                ? "Start tailing from the top bar; every parsed line streams here in real time."
-                : "Nothing in the current buffer matches the active filters."
-            }
-          />
-        )}
+        {shown.length === 0 &&
+          (rows.length === 0 && !tailing && onStartTailing ? (
+            // Not tailing yet: a persistent primary CTA instead of copy
+            // pointing at the collapsed Session menu (first-run dead end).
+            <Empty
+              title="Not tailing yet"
+              body="Start tailing to follow the log — every parsed line streams here in real time."
+              action={
+                <button className="primary" onClick={onStartTailing}>
+                  Start tailing
+                </button>
+              }
+            />
+          ) : (
+            <Empty
+              title={rows.length === 0 ? "Waiting for log lines" : "No matches"}
+              body={
+                rows.length === 0
+                  ? "Tailing is running — parsed lines stream here as the game writes them."
+                  : "Nothing in the current buffer matches the active filters."
+              }
+            />
+          ))}
         {shown.map((r) => {
           const kind = eventKind(r.event);
           const chip = classify(kind, r.message);

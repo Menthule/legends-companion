@@ -21,6 +21,15 @@ Dark is the default theme; a light theme ships too (toggle in Settings,
 | `--hairline`        | `#2c2c2a`      | `#e1e0d9`  |
 | `--border`          | `rgba(255,255,255,.10)` | `rgba(11,11,11,.10)` |
 | `--accent`          | `#3987e5`      | `#2a78d6`  |
+| `--accent-ink`      | `#ffffff`      | `#ffffff`  |
+
+`--accent-ink` is the ink on accent-filled controls (primary buttons, selected
+options) — never hardcode white/dark ink on an accent fill.
+
+Overlay-only tokens, theme-independent (overlays always sit over game footage,
+never over the app page): `--pill-bg: rgba(13,13,13,.72)` for pill/backdrop
+surfaces and `--ov-text-shadow: 0 1px 2px rgba(0,0,0,.8)` for on-footage text
+readability.
 
 Series colors (damage meters — categorical, **assigned to a combatant on first
 appearance and never repainted** when the roster changes; slot order is fixed):

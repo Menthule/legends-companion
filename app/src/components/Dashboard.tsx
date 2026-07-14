@@ -669,6 +669,26 @@ export default function Dashboard() {
     setUpdate(null);
   }, [update]);
 
+  /** Start (never stop) tailing; shared by the welcome-card auto-start and
+   *  the Live tab's empty-state CTA. Resolves true when tailing is running. */
+  const startTailingNow = useCallback(async (): Promise<boolean> => {
+    setError(null);
+    try {
+      await startTailing();
+      setTailing(true);
+      return true;
+    } catch (e) {
+      const msg = String(e);
+      if (msg.includes("already tailing")) {
+        // Not an error — the UI was stale (boot auto-resume). Adopt reality.
+        setTailing(true);
+        return true;
+      }
+      setError(msg);
+      return false;
+    }
+  }, []);
+
   const restartTailing = useCallback(async () => {
     setError(null);
     try {
@@ -1253,13 +1273,22 @@ export default function Dashboard() {
               onChosen={(name) => {
                 setCharacter(name);
                 setNeedsSetup(false);
-                showToast(`Log selected — press Start to follow ${name}'s log`);
+                // The user just picked a log to follow — start tailing right
+                // away instead of pointing at the collapsed Session menu.
+                void startTailingNow().then((ok) => {
+                  if (ok) showToast(`Following ${name}'s log`);
+                });
               }}
               onOpenSettings={() => setTab("settings")}
             />
           )}
           <section className={`page page-live${tab === "live" ? "" : " hidden"}`}>
-            <LiveTab character={character} searchRequest={liveRequest} />
+            <LiveTab
+              character={character}
+              searchRequest={liveRequest}
+              tailing={tailing}
+              onStartTailing={() => void startTailingNow()}
+            />
           </section>
           <section className={`page${tab === "meters" ? "" : " hidden"}`}>
             <MetersTab character={character} />

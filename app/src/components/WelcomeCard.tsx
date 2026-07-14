@@ -2,9 +2,12 @@
 // yet (empty log path). Lists auto-discovered log files as one-click
 // choices, explains /log on, and links to Settings for manual setup.
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { discoverLogs, getConfig, setConfig } from "../api";
 import { displayPath, DEFAULT_LOG_DIR, type DiscoveredLog } from "../types";
+
+/** Re-scan cadence while no logs have been found yet. */
+const RESCAN_MS = 4000;
 
 function fmtAge(ts: number | null): string {
   if (ts === null) return "";
@@ -26,12 +29,31 @@ export default function WelcomeCard({
   const [logs, setLogs] = useState<DiscoveredLog[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [scanning, setScanning] = useState(false);
+
+  const rescan = useCallback(async () => {
+    setScanning(true);
+    try {
+      setLogs(await discoverLogs());
+    } catch {
+      setLogs((prev) => prev ?? []);
+    } finally {
+      setScanning(false);
+    }
+  }, []);
 
   useEffect(() => {
-    discoverLogs()
-      .then(setLogs)
-      .catch(() => setLogs([]));
-  }, []);
+    void rescan();
+  }, [rescan]);
+
+  // The card tells the user to type /log on and that the file "will show up
+  // here" — keep that promise: while nothing has been found, re-scan every
+  // few seconds so the new log appears without an app restart.
+  useEffect(() => {
+    if (logs === null || logs.length > 0) return;
+    const h = window.setInterval(() => void rescan(), RESCAN_MS);
+    return () => window.clearInterval(h);
+  }, [logs, rescan]);
 
   async function choose(log: DiscoveredLog) {
     setSaving(true);
@@ -85,6 +107,7 @@ export default function WelcomeCard({
           No log files were found in the default Logs folder
           {" "}
           (<code className="welcome-code">{displayPath(DEFAULT_LOG_DIR)}</code>).
+          Checking again every few seconds.
         </p>
       )}
 
@@ -100,6 +123,17 @@ export default function WelcomeCard({
       {error && <div className="error-banner">{error}</div>}
 
       <div className="welcome-foot">
+        {logs !== null && logs.length === 0 && (
+          <>
+            <button
+              className="ghost"
+              onClick={() => void rescan()}
+              disabled={scanning}
+            >
+              {scanning ? "Scanning…" : "Rescan"}
+            </button>{" "}
+          </>
+        )}
         <button className="ghost" onClick={onOpenSettings}>
           Choose a file manually in Settings
         </button>
