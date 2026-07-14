@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getProfile } from "../api";
+import { useDismissOnOutsidePointer } from "../hooks";
 import {
   CLASS_FULL,
   CLASS_NAME_TO_BIT,
@@ -70,15 +71,7 @@ export function ClassFilterButton() {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    const onDown = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, []);
+  useDismissOnOutsidePointer([ref], open, () => setOpen(false));
 
   const selected = classMaskFullNames(classMask);
   const summary =

@@ -52,9 +52,11 @@ import {
   saveMeterSources,
   saveOverlayArrange,
   saveOverlayVisibility,
+  useOverlayArrange,
 } from "../overlayState";
 import { effectiveEnabledInLoadout } from "../resolution";
 import { getTheme, setTheme, type Theme } from "../theme";
+import { fmtBytes as formatBytes } from "../lib/format";
 import {
   CLASS_NAMES,
   DEFAULT_LOG_DIR,
@@ -76,19 +78,6 @@ const LARGE_LOG_BYTES = 500 * 1024 * 1024;
  *  const lives in Dashboard.tsx for the sidebar footer). */
 const APP_VERSION = __APP_VERSION__;
 
-/** Human-readable byte size, e.g. "1.2 GB" / "512.0 MB" / "947 B". */
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  const units = ["KB", "MB", "GB", "TB"];
-  let value = bytes / 1024;
-  let i = 0;
-  while (value >= 1024 && i < units.length - 1) {
-    value /= 1024;
-    i++;
-  }
-  return `${value.toFixed(1)} ${units[i]}`;
-}
-
 export default function SettingsTab({
   onCharacterChange,
   sectionRequest,
@@ -101,7 +90,9 @@ export default function SettingsTab({
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [theme, setThemeState] = useState<Theme>(getTheme());
-  const [unlocked, setUnlocked] = useState(false);
+  // Shared arrange store (overlayState): stays in sync with the Dashboard
+  // top-bar toggle. Mutate via saveOverlayArrange (toggleUnlock).
+  const unlocked = useOverlayArrange();
   const [shown, setShown] = useState<Record<string, boolean>>(() =>
     loadOverlayVisibility()
   );
@@ -452,7 +443,8 @@ export default function SettingsTab({
     // of "24" must not snap to 10 and persist.
     const n = parseInt(raw, 10);
     if (!Number.isFinite(n)) return;
-    const px = Math.max(10, Math.min(72, n));
+    // 10–96 matches the per-trigger fontSize override in overlayRegistry.
+    const px = Math.max(10, Math.min(96, n));
     setAlertSize(px);
     saveAlertSizePx(px);
   }
@@ -567,7 +559,6 @@ export default function SettingsTab({
   }
 
   async function toggleUnlock(next: boolean) {
-    setUnlocked(next);
     setError(null);
     saveOverlayArrange(next);
     // Per-label try/catch: one overlay window that fails to show/unlock must
@@ -1127,7 +1118,7 @@ export default function SettingsTab({
           <input
             type="number"
             min={10}
-            max={72}
+            max={96}
             defaultValue={alertSize}
             key={alertSize}
             onBlur={(e) => commitAlertSize(e.target.value)}
@@ -1155,22 +1146,9 @@ export default function SettingsTab({
             }}
           />
         </label>
-        <div className="check-row">
-          <input
-            id="ov-unlock"
-            type="checkbox"
-            className="switch"
-            checked={unlocked}
-            onChange={(e) => void toggleUnlock(e.target.checked)}
-          />
-          <label htmlFor="ov-unlock">
-            Unlock to arrange (disables click-through so overlays can be
-            dragged)
-          </label>
-        </div>
         <p className="hint">
-          Locked overlays ignore the mouse entirely. Unlock, drag them into
-          position, then lock again before playing.
+          Locked overlays ignore the mouse entirely. Arrange overlays, drag
+          them into position, then lock again before playing.
         </p>
       </section>
 

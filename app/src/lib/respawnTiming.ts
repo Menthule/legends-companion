@@ -1,3 +1,5 @@
+import { createLocalStore } from "./localStore";
+
 export type RespawnContext = "public" | "private" | "custom";
 export type RespawnTimingSource = "reference" | "zone-default" | "manual" | "observed";
 
@@ -98,11 +100,12 @@ export function removeRespawnTimingProfile(
   );
 }
 
-export function loadRespawnTimingProfiles(): RespawnTimingProfile[] {
-  try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(RESPAWN_TIMING_KEY) ?? "[]");
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter((p): p is RespawnTimingProfile => {
+const timingStore = createLocalStore<RespawnTimingProfile[]>(
+  RESPAWN_TIMING_KEY,
+  undefined,
+  (raw) => {
+    if (!Array.isArray(raw)) return [];
+    return raw.filter((p): p is RespawnTimingProfile => {
       if (!p || typeof p !== "object") return false;
       const x = p as Record<string, unknown>;
       return (
@@ -114,40 +117,30 @@ export function loadRespawnTimingProfiles(): RespawnTimingProfile[] {
         (x.source === "manual" || x.source === "observed")
       );
     });
-  } catch {
-    return [];
-  }
+  },
+);
+
+const contextsStore = createLocalStore<Record<string, unknown>>(
+  RESPAWN_CONTEXTS_KEY,
+  undefined,
+  (raw) => (raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {}),
+);
+
+export function loadRespawnTimingProfiles(): RespawnTimingProfile[] {
+  return timingStore.load();
 }
 
 export function saveRespawnTimingProfiles(profiles: RespawnTimingProfile[]): void {
-  try {
-    localStorage.setItem(RESPAWN_TIMING_KEY, JSON.stringify(profiles.slice(0, 500)));
-  } catch {
-    // The current timer still works if persistence is unavailable.
-  }
+  // The current timer still works if persistence is unavailable.
+  timingStore.save(profiles.slice(0, 500));
 }
 
 export function loadRespawnContext(zone: string, fallback: RespawnContext): RespawnContext {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(RESPAWN_CONTEXTS_KEY) ?? "{}") as Record<
-      string,
-      unknown
-    >;
-    const value = parsed[zone];
-    return value === "public" || value === "private" || value === "custom" ? value : fallback;
-  } catch {
-    return fallback;
-  }
+  const value = contextsStore.load()[zone];
+  return value === "public" || value === "private" || value === "custom" ? value : fallback;
 }
 
 export function saveRespawnContext(zone: string, context: RespawnContext): void {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(RESPAWN_CONTEXTS_KEY) ?? "{}") as Record<
-      string,
-      unknown
-    >;
-    localStorage.setItem(RESPAWN_CONTEXTS_KEY, JSON.stringify({ ...parsed, [zone]: context }));
-  } catch {
-    // Context falls back to public/private inference when storage is unavailable.
-  }
+  // Context falls back to public/private inference when storage is unavailable.
+  contextsStore.save({ ...contextsStore.load(), [zone]: context });
 }

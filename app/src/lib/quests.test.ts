@@ -33,6 +33,10 @@ describe("quest lookup", () => {
   it("searches requirements, rewards, class, and zone", () => {
     const row = { ...base, requirements: [{ itemName: "Wind Rune Caza", itemId: null, quantity: 1, choiceGroup: null }] };
     expect(searchQuests("rune caza", {}, [row])).toEqual([row]);
+    // Class tags are part of the text haystack — pseudo-class tags like
+    // "Kael Armor" are only reachable this way (the global 16-class filter
+    // can't select them).
+    expect(searchQuests("monk", {}, [row])).toEqual([row]);
     expect(searchQuests("", { className: "Wizard" }, [row])).toEqual([]);
   });
 

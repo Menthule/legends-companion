@@ -8,6 +8,7 @@
 // Supersedes lib/campTimers.ts. Nothing here touches sqlite — all state is
 // localStorage; the bundled reference DB stays read-only.
 
+import { createLocalStore } from "./localStore";
 import type { RespawnContext, RespawnTimingSource } from "./respawnTiming";
 
 export type TimerKind = "respawn" | "custom";
@@ -160,28 +161,24 @@ function migrateLegacyCamps(now: number): Timer[] {
   }
 }
 
+// No same-window event: the Timers tab is the only writer in its window and
+// the overlay hears the browser "storage" event.
+const timerStore = createLocalStore<Timer[]>(TIMERS_KEY, undefined, (raw) =>
+  Array.isArray(raw)
+    ? raw
+        .filter(
+          (e): e is Record<string, unknown> =>
+            typeof e === "object" && e !== null,
+        )
+        .map(coerceTimer)
+        .filter((t): t is Timer => t !== null)
+    : [],
+);
+
 export function loadTimers(): Timer[] {
-  const now = Date.now();
-  let timers: Timer[] = [];
-  try {
-    const raw = localStorage.getItem(TIMERS_KEY);
-    if (raw) {
-      const parsed: unknown = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        timers = parsed
-          .filter(
-            (e): e is Record<string, unknown> =>
-              typeof e === "object" && e !== null,
-          )
-          .map(coerceTimer)
-          .filter((t): t is Timer => t !== null);
-      }
-    }
-  } catch {
-    timers = [];
-  }
+  const timers = timerStore.load();
   // Fold any legacy camp timers in (runs once; clears the old key).
-  const migrated = migrateLegacyCamps(now);
+  const migrated = migrateLegacyCamps(Date.now());
   if (migrated.length) {
     const seen = new Set(timers.map((t) => t.label.toLowerCase()));
     for (const m of migrated) {
@@ -193,14 +190,14 @@ export function loadTimers(): Timer[] {
 }
 
 export function saveTimers(timers: Timer[]): void {
-  try {
-    localStorage.setItem(
-      TIMERS_KEY,
-      JSON.stringify(timers.slice(0, TIMER_CAP)),
-    );
-  } catch {
-    // localStorage unavailable — timers just won't survive a reload.
-  }
+  // localStorage unavailable — timers just won't survive a reload.
+  timerStore.save(timers.slice(0, TIMER_CAP));
+}
+
+/** Hear timer changes from other windows (the Timers tab writes; the overlay
+ *  hears the browser "storage" event). Returns an unsubscribe function. */
+export function subscribeTimers(cb: () => void): () => void {
+  return timerStore.subscribe(cb);
 }
 
 /** A timer with live progress, for the overlay/list. */

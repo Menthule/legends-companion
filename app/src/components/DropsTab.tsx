@@ -8,7 +8,8 @@
 // as a filter chip instead of a text search. Active filters render as
 // removable chips; the full select set lives in a compact "Filters"
 // popover for browsing without typing. Result columns are configurable
-// (persisted). The session loot log deep-links here via "eqlogs-open-drops".
+// (persisted). The session loot log deep-links here via lib/deepLinks
+// (openDrops); mob/vendor/recipe/quest names link back out the same way.
 
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -48,14 +49,18 @@ import {
 import { ClassFilterButton, EraSelect } from "./RefFilters";
 import Empty from "./Empty";
 import { ItemTypeIcon } from "./ItemIcons";
+import Pager from "./Pager";
 import ResourceLinks from "./ResourceLinks";
+import { SearchSelect, SpecRow } from "./SearchSelect";
+import { useDebouncedRefSearch } from "../lib/refSearch";
+import { useDismissOnOutsidePointer } from "../hooks";
+import { openMobs, openQuests, openRecipes } from "../lib/deepLinks";
 import {
   isWishlisted,
   onWishlistChanged,
   toggleWishlist,
 } from "../lib/wishlist";
 
-const PAGE_SIZE = 50;
 const COLUMNS_KEY = "eqlogs.drops.columns.v2";
 
 const ERA_NAMES = ["Classic", "Kunark", "Velious", "Later"];
@@ -228,151 +233,6 @@ interface Suggestion {
   apply: () => void;
 }
 
-/** One labeled line in the item-detail spec grid ("Damage  19 / 41 dly").
- *  Shared with the Mobs/Recipes tabs (same detail-grid conventions). */
-export function SpecRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="drops-spec-row">
-      <span className="drops-spec-label">{label}</span>
-      <span className="drops-spec-value">{value}</span>
-    </div>
-  );
-}
-
-/**
- * Type-to-filter combobox for long option lists (specific effects, zones):
- * a text input that filters a dropdown, with ↑/↓/Enter/Escape keyboard
- * navigation. Closed, it shows the selected label (or "Any …").
- * Shared with the Mobs tab (zone filter).
- */
-export function SearchSelect({
-  value,
-  options,
-  anyLabel,
-  onChange,
-}: {
-  value: string;
-  options: { value: string; label: string }[];
-  anyLabel: string;
-  onChange: (v: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const [q, setQ] = useState("");
-  const [idx, setIdx] = useState(0);
-  const MAX_SHOWN = 60;
-
-  const ql = q.trim().toLowerCase();
-  const filtered = ql
-    ? options.filter((o) => o.label.toLowerCase().includes(ql))
-    : options;
-  const shown = filtered.slice(0, MAX_SHOWN);
-  // Row 0 is always the "Any" reset.
-  const rowCount = shown.length + 1;
-
-  const selectedLabel =
-    options.find((o) => o.value === value)?.label ?? anyLabel;
-
-  function pick(v: string) {
-    onChange(v);
-    setOpen(false);
-    setQ("");
-    setIdx(0);
-  }
-
-  // Whether the × clears typed text (menu open) or the selection itself.
-  const clearable = (open && q !== "") || (!open && value !== "");
-
-  return (
-    <div className="sselect">
-      <input
-        type="text"
-        value={open ? q : value === "" ? "" : selectedLabel}
-        placeholder={anyLabel + " — type to search"}
-        onFocus={() => {
-          setOpen(true);
-          setQ("");
-          setIdx(0);
-        }}
-        onBlur={() => window.setTimeout(() => setOpen(false), 150)}
-        onChange={(e) => {
-          setQ(e.target.value);
-          setOpen(true);
-          setIdx(0);
-        }}
-        onKeyDown={(e) => {
-          if (!open) return;
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            setIdx((i) => (i + 1) % rowCount);
-          } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            setIdx((i) => (i - 1 + rowCount) % rowCount);
-          } else if (e.key === "Enter") {
-            e.preventDefault();
-            pick(idx === 0 ? "" : (shown[idx - 1]?.value ?? ""));
-          } else if (e.key === "Escape") {
-            setOpen(false);
-          }
-        }}
-      />
-      {clearable && (
-        <button
-          type="button"
-          className="sselect-clear"
-          title={open && q !== "" ? "Clear search" : "Clear selection"}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            if (open && q !== "") {
-              setQ("");
-              setIdx(0);
-            } else {
-              pick("");
-            }
-          }}
-        >
-          ×
-        </button>
-      )}
-      <span className="sselect-chev" aria-hidden="true">
-        ▾
-      </span>
-      {open && (
-        <div className="sselect-menu" role="listbox">
-          <button
-            className={`sselect-row${idx === 0 ? " active" : ""}`}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              pick("");
-            }}
-          >
-            {anyLabel}
-          </button>
-          {shown.map((o, i) => (
-            <button
-              key={o.value}
-              className={`sselect-row${idx === i + 1 ? " active" : ""}${o.value === value ? " selected" : ""}`}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                pick(o.value);
-              }}
-            >
-              {o.label}
-            </button>
-          ))}
-          {filtered.length > MAX_SHOWN && (
-            <div className="sselect-more">
-              +{filtered.length - MAX_SHOWN} more — keep typing to narrow
-            </div>
-          )}
-          {filtered.length === 0 && (
-            <div className="sselect-more">No matches</div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
 /** Cap the crafting chip rows — staple components sit in hundreds of
  *  recipes and a wall of chips would drown the rest of the detail. */
 const MAX_RECIPE_CHIPS = 24;
@@ -394,11 +254,7 @@ function RecipeChips({
           key={r.id}
           className="drops-chip"
           title={`${tradeskillName(r.tradeskill)} — trivial ${r.trivial}`}
-          onClick={() =>
-            window.dispatchEvent(
-              new CustomEvent("eqlogs-open-recipes", { detail: r.name }),
-            )
-          }
+          onClick={() => openRecipes(r.name)}
         >
           {r.name}
         </button>
@@ -435,18 +291,12 @@ export default function DropsTab({
   const [suggestIdx, setSuggestIdx] = useState(0);
   const [sort, setSort] = useState<SortKey>("name");
   const [descending, setDescending] = useState(false);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [rows, setRows] = useState<DropItemRow[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<number | null>(null);
   const [sources, setSources] = useState<DropSource[] | null>(null);
   /** Merchants selling the expanded item (null = loading). */
   const [vendors, setVendors] = useState<ItemVendor[] | null>(null);
   /** Recipes the expanded item participates in (null = loading). */
   const [recipes, setRecipes] = useState<ItemRecipes | null>(null);
   const [questUses, setQuestUses] = useState<QuestRecord[] | null>(null);
-  const debounce = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const filtersRef = useRef<HTMLDivElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
@@ -455,22 +305,57 @@ export default function DropsTab({
   const [, bumpWishlist] = useState(0);
   useEffect(() => onWishlistChanged(() => bumpWishlist((n) => n + 1)), []);
 
-  // Clicking anywhere outside a popover closes it (matching every other
-  // dropdown's behavior) — the toggle button alone shouldn't be the only
-  // way out.
-  useEffect(() => {
-    const onDown = (e: MouseEvent) => {
-      const t = e.target as Node;
-      if (filtersRef.current && !filtersRef.current.contains(t)) {
-        setFiltersOpen(false);
-      }
-      if (pickerRef.current && !pickerRef.current.contains(t)) {
-        setPickerOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, []);
+  const hasFilters =
+    slotMask !== 0 ||
+    classMask !== 0 ||
+    zone !== "" ||
+    effectType !== "" ||
+    effectName !== "";
+  const active = query.trim().length >= 2 || hasFilters;
+
+  const {
+    page,
+    setPage,
+    pages,
+    total,
+    rows,
+    error,
+    setError,
+    expanded,
+    setExpanded,
+    resetPaging,
+  } = useDebouncedRefSearch<DropItemRow>({
+    active,
+    fetch: (offset, limit) =>
+      dropsSearchItems({
+        query: query.trim(),
+        eraMax,
+        onlySourced,
+        slotMask,
+        classMask,
+        zone,
+        effectType,
+        effectName,
+        sort,
+        descending,
+        limit,
+        offset,
+      }),
+    deps: [
+      query, eraMax, onlySourced, slotMask, classMask, zone,
+      effectType, effectName, sort, descending,
+    ],
+  });
+
+  // Clicking anywhere outside a popover (or Escape) closes it — the toggle
+  // button alone shouldn't be the only way out. One call per popover so each
+  // dismisses independently.
+  useDismissOnOutsidePointer([filtersRef], filtersOpen, () =>
+    setFiltersOpen(false),
+  );
+  useDismissOnOutsidePointer([pickerRef], pickerOpen, () =>
+    setPickerOpen(false),
+  );
 
   useEffect(() => {
     dropsZones().then(setZones).catch(() => {});
@@ -514,57 +399,6 @@ export default function DropsTab({
       return zi && zi.era > eraMax ? "" : zn;
     });
   }, [eraMax, zones]);
-
-  const hasFilters =
-    slotMask !== 0 ||
-    classMask !== 0 ||
-    zone !== "" ||
-    effectType !== "" ||
-    effectName !== "";
-  const active = query.trim().length >= 2 || hasFilters;
-
-  useEffect(() => {
-    if (debounce.current) window.clearTimeout(debounce.current);
-    debounce.current = window.setTimeout(() => {
-      if (!active) {
-        setRows([]);
-        setTotal(0);
-        setError(null);
-        return;
-      }
-      dropsSearchItems({
-        query: query.trim(),
-        eraMax,
-        onlySourced,
-        slotMask,
-        classMask,
-        zone,
-        effectType,
-        effectName,
-        sort,
-        descending,
-        limit: PAGE_SIZE,
-        offset: page * PAGE_SIZE,
-      })
-        .then((res) => {
-          setRows(res.rows);
-          setTotal(res.total);
-          setError(null);
-        })
-        .catch((e) => setError(String(e)));
-    }, 250);
-    return () => {
-      if (debounce.current) window.clearTimeout(debounce.current);
-    };
-  }, [
-    active, query, eraMax, onlySourced, slotMask, classMask, zone,
-    effectType, effectName, sort, descending, page,
-  ]);
-
-  function resetPaging() {
-    setPage(0);
-    setExpanded(null);
-  }
 
   const liveZoneShort = useMemo(
     () => resolveLiveZoneShortName(liveZoneName, zones),
@@ -738,7 +572,6 @@ export default function DropsTab({
     resetPaging();
   }
 
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const detail = useMemo(
     () => rows.find((r) => r.id === expanded) ?? null,
     [rows, expanded],
@@ -1085,7 +918,7 @@ export default function DropsTab({
                 ) : (
                   <span
                     key={c.id}
-                    className={`drops-col-btn${c.numeric ? " num" : ""}`}
+                    className={`drops-col-label${c.numeric ? " num" : ""}`}
                   >
                     {c.label}
                   </span>
@@ -1227,13 +1060,7 @@ export default function DropsTab({
                             key={quest.id}
                             className="drops-chip"
                             title={`Open ${quest.name} in Quests`}
-                            onClick={() =>
-                              window.dispatchEvent(
-                                new CustomEvent("eqlogs-open-quests", {
-                                  detail: quest.name,
-                                }),
-                              )
-                            }
+                            onClick={() => openQuests(quest.name)}
                           >
                             {quest.name}
                           </button>
@@ -1266,13 +1093,7 @@ export default function DropsTab({
                               <button
                                 className="session-item-link"
                                 title="Open in the Mobs database"
-                                onClick={() =>
-                                  window.dispatchEvent(
-                                    new CustomEvent("eqlogs-open-mobs", {
-                                      detail: s.npc,
-                                    }),
-                                  )
-                                }
+                                onClick={() => openMobs(s.npc)}
                               >
                                 {s.npc}
                               </button>
@@ -1309,13 +1130,7 @@ export default function DropsTab({
                                 <button
                                   className="session-item-link"
                                   title="Open in the Mobs database"
-                                  onClick={() =>
-                                    window.dispatchEvent(
-                                      new CustomEvent("eqlogs-open-mobs", {
-                                        detail: v.npc,
-                                      }),
-                                    )
-                                  }
+                                  onClick={() => openMobs(v.npc)}
                                 >
                                   {v.npc}
                                 </button>
@@ -1358,32 +1173,12 @@ export default function DropsTab({
               </div>
             ))}
           </div>
-          <div className="drops-pager">
-            <span className="hint num">
-              {total} item{total === 1 ? "" : "s"}
-            </span>
-            {pages > 1 && (
-              <>
-                <button
-                  className="ghost small"
-                  disabled={page === 0}
-                  onClick={() => setPage((p) => Math.max(0, p - 1))}
-                >
-                  ‹ Prev
-                </button>
-                <span className="hint num">
-                  {page + 1} / {pages}
-                </span>
-                <button
-                  className="ghost small"
-                  disabled={page + 1 >= pages}
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  Next ›
-                </button>
-              </>
-            )}
-          </div>
+          <Pager
+            count={`${total} item${total === 1 ? "" : "s"}`}
+            page={page}
+            pages={pages}
+            onPage={setPage}
+          />
         </>
       )}
     </div>

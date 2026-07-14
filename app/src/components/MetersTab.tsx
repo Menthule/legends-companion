@@ -17,6 +17,7 @@ import {
 import Empty from "./Empty";
 import MeterTable, { type MeterMode, StatTile } from "./MeterTable";
 import TimerBars from "./TimerBars";
+import { useToast } from "./Toast";
 
 // ---------------------------------------------------------------------------
 // Damage by skill: your per-source damage (melee verbs, spells, damage
@@ -83,7 +84,7 @@ function addSources(acc: Map<string, SkillAgg>, row: MeterRow | undefined) {
 export default function MetersTab({ character }: { character: string }) {
   const [fight, setFight] = useState<FightUpdatePayload | null>(null);
   const [deaths, setDeaths] = useState(0);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toastNode, showToast] = useToast();
   const [view, setView] = useState<"combat" | "casts">("combat");
   const [casts, setCasts] = useState<CastRow[]>([]);
 
@@ -105,12 +106,6 @@ export default function MetersTab({ character }: { character: string }) {
       setDeaths((d) => d + 1);
     }
   });
-
-  useEffect(() => {
-    if (!toast) return;
-    const h = window.setTimeout(() => setToast(null), 2600);
-    return () => window.clearTimeout(h);
-  }, [toast]);
 
   const timers = useTimers();
   // Lane split (overlay-lanes spec): "buff" + "other" stack under Buffs so
@@ -217,9 +212,9 @@ export default function MetersTab({ character }: { character: string }) {
         rows: fight.rows.filter((r) => r.total > 0),
       });
       await navigator.clipboard.writeText(text);
-      setToast("Parse copied — paste it into chat");
+      showToast("Parse copied — paste it into chat");
     } catch {
-      setToast("Could not copy to the clipboard");
+      showToast("Could not copy to the clipboard");
     }
   }
 
@@ -478,11 +473,7 @@ export default function MetersTab({ character }: { character: string }) {
       </div>
         </>
       )}
-      {toast && (
-        <div className="toast" role="status">
-          {toast}
-        </div>
-      )}
+      {toastNode}
     </>
   );
 }

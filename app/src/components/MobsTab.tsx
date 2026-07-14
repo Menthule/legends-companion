@@ -1,11 +1,12 @@
 // Mobs reference tab: search/browse NPCs in the bundled classic-era
 // reference database (same sqlite the Drops tab uses) — who spawns where,
 // what they drop, what they sell. Loot/sell item names deep-link into the
-// Drops tab via the "eqlogs-open-drops" CustomEvent. When a zone filter is
+// Drops tab via lib/deepLinks (openDrops). When a zone filter is
 // set, an expandable zone-info header (refdb_zone_info) shows connections,
 // forage/fishing tables, and the zone's named mobs.
 //
-// UX mirrors DropsTab: debounced search, .drops-* grid tables, SearchSelect
+// UX mirrors DropsTab via the shared scaffold (lib/refSearch +
+// SearchSelect/Pager): debounced search, .drops-* grid tables, SearchSelect
 // zone combobox, era select, 50/page paging, expandable detail rows.
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -16,8 +17,10 @@ import {
   refdbZoneInfo,
 } from "../api";
 import type { DropZone, MobDetail, MobRow, ZoneInfo } from "../types";
-import { SearchSelect, SpecRow } from "./DropsTab";
+import { SearchSelect, SpecRow } from "./SearchSelect";
 import Empty from "./Empty";
+import Pager from "./Pager";
+import { useDebouncedRefSearch } from "../lib/refSearch";
 import {
   resolveLiveZoneShortName,
   useEraMax,
@@ -27,27 +30,16 @@ import {
 import { EraSelect } from "./RefFilters";
 import { ItemTypeIcon } from "./ItemIcons";
 import ResourceLinks from "./ResourceLinks";
-
-const PAGE_SIZE = 50;
+import { fmtLen as fmtRespawn } from "../lib/format";
+import { openDrops } from "../lib/deepLinks";
 
 const ERA_NAMES = ["Classic", "Kunark", "Velious", "Later"];
 
 // Name | Level | Zone | Loot | Respawn
 const GRID_TEMPLATE = "1.5fr 52px 1fr 52px 68px";
 
-/** Respawn seconds → "m:ss"; unknown/0 → "—". */
-function fmtRespawn(secs: number): string {
-  if (secs <= 0) return "—";
-  return `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
-}
-
 function fmtChance(chance: number): string {
   return chance >= 1 ? `${Math.round(chance)}%` : `${chance.toFixed(1)}%`;
-}
-
-/** Look up an item in the Drops tab (Dashboard listens for this event). */
-function openDrops(name: string) {
-  window.dispatchEvent(new CustomEvent("eqlogs-open-drops", { detail: name }));
 }
 
 /** Clickable item name that deep-links into the Drops tab. */
@@ -88,16 +80,40 @@ export default function MobsTab({
   const [liveZoneEnabled] = useLiveZoneEnabled();
   const [liveZoneName] = useLiveZoneName();
   const [zones, setZones] = useState<DropZone[]>([]);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [rows, setRows] = useState<MobRow[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<number | null>(null);
   const [detail, setDetail] = useState<MobDetail | null>(null);
   /** Zone-info header expansion + lazily fetched almanac. */
   const [zoneInfoOpen, setZoneInfoOpen] = useState(false);
   const [zoneInfo, setZoneInfo] = useState<ZoneInfo | null>(null);
-  const debounce = useRef<number | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const active =
+    query.trim().length >= 2 || zone !== "" || minLevel > 0 || maxLevel > 0;
+
+  const {
+    page,
+    setPage,
+    pages,
+    total,
+    rows,
+    error,
+    setError,
+    expanded,
+    setExpanded,
+    resetPaging,
+  } = useDebouncedRefSearch<MobRow>({
+    active,
+    fetch: (offset, limit) =>
+      refdbMobSearch({
+        query: query.trim(),
+        eraMax,
+        minLevel,
+        maxLevel,
+        zone,
+        limit,
+        offset,
+      }),
+    deps: [query, eraMax, minLevel, maxLevel, zone],
+  });
 
   useEffect(() => {
     dropsZones().then(setZones).catch(() => {});
@@ -112,51 +128,14 @@ export default function MobsTab({
     setMaxLevel(0);
     setPage(0);
     setExpanded(null);
+    inputRef.current?.focus();
   }, [searchRequest]);
-
-  const active =
-    query.trim().length >= 2 || zone !== "" || minLevel > 0 || maxLevel > 0;
-
-  useEffect(() => {
-    if (debounce.current) window.clearTimeout(debounce.current);
-    debounce.current = window.setTimeout(() => {
-      if (!active) {
-        setRows([]);
-        setTotal(0);
-        setError(null);
-        return;
-      }
-      refdbMobSearch({
-        query: query.trim(),
-        eraMax,
-        minLevel,
-        maxLevel,
-        zone,
-        limit: PAGE_SIZE,
-        offset: page * PAGE_SIZE,
-      })
-        .then((res) => {
-          setRows(res.rows);
-          setTotal(res.total);
-          setError(null);
-        })
-        .catch((e) => setError(String(e)));
-    }, 250);
-    return () => {
-      if (debounce.current) window.clearTimeout(debounce.current);
-    };
-  }, [active, query, eraMax, minLevel, maxLevel, zone, page]);
 
   // The almanac belongs to the selected zone: drop it when that changes.
   useEffect(() => {
     setZoneInfo(null);
     setZoneInfoOpen(false);
   }, [zone]);
-
-  function resetPaging() {
-    setPage(0);
-    setExpanded(null);
-  }
 
   const liveZoneShort = useMemo(
     () => resolveLiveZoneShortName(liveZoneName, zones),
@@ -208,7 +187,6 @@ export default function MobsTab({
     resetPaging();
   }
 
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const shownZones = useMemo(
     () => zones.filter((z) => z.era <= eraMax || z.shortName === zone),
     [zones, eraMax, zone],
@@ -228,6 +206,7 @@ export default function MobsTab({
       </div>
       <div className="drops-controls">
         <input
+          ref={inputRef}
           type="search"
           placeholder="Search mobs by name…"
           value={query}
@@ -412,11 +391,11 @@ export default function MobsTab({
               style={{ gridTemplateColumns: GRID_TEMPLATE }}
               aria-hidden="true"
             >
-              <span className="drops-col-btn">Name</span>
-              <span className="drops-col-btn num">Level</span>
-              <span className="drops-col-btn">Zone</span>
-              <span className="drops-col-btn num">Loot</span>
-              <span className="drops-col-btn num">Respawn</span>
+              <span className="drops-col-label">Name</span>
+              <span className="drops-col-label num">Level</span>
+              <span className="drops-col-label">Zone</span>
+              <span className="drops-col-label num">Loot</span>
+              <span className="drops-col-label num">Respawn</span>
             </div>
             {rows.map((m) => (
               <div key={m.id}>
@@ -542,32 +521,12 @@ export default function MobsTab({
               </div>
             ))}
           </div>
-          <div className="drops-pager">
-            <span className="hint num">
-              {total} mob{total === 1 ? "" : "s"}
-            </span>
-            {pages > 1 && (
-              <>
-                <button
-                  className="ghost small"
-                  disabled={page === 0}
-                  onClick={() => setPage((p) => Math.max(0, p - 1))}
-                >
-                  ‹ Prev
-                </button>
-                <span className="hint num">
-                  {page + 1} / {pages}
-                </span>
-                <button
-                  className="ghost small"
-                  disabled={page + 1 >= pages}
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  Next ›
-                </button>
-              </>
-            )}
-          </div>
+          <Pager
+            count={`${total} mob${total === 1 ? "" : "s"}`}
+            page={page}
+            pages={pages}
+            onPage={setPage}
+          />
         </>
       )}
     </div>

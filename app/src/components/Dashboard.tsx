@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   checkUpdate,
   installUpdate,
@@ -19,7 +19,7 @@ import {
   switchLoadout,
 } from "../api";
 import { IS_MOCK } from "../mock";
-import { useTauriEvent } from "../hooks";
+import { useDismissOnOutsidePointer, useTauriEvent } from "../hooks";
 import { activeLoadout } from "../resolution";
 import {
   pushRecentLog,
@@ -31,6 +31,7 @@ import {
   useLiveZoneEnabled,
   useLiveZoneName,
 } from "../lib/refFilters";
+import { useDeepLink } from "../lib/deepLinks";
 import {
   type AppConfig,
   type CatchUpPayload,
@@ -48,7 +49,9 @@ import {
   OVERLAY_VIS_KEY,
   saveOverlayArrange,
   saveOverlayVisibility,
+  useOverlayArrange,
 } from "../overlayState";
+import { useToast } from "./Toast";
 import LiveTab from "./LiveTab";
 import MetersTab from "./MetersTab";
 import DropsTab from "./DropsTab";
@@ -176,31 +179,6 @@ const APP_VERSION = __APP_VERSION__;
 /** localStorage key remembering the update version the user dismissed. */
 const UPDATE_DISMISSED_KEY = "eqlogs.updateDismissed";
 
-function useDismissOnOutsidePointer(
-  refs: RefObject<HTMLElement>[],
-  active: boolean,
-  onDismiss: () => void,
-): void {
-  useEffect(() => {
-    if (!active) return;
-    const onPointerDown = (event: PointerEvent) => {
-      const target = event.target;
-      if (!(target instanceof Node)) return;
-      if (refs.some((ref) => ref.current?.contains(target))) return;
-      onDismiss();
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onDismiss();
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [active, onDismiss, refs]);
-}
-
 function namedEntity(e: unknown): string {
   if (typeof e === "string") return e;
   if (e && typeof e === "object" && "Named" in e) {
@@ -272,16 +250,12 @@ export default function Dashboard() {
     seq: number;
     revealUnsourced?: boolean;
   } | null>(null);
-  useEffect(() => {
-    const onOpenDrops = (e: Event) => {
-      const query = String((e as CustomEvent).detail ?? "").trim();
-      if (!query) return;
-      setDropsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
-      setTab("drops");
-    };
-    window.addEventListener("eqlogs-open-drops", onOpenDrops);
-    return () => window.removeEventListener("eqlogs-open-drops", onOpenDrops);
-  }, []);
+  useDeepLink("drops", (detail) => {
+    const query = String(detail ?? "").trim();
+    if (!query) return;
+    setDropsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+    setTab("drops");
+  });
   // Deep-link from the Drops crafting chips: open Recipes pre-searched.
   const [recipesRequest, setRecipesRequest] = useState<{
     query: string;
@@ -309,16 +283,12 @@ export default function Dashboard() {
     section: string;
     seq: number;
   } | null>(null);
-  useEffect(() => {
-    const onOpenQuests = (e: Event) => {
-      const query = String((e as CustomEvent).detail ?? "").trim();
-      if (!query) return;
-      setQuestsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
-      setTab("quests");
-    };
-    window.addEventListener("eqlogs-open-quests", onOpenQuests);
-    return () => window.removeEventListener("eqlogs-open-quests", onOpenQuests);
-  }, []);
+  useDeepLink("quests", (detail) => {
+    const query = String(detail ?? "").trim();
+    if (!query) return;
+    setQuestsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+    setTab("quests");
+  });
   const [currentZone, setCurrentZone] = useState<string | null>(null);
   const [liveZoneEnabled, setLiveZoneEnabled] = useLiveZoneEnabled();
   const [liveZoneName] = useLiveZoneName();
@@ -357,64 +327,51 @@ export default function Dashboard() {
       stale = true;
     };
   }, [hailCard?.name, currentZone]);
-  useEffect(() => {
-    const onOpenMobs = (e: Event) => {
-      const query = String((e as CustomEvent).detail ?? "").trim();
-      if (!query) return;
-      setMobsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
-      setTab("mobs");
-    };
-    window.addEventListener("eqlogs-open-mobs", onOpenMobs);
-    return () => window.removeEventListener("eqlogs-open-mobs", onOpenMobs);
-  }, []);
-  useEffect(() => {
-    const onOpenRecipes = (e: Event) => {
-      const query = String((e as CustomEvent).detail ?? "").trim();
-      if (!query) return;
-      setRecipesRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
-      setTab("recipes");
-    };
-    window.addEventListener("eqlogs-open-recipes", onOpenRecipes);
-    return () =>
-      window.removeEventListener("eqlogs-open-recipes", onOpenRecipes);
-  }, []);
+  useDeepLink("mobs", (detail) => {
+    const query = String(detail ?? "").trim();
+    if (!query) return;
+    setMobsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+    setTab("mobs");
+  });
+  useDeepLink("recipes", (detail) => {
+    const query = String(detail ?? "").trim();
+    if (!query) return;
+    setRecipesRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+    setTab("recipes");
+  });
   // Deep-link from the ding digest: open Spells/Abilities pre-searched.
   const [spellsRequest, setSpellsRequest] = useState<{
     query: string;
     isAbility: boolean;
     seq: number;
   } | null>(null);
-  useEffect(() => {
-    const onOpenSpells = (e: Event) => {
-      const detail = (e as CustomEvent).detail as
-        | { name?: string; isAbility?: boolean }
-        | undefined;
-      const query = String(detail?.name ?? "").trim();
-      if (!query) return;
-      const isAbility = detail?.isAbility === true;
-      setSpellsRequest((prev) => ({
-        query,
-        isAbility,
-        seq: (prev?.seq ?? 0) + 1,
-      }));
-      setTab(isAbility ? "abilities" : "spells");
-    };
-    window.addEventListener("eqlogs-open-spells", onOpenSpells);
-    return () => window.removeEventListener("eqlogs-open-spells", onOpenSpells);
-  }, []);
+  useDeepLink("spells", (detail) => {
+    const query = String(detail?.name ?? "").trim();
+    if (!query) return;
+    const isAbility = detail?.isAbility === true;
+    setSpellsRequest((prev) => ({
+      query,
+      isAbility,
+      seq: (prev?.seq ?? 0) + 1,
+    }));
+    setTab(isAbility ? "abilities" : "spells");
+  });
   const [tailing, setTailing] = useState(false);
   const [character, setCharacter] = useState("");
   /** Discovered eqlog_* characters for the quiet top-bar switcher. */
   const [characters, setCharacters] = useState<DiscoveredLog[]>([]);
-  const [overlaysLocked, setOverlaysLocked] = useState(true);
+  // Shared arrange store (overlayState): the top-bar toggle and Settings →
+  // Overlays both derive from it, so neither control lies after the other is
+  // used. Mutate via saveOverlayArrange.
+  const overlaysArranging = useOverlayArrange();
+  const overlaysLocked = !overlaysArranging;
   const [overlaysOn, setOverlaysOn] = useState(() => {
     const v = loadOverlayVisibility();
     return OVERLAYS.some((label) => v[label]);
   });
   const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<CharacterProfile | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
-  const toastTimer = useRef<number | null>(null);
+  const [toastNode, showToast] = useToast();
   /** Reason the tail session died unexpectedly (red banner + Restart). */
   const [sessionEnd, setSessionEnd] = useState<string | null>(null);
   /** Rolling unclassified-line rate from tail-stats (patch-day canary). */
@@ -444,12 +401,6 @@ export default function Dashboard() {
       window.removeEventListener("storage", onStorage);
     };
   }, []);
-
-  function showToast(message: string) {
-    setToast(message);
-    if (toastTimer.current != null) window.clearTimeout(toastTimer.current);
-    toastTimer.current = window.setTimeout(() => setToast(null), 2500);
-  }
 
   const openGlobalSearch = useCallback((query = "", reason?: string) => {
     setGlobalSearch((prev) => ({
@@ -493,7 +444,6 @@ export default function Dashboard() {
     }
     return () => {
       offTriggers();
-      if (toastTimer.current != null) window.clearTimeout(toastTimer.current);
     };
   }, []);
 
@@ -876,6 +826,12 @@ export default function Dashboard() {
     setOverlaysOn(next);
     setError(null);
     try {
+      // Hiding while arranging is a lock: clear the backend arrange latch
+      // FIRST (see overlaySetArranging) so it can't linger and fight the
+      // next show/lock pass.
+      if (!next && !overlaysLocked) {
+        await overlaySetArranging(false);
+      }
       for (const label of OVERLAYS) {
         if (next) {
           await overlayShow(label);
@@ -885,7 +841,7 @@ export default function Dashboard() {
         }
       }
       if (!next && !overlaysLocked) {
-        setOverlaysLocked(true);
+        saveOverlayArrange(false);
       }
       saveOverlayVisibility(
         Object.fromEntries(OVERLAYS.map((label) => [label, next])),
@@ -897,7 +853,6 @@ export default function Dashboard() {
 
   const toggleOverlayLock = useCallback(async () => {
     const nextLocked = !overlaysLocked;
-    setOverlaysLocked(nextLocked);
     saveOverlayArrange(!nextLocked);
     setError(null);
     try {
@@ -1365,11 +1320,7 @@ export default function Dashboard() {
         }
         catchingUp={catchingUp}
       />
-      {toast && (
-        <div className="toast" role="status">
-          {toast}
-        </div>
-      )}
+      {toastNode}
       {globalSearch && (
         <GlobalSearchModal
           key={globalSearch.seq}

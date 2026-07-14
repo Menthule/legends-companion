@@ -126,6 +126,10 @@ export function searchQuests(
         quest.zone,
         ...quest.givers,
         ...quest.aliases,
+        // Class tags: catalog pseudo-classes ("Kael Armor", "Repeatable
+        // Turn-in") are only reachable by text — the global 16-class filter
+        // can't select them.
+        ...quest.classes,
         ...quest.requirements.map((row) => row.itemName),
         ...quest.rewards,
       ].some((value) => normalizeQuestName(value).includes(wanted));

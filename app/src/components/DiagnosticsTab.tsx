@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { discoverLogs, getConfig } from "../api";
 import { fmtClock, useTauriEvent } from "../hooks";
-import type {
-  AppConfig,
-  DiscoveredLog,
-  LogLinePayload,
-  EffectObservedPayload,
-  TailStatsPayload,
+import {
+  eventKind,
+  type AppConfig,
+  type DiscoveredLog,
+  type LogLinePayload,
+  type EffectObservedPayload,
+  type TailStatsPayload,
 } from "../types";
+import Empty from "./Empty";
 import QuickTriggerModal from "./QuickTriggerModal";
+import { useToast } from "./Toast";
 
 interface DebugLine {
   id: number;
@@ -27,11 +30,6 @@ interface EffectDebug {
 
 let seq = 1;
 
-function eventKind(event: LogLinePayload["event"]): string {
-  if (typeof event === "string") return event;
-  return Object.keys(event)[0] ?? "Unknown";
-}
-
 export default function DiagnosticsTab() {
   const [stats, setStats] = useState<TailStatsPayload | null>(null);
   const [config, setConfig] = useState<AppConfig | null>(null);
@@ -39,7 +37,7 @@ export default function DiagnosticsTab() {
   const [lines, setLines] = useState<DebugLine[]>([]);
   const [effects, setEffects] = useState<EffectDebug[]>([]);
   const [quickLine, setQuickLine] = useState<string | null>(null);
-  const [status, setStatus] = useState<string | null>(null);
+  const [toastNode, showToast] = useToast();
 
   useEffect(() => {
     getConfig().then(setConfig).catch(() => setConfig(null));
@@ -81,9 +79,9 @@ export default function DiagnosticsTab() {
   async function copyText(text: string, label: string) {
     try {
       await navigator.clipboard.writeText(text);
-      setStatus(`${label} copied.`);
+      showToast(`${label} copied`);
     } catch {
-      setStatus(`Could not copy ${label.toLowerCase()}.`);
+      showToast(`Could not copy ${label.toLowerCase()}`);
     }
   }
 
@@ -148,11 +146,13 @@ export default function DiagnosticsTab() {
       <section className="card diag-span">
         <div className="card-head">
           <span className="section-title">Recent Unrecognized Lines</span>
-          {status && <span className="hint">{status}</span>}
         </div>
         <div className="coach-table">
           {lines.length === 0 ? (
-            <div className="hint">No unrecognized lines captured in this view.</div>
+            <Empty
+              title="No unrecognized lines"
+              body="Log lines the parser cannot classify are captured here as they stream in."
+            />
           ) : (
             lines.map((line) => (
               <div className="coach-row diag-line" key={line.id}>
@@ -185,7 +185,10 @@ export default function DiagnosticsTab() {
         </div>
         <div className="coach-table">
           {effects.length === 0 ? (
-            <div className="hint">Parsed spell damage will appear here. Trigger output is inspected in the Triggers tab.</div>
+            <Empty
+              title="No spell effects yet"
+              body="Parsed spell damage will appear here. Trigger output is inspected in the Triggers tab."
+            />
           ) : (
             effects.map((e) => (
               <div className="coach-row compact" key={e.id}>
@@ -203,10 +206,11 @@ export default function DiagnosticsTab() {
           onClose={() => setQuickLine(null)}
           onSaved={(name) => {
             setQuickLine(null);
-            setStatus(`Trigger "${name}" saved.`);
+            showToast(`Trigger “${name}” saved`);
           }}
         />
       )}
+      {toastNode}
     </div>
   );
 }

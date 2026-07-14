@@ -3,6 +3,8 @@
 // chat-safe lines of at most 240 characters. Used as the local formatter in
 // mock mode and as the fallback when the paste_parse command is unavailable.
 
+import { fmtDuration } from "./format";
+
 /** EQ chat input is ~250 chars; stay comfortably under it. */
 export const PARSE_CHUNK_LIMIT = 240;
 
@@ -20,17 +22,12 @@ export interface ParseInput {
   rows: ParseRowInput[];
 }
 
-function fmtDur(secs: number): string {
-  const s = Math.max(0, Math.floor(secs));
-  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
-}
-
 /**
  * Format a fight for pasting into chat. Multiple lines when the roster
  * doesn't fit one 240-char message; every line stands alone.
  */
 export function formatParse(input: ParseInput): string {
-  const header = `${input.target} (${fmtDur(input.durationSecs)}) - `;
+  const header = `${input.target} (${fmtDuration(input.durationSecs)}) - `;
   const entries = input.rows.map((r) => {
     const label =
       input.character &&

@@ -122,25 +122,10 @@ export interface Trigger {
   zones?: string[];
 }
 
-/** The 16 Legends classes, exact names as used in pack `classes` arrays. */
-export const CLASS_NAMES = [
-  "Bard",
-  "Beastlord",
-  "Berserker",
-  "Cleric",
-  "Druid",
-  "Enchanter",
-  "Magician",
-  "Monk",
-  "Necromancer",
-  "Paladin",
-  "Ranger",
-  "Rogue",
-  "ShadowKnight",
-  "Shaman",
-  "Warrior",
-  "Wizard",
-] as const;
+/** The 16 Legends classes, exact names as used in pack `classes` arrays.
+ *  The roster is defined once in lib/classes.ts; re-exported here for the
+ *  existing importers. */
+export { CLASS_NAMES } from "./lib/classes";
 
 /** Name of the loadout legacy flat profiles migrate into (Rust side). */
 export const DEFAULT_LOADOUT_NAME = "Default";

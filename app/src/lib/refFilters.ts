@@ -6,21 +6,12 @@
 // storage event, for completeness).
 
 import { useEffect, useState } from "react";
+import { CLASS_FULL, CLASS_NAME_TO_BIT } from "./classes";
 import type { DropZone } from "../types";
 
-/** The 16 Legends classes in bitmask order (bit i = 1 << i). */
-export const CLASS_FULL = [
-  "Warrior", "Cleric", "Paladin", "Ranger", "ShadowKnight", "Druid",
-  "Monk", "Bard", "Rogue", "Shaman", "Necromancer", "Wizard",
-  "Magician", "Enchanter", "Beastlord", "Berserker",
-];
-export const CLASS_ABBR = [
-  "WAR", "CLR", "PAL", "RNG", "SHD", "DRU", "MNK", "BRD",
-  "ROG", "SHM", "NEC", "WIZ", "MAG", "ENC", "BST", "BER",
-];
-export const CLASS_NAME_TO_BIT: Record<string, number> = Object.fromEntries(
-  CLASS_FULL.map((n, i) => [n, i]),
-);
+// The class roster itself lives in lib/classes.ts (the single source);
+// re-exported here for the filter-UI consumers that already import it.
+export { CLASS_ABBR, CLASS_FULL, CLASS_NAME_TO_BIT } from "./classes";
 
 const ERA_KEY = "eqlogs.ref.eraMax";
 const CLASS_KEY = "eqlogs.ref.classMask";

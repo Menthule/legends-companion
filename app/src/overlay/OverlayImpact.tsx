@@ -4,32 +4,23 @@ import {
   LogicalPosition,
   LogicalSize,
 } from "@tauri-apps/api/window";
-import { useTauriEvent, useOverlayEnabled } from "../hooks";
+import { useTauriEvent } from "../hooks";
 import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
 import { impactOverlayView } from "../lib/overlayRegistry";
 import { impactDefaultSize } from "../lib/impactSizing";
 import {
   OVERLAY_IMPACT,
   type ImpactEvent,
   type ImpactPayload,
-  type OverlayLockPayload,
   type TriggerOverlayPayload,
 } from "../types";
-import { loadOverlayArrange, OVERLAY_ARRANGE_KEY } from "../overlayState";
+import OverlayShell from "./OverlayShell";
 
 // How long an impact lingers before it fades out.
 const IMPACT_TTL_MS = 2600;
 const IMPACT_FADE_MS = 450;
 const IMPACT_SCALE_VERSION_KEY = "eqlogs.overlay.impactScaleVersion";
 const IMPACT_SCALE_VERSION = "2";
-
-// Arrange is a transient mode — overlays always boot LOCKED (click-through,
-// no edit chrome). The persisted flag only drives runtime cross-window sync
-// (the storage listener below), never the initial state, so a restart while
-// arranging doesn't leave drag chrome plastered over the game.
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
 
 interface Shown {
   payload: ImpactPayload;
@@ -59,8 +50,6 @@ function Medal({ glyph }: { glyph: string }) {
  *  is a curated/user trigger that decides its own look. */
 export default function OverlayImpact() {
   const [shown, setShown] = useState<Shown | null>(null);
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_IMPACT);
   const fadeTimer = useRef<number | undefined>(undefined);
   const dropTimer = useRef<number | undefined>(undefined);
   const nextId = useRef(0);
@@ -89,19 +78,6 @@ export default function OverlayImpact() {
       fire({ ...view.event, id: nextId.current++ }, view.durationMs);
     }
   });
-
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_IMPACT) setUnlocked(!p.clickThrough);
-  });
-
-  useEffect(() => {
-    if (IS_MOCK) return;
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
 
   // Window-state persistence keeps the old 380x210 geometry forever unless
   // we migrate it. Resize only that legacy footprint once; a player who later
@@ -186,19 +162,16 @@ export default function OverlayImpact() {
   const style = p?.style ?? "badge";
 
   return (
-    <div
-      className={`ov-shell impact-shell${unlocked ? " unlocked" : ""}${
-        unlocked && !enabled ? " ov-disabled" : ""
-      }`}
+    <OverlayShell
+      label={OVERLAY_IMPACT}
+      name="Impact overlay"
+      className="impact-shell"
     >
-      {unlocked && <OverlayEditChrome label={OVERLAY_IMPACT} name="Impact overlay" />}
-
       {p && (
         <div
           key={p.id}
           className={`ov-impact impact-${style}${leaving ? " leaving" : ""}`}
           style={accent}
-          data-tauri-drag-region
         >
           {p.headline && <div className="ovi-headline">{p.headline}</div>}
 
@@ -233,12 +206,6 @@ export default function OverlayImpact() {
           {p.sub && <div className="ovi-sub">{p.sub}</div>}
         </div>
       )}
-
-      {IS_MOCK && (
-        <button className="ov-mock-toggle" onClick={() => setUnlocked((u) => !u)}>
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

@@ -6,7 +6,9 @@ import {
   type TimerView as BarTimer,
 } from "../hooks";
 import { IS_MOCK } from "../mock";
-import { SearchSelect } from "./DropsTab";
+import Empty from "./Empty";
+import Modal from "./Modal";
+import { SearchSelect } from "./SearchSelect";
 import {
   announceCampRespawn,
   dropsZones,
@@ -55,17 +57,7 @@ import {
   useLiveZoneEnabled,
   useLiveZoneName,
 } from "../lib/refFilters";
-
-/** ss / m:ss / h:mm:ss — compact countdown. */
-function fmtCountdown(secs: number): string {
-  if (secs <= 0) return "UP";
-  if (secs < 60) return `${secs}s`;
-  const m = Math.floor(secs / 60);
-  const s = secs % 60;
-  if (m < 60) return `${m}:${String(s).padStart(2, "0")}`;
-  const h = Math.floor(m / 60);
-  return `${h}:${String(m % 60).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
+import { fmtAgo, fmtCountdown, fmtLen } from "../lib/format";
 
 /** Backend trigger-engine timers (recasts, buffs, DoTs, CC) grouped into the
  *  Active list by their overlay lane, so the Timers window shows EVERY live
@@ -107,24 +99,6 @@ function BarRow({ t }: { t: BarTimer }) {
       </div>
     </div>
   );
-}
-
-/** m:ss / h:mm — respawn length for list rows. */
-function fmtLen(secs: number): string {
-  if (secs <= 0) return "—";
-  const m = Math.floor(secs / 60);
-  const s = secs % 60;
-  if (m < 60) return `${m}:${String(s).padStart(2, "0")}`;
-  const h = Math.floor(m / 60);
-  // Use the real seconds — hour+ respawns aren't always whole minutes (P43).
-  return `${h}:${String(m % 60).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
-
-function fmtAgo(ms: number): string {
-  const s = Math.max(0, Math.round(ms / 1000));
-  if (s < 60) return `${s}s ago`;
-  const m = Math.floor(s / 60);
-  return `${m}m ago`;
 }
 
 interface RecentKill {
@@ -940,14 +914,10 @@ export default function TimersTab() {
           </span>
         </div>
         {totalActive === 0 ? (
-          <div className="empty">
-            <div className="empty-title">No active timers</div>
-            <div className="empty-body">
-              Recast, buff, and DoT timers from your triggers show up here the
-              moment they fire. Kill a rare to start a respawn countdown, or add
-              a custom timer below.
-            </div>
-          </div>
+          <Empty
+            title="No active timers"
+            body="Recast, buff, and DoT timers from your triggers show up here the moment they fire. Kill a rare to start a respawn countdown, or add a custom timer below."
+          />
         ) : (
           <div className="tmr-groups">
             {BAR_CATEGORIES.map((cat) => {
@@ -1061,16 +1031,14 @@ export default function TimersTab() {
             </div>
           </div>
           {zoneRares.length === 0 ? (
-            <div className="empty">
-              <div className="empty-title">
-                {zoneShort ? "No known rares here" : "Pick your zone"}
-              </div>
-              <div className="empty-body">
-                {zoneShort
+            <Empty
+              title={zoneShort ? "No known rares here" : "Pick your zone"}
+              body={
+                zoneShort
                   ? "Rares for this zone are listed here. Con one (“a rare creature”) and it appears the moment you see it."
-                  : "Set your zone above (or just zone in) to list its rares, respawn times, and an Arm button."}
-              </div>
-            </div>
+                  : "Set your zone above (or just zone in) to list its rares, respawn times, and an Arm button."
+              }
+            />
           ) : (
             <div className="tmr-rows">
               {zoneRares
@@ -1129,13 +1097,10 @@ export default function TimersTab() {
             <span className="tmr-row-sub">tap Arm for placeholders</span>
           </div>
           {recentKills.length === 0 ? (
-            <div className="empty">
-              <div className="empty-title">No kills yet</div>
-              <div className="empty-body">
-                NPC kills seen this session appear here. Tap Arm on the mob you
-                are camping to start its respawn timer.
-              </div>
-            </div>
+            <Empty
+              title="No kills yet"
+              body="NPC kills seen this session appear here. Tap Arm on the mob you are camping to start its respawn timer."
+            />
           ) : (
             <div className="tmr-rows">
               {recentKills.map((k) => {
@@ -1318,50 +1283,52 @@ function RespawnTimingDialog({
   };
 
   return (
-    <div className="modal-scrim" onClick={onClose}>
-      <div className="modal respawn-timing-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="card-head">
-          <span className="section-title">Respawn timing · {timer.label}</span>
-          <span className="tmr-badge timing">{timer.timingContext ?? "public"}</span>
-        </div>
-        <label className="field">
-          <span>Duration</span>
-          <input
-            value={duration}
-            onChange={(e) => {
-              setDuration(e.target.value);
-              setSource("manual");
-              setError(null);
-            }}
-            autoFocus
-          />
-        </label>
-        <div className="timing-reference">
-          <span>Reference</span>
-          <span className="num">
-            {fmtLen(timer.referenceDurationSecs ?? timer.durationSecs)}
-          </span>
-          <span>Observed since kill</span>
-          <span className="num">{fmtLen(observedSecs)}</span>
-        </div>
-        {error && <div className="error-banner">{error}</div>}
-        <div className="editor-foot">
-          <button
-            className="ghost"
-            onClick={() => {
-              setDuration(fmtLen(observedSecs));
-              setSource("observed");
-              setError(null);
-            }}
-          >
-            Use popped now
-          </button>
-          <button className="primary" onClick={save}>Save for this context</button>
-          <button className="ghost" onClick={() => onReset(timer)}>Use reference</button>
-          <span className="spacer" />
-          <button className="ghost" onClick={onClose}>Cancel</button>
-        </div>
+    <Modal
+      label={`Respawn timing — ${timer.label}`}
+      onClose={onClose}
+      className="respawn-timing-modal"
+    >
+      <div className="card-head">
+        <span className="section-title">Respawn timing · {timer.label}</span>
+        <span className="tmr-badge timing">{timer.timingContext ?? "public"}</span>
       </div>
-    </div>
+      <label className="field">
+        <span>Duration</span>
+        <input
+          value={duration}
+          onChange={(e) => {
+            setDuration(e.target.value);
+            setSource("manual");
+            setError(null);
+          }}
+          autoFocus
+        />
+      </label>
+      <div className="timing-reference">
+        <span>Reference</span>
+        <span className="num">
+          {fmtLen(timer.referenceDurationSecs ?? timer.durationSecs)}
+        </span>
+        <span>Observed since kill</span>
+        <span className="num">{fmtLen(observedSecs)}</span>
+      </div>
+      {error && <div className="error-banner">{error}</div>}
+      <div className="editor-foot">
+        <button
+          className="ghost"
+          onClick={() => {
+            setDuration(fmtLen(observedSecs));
+            setSource("observed");
+            setError(null);
+          }}
+        >
+          Use popped now
+        </button>
+        <button className="primary" onClick={save}>Save for this context</button>
+        <button className="ghost" onClick={() => onReset(timer)}>Use reference</button>
+        <span className="spacer" />
+        <button className="ghost" onClick={onClose}>Cancel</button>
+      </div>
+    </Modal>
   );
 }

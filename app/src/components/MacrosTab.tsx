@@ -7,6 +7,7 @@
 import { useMemo, useState } from "react";
 import macrosData from "../data/macros.json";
 import commandsData from "../data/commands.json";
+import { useCopyFeedback } from "../hooks";
 import Empty from "./Empty";
 
 interface MacroDef {
@@ -58,31 +59,21 @@ function applyMacroName(line: string, name: string): string {
 function MacroCard({ macro, macroName }: { macro: MacroDef; macroName: string }) {
   // Index of the next line the stepper will copy; null = fresh card.
   const [nextLine, setNextLine] = useState(0);
-  const [flash, setFlash] = useState<number | null>(null);
+  // Flash key: the copied line index, or -1 for "copy all".
+  const [flash, copyText] = useCopyFeedback<number>(900);
   const lines = useMemo(
     () => macro.lines.map((line) => applyMacroName(line, macroName)),
     [macro.lines, macroName],
   );
 
   async function copyLine(i: number) {
-    try {
-      await navigator.clipboard.writeText(lines[i]);
-      setFlash(i);
-      window.setTimeout(() => setFlash((f) => (f === i ? null : f)), 900);
+    if (await copyText(lines[i], i)) {
       setNextLine(Math.min(i + 1, lines.length));
-    } catch {
-      /* clipboard unavailable */
     }
   }
 
   async function copyAll() {
-    try {
-      await navigator.clipboard.writeText(lines.join("\n"));
-      setFlash(-1);
-      window.setTimeout(() => setFlash((f) => (f === -1 ? null : f)), 900);
-    } catch {
-      /* clipboard unavailable */
-    }
+    await copyText(lines.join("\n"), -1);
   }
 
   const done = nextLine >= lines.length;

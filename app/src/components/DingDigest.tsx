@@ -6,6 +6,7 @@
 import { useState } from "react";
 import { unlocksAtLevel } from "../api";
 import { useTauriEvent } from "../hooks";
+import { openSpells } from "../lib/deepLinks";
 import type { LogLinePayload, UnlockRow } from "../types";
 
 export default function DingDigest({
@@ -39,11 +40,7 @@ export default function DingDigest({
   const abilities = card.unlocks.filter((u) => u.isAbility !== 0);
 
   const openSpell = (u: UnlockRow) => {
-    window.dispatchEvent(
-      new CustomEvent("eqlogs-open-spells", {
-        detail: { name: u.name, isAbility: u.isAbility !== 0 },
-      }),
-    );
+    openSpells(u.name, u.isAbility !== 0);
     setCard(null);
   };
 

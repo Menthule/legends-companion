@@ -5,6 +5,7 @@ import {
   type GlobalSearchGroup,
   type GlobalSearchResult,
 } from "../lib/globalSearch";
+import Modal from "./Modal";
 
 interface Props {
   initialQuery: string;
@@ -26,7 +27,6 @@ export default function GlobalSearchModal({
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -79,36 +79,6 @@ export default function GlobalSearchModal({
     onClose();
   }
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-      }
-      if (e.key !== "Tab") return;
-      const card = cardRef.current;
-      if (!card) return;
-      const focusables = [
-        ...card.querySelectorAll<HTMLElement>(
-          'button, input, [tabindex]:not([tabindex="-1"])',
-        ),
-      ].filter((el) => !el.hasAttribute("disabled"));
-      if (focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      const current = document.activeElement;
-      if (e.shiftKey && (current === first || !card.contains(current))) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && (current === last || !card.contains(current))) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey, true);
-    return () => window.removeEventListener("keydown", onKey, true);
-  }, [onClose]);
-
   function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -124,87 +94,79 @@ export default function GlobalSearchModal({
 
   let idx = -1;
   return (
-    <div
-      className="modal-scrim global-search-scrim"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+    <Modal
+      label="Global search"
+      onClose={onClose}
+      className="global-search-modal"
+      scrimClassName="global-search-scrim"
     >
-      <div
-        className="modal global-search-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Global search"
-        ref={cardRef}
-      >
-        <div className="global-search-head">
-          <input
-            ref={inputRef}
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={onInputKeyDown}
-            placeholder="Search logs, mobs, drops, spells, triggers"
-            aria-label="Global search"
-          />
-          <button className="ghost small" onClick={onClose}>
-            Close
-          </button>
+      <div className="global-search-head">
+        <input
+          ref={inputRef}
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={onInputKeyDown}
+          placeholder="Search logs, mobs, drops, spells, triggers"
+          aria-label="Global search"
+        />
+        <button className="ghost small" onClick={onClose}>
+          Close
+        </button>
+      </div>
+      {(reason || currentZone) && (
+        <div className="global-search-context">
+          {[reason, currentZone ? `Current zone: ${currentZone}` : ""]
+            .filter(Boolean)
+            .join(" - ")}
         </div>
-        {(reason || currentZone) && (
-          <div className="global-search-context">
-            {[reason, currentZone ? `Current zone: ${currentZone}` : ""]
-              .filter(Boolean)
-              .join(" - ")}
-          </div>
-        )}
-        <div className="global-search-results" role="listbox">
-          {query.trim().length < 2 ? (
-            <div className="global-search-empty">Type at least 2 characters.</div>
-          ) : loading && results.length === 0 ? (
-            <div className="global-search-empty">Searching...</div>
-          ) : results.length === 0 ? (
-            <div className="global-search-empty">No results.</div>
-          ) : (
-            groups.map((group) => (
-              <div className="global-search-group" key={group.id}>
-                <div className="global-search-group-title">
-                  {group.title}
-                </div>
-                {group.results.map((row) => {
-                  idx += 1;
-                  const selected = idx === active;
-                  return (
-                    <button
-                      type="button"
-                      className={`global-search-row${selected ? " active" : ""}`}
-                      key={row.id}
-                      onMouseEnter={() => setActive(results.indexOf(row))}
-                      onClick={() => choose(row)}
-                      role="option"
-                      aria-selected={selected}
-                    >
-                      <span className="global-search-main">
-                        <span className="global-search-title">{row.title}</span>
-                        {row.subtitle && (
-                          <span className="global-search-subtitle">
-                            {row.subtitle}
-                          </span>
-                        )}
-                      </span>
-                      {row.meta.length > 0 && (
-                        <span className="global-search-meta">
-                          {row.meta.join(" - ")}
+      )}
+      <div className="global-search-results" role="listbox">
+        {query.trim().length < 2 ? (
+          <div className="global-search-empty">Type at least 2 characters.</div>
+        ) : loading && results.length === 0 ? (
+          <div className="global-search-empty">Searching...</div>
+        ) : results.length === 0 ? (
+          <div className="global-search-empty">No results.</div>
+        ) : (
+          groups.map((group) => (
+            <div className="global-search-group" key={group.id}>
+              <div className="global-search-group-title">
+                {group.title}
+              </div>
+              {group.results.map((row) => {
+                idx += 1;
+                const selected = idx === active;
+                return (
+                  <button
+                    type="button"
+                    className={`global-search-row${selected ? " active" : ""}`}
+                    key={row.id}
+                    onMouseEnter={() => setActive(results.indexOf(row))}
+                    onClick={() => choose(row)}
+                    role="option"
+                    aria-selected={selected}
+                  >
+                    <span className="global-search-main">
+                      <span className="global-search-title">{row.title}</span>
+                      {row.subtitle && (
+                        <span className="global-search-subtitle">
+                          {row.subtitle}
                         </span>
                       )}
-                    </button>
-                  );
-                })}
-              </div>
-            ))
-          )}
-        </div>
+                    </span>
+                    {row.meta.length > 0 && (
+                      <span className="global-search-meta">
+                        {row.meta.join(" - ")}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ))
+        )}
       </div>
-    </div>
+    </Modal>
   );
 }

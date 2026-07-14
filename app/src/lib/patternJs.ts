@@ -2,6 +2,8 @@
 // (crates/eqlog-triggers/src/engine.rs) so the editor can preview matches
 // and rendered actions without a backend round-trip. Keep in sync.
 
+import { fmtDuration } from "./format";
+
 /** Escape a literal string for use inside a regex (JS metachar set). */
 export function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -189,14 +191,8 @@ export function formatDurationWords(secs: number): string {
   return parts.join(" ");
 }
 
-/** Render seconds as `ss`, `m:ss`, or `h:mm:ss` (timer-bar style). */
+/** Render seconds as `m:ss` / `h:mm:ss` (timer-bar style) — the canonical
+ *  lib/format formatter, rounding first (cast times can be fractional). */
 export function formatDuration(secs: number): string {
-  const s = Math.max(0, Math.round(secs));
-  const h = Math.floor(s / 3600);
-  const mm = Math.floor(s / 60) % 60;
-  const ss = s % 60;
-  if (h > 0) {
-    return `${h}:${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
-  }
-  return `${Math.floor(s / 60)}:${String(ss).padStart(2, "0")}`;
+  return fmtDuration(Math.round(Math.max(0, secs)));
 }

@@ -1,31 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
-import { fmtClock, fmtDuration, useNowMs, useTauriEvent } from "../hooks";
-import { useOverlayEnabled } from "../hooks";
-import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
-import {
-  OVERLAY_XP,
-  type OverlayLockPayload,
-} from "../types";
+import { fmtClock, fmtDuration, useNowMs } from "../hooks";
+import { OVERLAY_XP } from "../types";
 import {
   computeLevelEta,
   computeXpStats,
   loadLevelAnchorKnown,
   loadLevelProgress,
-  loadOverlayArrange,
   loadXpSession,
-  OVERLAY_ARRANGE_KEY,
   type XpSession,
   XP_LEVEL_ANCHOR_KEY,
   XP_LEVEL_PROGRESS_KEY,
   XP_SESSION_KEY,
 } from "../overlayState";
+import OverlayShell from "./OverlayShell";
 
-// Arrange is transient — always boot LOCKED; the persisted flag only drives
-// runtime cross-window sync, not initial state (a restart mid-arrange must not
-// leave drag chrome over the game).
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
 export default function OverlayXp() {
   const [session, setSession] = useState<XpSession>(() => loadXpSession());
   const [levelProgress, setLevelProgress] = useState<number>(() =>
@@ -36,19 +24,12 @@ export default function OverlayXp() {
   const [anchorKnown, setAnchorKnown] = useState<boolean>(() =>
     loadLevelAnchorKnown(),
   );
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_XP);
-
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_XP) setUnlocked(!p.clickThrough);
-  });
 
   useEffect(() => {
     const onStorage = (e: StorageEvent) => {
       if (e.key === XP_SESSION_KEY) setSession(loadXpSession());
       if (e.key === XP_LEVEL_PROGRESS_KEY) setLevelProgress(loadLevelProgress());
       if (e.key === XP_LEVEL_ANCHOR_KEY) setAnchorKnown(loadLevelAnchorKnown());
-      if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
@@ -70,13 +51,9 @@ export default function OverlayXp() {
     [recentSession, levelProgress, stats.perHour],
   );
 
-
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_XP} name="XP overlay" />
-      )}
-      <div className="oxp pill" data-tauri-drag-region>
+    <OverlayShell label={OVERLAY_XP} name="XP overlay">
+      <div className="oxp pill">
         <div className="oxp-title">
           <span>XP 10m</span>
           <span className="num">{stats.total.toFixed(2)}%</span>
@@ -116,14 +93,6 @@ export default function OverlayXp() {
           <div className="oxp-empty">Waiting for XP</div>
         )}
       </div>
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

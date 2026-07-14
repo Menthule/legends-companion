@@ -6,6 +6,8 @@
 // Session stats reset each app run; all-time RECORDS persist and, when beaten,
 // fire a trophy on the Impact overlay.
 
+import { createLocalStore } from "./localStore";
+
 export const SCOREBOARD_KEY = "eqlogs.scoreboard";
 export const SCOREBOARD_EVENT = "eqlogs-scoreboard-changed";
 export const RECORDS_KEY = "eqlogs.scoreboard.records";
@@ -79,41 +81,43 @@ export function isPlayerName(name: string, ownedNames: Set<string>): boolean {
   return /^[A-Z][a-z'`]+$/.test(name);
 }
 
+// Same-window listeners hear SCOREBOARD_EVENT (the storage event only fires
+// in OTHER windows). Records have no subscribers, so no event.
+const boardStore = createLocalStore<Scoreboard>(
+  SCOREBOARD_KEY,
+  SCOREBOARD_EVENT,
+  (raw) =>
+    raw && typeof raw === "object" && !Array.isArray(raw)
+      ? (raw as Scoreboard)
+      : {},
+);
+
+const recordsStore = createLocalStore<Records>(RECORDS_KEY, undefined, (raw) =>
+  raw && typeof raw === "object"
+    ? { ...EMPTY_RECORDS, ...(raw as Partial<Records>) }
+    : { ...EMPTY_RECORDS },
+);
+
 export function loadScoreboard(): Scoreboard {
-  try {
-    const raw = localStorage.getItem(SCOREBOARD_KEY);
-    return raw ? (JSON.parse(raw) as Scoreboard) : {};
-  } catch {
-    return {};
-  }
+  return boardStore.load();
 }
 
 export function saveScoreboard(s: Scoreboard): void {
-  try {
-    localStorage.setItem(SCOREBOARD_KEY, JSON.stringify(s));
-  } catch {
-    /* quota / unavailable — non-fatal */
-  }
-  // Same-window listeners (the storage event only fires in OTHER windows).
-  window.dispatchEvent(new Event(SCOREBOARD_EVENT));
+  boardStore.save(s);
+}
+
+/** Hear scoreboard changes from this window (custom event) and others
+ *  (storage event). Returns an unsubscribe function. */
+export function subscribeScoreboard(cb: () => void): () => void {
+  return boardStore.subscribe(cb);
 }
 
 export function loadRecords(): Records {
-  try {
-    const raw = localStorage.getItem(RECORDS_KEY);
-    if (!raw) return { ...EMPTY_RECORDS };
-    return { ...EMPTY_RECORDS, ...(JSON.parse(raw) as Records) };
-  } catch {
-    return { ...EMPTY_RECORDS };
-  }
+  return recordsStore.load();
 }
 
 export function saveRecords(r: Records): void {
-  try {
-    localStorage.setItem(RECORDS_KEY, JSON.stringify(r));
-  } catch {
-    /* non-fatal */
-  }
+  recordsStore.save(r);
 }
 
 /** Rows sorted for display: most killing blows first, then finishing blows,

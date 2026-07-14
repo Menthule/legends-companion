@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { appendTriggers, confirmDiscard, getTriggerTree } from "../api";
 import type { Trigger } from "../types";
+import Modal from "./Modal";
 import TriggerEditor from "./TriggerEditor";
 
 // Kept for test/import continuity — the pattern builder now lives in the
@@ -30,7 +31,6 @@ export function savedLocation(category: string | null | undefined): string {
 
 export default function QuickTriggerModal({ message, onClose, onSaved }: Props) {
   const dirty = useRef(false);
-  const cardRef = useRef<HTMLDivElement>(null);
   const [existing, setExisting] = useState<
     { name: string; category: string | null; pattern: string }[]
   >([]);
@@ -48,7 +48,8 @@ export default function QuickTriggerModal({ message, onClose, onSaved }: Props) 
   }, []);
 
   // Every discard path (Escape, scrim, Close, Cancel) checks for edits
-  // first — a full modal of work must never vanish silently.
+  // first — a full modal of work must never vanish silently. Passed to
+  // Modal AS onClose so the shared Escape/scrim paths honor the guard.
   const maybeClose = useCallback(async () => {
     if (
       dirty.current &&
@@ -59,44 +60,6 @@ export default function QuickTriggerModal({ message, onClose, onSaved }: Props) 
     onClose();
   }, [onClose]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") void maybeClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [maybeClose]);
-
-  // Focus trap: Tab cycles inside the dialog (aria-modal alone doesn't
-  // keep keyboard focus out of the 90+ background tab stops).
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
-      const focusables = [
-        ...card.querySelectorAll<HTMLElement>(
-          'button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])',
-        ),
-      ].filter((el) => !el.hasAttribute("disabled"));
-      if (focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      const active = document.activeElement;
-      if (e.shiftKey) {
-        if (active === first || !card.contains(active)) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else if (active === last || !card.contains(active)) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey, true);
-    return () => window.removeEventListener("keydown", onKey, true);
-  }, []);
-
   async function onSave(trigger: Trigger, companion: Trigger | null) {
     // Atomic server-side append (P15): no client-side read-modify-write, so a
     // save can't clobber a concurrent import.
@@ -105,37 +68,28 @@ export default function QuickTriggerModal({ message, onClose, onSaved }: Props) 
   }
 
   return (
-    <div
-      className="modal-scrim"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) void maybeClose();
-      }}
+    <Modal
+      label="New trigger from live line"
+      onClose={() => void maybeClose()}
+      className="modal-wide"
     >
-      <div
-        className="modal modal-wide"
-        role="dialog"
-        aria-modal="true"
-        aria-label="New trigger from live line"
-        ref={cardRef}
-      >
-        <div className="card-head">
-          <span className="section-title">New trigger from line</span>
-          <button className="ghost small" onClick={() => void maybeClose()}>
-            Close
-          </button>
-        </div>
-        <TriggerEditor
-          initial={null}
-          initialLine={message}
-          variant="modal"
-          existing={existing}
-          onDirtyChange={(d) => {
-            dirty.current = d;
-          }}
-          onCancel={() => void maybeClose()}
-          onSave={onSave}
-        />
+      <div className="card-head">
+        <span className="section-title">New trigger from line</span>
+        <button className="ghost small" onClick={() => void maybeClose()}>
+          Close
+        </button>
       </div>
-    </div>
+      <TriggerEditor
+        initial={null}
+        initialLine={message}
+        variant="modal"
+        existing={existing}
+        onDirtyChange={(d) => {
+          dirty.current = d;
+        }}
+        onCancel={() => void maybeClose()}
+        onSave={onSave}
+      />
+    </Modal>
   );
 }

@@ -6,9 +6,7 @@ import {
   useSeriesSlots,
   useTauriEvent,
 } from "../hooks";
-import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
 import {
   METER_OTHER_SOURCES_KEY,
   METER_SOURCES_KEY,
@@ -16,26 +14,19 @@ import {
   loadMeterSources,
 } from "../overlayState";
 import { splitPetDamageRows } from "../lib/meterRows";
-import {
-  OVERLAY_METER,
-  type FightUpdatePayload,
-  type OverlayLockPayload,
-} from "../types";
+import { OVERLAY_METER, type FightUpdatePayload } from "../types";
+import OverlayShell from "./OverlayShell";
 
 const TOP_N = 5;
 /** "My sources" micro-rows shown under the player's bar (item 15). */
 const MY_SOURCES_N = 4;
 
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
 /** Mock screenshots: ?sources=1 forces the my-sources section on. */
 const forceSources =
   IS_MOCK && new URLSearchParams(window.location.search).get("sources") === "1";
 
 export default function OverlayMeter() {
   const [fight, setFight] = useState<FightUpdatePayload | null>(null);
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_METER);
   const [character, setCharacter] = useState("");
   const [sourcesOn, setSourcesOn] = useState(
     () => forceSources || loadMeterSources(),
@@ -44,9 +35,6 @@ export default function OverlayMeter() {
   const [otherN, setOtherN] = useState(() => loadMeterOtherSources());
 
   useTauriEvent<FightUpdatePayload>("fight-update", setFight);
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_METER) setUnlocked(!p.clickThrough);
-  });
 
   useEffect(() => {
     getConfig()
@@ -85,12 +73,9 @@ export default function OverlayMeter() {
   const maxTotal = topRows.reduce((m, r) => Math.max(m, r.total), 0);
 
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_METER} name="Meter overlay" />
-      )}
+    <OverlayShell label={OVERLAY_METER} name="Meter overlay">
       <div className="om pill">
-        <div className="om-title" data-tauri-drag-region>
+        <div className="om-title">
           <span>{fight ? fight.target : "Damage"}</span>
           <span className="num">
             {fight ? fmtDuration(fight.durationSecs) : "—"}
@@ -152,14 +137,6 @@ export default function OverlayMeter() {
           <div className="om-empty">Waiting for combat</div>
         )}
       </div>
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

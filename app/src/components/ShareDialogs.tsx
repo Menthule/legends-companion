@@ -12,6 +12,7 @@ import {
 } from "../lib/share";
 import { IS_MOCK } from "../mock";
 import type { ShareImportResult, Trigger } from "../types";
+import Modal from "./Modal";
 
 // ---------------------------------------------------------------------------
 // Share (export) dialog
@@ -83,8 +84,7 @@ export function ShareDialog({
   }
 
   return (
-    <div className="modal-scrim" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+    <Modal label={`Share — ${request.name}`} onClose={onClose}>
         <div className="card-head">
           <span className="section-title">Share — {request.name}</span>
           <span className="hint num">
@@ -131,8 +131,7 @@ export function ShareDialog({
             Close
           </button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }
 
@@ -207,8 +206,10 @@ export function ImportDialog({
   const shownCategories = preview?.categories.slice(0, MAX_PREVIEW_CATEGORIES);
 
   return (
-    <div className="modal-scrim" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+    <Modal
+      label={sourceName ? "Review Companion package" : "Import shared triggers"}
+      onClose={onClose}
+    >
         <div className="card-head">
           <span className="section-title">
             {sourceName ? "Review Companion package" : "Import shared triggers"}
@@ -279,7 +280,6 @@ export function ImportDialog({
             Cancel
           </button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

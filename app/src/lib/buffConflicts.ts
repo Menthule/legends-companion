@@ -3,6 +3,8 @@
 // Armor.)". We learn those pairs from the log (symmetric: if A blocks B, B
 // blocks A) and surface them as "conflicts with" chips on the Spells DB tab.
 
+import { createLocalStore } from "./localStore";
+
 export const BUFF_CONFLICTS_KEY = "eqlogs.buffConflicts.v1";
 /** Same-window notify (storage events only fire in OTHER windows). */
 export const BUFF_CONFLICTS_EVENT = "eqlogs-conflicts-changed";
@@ -45,44 +47,31 @@ export function conflictsForMap(map: ConflictMap, spell: string): string[] {
   return key ? map[key] : [];
 }
 
-export function loadConflicts(): ConflictMap {
-  try {
-    const raw = localStorage.getItem(BUFF_CONFLICTS_KEY);
-    if (!raw) return {};
-    const parsed: unknown = JSON.parse(raw);
-    if (!parsed || typeof parsed !== "object") return {};
+const store = createLocalStore<ConflictMap>(
+  BUFF_CONFLICTS_KEY,
+  BUFF_CONFLICTS_EVENT,
+  (raw) => {
+    if (!raw || typeof raw !== "object") return {};
     // Keep only string[] values.
     const out: ConflictMap = {};
-    for (const [k, v] of Object.entries(parsed as Record<string, unknown>)) {
+    for (const [k, v] of Object.entries(raw as Record<string, unknown>)) {
       if (Array.isArray(v)) out[k] = v.filter((x): x is string => typeof x === "string");
     }
     return out;
-  } catch {
-    return {};
-  }
-}
+  },
+);
 
-function saveConflicts(map: ConflictMap): void {
-  try {
-    localStorage.setItem(BUFF_CONFLICTS_KEY, JSON.stringify(map));
-  } catch {
-    // localStorage unavailable — conflicts just won't persist.
-  }
+export function loadConflicts(): ConflictMap {
+  return store.load();
 }
 
 /** Record an observed block. Returns true if it was newly learned (so the
- *  caller can fire a one-shot correction). */
+ *  caller can fire a one-shot correction). Saving notifies listeners on
+ *  BUFF_CONFLICTS_EVENT. */
 export function recordConflict(spell: string, blocker: string): boolean {
   const map = loadConflicts();
   const { learned } = mergeConflict(map, spell, blocker);
-  if (learned) {
-    saveConflicts(map);
-    try {
-      window.dispatchEvent(new CustomEvent(BUFF_CONFLICTS_EVENT));
-    } catch {
-      // no window (tests) — fine.
-    }
-  }
+  if (learned) store.save(map);
   return learned;
 }
 

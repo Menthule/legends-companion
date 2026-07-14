@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 import { IS_MOCK, mockListen } from "./mock";
 import { getActiveTimers } from "./api";
+import { fmtDuration } from "./lib/format";
 import type { TimerLane, TimerPayload } from "./types";
 import {
   BUFF_THRESHOLD_EVENT,
@@ -40,20 +41,9 @@ export function useTauriEvent<T>(name: string, handler: (payload: T) => void): v
   }, [name]);
 }
 
-/** Format seconds as m:ss. */
-export function fmtDuration(secs: number): string {
-  const s = Math.max(0, Math.floor(secs));
-  const sec = String(s % 60).padStart(2, "0");
-  const h = Math.floor(s / 3600);
-  // Roll minutes into hours once we cross 60 min, so long spans (per-level
-  // ETA, multi-hour respawns, session length) read as H:MM:SS instead of a
-  // runaway minute count like "988:09". Sub-hour output is unchanged (M:SS).
-  if (h > 0) {
-    const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
-    return `${h}:${m}:${sec}`;
-  }
-  return `${Math.floor(s / 60)}:${sec}`;
-}
+// Canonical formatters live in lib/format.ts; re-exported here for the many
+// existing component/overlay importers.
+export { fmtDuration, fmtNum } from "./lib/format";
 
 /** Timer countdown label: `m:ss` above a minute, `Ns` below. */
 export function fmtTimerLeft(left: number): string {
@@ -72,11 +62,39 @@ export function fmtClock(ts: number): string {
     .join(":");
 }
 
-/** Compact number: 12345 -> 12.3k */
-export function fmtNum(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}m`;
-  if (n >= 10_000) return `${(n / 1_000).toFixed(1)}k`;
-  return String(Math.round(n));
+/**
+ * Copy text to the clipboard with a transient "copied" flash. `copied` is
+ * the key passed to the most recent successful copy (back to null after
+ * `resetMs`); the key can be anything — `true` for a single button, a line
+ * index for per-row feedback. `copy` resolves false when the clipboard is
+ * unavailable, so callers can gate follow-up state on success.
+ */
+export function useCopyFeedback<K>(
+  resetMs = 1500,
+): [K | null, (text: string, key: K) => Promise<boolean>] {
+  const [copied, setCopied] = useState<K | null>(null);
+  const timer = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (timer.current != null) window.clearTimeout(timer.current);
+    },
+    [],
+  );
+  const copy = useCallback(
+    async (text: string, key: K) => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        return false; // clipboard unavailable — caller decides what to show
+      }
+      setCopied(key);
+      if (timer.current != null) window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(() => setCopied(null), resetMs);
+      return true;
+    },
+    [resetMs],
+  );
+  return [copied, copy];
 }
 
 // ---------------------------------------------------------------------------
@@ -312,4 +330,35 @@ export function useOverlayEnabled(label: string): boolean {
     };
   }, [label]);
   return enabled;
+}
+
+/**
+ * Dismiss a popover when the pointer goes down outside every listed ref, or
+ * on Escape. Listeners attach only while `active` — an idle popover costs
+ * nothing. (One hook call per independently-dismissable popover; passing
+ * several refs treats them as one surface.)
+ */
+export function useDismissOnOutsidePointer(
+  refs: RefObject<HTMLElement | null>[],
+  active: boolean,
+  onDismiss: () => void,
+): void {
+  useEffect(() => {
+    if (!active) return;
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (refs.some((ref) => ref.current?.contains(target))) return;
+      onDismiss();
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onDismiss();
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [active, onDismiss, refs]);
 }

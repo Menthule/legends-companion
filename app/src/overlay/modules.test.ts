@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { listOverlayDefinitions } from "../lib/overlayRegistry";
 import tauriConfig from "../../src-tauri/tauri.conf.json";
 import capabilities from "../../src-tauri/capabilities/default.json";
+import { OVERLAY_LABELS } from "../types";
 import {
   getOverlayModule,
   getOverlayModuleByRoute,
@@ -60,6 +61,13 @@ describe("overlay module catalog", () => {
       .sort();
     expect(catalog).toEqual(configured);
     expect(catalog).toEqual(permitted);
+  });
+
+  it("matches the hand-maintained types.ts OVERLAY_LABELS catalog", () => {
+    // OVERLAY_LABELS seeds overlay-visibility defaults (overlayState.ts) but
+    // can't be derived from OVERLAY_MODULES without an import cycle — this
+    // assertion keeps the two catalogs (and their display order) in lockstep.
+    expect(overlayWindowLabels()).toEqual([...OVERLAY_LABELS]);
   });
 
   it("gives Impact a large focal default window", () => {

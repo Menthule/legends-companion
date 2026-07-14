@@ -7,18 +7,14 @@
 import { useEffect, useRef, useState } from "react";
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { useTauriEvent } from "../hooks";
-import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
 import {
   applyStanceLine,
   EMPTY_STANCE_STATE,
   type StanceState,
 } from "../lib/stanceState";
-import { OVERLAY_STANCE, type LogLinePayload, type OverlayLockPayload } from "../types";
-
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
+import { OVERLAY_STANCE, type LogLinePayload } from "../types";
+import OverlayShell from "./OverlayShell";
 
 // Glyphs adapted from Lucide (https://lucide.dev, ISC license) — a
 // professionally drawn mono stroke set matching the app's icon language.
@@ -195,9 +191,9 @@ function Cell({
   );
 }
 
-export default function OverlayStance() {
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_STANCE);
+/** The stance card body; `unlocked` comes from the shell so the grow-to-fit
+ *  effect can re-run when the in-flow drag tag adds height above the card. */
+function StanceCard({ unlocked }: { unlocked: boolean }) {
   const [state, setState] = useState<StanceState>(EMPTY_STANCE_STATE);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -238,41 +234,31 @@ export default function OverlayStance() {
     setState((s) => applyStanceLine(s, p.message) ?? s);
   });
 
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_STANCE) setUnlocked(!p.clickThrough);
-  });
-
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_STANCE} name="Stance overlay" />
-      )}
-      <div className="ov-stance" ref={cardRef}>
-        <Cell
-          label="Stance"
-          name={state.stance}
-          changing={state.stanceChanging}
-          baseline={(state.stance ?? "").toLowerCase().includes("balanc")}
-          icon={<StanceIcon name={state.stance} />}
-        />
-        <div className="ov-stance-divider" aria-hidden="true" />
-        <Cell
-          label="Invocation"
-          name={state.invocation}
-          changing={state.invocationChanging}
-          baseline={(state.invocation ?? "").toLowerCase().includes("recover")}
-          icon={<InvocationIcon name={state.invocation} />}
-        />
-      </div>
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
+    <div className="ov-stance" ref={cardRef}>
+      <Cell
+        label="Stance"
+        name={state.stance}
+        changing={state.stanceChanging}
+        baseline={(state.stance ?? "").toLowerCase().includes("balanc")}
+        icon={<StanceIcon name={state.stance} />}
+      />
+      <div className="ov-stance-divider" aria-hidden="true" />
+      <Cell
+        label="Invocation"
+        name={state.invocation}
+        changing={state.invocationChanging}
+        baseline={(state.invocation ?? "").toLowerCase().includes("recover")}
+        icon={<InvocationIcon name={state.invocation} />}
+      />
     </div>
   );
 }
 
+export default function OverlayStance() {
+  return (
+    <OverlayShell label={OVERLAY_STANCE} name="Stance overlay">
+      {(unlocked) => <StanceCard unlocked={unlocked} />}
+    </OverlayShell>
+  );
+}

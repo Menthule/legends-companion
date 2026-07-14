@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { discoverLogs, getConfig, getProfile } from "../api";
-import { fmtDuration, fmtNum, useTauriEvent } from "../hooks";
+import {
+  fmtDuration,
+  fmtNum,
+  useCopyFeedback,
+  useNowMs,
+  useTauriEvent,
+} from "../hooks";
 import type {
   AppConfig,
   CatchUpPayload,
@@ -27,10 +33,14 @@ import {
   type SessionComparisonSample,
   type SessionRouteSample,
 } from "../lib/sessionComparison";
+import { createLocalStore } from "../lib/localStore";
+import Empty from "./Empty";
 import PaceRates from "./PaceRates";
 
 const COACH_KEY = "eqlogs.coach.v1";
+const COACH_EVENT = "eqlogs-coach-changed";
 const NPC_KEY = "eqlogs.npcMemory.v1";
+const NPC_EVENT = "eqlogs-npc-memory-changed";
 const NPC_CAP = 120;
 const SESSION_HISTORY_CAP = 40;
 const DIFFICULTIES = ["Unknown", "D1", "D2", "D3", "D4", "D5", "Custom"];
@@ -132,63 +142,53 @@ function storeKey(character: string, loadout: string): string {
   return `${COACH_KEY}:${c}:${l}`;
 }
 
+function decodeCoachStore(raw: unknown): CoachStore {
+  const parsed = (raw && typeof raw === "object" ? raw : {}) as Partial<CoachStore>;
+  return {
+    difficulty: parsed.difficulty || "Unknown",
+    smartSession: parsed.smartSession === true,
+    idleMinutes:
+      typeof parsed.idleMinutes === "number" && parsed.idleMinutes >= 5
+        ? parsed.idleMinutes
+        : 15,
+    buckets: Array.isArray(parsed.buckets) ? parsed.buckets.slice(0, 80) : [],
+    history: Array.isArray(parsed.history) ? parsed.history.slice(0, SESSION_HISTORY_CAP) : [],
+    baselineSessionId:
+      typeof parsed.baselineSessionId === "string" ? parsed.baselineSessionId : "auto",
+    comparisonGoal:
+      parsed.comparisonGoal === "aa" ||
+      parsed.comparisonGoal === "motes" ||
+      parsed.comparisonGoal === "damage"
+        ? parsed.comparisonGoal
+        : "xp",
+  };
+}
+
+// Best-effort insights cache, per character:loadout key (shared localStore
+// scaffold — cross-window "storage" sync included).
+function coachStore(key = COACH_KEY) {
+  return createLocalStore<CoachStore>(key, COACH_EVENT, decodeCoachStore);
+}
+
 function loadStore(key = COACH_KEY): CoachStore {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(key) ?? "{}") as Partial<CoachStore>;
-    return {
-      difficulty: parsed.difficulty || "Unknown",
-      smartSession: parsed.smartSession === true,
-      idleMinutes:
-        typeof parsed.idleMinutes === "number" && parsed.idleMinutes >= 5
-          ? parsed.idleMinutes
-          : 15,
-      buckets: Array.isArray(parsed.buckets) ? parsed.buckets.slice(0, 80) : [],
-      history: Array.isArray(parsed.history) ? parsed.history.slice(0, SESSION_HISTORY_CAP) : [],
-      baselineSessionId:
-        typeof parsed.baselineSessionId === "string" ? parsed.baselineSessionId : "auto",
-      comparisonGoal:
-        parsed.comparisonGoal === "aa" ||
-        parsed.comparisonGoal === "motes" ||
-        parsed.comparisonGoal === "damage"
-          ? parsed.comparisonGoal
-          : "xp",
-    };
-  } catch {
-    return {
-      difficulty: "Unknown",
-      smartSession: false,
-      idleMinutes: 15,
-      buckets: [],
-      history: [],
-      baselineSessionId: "auto",
-      comparisonGoal: "xp",
-    };
-  }
+  return coachStore(key).load();
 }
 
 function saveStore(store: CoachStore, key = COACH_KEY): void {
-  try {
-    localStorage.setItem(key, JSON.stringify(store));
-  } catch {
-    // Best-effort insights cache.
-  }
+  coachStore(key).save(store);
 }
 
+// Best-effort NPC cache.
+const npcStore = createLocalStore<NpcMemory[]>(NPC_KEY, NPC_EVENT, (raw) =>
+  Array.isArray(raw) ? (raw.slice(0, NPC_CAP) as NpcMemory[]) : [],
+);
+
 function loadNpcMemory(): NpcMemory[] {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(NPC_KEY) ?? "[]");
-    return Array.isArray(parsed) ? parsed.slice(0, NPC_CAP) : [];
-  } catch {
-    return [];
-  }
+  return npcStore.load();
 }
 
 function saveNpcMemory(rows: NpcMemory[]): void {
-  try {
-    localStorage.setItem(NPC_KEY, JSON.stringify(rows.slice(0, NPC_CAP)));
-  } catch {
-    // Best-effort NPC cache.
-  }
+  npcStore.save(rows.slice(0, NPC_CAP));
 }
 
 function eventData(event: EqEvent, key: string): Record<string, unknown> | null {
@@ -434,8 +434,8 @@ export default function CoachTab({ character }: { character: string }) {
   const [currentZone, setCurrentZone] = useState("Unknown zone");
   const [fight, setFight] = useState<FightUpdatePayload | null>(null);
   const [sessionStart, setSessionStart] = useState(Date.now());
-  const [recapCopied, setRecapCopied] = useState(false);
-  const [now, setNow] = useState(Date.now());
+  const [recapCopied, copyRecapText] = useCopyFeedback<boolean>(2000);
+  const now = useNowMs(1000);
   const [xpSession, setXpSession] = useState(0);
   const [kills, setKills] = useState(0);
   const [killCounts, setKillCounts] = useState<Map<string, number>>(() => new Map());
@@ -497,14 +497,25 @@ export default function CoachTab({ character }: { character: string }) {
     saveStore(store, scopedKey);
   }, [store, scopedKey]);
 
+  // Cross-window sync: another window edited this character/loadout's store
+  // (remote only — this window's own writes already hold the state).
   useEffect(() => {
-    const id = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(id);
-  }, []);
+    return coachStore(scopedKey).subscribe((remote) => {
+      if (!remote) return;
+      skipStoreSaveKeyRef.current = scopedKey;
+      setStore(loadStore(scopedKey));
+    });
+  }, [scopedKey]);
 
   useEffect(() => {
     saveNpcMemory(npcMemory);
   }, [npcMemory]);
+
+  useEffect(() => {
+    return npcStore.subscribe((remote) => {
+      if (remote) setNpcMemory(loadNpcMemory());
+    });
+  }, []);
 
   useEffect(() => {
     currentZoneRef.current = currentZone;
@@ -1029,13 +1040,8 @@ export default function CoachTab({ character }: { character: string }) {
         ? `Best XP pace: ${bestBucket.difficulty} in ${bestBucket.zone}`
         : "",
     ].filter(Boolean);
-    try {
-      await navigator.clipboard.writeText(lines.join("\n"));
-      setRecapCopied(true);
-      window.setTimeout(() => setRecapCopied(false), 2000);
-    } catch {
-      // Clipboard unavailable — nothing useful to surface here.
-    }
+    // Clipboard unavailable => copy() resolves false; nothing useful to show.
+    await copyRecapText(lines.join("\n"), true);
   }
 
   return (
@@ -1313,7 +1319,12 @@ export default function CoachTab({ character }: { character: string }) {
               </span>
             </div>
           ))}
-          {visiblePlayerSources.length === 0 && <div className="hint">Damage sources will appear here once the selected session has parsed damage.</div>}
+          {visiblePlayerSources.length === 0 && (
+            <Empty
+              title="No damage sources yet"
+              body="Damage sources will appear here once the selected session has parsed damage."
+            />
+          )}
         </div>
       </section>}
 
@@ -1337,7 +1348,12 @@ export default function CoachTab({ character }: { character: string }) {
               <span>{route.damage != null ? `${fmtNum(Math.round(route.damage / Math.max(1, route.durationSecs)))} DPS` : "Damage --"}</span>
             </div>
           )})}
-          {visibleRoutes.length === 0 && <div className="hint">Route segments appear as this session records activity by zone and difficulty.</div>}
+          {visibleRoutes.length === 0 && (
+            <Empty
+              title="No route segments yet"
+              body="Route segments appear as this session records activity by zone and difficulty."
+            />
+          )}
         </div>
       </section>}
 
@@ -1351,7 +1367,12 @@ export default function CoachTab({ character }: { character: string }) {
               <span>{bucket.kills} kills · {bucket.xp.toFixed(3)}% XP · {fmtNum(bucket.damage)} damage</span>
             </div>
           ))}
-          {buckets.length === 0 && <div className="hint">Zone and camp totals appear as the selected session records activity.</div>}
+          {buckets.length === 0 && (
+            <Empty
+              title="No zone totals yet"
+              body="Zone and camp totals appear as the selected session records activity."
+            />
+          )}
         </div>
       </section>}
 
@@ -1365,7 +1386,12 @@ export default function CoachTab({ character }: { character: string }) {
               <span>{visibleXp > 0 ? `${visibleXp.toFixed(3)}% session XP` : "No XP recorded"}</span>
             </div>
           ))}
-          {visibleTopKills.length === 0 && <div className="hint">Kill counts appear after slain lines are parsed.</div>}
+          {visibleTopKills.length === 0 && (
+            <Empty
+              title="No kills yet"
+              body="Kill counts appear after slain lines are parsed."
+            />
+          )}
         </div>
       </section>}
 
@@ -1380,7 +1406,12 @@ export default function CoachTab({ character }: { character: string }) {
               <span>{row.hits} hits, {pct(visibleEffectDamage, row.total)} share</span>
             </div>
           ))}
-          {visibleEffectsRows.length === 0 && <div className="hint">Parsed spell damage will appear here as it occurs.</div>}
+          {visibleEffectsRows.length === 0 && (
+            <Empty
+              title="No spell damage yet"
+              body="Parsed spell damage will appear here as it occurs."
+            />
+          )}
         </div>
       </section>}
 
@@ -1430,7 +1461,10 @@ export default function CoachTab({ character }: { character: string }) {
             </div>
           )}
           {!isViewingHistory && sessionPetRows.length === 0 && petRows.length === 0 && (
-            <div className="hint">No pet damage has parsed yet. If you are using a pet, use the pet leader command once (the app remembers the name from then on) or add the pet's exact name in Settings so pet damage can be attributed.</div>
+            <Empty
+              title="No pet damage yet"
+              body="If you are using a pet, use the pet leader command once (the app remembers the name from then on) or add the pet's exact name in Settings so pet damage can be attributed."
+            />
           )}
         </div>
       </section>}
@@ -1448,7 +1482,12 @@ export default function CoachTab({ character }: { character: string }) {
               </span>
             </div>
           ))}
-          {npcMemory.length === 0 && <div className="hint">NPC says/told-you dialogue is remembered here after hails and quest conversations.</div>}
+          {npcMemory.length === 0 && (
+            <Empty
+              title="No NPC dialogue yet"
+              body="NPC says/told-you dialogue is remembered here after hails and quest conversations."
+            />
+          )}
         </div>
       </section>}
     </div>

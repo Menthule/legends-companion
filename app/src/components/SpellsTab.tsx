@@ -27,35 +27,21 @@ import {
   useLiveZoneName,
 } from "../lib/refFilters";
 import { ClassFilterButton } from "./RefFilters";
+import Pager from "./Pager";
 import ResourceLinks from "./ResourceLinks";
-
-const PAGE_SIZE = 50;
-
-/** Full class names as stored in spell_classes.class, with display codes. */
-const CLASSES: { full: string; code: string }[] = [
-  { full: "Warrior", code: "WAR" },
-  { full: "Cleric", code: "CLR" },
-  { full: "Paladin", code: "PAL" },
-  { full: "Ranger", code: "RNG" },
-  // NOTE: the DB stores "ShadowKnight" (no space) in spell_classes.class.
-  { full: "ShadowKnight", code: "SHD" },
-  { full: "Druid", code: "DRU" },
-  { full: "Monk", code: "MNK" },
-  { full: "Bard", code: "BRD" },
-  { full: "Rogue", code: "ROG" },
-  { full: "Shaman", code: "SHM" },
-  { full: "Necromancer", code: "NEC" },
-  { full: "Wizard", code: "WIZ" },
-  { full: "Magician", code: "MAG" },
-  { full: "Enchanter", code: "ENC" },
-  { full: "Beastlord", code: "BST" },
-  { full: "Berserker", code: "BER" },
-];
+import { useDebouncedRefSearch } from "../lib/refSearch";
+import { CLASS_ABBR, CLASS_FULL } from "../lib/classes";
+import { openDrops } from "../lib/deepLinks";
+import { fmtDuration } from "../lib/format";
 
 /** Normalized (lowercase, letters-only) full name → 3-letter code, so
- *  "ShadowKnight" / "Shadow Knight" / "shadowknight" all abbreviate. */
+ *  "ShadowKnight" / "Shadow Knight" / "shadowknight" all abbreviate.
+ *  (lib/classes.ts spellings match spell_classes.class exactly.) */
 const CLASS_CODE: Record<string, string> = Object.fromEntries(
-  CLASSES.map((c) => [c.full.toLowerCase().replace(/[^a-z]/g, ""), c.code]),
+  CLASS_FULL.map((full, i) => [
+    full.toLowerCase().replace(/[^a-z]/g, ""),
+    CLASS_ABBR[i],
+  ]),
 );
 
 function abbrevClass(full: string): string {
@@ -109,10 +95,9 @@ function fmtMs(ms: number): string {
   return `${(ms / 1000).toFixed(1).replace(/\.0$/, "")}s`;
 }
 
-/** Seconds → "m:ss"; 0/negative → "". */
-function fmtDuration(secs: number): string {
-  if (secs <= 0) return "";
-  return `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+/** Canonical m:ss / h:mm:ss duration; 0/negative → "" (blank table cell). */
+function fmtSpellDuration(secs: number): string {
+  return secs > 0 ? fmtDuration(secs) : "";
 }
 
 type SortKey =
@@ -142,9 +127,14 @@ export default function SpellsTab({
   const costSort: SortKey = isAbility ? "endurance" : "mana";
 
   const [query, setQuery] = useState("");
-  // Deep-link prefill: adopt the requested query when the seq changes.
+  const inputRef = useRef<HTMLInputElement>(null);
+  // Deep-link prefill: adopt the requested query when the seq changes, and
+  // focus the search box so the user can refine immediately.
   useEffect(() => {
-    if (searchRequest && searchRequest.query) setQuery(searchRequest.query);
+    if (searchRequest && searchRequest.query) {
+      setQuery(searchRequest.query);
+      inputRef.current?.focus();
+    }
   }, [searchRequest?.seq]);
 
   // Learned buff conflicts (P11) — refreshed on the same-window notify and on
@@ -168,16 +158,36 @@ export default function SpellsTab({
   const [maxLevel, setMaxLevel] = useState(0);
   const [sort, setSort] = useState<SortKey>("name");
   const [descending, setDescending] = useState(false);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [rows, setRows] = useState<SpellRow[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<number | null>(null);
   /** Scroll items teaching the expanded spell (null = loading). */
   const [scrolls, setScrolls] = useState<SpellScroll[] | null>(null);
-  const debounce = useRef<number | null>(null);
 
   const active = query.trim().length >= 2 || classes !== "";
+
+  const {
+    page,
+    setPage,
+    pages,
+    total,
+    rows,
+    error,
+    expanded,
+    resetPaging,
+    toggleExpand,
+  } = useDebouncedRefSearch<SpellRow>({
+    active,
+    fetch: (offset, limit) =>
+      spellsSearch({
+        query: query.trim(),
+        isAbility,
+        classes,
+        maxLevel,
+        sort,
+        descending,
+        limit,
+        offset,
+      }),
+    deps: [query, isAbility, classes, maxLevel, sort, descending],
+  });
 
   useEffect(() => {
     dropsZones().then(setZones).catch(() => {});
@@ -189,53 +199,8 @@ export default function SpellsTab({
     [liveZoneEnabled, liveZoneName, zones],
   );
 
-  useEffect(() => {
-    if (debounce.current) window.clearTimeout(debounce.current);
-    debounce.current = window.setTimeout(() => {
-      if (!active) {
-        setRows([]);
-        setTotal(0);
-        setError(null);
-        return;
-      }
-      spellsSearch({
-        query: query.trim(),
-        isAbility,
-        classes,
-        maxLevel,
-        sort,
-        descending,
-        limit: PAGE_SIZE,
-        offset: page * PAGE_SIZE,
-      })
-        .then((res) => {
-          setRows(res.rows);
-          setTotal(res.total);
-          setError(null);
-        })
-        .catch((e) => setError(String(e)));
-    }, 250);
-    return () => {
-      if (debounce.current) window.clearTimeout(debounce.current);
-    };
-  }, [active, query, isAbility, classes, maxLevel, sort, descending, page]);
-
-  function resetPaging() {
-    setPage(0);
-    setExpanded(null);
-  }
-
-  function toggleExpand(id: number) {
-    if (expanded === id) {
-      setExpanded(null);
-      return;
-    }
-    setExpanded(id);
-    // Scroll sources are secondary detail: a failure just hides the section.
-    // Era 3 ("Everything") — scribing hunts shouldn't hide later-era copies.
-    setScrolls(null);
-  }
-
+  // Scroll sources are secondary detail: a failure just hides the section.
+  // Era 3 ("Everything") — scribing hunts shouldn't hide later-era copies.
   useEffect(() => {
     if (expanded == null) return;
     setScrolls(null);
@@ -263,7 +228,6 @@ export default function SpellsTab({
     resetPaging();
   }
 
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const noun = isAbility ? "ability" : "spell";
 
   function sortHeader(key: SortKey, label: string, numeric: boolean) {
@@ -292,6 +256,7 @@ export default function SpellsTab({
       </div>
       <div className="drops-controls">
         <input
+          ref={inputRef}
           type="search"
           placeholder={`Search ${isAbility ? "abilities" : "spells"} by name…`}
           value={query}
@@ -354,7 +319,7 @@ export default function SpellsTab({
               {sortHeader("cast", "Cast", true)}
               {sortHeader("recast", "Recast", true)}
               {sortHeader("duration", "Duration", true)}
-              <span className="drops-col-btn">Resist</span>
+              <span className="drops-col-label">Resist</span>
             </div>
             {rows.map((r) => (
               <div key={r.id}>
@@ -388,7 +353,7 @@ export default function SpellsTab({
                   </span>
                   <span className="num">{fmtMs(r.castTimeMs)}</span>
                   <span className="num">{fmtMs(r.recastMs)}</span>
-                  <span className="num">{fmtDuration(r.durationSecs)}</span>
+                  <span className="num">{fmtSpellDuration(r.durationSecs)}</span>
                   <span>
                     {r.beneficial
                       ? ""
@@ -421,7 +386,7 @@ export default function SpellsTab({
                       )}
                       {r.durationSecs > 0 && (
                         <span className="num">
-                          Duration {fmtDuration(r.durationSecs)}
+                          Duration {fmtSpellDuration(r.durationSecs)}
                         </span>
                       )}
                     </div>
@@ -476,13 +441,7 @@ export default function SpellsTab({
                                 <button
                                   className="session-item-link"
                                   title="Look up this scroll in the Drops tab"
-                                  onClick={() =>
-                                    window.dispatchEvent(
-                                      new CustomEvent("eqlogs-open-drops", {
-                                        detail: s.item,
-                                      }),
-                                    )
-                                  }
+                                  onClick={() => openDrops(s.item)}
                                 >
                                   {s.item}
                                 </button>
@@ -513,32 +472,12 @@ export default function SpellsTab({
               </div>
             ))}
           </div>
-          <div className="drops-pager">
-            <span className="hint num">
-              {total} {total === 1 ? noun : `${noun.replace(/y$/, "ie")}s`}
-            </span>
-            {pages > 1 && (
-              <>
-                <button
-                  className="ghost small"
-                  disabled={page === 0}
-                  onClick={() => setPage((p) => Math.max(0, p - 1))}
-                >
-                  ‹ Prev
-                </button>
-                <span className="hint num">
-                  {page + 1} / {pages}
-                </span>
-                <button
-                  className="ghost small"
-                  disabled={page + 1 >= pages}
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  Next ›
-                </button>
-              </>
-            )}
-          </div>
+          <Pager
+            count={`${total} ${total === 1 ? noun : `${noun.replace(/y$/, "ie")}s`}`}
+            page={page}
+            pages={pages}
+            onPage={setPage}
+          />
         </>
       )}
     </div>

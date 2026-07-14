@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
-import { useTauriEvent, useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
-import { OVERLAY_SCOREBOARD, type OverlayLockPayload } from "../types";
-import { loadOverlayArrange, OVERLAY_ARRANGE_KEY } from "../overlayState";
+import { OVERLAY_SCOREBOARD } from "../types";
 import {
   dpsOf,
   loadScoreboard,
   scoreRows,
-  SCOREBOARD_EVENT,
-  SCOREBOARD_KEY,
+  subscribeScoreboard,
   type Scoreboard,
 } from "../lib/scoreboard";
-
-// Arrange is transient — always boot LOCKED; the persisted flag only drives
-// runtime cross-window sync, not initial state (a restart mid-arrange must not
-// leave drag chrome over the game).
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
+import OverlayShell from "./OverlayShell";
+// Canonical compact number — the same abbreviation the meters use, so the
+// scoreboard's DPS agrees with the meter overlay (a local copy here used
+// to round differently: "12k" where the meters said "12.3k").
+import { fmtNum } from "../lib/format";
 
 const MOCK_BOARD: Scoreboard = IS_MOCK
   ? {
@@ -26,12 +21,6 @@ const MOCK_BOARD: Scoreboard = IS_MOCK
       thaggar: { name: "Thaggar", killingBlows: 27, finishingBlows: 6, highestHit: 705, highestHitLabel: "slash", totalDamage: 41880, deaths: 2, curStreak: 0, bestStreak: 9, firstTs: 0, lastTs: 900 },
     }
   : {};
-
-function fmtCompact(n: number): string {
-  if (n >= 10000) return `${Math.round(n / 1000)}k`;
-  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
-  return String(Math.round(n));
-}
 
 /** Scoreboard overlay: the party competition. A compact per-player leaderboard
  *  — killing blows, finishing blows, biggest hit, DPS — sorted by killing
@@ -42,40 +31,17 @@ export default function OverlayScoreboard() {
   const [board, setBoard] = useState<Scoreboard>(() =>
     IS_MOCK ? MOCK_BOARD : loadScoreboard(),
   );
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_SCOREBOARD);
-
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_SCOREBOARD) setUnlocked(!p.clickThrough);
-  });
 
   useEffect(() => {
     if (IS_MOCK) return;
-    const refresh = () => setBoard(loadScoreboard());
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === SCOREBOARD_KEY) refresh();
-      if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
-    };
-    window.addEventListener("storage", onStorage);
-    window.addEventListener(SCOREBOARD_EVENT, refresh);
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener(SCOREBOARD_EVENT, refresh);
-    };
+    return subscribeScoreboard(() => setBoard(loadScoreboard()));
   }, []);
 
   const rows = scoreRows(board);
 
   return (
-    <div
-      className={`ov-shell${unlocked ? " unlocked" : ""}${
-        unlocked && !enabled ? " ov-disabled" : ""
-      }`}
-    >
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_SCOREBOARD} name="Scoreboard overlay" />
-      )}
-      <div className="ov-score pill" data-tauri-drag-region>
+    <OverlayShell label={OVERLAY_SCOREBOARD} name="Scoreboard overlay">
+      <div className="ov-score pill">
         <div className="ovs-head">
           <span className="ovs-title">Scoreboard</span>
         </div>
@@ -101,18 +67,13 @@ export default function OverlayScoreboard() {
                   <td className="num" title={r.highestHitLabel}>
                     {r.highestHit ? r.highestHit.toLocaleString() : "—"}
                   </td>
-                  <td className="num">{fmtCompact(dpsOf(r))}</td>
+                  <td className="num">{fmtNum(dpsOf(r))}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
-      {IS_MOCK && (
-        <button className="ov-mock-toggle" onClick={() => setUnlocked((u) => !u)}>
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

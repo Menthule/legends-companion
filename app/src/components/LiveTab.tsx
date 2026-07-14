@@ -11,6 +11,7 @@ import { IS_MOCK } from "../mock";
 import { classifySeverity } from "../lib/severity";
 import Empty from "./Empty";
 import QuickTriggerModal from "./QuickTriggerModal";
+import { useToast } from "./Toast";
 
 const MAX_ROWS = 500;
 const MAX_ARCHIVE_ROWS = 5000;
@@ -228,9 +229,7 @@ export default function LiveTab({
   /** Row-id watermark while paused (rows with id >= this are buffered). */
   const [pausedAt, setPausedAt] = useState<number | null>(null);
   const [quickLine, setQuickLine] = useState<Row | null>(null);
-  const [toast, setToast] = useState<{ message: string; undo?: () => void } | null>(
-    null,
-  );
+  const [toastNode, showToast] = useToast();
   const [shareCandidate, setShareCandidate] = useState<string | null>(null);
   /** Right-click context menu on an alert row ("Mute this trigger"). */
   const [ctxMenu, setCtxMenu] = useState<{
@@ -239,6 +238,7 @@ export default function LiveTab({
     trigger: TriggerIdentity;
   } | null>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  const archiveSearchRef = useRef<HTMLInputElement>(null);
   // Mirror pausedAt into a ref so the log-line handler's setRows updater reads
   // the current watermark without a stale closure.
   const pausedAtRef = useRef<number | null>(null);
@@ -248,6 +248,9 @@ export default function LiveTab({
     if (!searchRequest?.query) return;
     setArchiveOpen(true);
     setArchiveQuery(searchRequest.query);
+    // The archive input mounts on the commit this effect just triggered —
+    // defer the focus a frame so the node exists.
+    requestAnimationFrame(() => archiveSearchRef.current?.focus());
   }, [searchRequest?.seq]);
 
   const pushRow = (row: Omit<Row, "id">): void => {
@@ -305,12 +308,6 @@ export default function LiveTab({
     }
   }, [offGroups, mineOnly, autoScroll]);
 
-  useEffect(() => {
-    if (!toast) return;
-    const h = window.setTimeout(() => setToast(null), toast.undo ? 6000 : 3200);
-    return () => window.clearTimeout(h);
-  }, [toast]);
-
   // Close the context menu on any click or Escape anywhere.
   useEffect(() => {
     if (!ctxMenu) return;
@@ -330,15 +327,13 @@ export default function LiveTab({
     setCtxMenu(null);
     try {
       await setOverride(t.id, false);
-      setToast({
-        message: `Muted “${t.name}”`,
+      showToast(`Muted “${t.name}”`, {
         undo: () => {
-          setToast(null);
           setOverride(t.id, null).catch(() => {});
         },
       });
     } catch (e) {
-      setToast({ message: String(e) });
+      showToast(String(e));
     }
   }
 
@@ -346,10 +341,10 @@ export default function LiveTab({
     if (!shareCandidate) return;
     try {
       const result = await shareImport(shareCandidate);
-      setToast({ message: `Imported ${result.imported} shared trigger${result.imported === 1 ? "" : "s"}` });
+      showToast(`Imported ${result.imported} shared trigger${result.imported === 1 ? "" : "s"}`);
       setShareCandidate(null);
     } catch (e) {
-      setToast({ message: `Share import failed: ${String(e)}` });
+      showToast(`Share import failed: ${String(e)}`);
     }
   }
 
@@ -458,9 +453,9 @@ export default function LiveTab({
       .join("\n");
     try {
       await navigator.clipboard.writeText(text);
-      setToast({ message: `Copied ${archiveFiltered.length} archived line${archiveFiltered.length === 1 ? "" : "s"}` });
+      showToast(`Copied ${archiveFiltered.length} archived line${archiveFiltered.length === 1 ? "" : "s"}`);
     } catch {
-      setToast({ message: "Could not copy archive results" });
+      showToast("Could not copy archive results");
     }
   }
 
@@ -468,7 +463,7 @@ export default function LiveTab({
     <div className="card feed-card">
       <div className="toolbar">
         <input
-          type="text"
+          type="search"
           placeholder="Filter by message or event type"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
@@ -557,7 +552,8 @@ export default function LiveTab({
           {archiveOpen && (
             <>
               <input
-                type="text"
+                ref={archiveSearchRef}
+                type="search"
                 className="archive-search"
                 placeholder="Search archived lines"
                 value={archiveQuery}
@@ -722,20 +718,11 @@ export default function LiveTab({
           onClose={() => setQuickLine(null)}
           onSaved={(name, location) => {
             setQuickLine(null);
-            setToast({ message: `Trigger “${name}” saved to ${location}` });
+            showToast(`Trigger “${name}” saved to ${location}`);
           }}
         />
       )}
-      {toast && (
-        <div className={`toast${toast.undo ? " toast-undo" : ""}`} role="status">
-          {toast.message}
-          {toast.undo && (
-            <button className="ghost small" onClick={toast.undo}>
-              Undo
-            </button>
-          )}
-        </div>
-      )}
+      {toastNode}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 // Persisted overlay visibility, shared by the top-bar toggle and the
 // per-overlay switches in Settings. Overlays default to ON.
 
+import { useEffect, useState } from "react";
 import { OVERLAY_LABELS } from "./types";
 import { computeRollingPaceRate } from "./lib/pace";
 
@@ -167,10 +168,15 @@ export function saveAlertSizePx(px: number): void {
 
 // ---------------------------------------------------------------------------
 // Overlay arrange state, shared so overlay windows can show drag/resize chrome
-// even if they miss the one-shot Tauri lock event.
+// even if they miss the one-shot Tauri lock event — and so every main-window
+// arrange control (top-bar Overlays menu, Settings → Overlays) reads the SAME
+// state instead of each holding its own copy.
 // ---------------------------------------------------------------------------
 
 export const OVERLAY_ARRANGE_KEY = "eqlogs.overlays.arranging";
+/** Same-window event: "storage" only fires in OTHER windows, so a window that
+ *  writes the arrange flag dispatches this to nudge its own listeners. */
+export const OVERLAY_ARRANGE_EVENT = "eqlogs-overlay-arrange-changed";
 
 export function loadOverlayArrange(): boolean {
   try {
@@ -186,6 +192,29 @@ export function saveOverlayArrange(on: boolean): void {
   } catch {
     // localStorage unavailable — Tauri lock events still handle normal cases.
   }
+  window.dispatchEvent(new Event(OVERLAY_ARRANGE_EVENT));
+}
+
+/** Main-window arrange state, kept in sync across every surface that shows it
+ *  (Dashboard top bar + Settings → Overlays) and across windows. Read-only:
+ *  mutate via saveOverlayArrange so all listeners hear it. Overlay windows
+ *  keep their own hook (overlay/useOverlayLock) because their primary channel
+ *  is the per-window Tauri lock event. */
+export function useOverlayArrange(): boolean {
+  const [arranging, setArranging] = useState(() => loadOverlayArrange());
+  useEffect(() => {
+    const refresh = () => setArranging(loadOverlayArrange());
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === OVERLAY_ARRANGE_KEY) refresh();
+    };
+    window.addEventListener(OVERLAY_ARRANGE_EVENT, refresh);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(OVERLAY_ARRANGE_EVENT, refresh);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
+  return arranging;
 }
 
 // ---------------------------------------------------------------------------

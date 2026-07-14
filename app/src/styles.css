@@ -4222,26 +4222,6 @@ input[type="text"].ted-duration {
 }
 
 /* -------------------------------------------------------------- quests */
-.quests-page {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.quest-toolbar-band {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px 14px;
-  border: 1px solid var(--hairline);
-  border-radius: 6px;
-  background: var(--surface-raised);
-}
-.quest-search-row {
-  display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(150px, 220px) minmax(130px, 190px) auto auto;
-  gap: 8px;
-  align-items: center;
-}
 .quest-ready-filter {
   display: inline-flex;
   min-height: 32px;
@@ -4304,15 +4284,6 @@ input[type="text"].ted-duration {
 }
 .quest-inventory-bar .warning-text {
   color: var(--warning);
-}
-.quest-reference-note {
-  padding: 7px 12px;
-  border-top: 1px solid var(--hairline);
-  color: var(--ink-muted);
-  font-size: 10px;
-}
-.quest-reference-note .error-text {
-  color: var(--critical);
 }
 .quest-results {
   display: grid;
@@ -4482,19 +4453,12 @@ input[type="text"].ted-duration {
 .quest-row-card > footer a {
   color: var(--accent);
 }
-.quest-empty {
-  grid-column: 1 / -1;
-  padding: 32px;
-  color: var(--ink-muted);
-  text-align: center;
-}
 .quest-attribution {
   padding: 4px 2px 12px;
   color: var(--ink-muted);
   font-size: 10px;
 }
 @media (max-width: 980px) {
-  .quest-search-row,
   .quest-results {
     grid-template-columns: 1fr;
   }
@@ -7015,4 +6979,45 @@ button.drops-item.active {
 @media (prefers-reduced-motion: reduce) {
   .orsp-row.up .orsp-fill,
   .orsp-row.s-up .orsp-fill { animation: none; }
+}
+
+/* ---- non-sortable table column headers ---------------------------------
+   Same 11px-uppercase header type as .drops-col-btn, but for plain <span>
+   headers with no sort behavior — no pointer cursor, so dead columns don't
+   look clickable next to real sort buttons (Mobs/Recipes tables, and the
+   non-sortable columns mixed into the Drops/Spells headers). */
+.drops-col-label {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: left;
+  cursor: default;
+}
+.drops-col-label.num {
+  text-align: right;
+}
+
+/* ---- fluid overlay pill widths ------------------------------------------
+   Every overlay window is resizable and shows the resize grip while
+   arranging, but these pills were fixed-width (280/240px) so dragging the
+   grip wider only grew the invisible window. Follow the .opace pattern:
+   fill the window, keep a readable minimum. (Later in the cascade than the
+   originals, so these width/min-width declarations win.) */
+.om,
+.ov-timer-stack {
+  width: 100%;
+  min-width: 220px;
+}
+.oxp,
+.orsp {
+  width: 100%;
+  min-width: 200px;
+}
+
+/* QuestsTab on the shared Database-card scaffold: the inventory strip sits
+   between the controls row and the results grid, so it needs the block-flow
+   spacing the old flex toolbar band used to provide. */
+.drops-card .quest-inventory-bar {
+  margin-bottom: 12px;
 }

@@ -1,18 +1,8 @@
-import { useState } from "react";
-import { useTauriEvent, useTimers, type TimerView } from "../hooks";
-import { useOverlayEnabled } from "../hooks";
-import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
-import {
-  OVERLAY_TARGET,
-  splitTimerTarget,
-  type OverlayLockPayload,
-} from "../types";
+import { useTimers, type TimerView } from "../hooks";
+import { OVERLAY_TARGET, splitTimerTarget } from "../types";
 import TimerBars from "../components/TimerBars";
 import { sampleTimers } from "../lib/overlaySamples";
-
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
+import OverlayShell from "./OverlayShell";
 
 interface TargetGroup {
   /** Target name, or null for effects whose timer name carries no target. */
@@ -27,13 +17,7 @@ interface TargetGroup {
  * generated packs) collect under the "(target)" group.
  */
 export default function OverlayTarget() {
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_TARGET);
   const timers = useTimers().filter((t) => t.lane === "enemy");
-
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_TARGET) setUnlocked(!p.clickThrough);
-  });
 
   // Group by target, preserving the remaining-ascending order inside each
   // group; named-target groups first (ordered by their soonest timer), the
@@ -60,43 +44,36 @@ export default function OverlayTarget() {
   });
 
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_TARGET} name="Target overlay" />
-      )}
-      {groups.length > 0 && (
-        <div className="ov-timer-stack">
-          {groups.map((g) => (
-            <div className="ov-target-group" key={g.target ?? "\0none"}>
-              <div className="ov-target-name">{g.target ?? "(target)"}</div>
-              <TimerBars timers={g.timers} overlay />
+    <OverlayShell label={OVERLAY_TARGET} name="Target overlay">
+      {(unlocked) => (
+        <>
+          {groups.length > 0 && (
+            <div className="ov-timer-stack">
+              {groups.map((g) => (
+                <div className="ov-target-group" key={g.target ?? "\0none"}>
+                  <div className="ov-target-name">{g.target ?? "(target)"}</div>
+                  <TimerBars timers={g.timers} overlay />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          )}
+          {/* Arrange aid (P10): sample bars while unlocked & empty. */}
+          {unlocked && groups.length === 0 && (
+            <div className="ov-timer-stack ov-sample">
+              <div className="ov-target-group">
+                <div className="ov-target-name">a kobold shaman</div>
+                <TimerBars
+                  timers={sampleTimers("enemy").map((t) => ({
+                    ...t,
+                    name: t.name.split(" — ")[0],
+                  }))}
+                  overlay
+                />
+              </div>
+            </div>
+          )}
+        </>
       )}
-      {/* Arrange aid (P10): sample bars while unlocked & empty. */}
-      {unlocked && groups.length === 0 && (
-        <div className="ov-timer-stack ov-sample">
-          <div className="ov-target-group">
-            <div className="ov-target-name">a kobold shaman</div>
-            <TimerBars
-              timers={sampleTimers("enemy").map((t) => ({
-                ...t,
-                name: t.name.split(" — ")[0],
-              }))}
-              overlay
-            />
-          </div>
-        </div>
-      )}
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

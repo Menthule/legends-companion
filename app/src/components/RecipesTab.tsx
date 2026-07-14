@@ -1,26 +1,28 @@
 // Recipes reference tab: search/browse tradeskill recipes in the bundled
 // classic-era reference database (same sqlite the Drops tab uses). The
-// Drops tab deep-links here via the "eqlogs-open-recipes" CustomEvent
-// (searchRequest prop, wired in Dashboard). Component/result item names
-// deep-link back into the Drops tab ("eqlogs-open-drops").
+// Drops tab deep-links here via lib/deepLinks openRecipes (searchRequest
+// prop, wired in Dashboard). Component/result item names deep-link back
+// into the Drops tab (openDrops).
 //
-// UX mirrors DropsTab: debounced search, .drops-* grid tables, 50/page
-// paging, expandable detail rows with components + farming hints.
+// UX mirrors DropsTab via the shared scaffold (lib/refSearch + Pager):
+// debounced search, .drops-* grid tables, 50/page paging, expandable
+// detail rows with components + farming hints.
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { dropsZones, refdbRecipeDetail, refdbRecipeSearch } from "../api";
 import type { DropZone, RecipeDetail, RecipeRef } from "../types";
 import { TRADESKILL_NAMES, tradeskillName } from "../types";
-import { SpecRow } from "./DropsTab";
+import { SpecRow } from "./SearchSelect";
 import Empty from "./Empty";
+import Pager from "./Pager";
 import ResourceLinks from "./ResourceLinks";
+import { useDebouncedRefSearch } from "../lib/refSearch";
 import {
   resolveLiveZoneShortName,
   useLiveZoneEnabled,
   useLiveZoneName,
 } from "../lib/refFilters";
-
-const PAGE_SIZE = 50;
+import { openDrops } from "../lib/deepLinks";
 
 // Name | Tradeskill | Trivial
 const GRID_TEMPLATE = "1.6fr 130px 56px";
@@ -28,11 +30,6 @@ const GRID_TEMPLATE = "1.6fr 130px 56px";
 /** Detail farming hints span every era — a scribing/crafting hunt shouldn't
  *  hide later-era component sources. */
 const DETAIL_ERA_MAX = 3;
-
-/** Look up an item in the Drops tab (Dashboard listens for this event). */
-function openDrops(name: string) {
-  window.dispatchEvent(new CustomEvent("eqlogs-open-drops", { detail: name }));
-}
 
 function ItemLink({ name }: { name: string }) {
   return (
@@ -58,14 +55,35 @@ export default function RecipesTab({
   const [liveZoneName] = useLiveZoneName();
   const [maxTrivial, setMaxTrivial] = useState(0);
   const [zones, setZones] = useState<DropZone[]>([]);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [rows, setRows] = useState<RecipeRef[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<number | null>(null);
   const [detail, setDetail] = useState<RecipeDetail | null>(null);
-  const debounce = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const active = query.trim().length >= 2 || tradeskill !== 0;
+
+  const {
+    page,
+    setPage,
+    pages,
+    total,
+    rows,
+    error,
+    setError,
+    expanded,
+    setExpanded,
+    resetPaging,
+    toggleExpand,
+  } = useDebouncedRefSearch<RecipeRef>({
+    active,
+    fetch: (offset, limit) =>
+      refdbRecipeSearch({
+        query: query.trim(),
+        tradeskill,
+        maxTrivial,
+        limit,
+        offset,
+      }),
+    deps: [query, tradeskill, maxTrivial],
+  });
 
   // Deep-link from the Drops tab crafting chips: clean lookup, filters reset.
   useEffect(() => {
@@ -78,8 +96,6 @@ export default function RecipesTab({
     inputRef.current?.focus();
   }, [searchRequest]);
 
-  const active = query.trim().length >= 2 || tradeskill !== 0;
-
   useEffect(() => {
     dropsZones().then(setZones).catch(() => {});
   }, []);
@@ -89,48 +105,6 @@ export default function RecipesTab({
       liveZoneEnabled ? resolveLiveZoneShortName(liveZoneName, zones) : "",
     [liveZoneEnabled, liveZoneName, zones],
   );
-
-  useEffect(() => {
-    if (debounce.current) window.clearTimeout(debounce.current);
-    debounce.current = window.setTimeout(() => {
-      if (!active) {
-        setRows([]);
-        setTotal(0);
-        setError(null);
-        return;
-      }
-      refdbRecipeSearch({
-        query: query.trim(),
-        tradeskill,
-        maxTrivial,
-        limit: PAGE_SIZE,
-        offset: page * PAGE_SIZE,
-      })
-        .then((res) => {
-          setRows(res.rows);
-          setTotal(res.total);
-          setError(null);
-        })
-        .catch((e) => setError(String(e)));
-    }, 250);
-    return () => {
-      if (debounce.current) window.clearTimeout(debounce.current);
-    };
-  }, [active, query, tradeskill, maxTrivial, page]);
-
-  function resetPaging() {
-    setPage(0);
-    setExpanded(null);
-  }
-
-  function toggleExpand(id: number) {
-    if (expanded === id) {
-      setExpanded(null);
-      return;
-    }
-    setExpanded(id);
-    setDetail(null);
-  }
 
   useEffect(() => {
     if (expanded == null) return;
@@ -146,8 +120,6 @@ export default function RecipesTab({
     setMaxTrivial(0);
     resetPaging();
   }
-
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
     <div className="card drops-card">
@@ -227,9 +199,9 @@ export default function RecipesTab({
               style={{ gridTemplateColumns: GRID_TEMPLATE }}
               aria-hidden="true"
             >
-              <span className="drops-col-btn">Recipe</span>
-              <span className="drops-col-btn">Tradeskill</span>
-              <span className="drops-col-btn num">Trivial</span>
+              <span className="drops-col-label">Recipe</span>
+              <span className="drops-col-label">Tradeskill</span>
+              <span className="drops-col-label num">Trivial</span>
             </div>
             {rows.map((r) => (
               <div key={r.id}>
@@ -337,32 +309,12 @@ export default function RecipesTab({
               </div>
             ))}
           </div>
-          <div className="drops-pager">
-            <span className="hint num">
-              {total} recipe{total === 1 ? "" : "s"}
-            </span>
-            {pages > 1 && (
-              <>
-                <button
-                  className="ghost small"
-                  disabled={page === 0}
-                  onClick={() => setPage((p) => Math.max(0, p - 1))}
-                >
-                  ‹ Prev
-                </button>
-                <span className="hint num">
-                  {page + 1} / {pages}
-                </span>
-                <button
-                  className="ghost small"
-                  disabled={page + 1 >= pages}
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  Next ›
-                </button>
-              </>
-            )}
-          </div>
+          <Pager
+            count={`${total} recipe${total === 1 ? "" : "s"}`}
+            page={page}
+            pages={pages}
+            onPage={setPage}
+          />
         </>
       )}
     </div>

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTauriEvent } from "../hooks";
 import { ALERT_SIZE_KEY, loadAlertSizePx } from "../overlayState";
-import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
 import { getProfile } from "../api";
 import { activeLoadout } from "../resolution";
-import OverlayEditChrome from "./OverlayEditChrome";
 import { classifySeverity, type Severity } from "../lib/severity";
 import {
   alertOverlayView,
@@ -14,11 +12,11 @@ import {
 import {
   OVERLAY_ALERTS,
   type CharacterProfile,
-  type OverlayLockPayload,
   type TriggerFiredPayload,
   type TriggerIdentity,
   type TriggerOverlayPayload,
 } from "../types";
+import OverlayShell from "./OverlayShell";
 
 /** Pull the active loadout's per-trigger severity overrides into a plain map. */
 function severityMapOf(profile: CharacterProfile | null): Record<string, Severity> {
@@ -52,9 +50,6 @@ interface AlertItem {
 }
 
 let nextAlertId = 0;
-
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
 
 function titleCaseWords(text: string): string {
   return text
@@ -104,8 +99,6 @@ function normalizeAlertText(text: string): string {
  *  that the Silence kill switch can drain. */
 export default function OverlayAlerts() {
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_ALERTS);
   const [sizePx, setSizePx] = useState(() => loadAlertSizePx());
   // Per-trigger severity overrides from the active loadout — a trigger the
   // auto-classifier reads wrong (e.g. "Bond of Death off" → alarm) can be
@@ -203,15 +196,8 @@ export default function OverlayAlerts() {
     if (p?.name) pushAlert(`${p.name} up`, null);
   });
 
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_ALERTS) setUnlocked(!p.clickThrough);
-  });
-
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_ALERTS} name="Alerts overlay" />
-      )}
+    <OverlayShell label={OVERLAY_ALERTS} name="Alerts overlay">
       <div className="ov-alert-stack" style={{ fontSize: sizePx }}>
         {alerts.map((a) => (
           // Tier the pill so a Death Touch never reads like a tell (X6).
@@ -228,14 +214,6 @@ export default function OverlayAlerts() {
           </div>
         ))}
       </div>
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

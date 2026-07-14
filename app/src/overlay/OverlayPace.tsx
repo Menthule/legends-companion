@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { fmtDuration, useNowMs, useOverlayEnabled, useTauriEvent } from "../hooks";
+import { fmtDuration, useNowMs } from "../hooks";
 import {
   loadPaceState,
   paceSnapshot,
@@ -7,13 +7,8 @@ import {
   PACE_STATE_KEY,
   type PaceState,
 } from "../lib/pace";
-import { IS_MOCK } from "../mock";
-import { loadOverlayArrange, OVERLAY_ARRANGE_KEY } from "../overlayState";
-import { OVERLAY_PACE, type OverlayLockPayload } from "../types";
-import OverlayEditChrome from "./OverlayEditChrome";
-
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
+import { OVERLAY_PACE } from "../types";
+import OverlayShell from "./OverlayShell";
 
 function rate(value: number | null, suffix: string): string {
   return value == null ? "--" : `${value.toFixed(1)}${suffix}`;
@@ -21,19 +16,12 @@ function rate(value: number | null, suffix: string): string {
 
 export default function OverlayPace() {
   const [state, setState] = useState<PaceState>(() => loadPaceState());
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_PACE);
   const nowMs = useNowMs(1_000);
-
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (payload) => {
-    if (payload.label === OVERLAY_PACE) setUnlocked(!payload.clickThrough);
-  });
 
   useEffect(() => {
     const reload = () => setState(loadPaceState());
     const onStorage = (event: StorageEvent) => {
       if (event.key === PACE_STATE_KEY) reload();
-      if (event.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
     };
     window.addEventListener("storage", onStorage);
     window.addEventListener(PACE_STATE_EVENT, reload);
@@ -52,13 +40,8 @@ export default function OverlayPace() {
   const completed = sample?.status === "completed";
 
   return (
-    <div
-      className={`ov-shell${unlocked ? " unlocked" : ""}${
-        unlocked && !enabled ? " ov-disabled" : ""
-      }`}
-    >
-      {unlocked && <OverlayEditChrome label={OVERLAY_PACE} name="Pace overlay" />}
-      <div className="opace pill" data-tauri-drag-region>
+    <OverlayShell label={OVERLAY_PACE} name="Pace overlay">
+      <div className="opace pill">
         <div className="opace-head">
           <span>{completed ? "LAST RUN" : "PACE"}</span>
           <span className="num">
@@ -90,11 +73,6 @@ export default function OverlayPace() {
           <div className="opace-empty">Start a sample in Session → Rates</div>
         )}
       </div>
-      {IS_MOCK && (
-        <button className="ov-mock-toggle" onClick={() => setUnlocked((value) => !value)}>
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

@@ -28,6 +28,7 @@ import {
   useTauriEvent,
 } from "../hooks";
 import { recordConflict } from "../lib/buffConflicts";
+import { openDrops } from "../lib/deepLinks";
 import { observedSpellEffect } from "../lib/effects";
 import {
   type DamageSummary,
@@ -81,7 +82,9 @@ import type {
 } from "../types";
 import Empty from "./Empty";
 import MeterTable, { StatTile } from "./MeterTable";
+import Modal from "./Modal";
 import PaceRates from "./PaceRates";
+import { useToast } from "./Toast";
 
 // ---------------------------------------------------------------------------
 // Session tracker (APP_REVIEW X10): in-memory loot log + /random roll tracker,
@@ -331,8 +334,8 @@ export default function FightsTab({ character }: { character: string }) {
   const [total, setTotal] = useState<number | null>(null);
   const [selected, setSelected] = useState<FightRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
-  // Fight awaiting its deferred backend delete; the undo toast shows while set.
+  const [toastNode, showToast] = useToast();
+  // Fight awaiting its deferred backend delete (undo window, see deleteOne).
   const [pendingDelete, setPendingDelete] = useState<FightRecord | null>(null);
   // "Tell" parse dialog: which fight to format, and the recipient name.
   const [tellFor, setTellFor] = useState<FightRecord | null>(null);
@@ -591,7 +594,7 @@ export default function FightsTab({ character }: { character: string }) {
       // Muted during catch-up: a replayed loot line is old news.
       if (!catchingUp.current && isWishlisted(entry.item)) {
         void speakText(`${entry.item} dropped!`);
-        setToast(`Wishlist drop: ${entry.item}!`);
+        showToast(`Wishlist drop: ${entry.item}!`);
       }
     } else if ("Roll" in ev) {
       const d = ev.Roll as Record<string, unknown>;
@@ -722,7 +725,7 @@ export default function FightsTab({ character }: { character: string }) {
       if (spell && blocker) {
         const learned = recordConflict(spell, blocker);
         if (learned && !catchingUp.current) {
-          setToast(`Learned: ${spell} won't stack with ${blocker}`);
+          showToast(`Learned: ${spell} won't stack with ${blocker}`);
         }
       }
     }
@@ -755,12 +758,6 @@ export default function FightsTab({ character }: { character: string }) {
     if (prevActive.current && !p.active && page === 0) load(0);
     prevActive.current = p.active;
   });
-
-  useEffect(() => {
-    if (!toast) return;
-    const h = window.setTimeout(() => setToast(null), 2600);
-    return () => window.clearTimeout(h);
-  }, [toast]);
 
   // Undo window: commit the deferred delete when the toast expires.
   useEffect(() => {
@@ -803,9 +800,9 @@ export default function FightsTab({ character }: { character: string }) {
         rows: f.rows,
       });
       await navigator.clipboard.writeText(text);
-      setToast("Parse copied — paste it into chat");
+      showToast("Parse copied — paste it into chat");
     } catch {
-      setToast("Could not copy to the clipboard");
+      showToast("Could not copy to the clipboard");
     }
   }
 
@@ -816,14 +813,18 @@ export default function FightsTab({ character }: { character: string }) {
   function commitDelete(f: FightRecord) {
     setFights((prev) => (prev ? prev.filter((x) => x.id !== f.id) : prev));
     setTotal((t) => (t === null ? t : Math.max(0, t - 1)));
-    deleteFight(f.id).catch(() => setToast("Could not delete that fight"));
+    deleteFight(f.id).catch(() => showToast("Could not delete that fight"));
   }
 
   function deleteOne(f: FightRecord) {
     if (pendingDelete && pendingDelete.id !== f.id) commitDelete(pendingDelete);
     if (selected?.id === f.id) setSelected(null);
-    setToast(null);
     setPendingDelete(f);
+    // The undo toast and the deferred-commit effect share the 6s window; the
+    // effect is the authority — Undo just reveals the still-stored row.
+    showToast(`Deleted “${f.target}”`, {
+      undo: () => setPendingDelete(null),
+    });
   }
 
   async function clearHistory() {
@@ -841,9 +842,9 @@ export default function FightsTab({ character }: { character: string }) {
       setSelected(null);
       setPage(0);
       load(0);
-      setToast(`Cleared ${n} fight${n === 1 ? "" : "s"} from history`);
+      showToast(`Cleared ${n} fight${n === 1 ? "" : "s"} from history`);
     } catch {
-      setToast("Could not clear history");
+      showToast("Could not clear history");
     }
   }
 
@@ -859,14 +860,14 @@ export default function FightsTab({ character }: { character: string }) {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      setToast("Could not export that fight");
+      showToast("Could not export that fight");
     }
   }
 
   async function exportCurrentSession() {
     const { startTs, endTs } = sessionBounds.current;
     if (startTs === null || endTs === null) {
-      setToast("No session activity to export yet");
+      showToast("No session activity to export yet");
       return;
     }
     const safeCharacter = character.replace(/[^\w-]+/g, "_") || "character";
@@ -907,9 +908,9 @@ export default function FightsTab({ character }: { character: string }) {
           },
         },
       });
-      setToast("Session exported");
+      showToast("Session exported");
     } catch (e) {
-      setToast(`Could not export session: ${String(e)}`);
+      showToast(`Could not export session: ${String(e)}`);
     } finally {
       setExportingSession(false);
     }
@@ -920,7 +921,7 @@ export default function FightsTab({ character }: { character: string }) {
     try {
       path = await pickLogFile();
     } catch (e) {
-      setToast(`Could not open the file picker: ${e}`);
+      showToast(`Could not open the file picker: ${e}`);
       return;
     }
     if (!path) return;
@@ -930,11 +931,11 @@ export default function FightsTab({ character }: { character: string }) {
       const file = path.split(/[\\/]/).pop() ?? path;
       setSelected(null);
       setImported({ file, fights: parsed });
-      setToast(
+      showToast(
         `Imported ${parsed.length} fight${parsed.length === 1 ? "" : "s"} from ${file}`,
       );
     } catch (e) {
-      setToast(`Import failed: ${e}`);
+      showToast(`Import failed: ${e}`);
     } finally {
       setImporting(false);
     }
@@ -960,9 +961,9 @@ export default function FightsTab({ character }: { character: string }) {
           .map((line) => `/tell ${who} ${line}`)
           .join("\n"),
       );
-      setToast(`Tell parse copied for ${who} — paste it in game`);
+      showToast(`Tell parse copied for ${who} — paste it in game`);
     } catch {
-      setToast("Could not copy to the clipboard");
+      showToast("Could not copy to the clipboard");
     }
   }
 
@@ -994,51 +995,45 @@ export default function FightsTab({ character }: { character: string }) {
   }
 
   const tellDialog = tellFor && (
-    <div className="modal-scrim" onClick={() => setTellFor(null)}>
-      <div
-        className="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-label={`Tell parse — ${tellFor.target}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="card-head">
-          <span className="section-title">Tell parse — {tellFor.target}</span>
-        </div>
-        <p className="hint">
-          Copies this parse as /tell lines to the clipboard for pasting in
-          game — nothing is sent automatically.
-        </p>
-        <label className="field">
-          <span>Send to</span>
-          <input
-            type="text"
-            value={tellName}
-            placeholder="Player name"
-            autoFocus
-            onChange={(e) => setTellName(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Escape") setTellFor(null);
-              if (e.key === "Enter") submitTell();
-            }}
-          />
-        </label>
-        {tellWho !== "" && !tellValid && (
-          <p className="hint">
-            Character names are a single word of letters only.
-          </p>
-        )}
-        <div className="editor-foot">
-          <button className="primary" disabled={!tellValid} onClick={submitTell}>
-            Copy /tell lines
-          </button>
-          <span className="spacer" />
-          <button className="ghost" onClick={() => setTellFor(null)}>
-            Cancel
-          </button>
-        </div>
+    <Modal
+      label={`Tell parse — ${tellFor.target}`}
+      onClose={() => setTellFor(null)}
+    >
+      <div className="card-head">
+        <span className="section-title">Tell parse — {tellFor.target}</span>
       </div>
-    </div>
+      <p className="hint">
+        Copies this parse as /tell lines to the clipboard for pasting in
+        game — nothing is sent automatically.
+      </p>
+      <label className="field">
+        <span>Send to</span>
+        <input
+          type="text"
+          value={tellName}
+          placeholder="Player name"
+          autoFocus
+          onChange={(e) => setTellName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") submitTell();
+          }}
+        />
+      </label>
+      {tellWho !== "" && !tellValid && (
+        <p className="hint">
+          Character names are a single word of letters only.
+        </p>
+      )}
+      <div className="editor-foot">
+        <button className="primary" disabled={!tellValid} onClick={submitTell}>
+          Copy /tell lines
+        </button>
+        <span className="spacer" />
+        <button className="ghost" onClick={() => setTellFor(null)}>
+          Cancel
+        </button>
+      </div>
+    </Modal>
   );
 
   // ---- detail view ----
@@ -1084,11 +1079,7 @@ export default function FightsTab({ character }: { character: string }) {
             <MeterTable rows={detailRows} />
           )}
         </div>
-        {toast && (
-          <div className="toast" role="status">
-            {toast}
-          </div>
-        )}
+        {toastNode}
         {tellDialog}
       </>
     );
@@ -1342,22 +1333,7 @@ export default function FightsTab({ character }: { character: string }) {
         exporting={exportingSession}
         onExport={() => void exportCurrentSession()}
       />
-      {toast && !pendingDelete && (
-        <div className="toast" role="status">
-          {toast}
-        </div>
-      )}
-      {pendingDelete && (
-        <div className="toast toast-undo" role="status">
-          Deleted “{pendingDelete.target}”
-          <button
-            className="ghost small"
-            onClick={() => setPendingDelete(null)}
-          >
-            Undo
-          </button>
-        </div>
-      )}
+      {toastNode}
       {tellDialog}
     </>
   );
@@ -1822,7 +1798,7 @@ function SessionSection({
         storageKey="loot"
         headerAside={
           <input
-            type="text"
+            type="search"
             className="session-search"
             placeholder="Filter items or looter…"
             value={lootQuery}
@@ -1853,11 +1829,7 @@ function SessionSection({
                   <button
                     className="session-item-link"
                     title="Look up in the Drops database"
-                    onClick={() =>
-                      window.dispatchEvent(
-                        new CustomEvent("eqlogs-open-drops", { detail: l.item }),
-                      )
-                    }
+                    onClick={() => openDrops(l.item)}
                   >
                     {l.item}
                   </button>

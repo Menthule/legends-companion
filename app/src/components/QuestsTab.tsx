@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+// Quests reference tab: browse the bundled community quest catalog with
+// inventory-aware readiness checks (via /output inventory exports). Chrome
+// follows the shared Database-tab conventions: .card drops-card head,
+// drops-controls with SearchSelect zone + global ClassFilterButton/EraSelect
+// (the era ceiling also scopes the drop-source/reward lookups below),
+// error-banner errors, Empty states, and the standard Pager. Filtering and
+// paging are client-side — the catalog is a local JSON module, not sqlite.
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import { dropsQuestItemReferences, getConfig, inventoryDiscover, inventoryImport, pickInventoryFile } from "../api";
 import {
   matchQuestRequirements,
@@ -12,53 +20,47 @@ import {
   type QuestCatalog,
   type QuestRecord,
 } from "../lib/quests";
-import { useEraMax } from "../lib/refFilters";
+import {
+  onInventoryChanged,
+  rememberInventoryPath,
+  rememberInventorySnapshot,
+  savedInventoryPath,
+  savedInventorySnapshot,
+} from "../lib/inventoryStore";
+import {
+  classMaskFullNames,
+  useClassMask,
+  useEraMax,
+  useLiveZoneEnabled,
+  useLiveZoneName,
+} from "../lib/refFilters";
+import { ClassFilterButton, EraSelect } from "./RefFilters";
+import { SearchSelect } from "./SearchSelect";
+import Empty from "./Empty";
+import Pager from "./Pager";
 import type { QuestItemReference } from "../types";
 
-const INVENTORY_PATH_KEY = "eqlogs.inventory.path.v1";
-const INVENTORY_SNAPSHOT_KEY = "eqlogs.inventory.snapshot.v1";
+const PAGE_SIZE = 50;
 
 function serverFromLogPath(path: string): string {
   const filename = path.split(/[\\/]/).pop() ?? "";
   return /^eqlog_[^_]+_(.+)\.txt$/i.exec(filename)?.[1] ?? "";
 }
 
-function savedInventoryPath(character: string): string {
-  try {
-    const rows = JSON.parse(localStorage.getItem(INVENTORY_PATH_KEY) ?? "{}") as Record<string, string>;
-    return rows[character.toLowerCase()] ?? "";
-  } catch {
-    return "";
-  }
+/** Loose class-name compare: "Shadow Knight" (catalog) === "ShadowKnight" (mask). */
+function normClassName(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
-function rememberInventoryPath(character: string, path: string): void {
-  try {
-    const rows = JSON.parse(localStorage.getItem(INVENTORY_PATH_KEY) ?? "{}") as Record<string, string>;
-    rows[character.toLowerCase()] = path;
-    localStorage.setItem(INVENTORY_PATH_KEY, JSON.stringify(rows));
-  } catch {
-    // Best-effort convenience; automatic discovery remains available.
-  }
-}
-
-function savedInventorySnapshot(character: string): InventorySnapshot | null {
-  try {
-    const rows = JSON.parse(localStorage.getItem(INVENTORY_SNAPSHOT_KEY) ?? "{}") as Record<string, InventorySnapshot>;
-    return rows[character.toLowerCase()] ?? null;
-  } catch {
-    return null;
-  }
-}
-
-function rememberInventorySnapshot(character: string, snapshot: InventorySnapshot): void {
-  try {
-    const rows = JSON.parse(localStorage.getItem(INVENTORY_SNAPSHOT_KEY) ?? "{}") as Record<string, InventorySnapshot>;
-    rows[character.toLowerCase()] = snapshot;
-    localStorage.setItem(INVENTORY_SNAPSHOT_KEY, JSON.stringify(rows));
-  } catch {
-    // The current in-memory snapshot remains usable if persistence is unavailable.
-  }
+/** Match the live in-game zone name against the catalog's zone strings. */
+function resolveQuestZone(liveZone: string, zones: string[]): string {
+  const q = normClassName(liveZone);
+  if (!q) return "";
+  return (
+    zones.find((z) => normClassName(z) === q) ??
+    zones.find((z) => normClassName(z).includes(q) || q.includes(normClassName(z))) ??
+    ""
+  );
 }
 
 export default function QuestsTab({
@@ -70,8 +72,8 @@ export default function QuestsTab({
 }) {
   const [query, setQuery] = useState("");
   const [zone, setZone] = useState("");
-  const [className, setClassName] = useState("");
   const [readyOnly, setReadyOnly] = useState(false);
+  const [page, setPage] = useState(0);
   const [inventory, setInventory] = useState<InventorySnapshot | null>(() => savedInventorySnapshot(character));
   const [inventoryLoading, setInventoryLoading] = useState(false);
   const [inventoryError, setInventoryError] = useState("");
@@ -79,6 +81,10 @@ export default function QuestsTab({
   const [itemReferences, setItemReferences] = useState<Map<string, QuestItemReference>>(new Map());
   const [referenceError, setReferenceError] = useState("");
   const [eraMax] = useEraMax();
+  const [classMask] = useClassMask();
+  const [liveZoneEnabled] = useLiveZoneEnabled();
+  const [liveZoneName] = useLiveZoneName();
+  const inputRef = useRef<HTMLInputElement>(null);
   const inventoryStale = inventory != null && Date.now() - inventory.sourceModifiedMs > 24 * 60 * 60 * 1000;
 
   useEffect(() => {
@@ -134,41 +140,88 @@ export default function QuestsTab({
     void loadInventory();
   }, [character]);
 
+  // Cross-window sync: another window refreshed the inventory export.
+  useEffect(() => {
+    return onInventoryChanged((remote) => {
+      if (remote) setInventory(savedInventorySnapshot(character));
+    });
+  }, [character]);
+
   useEffect(() => {
     if (!inventory) setReadyOnly(false);
   }, [inventory]);
 
+  // Deep-link (e.g. a quest giver clicked elsewhere): clean lookup.
   useEffect(() => {
     if (!searchRequest?.query) return;
     setQuery(searchRequest.query);
+    setPage(0);
+    inputRef.current?.focus();
   }, [searchRequest?.seq]);
 
   const zones = useMemo(
     () => [...new Set((catalog?.quests ?? []).map((quest) => quest.zone).filter(Boolean))].sort(),
     [catalog],
   );
-  const classes = useMemo(
-    () => [...new Set((catalog?.quests ?? []).flatMap((quest) => quest.classes).filter(Boolean))].sort(),
-    [catalog],
+
+  // Follow the live zone only when it CHANGES (zoning, or toggle flipped on):
+  // a manual pick in the zone dropdown must stick, not snap back.
+  const liveZoneMatch = useMemo(
+    () => resolveQuestZone(liveZoneName, zones),
+    [liveZoneName, zones],
   );
-  const filteredQuests = useMemo(
-    () => searchQuests(query, { zone, className, limit: 5000 }, catalog?.quests ?? []),
-    [query, zone, className, catalog],
+  const appliedLiveZone = useRef<string | null>(null);
+  useEffect(() => {
+    if (!liveZoneEnabled || !liveZoneMatch) {
+      appliedLiveZone.current = null;
+      return;
+    }
+    if (appliedLiveZone.current === liveZoneMatch) return;
+    appliedLiveZone.current = liveZoneMatch;
+    if (zone !== liveZoneMatch) {
+      setZone(liveZoneMatch);
+      setPage(0);
+    }
+  }, [liveZoneEnabled, liveZoneMatch, zone]);
+
+  // Global class mask ("any of the checked") against the catalog's class
+  // tags. Quests tagged "All Classes" match any selection; quests with no
+  // documented class only show when no class filter is set (old behavior).
+  const selectedClasses = useMemo(
+    () => classMaskFullNames(classMask).map(normClassName),
+    [classMask],
   );
+  const filteredQuests = useMemo(() => {
+    const matches = searchQuests(query, { zone, limit: catalog?.quests.length ?? 1 }, catalog?.quests ?? []);
+    if (selectedClasses.length === 0) return matches;
+    return matches.filter((quest) =>
+      quest.classes.some((value) => {
+        const name = normClassName(value);
+        return name === "allclasses" || selectedClasses.includes(name);
+      }),
+    );
+  }, [query, zone, selectedClasses, catalog]);
   const readyCount = useMemo(
     () => filteredQuests.filter((quest) => isQuestReady(quest, inventory)).length,
     [filteredQuests, inventory],
   );
   const results = useMemo(
-    () => (readyOnly ? filteredQuests.filter((quest) => isQuestReady(quest, inventory)) : filteredQuests).slice(0, 150),
+    () => (readyOnly ? filteredQuests.filter((quest) => isQuestReady(quest, inventory)) : filteredQuests),
     [filteredQuests, inventory, readyOnly],
   );
+  const pages = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  const safePage = Math.min(page, pages - 1);
+  const pageRows = useMemo(
+    () => results.slice(safePage * PAGE_SIZE, (safePage + 1) * PAGE_SIZE),
+    [results, safePage],
+  );
+  // Drop-source/reward lookups only cover the visible page.
   const referenceNames = useMemo(
-    () => [...new Set(results.flatMap((quest) => [
+    () => [...new Set(pageRows.flatMap((quest) => [
       ...quest.requirements.map((requirement) => requirement.itemName),
       ...quest.rewards,
     ]).filter(Boolean))],
-    [results],
+    [pageRows],
   );
   const referenceKey = referenceNames.join("\u0000");
 
@@ -192,80 +245,121 @@ export default function QuestsTab({
     };
   }, [referenceKey, eraMax]);
 
+  function clearAll() {
+    setQuery("");
+    setZone("");
+    setReadyOnly(false);
+    setPage(0);
+  }
+
   return (
-    <div className="quests-page">
-      <section className="quest-toolbar-band">
-        <div className="quest-search-row">
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Quest, giver, item, or reward"
-            aria-label="Search quests"
-            autoFocus
+    <div className="card drops-card">
+      <div className="card-head">
+        <span className="section-title">Quests</span>
+        <span className="hint">
+          Community quest catalog — drop locations and reward stats use the
+          bundled classic reference database.
+        </span>
+      </div>
+      <div className="drops-controls">
+        <input
+          ref={inputRef}
+          type="search"
+          placeholder="Quest, giver, item, or reward…"
+          value={query}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setPage(0);
+          }}
+          aria-label="Search quests"
+        />
+        <div className="mobs-zone">
+          <SearchSelect
+            value={zone}
+            anyLabel="Any zone"
+            options={zones.map((value) => ({ value, label: value }))}
+            onChange={(value) => {
+              setZone(value);
+              setPage(0);
+            }}
           />
-          <select value={zone} onChange={(event) => setZone(event.target.value)} aria-label="Quest zone">
-            <option value="">All zones</option>
-            {zones.map((value) => <option key={value} value={value}>{value}</option>)}
-          </select>
-          <select value={className} onChange={(event) => setClassName(event.target.value)} aria-label="Quest class">
-            <option value="">All classes</option>
-            {classes.map((value) => <option key={value} value={value}>{value}</option>)}
-          </select>
-          <label className="quest-ready-filter" title={inventory ? "Show quests with every required item available" : "Load an inventory export to filter ready quests"}>
-            <input
-              type="checkbox"
-              checked={readyOnly}
-              disabled={!inventory}
-              onChange={(event) => setReadyOnly(event.target.checked)}
-            />
-            <span>Ready</span>
-            {inventory && <strong>{readyCount}</strong>}
-          </label>
-          <span className="hint">
-            {catalog
-              ? readyOnly
-                ? `${results.length} of ${readyCount} ready · ${catalog.quests.length} quests`
-                : `${results.length} shown · ${catalog.quests.length} quests`
-              : "Loading catalog..."}
-          </span>
         </div>
-        <div className="quest-inventory-bar">
-          <div>
-            <span>Inventory</span>
-            <strong>{inventory ? `${inventory.items.length} owned item types` : "No export loaded"}</strong>
-            {inventory && (
-              <small>
-                {new Date(inventory.sourceModifiedMs).toLocaleString()} · {inventory.sourcePath}
-              </small>
-            )}
-            {inventoryStale && <small className="warning-text">This export is over 24 hours old. Refresh it in game for accurate checkmarks.</small>}
-            {inventoryError && <small className="error-text">{inventoryError}</small>}
-          </div>
-          <button className="ghost small" disabled={inventoryLoading} onClick={() => void loadInventory()}>
-            {inventoryLoading ? "Reading..." : "Refresh"}
+        <ClassFilterButton />
+        <EraSelect />
+        <label className="quest-ready-filter" title={inventory ? "Show quests with every required item available" : "Load an inventory export to filter ready quests"}>
+          <input
+            type="checkbox"
+            checked={readyOnly}
+            disabled={!inventory}
+            onChange={(event) => {
+              setReadyOnly(event.target.checked);
+              setPage(0);
+            }}
+          />
+          <span>Ready</span>
+          {inventory && <strong>{readyCount}</strong>}
+        </label>
+        {(query !== "" || zone !== "" || readyOnly) && (
+          <button className="ghost small" onClick={clearAll}>
+            Clear
           </button>
-          <button className="ghost small" disabled={inventoryLoading} onClick={() => void loadInventory(true)}>
-            Browse
-          </button>
-        </div>
-        <div className="quest-reference-note">
-          Drop locations and reward stats use the bundled classic reference database.
-          {referenceError && <span className="error-text"> {referenceError}</span>}
-        </div>
-      </section>
-
-      <section className="quest-results" aria-live="polite">
-        {results.map((quest) => (
-          <QuestRow key={quest.id} quest={quest} inventory={inventory} itemReferences={itemReferences} />
-        ))}
-        {results.length === 0 && (
-          <div className="quest-empty">No quests match these filters.</div>
         )}
-      </section>
+      </div>
 
-      <footer className="quest-attribution">
-        {catalog ? `${catalog.attribution} Content is ${catalog.license}. Catalog revision generated ${new Date(catalog.generatedAt).toLocaleDateString()}.` : "Loading quest attribution..."}
-      </footer>
+      {inventoryError && <div className="error-banner">{inventoryError}</div>}
+      {referenceError && <div className="error-banner">{referenceError}</div>}
+
+      <div className="quest-inventory-bar">
+        <div>
+          <span>Inventory</span>
+          <strong>{inventory ? `${inventory.items.length} owned item types` : "No export loaded"}</strong>
+          {inventory && (
+            <small>
+              {new Date(inventory.sourceModifiedMs).toLocaleString()} · {inventory.sourcePath}
+            </small>
+          )}
+          {inventoryStale && <small className="warning-text">This export is over 24 hours old. Refresh it in game for accurate checkmarks.</small>}
+        </div>
+        <button className="ghost small" disabled={inventoryLoading} onClick={() => void loadInventory()}>
+          {inventoryLoading ? "Reading…" : "Refresh"}
+        </button>
+        <button className="ghost small" disabled={inventoryLoading} onClick={() => void loadInventory(true)}>
+          Browse
+        </button>
+      </div>
+
+      {catalog === null ? (
+        <div className="hint">Loading quest catalog…</div>
+      ) : results.length === 0 ? (
+        <Empty
+          title="No matches"
+          body={
+            readyOnly
+              ? "No quests are fully ready with the current inventory export — uncheck Ready, or refresh the export in game."
+              : "No quests match these filters — try clearing the zone or class filter, or widening the search."
+          }
+        />
+      ) : (
+        <>
+          <section className="quest-results" aria-live="polite">
+            {pageRows.map((quest) => (
+              <QuestRow key={quest.id} quest={quest} inventory={inventory} itemReferences={itemReferences} />
+            ))}
+          </section>
+          <Pager
+            count={`${results.length} quest${results.length === 1 ? "" : "s"} · ${catalog.quests.length} in catalog`}
+            page={safePage}
+            pages={pages}
+            onPage={setPage}
+          />
+        </>
+      )}
+
+      {catalog && (
+        <footer className="quest-attribution">
+          {`${catalog.attribution} Content is ${catalog.license}. Catalog revision generated ${new Date(catalog.generatedAt).toLocaleDateString()}.`}
+        </footer>
+      )}
     </div>
   );
 }

@@ -46,8 +46,10 @@ import {
   parseNonNegativeDuration,
 } from "../lib/patternJs";
 import Empty from "./Empty";
+import { fmtBytes as formatUpdateBytes } from "../lib/format";
 import { savedLocation } from "./QuickTriggerModal";
 import { ImportDialog, ShareDialog, type ShareRequest } from "./ShareDialogs";
+import { useToast } from "./Toast";
 import TriggerEditor from "./TriggerEditor";
 
 // ---------------------------------------------------------------------------
@@ -215,18 +217,6 @@ interface EditingState {
 
 type TriggerIntent = "speak" | "alert" | "sound" | "timer" | "effect";
 type TriggerFilter = "all" | "mine" | "enabled" | "tts" | "alerts" | "timers" | "disabled";
-
-function formatUpdateBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  const units = ["KB", "MB", "GB"];
-  let value = bytes / 1024;
-  let unit = 0;
-  while (value >= 1024 && unit < units.length - 1) {
-    value /= 1024;
-    unit++;
-  }
-  return `${value.toFixed(1)} ${units[unit]}`;
-}
 
 /** Mock-only demo hook: ?editordemo=1 opens the editor prefilled. */
 const EDITOR_DEMO: string | null = IS_MOCK
@@ -439,10 +429,7 @@ export default function TriggersTab({
     useState<TriggerUpdateInfo | null>(null);
   const [libraryBusy, setLibraryBusy] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState<string | null>(null);
-  const [undoToast, setUndoToast] = useState<{
-    message: string;
-    undo: () => void;
-  } | null>(null);
+  const [toastNode, showToast] = useToast();
   const demoSeeded = useRef(false);
   /** Pack-load warnings pushed by the backend (amber dismissible banner). */
   const [packWarnings, setPackWarnings] = useState<string[]>([]);
@@ -550,13 +537,6 @@ export default function TriggersTab({
 
   const searching = query.trim().length > 0;
   const totalOn = entries?.filter((e) => e.effectiveEnabled).length ?? 0;
-
-  // Undo toast auto-dismiss.
-  useEffect(() => {
-    if (!undoToast) return;
-    const h = window.setTimeout(() => setUndoToast(null), 6000);
-    return () => window.clearTimeout(h);
-  }, [undoToast]);
 
   /** Set true by the editor on any user edit; guards every discard path. */
   const editorDirty = useRef(false);
@@ -1048,10 +1028,8 @@ export default function TriggersTab({
     if (!removed) return;
     const next = userTriggers.filter((_, j) => j !== index);
     void persistUser(next, null).then(() => {
-      setUndoToast({
-        message: `Deleted “${removed.name}”`,
+      showToast(`Deleted “${removed.name}”`, {
         undo: () => {
-          setUndoToast(null);
           const restored = [...next];
           restored.splice(Math.min(index, restored.length), 0, removed);
           void persistUser(restored, `Restored “${removed.name}”.`);
@@ -1186,10 +1164,8 @@ export default function TriggersTab({
     const next = userTriggers.filter((_, j) => j !== index);
     void persistUser(next, null).then(() => {
       void resetEntryOverrides(bundled, null).catch(() => {});
-      setUndoToast({
-        message: `Reverted “${removed.name}” to default`,
+      showToast(`Reverted “${removed.name}” to default`, {
         undo: () => {
-          setUndoToast(null);
           const restored = [...next];
           restored.splice(Math.min(index, restored.length), 0, removed);
           void persistUser(restored, `Restored customized “${removed.name}”.`);
@@ -1822,14 +1798,7 @@ export default function TriggersTab({
       ) : (
         <div className="card tt-tree">{tree.map((n) => renderNode(n, 0))}</div>
       )}
-      {undoToast && (
-        <div className="toast toast-undo" role="status">
-          {undoToast.message}
-          <button className="ghost small" onClick={undoToast.undo}>
-            Undo
-          </button>
-        </div>
-      )}
+      {toastNode}
       {share && <ShareDialog request={share} onClose={() => setShare(null)} />}
       {importing && (
         <ImportDialog

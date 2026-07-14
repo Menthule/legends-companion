@@ -1,4 +1,5 @@
 import notesText from "../../../PATCH_NOTES.md?raw";
+import Empty from "./Empty";
 
 interface Section {
   title: string;
@@ -40,7 +41,10 @@ export default function PatchNotesTab() {
           <span className="hint">High-level changes users should know about.</span>
         </div>
         {releases.length === 0 ? (
-          <div className="hint">No patch notes are available for this build.</div>
+          <Empty
+            title="No patch notes"
+            body="No patch notes are available for this build."
+          />
         ) : (
           releases.map((release) => (
             <div className="patch-release" key={release.title}>

@@ -1,19 +1,12 @@
-import { useState } from "react";
 import {
   underBuffThreshold,
   useBuffThresholdMins,
-  useTauriEvent,
   useTimers,
 } from "../hooks";
-import { useOverlayEnabled } from "../hooks";
-import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
-import { OVERLAY_ONOTHERS, type OverlayLockPayload } from "../types";
+import { OVERLAY_ONOTHERS } from "../types";
 import TimerBars from "../components/TimerBars";
 import { sampleTimers } from "../lib/overlaySamples";
-
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
+import OverlayShell from "./OverlayShell";
 
 /**
  * "On others" overlay: buff countdown bars for buffs YOU cast on OTHER people
@@ -23,42 +16,29 @@ const initiallyUnlocked =
  * (useTimers) and reaped on targeted wear-off or recipient death by the engine.
  */
 export default function OverlayOnOthers() {
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_ONOTHERS);
   // Long buffs stay hidden until under the show threshold (Settings).
   const thresholdMins = useBuffThresholdMins();
   const timers = useTimers().filter(
     (t) => t.lane === "on-others" && underBuffThreshold(t, thresholdMins),
   );
 
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_ONOTHERS) setUnlocked(!p.clickThrough);
-  });
-
   return (
-    <div className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}>
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_ONOTHERS} name="On-others overlay" />
+    <OverlayShell label={OVERLAY_ONOTHERS} name="On-others overlay">
+      {(unlocked) => (
+        <>
+          {timers.length > 0 && (
+            <div className="ov-timer-stack">
+              <TimerBars timers={timers} overlay />
+            </div>
+          )}
+          {/* Arrange aid (P10): sample bars while unlocked & empty. */}
+          {unlocked && timers.length === 0 && (
+            <div className="ov-timer-stack ov-sample">
+              <TimerBars timers={sampleTimers("on-others")} overlay />
+            </div>
+          )}
+        </>
       )}
-      {timers.length > 0 && (
-        <div className="ov-timer-stack">
-          <TimerBars timers={timers} overlay />
-        </div>
-      )}
-      {/* Arrange aid (P10): sample bars while unlocked & empty. */}
-      {unlocked && timers.length === 0 && (
-        <div className="ov-timer-stack ov-sample">
-          <TimerBars timers={sampleTimers("on-others")} overlay />
-        </div>
-      )}
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }

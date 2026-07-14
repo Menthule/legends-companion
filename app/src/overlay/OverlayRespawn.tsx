@@ -1,37 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNowMs, useTauriEvent } from "../hooks";
-import { useOverlayEnabled } from "../hooks";
+import { useNowMs } from "../hooks";
 import { IS_MOCK } from "../mock";
-import OverlayEditChrome from "./OverlayEditChrome";
-import { OVERLAY_RESPAWN, type OverlayLockPayload } from "../types";
+import { OVERLAY_RESPAWN } from "../types";
 import {
   activeTimers,
   loadTimers,
-  TIMERS_KEY,
+  subscribeTimers,
   type Timer,
   windowRemainingSecs,
 } from "../lib/timers";
-import {
-  loadOverlayArrange,
-  OVERLAY_ARRANGE_KEY,
-} from "../overlayState";
-
-// Arrange is transient — always boot LOCKED; the persisted flag only drives
-// runtime cross-window sync, not initial state (a restart mid-arrange must not
-// leave drag chrome over the game).
-const initiallyUnlocked =
-  new URLSearchParams(window.location.search).get("unlocked") === "1";
-
-/** ss / m:ss / h:mm — compact countdown. */
-function fmtCountdown(secs: number): string {
-  if (secs <= 0) return "UP";
-  if (secs < 60) return `${secs}s`;
-  const m = Math.floor(secs / 60);
-  const s = secs % 60;
-  if (m < 60) return `${m}:${String(s).padStart(2, "0")}`;
-  const h = Math.floor(m / 60);
-  return `${h}:${String(m % 60).padStart(2, "0")}`;
-}
+import OverlayShell from "./OverlayShell";
+// Canonical countdown (h:mm:ss past an hour) — the same formatter the
+// Timers tab uses, so the overlay and the tab agree on hour-long timers
+// (a local copy here used to drop the seconds, making "1:05" for 1h05m
+// read like 1m05s).
+import { fmtCountdown } from "../lib/format";
 
 const MOCK_TIMERS: Timer[] = IS_MOCK
   ? [
@@ -96,21 +79,10 @@ export default function OverlayRespawn() {
   const [timers, setTimers] = useState<Timer[]>(() =>
     IS_MOCK ? MOCK_TIMERS : loadTimers(),
   );
-  const [unlocked, setUnlocked] = useState(initiallyUnlocked);
-  const enabled = useOverlayEnabled(OVERLAY_RESPAWN);
-
-  useTauriEvent<OverlayLockPayload>("overlay-lock-changed", (p) => {
-    if (p.label === OVERLAY_RESPAWN) setUnlocked(!p.clickThrough);
-  });
 
   useEffect(() => {
     if (IS_MOCK) return;
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === TIMERS_KEY) setTimers(loadTimers());
-      if (e.key === OVERLAY_ARRANGE_KEY) setUnlocked(loadOverlayArrange());
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    return subscribeTimers(() => setTimers(loadTimers()));
   }, []);
 
   // Tick every second so the bars and countdowns advance smoothly.
@@ -118,13 +90,8 @@ export default function OverlayRespawn() {
   const active = useMemo(() => activeTimers(timers, nowMs), [timers, nowMs]);
 
   return (
-    <div
-      className={`ov-shell${unlocked ? " unlocked" : ""}${unlocked && !enabled ? " ov-disabled" : ""}`}
-    >
-      {unlocked && (
-        <OverlayEditChrome label={OVERLAY_RESPAWN} name="Timer overlay" />
-      )}
-      <div className="orsp pill" data-tauri-drag-region>
+    <OverlayShell label={OVERLAY_RESPAWN} name="Timer overlay">
+      <div className="orsp pill">
         <div className="orsp-title">
           <span>Timers</span>
           <span className="num">{active.length}</span>
@@ -164,14 +131,6 @@ export default function OverlayRespawn() {
           })
         )}
       </div>
-      {IS_MOCK && (
-        <button
-          className="ov-mock-toggle"
-          onClick={() => setUnlocked((u) => !u)}
-        >
-          {unlocked ? "lock" : "unlock"}
-        </button>
-      )}
-    </div>
+    </OverlayShell>
   );
 }
