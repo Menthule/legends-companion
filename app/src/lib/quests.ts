@@ -133,6 +133,19 @@ export function searchQuests(
     .slice(0, Math.max(1, options.limit ?? 100));
 }
 
+export function questsRequiringItem(
+  itemName: string,
+  records: QuestRecord[],
+): QuestRecord[] {
+  const wanted = normalizeInventoryItem(itemName);
+  if (!wanted) return [];
+  return records
+    .filter((quest) => quest.requirements.some(
+      (requirement) => normalizeInventoryItem(requirement.itemName) === wanted,
+    ))
+    .sort((left, right) => left.name.localeCompare(right.name));
+}
+
 export function matchQuestRequirements(
   requirements: QuestRequirement[],
   snapshot: InventorySnapshot | null,

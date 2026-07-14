@@ -7,6 +7,7 @@ import {
   questDropSourceSummary,
   questItemDetailLines,
   questsForGiver,
+  questsRequiringItem,
   searchQuests,
   type InventorySnapshot,
   type QuestRecord,
@@ -33,6 +34,22 @@ describe("quest lookup", () => {
     const row = { ...base, requirements: [{ itemName: "Wind Rune Caza", itemId: null, quantity: 1, choiceGroup: null }] };
     expect(searchQuests("rune caza", {}, [row])).toEqual([row]);
     expect(searchQuests("", { className: "Wizard" }, [row])).toEqual([]);
+  });
+
+  it("cross-references quest requirements by exact normalized item name", () => {
+    const smash = {
+      ...base,
+      id: "smash",
+      name: "Test of Smash",
+      requirements: [{ itemName: "Silvery Ring", itemId: null, quantity: 1, choiceGroup: null }],
+    };
+    const elegant = {
+      ...base,
+      id: "elegant",
+      name: "Elegant Test",
+      requirements: [{ itemName: "Elegant Silvery Ring", itemId: null, quantity: 1, choiceGroup: null }],
+    };
+    expect(questsRequiringItem("Silvery Ring +3", [elegant, smash])).toEqual([smash]);
   });
 });
 
@@ -84,6 +101,9 @@ describe("catalog completeness", () => {
     const monkQuests = questsForGiver("Holwin", "Plane of Sky", questCatalog.quests);
     expect(monkQuests).toHaveLength(6);
     expect(monkQuests.every((quest) => quest.classes.includes("Monk"))).toBe(true);
+    expect(questsRequiringItem("Silvery Ring", questCatalog.quests).map((quest) => quest.name)).toEqual([
+      "Test of Smash",
+    ]);
   });
 });
 

@@ -31,6 +31,11 @@ import type {
 } from "../types";
 import { tradeskillName } from "../types";
 import {
+  loadQuestCatalog,
+  questsRequiringItem,
+  type QuestRecord,
+} from "../lib/quests";
+import {
   CLASS_ABBR as CLASS_BITS,
   CLASS_FULL,
   CLASS_NAME_TO_BIT,
@@ -440,6 +445,7 @@ export default function DropsTab({
   const [vendors, setVendors] = useState<ItemVendor[] | null>(null);
   /** Recipes the expanded item participates in (null = loading). */
   const [recipes, setRecipes] = useState<ItemRecipes | null>(null);
+  const [questUses, setQuestUses] = useState<QuestRecord[] | null>(null);
   const debounce = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const filtersRef = useRef<HTMLDivElement>(null);
@@ -737,6 +743,20 @@ export default function DropsTab({
     () => rows.find((r) => r.id === expanded) ?? null,
     [rows, expanded],
   );
+  useEffect(() => {
+    let stale = false;
+    if (!detail) {
+      setQuestUses(null);
+      return;
+    }
+    setQuestUses(null);
+    void loadQuestCatalog().then((catalog) => {
+      if (!stale) setQuestUses(questsRequiringItem(detail.name, catalog.quests));
+    });
+    return () => {
+      stale = true;
+    };
+  }, [detail?.id, detail?.name]);
   const shownZones = useMemo(
     () => zones.filter((z) => z.era <= eraMax || z.shortName === zone),
     [zones, eraMax, zone],
@@ -1199,6 +1219,27 @@ export default function DropsTab({
                       )}
                     </div>
                     <ResourceLinks kind="item" name={detail.name} eqId={detail.id} />
+                    {questUses && questUses.length > 0 && (
+                      <div className="refdb-chips">
+                        <span className="refdb-chiplabel">Used in quest</span>
+                        {questUses.map((quest) => (
+                          <button
+                            key={quest.id}
+                            className="drops-chip"
+                            title={`Open ${quest.name} in Quests`}
+                            onClick={() =>
+                              window.dispatchEvent(
+                                new CustomEvent("eqlogs-open-quests", {
+                                  detail: quest.name,
+                                }),
+                              )
+                            }
+                          >
+                            {quest.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                     {sources === null ? (
                       <div className="hint">Loading sources…</div>
                     ) : sources.length === 0 ? (

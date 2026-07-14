@@ -309,6 +309,16 @@ export default function Dashboard() {
     section: string;
     seq: number;
   } | null>(null);
+  useEffect(() => {
+    const onOpenQuests = (e: Event) => {
+      const query = String((e as CustomEvent).detail ?? "").trim();
+      if (!query) return;
+      setQuestsRequest((prev) => ({ query, seq: (prev?.seq ?? 0) + 1 }));
+      setTab("quests");
+    };
+    window.addEventListener("eqlogs-open-quests", onOpenQuests);
+    return () => window.removeEventListener("eqlogs-open-quests", onOpenQuests);
+  }, []);
   const [currentZone, setCurrentZone] = useState<string | null>(null);
   const [liveZoneEnabled, setLiveZoneEnabled] = useLiveZoneEnabled();
   const [liveZoneName] = useLiveZoneName();
