@@ -703,6 +703,45 @@
     "source": "https://eqlwiki.com/Commands"
   },
   {
+    "name": "Pet Tank (Hold and Stop)",
+    "category": "Pet",
+    "classes": [
+      "Magician",
+      "Necromancer",
+      "Enchanter",
+      "Shaman",
+      "Beastlord",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pet guard",
+      "/pause 5, /pet hold on",
+      "/pause 5, /pet back off",
+      "/pet stop"
+    ],
+    "description": "Parks the pet, enables Hold, clears its current target and hate list, then stops its AI. The mob can continue attacking the stationary pet while the pet does not retaliate until explicitly ordered to attack.",
+    "tips": "Confirmed on Legends: use /pet guard, not /pet guard here. Requires the Pet Hold AA. Replace /pet hold on with /pet ghold on when Greater Hold is available. Use Resume Pet from Hold before attacking again. Pet commands can be ignored while you are casting. Legends disables bonus pet out-of-combat regeneration, so expect only the regeneration its rules currently allow.",
+    "source": "https://eqlwiki.com/Pet_Guide"
+  },
+  {
+    "name": "Resume Pet from Hold",
+    "category": "Pet",
+    "classes": [
+      "Magician",
+      "Necromancer",
+      "Enchanter",
+      "Shaman",
+      "Beastlord",
+      "Shadow Knight"
+    ],
+    "lines": [
+      "/pet attack"
+    ],
+    "description": "Explicitly sends the held pet at your current target. Hold remains enabled for controlled target selection.",
+    "tips": "Target the mob before pressing. Keep Hold enabled so the pet attacks only when ordered; use /pet hold off separately if you want fully automatic pet behavior again.",
+    "source": "https://eqlwiki.com/Pet_Guide"
+  },
+  {
     "name": "Mage Pet Arsenal",
     "category": "Pet",
     "classes": [
