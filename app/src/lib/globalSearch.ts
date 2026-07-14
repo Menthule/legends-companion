@@ -48,6 +48,8 @@ export type GlobalSearchAction =
       kind: "open-tab-search";
       tab: Exclude<GlobalSearchTab, "settings">;
       query: string;
+      /** Explicit unsourced item selections must bypass Drops' source filter. */
+      revealUnsourced?: boolean;
     }
   | {
       kind: "open-character-log";
@@ -390,7 +392,18 @@ function itemResult(row: DropItemRow, zoneHint: ZoneHint | null): GlobalSearchRe
         ? `${row.sources} known drop source${row.sources === 1 ? "" : "s"}`
         : "Item reference",
     meta: effects,
-    action: { kind: "open-tab-search", tab: "drops", query: row.name },
+    action: itemNavigationAction(row),
+  };
+}
+
+export function itemNavigationAction(
+  row: Pick<DropItemRow, "name" | "sources">,
+): Extract<GlobalSearchAction, { kind: "open-tab-search" }> {
+  return {
+    kind: "open-tab-search",
+    tab: "drops",
+    query: row.name,
+    revealUnsourced: row.sources === 0,
   };
 }
 

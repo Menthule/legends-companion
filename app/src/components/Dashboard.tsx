@@ -270,6 +270,7 @@ export default function Dashboard() {
   const [dropsRequest, setDropsRequest] = useState<{
     query: string;
     seq: number;
+    revealUnsourced?: boolean;
   } | null>(null);
   useEffect(() => {
     const onOpenDrops = (e: Event) => {
@@ -759,6 +760,7 @@ export default function Dashboard() {
             setDropsRequest((prev) => ({
               query: action.query,
               seq: (prev?.seq ?? 0) + 1,
+              revealUnsourced: action.revealUnsourced,
             }));
             setTab("drops");
             break;

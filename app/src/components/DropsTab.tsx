@@ -409,7 +409,7 @@ export default function DropsTab({
   searchRequest,
 }: {
   /** Deep-link from the session loot log: bump `seq` to re-trigger. */
-  searchRequest: { query: string; seq: number } | null;
+  searchRequest: { query: string; seq: number; revealUnsourced?: boolean } | null;
 }) {
   const [query, setQuery] = useState("");
   const [eraMax] = useEraMax();
@@ -474,6 +474,7 @@ export default function DropsTab({
   useEffect(() => {
     if (!searchRequest) return;
     setQuery(searchRequest.query);
+    if (searchRequest.revealUnsourced) setOnlySourced(false);
     setSlotMask(0);
     setClassMask(0);
     setZone("");
