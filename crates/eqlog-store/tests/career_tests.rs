@@ -622,8 +622,7 @@ fn character_defaults_from_filename_and_errors_without_one() {
     let mut store = CareerStore::open(td.db_path()).unwrap();
     let err = store
         .import_file(&odd, &ImportOptions::default(), &mut |_| {})
-        .err()
-        .expect("non-canonical filename without --character must fail");
+        .expect_err("non-canonical filename without --character must fail");
     assert!(err.to_string().contains("cannot determine character"));
 
     // Serverless canonical name: character from filename, empty server.
@@ -673,7 +672,10 @@ fn reset_character_clears_career_and_allows_full_reimport() {
     assert!(store.summary("Nyasha", "oggok").unwrap().is_some());
 
     let removed = store.reset_character("nyasha", "OGGOK").unwrap();
-    assert!(removed >= 4, "sessions+loot+smk+import_files+watermark rows");
+    assert!(
+        removed >= 4,
+        "sessions+loot+smk+import_files+watermark rows"
+    );
     assert!(store.summary("Nyasha", "oggok").unwrap().is_none());
     assert!(store.max_folded_ts("Nyasha", "oggok").unwrap().is_none());
 

@@ -413,8 +413,28 @@ export default function FightsTab({ character }: { character: string }) {
   if (selected) {
     const dps = yourDps(selected);
     const detailRows = splitPetRows(selected.rows);
-    const enemyRows = incomingDamageRows(selected.rows);
-    const enemyTotal = incomingDamageTotal(enemyRows);
+    const recordedEnemyRows = [...(selected.enemyRows ?? [])].sort(
+      (a, b) => b.total - a.total || a.name.localeCompare(b.name),
+    );
+    const legacyIncomingRows = incomingDamageRows(selected.rows);
+    const legacyEnemyTotal = incomingDamageTotal(legacyIncomingRows);
+    const enemyRows =
+      recordedEnemyRows.length > 0
+        ? recordedEnemyRows
+        : legacyEnemyTotal > 0
+          ? [
+              {
+                name: selected.target,
+                total: legacyEnemyTotal,
+                dps: legacyEnemyTotal / Math.max(1, selected.durationSecs),
+                pct: 100,
+                sources: [],
+              },
+            ]
+          : [];
+    const enemyTotal = enemyRows.reduce((sum, row) => sum + row.total, 0);
+    const isLegacyEnemyTotal =
+      recordedEnemyRows.length === 0 && legacyEnemyTotal > 0;
     return (
       <>
         <div className="toolbar">
@@ -459,15 +479,16 @@ export default function FightsTab({ character }: { character: string }) {
             <span className="section-title">Enemies — damage to players</span>
             <span className="hint">
               {fmtNum(enemyTotal)} during {selected.target}
+              {isLegacyEnemyTotal && " · source details unavailable for older fight"}
             </span>
           </div>
           {enemyRows.length === 0 ? (
             <Empty
               title="No enemy damage recorded"
-              body="This fight did not contain damage from the target to a tracked player or pet."
+              body="This fight did not contain damage from an enemy to a tracked player or pet."
             />
           ) : (
-            <MeterTable rows={enemyRows} mode="taken" />
+            <MeterTable rows={enemyRows} initiallyExpanded />
           )}
         </div>
         {toastNode}

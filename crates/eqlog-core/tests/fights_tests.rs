@@ -53,6 +53,14 @@ fn row<'a>(summary: &'a FightSummary, name: &str) -> &'a eqlog_core::fights::Com
         .unwrap_or_else(|| panic!("no row named {name:?} in {:?}", summary.rows))
 }
 
+fn enemy_row<'a>(summary: &'a FightSummary, name: &str) -> &'a eqlog_core::fights::CombatantRow {
+    summary
+        .enemy_rows
+        .iter()
+        .find(|r| r.name == name)
+        .unwrap_or_else(|| panic!("no enemy row named {name:?} in {:?}", summary.enemy_rows))
+}
+
 #[test]
 fn defaults_match_contract() {
     let cfg = FightConfig::default();
@@ -400,6 +408,13 @@ fn damage_taken_tally() {
     t.ingest(&pl(0, melee(mob(), Entity::You, 12, HitFlags::default())));
     t.ingest(&pl(
         1,
+        Event::CastBegin {
+            caster: mob(),
+            spell: "Cancelling of Life".to_string(),
+        },
+    ));
+    t.ingest(&pl(
+        2,
         Event::SpellDamageTaken {
             target: Entity::You,
             source: mob(),
@@ -409,12 +424,12 @@ fn damage_taken_tally() {
     ));
     // Pet damage-taken folds into the owner row.
     t.ingest(&pl(
-        2,
+        3,
         melee(mob(), named("Vibarn"), 5, HitFlags::default()),
     ));
     // Non-melee incoming (mob's thorns) counts too.
     t.ingest(&pl(
-        3,
+        4,
         Event::NonMeleeDamage {
             source: Some(mob()),
             target: Entity::You,
@@ -433,6 +448,13 @@ fn damage_taken_tally() {
     assert_eq!(nyasha.damage, 0);
     assert_eq!(f.total_damage, 0);
     assert_eq!(nyasha.percent, 0.0); // no div-by-zero on zero total
+    assert_eq!(f.total_enemy_damage, 12 + 8 + 5 + 3);
+    let enemy = enemy_row(f, "a Teir`Dal shadowknight");
+    assert_eq!(enemy.damage, f.total_enemy_damage);
+    assert_eq!(source(enemy, "crush").total, 12 + 5);
+    assert_eq!(source(enemy, "Cancelling of Life").total, 8);
+    assert_eq!(source(enemy, "Cancelling of Life").casts, 1);
+    assert_eq!(source(enemy, "thorns (damage shield)").total, 3);
 }
 
 #[test]

@@ -171,10 +171,18 @@ pub struct FightSummary {
     pub duration_secs: u64,
     /// Sum of all combatants' damage to the target.
     pub total_damage: u64,
+    /// Sum of damage dealt by enemies during this fight. Additive so saved
+    /// summaries from before enemy-source tracking still deserialize.
+    #[serde(default)]
+    pub total_enemy_damage: u64,
     /// Whether the fight ended with the target slain.
     pub target_slain: bool,
     /// Combatant rows, sorted by damage descending.
     pub rows: Vec<CombatantRow>,
+    /// Enemy combatants and their melee/spell/effect breakdowns. Additive;
+    /// older persisted fights default to an empty collection.
+    #[serde(default)]
+    pub enemy_rows: Vec<CombatantRow>,
 }
 
 /// Running totals for one damage source of one combatant.
@@ -273,6 +281,7 @@ struct Fight {
     last_activity: i64,
     target_slain: bool,
     combatants: HashMap<String, Combatant>,
+    enemies: HashMap<String, Combatant>,
 }
 
 impl Fight {
@@ -283,6 +292,7 @@ impl Fight {
             last_activity: ts,
             target_slain: false,
             combatants: HashMap::new(),
+            enemies: HashMap::new(),
         }
     }
 
@@ -338,6 +348,39 @@ impl Fight {
         self.last_activity = self.last_activity.max(ts);
     }
 
+    fn enemy_dealt(&mut self, name: &str, source: &str, amount: u64, crit: bool, ts: i64) {
+        let enemy = self.enemies.entry(name.to_string()).or_default();
+        enemy.touch(ts);
+        enemy.damage += amount;
+        enemy.hits += 1;
+        if crit {
+            enemy.crits += 1;
+        }
+        enemy.max_hit = enemy.max_hit.max(amount);
+        let skill = enemy.sources.entry(source.to_string()).or_default();
+        skill.total += amount;
+        skill.hits += 1;
+        if crit {
+            skill.crits += 1;
+        }
+        skill.max_hit = skill.max_hit.max(amount);
+        self.last_activity = self.last_activity.max(ts);
+    }
+
+    fn enemy_missed(&mut self, name: &str, source: &str, ts: i64) {
+        let enemy = self.enemies.entry(name.to_string()).or_default();
+        enemy.touch(ts);
+        enemy.misses += 1;
+        enemy.sources.entry(source.to_string()).or_default().misses += 1;
+        self.last_activity = self.last_activity.max(ts);
+    }
+
+    fn enemy_casted(&mut self, name: &str, spell: &str, ts: i64) {
+        let enemy = self.enemies.entry(name.to_string()).or_default();
+        enemy.touch(ts);
+        enemy.sources.entry(spell.to_string()).or_default().casts += 1;
+    }
+
     fn healed(&mut self, name: &str, amount: u64, potential: Option<u64>, ts: i64) {
         let c = self.row(name);
         c.touch(ts);
@@ -351,6 +394,7 @@ impl Fight {
 
     fn summary(&self, end_ts: i64) -> FightSummary {
         let total_damage: u64 = self.combatants.values().map(|c| c.damage).sum();
+        let total_enemy_damage: u64 = self.enemies.values().map(|c| c.damage).sum();
         // Shared encounter window for every combatant's DPS (see to_row).
         let window = (end_ts - self.start_ts).max(1) as f64;
         let mut rows: Vec<CombatantRow> = self
@@ -359,14 +403,22 @@ impl Fight {
             .map(|(name, c)| c.to_row(name, total_damage, window))
             .collect();
         rows.sort_by(|a, b| b.damage.cmp(&a.damage).then_with(|| a.name.cmp(&b.name)));
+        let mut enemy_rows: Vec<CombatantRow> = self
+            .enemies
+            .iter()
+            .map(|(name, enemy)| enemy.to_row(name, total_enemy_damage, window))
+            .collect();
+        enemy_rows.sort_by(|a, b| b.damage.cmp(&a.damage).then_with(|| a.name.cmp(&b.name)));
         FightSummary {
             target: self.target.clone(),
             start_ts: self.start_ts,
             end_ts,
             duration_secs: (end_ts - self.start_ts).max(0) as u64,
             total_damage,
+            total_enemy_damage,
             target_slain: self.target_slain,
             rows,
+            enemy_rows,
         }
     }
 }
@@ -625,24 +677,39 @@ impl FightTracker {
             self.overall.dealt(&name, is_pet, &label, amount, crit, ts);
             self.track_overall(ts);
         } else if tgt_friendly && !src_friendly {
-            // An NPC damaged a friendly: damage-taken in that NPC's fight.
-            let (name, _) = self.attribute(target);
+            // An NPC damaged a friendly: retain both the victim's tanking
+            // total and the enemy's source breakdown in that NPC's fight.
+            let (victim, _) = self.attribute(target);
             match source {
                 Some(src) => {
                     let npc = self.entity_name(src).to_string();
-                    self.open_or_get(&npc, ts).taken(&name, amount, ts);
+                    let enemy = display_name(&npc);
+                    let fight = self.open_or_get(&npc, ts);
+                    fight.taken(&victim, amount, ts);
+                    fight.enemy_dealt(&enemy, source_label, amount, crit, ts);
+                    self.overall.taken(&victim, amount, ts);
+                    self.overall
+                        .enemy_dealt(&enemy, source_label, amount, crit, ts);
                 }
                 None => {
                     // Unattributed incoming ("Vibarn has taken 58 damage by
                     // Searing Arrow."): no caster to key a fight by, so the
                     // damage lands in the most recently active fight (if
                     // any) and always in the overall aggregate.
+                    let mut enemy = None;
                     if let Some(fight) = self.active.values_mut().max_by_key(|f| f.last_activity) {
-                        fight.taken(&name, amount, ts);
+                        let name = fight.target.clone();
+                        fight.taken(&victim, amount, ts);
+                        fight.enemy_dealt(&name, source_label, amount, crit, ts);
+                        enemy = Some(name);
+                    }
+                    self.overall.taken(&victim, amount, ts);
+                    if let Some(enemy) = enemy {
+                        self.overall
+                            .enemy_dealt(&enemy, source_label, amount, crit, ts);
                     }
                 }
             }
-            self.overall.taken(&name, amount, ts);
             self.track_overall(ts);
         } else if !src_friendly && !tgt_friendly {
             // Neither side is a known friendly. Route only through fights we
@@ -665,9 +732,14 @@ impl FightTracker {
                 if self.active.contains_key(&fight_key(&src_name)) {
                     // An NPC we are fighting hit a non-friendly (e.g. an
                     // out-of-group player): still useful tanking data.
-                    let (name, _) = self.attribute(target);
-                    self.open_or_get(&src_name, ts).taken(&name, amount, ts);
-                    self.overall.taken(&name, amount, ts);
+                    let (victim, _) = self.attribute(target);
+                    let enemy = display_name(&src_name);
+                    let fight = self.open_or_get(&src_name, ts);
+                    fight.taken(&victim, amount, ts);
+                    fight.enemy_dealt(&enemy, source_label, amount, crit, ts);
+                    self.overall.taken(&victim, amount, ts);
+                    self.overall
+                        .enemy_dealt(&enemy, source_label, amount, crit, ts);
                     self.track_overall(ts);
                 } else if looks_like_player_name(&src_name)
                     && !looks_like_player_name(&target_name)
@@ -705,10 +777,14 @@ impl FightTracker {
                 self.track_overall(ts);
             }
         } else if self.is_friendly(target) {
-            // The NPC swung at a friendly and missed: target activity only.
-            let npc = fight_key(self.entity_name(attacker));
+            // Keep enemy misses on the same skill row as successful attacks.
+            let attacker_name = self.entity_name(attacker).to_string();
+            let npc = fight_key(&attacker_name);
             if let Some(fight) = self.active.get_mut(&npc) {
-                fight.last_activity = fight.last_activity.max(ts);
+                let enemy = display_name(&attacker_name);
+                fight.enemy_missed(&enemy, verb, ts);
+                self.overall.enemy_missed(&enemy, verb, ts);
+                self.track_overall(ts);
             }
         }
     }
@@ -723,11 +799,15 @@ impl FightTracker {
             return;
         }
         if !self.is_friendly(caster) {
-            let caster_name = self.entity_name(caster);
-            if self.active.contains_key(&fight_key(caster_name)) {
-                return; // an NPC we are fighting
+            let caster_name = self.entity_name(caster).to_string();
+            if let Some(fight) = self.active.get_mut(&fight_key(&caster_name)) {
+                let enemy = display_name(&caster_name);
+                fight.enemy_casted(&enemy, spell, ts);
+                self.overall.enemy_casted(&enemy, spell, ts);
+                self.track_overall(ts);
+                return;
             }
-            if !looks_like_player_name(caster_name) {
+            if !looks_like_player_name(&caster_name) {
                 return; // NPC-shaped name
             }
         }

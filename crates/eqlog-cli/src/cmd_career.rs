@@ -133,11 +133,7 @@ fn run_import(args: &[String]) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn print_report(
-    out: &mut impl Write,
-    report: &ImportReport,
-    dry_run: bool,
-) -> anyhow::Result<()> {
+fn print_report(out: &mut impl Write, report: &ImportReport, dry_run: bool) -> anyhow::Result<()> {
     let who = if report.server.is_empty() {
         report.character.clone()
     } else {
@@ -261,7 +257,9 @@ fn resolve_identity(
             Ok((c.clone(), server))
         }
         None => match known.as_slice() {
-            [] => bail!("career: no career data in this database — run `eqlog career import` first"),
+            [] => {
+                bail!("career: no career data in this database — run `eqlog career import` first")
+            }
             [(c, s)] => Ok((c.clone(), s.clone())),
             many => bail!(
                 "career: multiple characters in this database ({}); pass --character",

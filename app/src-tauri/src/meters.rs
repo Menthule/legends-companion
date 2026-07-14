@@ -3,7 +3,7 @@
 //! this module just picks which fight to show (the most recently active open
 //! fight, else the last completed one) and shapes the rows for the UI.
 
-use eqlog_core::fights::{FightSummary, FightTracker};
+use eqlog_core::fights::{CombatantRow, FightSummary, FightTracker};
 use serde::Serialize;
 
 /// One damage source under a meter row (post-sprint item 15): melee verb,
@@ -58,11 +58,13 @@ pub struct FightUpdate {
 /// kept when they dealt damage, healed, or took damage (X2): a pure healer or
 /// pure tank must survive into the healing / taken meter modes. Order is the
 /// summary's damage-descending order; the frontend re-sorts per mode.
-pub fn damage_rows(summary: &FightSummary) -> Vec<MeterRow> {
-    summary
-        .rows
-        .iter()
-        .filter(|r| r.damage > 0 || r.healing > 0 || r.damage_taken > 0)
+fn meter_rows(rows: &[CombatantRow], keep_support_rows: bool) -> Vec<MeterRow> {
+    rows.iter()
+        .filter(|r| {
+            r.damage > 0
+                || (keep_support_rows && (r.healing > 0 || r.damage_taken > 0))
+                || !r.sources.is_empty()
+        })
         .map(|r| MeterRow {
             name: r.name.clone(),
             total: r.damage,
@@ -87,6 +89,16 @@ pub fn damage_rows(summary: &FightSummary) -> Vec<MeterRow> {
                 .collect(),
         })
         .collect()
+}
+
+pub fn damage_rows(summary: &FightSummary) -> Vec<MeterRow> {
+    meter_rows(&summary.rows, true)
+}
+
+/// Enemies that dealt damage during a fight, with the same expandable
+/// melee/spell/effect rows used by the player meter.
+pub fn enemy_damage_rows(summary: &FightSummary) -> Vec<MeterRow> {
+    meter_rows(&summary.enemy_rows, false)
 }
 
 fn to_update(summary: &FightSummary, active: bool) -> FightUpdate {

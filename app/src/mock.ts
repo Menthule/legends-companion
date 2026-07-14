@@ -693,15 +693,47 @@ function makeMockFights(): FightRecord[] {
       .sort((a, b) => b.total - a.total);
     const sum = rows.reduce((s, r) => s + r.total, 0);
     for (const r of rows) r.pct = (r.total / sum) * 100;
+    const target = FIGHT_TARGETS[id % FIGHT_TARGETS.length];
+    const enemyTotal = rows.reduce((s, r) => s + (r.damageTaken ?? 0), 0);
+    const meleeTotal = Math.round(enemyTotal * 0.62);
+    const spellTotal = enemyTotal - meleeTotal;
     fights.push({
       id,
-      target: FIGHT_TARGETS[id % FIGHT_TARGETS.length],
+      target,
       startTs,
       endTs,
       durationSecs: duration,
       totalDamage: sum,
       targetSlain: seeded(id * 23) > 0.12,
       rows,
+      enemyRows:
+        enemyTotal > 0
+          ? [
+              {
+                name: target,
+                total: enemyTotal,
+                dps: enemyTotal / Math.max(1, duration),
+                pct: 100,
+                hits: Math.max(1, Math.round(enemyTotal / 85)),
+                sources: [
+                  {
+                    name: "claws",
+                    total: meleeTotal,
+                    hits: Math.max(1, Math.round(meleeTotal / 85)),
+                    misses: 3,
+                    maxHit: Math.max(1, Math.round(meleeTotal / 4)),
+                  },
+                  {
+                    name: "Arcane Torrent",
+                    total: spellTotal,
+                    hits: 2,
+                    casts: 2,
+                    maxHit: Math.max(1, Math.round(spellTotal / 2)),
+                  },
+                ],
+              },
+            ]
+          : [],
     });
     endTs = startTs - Math.round(20 + seeded(id * 29) * 900);
   }

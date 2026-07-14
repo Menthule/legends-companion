@@ -16,7 +16,7 @@ use tauri::{AppHandle, State};
 
 use crate::commands::{lock, AppState};
 use crate::logging;
-use crate::meters::{damage_rows, MeterRow};
+use crate::meters::{damage_rows, enemy_damage_rows, MeterRow};
 
 /// `FightStore` is `Send` but not `Sync`; the tail thread writes and commands
 /// read, so share one connection behind a mutex. `None` = the database
@@ -57,6 +57,7 @@ pub struct FightRecord {
     pub total_damage: u64,
     pub target_slain: bool,
     pub rows: Vec<MeterRow>,
+    pub enemy_rows: Vec<MeterRow>,
 }
 
 fn record(id: i64, summary: &FightSummary) -> FightRecord {
@@ -69,6 +70,7 @@ fn record(id: i64, summary: &FightSummary) -> FightRecord {
         total_damage: summary.total_damage,
         target_slain: summary.target_slain,
         rows: damage_rows(summary),
+        enemy_rows: enemy_damage_rows(summary),
     }
 }
 
@@ -405,8 +407,10 @@ mod tests {
             end_ts: 172,
             duration_secs: 72,
             total_damage: rows.iter().map(|r| r.damage).sum(),
+            total_enemy_damage: 0,
             target_slain: true,
             rows,
+            enemy_rows: Vec::new(),
         }
     }
 

@@ -211,13 +211,19 @@ function MeterRowView({
 export default function MeterTable({
   rows,
   mode = "damage",
+  initiallyExpanded = false,
 }: {
   rows: MeterRow[];
   mode?: MeterMode;
+  initiallyExpanded?: boolean;
 }) {
   const slotOf = useSeriesSlots(rows.map((r) => r.name));
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(
-    () => new Set(DEMO_EXPANDED),
+    () =>
+      new Set([
+        ...DEMO_EXPANDED,
+        ...(initiallyExpanded ? rows.map((row) => row.name) : []),
+      ]),
   );
   const maxValue = rows.reduce((m, r) => Math.max(m, metricOf(r, mode)), 0);
   const grand = rows.reduce((s, r) => s + metricOf(r, mode), 0);
