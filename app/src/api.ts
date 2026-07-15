@@ -37,7 +37,11 @@ import {
 import { buildShareString } from "./lib/share";
 import { formatParse, type ParseInput } from "./lib/parseText";
 import type { InventorySnapshot } from "./lib/quests";
-import type { InventoryDatabase, QuestProgressStatus } from "./lib/inventory";
+import type {
+  InventoryDatabase,
+  InventoryDispositionAction,
+  QuestProgressStatus,
+} from "./lib/inventory";
 import type {
   ActiveTimerSnapshot,
   AppConfig,
@@ -842,9 +846,22 @@ function mockInventoryDatabase(): InventoryDatabase {
     current,
     entries,
     previousEntries: entries.slice(1),
+    storageSlots: [
+      { ordinal: 0, location: "General1", storage: "carried", empty: false },
+      { ordinal: 1, location: "General2", storage: "carried", empty: true },
+      { ordinal: 2, location: "Bank1", storage: "bank", empty: false },
+      { ordinal: 3, location: "Bank1-Slot1", storage: "bank", empty: false },
+      { ordinal: 4, location: "Bank1-Slot2", storage: "bank", empty: true },
+      { ordinal: 5, location: "Hoard1", storage: "hoard", empty: true },
+      { ordinal: 6, location: "Hoard2", storage: "hoard", empty: false },
+    ],
     history: [current, { ...current, id: 1, importedAtMs: importedAtMs - 86_400_000, fingerprint: "mock-previous", rowCount: 684 }],
     currencies: [{ name: "Motes of Potential", quantity: 2, updatedAtMs: importedAtMs }],
-    keepKeys: [], questProgress: [],
+    currencyHistory: [
+      { id: 2, name: "Motes of Potential", quantity: 2, measuredAtMs: importedAtMs },
+      { id: 1, name: "Motes of Potential", quantity: 1, measuredAtMs: importedAtMs - 3_600_000 },
+    ],
+    keepKeys: [], dispositions: [], questProgress: [],
   };
 }
 
@@ -866,6 +883,17 @@ export function inventoryRemoveCurrency(character: string, server: string, name:
 export function inventorySetKeep(character: string, server: string, itemKey: string, keep: boolean): Promise<void> {
   if (IS_MOCK) return Promise.resolve();
   return invoke("inventory_set_keep", { character, server, itemKey, keep });
+}
+
+export function inventorySetDisposition(
+  character: string,
+  server: string,
+  itemKey: string,
+  action: InventoryDispositionAction | "",
+  note: string,
+): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("inventory_set_disposition", { character, server, itemKey, action, note });
 }
 
 export function inventorySetQuestStatus(

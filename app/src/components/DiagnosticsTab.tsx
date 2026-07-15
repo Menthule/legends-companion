@@ -8,7 +8,7 @@ import {
   timerTrainingCandidates,
   timerTrainingScan,
 } from "../api";
-import { fmtClock, useTauriEvent } from "../hooks";
+import { fmtClock, useDebouncedValue, useTauriEvent } from "../hooks";
 import { activeLoadout, withTimingOverride } from "../resolution";
 import {
   effectiveTrainingTiming,
@@ -106,6 +106,7 @@ export default function DiagnosticsTab() {
   const [candidateReport, setCandidateReport] = useState<TimerTrainingCandidatesReport | null>(null);
   const [candidateBusy, setCandidateBusy] = useState(false);
   const [trainingQuery, setTrainingQuery] = useState("");
+  const trainingSearch = useDebouncedValue(trainingQuery);
   const [showAllRanked, setShowAllRanked] = useState(false);
   const [manualEditor, setManualEditor] = useState<ManualTimingEditor | null>(null);
   const [trainingTriggerId, setTrainingTriggerId] = useState("");
@@ -173,7 +174,7 @@ export default function DiagnosticsTab() {
 
   const candidateRows = useMemo(() => {
     if (!candidateReport) return [];
-    const query = trainingQuery.trim().toLowerCase();
+    const query = trainingSearch.trim().toLowerCase();
     return candidateReport.candidates
       .flatMap((candidate) => {
         const report = candidateAsReport(candidateReport, candidate);
@@ -199,7 +200,7 @@ export default function DiagnosticsTab() {
           a.report.timerName.localeCompare(b.report.timerName) ||
           romanRankValue(b.rank.rank) - romanRankValue(a.rank.rank),
       );
-  }, [candidateReport, trainingProfile, trainingQuery]);
+  }, [candidateReport, trainingProfile, trainingSearch]);
 
   const candidateCounts = useMemo(
     () =>

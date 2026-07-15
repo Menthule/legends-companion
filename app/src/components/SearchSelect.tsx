@@ -4,6 +4,7 @@
 // dropdown shouldn't pull in the whole Drops tab module graph.
 
 import { useState } from "react";
+import { useDebouncedValue } from "../hooks";
 
 /** One labeled line in the item-detail spec grid ("Damage  19 / 41 dly").
  *  Shared by the Drops/Mobs/Recipes tabs (same detail-grid conventions). */
@@ -39,7 +40,8 @@ export function SearchSelect({
   const [idx, setIdx] = useState(0);
   const MAX_SHOWN = 60;
 
-  const ql = q.trim().toLowerCase();
+  const searchQuery = useDebouncedValue(q, 120);
+  const ql = searchQuery.trim().toLowerCase();
   const filtered = ql
     ? options.filter((o) => o.label.toLowerCase().includes(ql))
     : options;

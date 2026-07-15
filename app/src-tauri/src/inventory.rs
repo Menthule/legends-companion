@@ -1,7 +1,8 @@
 //! Import static `/outputfile inventory` TSV snapshots for quest matching.
 
 use eqlog_store::inventory::{
-    InventoryDatabase, InventoryEntryInput, InventorySnapshotInput, InventoryStore,
+    InventoryDatabase, InventoryEntryInput, InventorySnapshotInput, InventoryStorageSlotInput,
+    InventoryStore,
 };
 use serde::Serialize;
 use sha2::{Digest, Sha256};
@@ -46,6 +47,7 @@ struct ParsedInventory {
     entries: Vec<InventoryEntryInput>,
     sections: Vec<String>,
     fingerprint: String,
+    storage_slots: Vec<InventoryStorageSlotInput>,
 }
 
 fn now_ms() -> u64 {
@@ -126,6 +128,7 @@ fn parse_tsv(text: &str, source_path: String, modified_ms: u64) -> Result<Parsed
     let mut grouped: BTreeMap<String, Aggregate> = BTreeMap::new();
     let mut entries = Vec::new();
     let mut sections = BTreeSet::new();
+    let mut storage_slots = Vec::new();
     let mut keyring = false;
     let mut row_count = 0usize;
     let mut skipped_rows = 0usize;
@@ -165,6 +168,14 @@ fn parse_tsv(text: &str, source_path: String, modified_ms: u64) -> Result<Parsed
             sections.insert(storage.clone());
         }
         let name = fields[name_col].trim();
+        if !location.is_empty() {
+            storage_slots.push(InventoryStorageSlotInput {
+                ordinal: (row_count - 1) as i64,
+                location: location.to_string(),
+                storage: storage.clone(),
+                empty: name.is_empty() || name.eq_ignore_ascii_case("empty"),
+            });
+        }
         let count = match count_col {
             None => 1,
             Some(index) => match fields[index].trim().parse::<i64>() {
@@ -238,6 +249,7 @@ fn parse_tsv(text: &str, source_path: String, modified_ms: u64) -> Result<Parsed
         entries,
         sections: sections.into_iter().collect(),
         fingerprint: String::new(),
+        storage_slots,
     })
 }
 
@@ -282,6 +294,7 @@ fn persist(
             skipped_rows: parsed.snapshot.skipped_rows,
             sections: parsed.sections.clone(),
             entries: parsed.entries.clone(),
+            storage_slots: parsed.storage_slots.clone(),
         })
         .map(|_| ())
         .map_err(|error| format!("save inventory snapshot: {error}"))
@@ -375,9 +388,34 @@ pub fn inventory_set_currency(
     if name.trim().is_empty() {
         return Err("currency name is required".into());
     }
-    store(&app)?
+    let mut store = store(&app)?;
+    store
         .set_currency(&character, &server, name.trim(), quantity, now_ms())
         .map_err(|error| format!("save currency: {error}"))
+}
+
+#[tauri::command]
+pub fn inventory_set_disposition(
+    app: AppHandle,
+    character: String,
+    server: String,
+    item_key: String,
+    action: String,
+    note: String,
+) -> Result<(), String> {
+    if !["", "keep", "move", "sell", "trade", "review"].contains(&action.as_str()) {
+        return Err("invalid inventory disposition".into());
+    }
+    store(&app)?
+        .set_disposition(
+            &character,
+            &server,
+            &item_key,
+            &action,
+            note.trim(),
+            now_ms(),
+        )
+        .map_err(|error| format!("save inventory disposition: {error}"))
 }
 
 #[tauri::command]
@@ -413,7 +451,9 @@ pub fn inventory_set_quest_status(
     quest_id: String,
     status: String,
 ) -> Result<(), String> {
-    if !["unknown", "in-progress", "completed", "ignored"].contains(&status.as_str()) {
+    if !["unknown", "planned", "in-progress", "completed", "ignored"]
+        .contains(&status.as_str())
+    {
         return Err("invalid quest status".into());
     }
     store(&app)?
@@ -501,5 +541,7 @@ mod tests {
         assert!(parsed.sections.contains(&"hoard".into()));
         assert!(parsed.sections.contains(&"personal-depot".into()));
         assert!(parsed.entries.is_empty());
+        assert_eq!(parsed.storage_slots.len(), 2);
+        assert!(parsed.storage_slots.iter().all(|slot| slot.empty));
     }
 }

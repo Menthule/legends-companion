@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   matchQuestRequirements,
+  filterQuestsByInventory,
   hasOwnedQuestReward,
   isQuestReady,
   loadQuestCatalog,
@@ -71,6 +72,14 @@ describe("inventory matching", () => {
   it("normalizes Legends augment suffixes", () => {
     expect(normalizeInventoryItem("Wind Rune Caza +3")).toBe("wind rune caza");
     expect(normalizeInventoryItem("Tear of Quellious (Exaltation)")).toBe("tear of quellious");
+  });
+
+  it("hides an owned final reward even when the input is one selected quest", () => {
+    const selected = { ...base, rewards: ["Tear of Quellious"] };
+    expect(filterQuestsByInventory([selected], snapshot, {
+      readyOnly: false,
+      hideOwnedRewards: true,
+    })).toEqual([]);
   });
 
   it("prefers IDs and falls back to normalized names with quantities", () => {

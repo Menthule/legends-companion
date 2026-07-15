@@ -138,7 +138,7 @@ fn v1_database_migrates_in_place_and_keeps_fights() {
     let version: i64 = conn
         .pragma_query_value(None, "user_version", |row| row.get(0))
         .unwrap();
-    assert_eq!(version, 3);
+    assert_eq!(version, 4);
     for table in [
         "sessions",
         "level_ups",
@@ -176,7 +176,7 @@ fn fight_store_open_also_creates_career_tables() {
     let version: i64 = conn
         .pragma_query_value(None, "user_version", |row| row.get(0))
         .unwrap();
-    assert_eq!(version, 3);
+    assert_eq!(version, 4);
     let n: i64 = conn
         .query_row(
             "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'sessions'",

@@ -20,7 +20,7 @@ import {
   triggerUpdateInstall,
   triggerVersion,
 } from "../api";
-import { useTauriEvent } from "../hooks";
+import { useDebouncedValue, useTauriEvent } from "../hooks";
 import { IS_MOCK } from "../mock";
 import {
   activeLoadout,
@@ -432,6 +432,7 @@ export default function TriggersTab({
   const [importOpen, setImportOpen] = useState(false);
   const [editorNonce, setEditorNonce] = useState(0);
   const [query, setQuery] = useState("");
+  const searchQuery = useDebouncedValue(query);
   const [triggerFilter, setTriggerFilter] = useState<TriggerFilter>("all");
   const [timingEditor, setTimingEditor] = useState<TimingEditorState | null>(null);
   const [zoneScopeEditor, setZoneScopeEditor] =
@@ -517,7 +518,7 @@ export default function TriggersTab({
 
   const tree = useMemo(() => {
     if (!entries) return [];
-    const q = query.trim().toLowerCase();
+    const q = searchQuery.trim().toLowerCase();
     const shown = entries.filter((e) => {
       if (q && !e.name.toLowerCase().includes(q) && !e.pattern.toLowerCase().includes(q)) {
         return false;
@@ -540,7 +541,7 @@ export default function TriggersTab({
       }
     });
     return buildTree(shown);
-  }, [entries, query, triggerFilter]);
+  }, [entries, searchQuery, triggerFilter]);
 
   // First load: expand the top-level groups (plus the first group's
   // children, so actual trigger rows are visible immediately) — deeper

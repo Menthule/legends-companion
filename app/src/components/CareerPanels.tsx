@@ -19,7 +19,7 @@ import {
   careerSummary,
   onCareerChanged,
 } from "../api";
-import { fmtDuration, fmtNum, useTauriEvent } from "../hooks";
+import { fmtDuration, fmtNum, useDebouncedValue, useTauriEvent } from "../hooks";
 import {
   buildLevelTimeline,
   careerTrendInputs,
@@ -72,16 +72,6 @@ function ImportCta() {
       Import log history
     </button>
   );
-}
-
-/** Debounced mirror of a search input's value. */
-function useDebounced(value: string, ms = SEARCH_DEBOUNCE_MS): string {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const h = window.setTimeout(() => setDebounced(value), ms);
-    return () => window.clearTimeout(h);
-  }, [value, ms]);
-  return debounced;
 }
 
 // ---------------------------------------------------------------------------
@@ -377,14 +367,14 @@ export function LootLedgerPanel() {
   const [loaded, setLoaded] = useState(false);
   const [hasData, setHasData] = useState(false);
   const [lootQuery, setLootQuery] = useState("");
-  const lootSearch = useDebounced(lootQuery);
+  const lootSearch = useDebouncedValue(lootQuery, SEARCH_DEBOUNCE_MS);
   const [lootPage, setLootPage] = useState(0);
   const [loot, setLoot] = useState<{ total: number; rows: CareerLootRow[] }>({
     total: 0,
     rows: [],
   });
   const [mobQuery, setMobQuery] = useState("");
-  const mobSearch = useDebounced(mobQuery);
+  const mobSearch = useDebouncedValue(mobQuery, SEARCH_DEBOUNCE_MS);
   const [mobPage, setMobPage] = useState(0);
   const [mobs, setMobs] = useState<{ total: number; rows: CareerMobKills[] }>({
     total: 0,

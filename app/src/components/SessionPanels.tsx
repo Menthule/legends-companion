@@ -6,7 +6,7 @@
 // old per-tab Collapsible was double chrome inside a tab strip).
 
 import { useEffect, useMemo, useState } from "react";
-import { fmtClock, fmtDuration, fmtNum, useNowMs } from "../hooks";
+import { fmtClock, fmtDuration, fmtNum, useDebouncedValue, useNowMs } from "../hooks";
 import { openDrops } from "../lib/deepLinks";
 import {
   loadMezBreakSpeak,
@@ -192,6 +192,7 @@ export default function SessionPanel({
 }) {
   const { loot, rolls, effects, recaps, kills, xp, levelProgress, levelAnchorKnown } = snap;
   const [lootQuery, setLootQuery] = useState("");
+  const lootSearch = useDebouncedValue(lootQuery);
 
   // Party Scoreboard mirror: sessionLog flushes the board to localStorage
   // (the overlay's channel) — subscribe to the same store here so the panel
@@ -205,7 +206,7 @@ export default function SessionPanel({
   );
 
   const shownLoot = useMemo(() => {
-    const q = lootQuery.trim().toLowerCase();
+    const q = lootSearch.trim().toLowerCase();
     if (!q) return loot;
     return loot.filter(
       (l) =>
@@ -213,7 +214,7 @@ export default function SessionPanel({
         l.who.toLowerCase().includes(q) ||
         (l.corpse ?? "").toLowerCase().includes(q),
     );
-  }, [loot, lootQuery]);
+  }, [loot, lootSearch]);
 
   const groups = useMemo(() => groupRolls(rolls), [rolls]);
   const recentRolls = useMemo(() => rolls.slice(0, RECENT_ROLLS), [rolls]);

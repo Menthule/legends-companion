@@ -7,10 +7,11 @@
 // paging are client-side — the catalog is a local JSON module, not sqlite.
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useDebouncedValue } from "../hooks";
 import { dropsQuestItemReferences, getConfig, inventoryDiscover, inventoryImport, pickInventoryFile } from "../api";
 import {
   matchQuestRequirements,
-  hasOwnedQuestReward,
+  filterQuestsByInventory,
   isQuestReady,
   loadQuestCatalog,
   normalizeQuestName,
@@ -85,6 +86,7 @@ export default function QuestsTab({
   searchRequest?: { query: string; seq: number; targetId?: string } | null;
 }) {
   const [query, setQuery] = useState("");
+  const searchQuery = useDebouncedValue(query);
   const [selectedQuestId, setSelectedQuestId] = useState<string | null>(null);
   const [zone, setZone] = useState("");
   const [readyOnly, setReadyOnly] = useState(false);
@@ -238,7 +240,7 @@ export default function QuestsTab({
       const selected = catalog?.quests.find((quest) => quest.id === selectedQuestId);
       return selected ? [selected] : [];
     }
-    const matches = searchQuests(query, { zone, limit: catalog?.quests.length ?? 1 }, catalog?.quests ?? []);
+    const matches = searchQuests(searchQuery, { zone, limit: catalog?.quests.length ?? 1 }, catalog?.quests ?? []);
     if (selectedClasses.length === 0) return matches;
     return matches.filter((quest) =>
       quest.classes.some((value) => {
@@ -246,23 +248,14 @@ export default function QuestsTab({
         return name === "allclasses" || selectedClasses.includes(name);
       }),
     );
-  }, [query, zone, selectedClasses, selectedQuestId, catalog]);
+  }, [searchQuery, zone, selectedClasses, selectedQuestId, catalog]);
   const readyCount = useMemo(
     () => filteredQuests.filter((quest) => isQuestReady(quest, inventory)).length,
     [filteredQuests, inventory],
   );
   const results = useMemo(() => {
-    // A global-search selection is an explicit request for this quest; local
-    // filters must not make the destination disappear after navigation.
-    if (selectedQuestId) return filteredQuests;
-    let next = readyOnly
-      ? filteredQuests.filter((quest) => isQuestReady(quest, inventory))
-      : filteredQuests;
-    if (hideOwnedRewards) {
-      next = next.filter((quest) => !hasOwnedQuestReward(quest, inventory));
-    }
-    return next;
-  }, [filteredQuests, hideOwnedRewards, inventory, readyOnly, selectedQuestId]);
+    return filterQuestsByInventory(filteredQuests, inventory, { readyOnly, hideOwnedRewards });
+  }, [filteredQuests, hideOwnedRewards, inventory, readyOnly]);
   const pages = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
   const safePage = Math.min(page, pages - 1);
   const pageRows = useMemo(

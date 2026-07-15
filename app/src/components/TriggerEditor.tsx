@@ -16,6 +16,7 @@ import {
 } from "../api";
 import { SearchSelect } from "./SearchSelect";
 import SpellGemIcon from "./SpellGemIcon";
+import { useDebouncedValue } from "../hooks";
 import spellData from "../data/spell_names.json";
 import {
   compilePreviewRegex,
@@ -512,9 +513,10 @@ function SpellCombo({
   const [openList, setOpenList] = useState(false);
   const [hi, setHi] = useState(0);
   const names = source === "castable" ? SPELLS.castable : SPELLS.all;
+  const searchValue = useDebouncedValue(value, 120);
 
   const matches = useMemo(() => {
-    const q = value.trim().toLowerCase();
+    const q = searchValue.trim().toLowerCase();
     if (q.length < 2) return [];
     const starts: string[] = [];
     const contains: string[] = [];
@@ -525,7 +527,7 @@ function SpellCombo({
       if (starts.length >= 20) break;
     }
     return [...starts, ...contains].slice(0, 20);
-  }, [value, names]);
+  }, [searchValue, names]);
 
   function pick(n: string) {
     if (onPick) onPick(n);

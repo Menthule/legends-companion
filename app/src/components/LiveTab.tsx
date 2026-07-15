@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { setOverride, shareImport } from "../api";
-import { fmtClock, useTauriEvent } from "../hooks";
+import { fmtClock, useDebouncedValue, useTauriEvent } from "../hooks";
 import {
   eventKind,
   type LogLinePayload,
@@ -217,6 +217,8 @@ export default function LiveTab({
   const [archiveOpen, setArchiveOpen] = useState(false);
   const [archiveQuery, setArchiveQuery] = useState("");
   const [filter, setFilter] = useState("");
+  const searchFilter = useDebouncedValue(filter);
+  const archiveSearch = useDebouncedValue(archiveQuery);
   const [autoScroll, setAutoScroll] = useState<boolean>(
     () => loadStoredFilters().autoScroll,
   );
@@ -382,7 +384,7 @@ export default function LiveTab({
     setQuickLine(r);
   }, [rows]);
 
-  const needle = filter.trim().toLowerCase();
+  const needle = searchFilter.trim().toLowerCase();
   const filtered = useMemo(
     () =>
       rows.filter((r) => {
@@ -402,7 +404,7 @@ export default function LiveTab({
   );
   const shown = paused ? filtered.filter((r) => r.id < pausedAt!) : filtered;
   const newCount = filtered.length - shown.length;
-  const archiveNeedle = archiveQuery.trim().toLowerCase();
+  const archiveNeedle = archiveSearch.trim().toLowerCase();
   const archiveFiltered = useMemo(
     () =>
       archiveRows.filter((r) => {

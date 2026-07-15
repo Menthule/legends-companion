@@ -7,7 +7,7 @@
 import { useMemo, useState } from "react";
 import macrosData from "../data/macros.json";
 import commandsData from "../data/commands.json";
-import { useCopyFeedback } from "../hooks";
+import { useCopyFeedback, useDebouncedValue } from "../hooks";
 import Empty from "./Empty";
 
 interface MacroDef {
@@ -146,11 +146,12 @@ function MacroCard({ macro, macroName }: { macro: MacroDef; macroName: string })
 export default function MacrosTab() {
   const [view, setView] = useState<"macros" | "commands">("macros");
   const [query, setQuery] = useState("");
+  const searchQuery = useDebouncedValue(query);
   const [category, setCategory] = useState("");
   const [klass, setKlass] = useState("");
   const [macroName, setMacroName] = useState("");
 
-  const q = query.trim().toLowerCase();
+  const q = searchQuery.trim().toLowerCase();
 
   const shownMacros = useMemo(
     () =>

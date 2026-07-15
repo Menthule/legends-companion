@@ -235,6 +235,20 @@ export function hasOwnedQuestReward(
   return quest.rewards.some((reward) => ownedNames.has(normalizeInventoryItem(reward)));
 }
 
+/** Apply inventory-specific quest visibility after text/class/deep-link
+ * selection. Keeping this separate prevents a selected quest from bypassing
+ * Ready or Hide owned rewards filters. */
+export function filterQuestsByInventory(
+  quests: QuestRecord[],
+  snapshot: InventorySnapshot | null,
+  options: { readyOnly: boolean; hideOwnedRewards: boolean },
+): QuestRecord[] {
+  return quests.filter((quest) =>
+    (!options.readyOnly || isQuestReady(quest, snapshot))
+    && (!options.hideOwnedRewards || !hasOwnedQuestReward(quest, snapshot)),
+  );
+}
+
 function acquisitionSourceSummary(source: QuestAcquisitionSource): string {
   const npcNames = source.npcNames.map((name) => name.trim()).filter(Boolean);
   const zone = source.zone?.trim() === "Plane of Air" ? "Plane of Sky" : source.zone?.trim();

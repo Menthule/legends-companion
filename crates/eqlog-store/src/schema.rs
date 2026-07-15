@@ -1,7 +1,7 @@
 //! Shared schema versioning for the ONE store database.
 //!
 //! `fights` (v1), career tables (v2, docs/career-db-design.md section 1), and
-//! inventory snapshots (v3) live in the same SQLite file. Every store calls
+//! inventory snapshots (v3-v4) live in the same SQLite file. Every store calls
 //! [`migrate`] on open, so whichever opens the file first brings it fully up
 //! to date.
 
@@ -11,7 +11,7 @@ use crate::StoreError;
 
 /// Schema version written to `PRAGMA user_version`. Bump when the schema
 /// changes and add a migration step in [`migrate`].
-pub(crate) const SCHEMA_VERSION: i64 = 3;
+pub(crate) const SCHEMA_VERSION: i64 = 4;
 
 /// Bring the schema up to [`SCHEMA_VERSION`]. Version 0 = fresh database.
 /// Opening a newer database than this crate understands is a hard error
@@ -204,6 +204,57 @@ pub(crate) fn migrate(conn: &Connection) -> Result<(), StoreError> {
                  updated_at_ms INTEGER NOT NULL,
                  PRIMARY KEY(character, server, quest_id)
              );
+             COMMIT;",
+        )?;
+    }
+    if found < 4 {
+        conn.execute_batch(
+            "BEGIN;
+             CREATE TABLE IF NOT EXISTS inventory_storage_slots (
+                 snapshot_id INTEGER NOT NULL REFERENCES inventory_snapshots(id)
+                                      ON DELETE CASCADE,
+                 ordinal     INTEGER NOT NULL,
+                 location    TEXT NOT NULL,
+                 storage     TEXT NOT NULL,
+                 empty       INTEGER NOT NULL,
+                 PRIMARY KEY(snapshot_id, ordinal)
+             );
+             CREATE INDEX IF NOT EXISTS inventory_storage_slots_area
+                 ON inventory_storage_slots(snapshot_id, storage, location);
+
+             CREATE TABLE IF NOT EXISTS inventory_dispositions (
+                 character     TEXT NOT NULL,
+                 server        TEXT NOT NULL,
+                 item_key      TEXT NOT NULL,
+                 action        TEXT NOT NULL,
+                 note          TEXT NOT NULL,
+                 updated_at_ms INTEGER NOT NULL,
+                 PRIMARY KEY(character, server, item_key)
+             );
+
+             CREATE TABLE IF NOT EXISTS inventory_currency_history (
+                 id            INTEGER PRIMARY KEY,
+                 character     TEXT NOT NULL,
+                 server        TEXT NOT NULL,
+                 name          TEXT NOT NULL,
+                 quantity      INTEGER NOT NULL,
+                 measured_at_ms INTEGER NOT NULL
+             );
+             CREATE INDEX IF NOT EXISTS inventory_currency_history_lookup
+                 ON inventory_currency_history(character COLLATE NOCASE,
+                                               server COLLATE NOCASE,
+                                               name COLLATE NOCASE,
+                                               measured_at_ms DESC, id DESC);
+             INSERT INTO inventory_currency_history
+                 (character, server, name, quantity, measured_at_ms)
+                 SELECT character, server, name, quantity, updated_at_ms
+                 FROM inventory_currencies
+                 WHERE NOT EXISTS (
+                     SELECT 1 FROM inventory_currency_history h
+                     WHERE h.character = inventory_currencies.character COLLATE NOCASE
+                       AND h.server = inventory_currencies.server COLLATE NOCASE
+                       AND h.name = inventory_currencies.name COLLATE NOCASE
+                 );
              COMMIT;",
         )?;
     }

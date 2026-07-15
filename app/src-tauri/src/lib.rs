@@ -352,6 +352,7 @@ pub fn run() {
             inventory::inventory_set_currency,
             inventory::inventory_remove_currency,
             inventory::inventory_set_keep,
+            inventory::inventory_set_disposition,
             inventory::inventory_set_quest_status,
             watches::watch_list,
             watches::watch_add_manual,

@@ -45,6 +45,21 @@ export function useTauriEvent<T>(name: string, handler: (payload: T) => void): v
 // existing component/overlay importers.
 export { fmtDuration, fmtNum } from "./lib/format";
 
+/** Keep controlled search inputs immediate while deferring expensive derived
+ * filtering. Clearing is immediate so reset buttons never feel delayed. */
+export function useDebouncedValue<T>(value: T, delayMs = 180): T {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    if (typeof value === "string" && value.length === 0) {
+      setDebounced(value);
+      return;
+    }
+    const timer = window.setTimeout(() => setDebounced(value), delayMs);
+    return () => window.clearTimeout(timer);
+  }, [delayMs, value]);
+  return debounced;
+}
+
 /** Timer countdown label: `m:ss` above a minute, `Ns` below. */
 export function fmtTimerLeft(left: number): string {
   if (left >= 60) return fmtDuration(left);
