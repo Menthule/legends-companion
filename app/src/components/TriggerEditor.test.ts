@@ -135,6 +135,24 @@ describe("trigger action editor codec", () => {
     expect(roundTrip(actions)).toEqual(actions);
   });
 
+  it("round-trips configurable watch observations and open context fields", () => {
+    const actions: TriggerAction[] = [
+      {
+        ObserveWatch: {
+          kind: "loot",
+          name: "${item}",
+          quantity: "${quantity}",
+          context: {
+            corpse: "${corpse}",
+            destination: "${destination}",
+          },
+        },
+      },
+    ];
+
+    expect(roundTrip(actions)).toEqual(actions);
+  });
+
   it("preserves empty and nested data for an overlay not installed in this build", () => {
     const actions: TriggerAction[] = [
       {

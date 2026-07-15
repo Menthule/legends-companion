@@ -31,11 +31,35 @@ describe("Impact overlay presentation", () => {
     );
 
     expect(markup).toContain("impact-loot-chest");
+    expect(markup).toContain("impact-intensity-high");
     expect(markup).toContain("ov-loot-chest");
-    expect(markup).toContain("ov-chest-lid");
+    expect(markup).toContain("loot-chest-closed.webp");
+    expect(markup).toContain("loot-chest-open.webp");
+    expect(markup).toContain("ov-chest-flash");
+    expect(markup).toContain("ov-chest-particles");
     expect(markup).toContain("YOU LOOTED");
     expect(markup).toContain("Large Sky Sapphire");
     expect(markup).toContain("1/2 for Test of Wind");
     expect(markup).toContain("ov-chest-glyph\">+");
+  });
+
+  it("renders monster-rip treatment with trigger-provided text", () => {
+    const markup = renderToStaticMarkup(
+      createElement(ImpactPresentation, {
+        payload: {
+          id: 2,
+          style: "monster-rip",
+          headline: "RIP",
+          big: "Splitpaw assassin",
+          sub: "3 remaining for Hollow Skull Quest",
+        },
+      }),
+    );
+
+    expect(markup).toContain("impact-monster-rip");
+    expect(markup).toContain("ov-monster-rip");
+    expect(markup).toContain("ov-rip-stone");
+    expect(markup).toContain("ov-rip-glyph\">RIP");
+    expect(markup).toContain("Splitpaw assassin");
   });
 });

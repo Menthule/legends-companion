@@ -47,12 +47,22 @@ export interface TriggerOverlaySpec {
   config?: Record<string, unknown>;
 }
 
+export type WatchObservationKind = "loot" | "kill";
+
 /** eqlog-triggers Action enum, serde externally-tagged. */
 export type TriggerAction =
   | { Speak: { template: string } }
   | { PlaySound: { path: string } }
   | { DisplayText: { template: string } }
   | { Overlay: TriggerOverlaySpec }
+  | {
+      ObserveWatch: {
+        kind: WatchObservationKind;
+        name: string;
+        quantity?: string | null;
+        context?: Record<string, string>;
+      };
+    }
   | { CancelTimer: { name: string } }
   /** Post to a named webhook (Discord batphone). The URL lives in app
    *  settings keyed by `webhook`; absent = the default webhook. */
@@ -99,7 +109,7 @@ export type TriggerAction =
 export type TriggerSource = "generated" | "curated" | "user" | "gina" | "shared";
 
 /** Structured trigger inputs emitted by the app after typed event handling. */
-export type TriggerEvent = "watched-loot";
+export type TriggerEvent = "watched-loot" | "watched-kill";
 
 export interface WatchGoalSource {
   kind: "manual" | "quest";
@@ -123,11 +133,18 @@ export interface WatchedItem {
   goals: WatchGoal[];
 }
 
+export interface WatchedKill {
+  key: string;
+  name: string;
+  goals: WatchGoal[];
+}
+
 export interface WatchList {
   server: string;
   character: string;
   legacyNamesImported: boolean;
   items: WatchedItem[];
+  kills: WatchedKill[];
 }
 
 export interface QuestWatchInput {
@@ -136,6 +153,15 @@ export interface QuestWatchInput {
   questName: string;
   requiredQuantity: number;
   ownedQuantity?: number;
+  autoRemove?: boolean;
+}
+
+export interface QuestKillWatchInput {
+  mobName: string;
+  questId: string;
+  questName: string;
+  requiredQuantity: number;
+  observedQuantity?: number;
   autoRemove?: boolean;
 }
 
@@ -342,7 +368,8 @@ export type ImpactStyle =
   | "level"
   | "badge"
   | "medal"
-  | "loot-chest";
+  | "loot-chest"
+  | "monster-rip";
 
 /** A trigger-driven Impact moment — the payload of the `impact` event. Every
  *  field is filled by the trigger's Impact action (template-expanded from the
@@ -362,6 +389,8 @@ export interface ImpactPayload {
   glyph?: string;
   /** Accent color (any CSS color) overriding the style default. */
   color?: string;
+  /** Strength of presentation-only glow and particles. */
+  intensity?: "low" | "medium" | "high";
 }
 
 /** The `impact` event payload as emitted by the backend (no local `id`). */

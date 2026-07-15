@@ -1315,7 +1315,11 @@ export default function TriggersTab({
           className="tt-pattern"
           title={e.event ? "Structured app event" : e.pattern}
         >
-          {e.event === "watched-loot" ? "Watched item looted" : e.pattern}
+          {e.event === "watched-loot"
+            ? "Watched item looted"
+            : e.event === "watched-kill"
+              ? "Watched mob killed"
+              : e.pattern}
         </span>
         <span className="tt-chan">
           <button

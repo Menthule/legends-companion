@@ -1,6 +1,6 @@
-//! Character-scoped item watches. This module owns persistence and progress;
-//! log parsing and trigger actions consume the typed [`WatchLootMatch`] it
-//! returns rather than duplicating item-name matching.
+//! Character-scoped item and kill watches. This module owns persistence and
+//! progress; log parsing and trigger actions consume typed matches rather than
+//! duplicating name matching.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -13,7 +13,7 @@ use tauri::{AppHandle, Emitter, State};
 
 use crate::commands::{lock, AppState};
 
-const WATCH_FILE_VERSION: u32 = 1;
+const WATCH_FILE_VERSION: u32 = 2;
 
 pub type SharedWatchStore = Arc<Mutex<Option<WatchStore>>>;
 
@@ -28,6 +28,7 @@ struct WatchFile {
     version: u32,
     legacy_names_imported: bool,
     items: Vec<WatchedItem>,
+    kills: Vec<WatchedKill>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -37,6 +38,7 @@ pub struct WatchList {
     pub character: String,
     pub legacy_names_imported: bool,
     pub items: Vec<WatchedItem>,
+    pub kills: Vec<WatchedKill>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -48,6 +50,15 @@ pub struct WatchedItem {
     /// Goals stay in insertion order. Loot is applied in that order, allowing
     /// one item to satisfy several manual/quest requirements without duplicate
     /// alerts for a single loot line.
+    pub goals: Vec<WatchGoal>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct WatchedKill {
+    /// Exact observed-victim key: case-insensitive with whitespace folded.
+    pub key: String,
+    pub name: String,
     pub goals: Vec<WatchGoal>,
 }
 
@@ -90,6 +101,19 @@ pub struct QuestWatchInput {
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
+pub struct QuestKillWatchInput {
+    pub mob_name: String,
+    pub quest_id: String,
+    pub quest_name: String,
+    pub required_quantity: u32,
+    #[serde(default)]
+    pub observed_quantity: u32,
+    #[serde(default = "default_true")]
+    pub auto_remove: bool,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct InventoryQuantity {
     pub name: String,
     pub quantity: u32,
@@ -111,6 +135,17 @@ pub struct LegacyImportResult {
 pub struct WatchLootMatch {
     pub item: String,
     pub quantity: u32,
+    pub applied_quantity: u32,
+    pub remaining_quantity: u32,
+    pub quests: Vec<String>,
+    pub completed_goal_ids: Vec<String>,
+    pub completed: bool,
+}
+
+#[derive(Debug, Clone, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct WatchKillMatch {
+    pub mob: String,
     pub applied_quantity: u32,
     pub remaining_quantity: u32,
     pub quests: Vec<String>,
@@ -257,10 +292,113 @@ impl WatchStore {
         })
     }
 
+    pub fn add_manual_kill(
+        &mut self,
+        id: &CharacterId,
+        mob_name: &str,
+        quantity: u32,
+        auto_remove: bool,
+    ) -> Result<WatchList, String> {
+        let name = clean_display_name(mob_name)?;
+        let quantity = quantity.max(1);
+        self.mutate(id, |file| {
+            let kill = find_or_insert_kill(&mut file.kills, &name);
+            let goal_id = manual_goal_id();
+            match kill.goals.iter_mut().find(|goal| goal.id == goal_id) {
+                Some(goal) => {
+                    goal.required_quantity = quantity;
+                    goal.owned_quantity = 0;
+                    goal.remaining_quantity = quantity;
+                    goal.enabled = true;
+                    goal.auto_remove = auto_remove;
+                }
+                None => kill.goals.push(WatchGoal {
+                    id: goal_id,
+                    source: WatchGoalSource::Manual,
+                    required_quantity: quantity,
+                    owned_quantity: 0,
+                    remaining_quantity: quantity,
+                    enabled: true,
+                    auto_remove,
+                }),
+            }
+            Ok(())
+        })
+    }
+
+    pub fn add_quest_kill_goals(
+        &mut self,
+        id: &CharacterId,
+        goals: &[QuestKillWatchInput],
+    ) -> Result<WatchList, String> {
+        self.mutate(id, |file| {
+            for input in goals {
+                let name = clean_display_name(&input.mob_name)?;
+                let quest_id = input.quest_id.trim();
+                if quest_id.is_empty() {
+                    return Err("quest id cannot be empty".to_string());
+                }
+                let required = input.required_quantity.max(1);
+                let observed = input.observed_quantity.min(required);
+                let kill = find_or_insert_kill(&mut file.kills, &name);
+                let goal_id = quest_goal_id(quest_id);
+                let source = WatchGoalSource::Quest {
+                    quest_id: quest_id.to_string(),
+                    quest_name: input.quest_name.trim().to_string(),
+                };
+                match kill.goals.iter_mut().find(|goal| goal.id == goal_id) {
+                    Some(goal) => {
+                        goal.source = source;
+                        goal.required_quantity = required;
+                        goal.owned_quantity = observed;
+                        goal.remaining_quantity = required.saturating_sub(observed);
+                        goal.enabled = true;
+                        goal.auto_remove = input.auto_remove;
+                    }
+                    None => kill.goals.push(WatchGoal {
+                        id: goal_id,
+                        source,
+                        required_quantity: required,
+                        owned_quantity: observed,
+                        remaining_quantity: required.saturating_sub(observed),
+                        enabled: true,
+                        auto_remove: input.auto_remove,
+                    }),
+                }
+            }
+            Ok(())
+        })
+    }
+
     pub fn remove_item(&mut self, id: &CharacterId, item_name: &str) -> Result<WatchList, String> {
         let key = normalize_nonempty(item_name)?;
         self.mutate(id, |file| {
             file.items.retain(|item| item.key != key);
+            Ok(())
+        })
+    }
+
+    pub fn remove_kill(&mut self, id: &CharacterId, mob_name: &str) -> Result<WatchList, String> {
+        let key = normalize_nonempty(mob_name)?;
+        self.mutate(id, |file| {
+            file.kills.retain(|kill| kill.key != key);
+            Ok(())
+        })
+    }
+
+    pub fn remove_quest_kill_goal(
+        &mut self,
+        id: &CharacterId,
+        mob_name: &str,
+        quest_id: &str,
+    ) -> Result<WatchList, String> {
+        let key = normalize_nonempty(mob_name)?;
+        let goal_id = quest_goal_id(quest_id);
+        self.mutate(id, |file| {
+            if let Some(kill) = file.kills.iter_mut().find(|kill| kill.key == key) {
+                kill.goals.retain(|goal| goal.id != goal_id);
+            }
+            file.kills.retain(|kill| !kill.goals.is_empty());
             Ok(())
         })
     }
@@ -293,6 +431,10 @@ impl WatchStore {
                 item.goals.retain(|goal| goal.id != goal_id);
             }
             file.items.retain(|item| !item.goals.is_empty());
+            for kill in &mut file.kills {
+                kill.goals.retain(|goal| goal.id != goal_id);
+            }
+            file.kills.retain(|kill| !kill.goals.is_empty());
             Ok(())
         })
     }
@@ -314,6 +456,37 @@ impl WatchStore {
                 .find(|item| item.key == key)
                 .and_then(|item| item.goals.iter_mut().find(|goal| goal.id == goal_id))
                 .ok_or_else(|| format!("watch goal {goal_id:?} was not found"))?;
+            if let Some(value) = enabled {
+                goal.enabled = value;
+            }
+            if let Some(value) = auto_remove {
+                goal.auto_remove = value;
+            }
+            if let Some(value) = remaining_quantity {
+                goal.remaining_quantity = value;
+                goal.required_quantity = goal.owned_quantity.saturating_add(value);
+            }
+            Ok(())
+        })
+    }
+
+    pub fn update_kill_goal(
+        &mut self,
+        id: &CharacterId,
+        mob_name: &str,
+        goal_id: &str,
+        enabled: Option<bool>,
+        auto_remove: Option<bool>,
+        remaining_quantity: Option<u32>,
+    ) -> Result<WatchList, String> {
+        let key = normalize_nonempty(mob_name)?;
+        self.mutate(id, |file| {
+            let goal = file
+                .kills
+                .iter_mut()
+                .find(|kill| kill.key == key)
+                .and_then(|kill| kill.goals.iter_mut().find(|goal| goal.id == goal_id))
+                .ok_or_else(|| format!("kill watch goal {goal_id:?} was not found"))?;
             if let Some(value) = enabled {
                 goal.enabled = value;
             }
@@ -496,6 +669,80 @@ impl WatchStore {
         }))
     }
 
+    /// Apply one observed NPC death. EverQuest's log reports the victim but
+    /// cannot prove server-side quest eligibility, so this deliberately
+    /// records observed progress and leaves the trigger text user-configurable.
+    pub fn apply_observed_kill(
+        &mut self,
+        id: &CharacterId,
+        mob_name: &str,
+    ) -> Result<Option<WatchKillMatch>, String> {
+        let key = normalize_nonempty(mob_name)?;
+        let mut file = self.load(id)?;
+        let Some(index) = file.kills.iter().position(|kill| kill.key == key) else {
+            return Ok(None);
+        };
+        let kill = &mut file.kills[index];
+        if !kill
+            .goals
+            .iter()
+            .any(|goal| goal.enabled && goal.remaining_quantity > 0)
+        {
+            return Ok(None);
+        }
+
+        let quests = kill
+            .goals
+            .iter()
+            .filter(|goal| goal.enabled && goal.remaining_quantity > 0)
+            .filter_map(|goal| match &goal.source {
+                WatchGoalSource::Quest { quest_name, .. } if !quest_name.is_empty() => {
+                    Some(quest_name.clone())
+                }
+                _ => None,
+            })
+            .collect::<BTreeSet<_>>()
+            .into_iter()
+            .collect();
+        let mut completed_goal_ids = Vec::new();
+        let mut applied_quantity = 0;
+        for goal in &mut kill.goals {
+            if !goal.enabled || goal.remaining_quantity == 0 {
+                continue;
+            }
+            goal.remaining_quantity -= 1;
+            goal.owned_quantity = goal.owned_quantity.saturating_add(1);
+            applied_quantity = 1;
+            if goal.remaining_quantity == 0 {
+                completed_goal_ids.push(goal.id.clone());
+            }
+        }
+        kill.goals.retain(|goal| {
+            !(goal.auto_remove
+                && goal.remaining_quantity == 0
+                && completed_goal_ids.iter().any(|id| id == &goal.id))
+        });
+        let remaining_quantity = kill
+            .goals
+            .iter()
+            .filter(|goal| goal.enabled)
+            .map(|goal| goal.remaining_quantity)
+            .sum();
+        let display_name = kill.name.clone();
+        if kill.goals.is_empty() {
+            file.kills.remove(index);
+        }
+        self.save(id, &file)?;
+        Ok(Some(WatchKillMatch {
+            mob: display_name,
+            applied_quantity,
+            remaining_quantity,
+            quests,
+            completed_goal_ids,
+            completed: remaining_quantity == 0,
+        }))
+    }
+
     fn path(&self, id: &CharacterId) -> PathBuf {
         id.dir(&self.data_root).join("watches.json")
     }
@@ -519,6 +766,11 @@ impl WatchStore {
         }
         file.items
             .retain(|item| !item.key.is_empty() && !item.goals.is_empty());
+        for kill in &mut file.kills {
+            kill.key = normalize_item_key(&kill.name);
+        }
+        file.kills
+            .retain(|kill| !kill.key.is_empty() && !kill.goals.is_empty());
         Ok(file)
     }
 
@@ -549,6 +801,7 @@ impl WatchFile {
             character: id.character.clone(),
             legacy_names_imported: self.legacy_names_imported,
             items: self.items,
+            kills: self.kills,
         }
     }
 }
@@ -556,7 +809,7 @@ impl WatchFile {
 fn clean_display_name(value: &str) -> Result<String, String> {
     let name = value.split_whitespace().collect::<Vec<_>>().join(" ");
     if name.is_empty() {
-        Err("item name cannot be empty".to_string())
+        Err("watch name cannot be empty".to_string())
     } else {
         Ok(name)
     }
@@ -565,7 +818,7 @@ fn clean_display_name(value: &str) -> Result<String, String> {
 fn normalize_nonempty(value: &str) -> Result<String, String> {
     let key = normalize_item_key(value);
     if key.is_empty() {
-        Err("item name cannot be empty".to_string())
+        Err("watch name cannot be empty".to_string())
     } else {
         Ok(key)
     }
@@ -584,6 +837,19 @@ fn find_or_insert_item<'a>(items: &'a mut Vec<WatchedItem>, name: &str) -> &'a m
     items.last_mut().expect("just inserted watched item")
 }
 
+fn find_or_insert_kill<'a>(kills: &'a mut Vec<WatchedKill>, name: &str) -> &'a mut WatchedKill {
+    let key = normalize_item_key(name);
+    if let Some(index) = kills.iter().position(|kill| kill.key == key) {
+        return &mut kills[index];
+    }
+    kills.push(WatchedKill {
+        key,
+        name: name.to_string(),
+        goals: Vec::new(),
+    });
+    kills.last_mut().expect("just inserted watched kill")
+}
+
 fn active_character(state: &AppState) -> Result<CharacterId, String> {
     let config = lock(&state.config, "config")?.clone();
     if let Some(active) = config.active_character {
@@ -595,7 +861,7 @@ fn active_character(state: &AppState) -> Result<CharacterId, String> {
     if !config.character_name.trim().is_empty() {
         return Ok(CharacterId::new(config.character_name, ""));
     }
-    Err("select a character before managing watched items".to_string())
+    Err("select a character before managing watched goals".to_string())
 }
 
 fn with_store<T>(
@@ -662,12 +928,68 @@ pub fn watch_add_quest_goals(
 }
 
 #[tauri::command]
+pub fn watch_add_manual_kill(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    mob_name: String,
+    quantity: Option<u32>,
+    auto_remove: Option<bool>,
+) -> Result<WatchList, String> {
+    let list = with_store(&state, |store, id| {
+        store.add_manual_kill(
+            id,
+            &mob_name,
+            quantity.unwrap_or(1),
+            auto_remove.unwrap_or(true),
+        )
+    })?;
+    emit_changed(&app, &list);
+    Ok(list)
+}
+
+#[tauri::command]
+pub fn watch_add_quest_kill_goal(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    goal: QuestKillWatchInput,
+) -> Result<WatchList, String> {
+    let list = with_store(&state, |store, id| store.add_quest_kill_goals(id, &[goal]))?;
+    emit_changed(&app, &list);
+    Ok(list)
+}
+
+#[tauri::command]
 pub fn watch_remove_item(
     app: AppHandle,
     state: State<'_, AppState>,
     item_name: String,
 ) -> Result<WatchList, String> {
     let list = with_store(&state, |store, id| store.remove_item(id, &item_name))?;
+    emit_changed(&app, &list);
+    Ok(list)
+}
+
+#[tauri::command]
+pub fn watch_remove_kill(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    mob_name: String,
+) -> Result<WatchList, String> {
+    let list = with_store(&state, |store, id| store.remove_kill(id, &mob_name))?;
+    emit_changed(&app, &list);
+    Ok(list)
+}
+
+#[tauri::command]
+pub fn watch_remove_quest_kill_goal(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    mob_name: String,
+    quest_id: String,
+) -> Result<WatchList, String> {
+    let list = with_store(&state, |store, id| {
+        store.remove_quest_kill_goal(id, &mob_name, &quest_id)
+    })?;
     emit_changed(&app, &list);
     Ok(list)
 }
@@ -711,6 +1033,30 @@ pub fn watch_update_goal(
         store.update_goal(
             id,
             &item_name,
+            &goal_id,
+            enabled,
+            auto_remove,
+            remaining_quantity,
+        )
+    })?;
+    emit_changed(&app, &list);
+    Ok(list)
+}
+
+#[tauri::command]
+pub fn watch_update_kill_goal(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    mob_name: String,
+    goal_id: String,
+    enabled: Option<bool>,
+    auto_remove: Option<bool>,
+    remaining_quantity: Option<u32>,
+) -> Result<WatchList, String> {
+    let list = with_store(&state, |store, id| {
+        store.update_kill_goal(
+            id,
+            &mob_name,
             &goal_id,
             enabled,
             auto_remove,
@@ -789,6 +1135,17 @@ mod tests {
             quest_name: format!("Quest {id}"),
             required_quantity: required,
             owned_quantity: owned,
+            auto_remove: true,
+        }
+    }
+
+    fn quest_kill(mob: &str, id: &str, required: u32) -> QuestKillWatchInput {
+        QuestKillWatchInput {
+            mob_name: mob.into(),
+            quest_id: id.into(),
+            quest_name: format!("Quest {id}"),
+            required_quantity: required,
+            observed_quantity: 0,
             auto_remove: true,
         }
     }
@@ -966,6 +1323,53 @@ mod tests {
             )
             .unwrap();
         assert_eq!(store.list(&id).unwrap().items[0].goals[0], goal);
+    }
+
+    #[test]
+    fn observed_kills_advance_manual_and_quest_goals_and_persist() {
+        let (_scratch, mut store, id) = fixture("kills");
+        store
+            .add_manual_kill(&id, "Splitpaw assassin", 2, false)
+            .unwrap();
+        store
+            .add_quest_kill_goals(&id, &[quest_kill("splitpaw assassin", "hollow", 3)])
+            .unwrap();
+
+        let matched = store
+            .apply_observed_kill(&id, " SPLITPAW   ASSASSIN ")
+            .unwrap()
+            .unwrap();
+        assert_eq!(matched.mob, "Splitpaw assassin");
+        assert_eq!(matched.applied_quantity, 1);
+        assert_eq!(matched.remaining_quantity, 3);
+        assert_eq!(matched.quests, vec!["Quest hollow"]);
+        assert!(!matched.completed);
+
+        let reloaded = WatchStore::new(store.data_root.clone()).list(&id).unwrap();
+        assert_eq!(reloaded.kills.len(), 1);
+        assert_eq!(reloaded.kills[0].goals[0].owned_quantity, 1);
+        assert_eq!(reloaded.kills[0].goals[1].owned_quantity, 1);
+        assert!(store
+            .apply_observed_kill(&id, "another assassin")
+            .unwrap()
+            .is_none());
+    }
+
+    #[test]
+    fn removing_all_quest_goals_clears_items_and_kills_only_for_that_quest() {
+        let (_scratch, mut store, id) = fixture("quest-kills-remove");
+        store
+            .add_quest_goals(&id, &[quest("Hollow Skull", "hollow", 1, 0)])
+            .unwrap();
+        store
+            .add_quest_kill_goals(&id, &[quest_kill("Splitpaw assassin", "hollow", 1)])
+            .unwrap();
+        store.add_manual_kill(&id, "Lynuga", 1, true).unwrap();
+
+        let list = store.remove_quest_goals(&id, "hollow").unwrap();
+        assert!(list.items.is_empty());
+        assert_eq!(list.kills.len(), 1);
+        assert_eq!(list.kills[0].name, "Lynuga");
     }
 
     #[test]

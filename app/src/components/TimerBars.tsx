@@ -1,12 +1,42 @@
 import { fmtTimerLeft, type TimerView } from "../hooks";
-import { IconWarn } from "./Icons";
-import SpellGemIcon from "./SpellGemIcon";
+import { IconTimers, IconWarn } from "./Icons";
+import SpellGemIcon, { spellIconId } from "./SpellGemIcon";
+
+export type TimerIconKind = "spell" | "glyph" | "fallback";
+
+export function timerIconKind(icon: string | null | undefined): TimerIconKind {
+  const configured = icon?.trim() ?? "";
+  if (!configured) return "fallback";
+  return spellIconId(configured) != null ? "spell" : "glyph";
+}
+
+function TimerIcon({ t, overlay }: { t: TimerView; overlay: boolean }) {
+  const configured = t.icon?.trim() ?? "";
+  const kind = timerIconKind(configured);
+  return (
+    <span
+      className={`timer-icon-slot${configured ? " configured" : " fallback"}`}
+      title={configured ? `${t.name} icon` : undefined}
+    >
+      {kind === "spell" ? (
+        <SpellGemIcon icon={configured} size={overlay ? 20 : 16} />
+      ) : kind === "glyph" ? (
+        <span className="timer-icon-glyph" aria-hidden="true">
+          {configured}
+        </span>
+      ) : (
+        <span className="timer-icon-fallback" aria-hidden="true">
+          <IconTimers size={overlay ? 14 : 12} />
+        </span>
+      )}
+    </span>
+  );
+}
 
 function TimerText({ t }: { t: TimerView }) {
   return (
     <>
       <span className="timer-name">
-        <SpellGemIcon icon={t.icon} size={18} label={`${t.name} spell icon`} />
         {t.warn && (
           <span className="timer-warn-mark">
             <IconWarn />
@@ -48,20 +78,25 @@ export default function TimerBars({
       {timers.map((t) => (
         <div
           key={t.name}
-          className={`timer-row${t.warn ? " warn" : ""}${t.expired ? " expired" : ""}${t.pending ? " pending" : ""}`}
+          className={`timer-entry${t.warn ? " warn" : ""}${t.expired ? " expired" : ""}${t.pending ? " pending" : ""}`}
         >
+          <TimerIcon t={t} overlay={overlay} />
           <div
-            className="timer-fill"
-            style={{ width: `${Math.min(100, t.frac * 100)}%` }}
+            className={`timer-row${t.warn ? " warn" : ""}${t.expired ? " expired" : ""}${t.pending ? " pending" : ""}`}
           >
-            {t.warn && !overlay && (
-              <div className="timer-text timer-text-clip" aria-hidden="true">
-                <TimerText t={t} />
-              </div>
-            )}
-          </div>
-          <div className="timer-text">
-            <TimerText t={t} />
+            <div
+              className="timer-fill"
+              style={{ width: `${Math.min(100, t.frac * 100)}%` }}
+            >
+              {t.warn && !overlay && (
+                <div className="timer-text timer-text-clip" aria-hidden="true">
+                  <TimerText t={t} />
+                </div>
+              )}
+            </div>
+            <div className="timer-text">
+              <TimerText t={t} />
+            </div>
           </div>
         </div>
       ))}

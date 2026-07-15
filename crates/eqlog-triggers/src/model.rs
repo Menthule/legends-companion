@@ -35,6 +35,7 @@ pub enum TriggerSource {
 #[serde(rename_all = "kebab-case")]
 pub enum TriggerEvent {
     WatchedLoot,
+    WatchedKill,
 }
 
 fn is_user_source(source: &TriggerSource) -> bool {
@@ -292,6 +293,24 @@ pub enum Action {
         #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
         config: BTreeMap<String, serde_json::Value>,
     },
+    /// Convert a raw-line match into an application-owned watch observation.
+    /// The engine only expands these templates; the host decides whether the
+    /// named item/mob is watched, persists progress, and emits the resulting
+    /// structured `watched-loot` / `watched-kill` signal. Keeping the raw log
+    /// grammar in trigger data makes format changes library updates rather
+    /// than executable releases.
+    ObserveWatch {
+        kind: WatchObservationKind,
+        /// Item or mob name template, normally a named regex capture.
+        name: String,
+        /// Optional quantity template. Blank/absent means one.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        quantity: Option<String>,
+        /// Optional source context (for example `corpse` or `killer`). Values
+        /// are expanded and forwarded into the structured watch signal.
+        #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+        context: BTreeMap<String, String>,
+    },
     StartTimer {
         name: String,
         duration_secs: u64,
@@ -396,6 +415,14 @@ pub enum Action {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         color: Option<String>,
     },
+}
+
+/// Canonical watch observation produced by a raw-line trigger.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum WatchObservationKind {
+    Loot,
+    Kill,
 }
 
 /// A partial exact timer timing. Used both by pack-authored rank tables and

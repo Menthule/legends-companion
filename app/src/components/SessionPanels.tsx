@@ -52,7 +52,13 @@ import {
   walletPlatPerHour,
   type WalletSource,
 } from "../lib/wallet";
-import { toggleWishlist, type WishlistEntry } from "../lib/wishlist";
+import {
+  removeWatchedKill,
+  toggleWishlist,
+  watchRemainingQuantity,
+  type KillWatchEntry,
+  type WishlistEntry,
+} from "../lib/wishlist";
 import { computeLevelEta, computeXpStats } from "../overlayState";
 import { CareerPanel, LootLedgerPanel } from "./CareerPanels";
 import Empty from "./Empty";
@@ -167,6 +173,7 @@ export default function SessionPanel({
   tab,
   snap,
   wishlist,
+  watchedKills,
   pace,
   onSetPace,
   character,
@@ -175,6 +182,7 @@ export default function SessionPanel({
   tab: SessionPanelId;
   snap: SessionLogSnapshot;
   wishlist: WishlistEntry[];
+  watchedKills: KillWatchEntry[];
   pace: PaceState;
   onSetPace: (next: PaceState) => void;
   /** Active character (keys the persisted faction/skill stores). */
@@ -758,16 +766,17 @@ export default function SessionPanel({
     return (
       <section className="card coach-span">
         <div className="card-head">
-          <span className="section-title">Watched items</span>
+          <span className="section-title">Watched goals</span>
         </div>
-        {wishlist.length === 0 ? (
+        {wishlist.length === 0 && watchedKills.length === 0 ? (
           <Empty
-            title="No watched items"
-            body="Star items in Drops or watch quest requirements. Loot alerts are configured in Triggers."
+            title="No watched goals"
+            body="Watch items in Drops, mobs in Mobs, or requirements in Quests. Their alerts are configured in Triggers."
           />
         ) : (
           <>
-            <div className="session-loot">
+            <div className="session-loot watched-session-list">
+              {wishlist.length > 0 && <div className="session-watch-heading">Drops</div>}
               {wishlist.map((w) => (
                 <div
                   className="session-loot-row wishlist-row"
@@ -783,9 +792,26 @@ export default function SessionPanel({
                   </button>
                 </div>
               ))}
+              {watchedKills.length > 0 && <div className="session-watch-heading">Kills</div>}
+              {watchedKills.map((kill) => (
+                <div
+                  className="session-loot-row wishlist-row kill-watch-row"
+                  key={`kill:${kill.key}`}
+                >
+                  <span className="session-item">{kill.name}</span>
+                  <span className="num hint">{watchRemainingQuantity(kill)} remaining</span>
+                  <button
+                    className="ghost small"
+                    onClick={() => void removeWatchedKill(kill.name)}
+                    title="Remove watched kill"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
             </div>
             <div className="hint">
-              Star items in the Drops tab to add more.
+              Add drops from Drops, kills from Mobs, or either goal from Quests.
             </div>
           </>
         )}

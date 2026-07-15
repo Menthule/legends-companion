@@ -50,7 +50,7 @@ describe("overlay registry", () => {
     expect(getOverlayDefinition("future-overlay")).toBeUndefined();
     expect(overlayDefaults("impact")).toEqual({
       fields: { headline: "", big: "", sub: "", glyph: "" },
-      config: { style: "badge", color: "", durationMs: 2600 },
+      config: { style: "badge", color: "", intensity: "high", durationMs: 2600 },
     });
     expect(overlayDefaults("future-overlay")).toEqual({ fields: {}, config: {} });
   });
@@ -102,7 +102,7 @@ describe("overlay payload interpretation", () => {
         payload(
           "impact",
           { headline: " LEVEL UP ", big: " 42 ", sub: " Ding! " },
-          { style: "level", color: "#ffd166", durationMs: 4200 },
+          { style: "level", color: "#ffd166", intensity: "medium", durationMs: 4200 },
         ),
       ),
     ).toEqual({
@@ -113,6 +113,7 @@ describe("overlay payload interpretation", () => {
         sub: "Ding!",
         glyph: undefined,
         color: "#ffd166",
+        intensity: "medium",
       },
       durationMs: 4200,
     });
@@ -125,6 +126,7 @@ describe("overlay payload interpretation", () => {
         sub: undefined,
         glyph: undefined,
         color: undefined,
+        intensity: "high",
       },
       durationMs: 2600,
     });

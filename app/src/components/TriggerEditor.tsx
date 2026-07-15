@@ -1,8 +1,8 @@
 // Shared trigger editor (docs/trigger-editor-spec.md): sentence-shaped
 // builder ("When X happens -> Do Y") used by both the Triggers tab and the
 // quick-create modal. Builder state derives the pattern from a template
-// registry; unrecognized patterns open in Advanced mode. Zero schema changes:
-// everything serializes to the existing Trigger JSON.
+// registry; unrecognized patterns open in Advanced mode. Every action
+// serializes through the shared Trigger JSON schema.
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
@@ -70,11 +70,19 @@ const TEMPLATE_CTX: TemplateContext = {
   },
 };
 
-const WATCH_EVENT_FIELDS: CaptureChip[] = [
+const WATCH_LOOT_EVENT_FIELDS: CaptureChip[] = [
   { group: 0, label: "item", token: "${item}" },
   { group: 0, label: "quantity", token: "${quantity}" },
   { group: 0, label: "applied quantity", token: "${appliedQuantity}" },
   { group: 0, label: "corpse", token: "${corpse}" },
+  { group: 0, label: "remaining", token: "${remaining}" },
+  { group: 0, label: "quests", token: "${quests}" },
+  { group: 0, label: "completed", token: "${completed}" },
+];
+
+const WATCH_KILL_EVENT_FIELDS: CaptureChip[] = [
+  { group: 0, label: "mob", token: "${mob}" },
+  { group: 0, label: "applied quantity", token: "${appliedQuantity}" },
   { group: 0, label: "remaining", token: "${remaining}" },
   { group: 0, label: "quests", token: "${quests}" },
   { group: 0, label: "completed", token: "${completed}" },
@@ -88,6 +96,7 @@ const WATCH_EVENT_PREVIEW: Record<string, string> = {
   remaining: "2",
   quests: "Test of Tone",
   completed: "false",
+  mob: "Splitpaw assassin",
 };
 
 function expandWatchEventPreview(template: string): string {
@@ -104,6 +113,7 @@ type RowKind =
   | "speak"
   | "sound"
   | "overlay"
+  | "observe"
   | "timer"
   | "cancel"
   | "webhook";
@@ -136,6 +146,12 @@ interface RowState {
   overlay: string;
   overlayFields: Record<string, string>;
   overlayConfig: Record<string, unknown>;
+  /** Raw-line observation mapped into the character watch service. */
+  observeKind: "loot" | "kill";
+  observeName: string;
+  observeQuantity: string;
+  /** One `key = template` pair per line; preserved as open context data. */
+  observeContextText: string;
   /** Editor-only disclosure state; never serialized into Trigger.actions. */
   expanded: boolean;
   appearanceOpen: boolean;
@@ -160,6 +176,10 @@ function blankRow(kind: RowKind): RowState {
     overlay: "alerts",
     overlayFields: overlayDefaults("alerts").fields,
     overlayConfig: overlayDefaults("alerts").config,
+    observeKind: "loot",
+    observeName: "${item}",
+    observeQuantity: "${quantity}",
+    observeContextText: "corpse = ${corpse}",
     expanded: true,
     appearanceOpen: false,
   };
@@ -203,6 +223,17 @@ export function rowsFromActions(actions: TriggerAction[]): RowState[] {
         overlay: a.Overlay.overlay || "alerts",
         overlayFields: { ...a.Overlay.fields },
         overlayConfig: { ...(a.Overlay.config ?? {}) },
+      };
+    }
+    if ("ObserveWatch" in a) {
+      return {
+        ...blankRow("observe"),
+        observeKind: a.ObserveWatch.kind,
+        observeName: a.ObserveWatch.name,
+        observeQuantity: a.ObserveWatch.quantity ?? "",
+        observeContextText: Object.entries(a.ObserveWatch.context ?? {})
+          .map(([key, value]) => `${key} = ${value}`)
+          .join("\n"),
       };
     }
     if ("Impact" in a) {
@@ -295,6 +326,23 @@ function parseRankTimings(
   return result;
 }
 
+function parseObservationContext(text: string): Record<string, string> | string {
+  const context: Record<string, string> = {};
+  for (const [index, raw] of text.split(/\r?\n/).entries()) {
+    const line = raw.trim();
+    if (!line) continue;
+    const equals = line.indexOf("=");
+    if (equals < 1) return `Observation context line ${index + 1} must look like “corpse = ${"${corpse}"}”.`;
+    const key = line.slice(0, equals).trim();
+    const value = line.slice(equals + 1).trim();
+    if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(key) || !value) {
+      return `Observation context line ${index + 1} needs a field name and template.`;
+    }
+    context[key] = value;
+  }
+  return context;
+}
+
 /** Build actions from rows; returns an error message instead on bad input. */
 export function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
   if (rows.length === 0) {
@@ -329,6 +377,20 @@ export function actionsFromRows(rows: RowState[]): TriggerAction[] | string {
             overlay,
             fields,
             ...(Object.keys(config).length > 0 ? { config } : {}),
+          },
+        });
+        break;
+      }
+      case "observe": {
+        if (!row.observeName.trim()) return "Watch observation needs an item or mob name template.";
+        const context = parseObservationContext(row.observeContextText);
+        if (typeof context === "string") return context;
+        actions.push({
+          ObserveWatch: {
+            kind: row.observeKind,
+            name: row.observeName.trim(),
+            ...(row.observeQuantity.trim() ? { quantity: row.observeQuantity.trim() } : {}),
+            ...(Object.keys(context).length > 0 ? { context } : {}),
           },
         });
         break;
@@ -838,7 +900,8 @@ export default function TriggerEditor({
   }, [mode, templateId, params, sounds]);
 
   const chips: CaptureChip[] = useMemo(() => {
-    if (signalEvent === "watched-loot") return WATCH_EVENT_FIELDS;
+    if (signalEvent === "watched-loot") return WATCH_LOOT_EVENT_FIELDS;
+    if (signalEvent === "watched-kill") return WATCH_KILL_EVENT_FIELDS;
     if (template) return template.captures(params, variantIx);
     // Advanced mode: generic labels for however many groups the pattern has.
     const groups = (advPattern.match(/\((?!\?)/g) ?? []).length;
@@ -923,7 +986,7 @@ export default function TriggerEditor({
   function willDo(row: RowState, match: RegExpExecArray | null): string {
     const render = (tpl: string) =>
       expandTemplateJs(
-        signalEvent === "watched-loot" ? expandWatchEventPreview(tpl) : tpl,
+        signalEvent ? expandWatchEventPreview(tpl) : tpl,
         match,
         character || "you",
         nowSecs,
@@ -948,6 +1011,8 @@ export default function TriggerEditor({
         const s = matchSound(row.soundPath);
         return `Plays: ${s ? s.label : baseName(row.soundPath) || "(no sound picked)"}`;
       }
+      case "observe":
+        return `Observes ${row.observeKind}: ${render(row.observeName) || "(name not mapped)"}`;
       case "cancel":
         return `Cancels timer: ${render(row.timerName)}`;
       case "webhook":
@@ -970,6 +1035,8 @@ export default function TriggerEditor({
         return "Text to speech";
       case "sound":
         return "Play sound";
+      case "observe":
+        return row.observeKind === "loot" ? "Observe watched loot" : "Observe watched kill";
       case "timer":
         return "Start timer";
       case "cancel":
@@ -984,6 +1051,7 @@ export default function TriggerEditor({
       overlay: "OV",
       speak: "TTS",
       sound: "SND",
+      observe: "OBS",
       timer: "TMR",
       cancel: "END",
       webhook: "WEB",
@@ -1078,6 +1146,12 @@ export default function TriggerEditor({
       row.overlayFields = { ...defaults.fields, text: name || "Alert" };
       row.overlayConfig = defaults.config;
     }
+    if (kind === "observe") {
+      row.observeKind = "loot";
+      row.observeName = chips[0]?.token ?? "${item}";
+      row.observeQuantity = "";
+      row.observeContextText = "";
+    }
     setRows((rs) => [...rs, row]);
     setAddMenuOpen(false);
   };
@@ -1101,6 +1175,20 @@ export default function TriggerEditor({
         return { ...r, [field]: next };
       }),
     );
+    touch();
+    dirty.current.actions = true;
+  }
+
+  function appendObservationToken(
+    rowId: number,
+    field: "observeName" | "observeQuantity",
+    token: string,
+  ) {
+    setRows((rows) => rows.map((row) =>
+      row.id === rowId
+        ? { ...row, [field]: `${row[field]}${token}` }
+        : row,
+    ));
     touch();
     dirty.current.actions = true;
   }
@@ -1681,6 +1769,77 @@ export default function TriggerEditor({
             );
           })()}
 
+          {row.kind === "observe" && (
+            <div className="ted-impact">
+              <label className="field">
+                <span>Observation</span>
+                <select
+                  value={row.observeKind}
+                  aria-label="Watch observation type"
+                  onChange={(e) => {
+                    const kind = e.target.value as RowState["observeKind"];
+                    updateRow(row.id, {
+                      observeKind: kind,
+                      observeName: kind === "loot" ? "${item}" : "${mob}",
+                      observeQuantity: kind === "loot" ? "${quantity}" : "",
+                      observeContextText: kind === "loot" ? "corpse = ${corpse}" : "killer = ${killer}",
+                    });
+                  }}
+                >
+                  <option value="loot">Looted item</option>
+                  <option value="kill">Killed mob</option>
+                </select>
+              </label>
+              <label className="field">
+                <span>{row.observeKind === "loot" ? "Item name" : "Mob name"} *</span>
+                <input
+                  type="text"
+                  value={row.observeName}
+                  placeholder={row.observeKind === "loot" ? "${item}" : "${mob}"}
+                  onChange={(e) => updateRow(row.id, { observeName: e.target.value })}
+                />
+              </label>
+              <div className="ted-chips" aria-label="Observation capture fields">
+                {rowChips.map((chip) => (
+                  <button
+                    type="button"
+                    className="ted-chip"
+                    key={chip.token}
+                    title={`Append ${chip.token} to the observed name`}
+                    onClick={() => appendObservationToken(row.id, "observeName", chip.token)}
+                  >
+                    {chip.label}
+                  </button>
+                ))}
+              </div>
+              <label className="field">
+                <span>Quantity (optional; blank means 1)</span>
+                <input
+                  type="text"
+                  value={row.observeQuantity}
+                  placeholder="${quantity}"
+                  onChange={(e) => updateRow(row.id, { observeQuantity: e.target.value })}
+                />
+              </label>
+              <label className="field">
+                <span>Context fields (optional)</span>
+                <textarea
+                  rows={3}
+                  value={row.observeContextText}
+                  placeholder={row.observeKind === "loot" ? "corpse = ${corpse}" : "killer = ${killer}"}
+                  onChange={(e) => updateRow(row.id, { observeContextText: e.target.value })}
+                />
+              </label>
+              <div className="hint">
+                One <code>field = template</code> per line. This action only observes the raw
+                line; matching watch goals then emit a configurable structured trigger.
+              </div>
+              <div className="ted-test ok">
+                Preview: {willDo(row, test?.match ?? null)}
+              </div>
+            </div>
+          )}
+
           {row.kind === "sound" && (
             <div className="ted-sound-line">
               <select
@@ -1971,6 +2130,18 @@ export default function TriggerEditor({
               ${"{remaining}"}, and ${"{quests}"}.
             </div>
           </div>
+        ) : signalEvent === "watched-kill" ? (
+          <div className="ted-event-source">
+            <strong>Watched mob is killed</strong>
+            <span>
+              Fires after an event-source trigger observes a death and the mob
+              matches this character&apos;s watched kills.
+            </span>
+            <div className="hint">
+              Available fields: ${"{mob}"}, ${"{remaining}"},
+              ${"{quests}"}, and ${"{completed}"}.
+            </div>
+          </div>
         ) : (
           <>
             <select
@@ -2102,6 +2273,7 @@ export default function TriggerEditor({
             <div className="ted-action-picker" role="menu" aria-label="Add an action">
               {([
                 ["overlay", "Overlay", "Send matched data to a configurable overlay"],
+                ["observe", "Observe watch", "Turn captured loot or a kill into watch progress"],
                 ["speak", "Text to speech", "Read a message aloud"],
                 ["sound", "Sound", "Play an audio cue"],
                 ["timer", "Start timer", "Create or restart a timer bar"],

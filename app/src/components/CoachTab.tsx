@@ -52,7 +52,13 @@ import {
 } from "../lib/sessionLog";
 import type { TrendSessionInput } from "../lib/trends";
 import { totalCopper, walletGainFromEvent } from "../lib/wallet";
-import { loadWishlist, onWishlistChanged, type WishlistEntry } from "../lib/wishlist";
+import {
+  loadWatchedKills,
+  loadWishlist,
+  onWishlistChanged,
+  type KillWatchEntry,
+  type WishlistEntry,
+} from "../lib/wishlist";
 import Empty from "./Empty";
 import SessionPanel, {
   SESSION_PANELS,
@@ -489,7 +495,11 @@ export default function CoachTab({ character }: { character: string }) {
   // lib/sessionLog — this tab is just a view over it.
   const sessionLog = useSessionLog();
   const [wishlist, setWishlist] = useState<WishlistEntry[]>(() => loadWishlist());
-  useEffect(() => onWishlistChanged(() => setWishlist(loadWishlist())), []);
+  const [watchedKills, setWatchedKills] = useState<KillWatchEntry[]>(() => loadWatchedKills());
+  useEffect(() => onWishlistChanged(() => {
+    setWishlist(loadWishlist());
+    setWatchedKills(loadWatchedKills());
+  }), []);
   const [exportingSession, setExportingSession] = useState(false);
   const [toastNode, showToast] = useToast();
   const [xpSession, setXpSession] = useState(0);
@@ -1191,7 +1201,7 @@ export default function CoachTab({ character }: { character: string }) {
     effects: sessionLog.effects.length,
     deaths: sessionLog.recaps.length,
     loot: sessionLog.loot.length,
-    wishlist: wishlist.length,
+    wishlist: wishlist.length + watchedKills.length,
     rolls: sessionLog.rolls.length,
     factions: Object.keys(sessionLog.factions).length,
     skills: sessionLog.skillUps.length,
@@ -1394,6 +1404,7 @@ export default function CoachTab({ character }: { character: string }) {
           tab={section as SessionPanelId}
           snap={sessionLog}
           wishlist={wishlist}
+          watchedKills={watchedKills}
           pace={pace}
           onSetPace={updatePace}
           character={character}

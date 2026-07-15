@@ -41,12 +41,15 @@ import Empty from "./Empty";
 import Pager from "./Pager";
 import type { QuestItemReference } from "../types";
 import {
+  addQuestKillWatch,
   addQuestWatches,
+  loadWatchedKills,
   loadWishlist,
   onWishlistChanged,
   questGoal,
   reconcileWishlistInventory,
   removeQuestWatch,
+  removeQuestKillWatch,
   removeQuestWatches,
 } from "../lib/wishlist";
 
@@ -101,6 +104,8 @@ export default function QuestsTab({
   const [, bumpWatches] = useState(0);
   const watchRevision = loadWishlist()
     .flatMap((item) => item.goals.map((goal) => `${item.key}:${goal.id}`))
+    .concat(loadWatchedKills().flatMap((kill) =>
+      kill.goals.map((goal) => `kill:${kill.key}:${goal.id}:${goal.remainingQuantity}`)))
     .join("|");
 
   useEffect(() => onWishlistChanged(() => bumpWatches((value) => value + 1)), []);
@@ -443,10 +448,19 @@ function QuestRow({
   }, new Map<string, (typeof requirements)[number]>()).values()];
   const completed = groupedRequirements.filter((requirement) => requirement.satisfied).length;
   const missing = groupedRequirements.filter((requirement) => !requirement.satisfied);
-  const watchedCount = groupedRequirements.filter((requirement) => questGoal(requirement.itemName, quest.id)).length;
+  const questKillGoals = loadWatchedKills().flatMap((kill) =>
+    kill.goals
+      .filter((goal) => goal.source.kind === "quest" && goal.source.questId === quest.id)
+      .map((goal) => ({ kill, goal })),
+  );
+  const watchedCount = groupedRequirements.filter((requirement) => questGoal(requirement.itemName, quest.id)).length
+    + questKillGoals.length;
   const hasUnwatchedMissing = missing.some((requirement) => !questGoal(requirement.itemName, quest.id));
   const [watchBusy, setWatchBusy] = useState(false);
   const [watchError, setWatchError] = useState("");
+  const [killFormOpen, setKillFormOpen] = useState(false);
+  const [killName, setKillName] = useState("");
+  const [killQuantity, setKillQuantity] = useState(1);
 
   const watchMissing = async () => {
     setWatchBusy(true);
@@ -498,6 +512,42 @@ function QuestRow({
           autoRemove: true,
         }]);
       }
+    } catch (error) {
+      setWatchError(String(error));
+    } finally {
+      setWatchBusy(false);
+    }
+  };
+
+  const addKillGoal = async () => {
+    const mobName = killName.trim();
+    if (!mobName) return;
+    setWatchBusy(true);
+    setWatchError("");
+    try {
+      await addQuestKillWatch({
+        mobName,
+        questId: quest.id,
+        questName: quest.name,
+        requiredQuantity: killQuantity,
+        observedQuantity: 0,
+        autoRemove: true,
+      });
+      setKillName("");
+      setKillQuantity(1);
+      setKillFormOpen(false);
+    } catch (error) {
+      setWatchError(String(error));
+    } finally {
+      setWatchBusy(false);
+    }
+  };
+
+  const removeKillGoal = async (mobName: string) => {
+    setWatchBusy(true);
+    setWatchError("");
+    try {
+      await removeQuestKillWatch(mobName, quest.id);
     } catch (error) {
       setWatchError(String(error));
     } finally {
@@ -566,9 +616,62 @@ function QuestRow({
             </div>
             );
           })}
-          {watchError && <div className="quest-watch-error">{watchError}</div>}
         </div>
       )}
+      <div className="quest-kill-goals">
+        <div className="quest-requirements-head">
+          <strong>Required kills</strong>
+          <button
+            className="ghost small"
+            disabled={watchBusy}
+            onClick={() => setKillFormOpen((open) => !open)}
+          >
+            {killFormOpen ? "Cancel" : "+ Kill goal"}
+          </button>
+        </div>
+        {questKillGoals.map(({ kill, goal }) => (
+          <div className="quest-kill-goal-row" key={`${kill.key}:${goal.id}`}>
+            <span>{kill.name}</span>
+            <strong>{goal.ownedQuantity}/{goal.requiredQuantity} observed</strong>
+            <button
+              className="quest-watch-toggle on"
+              title={`Stop watching kills of ${kill.name} for this quest`}
+              aria-label={`Stop watching kills of ${kill.name}`}
+              disabled={watchBusy}
+              onClick={() => void removeKillGoal(kill.name)}
+            >
+              ★
+            </button>
+          </div>
+        ))}
+        {killFormOpen && (
+          <div className="quest-kill-goal-form">
+            <input
+              type="text"
+              value={killName}
+              placeholder="Exact mob name"
+              aria-label="Mob name"
+              onChange={(event) => setKillName(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") void addKillGoal();
+              }}
+            />
+            <label>
+              Count
+              <input
+                type="number"
+                min={1}
+                value={killQuantity}
+                onChange={(event) => setKillQuantity(Math.max(1, Math.floor(Number(event.target.value) || 1)))}
+              />
+            </label>
+            <button className="primary small" disabled={watchBusy || !killName.trim()} onClick={() => void addKillGoal()}>
+              Add
+            </button>
+          </div>
+        )}
+        {watchError && <div className="quest-watch-error">{watchError}</div>}
+      </div>
       {quest.rewards.length > 0 && (
         <div className="quest-rewards">
           <span>Rewards</span>

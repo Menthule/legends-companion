@@ -614,6 +614,7 @@ fn tree_entry(
                 impact |= overlay == "impact";
                 add_overlay(overlay);
             }
+            Action::ObserveWatch { .. } => {}
             Action::PlaySound { .. } => sound = true,
             Action::StartTimer { .. } | Action::CancelTimer { .. } => timer = true,
             Action::PostWebhook { .. } => webhook = true,

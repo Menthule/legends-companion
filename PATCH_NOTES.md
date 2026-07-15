@@ -1,5 +1,23 @@
 # Patch Notes
 
+## 3.0.1 - Watched Kills
+
+### Watch Goals
+- Add kill goals directly from a mob or attach an exact mob name and required count to any quest.
+- Manage watched drops and kills together from Session, with detailed kill progress and auto-remove controls in Mobs and Quests.
+- Existing item-only watch files migrate automatically to the shared item-and-kill watch format.
+
+### Trigger-Driven Impact
+- Editable event-source triggers recognize raw loot and kill lines, then emit structured watch observations; log wording can be updated from the trigger library without changing application code.
+- Observed deaths for watched mobs now emit a structured `watched-kill` trigger event; no mob names or quest rules are hardcoded.
+- The default trigger sends a large RIP tombstone and mob name to Impact with sound, while the trigger editor controls the overlay, text, style, color, duration, sound, and TTS.
+- Watched loot and watched kills use the same typed event -> watch match -> trigger -> actions pipeline.
+- Watched loot now opens an original generated fantasy chest with a configurable glow burst, reward particles, and reduced-motion treatment.
+
+### Timer Icons
+- Buff, debuff, ability, and custom timer bars now reserve an EverQuest-style icon slot beside the progress bar.
+- Spell timers use their configured spell-gem artwork, while custom glyphs and a restrained fallback keep every row aligned.
+
 ## 3.0 - Career History, Sessions & Watched Loot
 
 ### Career History

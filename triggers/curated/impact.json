@@ -10,7 +10,7 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Impact/Loot",
-      "comments": "Fires from the typed Loot event only when the item is on this character's watch list. It never parses a raw log pattern. Available fields are ${item}, ${quantity}, ${appliedQuantity}, ${corpse}, ${remaining}, ${quests}, and ${completed}.",
+      "comments": "Fires after a System/Event Sources trigger observes loot and the item matches this character's watch list. Raw log grammar and capture mapping remain editable trigger data. Available fields are ${item}, ${quantity}, ${appliedQuantity}, ${corpse}, ${remaining}, ${quests}, and ${completed}.",
       "actions": [
         {
           "Overlay": {
@@ -23,6 +23,7 @@
             "config": {
               "style": "loot-chest",
               "color": "#f2c14e",
+              "intensity": "high",
               "durationMs": 4000
             }
           }
@@ -30,6 +31,39 @@
         {
           "PlaySound": {
             "path": "success.wav"
+          }
+        }
+      ]
+    },
+    {
+      "id": "impact/watched-mob-killed",
+      "name": "Watched mob killed",
+      "event": "watched-kill",
+      "pattern": "",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact/Kills",
+      "comments": "Fires after a System/Event Sources trigger observes a death and the mob matches this character's kill watch list. The parser never sends directly to an overlay. Available fields are ${mob}, ${killer}, ${appliedQuantity}, ${remaining}, ${quests}, and ${completed}.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "RIP",
+              "big": "${mob}",
+              "sub": "${remaining} remaining"
+            },
+            "config": {
+              "style": "monster-rip",
+              "color": "#c9d1d9",
+              "durationMs": 4000
+            }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "death.wav"
           }
         }
       ]

@@ -1,27 +1,34 @@
-// Character-scoped item watches. Rust owns persistence and live-loot progress;
-// this module keeps a synchronous UI cache for the existing Drops/Session
-// consumers and exposes async mutations for watch management.
+// Character-scoped item and kill watches. Rust owns persistence and live-event
+// progress; this module keeps a synchronous UI cache for views and exposes
+// async mutations for watch management.
 
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 import {
   watchAddManual,
   watchAddQuestGoal,
   watchAddQuestGoals,
+  watchAddManualKill,
+  watchAddQuestKillGoal,
   watchImportLegacyNames,
   watchList,
   watchReconcileInventory,
   watchRemoveItem,
+  watchRemoveKill,
+  watchRemoveQuestKillGoal,
   watchRemoveQuestGoal,
   watchRemoveQuestGoals,
   watchUpdateGoal,
+  watchUpdateKillGoal,
 } from "../api";
 import { IS_MOCK } from "../mock";
 import type {
   InventoryWatchQuantity,
   QuestWatchInput,
+  QuestKillWatchInput,
   WatchGoal,
   WatchList,
   WatchedItem,
+  WatchedKill,
 } from "../types";
 import { normalizeInventoryItem, type InventorySnapshot } from "./quests";
 
@@ -29,13 +36,15 @@ export const WISHLIST_KEY = "eqlogs.wishlist.v1";
 export const WISHLIST_EVENT = "eqlogs-wishlist-changed";
 
 export type WishlistEntry = WatchedItem;
-export type { QuestWatchInput, WatchGoal, WatchList, WatchedItem };
+export type KillWatchEntry = WatchedKill;
+export type { QuestKillWatchInput, QuestWatchInput, WatchGoal, WatchList, WatchedItem, WatchedKill };
 
 const EMPTY_LIST: WatchList = {
   server: "",
   character: "",
   legacyNamesImported: false,
   items: [],
+  kills: [],
 };
 
 let current: WatchList = EMPTY_LIST;
@@ -58,8 +67,8 @@ function adopt(list: WatchList): WatchList {
   return list;
 }
 
-function mockList(items = current.items): WatchList {
-  return { ...current, character: activeCharacter, items };
+function mockList(items = current.items, kills = current.kills): WatchList {
+  return { ...current, character: activeCharacter, items, kills };
 }
 
 function startListener(): void {
@@ -128,6 +137,10 @@ export function loadWishlist(): WishlistEntry[] {
 
 export const loadWatchedItems = loadWishlist;
 
+export function loadWatchedKills(): KillWatchEntry[] {
+  return current.kills;
+}
+
 export async function refreshWishlist(): Promise<WishlistEntry[]> {
   if (IS_MOCK) return loadWishlist();
   return adopt(await watchList()).items;
@@ -139,6 +152,12 @@ export function isWishlisted(name: string): boolean {
     item.key === wanted && item.goals.some((goal) => goal.enabled && goal.remainingQuantity > 0));
 }
 
+export function isKillWatched(name: string): boolean {
+  const wanted = key(name);
+  return current.kills.some((kill) =>
+    kill.key === wanted && kill.goals.some((goal) => goal.enabled && goal.remainingQuantity > 0));
+}
+
 export function watchRemainingQuantity(item: Pick<WatchedItem, "goals">): number {
   return item.goals
     .filter((goal) => goal.enabled)
@@ -148,6 +167,11 @@ export function watchRemainingQuantity(item: Pick<WatchedItem, "goals">): number
 export function questGoal(itemName: string, questId: string): WatchGoal | null {
   const item = current.items.find((row) => row.key === key(itemName));
   return item?.goals.find((goal) => goal.id === `quest:${questId.trim()}`) ?? null;
+}
+
+export function questKillGoal(mobName: string, questId: string): WatchGoal | null {
+  const kill = current.kills.find((row) => row.key === key(mobName));
+  return kill?.goals.find((goal) => goal.id === `quest:${questId.trim()}`) ?? null;
 }
 
 export async function addManualWatch(
@@ -185,9 +209,87 @@ export async function addQuestWatches(inputs: QuestWatchInput[]): Promise<WatchL
   return adopt(await watchAddQuestGoals(inputs));
 }
 
+export async function addManualKillWatch(
+  name: string,
+  quantity = 1,
+  autoRemove = true,
+): Promise<WatchList> {
+  if (IS_MOCK) {
+    const wanted = key(name);
+    const existing = current.kills.find((kill) => kill.key === wanted);
+    const goal: WatchGoal = {
+      id: "manual",
+      source: { kind: "manual" },
+      requiredQuantity: quantity,
+      ownedQuantity: 0,
+      remainingQuantity: quantity,
+      enabled: true,
+      autoRemove,
+    };
+    const kill: WatchedKill = {
+      key: wanted,
+      name: name.trim(),
+      goals: [...(existing?.goals.filter((candidate) => candidate.id !== goal.id) ?? []), goal],
+    };
+    return adopt(mockList(current.items, [
+      ...current.kills.filter((candidate) => candidate.key !== wanted),
+      kill,
+    ]));
+  }
+  return adopt(await watchAddManualKill(name, quantity, autoRemove));
+}
+
+export async function addQuestKillWatch(input: QuestKillWatchInput): Promise<WatchList> {
+  if (IS_MOCK) {
+    const wanted = key(input.mobName);
+    const existing = current.kills.find((kill) => kill.key === wanted);
+    const required = Math.max(1, input.requiredQuantity);
+    const observed = Math.min(required, Math.max(0, input.observedQuantity ?? 0));
+    const goal: WatchGoal = {
+      id: `quest:${input.questId.trim()}`,
+      source: { kind: "quest", questId: input.questId.trim(), questName: input.questName.trim() },
+      requiredQuantity: required,
+      ownedQuantity: observed,
+      remainingQuantity: required - observed,
+      enabled: true,
+      autoRemove: input.autoRemove ?? true,
+    };
+    const kill: WatchedKill = {
+      key: wanted,
+      name: input.mobName.trim(),
+      goals: [...(existing?.goals.filter((candidate) => candidate.id !== goal.id) ?? []), goal],
+    };
+    return adopt(mockList(current.items, [
+      ...current.kills.filter((candidate) => candidate.key !== wanted),
+      kill,
+    ]));
+  }
+  return adopt(await watchAddQuestKillGoal(input));
+}
+
 export async function removeWatchedItem(name: string): Promise<WatchList> {
   if (IS_MOCK) return adopt(mockList(current.items.filter((item) => item.key !== key(name))));
   return adopt(await watchRemoveItem(name));
+}
+
+export async function removeWatchedKill(name: string): Promise<WatchList> {
+  if (IS_MOCK) {
+    return adopt(mockList(current.items, current.kills.filter((kill) => kill.key !== key(name))));
+  }
+  return adopt(await watchRemoveKill(name));
+}
+
+export async function removeQuestKillWatch(mobName: string, questId: string): Promise<WatchList> {
+  if (IS_MOCK) {
+    const goalId = `quest:${questId.trim()}`;
+    const kills = current.kills
+      .map((kill) => kill.key === key(mobName)
+        ? { ...kill, goals: kill.goals.filter((goal) => goal.id !== goalId) }
+        : kill)
+      .filter((kill) => kill.goals.length > 0);
+    return adopt(mockList(current.items, kills));
+  }
+  return adopt(await watchRemoveQuestKillGoal(mobName, questId));
 }
 
 export async function removeQuestWatch(itemName: string, questId: string): Promise<WatchList> {
@@ -196,7 +298,16 @@ export async function removeQuestWatch(itemName: string, questId: string): Promi
 }
 
 export async function removeQuestWatches(questId: string): Promise<WatchList> {
-  if (IS_MOCK) return current;
+  if (IS_MOCK) {
+    const goalId = `quest:${questId.trim()}`;
+    const items = current.items
+      .map((item) => ({ ...item, goals: item.goals.filter((goal) => goal.id !== goalId) }))
+      .filter((item) => item.goals.length > 0);
+    const kills = current.kills
+      .map((kill) => ({ ...kill, goals: kill.goals.filter((goal) => goal.id !== goalId) }))
+      .filter((kill) => kill.goals.length > 0);
+    return adopt(mockList(items, kills));
+  }
   return adopt(await watchRemoveQuestGoals(questId));
 }
 
@@ -207,6 +318,36 @@ export async function updateWatchGoal(
 ): Promise<WatchList> {
   if (IS_MOCK) return current;
   return adopt(await watchUpdateGoal(itemName, goalId, values));
+}
+
+export async function updateKillWatchGoal(
+  mobName: string,
+  goalId: string,
+  values: { enabled?: boolean; autoRemove?: boolean; remainingQuantity?: number },
+): Promise<WatchList> {
+  if (IS_MOCK) {
+    const kills = current.kills.map((kill) => {
+      if (kill.key !== key(mobName)) return kill;
+      return {
+        ...kill,
+        goals: kill.goals.map((goal) => {
+          if (goal.id !== goalId) return goal;
+          const remaining = values.remainingQuantity ?? goal.remainingQuantity;
+          return {
+            ...goal,
+            enabled: values.enabled ?? goal.enabled,
+            autoRemove: values.autoRemove ?? goal.autoRemove,
+            remainingQuantity: remaining,
+            requiredQuantity: values.remainingQuantity === undefined
+              ? goal.requiredQuantity
+              : goal.ownedQuantity + remaining,
+          };
+        }),
+      };
+    });
+    return adopt(mockList(current.items, kills));
+  }
+  return adopt(await watchUpdateKillGoal(mobName, goalId, values));
 }
 
 export async function toggleWishlist(name: string): Promise<boolean> {

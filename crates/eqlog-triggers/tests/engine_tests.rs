@@ -7,7 +7,7 @@ use eqlog_core::events::{ChatChannel, Entity, Event, LogLine, ParsedLine};
 use eqlog_triggers::{
     Action, ActionSink, ChannelOverride, CharacterProfile, OverlayFire, TimerFireKind, TimerLane,
     TimerStartMode, TimerTiming, Trigger, TriggerEngine, TriggerEvent, TriggerFireInfo,
-    TriggerSignal,
+    TriggerSignal, WatchObservation,
 };
 
 type RecordedOverlay = (
@@ -26,6 +26,7 @@ struct RecordingSink {
     cancels: Vec<String>,
     webhooks: Vec<(Option<String>, String)>,
     overlays: Vec<RecordedOverlay>,
+    observations: Vec<WatchObservation>,
     current_trigger: Option<String>,
     attributed_calls: Vec<(String, Option<String>)>,
 }
@@ -74,6 +75,9 @@ impl ActionSink for RecordingSink {
         self.overlays
             .push((spec.overlay.to_string(), spec.fields, spec.config.clone()));
     }
+    fn observe_watch(&mut self, observation: WatchObservation) {
+        self.observations.push(observation);
+    }
 }
 
 impl RecordingSink {
@@ -85,7 +89,97 @@ impl RecordingSink {
             + self.cancels.len()
             + self.webhooks.len()
             + self.overlays.len()
+            + self.observations.len()
     }
+}
+
+#[test]
+fn watch_observation_grammar_and_capture_mapping_are_loaded_from_trigger_json() {
+    let pack_json = r#"{
+      "name": "Editable event source",
+      "triggers": [{
+        "id": "system/test/alternate-loot",
+        "name": "Alternate loot",
+        "pattern": "^REWARD (?P<item>.+) x(?P<quantity>\\d+) via (?P<source>.+)$",
+        "enabled": true,
+        "default_enabled": true,
+        "source": "curated",
+        "actions": [{"ObserveWatch": {
+          "kind": "loot",
+          "name": "${item}",
+          "quantity": "${quantity}",
+          "context": {"corpse": "${source}"}
+        }}]
+      }]
+    }"#;
+    let pack: eqlog_triggers::TriggerPack = serde_json::from_str(pack_json).unwrap();
+    let mut engine = TriggerEngine::new(pack.triggers, "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(
+        &line(100, "REWARD Large Sky Sapphire x2 via Eye of Veeshan"),
+        &mut sink,
+    );
+
+    assert_eq!(sink.observations.len(), 1);
+    let observation = &sink.observations[0];
+    assert_eq!(observation.kind, eqlog_triggers::WatchObservationKind::Loot);
+    assert_eq!(observation.name, "Large Sky Sapphire");
+    assert_eq!(observation.quantity.as_deref(), Some("2"));
+    assert_eq!(
+        observation.context.get("corpse").map(String::as_str),
+        Some("Eye of Veeshan")
+    );
+}
+
+#[test]
+fn shipped_event_source_pack_defines_watch_eligibility_as_data() {
+    let pack: eqlog_triggers::TriggerPack =
+        serde_json::from_str(include_str!("../../../triggers/curated/event-sources.json")).unwrap();
+    let mut engine = TriggerEngine::new(pack.triggers, "Nyasha");
+    let mut sink = RecordingSink::default();
+    for message in [
+        "--You have looted 2 Bone Chips from a greater skeleton's corpse.--",
+        "You looted a Flame Agate from a Teir`Dal ranger's corpse and stored it in your tradeskill depot",
+        "You looted a Copper Ring +2 from Gynok Moltor's corpse to create a Copper Ring +3",
+        "You looted a Rusty Axe from a skeleton's corpse and sold it for 2 silver.",
+        "Friend has looted a Backpack from a skeleton's corpse.",
+        "You have slain Eye of Veeshan!",
+        "a splitpaw assassin has been slain by Konartik!",
+    ] {
+        engine.process(&line(100, message), &mut sink);
+    }
+
+    assert_eq!(sink.observations.len(), 5);
+    assert_eq!(sink.observations[0].name, "Bone Chips");
+    assert_eq!(sink.observations[0].quantity.as_deref(), Some("2"));
+    assert_eq!(sink.observations[1].name, "Flame Agate");
+    assert_eq!(sink.observations[2].name, "Copper Ring +2");
+    assert_eq!(sink.observations[3].name, "Eye of Veeshan");
+    assert_eq!(sink.observations[4].name, "a splitpaw assassin");
+}
+
+#[test]
+fn structured_watch_triggers_cannot_emit_another_watch_observation() {
+    let mut trigger = Trigger::new("No recursive observe", "", Vec::new());
+    trigger.event = Some(TriggerEvent::WatchedLoot);
+    trigger.actions = vec![Action::ObserveWatch {
+        kind: eqlog_triggers::WatchObservationKind::Loot,
+        name: "${item}".into(),
+        quantity: None,
+        context: Default::default(),
+    }];
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+    engine.process_signal_traced(
+        &TriggerSignal::new(
+            TriggerEvent::WatchedLoot,
+            100,
+            [("item".into(), "Large Sky Sapphire".into())].into(),
+        ),
+        &mut sink,
+    );
+    assert!(sink.observations.is_empty());
 }
 
 fn line(ts: i64, message: &str) -> ParsedLine {
@@ -3192,6 +3286,47 @@ fn structured_signal_expands_fields_through_normal_actions() {
             ("speak".into(), Some("system/watched-loot".into())),
         ]
     );
+}
+
+#[test]
+fn watched_kill_signal_uses_trigger_owned_impact_presentation() {
+    use std::collections::BTreeMap;
+
+    let mut trigger = Trigger::new(
+        "Watched mob killed",
+        "",
+        vec![Action::Overlay {
+            overlay: "impact".into(),
+            fields: BTreeMap::from([
+                ("headline".into(), "RIP".into()),
+                ("big".into(), "${mob}".into()),
+                ("sub".into(), "${remaining} remaining for ${quests}".into()),
+            ]),
+            config: BTreeMap::from([("style".into(), serde_json::json!("monster-rip"))]),
+        }],
+    );
+    trigger.id = Some("system/watched-kill".into());
+    trigger.event = Some(TriggerEvent::WatchedKill);
+    let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process_signal_traced(
+        &TriggerSignal::new(
+            TriggerEvent::WatchedKill,
+            100,
+            BTreeMap::from([
+                ("mob".into(), "Splitpaw assassin".into()),
+                ("remaining".into(), "3".into()),
+                ("quests".into(), "Hollow Skull Quest".into()),
+            ]),
+        ),
+        &mut sink,
+    );
+
+    assert_eq!(sink.overlays.len(), 1);
+    assert_eq!(sink.overlays[0].0, "impact");
+    assert_eq!(sink.overlays[0].1["big"], "Splitpaw assassin");
+    assert_eq!(sink.overlays[0].2["style"], "monster-rip");
 }
 
 #[test]

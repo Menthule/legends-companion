@@ -6,7 +6,7 @@ use std::collections::HashSet;
 
 use eqlog_triggers::{
     export_gtp, export_string, import_gtp, parse_string, Action, ShareError, SharePayload,
-    TimerLane, Trigger, TriggerSource, SHARE_PREFIX,
+    TimerLane, Trigger, TriggerSource, WatchObservationKind, SHARE_PREFIX,
 };
 
 fn sample_triggers() -> Vec<Trigger> {
@@ -119,6 +119,26 @@ fn share_string_tolerates_chat_wrapping() {
     let wrapped = format!("  {wrapped}\n");
     let import = parse_string(&wrapped, &HashSet::new()).expect("wrapped string still parses");
     assert_eq!(import.triggers.len(), 3);
+}
+
+#[test]
+fn watch_observation_action_round_trips_through_trigger_sharing() {
+    let trigger = Trigger::new(
+        "Editable loot source",
+        r"^REWARD (?P<item>.+)$",
+        vec![Action::ObserveWatch {
+            kind: WatchObservationKind::Loot,
+            name: "${item}".into(),
+            quantity: Some("${quantity}".into()),
+            context: [("source".into(), "custom".into())].into(),
+        }],
+    );
+    let payload = SharePayload {
+        triggers: vec![trigger.clone()],
+        ..Default::default()
+    };
+    let imported = parse_string(&export_string(&payload), &HashSet::new()).unwrap();
+    assert_eq!(imported.triggers[0].actions, trigger.actions);
 }
 
 #[test]

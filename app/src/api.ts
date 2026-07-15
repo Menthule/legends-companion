@@ -74,6 +74,7 @@ import type {
   TriggerTreeEntry,
   TriggerUpdateInfo,
   WatchList,
+  QuestKillWatchInput,
   QuestWatchInput,
   InventoryWatchQuantity,
   ZoneInfo,
@@ -198,6 +199,7 @@ const EMPTY_WATCH_LIST: WatchList = {
   character: "",
   legacyNamesImported: false,
   items: [],
+  kills: [],
 };
 
 export function watchList(): Promise<WatchList> {
@@ -224,9 +226,33 @@ export function watchAddQuestGoals(goals: QuestWatchInput[]): Promise<WatchList>
   return invoke<WatchList>("watch_add_quest_goals", { goals });
 }
 
+export function watchAddManualKill(
+  mobName: string,
+  quantity = 1,
+  autoRemove = true,
+): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_add_manual_kill", { mobName, quantity, autoRemove });
+}
+
+export function watchAddQuestKillGoal(goal: QuestKillWatchInput): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_add_quest_kill_goal", { goal });
+}
+
 export function watchRemoveItem(itemName: string): Promise<WatchList> {
   if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
   return invoke<WatchList>("watch_remove_item", { itemName });
+}
+
+export function watchRemoveKill(mobName: string): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_remove_kill", { mobName });
+}
+
+export function watchRemoveQuestKillGoal(mobName: string, questId: string): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_remove_quest_kill_goal", { mobName, questId });
 }
 
 export function watchRemoveQuestGoal(itemName: string, questId: string): Promise<WatchList> {
@@ -246,6 +272,15 @@ export function watchUpdateGoal(
 ): Promise<WatchList> {
   if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
   return invoke<WatchList>("watch_update_goal", { itemName, goalId, ...values });
+}
+
+export function watchUpdateKillGoal(
+  mobName: string,
+  goalId: string,
+  values: { enabled?: boolean; autoRemove?: boolean; remainingQuantity?: number },
+): Promise<WatchList> {
+  if (IS_MOCK) return Promise.resolve(EMPTY_WATCH_LIST);
+  return invoke<WatchList>("watch_update_kill_goal", { mobName, goalId, ...values });
 }
 
 export function watchReconcileInventory(inventory: InventoryWatchQuantity[]): Promise<WatchList> {

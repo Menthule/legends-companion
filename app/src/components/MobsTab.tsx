@@ -32,6 +32,15 @@ import { ItemTypeIcon } from "./ItemIcons";
 import ResourceLinks from "./ResourceLinks";
 import { fmtLen as fmtRespawn } from "../lib/format";
 import { openDrops } from "../lib/deepLinks";
+import {
+  addManualKillWatch,
+  isKillWatched,
+  loadWatchedKills,
+  onWishlistChanged,
+  removeWatchedKill,
+  updateKillWatchGoal,
+  watchRemainingQuantity,
+} from "../lib/wishlist";
 
 const ERA_NAMES = ["Classic", "Kunark", "Velious", "Later"];
 
@@ -81,11 +90,17 @@ export default function MobsTab({
   const [liveZoneName] = useLiveZoneName();
   const [zones, setZones] = useState<DropZone[]>([]);
   const [detail, setDetail] = useState<MobDetail | null>(null);
+  const [watchManagerOpen, setWatchManagerOpen] = useState(false);
+  const [watchQuantity, setWatchQuantity] = useState(1);
+  const [, bumpWatches] = useState(0);
   /** Zone-info header expansion + lazily fetched almanac. */
   const [zoneInfoOpen, setZoneInfoOpen] = useState(false);
   const [zoneInfo, setZoneInfo] = useState<ZoneInfo | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const pendingTargetId = useRef<number | null>(null);
+  const watchedKills = loadWatchedKills();
+
+  useEffect(() => onWishlistChanged(() => bumpWatches((value) => value + 1)), []);
 
   const active =
     query.trim().length >= 2 || zone !== "" || minLevel > 0 || maxLevel > 0;
@@ -182,6 +197,7 @@ export default function MobsTab({
       return;
     }
     setExpanded(id);
+    setWatchQuantity(1);
     setDetail(null);
     refdbMobDetail(id)
       .then(setDetail)
@@ -194,6 +210,11 @@ export default function MobsTab({
     setMaxLevel(0);
     setZone("");
     resetPaging();
+  }
+
+  function runWatchOperation(operation: Promise<unknown>) {
+    setError("");
+    void operation.catch((watchError) => setError(String(watchError)));
   }
 
   const shownZones = useMemo(
@@ -264,12 +285,87 @@ export default function MobsTab({
           />
         </div>
         <EraSelect />
+        <button
+          className={`ghost small${watchManagerOpen ? " active" : ""}`}
+          onClick={() => setWatchManagerOpen((open) => !open)}
+          aria-expanded={watchManagerOpen}
+        >
+          Watched kills ({watchedKills.length})
+        </button>
         {(query !== "" || zone !== "" || minLevel > 0 || maxLevel > 0) && (
           <button className="ghost small" onClick={clearAll}>
             Clear
           </button>
         )}
       </div>
+
+      {watchManagerOpen && (
+        <section className="watch-manager" aria-label="Watched kills">
+          <header>
+            <div>
+              <strong>Watched kills</strong>
+              <span>Observed NPC deaths advance trigger-driven kill goals.</span>
+            </div>
+            <button className="ghost small" onClick={() => setWatchManagerOpen(false)}>Close</button>
+          </header>
+          {watchedKills.length === 0 ? (
+            <div className="hint watch-manager-empty">Add a kill goal from a mob or quest.</div>
+          ) : watchedKills.map((kill) => (
+            <div className="watch-manager-item" key={kill.key}>
+              <button
+                className="watch-manager-name"
+                onClick={() => {
+                  setQuery(kill.name);
+                  resetPaging();
+                  setWatchManagerOpen(false);
+                }}
+                title="Find this mob"
+              >
+                {kill.name}
+              </button>
+              <span className="num">{watchRemainingQuantity(kill)} remaining</span>
+              <div className="watch-manager-goals">
+                {kill.goals.map((goal) => (
+                  <div key={`${goal.id}:${goal.remainingQuantity}`}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={goal.enabled}
+                        onChange={(event) => runWatchOperation(updateKillWatchGoal(kill.name, goal.id, { enabled: event.target.checked }))}
+                      />
+                      <span>{goal.source.kind === "quest" ? goal.source.questName : "Manual watch"}</span>
+                    </label>
+                    <label className="watch-manager-quantity">
+                      Remaining
+                      <input
+                        type="number"
+                        min={0}
+                        defaultValue={goal.remainingQuantity}
+                        aria-label={`Remaining kills for ${kill.name}`}
+                        onBlur={(event) => {
+                          const value = Math.max(0, Math.floor(Number(event.target.value) || 0));
+                          if (value !== goal.remainingQuantity) {
+                            runWatchOperation(updateKillWatchGoal(kill.name, goal.id, { remainingQuantity: value }));
+                          }
+                        }}
+                      />
+                    </label>
+                    <label title="Remove this goal when its observed count is complete">
+                      <input
+                        type="checkbox"
+                        checked={goal.autoRemove}
+                        onChange={(event) => runWatchOperation(updateKillWatchGoal(kill.name, goal.id, { autoRemove: event.target.checked }))}
+                      />
+                      Auto-remove
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <button className="ghost small" onClick={() => runWatchOperation(removeWatchedKill(kill.name))}>Remove</button>
+            </div>
+          ))}
+        </section>
+      )}
 
       {error && <div className="error-banner">{error}</div>}
 
@@ -455,6 +551,29 @@ export default function MobsTab({
                           />
                         </div>
                         <ResourceLinks kind="mob" name={detail.name} />
+                        <div className="mob-watch-control">
+                          <strong>Kill watch</strong>
+                          {isKillWatched(detail.name) ? (
+                            <button className="ghost small" onClick={() => runWatchOperation(removeWatchedKill(detail.name))}>
+                              Stop watching
+                            </button>
+                          ) : (
+                            <>
+                              <label>
+                                Count
+                                <input
+                                  type="number"
+                                  min={1}
+                                  value={watchQuantity}
+                                  onChange={(event) => setWatchQuantity(Math.max(1, Math.floor(Number(event.target.value) || 1)))}
+                                />
+                              </label>
+                              <button className="primary small" onClick={() => runWatchOperation(addManualKillWatch(detail.name, watchQuantity, true))}>
+                                Watch kills
+                              </button>
+                            </>
+                          )}
+                        </div>
                         {detail.zones.length > 0 && (
                           <>
                             <div className="refdb-subhead">Spawns in</div>

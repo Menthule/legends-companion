@@ -20,8 +20,9 @@ use eqlog_core::parser::Parser;
 use eqlog_core::tail::{Tailer, TailerConfig};
 use eqlog_triggers::engine::{
     ActionSink, ImpactFire, OverlayFire, TimerFireKind, TriggerFireInfo, TriggerSignal,
+    WatchObservation,
 };
-use eqlog_triggers::model::{TimerLane, TriggerEvent};
+use eqlog_triggers::model::{TimerLane, TriggerEvent, WatchObservationKind};
 use eqlog_triggers::storage::CharacterId;
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, Manager};
@@ -32,7 +33,7 @@ use crate::library::EngineBuild;
 use crate::logging;
 use crate::meters::LiveMeter;
 use crate::store::SharedStore;
-use crate::watches::SharedWatchStore;
+use crate::watches::{SharedWatchStore, WatchList, WatchStore};
 
 /// Tick period: timer polling + fight-update flush cadence.
 const TICK_MS: u64 = 250;
@@ -288,6 +289,7 @@ enum BufferedAction {
         fields: BTreeMap<String, String>,
         config: BTreeMap<String, serde_json::Value>,
     },
+    ObserveWatch(WatchObservation),
 }
 
 struct BufferedEntry {
@@ -342,6 +344,33 @@ impl EmitSink {
         for entry in buffer {
             self.emit_action(entry.action, entry.trigger);
         }
+    }
+
+    /// Remove raw-line watch observations from the normal output buffer.
+    /// They are consumed by the tail loop and may enqueue structured trigger
+    /// signals; keeping that handoff outside `ActionSink` avoids recursively
+    /// borrowing the engine while it is still executing a trigger.
+    fn take_watch_observations(&mut self) -> Vec<WatchObservation> {
+        let buffer = std::mem::take(&mut self.buffer);
+        let mut observations = Vec::new();
+        let mut retained = Vec::with_capacity(buffer.len());
+        for entry in buffer {
+            match entry.action {
+                BufferedAction::ObserveWatch(observation) => {
+                    if !self.suppress {
+                        let label = format!("{:?}: {}", observation.kind, observation.name);
+                        self.fired("observeWatch", label, entry.trigger);
+                        observations.push(observation);
+                    }
+                }
+                action => retained.push(BufferedEntry {
+                    action,
+                    trigger: entry.trigger,
+                }),
+            }
+        }
+        self.buffer = retained;
+        observations
     }
 
     fn emit_action(&mut self, action: BufferedAction, trigger: Option<TriggerRef>) {
@@ -427,6 +456,9 @@ impl EmitSink {
                 );
                 self.fired("overlay", label, trigger);
             }
+            BufferedAction::ObserveWatch(_) => {
+                unreachable!("watch observations are drained before normal action flush")
+            }
         }
     }
 
@@ -505,6 +537,10 @@ impl ActionSink for EmitSink {
             fields: spec.fields,
             config: spec.config.clone(),
         });
+    }
+
+    fn observe_watch(&mut self, observation: WatchObservation) {
+        self.push(BufferedAction::ObserveWatch(observation));
     }
 }
 
@@ -672,17 +708,75 @@ fn persist_fights(
     );
 }
 
-fn watched_self_loot(event: &Event) -> Option<(&str, u32, Option<&str>)> {
-    match event {
-        Event::Loot {
-            looter: eqlog_core::events::Entity::You,
-            item,
-            quantity,
-            corpse,
-            sold_for: None,
-        } => Some((item, *quantity, corpse.as_deref())),
-        _ => None,
+fn observation_quantity(value: Option<&str>) -> Result<u32, String> {
+    let value = value.unwrap_or_default().trim();
+    if value.is_empty() {
+        return Ok(1);
     }
+    value
+        .parse::<u32>()
+        .ok()
+        .filter(|quantity| *quantity > 0)
+        .ok_or_else(|| format!("watch observation quantity must be a positive number, got {value:?}"))
+}
+
+/// Apply one trigger-authored raw-line observation and produce the canonical
+/// structured signal consumed by ordinary output triggers. Raw log grammar is
+/// intentionally absent here: changing a message format only changes the
+/// event-source trigger's regex/capture templates.
+fn apply_watch_observation(
+    store: &mut WatchStore,
+    character: &CharacterId,
+    timestamp: i64,
+    observation: WatchObservation,
+) -> Result<Option<(TriggerSignal, WatchList)>, String> {
+    let quantity = observation_quantity(observation.quantity.as_deref())?;
+    let mut fields = observation.context;
+    let event = match observation.kind {
+        WatchObservationKind::Loot => {
+            let Some(matched) = store.apply_self_loot(character, &observation.name, quantity)? else {
+                return Ok(None);
+            };
+            fields.insert("item".into(), matched.item);
+            fields.insert("quantity".into(), matched.quantity.to_string());
+            fields.insert(
+                "appliedQuantity".into(),
+                matched.applied_quantity.to_string(),
+            );
+            fields.insert(
+                "remaining".into(),
+                matched.remaining_quantity.to_string(),
+            );
+            fields.insert("quests".into(), matched.quests.join(", "));
+            fields.insert("completed".into(), matched.completed.to_string());
+            TriggerEvent::WatchedLoot
+        }
+        WatchObservationKind::Kill => {
+            // A kill log line represents one observed death. Quantity remains
+            // part of the generic action contract for future event sources,
+            // but deliberately cannot manufacture multiple deaths here.
+            if quantity != 1 {
+                return Err("kill watch observations must have quantity 1".into());
+            }
+            let Some(matched) = store.apply_observed_kill(character, &observation.name)? else {
+                return Ok(None);
+            };
+            fields.insert("mob".into(), matched.mob);
+            fields.insert(
+                "appliedQuantity".into(),
+                matched.applied_quantity.to_string(),
+            );
+            fields.insert(
+                "remaining".into(),
+                matched.remaining_quantity.to_string(),
+            );
+            fields.insert("quests".into(), matched.quests.join(", "));
+            fields.insert("completed".into(), matched.completed.to_string());
+            TriggerEvent::WatchedKill
+        }
+    };
+    let list = store.list(character)?;
+    Ok(Some((TriggerSignal::new(event, timestamp, fields), list)))
 }
 
 /// Returns `None` on a clean (user-requested) stop, `Some(reason)` when the
@@ -860,63 +954,34 @@ fn run_loop(
                 casts.ingest(&parsed);
                 fights_dirty = true;
                 let _fires = engine.process_traced(&parsed, &mut sink);
-                // Item watch eligibility is decided from the parser's typed
-                // Loot event, never by another raw-line pattern. Replayed,
-                // auto-sold, and someone-else's loot cannot advance watches.
-                if !catchup.is_active() {
-                    if let Some((item, quantity, corpse)) = watched_self_loot(&parsed.event) {
-                        let outcome = match watches.lock() {
-                            Ok(mut shared) => shared.as_mut().map(|store| {
-                                let matched =
-                                    store.apply_self_loot(&watch_character, item, quantity);
-                                let list = matched
-                                    .as_ref()
-                                    .ok()
-                                    .and_then(|value| value.as_ref())
-                                    .and_then(|_| store.list(&watch_character).ok());
-                                (matched, list)
-                            }),
-                            Err(_) => {
-                                logging::warn("watched loot store lock poisoned");
-                                None
-                            }
-                        };
-                        if let Some((matched, list)) = outcome {
-                            match matched {
-                                Ok(Some(matched)) => {
-                                    let mut fields = BTreeMap::new();
-                                    fields.insert("item".into(), matched.item);
-                                    fields.insert("quantity".into(), matched.quantity.to_string());
-                                    fields.insert(
-                                        "appliedQuantity".into(),
-                                        matched.applied_quantity.to_string(),
-                                    );
-                                    fields.insert(
-                                        "remaining".into(),
-                                        matched.remaining_quantity.to_string(),
-                                    );
-                                    fields.insert("quests".into(), matched.quests.join(", "));
-                                    fields.insert(
-                                        "corpse".into(),
-                                        corpse.unwrap_or_default().to_string(),
-                                    );
-                                    fields
-                                        .insert("completed".into(), matched.completed.to_string());
-                                    let signal = TriggerSignal::new(
-                                        TriggerEvent::WatchedLoot,
-                                        parsed.line.timestamp,
-                                        fields,
-                                    );
-                                    let _ = engine.process_signal_traced(&signal, &mut sink);
-                                    if let Some(list) = list {
-                                        let _ = app.emit("watch-changed", list);
-                                    }
-                                }
-                                Ok(None) => {}
-                                Err(error) => logging::warn(&format!(
-                                    "apply watched loot for {item}: {error}"
-                                )),
-                            }
+                // Observation actions are produced only by raw-line triggers.
+                // Drain them after raw processing, apply watch progress, then
+                // feed the resulting structured signals back through the
+                // engine. Structured triggers cannot emit observations, so
+                // this queue cannot recurse.
+                for observation in sink.take_watch_observations() {
+                    let outcome = match watches.lock() {
+                        Ok(mut shared) => shared.as_mut().map(|store| {
+                            apply_watch_observation(
+                                store,
+                                &watch_character,
+                                parsed.line.timestamp,
+                                observation,
+                            )
+                        }),
+                        Err(_) => {
+                            logging::warn("watch store lock poisoned");
+                            None
+                        }
+                    };
+                    match outcome {
+                        Some(Ok(Some((signal, list)))) => {
+                            let _ = engine.process_signal_traced(&signal, &mut sink);
+                            let _ = app.emit("watch-changed", list);
+                        }
+                        Some(Ok(None)) | None => {}
+                        Some(Err(error)) => {
+                            logging::warn(&format!("apply watch observation: {error}"))
                         }
                     }
                 }
@@ -1084,25 +1149,51 @@ fn run_loop(
 #[cfg(test)]
 mod watch_tests {
     use super::*;
-    use eqlog_core::events::{Coins, Entity};
+    use std::time::{SystemTime, UNIX_EPOCH};
 
-    fn loot(looter: Entity, sold_for: Option<Coins>) -> Event {
-        Event::Loot {
-            looter,
-            item: "Large Sky Sapphire".into(),
-            quantity: 2,
-            corpse: Some("Eye of Veeshan".into()),
-            sold_for,
-        }
+    fn watch_store() -> (WatchStore, PathBuf) {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let root = std::env::temp_dir().join(format!("eqlogs-observe-watch-{unique}"));
+        (WatchStore::new(root.clone()), root)
     }
 
     #[test]
-    fn watched_loot_candidate_only_accepts_unsold_self_loot() {
-        assert_eq!(
-            watched_self_loot(&loot(Entity::You, None)),
-            Some(("Large Sky Sapphire", 2, Some("Eye of Veeshan")))
-        );
-        assert!(watched_self_loot(&loot(Entity::Named("Friend".into()), None)).is_none());
-        assert!(watched_self_loot(&loot(Entity::You, Some(Coins::default()))).is_none());
+    fn trigger_observation_advances_watch_and_preserves_open_context() {
+        let (mut store, root) = watch_store();
+        let character = CharacterId::new("Nyasha", "oggok");
+        store
+            .add_manual(&character, "Large Sky Sapphire", 2, false)
+            .unwrap();
+        let observation = WatchObservation {
+            kind: WatchObservationKind::Loot,
+            name: "Large Sky Sapphire".into(),
+            quantity: Some("2".into()),
+            context: [("source".into(), "alternate-format".into())].into(),
+        };
+
+        let (signal, list) = apply_watch_observation(
+            &mut store,
+            &character,
+            100,
+            observation,
+        )
+        .unwrap()
+        .unwrap();
+
+        assert_eq!(signal.event, TriggerEvent::WatchedLoot);
+        assert_eq!(signal.fields.get("item").map(String::as_str), Some("Large Sky Sapphire"));
+        assert_eq!(signal.fields.get("source").map(String::as_str), Some("alternate-format"));
+        assert_eq!(list.items[0].goals[0].remaining_quantity, 0);
+        let _ = std::fs::remove_dir_all(root);
+    }
+
+    #[test]
+    fn blank_quantity_defaults_to_one_and_invalid_quantity_is_rejected() {
+        assert_eq!(observation_quantity(None).unwrap(), 1);
+        assert_eq!(observation_quantity(Some("")).unwrap(), 1);
+        assert!(observation_quantity(Some("many")).is_err());
     }
 }

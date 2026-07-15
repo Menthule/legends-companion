@@ -1,0 +1,115 @@
+{
+  "name": "System event sources",
+  "triggers": [
+    {
+      "id": "system/events/loot-inventory",
+      "name": "Observe loot added to inventory",
+      "pattern": "^--You have looted (?:(?P<quantity>\\d+) |(?:an?|the) )?(?P<item>.+?) from (?P<corpse>.+?)\\.--$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "System/Event Sources/Loot",
+      "comments": "Raw Legends loot grammar lives here rather than in application code. Only the self-loot inventory form matches; other players' and auto-sold loot do not advance watches. Blank quantity defaults to one.",
+      "actions": [
+        {
+          "ObserveWatch": {
+            "kind": "loot",
+            "name": "${item}",
+            "quantity": "${quantity}",
+            "context": {
+              "corpse": "${corpse}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "system/events/loot-depot",
+      "name": "Observe loot stored in tradeskill depot",
+      "pattern": "^You looted (?:(?P<quantity>\\d+) |(?:an?|the) )?(?P<item>.+?) from (?P<corpse>.+?) and stored it in .+$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "System/Event Sources/Loot",
+      "comments": "Tradeskill-depot self-loot is a watched acquisition. Edit or update this source trigger if Legends changes the message.",
+      "actions": [
+        {
+          "ObserveWatch": {
+            "kind": "loot",
+            "name": "${item}",
+            "quantity": "${quantity}",
+            "context": {
+              "corpse": "${corpse}",
+              "destination": "tradeskill depot"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "system/events/loot-upgrade",
+      "name": "Observe loot used for an item upgrade",
+      "pattern": "^You looted (?:(?P<quantity>\\d+) |(?:an?|the) )?(?P<item>.+?) from (?P<corpse>.+?) to create (?P<created>.+)$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "System/Event Sources/Loot",
+      "comments": "Preserves the existing behavior where a self-looted component consumed by an automatic upgrade advances its watch goal.",
+      "actions": [
+        {
+          "ObserveWatch": {
+            "kind": "loot",
+            "name": "${item}",
+            "quantity": "${quantity}",
+            "context": {
+              "corpse": "${corpse}",
+              "created": "${created}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "system/events/kill-self",
+      "name": "Observe mob slain by you",
+      "pattern": "^You have slain (?P<mob>.+)!$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "System/Event Sources/Kills",
+      "comments": "Raw self-kill grammar. The observed mob name is matched exactly against this character's active kill watches.",
+      "actions": [
+        {
+          "ObserveWatch": {
+            "kind": "kill",
+            "name": "${mob}",
+            "context": {
+              "killer": "{C}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "system/events/kill-nearby",
+      "name": "Observe mob slain nearby",
+      "pattern": "^(?P<mob>.+) has been slain by (?P<killer>.+)!$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "System/Event Sources/Kills",
+      "comments": "Group, pet, and nearby kill grammar. A line only advances progress when its captured victim exactly matches an active kill watch.",
+      "actions": [
+        {
+          "ObserveWatch": {
+            "kind": "kill",
+            "name": "${mob}",
+            "context": {
+              "killer": "${killer}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -66,6 +66,12 @@ pub trait ActionSink {
     fn overlay(&mut self, spec: OverlayFire<'_>) {
         let _ = spec;
     }
+    /// A raw-line trigger observed loot or a kill that may advance a watch.
+    /// Structured-event triggers never invoke this callback, preventing an
+    /// observation -> watched signal -> observation recursion loop.
+    fn observe_watch(&mut self, observation: WatchObservation) {
+        let _ = observation;
+    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -73,6 +79,14 @@ pub struct OverlayFire<'a> {
     pub overlay: &'a str,
     pub fields: BTreeMap<String, String>,
     pub config: &'a BTreeMap<String, serde_json::Value>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WatchObservation {
+    pub kind: crate::model::WatchObservationKind,
+    pub name: String,
+    pub quantity: Option<String>,
+    pub context: BTreeMap<String, String>,
 }
 
 /// A fired `Impact` action, fully expanded and ready for the Impact overlay.
@@ -669,6 +683,7 @@ fn execute_actions(
     timers: &mut Vec<ActiveTimer>,
     new_timers: &mut Vec<ActiveTimer>,
     sink: &mut dyn ActionSink,
+    allow_watch_observation: bool,
 ) {
     let expand = |template: &str| expand_template_values(template, values, character, ts);
     for action in &trigger.actions {
@@ -696,6 +711,21 @@ fn execute_actions(
                     config,
                 });
             }
+            Action::ObserveWatch {
+                kind,
+                name,
+                quantity,
+                context,
+            } if allow_watch_observation => sink.observe_watch(WatchObservation {
+                kind: *kind,
+                name: expand(name),
+                quantity: quantity.as_deref().map(&expand),
+                context: context
+                    .iter()
+                    .map(|(key, value)| (key.clone(), expand(value)))
+                    .collect(),
+            }),
+            Action::ObserveWatch { .. } => {}
             Action::StartTimer {
                 name,
                 duration_secs,
@@ -1448,6 +1478,7 @@ impl TriggerEngine {
                 &mut self.timers,
                 &mut new_timers,
                 sink,
+                true,
             );
             sink.end_trigger();
         }
@@ -1464,10 +1495,10 @@ impl TriggerEngine {
     /// fields use the same `${name}` template syntax as named regex captures,
     /// and actions travel through the exact same executor as line triggers.
     ///
-    /// The host must only submit a signal after its typed eligibility checks
-    /// pass. For `WatchedLoot`, that includes watch-list membership and any
-    /// replay/ownership rules; the trigger engine deliberately knows none of
-    /// those application-specific policies.
+    /// The host must only submit a signal after its eligibility checks pass.
+    /// For watched loot and kills, event-source triggers establish the raw
+    /// format/ownership rules and the host establishes watch-list membership;
+    /// the engine deliberately knows none of those application policies.
     pub fn process_signal_traced(
         &mut self,
         signal: &TriggerSignal,
@@ -1512,6 +1543,7 @@ impl TriggerEngine {
                 &mut self.timers,
                 &mut new_timers,
                 sink,
+                false,
             );
             sink.end_trigger();
         }

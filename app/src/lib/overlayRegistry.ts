@@ -66,6 +66,13 @@ const IMPACT_STYLE_OPTIONS = [
   { value: "badge", label: "Badge" },
   { value: "medal", label: "Medal" },
   { value: "loot-chest", label: "Loot chest" },
+  { value: "monster-rip", label: "Monster RIP" },
+] as const;
+
+const IMPACT_INTENSITY_OPTIONS = [
+  { value: "low", label: "Low" },
+  { value: "medium", label: "Medium" },
+  { value: "high", label: "High" },
 ] as const;
 
 const DEFINITIONS: readonly OverlayDefinition[] = [
@@ -181,6 +188,13 @@ const DEFINITIONS: readonly OverlayDefinition[] = [
         default: "",
       },
       {
+        key: "intensity",
+        label: "Effect intensity",
+        type: "select",
+        options: IMPACT_INTENSITY_OPTIONS,
+        default: "high",
+      },
+      {
         key: "durationMs",
         label: "Visible time (seconds)",
         type: "number",
@@ -274,6 +288,7 @@ export function impactOverlayView(
   if (payload.overlay !== "impact") return null;
   const defaults = overlayDefaults("impact");
   const config = payload.config ?? {};
+  const intensity = stringValue(config.intensity);
   return {
     event: {
       style:
@@ -283,6 +298,10 @@ export function impactOverlayView(
       sub: stringValue(payload.fields.sub),
       glyph: stringValue(payload.fields.glyph),
       color: stringValue(config.color),
+      intensity:
+        intensity === "low" || intensity === "medium" || intensity === "high"
+          ? intensity
+          : "high",
     },
     durationMs:
       boundedNumber(config.durationMs, 500, 60_000) ??

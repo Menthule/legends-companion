@@ -31,7 +31,7 @@ interface Shown {
 /** Impact overlay: the channel for big dramatic moments. It is entirely
  *  TRIGGER-DRIVEN — the backend emits an `impact` event whenever a trigger's
  *  Impact action fires, carrying a `style` (slash / big-number / level /
- *  badge / medal / loot-chest) plus template-expanded text. Nothing about a
+ *  badge / medal / loot-chest / monster-rip) plus template-expanded text. Nothing about a
  *  specific moment is hardcoded here; its trigger decides the look. */
 export default function OverlayImpact() {
   const [shown, setShown] = useState<Shown | null>(null);
@@ -133,6 +133,12 @@ export default function OverlayImpact() {
         headline: "YOU LOOTED",
         big: "Large Sky Sapphire",
         sub: "1/2 for Test of Wind",
+      },
+      {
+        style: "monster-rip",
+        headline: "RIP",
+        big: "Splitpaw assassin",
+        sub: "3 remaining for Hollow Skull Quest",
       },
     ];
     let i = 0;

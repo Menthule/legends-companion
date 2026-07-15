@@ -491,6 +491,8 @@ fn write_trigger(xml: &mut String, trigger: &Trigger, indent: usize) {
             Action::DisplayText { template } => display = display.or(Some(template)),
             // Generic overlay destinations have no GINA equivalent.
             Action::Overlay { .. } => {}
+            // Watch observations are host-side structured events with no GINA equivalent.
+            Action::ObserveWatch { .. } => {}
             Action::Speak { template } => speak = speak.or(Some(template)),
             Action::PlaySound { path } => sound = sound.or(Some(path)),
             Action::StartTimer {
