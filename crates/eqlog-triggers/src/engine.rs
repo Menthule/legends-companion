@@ -683,9 +683,9 @@ fn execute_actions(
     timers: &mut Vec<ActiveTimer>,
     new_timers: &mut Vec<ActiveTimer>,
     sink: &mut dyn ActionSink,
-    allow_watch_observation: bool,
 ) {
     let expand = |template: &str| expand_template_values(template, values, character, ts);
+    let allow_watch_observation = matches!(values, TemplateValues::Captures(_));
     for action in &trigger.actions {
         match action {
             Action::Speak { template } => sink.speak(&expand(template)),
@@ -1478,7 +1478,6 @@ impl TriggerEngine {
                 &mut self.timers,
                 &mut new_timers,
                 sink,
-                true,
             );
             sink.end_trigger();
         }
@@ -1543,7 +1542,6 @@ impl TriggerEngine {
                 &mut self.timers,
                 &mut new_timers,
                 sink,
-                false,
             );
             sink.end_trigger();
         }

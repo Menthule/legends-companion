@@ -197,7 +197,7 @@ fn run_import(
             if !emit_progress {
                 return;
             }
-            let due = last_emit.map_or(true, |t| t.elapsed() >= PROGRESS_MIN_INTERVAL);
+            let due = last_emit.is_none_or(|t| t.elapsed() >= PROGRESS_MIN_INTERVAL);
             if !due {
                 return;
             }
