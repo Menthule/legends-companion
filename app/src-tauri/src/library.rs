@@ -66,6 +66,33 @@ pub struct Library {
     pub warnings: Vec<String>,
 }
 
+/// Downloaded packs intentionally own trigger behavior, but they can be older
+/// than the app that is loading them. Fill presentation-only metadata from the
+/// same bundled trigger id so an older data update cannot hide artwork added by
+/// a newer app release. Explicit downloaded metadata always wins.
+fn hydrate_missing_bundled_icons(packs: &mut [Trigger], bundled: &[Trigger]) -> usize {
+    let icons: HashMap<String, String> = bundled
+        .iter()
+        .filter_map(|trigger| {
+            trigger
+                .icon
+                .as_ref()
+                .map(|icon| (trigger.effective_id(), icon.clone()))
+        })
+        .collect();
+    let mut hydrated = 0;
+    for trigger in packs {
+        if trigger.icon.is_some() {
+            continue;
+        }
+        if let Some(icon) = icons.get(&trigger.effective_id()) {
+            trigger.icon = Some(icon.clone());
+            hydrated += 1;
+        }
+    }
+    hydrated
+}
+
 pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String> {
     let mut warnings = Vec::new();
     let dir = packs_dir(app);
@@ -103,6 +130,12 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
         if let Some(bundled_dir) = bundled_packs_dir(app) {
             match load_packs(&bundled_dir) {
                 Ok(bundled) => {
+                    let hydrated = hydrate_missing_bundled_icons(&mut packs, &bundled.triggers);
+                    if hydrated > 0 {
+                        logging::info(&format!(
+                            "trigger packs inherited {hydrated} missing icon(s) from bundled definitions"
+                        ));
+                    }
                     for trigger in bundled.triggers {
                         if trigger.event.is_some()
                             && !packs
@@ -137,6 +170,45 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
         user,
         warnings,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn trigger(id: &str, icon: Option<&str>) -> Trigger {
+        let mut trigger = Trigger::new("Timer", "^line$", Vec::new());
+        trigger.id = Some(id.to_string());
+        trigger.icon = icon.map(str::to_string);
+        trigger
+    }
+
+    #[test]
+    fn older_download_inherits_missing_bundled_icon_by_id() {
+        let mut downloaded = vec![trigger("timers/odium", None)];
+        let bundled = vec![trigger("timers/odium", Some("spell:116"))];
+
+        assert_eq!(hydrate_missing_bundled_icons(&mut downloaded, &bundled), 1);
+        assert_eq!(downloaded[0].icon.as_deref(), Some("spell:116"));
+    }
+
+    #[test]
+    fn explicit_downloaded_icon_remains_authoritative() {
+        let mut downloaded = vec![trigger("timers/odium", Some("spell:9"))];
+        let bundled = vec![trigger("timers/odium", Some("spell:116"))];
+
+        assert_eq!(hydrate_missing_bundled_icons(&mut downloaded, &bundled), 0);
+        assert_eq!(downloaded[0].icon.as_deref(), Some("spell:9"));
+    }
+
+    #[test]
+    fn unrelated_bundled_trigger_does_not_supply_an_icon() {
+        let mut downloaded = vec![trigger("timers/odium", None)];
+        let bundled = vec![trigger("timers/togor", Some("spell:10"))];
+
+        assert_eq!(hydrate_missing_bundled_icons(&mut downloaded, &bundled), 0);
+        assert_eq!(downloaded[0].icon, None);
+    }
 }
 
 /// The (server, character) identity of the active character. Derived from the
