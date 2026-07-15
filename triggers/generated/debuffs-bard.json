@@ -26,7 +26,7 @@
         "Bard"
       ],
       "comments": "~0m24s at level 50 (formula 7, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/bard/cast/angstlich-s-appalling-screech",
@@ -53,7 +53,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:154"
     },
     {
       "id": "debuffs/bard/cast/angstlich-s-assonance",
@@ -80,7 +80,7 @@
         "Bard"
       ],
       "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:11"
+      "icon": "spell:153"
     },
     {
       "id": "debuffs/bard/cast/cassindra-s-insipid-ditty",
@@ -107,7 +107,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:15"
+      "icon": "spell:24"
     },
     {
       "id": "debuffs/bard/cast/chant-of-chaos",
@@ -133,7 +133,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:139"
     },
     {
       "id": "debuffs/bard/cast/chant-of-flame",
@@ -159,7 +159,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/bard/cast/chant-of-frost",
@@ -185,7 +185,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:56"
     },
     {
       "id": "debuffs/bard/cast/chant-of-magic",
@@ -211,7 +211,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/bard/cast/chant-of-plague",
@@ -237,7 +237,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/bard/cast/chant-of-venom",
@@ -263,7 +263,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/bard/cast/chords-of-dissonance",
@@ -290,7 +290,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:334"
+      "icon": "spell:143"
     },
     {
       "id": "debuffs/bard/cast/crission-s-pixie-strike",
@@ -317,7 +317,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/bard/cast/denon-s-bereavement",
@@ -344,7 +344,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/bard/cast/denon-s-disruptive-discord",
@@ -371,7 +371,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:334"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/bard/cast/dreams-of-ayonae",
@@ -398,7 +398,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/bard/cast/fufil-s-curtailing-chant",
@@ -425,7 +425,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/bard/cast/fufil-s-diminishing-dirge",
@@ -452,7 +452,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/bard/cast/jaxan-s-jig-o-vigor",
@@ -479,7 +479,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:189"
+      "icon": "spell:9"
     },
     {
       "id": "debuffs/bard/cast/kelin-s-lucid-lullaby",
@@ -506,7 +506,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/bard/cast/largo-s-assonant-binding",
@@ -533,7 +533,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/bard/cast/largo-s-melodic-binding",
@@ -560,7 +560,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/bard/cast/occlusion-of-sound",
@@ -587,7 +587,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:47"
+      "icon": "spell:148"
     },
     {
       "id": "debuffs/bard/cast/selo-s-assonant-strain",
@@ -614,7 +614,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:3"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/bard/cast/selo-s-chords-of-cessation",
@@ -641,7 +641,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 7, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:334"
+      "icon": "spell:143"
     },
     {
       "id": "debuffs/bard/cast/selo-s-consonant-chain",
@@ -668,7 +668,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/bard/cast/sionachie-s-dreams",
@@ -695,7 +695,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/bard/cast/solon-s-bewitching-bravura",
@@ -722,7 +722,7 @@
         "Bard"
       ],
       "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:27"
     },
     {
       "id": "debuffs/bard/cast/solon-s-song-of-the-sirens",
@@ -749,7 +749,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:27"
     },
     {
       "id": "debuffs/bard/cast/song-of-midnight",
@@ -776,7 +776,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:154"
     },
     {
       "id": "debuffs/bard/cast/song-of-twilight",
@@ -803,7 +803,7 @@
         "Bard"
       ],
       "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-disease",
@@ -830,7 +830,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-flame",
@@ -857,7 +857,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-frost",
@@ -884,7 +884,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:56"
     },
     {
       "id": "debuffs/bard/cast/tuyen-s-chant-of-poison",
@@ -911,7 +911,7 @@
         "Bard"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/ancient-lullaby-of-shadow",
@@ -943,7 +943,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/angstlich-s-appalling-screech",
@@ -975,7 +975,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:23"
+      "icon": "spell:154"
     },
     {
       "id": "debuffs/worn/angstlich-s-assonance",
@@ -1007,7 +1007,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:11"
+      "icon": "spell:153"
     },
     {
       "id": "debuffs/worn/cassindra-s-insipid-ditty",
@@ -1039,7 +1039,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:15"
+      "icon": "spell:24"
     },
     {
       "id": "debuffs/worn/chant-of-chaos",
@@ -1071,7 +1071,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:139"
     },
     {
       "id": "debuffs/worn/chant-of-flame",
@@ -1103,7 +1103,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/chant-of-frost",
@@ -1135,7 +1135,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:56"
     },
     {
       "id": "debuffs/worn/chant-of-magic",
@@ -1167,7 +1167,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/worn/chant-of-plague",
@@ -1199,7 +1199,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/chant-of-venom",
@@ -1231,7 +1231,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/chords-of-dissonance",
@@ -1263,7 +1263,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:334"
+      "icon": "spell:143"
     },
     {
       "id": "debuffs/worn/crission-s-pixie-strike",
@@ -1295,7 +1295,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/denon-s-bereavement",
@@ -1327,7 +1327,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/denon-s-disruptive-discord",
@@ -1359,7 +1359,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:334"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/worn/dreams-of-ayonae",
@@ -1391,7 +1391,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/fufil-s-curtailing-chant",
@@ -1423,7 +1423,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/worn/fufil-s-diminishing-dirge",
@@ -1455,7 +1455,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:161"
     },
     {
       "id": "debuffs/worn/jaxan-s-jig-o-vigor",
@@ -1487,7 +1487,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:189"
+      "icon": "spell:9"
     },
     {
       "id": "debuffs/worn/kelin-s-lucid-lullaby",
@@ -1519,7 +1519,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/largo-s-assonant-binding",
@@ -1551,7 +1551,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/largo-s-melodic-binding",
@@ -1583,7 +1583,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/occlusion-of-sound",
@@ -1615,7 +1615,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:47"
+      "icon": "spell:148"
     },
     {
       "id": "debuffs/worn/selo-s-assonant-strain",
@@ -1647,7 +1647,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:3"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/selo-s-chords-of-cessation",
@@ -1679,7 +1679,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:334"
+      "icon": "spell:143"
     },
     {
       "id": "debuffs/worn/selo-s-consonant-chain",
@@ -1711,7 +1711,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/sionachie-s-dreams",
@@ -1743,7 +1743,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/solon-s-bewitching-bravura",
@@ -1775,7 +1775,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:27"
     },
     {
       "id": "debuffs/worn/solon-s-song-of-the-sirens",
@@ -1807,7 +1807,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:27"
     },
     {
       "id": "debuffs/worn/song-of-midnight",
@@ -1839,7 +1839,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:23"
+      "icon": "spell:154"
     },
     {
       "id": "debuffs/worn/song-of-twilight",
@@ -1871,7 +1871,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:31"
+      "icon": "spell:35"
     },
     {
       "id": "debuffs/worn/tuyen-s-chant-of-disease",
@@ -1903,7 +1903,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/tuyen-s-chant-of-flame",
@@ -1935,7 +1935,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/tuyen-s-chant-of-frost",
@@ -1967,7 +1967,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:56"
     },
     {
       "id": "debuffs/worn/tuyen-s-chant-of-poison",
@@ -1999,7 +1999,7 @@
         "Bard"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:42"
     }
   ]
 }

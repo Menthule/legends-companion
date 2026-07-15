@@ -4,7 +4,7 @@
   {
    "id": "class/shaman/cc/root-broken",
       "name": "Root broke",
-      "icon": "spell:10",
+   "icon": "spell:117",
    "pattern": "^Your root spell has worn off\\.",
    "enabled": true,
    "default_enabled": true,
@@ -27,7 +27,7 @@
   {
    "id": "class/shaman/cc/walking-sleep-timer",
       "name": "Walking Sleep duration",
-      "icon": "spell:10",
+   "icon": "spell:17",
    "pattern": "^You begin casting Walking Sleep\\.",
    "enabled": true,
    "default_enabled": true,
@@ -53,7 +53,7 @@
   {
    "id": "class/shaman/cc/walking-sleep-worn",
       "name": "Walking Sleep worn off",
-      "icon": "spell:10",
+   "icon": "spell:17",
    "pattern": "^Your Walking Sleep spell has worn off(?: of (.+))?\\.",
    "enabled": true,
    "default_enabled": true,

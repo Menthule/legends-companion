@@ -26,7 +26,7 @@
         "Bard"
       ],
       "comments": "~0m30s at level 50 (formula 6, cap 5 ticks); the engine rescales to the profile's level; Bard level 30.",
-      "icon": "spell:118"
+      "icon": "spell:95"
     },
     {
       "id": "buffs/bard/cast/fearless-discipline",
@@ -52,7 +52,7 @@
         "Bard"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Bard level 54.",
-      "icon": "spell:181"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/bard/cast/kelin-s-lugubrious-lament",
@@ -79,7 +79,7 @@
         "Bard"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Bard level 8.",
-      "icon": "spell:30"
+      "icon": "spell:40"
     },
     {
       "id": "buffs/bard/cast/puretone-discipline",
@@ -105,7 +105,7 @@
         "Bard"
       ],
       "comments": "~4m00s at level 50 (formula 11, cap 40 ticks); the engine rescales to the profile's level; Bard level 60.",
-      "icon": "spell:179"
+      "icon": "spell:116"
     },
     {
       "id": "buffs/bard/cast/resistant-discipline",
@@ -131,7 +131,7 @@
         "Bard"
       ],
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Bard level 51.",
-      "icon": "spell:111"
+      "icon": "spell:78"
     },
     {
       "id": "buffs/bard/cast/selo-s-accelerating-chorus",
@@ -158,7 +158,7 @@
         "Bard"
       ],
       "comments": "~2m30s at level 50 (formula 4, cap 25 ticks); the engine rescales to the profile's level; Bard level 49.",
-      "icon": "spell:3"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/bard/cast/song-of-sustenance",
@@ -185,7 +185,7 @@
         "Bard"
       ],
       "comments": "~1m30s at level 50 (formula 6, cap 15 ticks); the engine rescales to the profile's level; Bard level 15.",
-      "icon": "spell:115"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/kelin-s-lugubrious-lament",
@@ -206,7 +206,7 @@
         "Bard"
       ],
       "comments": "Wear-off message: \"You no longer feel sad.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:30"
+      "icon": "spell:40"
     },
     {
       "id": "buffs/wear-off/selo-s-accelerating-chorus",
@@ -227,7 +227,7 @@
         "Bard"
       ],
       "comments": "Wear-off message: \"You slow down.\" — shared by 17 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:3"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/wear-off/song-of-sustenance",
@@ -248,7 +248,7 @@
         "Bard"
       ],
       "comments": "Wear-off message: \"Your hunger returns.\"",
-      "icon": "spell:115"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/puretone-discipline",
@@ -269,7 +269,7 @@
         "Bard"
       ],
       "comments": "Wear-off message: \"Your voice loses its perfection.\"",
-      "icon": "spell:179"
+      "icon": "spell:116"
     }
   ]
 }

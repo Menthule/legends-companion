@@ -25,7 +25,7 @@
         "Warrior"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 60.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/warrior/cast/charge-discipline",
@@ -51,7 +51,7 @@
         "Warrior"
       ],
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Warrior level 53.",
-      "icon": "spell:184"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/warrior/cast/defensive-discipline",
@@ -77,7 +77,7 @@
         "Warrior"
       ],
       "comments": "~3m00s at level 50 (formula 11, cap 30 ticks); the engine rescales to the profile's level; Warrior level 55.",
-      "icon": "spell:168"
+      "icon": "spell:1"
     },
     {
       "id": "buffs/warrior/cast/evasive-discipline",
@@ -103,7 +103,7 @@
         "Warrior"
       ],
       "comments": "~3m00s at level 50 (formula 11, cap 30 ticks); the engine rescales to the profile's level; Warrior level 52.",
-      "icon": "spell:172"
+      "icon": "spell:1"
     },
     {
       "id": "buffs/warrior/cast/fearless-discipline",
@@ -129,7 +129,7 @@
         "Warrior"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 40.",
-      "icon": "spell:181"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/warrior/cast/fellstrike-discipline",
@@ -155,7 +155,7 @@
         "Warrior"
       ],
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Warrior level 58.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/warrior/cast/focused-will-discipline",
@@ -181,7 +181,7 @@
         "Warrior"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 10.",
-      "icon": "spell:10"
+      "icon": "spell:0"
     },
     {
       "id": "buffs/warrior/cast/mighty-strike-discipline",
@@ -207,7 +207,7 @@
         "Warrior"
       ],
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Warrior level 54.",
-      "icon": "spell:169"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/warrior/cast/precision-discipline",
@@ -233,7 +233,7 @@
         "Warrior"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Warrior level 57.",
-      "icon": "spell:183"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/warrior/cast/resistant-discipline",
@@ -259,7 +259,7 @@
         "Warrior"
       ],
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Warrior level 30.",
-      "icon": "spell:111"
+      "icon": "spell:78"
     },
     {
       "id": "buffs/wear-off/fearless-discipline",
@@ -288,7 +288,7 @@
         "Berserker"
       ],
       "comments": "Wear-off message: \"The specter of fear returns to your mind.\"",
-      "icon": "spell:181"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/wear-off/aggressive-discipline",
@@ -309,7 +309,7 @@
         "Warrior"
       ],
       "comments": "Wear-off message: \"You return to your normal fighting style.\" — shared by 91 spells in spells_us_str (4 castable; also: Defensive Discipline, Evasive Discipline, Precision Discipline). Named after the alphabetically-first castable spell.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/mighty-strike-discipline",
@@ -330,7 +330,7 @@
         "Warrior"
       ],
       "comments": "Wear-off message: \"Your killer instinct fades.\"",
-      "icon": "spell:169"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/charge-discipline",
@@ -351,7 +351,7 @@
         "Warrior"
       ],
       "comments": "Wear-off message: \"Your perfect focus fades.\"",
-      "icon": "spell:184"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/wear-off/resistant-discipline",
@@ -380,7 +380,7 @@
         "Berserker"
       ],
       "comments": "Wear-off message: \"Your resistance fades.\" — shared by 7 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:111"
+      "icon": "spell:78"
     },
     {
       "id": "buffs/wear-off/fellstrike-discipline",
@@ -401,7 +401,7 @@
         "Warrior"
       ],
       "comments": "Wear-off message: \"Your weapons lose their accuracy.\"",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/focused-will-discipline",
@@ -425,7 +425,7 @@
         "Berserker"
       ],
       "comments": "Wear-off message: \"Your will falters.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:0"
     }
   ]
 }

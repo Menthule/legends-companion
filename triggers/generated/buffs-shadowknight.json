@@ -26,7 +26,7 @@
         "ShadowKnight"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 60.",
-      "icon": "spell:10"
+      "icon": "spell:74"
     },
     {
       "id": "buffs/shadowknight/cast/bobbing-corpse",
@@ -53,7 +53,7 @@
         "ShadowKnight"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; ShadowKnight level 55.",
-      "icon": "spell:14"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/shadowknight/cast/call-of-darkness",
@@ -80,7 +80,7 @@
         "ShadowKnight"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 54.",
-      "icon": "spell:10"
+      "icon": "spell:164"
     },
     {
       "id": "buffs/shadowknight/cast/cloak-of-the-akheva",
@@ -107,7 +107,7 @@
         "ShadowKnight"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; ShadowKnight level 60.",
-      "icon": "spell:148"
+      "icon": "spell:140"
     },
     {
       "id": "buffs/shadowknight/cast/deathly-temptation",
@@ -134,7 +134,7 @@
         "ShadowKnight"
       ],
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 58.",
-      "icon": "spell:374"
+      "icon": "spell:164"
     },
     {
       "id": "buffs/shadowknight/cast/diamondskin",
@@ -161,7 +161,7 @@
         "ShadowKnight"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; ShadowKnight level 59.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/shadowknight/cast/endure-cold",
@@ -188,7 +188,7 @@
         "ShadowKnight"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; ShadowKnight level 10.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/shadowknight/cast/endure-disease",
@@ -215,7 +215,7 @@
         "ShadowKnight"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; ShadowKnight level 26.",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/shadowknight/cast/fearless-discipline",
@@ -241,7 +241,7 @@
         "ShadowKnight"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; ShadowKnight level 54.",
-      "icon": "spell:181"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/shadowknight/cast/gather-shadows",
@@ -268,7 +268,7 @@
         "ShadowKnight"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 30. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/shadowknight/cast/ichor-guard",
@@ -294,7 +294,7 @@
         "ShadowKnight"
       ],
       "comments": "~0m30s at level 50 (formula 8, cap 5 ticks); the engine rescales to the profile's level; ShadowKnight level 56.",
-      "icon": "spell:10"
+      "icon": "spell:128"
     },
     {
       "id": "buffs/shadowknight/cast/invisibility-versus-undead",
@@ -321,7 +321,7 @@
         "ShadowKnight"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; ShadowKnight level 4. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:28"
+      "icon": "spell:33"
     },
     {
       "id": "buffs/shadowknight/cast/mental-corruption",
@@ -348,7 +348,7 @@
         "ShadowKnight"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 52.",
-      "icon": "spell:85"
+      "icon": "spell:27"
     },
     {
       "id": "buffs/shadowknight/cast/numb-the-dead",
@@ -375,7 +375,7 @@
         "ShadowKnight"
       ],
       "comments": "~2m00s at level 50 (formula 8, cap 20 ticks); the engine rescales to the profile's level; ShadowKnight level 9.",
-      "icon": "spell:30"
+      "icon": "spell:40"
     },
     {
       "id": "buffs/shadowknight/cast/resist-cold",
@@ -402,7 +402,7 @@
         "ShadowKnight"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; ShadowKnight level 35.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/shadowknight/cast/resistant-discipline",
@@ -428,7 +428,7 @@
         "ShadowKnight"
       ],
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; ShadowKnight level 51.",
-      "icon": "spell:111"
+      "icon": "spell:78"
     },
     {
       "id": "buffs/shadowknight/cast/rest-the-dead",
@@ -455,7 +455,7 @@
         "ShadowKnight"
       ],
       "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); the engine rescales to the profile's level; ShadowKnight level 52.",
-      "icon": "spell:30"
+      "icon": "spell:40"
     },
     {
       "id": "buffs/shadowknight/cast/shieldskin",
@@ -482,7 +482,7 @@
         "ShadowKnight"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; ShadowKnight level 31.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/shadowknight/cast/shroud-of-death",
@@ -509,7 +509,7 @@
         "ShadowKnight"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 55.",
-      "icon": "spell:85"
+      "icon": "spell:140"
     },
     {
       "id": "buffs/shadowknight/cast/shroud-of-undeath",
@@ -536,7 +536,7 @@
         "ShadowKnight"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; ShadowKnight level 55.",
-      "icon": "spell:85"
+      "icon": "spell:140"
     },
     {
       "id": "buffs/shadowknight/cast/steelskin",
@@ -563,7 +563,7 @@
         "ShadowKnight"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; ShadowKnight level 56.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/shadowknight/cast/strengthen-death",
@@ -590,7 +590,7 @@
         "ShadowKnight"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; ShadowKnight level 29.",
-      "icon": "spell:10"
+      "icon": "spell:74"
     },
     {
       "id": "buffs/shadowknight/cast/unholy-aura-discipline",
@@ -616,7 +616,7 @@
         "ShadowKnight"
       ],
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; ShadowKnight level 55.",
-      "icon": "spell:124"
+      "icon": "spell:47"
     },
     {
       "id": "buffs/shadowknight/cast/voice-of-darkness",
@@ -643,7 +643,7 @@
         "ShadowKnight"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 39.",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/shadowknight/cast/voice-of-death",
@@ -670,7 +670,7 @@
         "ShadowKnight"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 55.",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/shadowknight/cast/voice-of-shadows",
@@ -697,7 +697,7 @@
         "ShadowKnight"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 46.",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/shadowknight/cast/voice-of-terris",
@@ -724,7 +724,7 @@
         "ShadowKnight"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; ShadowKnight level 60.",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/wear-off/call-of-darkness",
@@ -745,7 +745,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The dark energy fades away.\" — shared by 25 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:164"
     },
     {
       "id": "buffs/wear-off/voice-of-darkness",
@@ -766,7 +766,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The dark voice fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/wear-off/mental-corruption",
@@ -787,7 +787,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The green nimbus fades.\"",
-      "icon": "spell:85"
+      "icon": "spell:27"
     },
     {
       "id": "buffs/wear-off/ichor-guard",
@@ -808,7 +808,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The ichor melts away from your armor.\"",
-      "icon": "spell:10"
+      "icon": "spell:128"
     },
     {
       "id": "buffs/wear-off/cloak-of-the-akheva",
@@ -829,7 +829,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The shadow departs.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:148"
+      "icon": "spell:140"
     },
     {
       "id": "buffs/wear-off/voice-of-shadows",
@@ -850,7 +850,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The shadowed voice fades.\"",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/wear-off/unholy-aura-discipline",
@@ -871,7 +871,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The unholy aura fades.\"",
-      "icon": "spell:124"
+      "icon": "spell:47"
     },
     {
       "id": "buffs/wear-off/voice-of-death",
@@ -892,7 +892,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The voice of death fades.\"",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/wear-off/voice-of-terris",
@@ -913,7 +913,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"The voice of nightmares fades.\" — shared by 5 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:114"
+      "icon": "spell:91"
     },
     {
       "id": "buffs/wear-off/deathly-temptation",
@@ -934,7 +934,7 @@
         "ShadowKnight"
       ],
       "comments": "Wear-off message: \"You recover.\" — shared by 12 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:374"
+      "icon": "spell:164"
     },
     {
       "id": "buffs/wear-off/gather-shadows",
@@ -956,7 +956,7 @@
         "Necromancer"
       ],
       "comments": "Wear-off message: \"Your shadows fade.\" — shared by 7 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     }
   ]
 }

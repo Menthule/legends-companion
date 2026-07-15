@@ -26,7 +26,7 @@
         "Shaman"
       ],
       "comments": "~1m24s at level 50 (formula 10, cap 14 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/anathema",
@@ -53,7 +53,7 @@
         "Shaman"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:116"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/shaman/cast/ancient-scourge-of-nife",
@@ -80,7 +80,7 @@
         "Shaman"
       ],
       "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/shaman/cast/bane-of-nife",
@@ -107,7 +107,7 @@
         "Shaman"
       ],
       "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/shaman/cast/befriend-animal",
@@ -134,7 +134,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/shaman/cast/blinding-luminance",
@@ -161,7 +161,7 @@
         "Shaman"
       ],
       "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:20"
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shaman/cast/charm-animals",
@@ -188,7 +188,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Shaman level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/shaman/cast/cripple",
@@ -215,7 +215,7 @@
         "Shaman"
       ],
       "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:5"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/shaman/cast/curse",
@@ -242,7 +242,7 @@
         "Shaman"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:116"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/shaman/cast/disempower",
@@ -269,7 +269,7 @@
         "Shaman"
       ],
       "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/shaman/cast/drowsy",
@@ -296,7 +296,7 @@
         "Shaman"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/shaman/cast/envenomed-bolt",
@@ -323,7 +323,7 @@
         "Shaman"
       ],
       "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/shaman/cast/envenomed-breath",
@@ -350,7 +350,7 @@
         "Shaman"
       ],
       "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 24. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/shaman/cast/flash-of-light",
@@ -377,7 +377,7 @@
         "Shaman"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:20"
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/shaman/cast/immobilize",
@@ -404,7 +404,7 @@
         "Shaman"
       ],
       "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Shaman level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/shaman/cast/incapacitate",
@@ -431,7 +431,7 @@
         "Shaman"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/shaman/cast/infectious-cloud",
@@ -458,7 +458,7 @@
         "Shaman"
       ],
       "comments": "~2m06s at level 50 (formula 10, cap 21 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/insidious-decay",
@@ -485,7 +485,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/insidious-fever",
@@ -512,7 +512,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 17. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/insidious-malady",
@@ -539,7 +539,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/instill",
@@ -566,7 +566,7 @@
         "Shaman"
       ],
       "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Shaman level 33. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/shaman/cast/listless-power",
@@ -593,7 +593,7 @@
         "Shaman"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 29. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/shaman/cast/malaise",
@@ -620,7 +620,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/shaman/cast/malaisement",
@@ -647,7 +647,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/shaman/cast/malo",
@@ -674,7 +674,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/shaman/cast/malosi",
@@ -701,7 +701,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/shaman/cast/malosini",
@@ -728,7 +728,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:46"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/shaman/cast/odium",
@@ -755,7 +755,7 @@
         "Shaman"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:116"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/shaman/cast/paralyzing-earth",
@@ -782,7 +782,7 @@
         "Shaman"
       ],
       "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Shaman level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/shaman/cast/plague",
@@ -809,7 +809,7 @@
         "Shaman"
       ],
       "comments": "~1m18s at level 50 (formula 10, cap 13 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/plague-of-insects",
@@ -836,7 +836,7 @@
         "Shaman"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/shaman/cast/pox-of-bertoxxulous",
@@ -863,7 +863,7 @@
         "Shaman"
       ],
       "comments": "~1m24s at level 50 (formula 7, cap 14 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/root",
@@ -890,7 +890,7 @@
         "Shaman"
       ],
       "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Shaman level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/shaman/cast/scourge",
@@ -917,7 +917,7 @@
         "Shaman"
       ],
       "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/sicken",
@@ -944,7 +944,7 @@
         "Shaman"
       ],
       "comments": "~1m24s at level 50 (formula 8, cap 14 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/shaman/cast/tagar-s-insects",
@@ -971,7 +971,7 @@
         "Shaman"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/shaman/cast/tainted-breath",
@@ -998,7 +998,7 @@
         "Shaman"
       ],
       "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 8. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/shaman/cast/tigir-s-insects",
@@ -1025,7 +1025,7 @@
         "Shaman"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/shaman/cast/togor-s-insects",
@@ -1052,7 +1052,7 @@
         "Shaman"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/shaman/cast/turgur-s-insects",
@@ -1079,7 +1079,7 @@
         "Shaman"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Shaman level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/shaman/cast/venom-of-the-snake",
@@ -1106,7 +1106,7 @@
         "Shaman"
       ],
       "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Shaman level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/affliction",
@@ -1138,7 +1138,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/anathema",
@@ -1170,7 +1170,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:116"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/ancient-scourge-of-nife",
@@ -1202,7 +1202,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/bane-of-nife",
@@ -1234,7 +1234,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/cripple",
@@ -1267,7 +1267,7 @@
         "Enchanter"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:5"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/worn/curse",
@@ -1299,7 +1299,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:116"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/disempower",
@@ -1332,7 +1332,7 @@
         "Enchanter"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/worn/drowsy",
@@ -1365,7 +1365,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/envenomed-bolt",
@@ -1398,7 +1398,7 @@
         "Necromancer"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/envenomed-breath",
@@ -1431,7 +1431,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/incapacitate",
@@ -1465,7 +1465,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/worn/infectious-cloud",
@@ -1498,7 +1498,7 @@
         "Necromancer"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/insidious-decay",
@@ -1530,7 +1530,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/insidious-fever",
@@ -1562,7 +1562,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/insidious-malady",
@@ -1594,7 +1594,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/listless-power",
@@ -1628,7 +1628,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/worn/malaise",
@@ -1661,7 +1661,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/malaisement",
@@ -1694,7 +1694,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/malo",
@@ -1726,7 +1726,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/malosi",
@@ -1759,7 +1759,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/malosini",
@@ -1792,7 +1792,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:46"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/odium",
@@ -1824,7 +1824,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:116"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/plague",
@@ -1857,7 +1857,7 @@
         "Necromancer"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/plague-of-insects",
@@ -1889,7 +1889,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/pox-of-bertoxxulous",
@@ -1921,7 +1921,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/scourge",
@@ -1954,7 +1954,7 @@
         "Necromancer"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/sicken",
@@ -1987,7 +1987,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/tagar-s-insects",
@@ -2019,7 +2019,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/tainted-breath",
@@ -2052,7 +2052,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/tigir-s-insects",
@@ -2084,7 +2084,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/togor-s-insects",
@@ -2116,7 +2116,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/turgur-s-insects",
@@ -2148,7 +2148,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/venom-of-the-snake",
@@ -2182,7 +2182,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     }
   ]
 }

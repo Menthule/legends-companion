@@ -4,7 +4,7 @@
     {
       "id": "class/paladin/heals/yaulp",
       "name": "Yaulp",
-      "icon": "spell:10",
+      "icon": "spell:6",
       "pattern": "^You feel a surge of strength as you let forth a mighty yaulp\\.",
       "enabled": true,
       "default_enabled": true,
@@ -25,7 +25,7 @@
     {
       "id": "class/paladin/abilities/lay-hands-recast",
       "name": "Lay on Hands recast",
-      "icon": "spell:0",
+      "icon": "spell:99",
       "pattern": "^You begin casting Lay on Hands\\.",
       "enabled": true,
       "default_enabled": true,

@@ -26,7 +26,7 @@
         "Paladin"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Paladin level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:20"
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/paladin/cast/instill",
@@ -53,7 +53,7 @@
         "Paladin"
       ],
       "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Paladin level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/paladin/cast/root",
@@ -80,7 +80,7 @@
         "Paladin"
       ],
       "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Paladin level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/paladin/cast/spook-the-dead",
@@ -107,7 +107,7 @@
         "Paladin"
       ],
       "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Paladin level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:164"
     }
   ]
 }

@@ -26,7 +26,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 11, cap 630 ticks); the engine rescales to the profile's level; Shaman level 56.",
-      "icon": "spell:13"
+      "icon": "spell:138"
     },
     {
       "id": "buffs/shaman/cast/acumen-of-dar-khura",
@@ -53,7 +53,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 11, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58.",
-      "icon": "spell:13"
+      "icon": "spell:138"
     },
     {
       "id": "buffs/shaman/cast/agility",
@@ -80,7 +80,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 41.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/shaman/cast/alacrity",
@@ -107,7 +107,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Shaman level 42.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/shaman/cast/alluring-aura",
@@ -134,7 +134,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 28.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/shaman/cast/ancient-feral-avatar",
@@ -161,7 +161,7 @@
         "Shaman"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Shaman level 60.",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/shaman/cast/assiduous-vision",
@@ -188,7 +188,7 @@
         "Shaman"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Shaman level 36.",
-      "icon": "spell:73"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/shaman/cast/avatar",
@@ -215,7 +215,7 @@
         "Shaman"
       ],
       "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Shaman level 60.",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/shaman/cast/celerity",
@@ -242,7 +242,7 @@
         "Shaman"
       ],
       "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Shaman level 56.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/shaman/cast/charisma",
@@ -269,7 +269,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 47.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/shaman/cast/chloroplast",
@@ -296,7 +296,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 39.",
-      "icon": "spell:0"
+      "icon": "spell:118"
     },
     {
       "id": "buffs/shaman/cast/creeping-vision",
@@ -323,7 +323,7 @@
         "Shaman"
       ],
       "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); the engine rescales to the profile's level; Shaman level 20.",
-      "icon": "spell:87"
+      "icon": "spell:106"
     },
     {
       "id": "buffs/shaman/cast/deftness",
@@ -350,7 +350,7 @@
         "Shaman"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 39.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/deliriously-nimble",
@@ -377,7 +377,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 53.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/shaman/cast/dexterity",
@@ -404,7 +404,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 48.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/dexterous-aura",
@@ -431,7 +431,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/endure-cold",
@@ -458,7 +458,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/shaman/cast/endure-disease",
@@ -485,7 +485,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 8.",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/shaman/cast/endure-fire",
@@ -512,7 +512,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 5.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/shaman/cast/endure-magic",
@@ -539,7 +539,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 19.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/shaman/cast/endure-poison",
@@ -566,7 +566,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 11.",
-      "icon": "spell:10"
+      "icon": "spell:61"
     },
     {
       "id": "buffs/shaman/cast/enduring-breath",
@@ -593,7 +593,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 12.",
-      "icon": "spell:14"
+      "icon": "spell:20"
     },
     {
       "id": "buffs/shaman/cast/everlasting-breath",
@@ -620,7 +620,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 51.",
-      "icon": "spell:14"
+      "icon": "spell:20"
     },
     {
       "id": "buffs/shaman/cast/feet-like-cat",
@@ -647,7 +647,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 11, cap 360 ticks); the engine rescales to the profile's level; Shaman level 3.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/shaman/cast/focus-of-spirit",
@@ -674,7 +674,7 @@
         "Shaman"
       ],
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Shaman level 60.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/form-of-the-bear",
@@ -701,7 +701,7 @@
         "Shaman"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 25.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/shaman/cast/form-of-the-great-bear",
@@ -728,7 +728,7 @@
         "Shaman"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 55.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/shaman/cast/furious-strength",
@@ -755,7 +755,7 @@
         "Shaman"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 39.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/glamour",
@@ -782,7 +782,7 @@
         "Shaman"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 37.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/shaman/cast/guardian",
@@ -809,7 +809,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 42.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/shaman/cast/harnessing-of-spirit",
@@ -836,7 +836,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 46.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/health",
@@ -863,7 +863,7 @@
         "Shaman"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 30.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/shaman/cast/infusion-of-spirit",
@@ -890,7 +890,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 49.",
-      "icon": "spell:10"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/inner-fire",
@@ -917,7 +917,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
-      "icon": "spell:1"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/invisibility",
@@ -944,7 +944,7 @@
         "Shaman"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Shaman level 27. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/shaman/cast/invisibility-versus-animals",
@@ -971,7 +971,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:29"
+      "icon": "spell:34"
     },
     {
       "id": "buffs/shaman/cast/khura-s-focusing",
@@ -998,7 +998,7 @@
         "Shaman"
       ],
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Shaman level 60.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/levitate",
@@ -1025,7 +1025,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 10.",
-      "icon": "spell:10"
+      "icon": "spell:80"
     },
     {
       "id": "buffs/shaman/cast/levitation",
@@ -1052,7 +1052,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 51.",
-      "icon": "spell:10"
+      "icon": "spell:80"
     },
     {
       "id": "buffs/shaman/cast/maniacal-strength",
@@ -1079,7 +1079,7 @@
         "Shaman"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 57.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/mortal-deftness",
@@ -1106,7 +1106,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 58.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/nimble",
@@ -1133,7 +1133,7 @@
         "Shaman"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 31.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/shaman/cast/pack-shrew",
@@ -1160,7 +1160,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 34.",
-      "icon": "spell:66"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/shaman/cast/primal-avatar",
@@ -1187,7 +1187,7 @@
         "Shaman"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Shaman level 60.",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/shaman/cast/primal-essence",
@@ -1214,7 +1214,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 52.",
-      "icon": "spell:10"
+      "icon": "spell:49"
     },
     {
       "id": "buffs/shaman/cast/protect",
@@ -1241,7 +1241,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 20.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/shaman/cast/quickness",
@@ -1268,7 +1268,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Shaman level 26.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/shaman/cast/raging-strength",
@@ -1295,7 +1295,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 28.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/regeneration",
@@ -1322,7 +1322,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 23.",
-      "icon": "spell:0"
+      "icon": "spell:118"
     },
     {
       "id": "buffs/shaman/cast/regrowth",
@@ -1349,7 +1349,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 52.",
-      "icon": "spell:0"
+      "icon": "spell:118"
     },
     {
       "id": "buffs/shaman/cast/regrowth-of-dar-khura",
@@ -1376,7 +1376,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 56.",
-      "icon": "spell:0"
+      "icon": "spell:118"
     },
     {
       "id": "buffs/shaman/cast/resist-cold",
@@ -1403,7 +1403,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 24.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/shaman/cast/resist-disease",
@@ -1430,7 +1430,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 30.",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/shaman/cast/resist-fire",
@@ -1457,7 +1457,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 27.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/shaman/cast/resist-magic",
@@ -1484,7 +1484,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 43.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/shaman/cast/resist-poison",
@@ -1511,7 +1511,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 35.",
-      "icon": "spell:10"
+      "icon": "spell:61"
     },
     {
       "id": "buffs/shaman/cast/riotous-health",
@@ -1538,7 +1538,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 54.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/shaman/cast/rising-dexterity",
@@ -1565,7 +1565,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 25.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/scale-skin",
@@ -1592,7 +1592,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 3.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/shaman/cast/scale-of-wolf",
@@ -1619,7 +1619,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 22.",
-      "icon": "spell:94"
+      "icon": "spell:112"
     },
     {
       "id": "buffs/shaman/cast/serpent-sight",
@@ -1646,7 +1646,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 6.",
-      "icon": "spell:65"
+      "icon": "spell:86"
     },
     {
       "id": "buffs/shaman/cast/shifting-shield",
@@ -1673,7 +1673,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 31.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/shaman/cast/shroud-of-the-spirits",
@@ -1700,7 +1700,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 54.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/shaman/cast/spirit-quickening",
@@ -1727,7 +1727,7 @@
         "Shaman"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Shaman level 50.",
-      "icon": "spell:10"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/shaman/cast/spirit-sight",
@@ -1754,7 +1754,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 7.",
-      "icon": "spell:13"
+      "icon": "spell:19"
     },
     {
       "id": "buffs/shaman/cast/spirit-strength",
@@ -1781,7 +1781,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 18.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-bear",
@@ -1808,7 +1808,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 6.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-bih-li",
@@ -1835,7 +1835,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 36.",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-cat",
@@ -1862,7 +1862,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 18.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-cheetah",
@@ -1889,7 +1889,7 @@
         "Shaman"
       ],
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Shaman level 21.",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-monkey",
@@ -1916,7 +1916,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 21.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-ox",
@@ -1943,7 +1943,7 @@
         "Shaman"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 21.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-scale",
@@ -1970,7 +1970,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 52.",
-      "icon": "spell:94"
+      "icon": "spell:112"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-snake",
@@ -1997,7 +1997,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-wolf",
@@ -2024,7 +2024,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 9.",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-the-jaguar",
@@ -2051,7 +2051,7 @@
         "Shaman"
       ],
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Shaman level 57.",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-the-puma",
@@ -2078,7 +2078,7 @@
         "Shaman"
       ],
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Shaman level 50.",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/shaman/cast/spirit-of-the-shrew",
@@ -2105,7 +2105,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 29.",
-      "icon": "spell:66"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/shaman/cast/stamina",
@@ -2132,7 +2132,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 43.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/shaman/cast/strength",
@@ -2159,7 +2159,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 46.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/strengthen",
@@ -2186,7 +2186,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-altuna",
@@ -2213,7 +2213,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 40.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-epuration",
@@ -2240,7 +2240,7 @@
         "Shaman"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Shaman level 58.",
-      "icon": "spell:49"
+      "icon": "spell:68"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-jasinth",
@@ -2267,7 +2267,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 50.",
-      "icon": "spell:49"
+      "icon": "spell:68"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-kragg",
@@ -2294,7 +2294,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 55.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-shadoo",
@@ -2321,7 +2321,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 53.",
-      "icon": "spell:10"
+      "icon": "spell:64"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-tnarg",
@@ -2348,7 +2348,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 32.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-the-beast",
@@ -2375,7 +2375,7 @@
         "Shaman"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 8.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-the-brute",
@@ -2402,7 +2402,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 57.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-the-cat",
@@ -2429,7 +2429,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 57.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-the-raptor",
@@ -2456,7 +2456,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 59.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-the-rhino",
@@ -2483,7 +2483,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/talisman-of-the-serpent",
@@ -2510,7 +2510,7 @@
         "Shaman"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/shaman/cast/tumultuous-strength",
@@ -2537,7 +2537,7 @@
         "Shaman"
       ],
       "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Shaman level 35.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/shaman/cast/turtle-skin",
@@ -2564,7 +2564,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 11.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/shaman/cast/ultravision",
@@ -2591,7 +2591,7 @@
         "Shaman"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 26.",
-      "icon": "spell:66"
+      "icon": "spell:87"
     },
     {
       "id": "buffs/shaman/cast/unfailing-reverence",
@@ -2618,7 +2618,7 @@
         "Shaman"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 59.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/shaman/cast/vision",
@@ -2645,7 +2645,7 @@
         "Shaman"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Shaman level 17.",
-      "icon": "spell:73"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/shaman/cast/voice-of-the-berserker",
@@ -2672,7 +2672,7 @@
         "Shaman"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 59.",
-      "icon": "spell:10"
+      "icon": "spell:49"
     },
     {
       "id": "buffs/wear-off/ancient-feral-avatar",
@@ -2693,7 +2693,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The Avatar departs.\" — shared by 4 spells in spells_us_str (3 castable; also: Avatar, Primal Avatar). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/wear-off/talisman-of-epuration",
@@ -2714,7 +2714,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The Talisman fades.\" — shared by 3 spells in spells_us_str (3 castable; also: Talisman of Jasinth, Talisman of Shadoo). Named after the alphabetically-first castable spell.",
-      "icon": "spell:49"
+      "icon": "spell:68"
     },
     {
       "id": "buffs/wear-off/inner-fire",
@@ -2736,7 +2736,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"The inner fire fades.\"",
-      "icon": "spell:1"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/wear-off/spirit-of-bih-li",
@@ -2757,7 +2757,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The spirit of Bih`Li leaves you.\"",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/wear-off/spirit-of-bear",
@@ -2779,7 +2779,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"The spirit of bear leaves you.\"",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spirit-of-cat",
@@ -2800,7 +2800,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The spirit of cat leaves you.\"",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/spirit-of-monkey",
@@ -2822,7 +2822,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"The spirit of monkey leaves.\"",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/wear-off/spirit-of-ox",
@@ -2844,7 +2844,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"The spirit of ox leaves you.\"",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/spirit-of-snake",
@@ -2865,7 +2865,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The spirit of snake leaves you.\"",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/spirit-of-the-jaguar",
@@ -2886,7 +2886,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The spirit of the jaguar departs.\"",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/wear-off/spirit-of-the-puma",
@@ -2907,7 +2907,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"The spirit of the puma departs.\"",
-      "icon": "spell:10"
+      "icon": "spell:2"
     },
     {
       "id": "buffs/wear-off/form-of-the-bear",
@@ -2928,7 +2928,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"You are no longer a bear.\" — shared by 20 spells in spells_us_str (2 castable; also: Form of the Great Bear). Named after the alphabetically-first castable spell.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/wear-off/guardian",
@@ -2949,7 +2949,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"You are no longer guarded.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/shifting-shield",
@@ -2971,7 +2971,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"You are no longer shielded.\"",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/shroud-of-the-spirits",
@@ -2992,7 +2992,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"You are no longer shrouded.\"",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/assiduous-vision",
@@ -3013,7 +3013,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"You return to your body.\" — shared by 8 spells in spells_us_str (2 castable; also: Vision). Named after the alphabetically-first castable spell.",
-      "icon": "spell:73"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/wear-off/scale-skin",
@@ -3035,7 +3035,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"You shed your scales.\"",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/alluring-aura",
@@ -3056,7 +3056,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your aura fades.\" — shared by 6 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/talisman-of-the-brute",
@@ -3077,7 +3077,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your brute spirit fades.\"",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/charisma",
@@ -3098,7 +3098,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your charisma fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Glamour, Unfailing Reverence). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/mortal-deftness",
@@ -3119,7 +3119,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your deftness fades.\"",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/wear-off/deftness",
@@ -3141,7 +3141,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your dexterity fades.\" — shared by 3 spells in spells_us_str (3 castable; also: Dexterity, Rising Dexterity). Named after the alphabetically-first castable spell.",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/wear-off/talisman-of-the-cat",
@@ -3162,7 +3162,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your feline spirit fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/creeping-vision",
@@ -3183,7 +3183,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your focus fades.\" — shared by 16 spells in spells_us_str (3 castable; also: Focus of Spirit, Khura's Focusing). Named after the alphabetically-first castable spell.",
-      "icon": "spell:87"
+      "icon": "spell:106"
     },
     {
       "id": "buffs/wear-off/voice-of-the-berserker",
@@ -3204,7 +3204,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your frenzy fades.\" — shared by 6 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:49"
     },
     {
       "id": "buffs/wear-off/health",
@@ -3226,7 +3226,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your health fades.\" — shared by 2 spells in spells_us_str (2 castable; also: Riotous Health). Named after the alphabetically-first castable spell.",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/harnessing-of-spirit",
@@ -3248,7 +3248,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your hit points fade.\" — shared by 4 spells in spells_us_str (4 castable; also: Talisman of Altuna, Talisman of Kragg, Talisman of Tnarg). Named after the alphabetically-first castable spell.",
-      "icon": "spell:69"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/wear-off/heat-sight",
@@ -3272,7 +3272,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your infravision fades.\" — shared by 3 spells in spells_us_str (2 castable; also: Serpent Sight). Named after the alphabetically-first castable spell.",
-      "icon": "spell:65"
+      "icon": "spell:86"
     },
     {
       "id": "buffs/wear-off/dexterous-aura",
@@ -3293,7 +3293,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your magical dexterity fades.\"",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/wear-off/infusion-of-spirit",
@@ -3314,7 +3314,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your power fades.\" — shared by 65 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:130"
     },
     {
       "id": "buffs/wear-off/primal-essence",
@@ -3335,7 +3335,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your primal essence fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:49"
     },
     {
       "id": "buffs/wear-off/talisman-of-the-raptor",
@@ -3356,7 +3356,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your raptor spirit fades.\"",
-      "icon": "spell:5"
+      "icon": "spell:8"
     },
     {
       "id": "buffs/wear-off/talisman-of-the-rhino",
@@ -3377,7 +3377,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your rhino spirit fades.\"",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/talisman-of-the-serpent",
@@ -3398,7 +3398,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your serpent spirit fades.\"",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/aanya-s-quickening",
@@ -3421,7 +3421,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your speed returns to normal.\" — shared by 54 spells in spells_us_str (6 castable; also: Alacrity, Celerity, Quickness, Swift Like the Wind, Wondrous Rapidity). Named after the alphabetically-first castable spell.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/wear-off/stamina",
@@ -3443,7 +3443,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your stamina fades.\"",
-      "icon": "spell:7"
+      "icon": "spell:10"
     },
     {
       "id": "buffs/wear-off/ultravision",
@@ -3466,7 +3466,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your ultravision fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:66"
+      "icon": "spell:87"
     }
   ]
 }

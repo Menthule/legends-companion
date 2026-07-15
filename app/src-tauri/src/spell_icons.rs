@@ -2,7 +2,7 @@
 //! only `spell:<id>`; the proprietary image sheets stay in the player's game
 //! installation and are cropped to a tiny PNG only when the UI needs one.
 
-use std::collections::HashMap;
+use std::collections::{hash_map::Entry, HashMap};
 use std::fs;
 use std::io::Cursor;
 use std::path::{Path, PathBuf};
@@ -12,9 +12,13 @@ use base64::{engine::general_purpose::STANDARD, Engine as _};
 use serde::Serialize;
 use tauri::AppHandle;
 
-const ICON_CELL: usize = 25;
+const ICON_CELL: usize = 24;
 const ICONS_PER_ROW: usize = 10;
 const ICONS_PER_SHEET: u16 = 100;
+
+fn sheet_file_name(icon_id: u16) -> String {
+    format!("gemicons{:02}.tga", icon_id / ICONS_PER_SHEET + 1)
+}
 
 fn install_root(app: &AppHandle) -> Result<PathBuf, String> {
     let configured = crate::config::load(app).log_path;
@@ -29,26 +33,53 @@ fn install_root(app: &AppHandle) -> Result<PathBuf, String> {
         })
         .next()
         .map(Path::to_path_buf)
-        .ok_or_else(|| "Could not locate the EverQuest installation from the active log path.".to_string())
+        .ok_or_else(|| {
+            "Could not locate the EverQuest installation from the active log path.".to_string()
+        })
 }
 
 fn parse_icon_map(path: &Path) -> Result<HashMap<String, u16>, String> {
-    let bytes = fs::read(path)
-        .map_err(|error| format!("read {}: {error}", path.display()))?;
+    let bytes = fs::read(path).map_err(|error| format!("read {}: {error}", path.display()))?;
     let text = String::from_utf8_lossy(&bytes);
+    Ok(parse_icon_text(&text))
+}
+
+fn parse_icon_text(text: &str) -> HashMap<String, u16> {
     let mut icons = HashMap::new();
     for line in text.lines() {
-        let mut pipe = line.split('|');
-        let caret = pipe.next().unwrap_or_default();
-        let Some(icon) = pipe.next().and_then(|value| value.parse::<u16>().ok()) else {
+        let caret = line.split('|').next().unwrap_or_default();
+        let fields = caret.split('^').collect::<Vec<_>>();
+        let Some(icon) = fields.get(75).and_then(|value| value.parse::<u16>().ok()) else {
             continue;
         };
-        let Some(name) = caret.split('^').nth(1).map(str::trim).filter(|name| !name.is_empty()) else {
+        let Some(name) = fields
+            .get(1)
+            .map(|value| value.trim())
+            .filter(|name| !name.is_empty())
+        else {
             continue;
         };
-        icons.entry(name.to_lowercase()).or_insert(icon);
+        let castable = fields.get(36..52).is_some_and(|levels| {
+            levels.iter().any(|level| {
+                level
+                    .parse::<u16>()
+                    .is_ok_and(|level| (1..254).contains(&level))
+            })
+        });
+        match icons.entry(name.to_lowercase()) {
+            Entry::Vacant(entry) => {
+                entry.insert((icon, castable));
+            }
+            Entry::Occupied(mut entry) if castable && !entry.get().1 => {
+                entry.insert((icon, true));
+            }
+            Entry::Occupied(_) => {}
+        }
     }
-    Ok(icons)
+    icons
+        .into_iter()
+        .map(|(name, (icon, _castable))| (name, icon))
+        .collect()
 }
 
 static ICON_MAP: OnceLock<Result<HashMap<String, u16>, String>> = OnceLock::new();
@@ -61,7 +92,10 @@ pub struct SpellIconMatch {
 }
 
 #[tauri::command]
-pub fn spell_icons_for_names(app: AppHandle, names: Vec<String>) -> Result<Vec<SpellIconMatch>, String> {
+pub fn spell_icons_for_names(
+    app: AppHandle,
+    names: Vec<String>,
+) -> Result<Vec<SpellIconMatch>, String> {
     let root = install_root(&app)?;
     let icons = ICON_MAP
         .get_or_init(|| parse_icon_map(&root.join("spells_us.txt")))
@@ -95,10 +129,18 @@ fn crop_tga_icon(data: &[u8], cell: usize) -> Result<Vec<u8>, String> {
     let mut rgba = Vec::with_capacity(ICON_CELL * ICON_CELL * 4);
     for y in 0..ICON_CELL {
         let logical_y = cell_y + y;
-        let source_y = if top_origin { logical_y } else { height - 1 - logical_y };
+        let source_y = if top_origin {
+            logical_y
+        } else {
+            height - 1 - logical_y
+        };
         for x in 0..ICON_CELL {
             let logical_x = cell_x + x;
-            let source_x = if right_origin { width - 1 - logical_x } else { logical_x };
+            let source_x = if right_origin {
+                width - 1 - logical_x
+            } else {
+                logical_x
+            };
             let offset = pixels_at + (source_y * width + source_x) * 4;
             let pixel = data
                 .get(offset..offset + 4)
@@ -116,7 +158,9 @@ fn crop_tga_icon(data: &[u8], cell: usize) -> Result<Vec<u8>, String> {
         encoder.set_color(png::ColorType::Rgba);
         encoder.set_depth(png::BitDepth::Eight);
         let mut writer = encoder.write_header().map_err(|error| error.to_string())?;
-        writer.write_image_data(&rgba).map_err(|error| error.to_string())?;
+        writer
+            .write_image_data(&rgba)
+            .map_err(|error| error.to_string())?;
     }
     Ok(png_bytes)
 }
@@ -124,11 +168,8 @@ fn crop_tga_icon(data: &[u8], cell: usize) -> Result<Vec<u8>, String> {
 #[tauri::command]
 pub fn spell_icon_data(app: AppHandle, icon_id: u16) -> Result<String, String> {
     let root = install_root(&app)?;
-    let sheet = icon_id / ICONS_PER_SHEET + 1;
     let cell = (icon_id % ICONS_PER_SHEET) as usize;
-    let path = root
-        .join("uifiles/default")
-        .join(format!("gemicons{sheet:02}.tga"));
+    let path = root.join("uifiles/default").join(sheet_file_name(icon_id));
     let data = fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?;
     let png = crop_tga_icon(&data, cell)?;
     Ok(format!("data:image/png;base64,{}", STANDARD.encode(png)))
@@ -137,6 +178,15 @@ pub fn spell_icon_data(app: AppHandle, icon_id: u16) -> Result<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn decode_png(png: &[u8]) -> (png::OutputInfo, Vec<u8>) {
+        let decoder = png::Decoder::new(Cursor::new(png));
+        let mut reader = decoder.read_info().expect("png header");
+        let mut pixels = vec![0; reader.output_buffer_size()];
+        let info = reader.next_frame(&mut pixels).expect("png pixels");
+        pixels.truncate(info.buffer_size());
+        (info, pixels)
+    }
 
     #[test]
     fn crops_one_top_origin_bgra_cell_to_png() {
@@ -153,6 +203,64 @@ mod tests {
         tga[offset..offset + 4].copy_from_slice(&[3, 2, 1, 255]);
 
         let cropped = crop_tga_icon(&tga, 12).expect("crop");
-        assert_eq!(&cropped[..8], b"\x89PNG\r\n\x1a\n");
+        let (info, pixels) = decode_png(&cropped);
+        assert_eq!((info.width, info.height), (24, 24));
+        assert_eq!(&pixels[..4], &[1, 2, 3, 255]);
+    }
+
+    #[test]
+    fn crop_uses_24_pixel_stride_without_adjacent_cell_bleed() {
+        let width = 256;
+        let height = 256;
+        let mut tga = vec![0; 18 + width * height * 4];
+        tga[2] = 2;
+        tga[12..14].copy_from_slice(&(width as u16).to_le_bytes());
+        tga[14..16].copy_from_slice(&(height as u16).to_le_bytes());
+        tga[16] = 32;
+        tga[17] = 0x20;
+
+        for y in ICON_CELL..ICON_CELL * 2 {
+            for x in ICON_CELL * 2..ICON_CELL * 3 {
+                let offset = 18 + (y * width + x) * 4;
+                tga[offset..offset + 4].copy_from_slice(&[30, 20, 10, 255]);
+            }
+            for x in ICON_CELL * 3..ICON_CELL * 4 {
+                let offset = 18 + (y * width + x) * 4;
+                tga[offset..offset + 4].copy_from_slice(&[60, 50, 40, 255]);
+            }
+        }
+
+        let (_, pixels) = decode_png(&crop_tga_icon(&tga, 12).expect("crop"));
+        assert!(pixels
+            .chunks_exact(4)
+            .all(|pixel| pixel == [10, 20, 30, 255]));
+    }
+
+    #[test]
+    fn new_icon_ids_select_the_spell_gem_atlas() {
+        assert_eq!(sheet_file_name(0), "gemicons01.tga");
+        assert_eq!(sheet_file_name(99), "gemicons01.tga");
+        assert_eq!(sheet_file_name(100), "gemicons02.tga");
+    }
+
+    #[test]
+    fn icon_map_reads_new_icon_and_prefers_a_castable_duplicate() {
+        let row = |id: u16, name: &str, icon: u16, level: u16| {
+            let mut fields = vec!["0".to_string(); 173];
+            fields[0] = id.to_string();
+            fields[1] = name.to_string();
+            fields[36..52].fill("255".to_string());
+            fields[36] = level.to_string();
+            fields[75] = icon.to_string();
+            format!("{}|0|unused", fields.join("^"))
+        };
+        let text = format!(
+            "{}\n{}\n",
+            row(1, "Cessation of Life", 161, 255),
+            row(2, "Cessation of Life", 877, 37)
+        );
+
+        let icons = parse_icon_text(&text);
+        assert_eq!(icons.get("cessation of life"), Some(&877));
     }
 }

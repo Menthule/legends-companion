@@ -25,7 +25,7 @@
         "Monk"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 60.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/monk/cast/fearless-discipline",
@@ -51,7 +51,7 @@
         "Monk"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 40.",
-      "icon": "spell:181"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/monk/cast/focused-will-discipline",
@@ -77,7 +77,7 @@
         "Monk"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 10.",
-      "icon": "spell:10"
+      "icon": "spell:0"
     },
     {
       "id": "buffs/monk/cast/hundred-fists-discipline",
@@ -103,7 +103,7 @@
         "Monk"
       ],
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Monk level 57.",
-      "icon": "spell:182"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/monk/cast/innerflame-discipline",
@@ -129,7 +129,7 @@
         "Monk"
       ],
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Monk level 56.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/monk/cast/resistant-discipline",
@@ -155,7 +155,7 @@
         "Monk"
       ],
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Monk level 30.",
-      "icon": "spell:111"
+      "icon": "spell:78"
     },
     {
       "id": "buffs/monk/cast/silentfist-discipline",
@@ -181,7 +181,7 @@
         "Monk"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 59.",
-      "icon": "spell:184"
+      "icon": "spell:49"
     },
     {
       "id": "buffs/monk/cast/thunderkick-discipline",
@@ -207,7 +207,7 @@
         "Monk"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Monk level 52.",
-      "icon": "spell:185"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/thunderkick-discipline",
@@ -228,7 +228,7 @@
         "Monk"
       ],
       "comments": "Wear-off message: \"The glow fades from your feet.\"",
-      "icon": "spell:185"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/silentfist-discipline",
@@ -249,7 +249,7 @@
         "Monk"
       ],
       "comments": "Wear-off message: \"The silent fury fades away.\"",
-      "icon": "spell:184"
+      "icon": "spell:49"
     },
     {
       "id": "buffs/wear-off/ashenhand-discipline",
@@ -270,7 +270,7 @@
         "Monk"
       ],
       "comments": "Wear-off message: \"Your fists lose their fervor.\" — shared by 13 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/blinding-speed-discipline",
@@ -292,7 +292,7 @@
         "Rogue"
       ],
       "comments": "Wear-off message: \"Your hands slow down.\" — shared by 11 spells in spells_us_str (2 castable; also: Hundred Fists Discipline). Named after the alphabetically-first castable spell.",
-      "icon": "spell:182"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/innerflame-discipline",
@@ -313,7 +313,7 @@
         "Monk"
       ],
       "comments": "Wear-off message: \"Your strength of will fades.\" — shared by 16 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:185"
+      "icon": "spell:6"
     }
   ]
 }

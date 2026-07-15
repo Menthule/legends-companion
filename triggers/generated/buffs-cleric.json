@@ -26,7 +26,7 @@
         "Cleric"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 57.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/aegolism",
@@ -53,7 +53,7 @@
         "Cleric"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Cleric level 60.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/ancient-gift-of-aegolism",
@@ -80,7 +80,7 @@
         "Cleric"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Cleric level 60.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/ancient-high-priest-s-bulwark",
@@ -107,7 +107,7 @@
         "Cleric"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 60.",
-      "icon": "spell:69"
+      "icon": "spell:133"
     },
     {
       "id": "buffs/cleric/cast/armor-of-faith",
@@ -134,7 +134,7 @@
         "Cleric"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Cleric level 35.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/blessed-armor-of-the-risen",
@@ -161,7 +161,7 @@
         "Cleric"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 58.",
-      "icon": "spell:69"
+      "icon": "spell:133"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-aegolism",
@@ -188,7 +188,7 @@
         "Cleric"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Cleric level 60.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-faith",
@@ -215,7 +215,7 @@
         "Cleric"
       ],
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Cleric level 35.",
-      "icon": "spell:127"
+      "icon": "spell:138"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-piety",
@@ -242,7 +242,7 @@
         "Cleric"
       ],
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Cleric level 15.",
-      "icon": "spell:127"
+      "icon": "spell:138"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-temperance",
@@ -269,7 +269,7 @@
         "Cleric"
       ],
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Cleric level 45.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-the-knight",
@@ -296,7 +296,7 @@
         "Cleric"
       ],
       "comments": "~50m00s at level 50 (formula 15, cap 500 ticks); the engine rescales to the profile's level; Cleric level 34.",
-      "icon": "spell:121"
+      "icon": "spell:156"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-the-lord-commander",
@@ -323,7 +323,7 @@
         "Cleric"
       ],
       "comments": "~60m00s at level 50 (formula 15, cap 600 ticks); the engine rescales to the profile's level; Cleric level 48.",
-      "icon": "spell:121"
+      "icon": "spell:156"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-the-page",
@@ -350,7 +350,7 @@
         "Cleric"
       ],
       "comments": "~30m00s at level 50 (formula 15, cap 300 ticks); the engine rescales to the profile's level; Cleric level 8.",
-      "icon": "spell:121"
+      "icon": "spell:156"
     },
     {
       "id": "buffs/cleric/cast/blessing-of-the-squire",
@@ -377,7 +377,7 @@
         "Cleric"
       ],
       "comments": "~40m00s at level 50 (formula 15, cap 400 ticks); the engine rescales to the profile's level; Cleric level 16.",
-      "icon": "spell:121"
+      "icon": "spell:156"
     },
     {
       "id": "buffs/cleric/cast/bravery",
@@ -404,7 +404,7 @@
         "Cleric"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Cleric level 22.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/bulwark-of-faith",
@@ -431,7 +431,7 @@
         "Cleric"
       ],
       "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Cleric level 57.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/calm",
@@ -458,7 +458,7 @@
         "Cleric"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Cleric level 15.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/cleric/cast/center",
@@ -485,7 +485,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 7.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/courage",
@@ -512,7 +512,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Cleric level 1.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/daring",
@@ -539,7 +539,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 17.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/death-pact",
@@ -566,7 +566,7 @@
         "Cleric"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Cleric level 51.",
-      "icon": "spell:150"
+      "icon": "spell:82"
     },
     {
       "id": "buffs/cleric/cast/divine-intervention",
@@ -593,7 +593,7 @@
         "Cleric"
       ],
       "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Cleric level 60.",
-      "icon": "spell:150"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/cleric/cast/endure-cold",
@@ -620,7 +620,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 13.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/cleric/cast/endure-disease",
@@ -647,7 +647,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11.",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/cleric/cast/endure-fire",
@@ -674,7 +674,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 8.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/cleric/cast/endure-magic",
@@ -701,7 +701,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 16.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/cleric/cast/endure-poison",
@@ -728,7 +728,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 6.",
-      "icon": "spell:10"
+      "icon": "spell:61"
     },
     {
       "id": "buffs/cleric/cast/fortitude",
@@ -755,7 +755,7 @@
         "Cleric"
       ],
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Cleric level 55.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/frenzied-strength",
@@ -782,7 +782,7 @@
         "Cleric"
       ],
       "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Cleric level 31.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/cleric/cast/guard",
@@ -809,7 +809,7 @@
         "Cleric"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Cleric level 25.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/guard-of-vie",
@@ -836,7 +836,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 40.",
-      "icon": "spell:162"
+      "icon": "spell:128"
     },
     {
       "id": "buffs/cleric/cast/heroic-bond",
@@ -863,7 +863,7 @@
         "Cleric"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 52.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/heroism",
@@ -890,7 +890,7 @@
         "Cleric"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 52.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/holy-armor",
@@ -917,7 +917,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 1.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/improved-invisibility-to-undead",
@@ -944,7 +944,7 @@
         "Cleric"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Cleric level 48. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:315"
+      "icon": "spell:33"
     },
     {
       "id": "buffs/cleric/cast/invisibility-versus-undead",
@@ -971,7 +971,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:28"
+      "icon": "spell:33"
     },
     {
       "id": "buffs/cleric/cast/lull",
@@ -998,7 +998,7 @@
         "Cleric"
       ],
       "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Cleric level 1.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/cleric/cast/marzin-s-mark",
@@ -1025,7 +1025,7 @@
         "Cleric"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 60.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/naltron-s-mark",
@@ -1052,7 +1052,7 @@
         "Cleric"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 58.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/pacify",
@@ -1079,7 +1079,7 @@
         "Cleric"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Cleric level 36.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/cleric/cast/protection-of-vie",
@@ -1106,7 +1106,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 54.",
-      "icon": "spell:162"
+      "icon": "spell:128"
     },
     {
       "id": "buffs/cleric/cast/reckless-strength",
@@ -1133,7 +1133,7 @@
         "Cleric"
       ],
       "comments": "~3m00s at level 50 (formula 3, cap 30 ticks); the engine rescales to the profile's level; Cleric level 2.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/cleric/cast/resist-cold",
@@ -1160,7 +1160,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 38.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/cleric/cast/resist-disease",
@@ -1187,7 +1187,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 36.",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/cleric/cast/resist-fire",
@@ -1214,7 +1214,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 33.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/cleric/cast/resist-magic",
@@ -1241,7 +1241,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 43.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/cleric/cast/resist-poison",
@@ -1268,7 +1268,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 30.",
-      "icon": "spell:10"
+      "icon": "spell:61"
     },
     {
       "id": "buffs/cleric/cast/resolution",
@@ -1295,7 +1295,7 @@
         "Cleric"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Cleric level 42.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/shield-of-words",
@@ -1322,7 +1322,7 @@
         "Cleric"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Cleric level 45.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/soothe",
@@ -1349,7 +1349,7 @@
         "Cleric"
       ],
       "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Cleric level 5.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/cleric/cast/spirit-armor",
@@ -1376,7 +1376,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 15.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/cleric/cast/sunskin",
@@ -1403,7 +1403,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 51.",
-      "icon": "spell:28"
+      "icon": "spell:33"
     },
     {
       "id": "buffs/cleric/cast/symbol-of-marzin",
@@ -1430,7 +1430,7 @@
         "Cleric"
       ],
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Cleric level 54.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/symbol-of-naltron",
@@ -1457,7 +1457,7 @@
         "Cleric"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Cleric level 41.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/symbol-of-pinzarn",
@@ -1484,7 +1484,7 @@
         "Cleric"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Cleric level 31.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/symbol-of-ryltan",
@@ -1511,7 +1511,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 21.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/symbol-of-transal",
@@ -1538,7 +1538,7 @@
         "Cleric"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Cleric level 11.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/cleric/cast/temperance",
@@ -1565,7 +1565,7 @@
         "Cleric"
       ],
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Cleric level 40.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/valor",
@@ -1592,7 +1592,7 @@
         "Cleric"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Cleric level 32.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/cleric/cast/wake-of-tranquility",
@@ -1619,7 +1619,7 @@
         "Cleric"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Cleric level 55.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/cleric/cast/ward-of-rebuke",
@@ -1646,7 +1646,7 @@
         "Cleric"
       ],
       "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Cleric level 57.",
-      "icon": "spell:323"
+      "icon": "spell:153"
     },
     {
       "id": "buffs/cleric/cast/ward-of-vie",
@@ -1673,7 +1673,7 @@
         "Cleric"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Cleric level 20.",
-      "icon": "spell:162"
+      "icon": "spell:128"
     },
     {
       "id": "buffs/cleric/cast/ward-of-the-divine",
@@ -1700,7 +1700,7 @@
         "Cleric"
       ],
       "comments": "~20m00s at level 50 (formula 13, cap 200 ticks); the engine rescales to the profile's level; Cleric level 50.",
-      "icon": "spell:323"
+      "icon": "spell:153"
     },
     {
       "id": "buffs/wear-off/death-pact",
@@ -1721,7 +1721,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"The aura fades.\" — shared by 7 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:150"
+      "icon": "spell:82"
     },
     {
       "id": "buffs/wear-off/ward-of-rebuke",
@@ -1742,7 +1742,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"The blessing fades.\" — shared by 16 spells in spells_us_str (2 castable; also: Ward of the Divine). Named after the alphabetically-first castable spell.",
-      "icon": "spell:323"
+      "icon": "spell:153"
     },
     {
       "id": "buffs/wear-off/blessing-of-the-knight",
@@ -1763,7 +1763,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"The golden glow fades.\" — shared by 4 spells in spells_us_str (4 castable; also: Blessing of the Lord Commander, Blessing of the Page, Blessing of the Squire). Named after the alphabetically-first castable spell.",
-      "icon": "spell:121"
+      "icon": "spell:156"
     },
     {
       "id": "buffs/wear-off/marzin-s-mark",
@@ -1785,7 +1785,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"The mystic symbol fades.\" — shared by 73 spells in spells_us_str (7 castable; also: Naltron's Mark, Symbol of Marzin, Symbol of Naltron, Symbol of Pinzarn, Symbol of Ryltan). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:150"
     },
     {
       "id": "buffs/wear-off/austerity",
@@ -1807,7 +1807,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"The temperance fades.\" — shared by 5 spells in spells_us_str (4 castable; also: Blessing of Austerity, Blessing of Temperance, Temperance). Named after the alphabetically-first castable spell.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/guard-of-vie",
@@ -1828,7 +1828,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"The white aura fades.\" — shared by 92 spells in spells_us_str (3 castable; also: Protection of Vie, Ward of Vie). Named after the alphabetically-first castable spell.",
-      "icon": "spell:162"
+      "icon": "spell:128"
     },
     {
       "id": "buffs/wear-off/divine-intervention",
@@ -1849,7 +1849,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"You are no longer watched.\" — shared by 28 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:150"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/wear-off/courage",
@@ -1871,7 +1871,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"You feel less courageous.\"",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/frenzied-strength",
@@ -1893,7 +1893,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"You feel your strength return.\" — shared by 24 spells in spells_us_str (2 castable; also: Reckless Strength). Named after the alphabetically-first castable spell.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/armor-of-faith",
@@ -1915,7 +1915,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"You no longer feel blessed.\" — shared by 5 spells in spells_us_str (4 castable; also: Guard, Holy Armor, Shield of Words). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/daring",
@@ -1937,7 +1937,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"You no longer feel daring.\"",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/aegis",
@@ -1958,7 +1958,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"You no longer feel shielded.\" — shared by 2 spells in spells_us_str (2 castable; also: Bulwark of Faith). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/aegolism",
@@ -1979,7 +1979,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"Your aegolism fades.\" — shared by 4 spells in spells_us_str (3 castable; also: Ancient: Gift of Aegolism, Blessing of Aegolism). Named after the alphabetically-first castable spell.",
-      "icon": "spell:148"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/bravery",
@@ -2000,7 +2000,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"Your bravery fades.\"",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/resist-cold",
@@ -2026,7 +2026,7 @@
         "Necromancer"
       ],
       "comments": "Wear-off message: \"Your cold resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/wear-off/resist-disease",
@@ -2052,7 +2052,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your disease resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/wear-off/endure-cold",
@@ -2079,7 +2079,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your endurance to cold fades.\"",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/wear-off/endure-disease",
@@ -2106,7 +2106,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your endurance to disease fades.\"",
-      "icon": "spell:49"
+      "icon": "spell:65"
     },
     {
       "id": "buffs/wear-off/endure-fire",
@@ -2131,7 +2131,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your endurance to fire fades.\"",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/wear-off/endure-magic",
@@ -2157,7 +2157,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your endurance to magic fades.\"",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/wear-off/endure-poison",
@@ -2182,7 +2182,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your endurance to poison fades.\"",
-      "icon": "spell:10"
+      "icon": "spell:61"
     },
     {
       "id": "buffs/wear-off/resist-fire",
@@ -2206,7 +2206,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your fire resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/wear-off/fortitude",
@@ -2227,7 +2227,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"Your fortitude fades.\"",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/heroic-bond",
@@ -2248,7 +2248,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"Your heroism fades.\" — shared by 3 spells in spells_us_str (2 castable; also: Heroism). Named after the alphabetically-first castable spell.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/resist-magic",
@@ -2273,7 +2273,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your magic resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/wear-off/resist-poison",
@@ -2297,7 +2297,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your poison resistance fades.\" — shared by 4 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:61"
     },
     {
       "id": "buffs/wear-off/ancient-high-priest-s-bulwark",
@@ -2321,7 +2321,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your protection fades.\" — shared by 31 spells in spells_us_str (4 castable; also: Blessed Armor of the Risen, Group Resist Magic, Protect). Named after the alphabetically-first castable spell.",
-      "icon": "spell:69"
+      "icon": "spell:133"
     },
     {
       "id": "buffs/wear-off/resolution",
@@ -2343,7 +2343,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"Your resolution fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/center",
@@ -2365,7 +2365,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"Your sense of center fades.\"",
-      "icon": "spell:1"
+      "icon": "spell:132"
     },
     {
       "id": "buffs/wear-off/improved-invisibility-to-undead",
@@ -2391,7 +2391,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your skin stops tingling.\" — shared by 21 spells in spells_us_str (4 castable; also: Invisibility Versus Undead, Invisibility to Undead, Sunskin). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer.",
-      "icon": "spell:315"
+      "icon": "spell:33"
     },
     {
       "id": "buffs/wear-off/spirit-armor",
@@ -2414,7 +2414,7 @@
         "Necromancer"
       ],
       "comments": "Wear-off message: \"Your spiritual armor fades.\" — shared by 15 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:151"
     },
     {
       "id": "buffs/wear-off/blessing-of-faith",
@@ -2435,7 +2435,7 @@
         "Cleric"
       ],
       "comments": "Wear-off message: \"Your thoughts slow.\" — shared by 13 spells in spells_us_str (2 castable; also: Blessing of Piety). Named after the alphabetically-first castable spell.",
-      "icon": "spell:127"
+      "icon": "spell:138"
     },
     {
       "id": "buffs/wear-off/valor",
@@ -2457,7 +2457,7 @@
         "Paladin"
       ],
       "comments": "Wear-off message: \"Your valor fades.\"",
-      "icon": "spell:1"
+      "icon": "spell:132"
     }
   ]
 }

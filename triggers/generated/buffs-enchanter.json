@@ -26,7 +26,7 @@
         "Enchanter"
       ],
       "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Enchanter level 53.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/enchanter/cast/adorning-grace",
@@ -53,7 +53,7 @@
         "Enchanter"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 46.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/enchanter/cast/alacrity",
@@ -80,7 +80,7 @@
         "Enchanter"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Enchanter level 21.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/enchanter/cast/augment",
@@ -107,7 +107,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 56.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/enchanter/cast/augmentation",
@@ -134,7 +134,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 28.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/enchanter/cast/bedlam",
@@ -161,7 +161,7 @@
         "Enchanter"
       ],
       "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); the engine rescales to the profile's level; Enchanter level 58.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/enchanter/cast/berserker-spirit",
@@ -188,7 +188,7 @@
         "Enchanter"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 50 ticks); the engine rescales to the profile's level; Enchanter level 47.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/enchanter/cast/berserker-strength",
@@ -215,7 +215,7 @@
         "Enchanter"
       ],
       "comments": "~3m00s at level 50 (formula 7, cap 30 ticks); the engine rescales to the profile's level; Enchanter level 19.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/enchanter/cast/bind-sight",
@@ -242,7 +242,7 @@
         "Enchanter"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Enchanter level 8.",
-      "icon": "spell:73"
+      "icon": "spell:44"
     },
     {
       "id": "buffs/enchanter/cast/boon-of-the-clear-mind",
@@ -269,7 +269,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 42.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/enchanter/cast/boon-of-the-garou",
@@ -296,7 +296,7 @@
         "Enchanter"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 0 ticks); the engine rescales to the profile's level; Enchanter level 40.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/breeze",
@@ -323,7 +323,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 14.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/enchanter/cast/brilliance",
@@ -350,7 +350,7 @@
         "Enchanter"
       ],
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Enchanter level 41.",
-      "icon": "spell:9"
+      "icon": "spell:11"
     },
     {
       "id": "buffs/enchanter/cast/calm",
@@ -377,7 +377,7 @@
         "Enchanter"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Enchanter level 18.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/enchanter/cast/calming-visage",
@@ -404,7 +404,7 @@
         "Enchanter"
       ],
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 36.",
-      "icon": "spell:114"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/enchanter/cast/cast-sight",
@@ -431,7 +431,7 @@
         "Enchanter"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Enchanter level 32.",
-      "icon": "spell:73"
+      "icon": "spell:93"
     },
     {
       "id": "buffs/enchanter/cast/celerity",
@@ -458,7 +458,7 @@
         "Enchanter"
       ],
       "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Enchanter level 39.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/enchanter/cast/clarity",
@@ -485,7 +485,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 26.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/enchanter/cast/clarity-ii",
@@ -512,7 +512,7 @@
         "Enchanter"
       ],
       "comments": "~35m00s at level 50 (formula 3, cap 350 ticks); the engine rescales to the profile's level; Enchanter level 52.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/enchanter/cast/cloud",
@@ -539,7 +539,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 17.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/endure-magic",
@@ -566,7 +566,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 17.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/enchanter/cast/enduring-breath",
@@ -593,7 +593,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 12.",
-      "icon": "spell:14"
+      "icon": "spell:20"
     },
     {
       "id": "buffs/enchanter/cast/enlightenment",
@@ -620,7 +620,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 57.",
-      "icon": "spell:9"
+      "icon": "spell:11"
     },
     {
       "id": "buffs/enchanter/cast/everlasting-breath",
@@ -647,7 +647,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 51.",
-      "icon": "spell:14"
+      "icon": "spell:20"
     },
     {
       "id": "buffs/enchanter/cast/feedback",
@@ -674,7 +674,7 @@
         "Enchanter"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Enchanter level 25.",
-      "icon": "spell:59"
+      "icon": "spell:162"
     },
     {
       "id": "buffs/enchanter/cast/gift-of-brilliance",
@@ -701,7 +701,7 @@
         "Enchanter"
       ],
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Enchanter level 60.",
-      "icon": "spell:97"
+      "icon": "spell:115"
     },
     {
       "id": "buffs/enchanter/cast/gift-of-insight",
@@ -728,7 +728,7 @@
         "Enchanter"
       ],
       "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Enchanter level 55.",
-      "icon": "spell:97"
+      "icon": "spell:115"
     },
     {
       "id": "buffs/enchanter/cast/gift-of-magic",
@@ -755,7 +755,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 34.",
-      "icon": "spell:97"
+      "icon": "spell:115"
     },
     {
       "id": "buffs/enchanter/cast/gift-of-pure-thought",
@@ -782,7 +782,7 @@
         "Enchanter"
       ],
       "comments": "~33m00s at level 50 (formula 3, cap 330 ticks); the engine rescales to the profile's level; Enchanter level 56.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/enchanter/cast/glamorous-visage",
@@ -809,7 +809,7 @@
         "Enchanter"
       ],
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 58.",
-      "icon": "spell:114"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/enchanter/cast/group-resist-magic",
@@ -836,7 +836,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 48.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/enchanter/cast/guard-of-alendar",
@@ -863,7 +863,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 44.",
-      "icon": "spell:161"
+      "icon": "spell:98"
     },
     {
       "id": "buffs/enchanter/cast/haunting-visage",
@@ -890,7 +890,7 @@
         "Enchanter"
       ],
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 26.",
-      "icon": "spell:114"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/enchanter/cast/haze",
@@ -917,7 +917,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 3.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/horrifying-visage",
@@ -944,7 +944,7 @@
         "Enchanter"
       ],
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 56.",
-      "icon": "spell:114"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/enchanter/cast/illusion-air-elemental",
@@ -971,7 +971,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 29.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-akheva",
@@ -998,7 +998,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-ancient-sarnak-warrior",
@@ -1025,7 +1025,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-ancient-yeti",
@@ -1052,7 +1052,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-aqua-goblin",
@@ -1079,7 +1079,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-arcane-scrykin",
@@ -1106,7 +1106,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-armored-kunark-goblin",
@@ -1133,7 +1133,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-armored-shiliskin",
@@ -1160,7 +1160,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-aviak-rook",
@@ -1187,7 +1187,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-banshee",
@@ -1214,7 +1214,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-barbarian",
@@ -1241,7 +1241,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 15.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-barraki",
@@ -1268,7 +1268,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-bixie-drone",
@@ -1295,7 +1295,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-bixie-queen",
@@ -1322,7 +1322,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-bixie-soldier",
@@ -1349,7 +1349,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-blood-raven",
@@ -1376,7 +1376,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-blood-red-bellikos",
@@ -1403,7 +1403,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-blood-runed-gargoyle",
@@ -1430,7 +1430,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-boar-beast",
@@ -1457,7 +1457,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-bokon",
@@ -1484,7 +1484,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-brell-serilis",
@@ -1511,7 +1511,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-broken-skull-drowned",
@@ -1538,7 +1538,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-brownie",
@@ -1565,7 +1565,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-brownie-noble",
@@ -1592,7 +1592,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-burning-nekhon",
@@ -1619,7 +1619,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-butterfly",
@@ -1646,7 +1646,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-candlefolk",
@@ -1673,7 +1673,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-centaur",
@@ -1700,7 +1700,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-centaur-warrior",
@@ -1727,7 +1727,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-combine-orator",
@@ -1754,7 +1754,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-combine-tactician",
@@ -1781,7 +1781,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-corrupt-akhevan",
@@ -1808,7 +1808,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-corrupted-shiliskin",
@@ -1835,7 +1835,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-crystal-golem",
@@ -1862,7 +1862,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-crystalline-sessiloid",
@@ -1889,7 +1889,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-crystalline-trichordont",
@@ -1916,7 +1916,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dark-bellikos",
@@ -1943,7 +1943,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dark-elf",
@@ -1970,7 +1970,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dark-elf-pirate-female",
@@ -1997,7 +1997,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dark-elf-pirate-male",
@@ -2024,7 +2024,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dark-minotaur",
@@ -2051,7 +2051,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-deathfist-pawn",
@@ -2078,7 +2078,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-drachnid",
@@ -2105,7 +2105,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dragorn",
@@ -2132,7 +2132,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-drakkin-of-draton-ra",
@@ -2159,7 +2159,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 30.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-drakkin-of-osh-vir",
@@ -2186,7 +2186,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 30.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-drakkin-of-venesh",
@@ -2213,7 +2213,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 30.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-drolvarg",
@@ -2240,7 +2240,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dry-bone",
@@ -2267,7 +2267,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 37.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dusty-iksar-skeleton",
@@ -2294,7 +2294,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dwarf",
@@ -2321,7 +2321,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 13.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-dwarven-sentinel",
@@ -2348,7 +2348,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-eagle-aviak",
@@ -2375,7 +2375,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-earth-elemental",
@@ -2402,7 +2402,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 21.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-elddar",
@@ -2429,7 +2429,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-embattled-minotaur",
@@ -2456,7 +2456,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-enchanted-armor-guardian",
@@ -2483,7 +2483,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-erudite",
@@ -2510,7 +2510,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 12.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-erudite-pirate-female",
@@ -2537,7 +2537,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-erudite-pirate-male",
@@ -2564,7 +2564,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-evil-eye",
@@ -2591,7 +2591,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-fairy",
@@ -2618,7 +2618,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-fallen-knight",
@@ -2645,7 +2645,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-fallen-soldier",
@@ -2672,7 +2672,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-faydark-forest-guardian",
@@ -2699,7 +2699,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-fire-elemental",
@@ -2726,7 +2726,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 33.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-flame-telmira",
@@ -2753,7 +2753,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-flood-telmira",
@@ -2780,7 +2780,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-forest-fairy",
@@ -2807,7 +2807,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-fourth-gate-guardian",
@@ -2834,7 +2834,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-frost-bone",
@@ -2861,7 +2861,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 55.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-frost-goblin",
@@ -2888,7 +2888,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-fungal-warrior",
@@ -2915,7 +2915,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-gelatinous-cube",
@@ -2942,7 +2942,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-gelidran",
@@ -2969,7 +2969,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-geonid",
@@ -2996,7 +2996,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-gilded-gnomework",
@@ -3023,7 +3023,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-gingerbread-man",
@@ -3050,7 +3050,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-girplan",
@@ -3077,7 +3077,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-gnome",
@@ -3104,7 +3104,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 8.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-gnomish-pirate",
@@ -3131,7 +3131,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-goblin-king",
@@ -3158,7 +3158,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-grand-overseer",
@@ -3185,7 +3185,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-grimling",
@@ -3212,7 +3212,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-guktan",
@@ -3239,7 +3239,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 52.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-hadal-templar",
@@ -3266,7 +3266,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-half-elf",
@@ -3293,7 +3293,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 3.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-halfling",
@@ -3320,7 +3320,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 12.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-harpy-queen",
@@ -3347,7 +3347,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-hideous-harpy",
@@ -3374,7 +3374,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-high-elf",
@@ -3401,7 +3401,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 11.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-hooded-scrykin",
@@ -3428,7 +3428,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-hraquis-hunter",
@@ -3455,7 +3455,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-human",
@@ -3482,7 +3482,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 2.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-human-pirate-female",
@@ -3509,7 +3509,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-human-pirate-male",
@@ -3536,7 +3536,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-ice-giant",
@@ -3563,7 +3563,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-ice-golem",
@@ -3590,7 +3590,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-iksar",
@@ -3617,7 +3617,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 20.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-iksar-skeleton",
@@ -3644,7 +3644,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-imp",
@@ -3671,7 +3671,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 45.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-iron-toothed-earthdigger",
@@ -3698,7 +3698,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-izon",
@@ -3725,7 +3725,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-junkyard-gnomework",
@@ -3752,7 +3752,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-kedge",
@@ -3779,7 +3779,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-kobold-king",
@@ -3806,7 +3806,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-kobold-serf",
@@ -3833,7 +3833,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-lightning-warrior",
@@ -3860,7 +3860,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-lord-gorelik",
@@ -3887,7 +3887,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-mastruq",
@@ -3914,7 +3914,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-mother-of-the-ayr-dal",
@@ -3941,7 +3941,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-oathsworn-giant",
@@ -3968,7 +3968,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-obulus-skeleton",
@@ -3995,7 +3995,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-ogre",
@@ -4022,7 +4022,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 17.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-ogre-pirate",
@@ -4049,7 +4049,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-orc",
@@ -4076,7 +4076,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 54.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-othmir-gentleman",
@@ -4103,7 +4103,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-paineel-skeleton-guard",
@@ -4130,7 +4130,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-phantom-froglok",
@@ -4157,7 +4157,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-plaguebringer",
@@ -4184,7 +4184,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-plains-wyvern",
@@ -4211,7 +4211,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-polar-bear",
@@ -4238,7 +4238,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-primal-kerran",
@@ -4265,7 +4265,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-pyrilen",
@@ -4292,7 +4292,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-queen-velazul-di-zok",
@@ -4319,7 +4319,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-rallosian-goblin",
@@ -4346,7 +4346,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-rallosian-ogre",
@@ -4373,7 +4373,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-raptor-predator",
@@ -4400,7 +4400,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-recluse-spider",
@@ -4427,7 +4427,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-regal-vampire-female",
@@ -4454,7 +4454,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-regal-vampire-male",
@@ -4481,7 +4481,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-relife",
@@ -4508,7 +4508,7 @@
         "Enchanter"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 3600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-restless-cadaver",
@@ -4535,7 +4535,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-restless-coldain",
@@ -4562,7 +4562,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-rivervale-deputy",
@@ -4589,7 +4589,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-robed-scrykin",
@@ -4616,7 +4616,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-runic-tattoo-nihil-female",
@@ -4643,7 +4643,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-runic-tattoo-nihil-male",
@@ -4670,7 +4670,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-sarnak-skeleton",
@@ -4697,7 +4697,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-sarnak-warrior",
@@ -4724,7 +4724,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-scaled-wolf",
@@ -4751,7 +4751,7 @@
         "Enchanter"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 44.",
-      "icon": "spell:58"
+      "icon": "spell:81"
     },
     {
       "id": "buffs/enchanter/cast/illusion-scrykin-herald",
@@ -4778,7 +4778,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-shade",
@@ -4805,7 +4805,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-shadow-nekhon",
@@ -4832,7 +4832,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-shiny-steam-suit",
@@ -4859,7 +4859,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-shissar",
@@ -4886,7 +4886,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-shissar-priest",
@@ -4913,7 +4913,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-silver-gnomework",
@@ -4940,7 +4940,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-simple-bellikos",
@@ -4967,7 +4967,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-simple-gnoll",
@@ -4994,7 +4994,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-simple-gnomework",
@@ -5021,7 +5021,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-siren-enticer",
@@ -5048,7 +5048,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-siren-sorceress",
@@ -5075,7 +5075,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-skeleton",
@@ -5102,7 +5102,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 24.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-snow-kobold",
@@ -5129,7 +5129,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-spectre",
@@ -5156,7 +5156,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-spellbound-armor",
@@ -5183,7 +5183,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-spirit-wolf",
@@ -5210,7 +5210,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 38.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-spirited-satyr",
@@ -5237,7 +5237,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-steam-suit",
@@ -5264,7 +5264,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-stone-gargoyle",
@@ -5291,7 +5291,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-stonegrabber",
@@ -5318,7 +5318,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-swifttail-grandmaster",
@@ -5345,7 +5345,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-tae-ew-lizardman",
@@ -5372,7 +5372,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-tree",
@@ -5399,7 +5399,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 15.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-troll",
@@ -5426,7 +5426,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 18.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-twisted-gnomework",
@@ -5453,7 +5453,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-tyrannosaurus",
@@ -5480,7 +5480,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-undead-gnoll",
@@ -5507,7 +5507,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-undead-servant",
@@ -5534,7 +5534,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-vah-shir",
@@ -5561,7 +5561,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 54.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-valkyrie",
@@ -5588,7 +5588,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-the-gnomework",
@@ -5615,7 +5615,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-vaniki",
@@ -5642,7 +5642,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-the-bixie-worker",
@@ -5669,7 +5669,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-visage-of-the-gigyn",
@@ -5696,7 +5696,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-vitrik",
@@ -5723,7 +5723,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-warmly-clad-coldain",
@@ -5750,7 +5750,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-warped-chetari",
@@ -5777,7 +5777,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-water-elemental",
@@ -5804,7 +5804,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 28.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-werewolf",
@@ -5831,7 +5831,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 42.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/illusion-wood-elf",
@@ -5858,7 +5858,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 5.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/improved-invisibility",
@@ -5885,7 +5885,7 @@
         "Enchanter"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Enchanter level 50. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:314"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/enchanter/cast/insight",
@@ -5912,7 +5912,7 @@
         "Enchanter"
       ],
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Enchanter level 35.",
-      "icon": "spell:9"
+      "icon": "spell:13"
     },
     {
       "id": "buffs/enchanter/cast/intellectual-advancement",
@@ -5939,7 +5939,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 11.",
-      "icon": "spell:112"
+      "icon": "spell:141"
     },
     {
       "id": "buffs/enchanter/cast/intellectual-superiority",
@@ -5966,7 +5966,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 17.",
-      "icon": "spell:112"
+      "icon": "spell:141"
     },
     {
       "id": "buffs/enchanter/cast/invisibility",
@@ -5993,7 +5993,7 @@
         "Enchanter"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Enchanter level 4. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/enchanter/cast/invisibility-versus-undead",
@@ -6020,7 +6020,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 14. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:28"
+      "icon": "spell:33"
     },
     {
       "id": "buffs/enchanter/cast/koadic-s-endless-intellect",
@@ -6047,7 +6047,7 @@
         "Enchanter"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Enchanter level 60.",
-      "icon": "spell:97"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/enchanter/cast/leviathan-eyes",
@@ -6074,7 +6074,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 44.",
-      "icon": "spell:13"
+      "icon": "spell:19"
     },
     {
       "id": "buffs/enchanter/cast/levitate",
@@ -6101,7 +6101,7 @@
         "Enchanter"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 15.",
-      "icon": "spell:10"
+      "icon": "spell:80"
     },
     {
       "id": "buffs/enchanter/cast/levitation",
@@ -6128,7 +6128,7 @@
         "Enchanter"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 51.",
-      "icon": "spell:10"
+      "icon": "spell:80"
     },
     {
       "id": "buffs/enchanter/cast/lull",
@@ -6155,7 +6155,7 @@
         "Enchanter"
       ],
       "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/enchanter/cast/minor-illusion",
@@ -6182,7 +6182,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/mist",
@@ -6209,7 +6209,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/obscure",
@@ -6236,7 +6236,7 @@
         "Enchanter"
       ],
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Enchanter level 27.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/overwhelming-splendor",
@@ -6263,7 +6263,7 @@
         "Enchanter"
       ],
       "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Enchanter level 56.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/enchanter/cast/pacify",
@@ -6290,7 +6290,7 @@
         "Enchanter"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Enchanter level 35.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/enchanter/cast/protection-of-alendar",
@@ -6317,7 +6317,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 55.",
-      "icon": "spell:161"
+      "icon": "spell:98"
     },
     {
       "id": "buffs/enchanter/cast/quickness",
@@ -6344,7 +6344,7 @@
         "Enchanter"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Enchanter level 15.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/enchanter/cast/radiant-visage",
@@ -6371,7 +6371,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 31.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/enchanter/cast/rampage",
@@ -6398,7 +6398,7 @@
         "Enchanter"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Enchanter level 38.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/enchanter/cast/resist-magic",
@@ -6425,7 +6425,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 37.",
-      "icon": "spell:50"
+      "icon": "spell:69"
     },
     {
       "id": "buffs/enchanter/cast/rune-i",
@@ -6452,7 +6452,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 13.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/enchanter/cast/rune-ii",
@@ -6479,7 +6479,7 @@
         "Enchanter"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Enchanter level 22.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/enchanter/cast/rune-iii",
@@ -6506,7 +6506,7 @@
         "Enchanter"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 33.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/enchanter/cast/rune-iv",
@@ -6533,7 +6533,7 @@
         "Enchanter"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Enchanter level 40.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/enchanter/cast/rune-v",
@@ -6560,7 +6560,7 @@
         "Enchanter"
       ],
       "comments": "~110m00s at level 50 (formula 3, cap 1100 ticks); the engine rescales to the profile's level; Enchanter level 52.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/enchanter/cast/see-invisible",
@@ -6587,7 +6587,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 6.",
-      "icon": "spell:13"
+      "icon": "spell:19"
     },
     {
       "id": "buffs/enchanter/cast/serpent-sight",
@@ -6614,7 +6614,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 10.",
-      "icon": "spell:65"
+      "icon": "spell:86"
     },
     {
       "id": "buffs/enchanter/cast/shade",
@@ -6641,7 +6641,7 @@
         "Enchanter"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 37.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/shadow",
@@ -6668,7 +6668,7 @@
         "Enchanter"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Enchanter level 48.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/shield-of-the-magi",
@@ -6695,7 +6695,7 @@
         "Enchanter"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Enchanter level 54.",
-      "icon": "spell:69"
+      "icon": "spell:133"
     },
     {
       "id": "buffs/enchanter/cast/shifting-sight",
@@ -6722,7 +6722,7 @@
         "Enchanter"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 20.",
-      "icon": "spell:73"
+      "icon": "spell:93"
     },
     {
       "id": "buffs/enchanter/cast/soothe",
@@ -6749,7 +6749,7 @@
         "Enchanter"
       ],
       "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Enchanter level 6.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/enchanter/cast/speed-of-the-brood",
@@ -6776,7 +6776,7 @@
         "Enchanter"
       ],
       "comments": "~30m00s at level 50 (formula 3, cap 300 ticks); the engine rescales to the profile's level; Enchanter level 60.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/enchanter/cast/spell-illusion-badger",
@@ -6803,7 +6803,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/spell-illusion-braxi",
@@ -6830,7 +6830,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/spell-illusion-marionette",
@@ -6857,7 +6857,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/spell-illusion-owlbear",
@@ -6884,7 +6884,7 @@
         "Enchanter"
       ],
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/strengthen",
@@ -6911,7 +6911,7 @@
         "Enchanter"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 1.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/enchanter/cast/swift-like-the-wind",
@@ -6938,7 +6938,7 @@
         "Enchanter"
       ],
       "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Enchanter level 47.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/enchanter/cast/sympathetic-aura",
@@ -6965,7 +6965,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 18.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/enchanter/cast/trickster-s-augmentation",
@@ -6992,7 +6992,7 @@
         "Enchanter"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Enchanter level 52.",
-      "icon": "spell:85"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/enchanter/cast/ultravision",
@@ -7019,7 +7019,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 27.",
-      "icon": "spell:66"
+      "icon": "spell:87"
     },
     {
       "id": "buffs/enchanter/cast/umbra",
@@ -7046,7 +7046,7 @@
         "Enchanter"
       ],
       "comments": "~99m00s at level 50 (formula 3, cap 990 ticks); the engine rescales to the profile's level; Enchanter level 57.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/enchanter/cast/visions-of-grandeur",
@@ -7073,7 +7073,7 @@
         "Enchanter"
       ],
       "comments": "~42m00s at level 50 (formula 11, cap 420 ticks); the engine rescales to the profile's level; Enchanter level 60.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/enchanter/cast/wake-of-tranquility",
@@ -7100,7 +7100,7 @@
         "Enchanter"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Enchanter level 51.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/enchanter/cast/ward-of-alendar",
@@ -7127,7 +7127,7 @@
         "Enchanter"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 29.",
-      "icon": "spell:161"
+      "icon": "spell:98"
     },
     {
       "id": "buffs/enchanter/cast/wondrous-rapidity",
@@ -7154,7 +7154,7 @@
         "Enchanter"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 58.",
-      "icon": "spell:11"
+      "icon": "spell:16"
     },
     {
       "id": "buffs/wear-off/berserker-spirit",
@@ -7175,7 +7175,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The berserker spirit fades.\"",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/boon-of-the-clear-mind",
@@ -7196,7 +7196,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The cool breeze fades.\" — shared by 25 spells in spells_us_str (2 castable; also: Clarity). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/wear-off/feedback",
@@ -7217,7 +7217,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The energy flames die down.\"",
-      "icon": "spell:59"
+      "icon": "spell:162"
     },
     {
       "id": "buffs/wear-off/intellectual-advancement",
@@ -7238,7 +7238,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The intellectual advancement fades.\" — shared by 2 spells in spells_us_str (2 castable; also: Intellectual Superiority). Named after the alphabetically-first castable spell.",
-      "icon": "spell:112"
+      "icon": "spell:141"
     },
     {
       "id": "buffs/wear-off/breeze",
@@ -7259,7 +7259,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The light breeze fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/wear-off/calming-visage",
@@ -7280,7 +7280,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The non-threatening visage fades.\" — shared by 2 spells in spells_us_str (2 castable; also: Glamorous Visage). Named after the alphabetically-first castable spell.",
-      "icon": "spell:114"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/augment",
@@ -7301,7 +7301,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The pulsing energy fades.\" — shared by 2 spells in spells_us_str (2 castable; also: Augmentation). Named after the alphabetically-first castable spell.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/wear-off/rune-i",
@@ -7322,7 +7322,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The shimmer of runes fades.\" — shared by 228 spells in spells_us_str (5 castable; also: Rune II, Rune III, Rune IV, Rune V). Named after the alphabetically-first castable spell.",
-      "icon": "spell:55"
+      "icon": "spell:77"
     },
     {
       "id": "buffs/wear-off/clarity-ii",
@@ -7343,7 +7343,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The soft breeze fades.\" — shared by 4 spells in spells_us_str (2 castable; also: Gift of Pure Thought). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/wear-off/leviathan-eyes",
@@ -7364,7 +7364,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The spirit of the deep leaves you.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:13"
+      "icon": "spell:19"
     },
     {
       "id": "buffs/wear-off/haunting-visage",
@@ -7385,7 +7385,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"The threatening visage fades.\" — shared by 2 spells in spells_us_str (2 castable; also: Horrifying Visage). Named after the alphabetically-first castable spell.",
-      "icon": "spell:114"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/wear-off/illusion-scaled-wolf",
@@ -7406,7 +7406,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"You are no longer a scaled wolf.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:58"
+      "icon": "spell:81"
     },
     {
       "id": "buffs/wear-off/cloud",
@@ -7427,7 +7427,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"You come into focus.\" — shared by 8 spells in spells_us_str (7 castable; also: Haze, Mist, Obscure, Shade, Shadow). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/wear-off/berserker-strength",
@@ -7448,7 +7448,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"You feel your agility return.\" — shared by 3 spells in spells_us_str (2 castable; also: Rampage). Named after the alphabetically-first castable spell.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/illusion-guktan",
@@ -7469,7 +7469,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"You no longer feel amphibious.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:58"
+      "icon": "spell:163"
     },
     {
       "id": "buffs/wear-off/speed-of-the-brood",
@@ -7490,7 +7490,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your body slows.\" — shared by 6 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/wear-off/brilliance",
@@ -7511,7 +7511,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your brilliance fades.\"",
-      "icon": "spell:9"
+      "icon": "spell:11"
     },
     {
       "id": "buffs/wear-off/cast-sight",
@@ -7532,7 +7532,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your casting ends.\"",
-      "icon": "spell:73"
+      "icon": "spell:93"
     },
     {
       "id": "buffs/wear-off/enlightenment",
@@ -7553,7 +7553,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your enlightenment fades.\"",
-      "icon": "spell:9"
+      "icon": "spell:11"
     },
     {
       "id": "buffs/wear-off/gift-of-brilliance",
@@ -7574,7 +7574,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your gift of brilliance fades.\"",
-      "icon": "spell:97"
+      "icon": "spell:115"
     },
     {
       "id": "buffs/wear-off/gift-of-insight",
@@ -7595,7 +7595,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your gift of insight fades.\"",
-      "icon": "spell:97"
+      "icon": "spell:115"
     },
     {
       "id": "buffs/wear-off/gift-of-magic",
@@ -7616,7 +7616,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your gift of magic fades.\"",
-      "icon": "spell:97"
+      "icon": "spell:115"
     },
     {
       "id": "buffs/wear-off/adorning-grace",
@@ -7637,7 +7637,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your grace fades.\" — shared by 23 spells in spells_us_str (2 castable; also: Overwhelming Splendor). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/bedlam",
@@ -7658,7 +7658,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your madness fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/wear-off/koadic-s-endless-intellect",
@@ -7679,7 +7679,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your mind returns to normal.\" — shared by 17 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:97"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/wear-off/radiant-visage",
@@ -7700,7 +7700,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your radiance fades.\"",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/sympathetic-aura",
@@ -7721,7 +7721,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your sympathetic aura fades.\"",
-      "icon": "spell:10"
+      "icon": "spell:15"
     },
     {
       "id": "buffs/wear-off/visions-of-grandeur",
@@ -7742,7 +7742,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your visions fade.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:11"
+      "icon": "spell:134"
     },
     {
       "id": "buffs/wear-off/insight",
@@ -7763,7 +7763,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your wisdom fades.\"",
-      "icon": "spell:9"
+      "icon": "spell:13"
     }
   ]
 }

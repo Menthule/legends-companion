@@ -26,7 +26,7 @@
         "Beastlord"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/beastlord/cast/envenomed-breath",
@@ -53,7 +53,7 @@
         "Beastlord"
       ],
       "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Beastlord level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/beastlord/cast/flash-of-light",
@@ -80,7 +80,7 @@
         "Beastlord"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:20"
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/beastlord/cast/incapacitate",
@@ -107,7 +107,7 @@
         "Beastlord"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/beastlord/cast/languid-pace",
@@ -134,7 +134,7 @@
         "Beastlord"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/beastlord/cast/listless-power",
@@ -161,7 +161,7 @@
         "Beastlord"
       ],
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:50"
     },
     {
       "id": "debuffs/beastlord/cast/malaria",
@@ -187,7 +187,7 @@
         "Beastlord"
       ],
       "comments": "~1m12s at level 50 (formula 10, cap 12 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/beastlord/cast/sha-s-advantage",
@@ -214,7 +214,7 @@
         "Beastlord"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/beastlord/cast/sha-s-lethargy",
@@ -241,7 +241,7 @@
         "Beastlord"
       ],
       "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/beastlord/cast/sicken",
@@ -268,7 +268,7 @@
         "Beastlord"
       ],
       "comments": "~1m24s at level 50 (formula 8, cap 14 ticks); class-defining DoT; the engine rescales to the profile's level; Beastlord level 14. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/beastlord/cast/tainted-breath",
@@ -295,7 +295,7 @@
         "Beastlord"
       ],
       "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Beastlord level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/beastlord/cast/venom-of-the-snake",
@@ -322,7 +322,7 @@
         "Beastlord"
       ],
       "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Beastlord level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:42"
     },
     {
       "id": "debuffs/worn/malaria",
@@ -354,7 +354,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:35"
+      "icon": "spell:41"
     },
     {
       "id": "debuffs/worn/sha-s-advantage",
@@ -386,7 +386,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     },
     {
       "id": "debuffs/worn/sha-s-lethargy",
@@ -418,7 +418,7 @@
         "Beastlord"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:17"
     }
   ]
 }

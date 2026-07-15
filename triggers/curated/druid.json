@@ -4,7 +4,7 @@
     {
       "id": "class/druid/buffs/sow-landed",
       "name": "Spirit of Wolf landed",
-      "icon": "spell:10",
+      "icon": "spell:4",
       "pattern": "^You feel the spirit of wolf enter you\\.",
       "enabled": true,
       "default_enabled": true,
@@ -27,7 +27,7 @@
     {
       "id": "class/druid/buffs/sow-gone",
       "name": "Spirit of Wolf gone",
-      "icon": "spell:10",
+      "icon": "spell:4",
       "pattern": "^The spirit of wolf leaves you\\.$",
       "enabled": true,
       "default_enabled": true,

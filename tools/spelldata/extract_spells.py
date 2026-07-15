@@ -25,6 +25,7 @@ docs or the task report):
         5 disease, ...)
     30  target type (see TARGET_TYPES)
     36..51  class min levels, 255 = unusable (254 = NPC-only copies)
+    75  spell gem icon (`NEW_ICON`, indexes gemiconsNN.tga)
     84  bard song window flag
 
 spells_us_str.txt columns:
@@ -209,9 +210,8 @@ def main() -> None:
             entry = {
                 "id": sid,
                 "name": name,
-                # The first extension field is the client's `new_icon` id.
-                # Packs store only this portable number, never the artwork.
-                "icon_id": parse_int(pipe[1]) if len(pipe) > 1 else None,
+                # Packs store only the client's NEW_ICON id, never artwork.
+                "icon_id": parse_int(fl[75]),
                 "classes": classes,
                 "beneficial": beneficial,
                 "target_type": TARGET_TYPES.get(parse_int(fl[30]),

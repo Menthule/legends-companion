@@ -26,7 +26,7 @@
         "Ranger"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Ranger level 17.",
-      "icon": "spell:73"
+      "icon": "spell:44"
     },
     {
       "id": "buffs/ranger/cast/call-of-earth",
@@ -53,7 +53,7 @@
         "Ranger"
       ],
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 48.",
-      "icon": "spell:10"
+      "icon": "spell:158"
     },
     {
       "id": "buffs/ranger/cast/call-of-fire",
@@ -80,7 +80,7 @@
         "Ranger"
       ],
       "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Ranger level 55.",
-      "icon": "spell:10"
+      "icon": "spell:104"
     },
     {
       "id": "buffs/ranger/cast/call-of-ice",
@@ -107,7 +107,7 @@
         "Ranger"
       ],
       "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Ranger level 58.",
-      "icon": "spell:85"
+      "icon": "spell:104"
     },
     {
       "id": "buffs/ranger/cast/call-of-the-predator",
@@ -134,7 +134,7 @@
         "Ranger"
       ],
       "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Ranger level 60.",
-      "icon": "spell:10"
+      "icon": "spell:123"
     },
     {
       "id": "buffs/ranger/cast/calm-animal",
@@ -161,7 +161,7 @@
         "Ranger"
       ],
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Ranger level 31.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/ranger/cast/camouflage",
@@ -188,7 +188,7 @@
         "Ranger"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Ranger level 14. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/ranger/cast/chloroplast",
@@ -215,7 +215,7 @@
         "Ranger"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Ranger level 55.",
-      "icon": "spell:0"
+      "icon": "spell:118"
     },
     {
       "id": "buffs/ranger/cast/eagle-eye",
@@ -242,7 +242,7 @@
         "Ranger"
       ],
       "comments": "~70m00s at level 50 (formula 11, cap 700 ticks); the engine rescales to the profile's level; Ranger level 58.",
-      "icon": "spell:184"
+      "icon": "spell:127"
     },
     {
       "id": "buffs/ranger/cast/endure-cold",
@@ -269,7 +269,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 18.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/ranger/cast/endure-fire",
@@ -296,7 +296,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 9.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/ranger/cast/enduring-breath",
@@ -323,7 +323,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 20.",
-      "icon": "spell:14"
+      "icon": "spell:20"
     },
     {
       "id": "buffs/ranger/cast/falcon-eye",
@@ -350,7 +350,7 @@
         "Ranger"
       ],
       "comments": "~70m00s at level 50 (formula 11, cap 700 ticks); the engine rescales to the profile's level; Ranger level 52.",
-      "icon": "spell:184"
+      "icon": "spell:127"
     },
     {
       "id": "buffs/ranger/cast/fearless-discipline",
@@ -376,7 +376,7 @@
         "Ranger"
       ],
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Ranger level 54.",
-      "icon": "spell:181"
+      "icon": "spell:154"
     },
     {
       "id": "buffs/ranger/cast/feet-like-cat",
@@ -403,7 +403,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 11, cap 360 ticks); the engine rescales to the profile's level; Ranger level 12.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/ranger/cast/harmony",
@@ -430,7 +430,7 @@
         "Ranger"
       ],
       "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Ranger level 22.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/ranger/cast/harmony-of-nature",
@@ -457,7 +457,7 @@
         "Ranger"
       ],
       "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Ranger level 39.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/ranger/cast/jolting-blades",
@@ -484,7 +484,7 @@
         "Ranger"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Ranger level 54.",
-      "icon": "spell:10"
+      "icon": "spell:104"
     },
     {
       "id": "buffs/ranger/cast/levitate",
@@ -511,7 +511,7 @@
         "Ranger"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Ranger level 35.",
-      "icon": "spell:10"
+      "icon": "spell:80"
     },
     {
       "id": "buffs/ranger/cast/lull-animal",
@@ -538,7 +538,7 @@
         "Ranger"
       ],
       "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Ranger level 4.",
-      "icon": "spell:30"
+      "icon": "spell:39"
     },
     {
       "id": "buffs/ranger/cast/mark-of-the-predator",
@@ -565,7 +565,7 @@
         "Ranger"
       ],
       "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Ranger level 56.",
-      "icon": "spell:10"
+      "icon": "spell:123"
     },
     {
       "id": "buffs/ranger/cast/pack-shrew",
@@ -592,7 +592,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 49.",
-      "icon": "spell:66"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/ranger/cast/resist-cold",
@@ -619,7 +619,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 55.",
-      "icon": "spell:47"
+      "icon": "spell:57"
     },
     {
       "id": "buffs/ranger/cast/resist-fire",
@@ -646,7 +646,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 46.",
-      "icon": "spell:46"
+      "icon": "spell:52"
     },
     {
       "id": "buffs/ranger/cast/resistant-discipline",
@@ -672,7 +672,7 @@
         "Ranger"
       ],
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Ranger level 51.",
-      "icon": "spell:111"
+      "icon": "spell:78"
     },
     {
       "id": "buffs/ranger/cast/riftwind-s-protection",
@@ -699,7 +699,7 @@
         "Ranger"
       ],
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 29.",
-      "icon": "spell:10"
+      "icon": "spell:158"
     },
     {
       "id": "buffs/ranger/cast/see-invisible",
@@ -726,7 +726,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Ranger level 32.",
-      "icon": "spell:13"
+      "icon": "spell:19"
     },
     {
       "id": "buffs/ranger/cast/shield-of-brambles",
@@ -753,7 +753,7 @@
         "Ranger"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 43.",
-      "icon": "spell:59"
+      "icon": "spell:155"
     },
     {
       "id": "buffs/ranger/cast/shield-of-spikes",
@@ -780,7 +780,7 @@
         "Ranger"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 58.",
-      "icon": "spell:59"
+      "icon": "spell:155"
     },
     {
       "id": "buffs/ranger/cast/shield-of-thistles",
@@ -807,7 +807,7 @@
         "Ranger"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 24.",
-      "icon": "spell:59"
+      "icon": "spell:155"
     },
     {
       "id": "buffs/ranger/cast/skin-like-diamond",
@@ -834,7 +834,7 @@
         "Ranger"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Ranger level 54.",
-      "icon": "spell:1"
+      "icon": "spell:131"
     },
     {
       "id": "buffs/ranger/cast/skin-like-nature",
@@ -861,7 +861,7 @@
         "Ranger"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Ranger level 59.",
-      "icon": "spell:1"
+      "icon": "spell:131"
     },
     {
       "id": "buffs/ranger/cast/skin-like-rock",
@@ -888,7 +888,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 21.",
-      "icon": "spell:1"
+      "icon": "spell:131"
     },
     {
       "id": "buffs/ranger/cast/skin-like-steel",
@@ -915,7 +915,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 38.",
-      "icon": "spell:1"
+      "icon": "spell:131"
     },
     {
       "id": "buffs/ranger/cast/skin-like-wood",
@@ -942,7 +942,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Ranger level 7.",
-      "icon": "spell:1"
+      "icon": "spell:131"
     },
     {
       "id": "buffs/ranger/cast/spirit-of-wolf",
@@ -969,7 +969,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 28.",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/ranger/cast/spirit-of-the-shrew",
@@ -996,7 +996,7 @@
         "Ranger"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 41.",
-      "icon": "spell:66"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/ranger/cast/storm-strength",
@@ -1023,7 +1023,7 @@
         "Ranger"
       ],
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Ranger level 53.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/ranger/cast/strength-of-earth",
@@ -1050,7 +1050,7 @@
         "Ranger"
       ],
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 26.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     },
     {
       "id": "buffs/ranger/cast/strength-of-nature",
@@ -1077,7 +1077,7 @@
         "Ranger"
       ],
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 51.",
-      "icon": "spell:2"
+      "icon": "spell:123"
     },
     {
       "id": "buffs/ranger/cast/superior-camouflage",
@@ -1104,7 +1104,7 @@
         "Ranger"
       ],
       "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Ranger level 47. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:12"
+      "icon": "spell:34"
     },
     {
       "id": "buffs/ranger/cast/trueshot-discipline",
@@ -1130,7 +1130,7 @@
         "Ranger"
       ],
       "comments": "~2m00s at level 50 (formula 11, cap 20 ticks); the engine rescales to the profile's level; Ranger level 55.",
-      "icon": "spell:183"
+      "icon": "spell:127"
     },
     {
       "id": "buffs/ranger/cast/warder-s-protection",
@@ -1157,7 +1157,7 @@
         "Ranger"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Ranger level 60.",
-      "icon": "spell:59"
+      "icon": "spell:158"
     },
     {
       "id": "buffs/wear-off/strength-of-nature",
@@ -1178,7 +1178,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"Nature's strength ebbs.\"",
-      "icon": "spell:2"
+      "icon": "spell:123"
     },
     {
       "id": "buffs/wear-off/call-of-earth",
@@ -1199,7 +1199,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The Call of Earth leaves.\"",
-      "icon": "spell:10"
+      "icon": "spell:158"
     },
     {
       "id": "buffs/wear-off/call-of-fire",
@@ -1220,7 +1220,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The Call of Fire leaves.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:104"
     },
     {
       "id": "buffs/wear-off/eagle-eye",
@@ -1241,7 +1241,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The avian presence departs.\" — shared by 3 spells in spells_us_str (2 castable; also: Falcon Eye). Named after the alphabetically-first castable spell.",
-      "icon": "spell:184"
+      "icon": "spell:127"
     },
     {
       "id": "buffs/wear-off/ancient-legacy-of-blades",
@@ -1263,7 +1263,7 @@
         "Druid"
       ],
       "comments": "Wear-off message: \"The brambles fall away.\" — shared by 22 spells in spells_us_str (8 castable; also: Legacy of Spike, Legacy of Thorn, Shield of Barbs, Shield of Brambles, Shield of Spikes). Named after the alphabetically-first castable spell.",
-      "icon": "spell:59"
+      "icon": "spell:155"
     },
     {
       "id": "buffs/wear-off/call-of-ice",
@@ -1284,7 +1284,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The call of ice leaves.\"",
-      "icon": "spell:85"
+      "icon": "spell:104"
     },
     {
       "id": "buffs/wear-off/jolting-blades",
@@ -1305,7 +1305,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The magical aura fades.\" — shared by 31 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:104"
     },
     {
       "id": "buffs/wear-off/trueshot-discipline",
@@ -1326,7 +1326,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The natural energy fades from your bow.\" — shared by 13 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:183"
+      "icon": "spell:127"
     },
     {
       "id": "buffs/wear-off/call-of-the-predator",
@@ -1347,7 +1347,7 @@
         "Ranger"
       ],
       "comments": "Wear-off message: \"The predator's spirit departs.\" — shared by 5 spells in spells_us_str (2 castable; also: Mark of the Predator). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:123"
     },
     {
       "id": "buffs/wear-off/pack-shrew",
@@ -1371,7 +1371,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"The spirit of the shrew leaves you.\" — shared by 2 spells in spells_us_str (2 castable; also: Spirit of the Shrew). Named after the alphabetically-first castable spell.",
-      "icon": "spell:66"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/wear-off/spirit-of-wolf",
@@ -1395,7 +1395,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"The spirit of wolf leaves you.\" — shared by 3 spells in spells_us_str (2 castable; also: Pack Spirit). Named after the community-likely spell (WEAR_OFF_LIKELY).",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/wear-off/improved-invisibility",
@@ -1422,7 +1422,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"You appear.\" — shared by 32 spells in spells_us_str (4 castable; also: Improved Superior Camouflage, Invisibility, Superior Camouflage). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer.",
-      "icon": "spell:314"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/wear-off/levitate",
@@ -1448,7 +1448,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"You can no longer levitate.\" — shared by 13 spells in spells_us_str (2 castable; also: Levitation). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:80"
     },
     {
       "id": "buffs/wear-off/chloroplast",
@@ -1472,7 +1472,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"You have stopped regenerating.\" — shared by 54 spells in spells_us_str (8 castable; also: Nature's Recovery, Pack Chloroplast, Pack Regeneration, Regeneration, Regrowth). Named after the alphabetically-first castable spell.",
-      "icon": "spell:0"
+      "icon": "spell:118"
     },
     {
       "id": "buffs/wear-off/enduring-breath",
@@ -1497,7 +1497,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"You resume breathing.\" — shared by 9 spells in spells_us_str (2 castable; also: Everlasting Breath). Named after the alphabetically-first castable spell.",
-      "icon": "spell:14"
+      "icon": "spell:20"
     },
     {
       "id": "buffs/wear-off/camouflage",
@@ -1519,7 +1519,7 @@
         "Druid"
       ],
       "comments": "Wear-off message: \"You return to view.\" — shared by 12 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell. — invis wear-off: cancels the shared Invisibility timer.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/wear-off/agility",
@@ -1541,7 +1541,7 @@
         "Shaman"
       ],
       "comments": "Wear-off message: \"Your agility fades.\" — shared by 6 spells in spells_us_str (4 castable; also: Deliriously Nimble, Feet like Cat, Nimble). Named after the alphabetically-first castable spell.",
-      "icon": "spell:6"
+      "icon": "spell:9"
     },
     {
       "id": "buffs/wear-off/bind-sight",
@@ -1564,7 +1564,7 @@
         "Enchanter"
       ],
       "comments": "Wear-off message: \"Your binding ends.\" — shared by 3 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:73"
+      "icon": "spell:44"
     },
     {
       "id": "buffs/wear-off/acumen",
@@ -1591,7 +1591,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your eyes stop tingling.\" — shared by 17 spells in spells_us_str (4 castable; also: Acumen of Dar Khura, See Invisible, Spirit Sight). Named after the alphabetically-first castable spell.",
-      "icon": "spell:13"
+      "icon": "spell:138"
     },
     {
       "id": "buffs/wear-off/bladecoat",
@@ -1618,7 +1618,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your skin returns to normal.\" — shared by 64 spells in spells_us_str (25 castable; also: Bobbing Corpse, Diamondskin, Leatherskin, Manasink, Manaskin). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:155"
     },
     {
       "id": "buffs/wear-off/furious-strength",
@@ -1643,7 +1643,7 @@
         "Beastlord"
       ],
       "comments": "Wear-off message: \"Your strength fades.\" — shared by 22 spells in spells_us_str (11 castable; also: Maniacal Strength, Raging Strength, Spirit Strength, Storm Strength, Strength). Named after the alphabetically-first castable spell.",
-      "icon": "spell:4"
+      "icon": "spell:6"
     }
   ]
 }

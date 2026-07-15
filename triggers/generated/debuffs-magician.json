@@ -26,7 +26,7 @@
         "Magician"
       ],
       "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:162"
     },
     {
       "id": "debuffs/magician/cast/mala",
@@ -53,7 +53,7 @@
         "Magician"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/magician/cast/malaise",
@@ -80,7 +80,7 @@
         "Magician"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/magician/cast/malaisement",
@@ -107,7 +107,7 @@
         "Magician"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/magician/cast/malosi",
@@ -134,7 +134,7 @@
         "Magician"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/magician/cast/malosini",
@@ -161,7 +161,7 @@
         "Magician"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:46"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/magician/cast/wrath-of-the-elements",
@@ -188,7 +188,7 @@
         "Magician"
       ],
       "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Magician level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:162"
     },
     {
       "id": "debuffs/worn/elemental-maelstrom",
@@ -220,7 +220,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:162"
     },
     {
       "id": "debuffs/worn/mala",
@@ -252,7 +252,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/wrath-of-the-elements",
@@ -284,7 +284,7 @@
         "Magician"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:162"
     }
   ]
 }

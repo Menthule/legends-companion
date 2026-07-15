@@ -26,7 +26,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 60.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/ancient-burnout-blaze",
@@ -53,7 +53,7 @@
         "Magician"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 60.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "buffs/magician/cast/barrier-of-combustion",
@@ -80,7 +80,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 38.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/boon-of-immolation",
@@ -107,7 +107,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 53.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/burnout",
@@ -134,7 +134,7 @@
         "Magician"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 11.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "buffs/magician/cast/burnout-ii",
@@ -161,7 +161,7 @@
         "Magician"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 29.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "buffs/magician/cast/burnout-iii",
@@ -188,7 +188,7 @@
         "Magician"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 47.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "buffs/magician/cast/burnout-iv",
@@ -215,7 +215,7 @@
         "Magician"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 55.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "buffs/magician/cast/cadeau-of-flame",
@@ -242,7 +242,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 56.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/elemental-cloak",
@@ -269,7 +269,7 @@
         "Magician"
       ],
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Magician level 54.",
-      "icon": "spell:10"
+      "icon": "spell:148"
     },
     {
       "id": "buffs/magician/cast/elemental-empathy",
@@ -296,7 +296,7 @@
         "Magician"
       ],
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Magician level 52.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "buffs/magician/cast/expedience",
@@ -323,7 +323,7 @@
         "Magician"
       ],
       "comments": "~12m00s at level 50 (formula 3, cap 120 ticks); the engine rescales to the profile's level; Magician level 27.",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/magician/cast/eye-of-tallon",
@@ -350,7 +350,7 @@
         "Magician"
       ],
       "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); the engine rescales to the profile's level; Magician level 57.",
-      "icon": "spell:67"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/magician/cast/eye-of-zomm",
@@ -377,7 +377,7 @@
         "Magician"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Magician level 6.",
-      "icon": "spell:67"
+      "icon": "spell:88"
     },
     {
       "id": "buffs/magician/cast/guard-of-calliav",
@@ -404,7 +404,7 @@
         "Magician"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Magician level 58.",
-      "icon": "spell:163"
+      "icon": "spell:46"
     },
     {
       "id": "buffs/magician/cast/inferno-shield",
@@ -431,7 +431,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 28.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/invisibility",
@@ -458,7 +458,7 @@
         "Magician"
       ],
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Magician level 8. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
-      "icon": "spell:12"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/magician/cast/kindle",
@@ -485,7 +485,7 @@
         "Magician"
       ],
       "comments": "~25m00s at level 50 (formula 3, cap 250 ticks); the engine rescales to the profile's level; Magician level 54.",
-      "icon": "spell:329"
+      "icon": "spell:21"
     },
     {
       "id": "buffs/magician/cast/phantasmal-armor",
@@ -512,7 +512,7 @@
         "Magician"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Magician level 54.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/magician/cast/phantom-armor",
@@ -539,7 +539,7 @@
         "Magician"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Magician level 52.",
-      "icon": "spell:10"
+      "icon": "spell:1"
     },
     {
       "id": "buffs/magician/cast/primal-remedy",
@@ -566,7 +566,7 @@
         "Magician"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Magician level 44.",
-      "icon": "spell:100"
+      "icon": "spell:99"
     },
     {
       "id": "buffs/magician/cast/see-invisible",
@@ -593,7 +593,7 @@
         "Magician"
       ],
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Magician level 16.",
-      "icon": "spell:13"
+      "icon": "spell:19"
     },
     {
       "id": "buffs/magician/cast/shield-of-fire",
@@ -620,7 +620,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 7.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/shield-of-flame",
@@ -647,7 +647,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 19.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/shield-of-lava",
@@ -674,7 +674,7 @@
         "Magician"
       ],
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Magician level 45.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/magician/cast/shield-of-the-magi",
@@ -701,7 +701,7 @@
         "Magician"
       ],
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Magician level 54.",
-      "icon": "spell:69"
+      "icon": "spell:133"
     },
     {
       "id": "buffs/magician/cast/transon-s-phantasmal-protection",
@@ -728,7 +728,7 @@
         "Magician"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Magician level 58.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/magician/cast/valiant-companion",
@@ -755,7 +755,7 @@
         "Magician"
       ],
       "comments": "~3m30s at level 50 (formula 3, cap 35 ticks); the engine rescales to the profile's level; Magician level 59.",
-      "icon": "spell:10"
+      "icon": "spell:146"
     },
     {
       "id": "buffs/magician/cast/veil-of-elements",
@@ -782,7 +782,7 @@
         "Magician"
       ],
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Magician level 54.",
-      "icon": "spell:314"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/magician/cast/velocity",
@@ -809,7 +809,7 @@
         "Magician"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Magician level 58.",
-      "icon": "spell:10"
+      "icon": "spell:4"
     },
     {
       "id": "buffs/magician/cast/ward-of-calliav",
@@ -836,7 +836,7 @@
         "Magician"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Magician level 46.",
-      "icon": "spell:163"
+      "icon": "spell:46"
     },
     {
       "id": "buffs/wear-off/aegis-of-ro",
@@ -857,7 +857,7 @@
         "Magician"
       ],
       "comments": "Wear-off message: \"The Aegis dies down.\"",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/wear-off/barrier-of-combustion",
@@ -878,7 +878,7 @@
         "Magician"
       ],
       "comments": "Wear-off message: \"The flames die down.\" — shared by 146 spells in spells_us_str (8 castable; also: Boon of Immolation, Cadeau of Flame, Inferno Shield, Kindle, Shield of Fire). Named after the alphabetically-first castable spell.",
-      "icon": "spell:59"
+      "icon": "spell:157"
     },
     {
       "id": "buffs/wear-off/veil-of-elements",
@@ -899,7 +899,7 @@
         "Magician"
       ],
       "comments": "Wear-off message: \"The veil fades.\"",
-      "icon": "spell:314"
+      "icon": "spell:18"
     },
     {
       "id": "buffs/wear-off/phantasmal-armor",
@@ -920,7 +920,7 @@
         "Magician"
       ],
       "comments": "Wear-off message: \"Your illusionary armor fades.\" — shared by 5 spells in spells_us_str (2 castable; also: Phantom Armor). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     },
     {
       "id": "buffs/wear-off/transon-s-phantasmal-protection",
@@ -941,7 +941,7 @@
         "Magician"
       ],
       "comments": "Wear-off message: \"Your phantasmal protection fades.\" — shared by 2 spells in spells_us_str (1 castable; also: NPC-only ranks). Named after the alphabetically-first castable spell.",
-      "icon": "spell:10"
+      "icon": "spell:152"
     }
   ]
 }

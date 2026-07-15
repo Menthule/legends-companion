@@ -4,7 +4,7 @@
     {
       "id": "class/cleric/heals/ch-self-timer",
       "name": "Complete Heal cast timer",
-      "icon": "spell:0",
+      "icon": "spell:119",
       "pattern": "^You begin casting Complete Heal\\.",
       "enabled": true,
       "default_enabled": true,
@@ -27,7 +27,7 @@
     {
       "id": "class/cleric/heals/ch-chain",
       "name": "Complete Heal chain (others)",
-      "icon": "spell:0",
+      "icon": "spell:119",
       "pattern": "^(\\w+) begins casting Complete Heal\\.$",
       "enabled": true,
       "default_enabled": true,

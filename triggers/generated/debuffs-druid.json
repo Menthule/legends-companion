@@ -26,7 +26,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/befriend-animal",
@@ -53,7 +53,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 13. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/beguile-animals",
@@ -80,7 +80,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Druid level 33. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/beguile-plants",
@@ -107,7 +107,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/bonds-of-tunare",
@@ -134,7 +134,7 @@
         "Druid"
       ],
       "comments": "~1m48s at level 50 (formula 1, cap 18 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/druid/cast/breath-of-ro",
@@ -161,7 +161,7 @@
         "Druid"
       ],
       "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/druid/cast/call-of-karana",
@@ -188,7 +188,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Druid level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/charm-animals",
@@ -215,7 +215,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Druid level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/creeping-crud",
@@ -242,7 +242,7 @@
         "Druid"
       ],
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 24. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:160"
     },
     {
       "id": "debuffs/druid/cast/drifting-death",
@@ -269,7 +269,7 @@
         "Druid"
       ],
       "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/druid/cast/drones-of-doom",
@@ -296,7 +296,7 @@
         "Druid"
       ],
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 32. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/druid/cast/engorging-roots",
@@ -323,7 +323,7 @@
         "Druid"
       ],
       "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Druid level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/druid/cast/engulfing-roots",
@@ -350,7 +350,7 @@
         "Druid"
       ],
       "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Druid level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/druid/cast/ensnare",
@@ -377,7 +377,7 @@
         "Druid"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); CC; the engine rescales to the profile's level; Druid level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/druid/cast/ensnaring-roots",
@@ -404,7 +404,7 @@
         "Druid"
       ],
       "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/druid/cast/entrapping-roots",
@@ -431,7 +431,7 @@
         "Druid"
       ],
       "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/druid/cast/enveloping-roots",
@@ -458,7 +458,7 @@
         "Druid"
       ],
       "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Druid level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/druid/cast/fire",
@@ -485,7 +485,7 @@
         "Druid"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/druid/cast/fixation-of-ro",
@@ -512,7 +512,7 @@
         "Druid"
       ],
       "comments": "~10m00s at level 50 (formula 9, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/druid/cast/flame-lick",
@@ -539,7 +539,7 @@
         "Druid"
       ],
       "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/druid/cast/glamour-of-tunare",
@@ -566,7 +566,7 @@
         "Druid"
       ],
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:36"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/druid/cast/grasping-roots",
@@ -593,7 +593,7 @@
         "Druid"
       ],
       "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Druid level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/druid/cast/ice",
@@ -620,7 +620,7 @@
         "Druid"
       ],
       "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:56"
     },
     {
       "id": "debuffs/druid/cast/immolate",
@@ -647,7 +647,7 @@
         "Druid"
       ],
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/druid/cast/instinctual-fear",
@@ -674,7 +674,7 @@
         "Druid"
       ],
       "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:154"
     },
     {
       "id": "debuffs/druid/cast/panic-animal",
@@ -701,7 +701,7 @@
         "Druid"
       ],
       "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/druid/cast/repulse-animal",
@@ -728,7 +728,7 @@
         "Druid"
       ],
       "comments": "~0m48s at level 50 (formula 8, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/druid/cast/ro-s-fiery-sundering",
@@ -755,7 +755,7 @@
         "Druid"
       ],
       "comments": "~2m30s at level 50 (formula 1, cap 50 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "debuffs/druid/cast/ro-s-smoldering-disjunction",
@@ -782,7 +782,7 @@
         "Druid"
       ],
       "comments": "~10m00s at level 50 (formula 9, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/druid/cast/share-wolf-form",
@@ -809,7 +809,7 @@
         "Druid"
       ],
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:58"
+      "icon": "spell:81"
     },
     {
       "id": "debuffs/druid/cast/snare",
@@ -836,7 +836,7 @@
         "Druid"
       ],
       "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); CC; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/druid/cast/stinging-swarm",
@@ -863,7 +863,7 @@
         "Druid"
       ],
       "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); class-defining DoT; the engine rescales to the profile's level; Druid level 10. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/druid/cast/sunbeam",
@@ -890,7 +890,7 @@
         "Druid"
       ],
       "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 22. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:20"
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/druid/cast/tangle",
@@ -917,7 +917,7 @@
         "Druid"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/druid/cast/tangling-weeds",
@@ -944,7 +944,7 @@
         "Druid"
       ],
       "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); CC; the engine rescales to the profile's level; Druid level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/druid/cast/terrorize-animal",
@@ -971,7 +971,7 @@
         "Druid"
       ],
       "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); CC; the engine rescales to the profile's level; Druid level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/druid/cast/tunare-s-request",
@@ -998,7 +998,7 @@
         "Druid"
       ],
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/druid/cast/vengeance-of-nature",
@@ -1025,7 +1025,7 @@
         "Druid"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:116"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/druid/cast/vengeance-of-the-wild",
@@ -1052,7 +1052,7 @@
         "Druid"
       ],
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 49. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:116"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/druid/cast/winged-death",
@@ -1079,7 +1079,7 @@
         "Druid"
       ],
       "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Druid level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/worn/allure-of-the-wild",
@@ -1111,7 +1111,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/befriend-animal",
@@ -1144,7 +1144,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/beguile-animals",
@@ -1176,7 +1176,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/beguile-plants",
@@ -1208,7 +1208,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/bonds-of-tunare",
@@ -1240,7 +1240,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/breath-of-ro",
@@ -1272,7 +1272,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/call-of-karana",
@@ -1304,7 +1304,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/charm-animals",
@@ -1337,7 +1337,7 @@
         "Shaman"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/creeping-crud",
@@ -1369,7 +1369,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:160"
     },
     {
       "id": "debuffs/worn/drifting-death",
@@ -1401,7 +1401,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/worn/engorging-roots",
@@ -1433,7 +1433,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/worn/engulfing-roots",
@@ -1465,7 +1465,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/worn/entrapping-roots",
@@ -1497,7 +1497,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/worn/fire",
@@ -1529,7 +1529,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/fixation-of-ro",
@@ -1561,7 +1561,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/glamour-of-tunare",
@@ -1593,7 +1593,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:36"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/ice",
@@ -1625,7 +1625,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:56"
     },
     {
       "id": "debuffs/worn/instinctual-fear",
@@ -1657,7 +1657,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:23"
+      "icon": "spell:154"
     },
     {
       "id": "debuffs/worn/repulse-animal",
@@ -1689,7 +1689,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/ro-s-fiery-sundering",
@@ -1721,7 +1721,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:53"
     },
     {
       "id": "debuffs/worn/ro-s-smoldering-disjunction",
@@ -1753,7 +1753,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/share-wolf-form",
@@ -1785,7 +1785,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:58"
+      "icon": "spell:81"
     },
     {
       "id": "debuffs/worn/sunbeam",
@@ -1817,7 +1817,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:20"
+      "icon": "spell:23"
     },
     {
       "id": "debuffs/worn/terrorize-animal",
@@ -1849,7 +1849,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/tunare-s-request",
@@ -1881,7 +1881,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:22"
+      "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/vengeance-of-nature",
@@ -1913,7 +1913,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:116"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/vengeance-of-the-wild",
@@ -1945,7 +1945,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:116"
+      "icon": "spell:55"
     },
     {
       "id": "debuffs/worn/winged-death",
@@ -1977,7 +1977,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     }
   ]
 }

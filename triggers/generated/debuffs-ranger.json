@@ -26,7 +26,7 @@
         "Ranger"
       ],
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/ranger/cast/ensnare",
@@ -53,7 +53,7 @@
         "Ranger"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); CC; the engine rescales to the profile's level; Ranger level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/ranger/cast/ensnaring-roots",
@@ -80,7 +80,7 @@
         "Ranger"
       ],
       "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/ranger/cast/enveloping-roots",
@@ -107,7 +107,7 @@
         "Ranger"
       ],
       "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Ranger level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/ranger/cast/fire-swarm",
@@ -134,7 +134,7 @@
         "Ranger"
       ],
       "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/ranger/cast/flame-lick",
@@ -161,7 +161,7 @@
         "Ranger"
       ],
       "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/ranger/cast/grasping-roots",
@@ -188,7 +188,7 @@
         "Ranger"
       ],
       "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Ranger level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/ranger/cast/immolate",
@@ -215,7 +215,7 @@
         "Ranger"
       ],
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/ranger/cast/panic-animal",
@@ -242,7 +242,7 @@
         "Ranger"
       ],
       "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/ranger/cast/snare",
@@ -269,7 +269,7 @@
         "Ranger"
       ],
       "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); CC; the engine rescales to the profile's level; Ranger level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/ranger/cast/stinging-swarm",
@@ -296,7 +296,7 @@
         "Ranger"
       ],
       "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/ranger/cast/swarm-of-pain",
@@ -323,7 +323,7 @@
         "Ranger"
       ],
       "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/ranger/cast/tangle",
@@ -350,7 +350,7 @@
         "Ranger"
       ],
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/ranger/cast/tangling-weeds",
@@ -377,7 +377,7 @@
         "Ranger"
       ],
       "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); CC; the engine rescales to the profile's level; Ranger level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/drones-of-doom",
@@ -410,7 +410,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/worn/ensnare",
@@ -443,7 +443,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/ensnaring-roots",
@@ -476,7 +476,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/worn/enveloping-roots",
@@ -509,7 +509,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/worn/fire-swarm",
@@ -541,7 +541,7 @@
         "Ranger"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/worn/flame-lick",
@@ -574,7 +574,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/grasping-roots",
@@ -607,7 +607,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:79"
+      "icon": "spell:117"
     },
     {
       "id": "debuffs/worn/immolate",
@@ -640,7 +640,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:51"
     },
     {
       "id": "debuffs/worn/panic-animal",
@@ -673,7 +673,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:23"
+      "icon": "spell:165"
     },
     {
       "id": "debuffs/worn/snare",
@@ -706,7 +706,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/stinging-swarm",
@@ -739,7 +739,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/worn/swarm-of-pain",
@@ -771,7 +771,7 @@
         "Ranger"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:0"
+      "icon": "spell:159"
     },
     {
       "id": "debuffs/worn/tangle",
@@ -804,7 +804,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     },
     {
       "id": "debuffs/worn/tangling-weeds",
@@ -837,7 +837,7 @@
         "Druid"
       ],
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
-      "icon": "spell:10"
+      "icon": "spell:5"
     }
   ]
 }

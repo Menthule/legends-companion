@@ -105,7 +105,7 @@
     {
       "id": "universal/survival/invis-dropping",
       "name": "Invis dropping",
-      "icon": "spell:12",
+      "icon": "spell:18",
       "pattern": "^You feel yourself starting to appear\\.",
       "enabled": true,
       "default_enabled": true,
@@ -142,7 +142,7 @@
     {
       "id": "universal/survival/invis-gone",
       "name": "Invis gone",
-      "icon": "spell:12",
+      "icon": "spell:18",
       "pattern": "^You (appear\\.|become visible\\.)",
       "enabled": true,
       "default_enabled": true,
@@ -165,7 +165,7 @@
     {
       "id": "universal/survival/levitate-dropping",
       "name": "Levitate dropping",
-      "icon": "spell:10",
+      "icon": "spell:80",
       "pattern": "^You feel as if you are going to lose your balance!$",
       "enabled": true,
       "default_enabled": true,
@@ -188,7 +188,7 @@
     {
       "id": "universal/survival/levitate-gone",
       "name": "Levitate gone",
-      "icon": "spell:10",
+      "icon": "spell:80",
       "pattern": "^You can no longer levitate\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -232,7 +232,7 @@
     {
       "id": "universal/survival/stunned",
       "name": "Stunned",
-      "icon": "spell:21",
+      "icon": "spell:25",
       "pattern": "^You are stunned!",
       "enabled": true,
       "default_enabled": true,
@@ -250,7 +250,7 @@
     {
       "id": "universal/survival/stun-over",
       "name": "Stun over",
-      "icon": "spell:21",
+      "icon": "spell:25",
       "pattern": "^You are no longer stunned\\.",
       "enabled": true,
       "default_enabled": true,
@@ -268,7 +268,7 @@
     {
       "id": "universal/cc/mez-broken",
       "name": "Mez broken",
-      "icon": "spell:31",
+      "icon": "spell:35",
       "pattern": "^(.+) has been awakened(?: by (.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -667,7 +667,7 @@
     {
       "id": "universal/cc/rooted",
       "name": "You are rooted",
-      "icon": "spell:10",
+      "icon": "spell:117",
       "pattern": "^(Your feet (adhere to|sink into) the ground|Your feet become entwined|You are unable to move|(Spectral shackles|Tendrilmists|Bonds of force|Etherroots|Nethermists|Murkmists|Shademists) bind your feet to the ground)\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -691,7 +691,7 @@
     {
       "id": "universal/cc/root-free",
       "name": "Root wore off you",
-      "icon": "spell:10",
+      "icon": "spell:117",
       "pattern": "^Your feet come free\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -715,7 +715,7 @@
     {
       "id": "universal/cc/snared",
       "name": "You are snared",
-      "icon": "spell:10",
+      "icon": "spell:5",
       "pattern": "^(You are ensnared|You slow down as your feet are covered in tangling weeds|Your feet become tangled by a blast of hypergrowth)\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -739,7 +739,7 @@
     {
       "id": "universal/cc/snare-free",
       "name": "Snare wore off you",
-      "icon": "spell:10",
+      "icon": "spell:5",
       "pattern": "^You are no longer ensnared\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -762,7 +762,7 @@
     {
       "id": "universal/cc/mezzed",
       "name": "You are mesmerized",
-      "icon": "spell:31",
+      "icon": "spell:35",
       "pattern": "^You (are mesmerized( by the Glamour of Kintaz)?|have been enthralled|have been entranced)\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -786,7 +786,7 @@
     {
       "id": "universal/cc/mez-free",
       "name": "Mez wore off you",
-      "icon": "spell:31",
+      "icon": "spell:35",
       "pattern": "^You are no longer (mesmerized|enthralled|entranced)\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -809,7 +809,7 @@
     {
       "id": "universal/cc/feared",
       "name": "You are feared",
-      "icon": "spell:23",
+      "icon": "spell:154",
       "pattern": "^Your mind fills with fear\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -833,7 +833,7 @@
     {
       "id": "universal/cc/fear-free",
       "name": "Fear wore off you",
-      "icon": "spell:23",
+      "icon": "spell:154",
       "pattern": "^You are no longer afraid\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -856,7 +856,7 @@
     {
       "id": "universal/cc/charmed",
       "name": "You are charmed",
-      "icon": "spell:22",
+      "icon": "spell:26",
       "pattern": "^You have been charmed\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -880,7 +880,7 @@
     {
       "id": "universal/cc/charm-free",
       "name": "Charm wore off you",
-      "icon": "spell:22",
+      "icon": "spell:26",
       "pattern": "^You are no longer charmed\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -903,7 +903,7 @@
     {
       "id": "universal/cc/spell-stunned",
       "name": "Spell-stunned",
-      "icon": "spell:21",
+      "icon": "spell:25",
       "pattern": "^You are struck by a sudden (?:burst of )?force\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -922,7 +922,7 @@
     {
       "id": "universal/cc/root-landed-other",
       "name": "Rooted (someone nearby)",
-      "icon": "spell:10",
+      "icon": "spell:117",
       "pattern": "^([A-Z][\\w`' ]*) adheres to the ground\\.$",
       "enabled": true,
       "default_enabled": true,
@@ -941,7 +941,7 @@
     {
       "id": "universal/cc/slowed",
       "name": "You are slowed",
-      "icon": "spell:10",
+      "icon": "spell:17",
       "pattern": "^(You slow down|Your arms slow down)\\.$",
       "enabled": true,
       "default_enabled": true,
