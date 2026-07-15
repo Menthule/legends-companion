@@ -2507,9 +2507,16 @@ button.coach-row.active {
   }
 }
 
-@media (min-width: 921px) and (max-width: 1180px) {
+@media (min-width: 921px) and (max-width: 1280px) {
   .coach-summary {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .timer-candidate-row {
+    grid-template-columns: minmax(180px, 1.2fr) 76px 76px minmax(120px, 0.8fr) 104px;
+  }
+  .timer-candidate-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
   }
 }
 

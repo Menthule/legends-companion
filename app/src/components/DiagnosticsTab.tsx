@@ -456,7 +456,11 @@ export default function DiagnosticsTab() {
                     <div className={`timer-candidate-row ${status}`} key={key}>
                       <span className="timer-candidate-name">
                         <strong>{report.timerName} {rank.rank}</strong>
-                        <small>{trainingStatusLabel(status)}</small>
+                        <small title={rank.reason}>
+                          {status === "collecting" || status === "inconsistent"
+                            ? rank.reason
+                            : trainingStatusLabel(status)}
+                        </small>
                       </span>
                       <span>
                         <small>Current</small>
@@ -490,6 +494,13 @@ export default function DiagnosticsTab() {
                         <button
                           className={status === "drift" ? "primary small" : "ghost small"}
                           disabled={!rank.canApply || rank.suggestedDurationSecs == null || applied}
+                          title={
+                            applied
+                              ? "Timing updated during this scan."
+                              : rank.canApply && rank.suggestedDurationSecs != null
+                                ? `Use the observed ${formatDuration(rank.suggestedDurationSecs)} duration.`
+                                : rank.reason
+                          }
                           onClick={() => void applyTimerTraining(report, rank)}
                         >
                           {applied ? "Updated" : "Use observed"}
@@ -618,9 +629,10 @@ export default function DiagnosticsTab() {
                     <button
                       className={applied ? "ghost small" : "primary small"}
                       disabled={!result.canApply || applied}
+                      title={applied ? "Timing updated during this scan." : result.reason}
                       onClick={() => void applyTimerTraining(trainingReport, result)}
                     >
-                      {applied ? "Applied" : "Apply"}
+                      {applied ? "Updated" : "Use observed"}
                     </button>
                   </div>
                 );
