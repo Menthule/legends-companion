@@ -1,10 +1,15 @@
 //! Import static `/outputfile inventory` TSV snapshots for quest matching.
 
+use eqlog_store::inventory::{
+    InventoryDatabase, InventoryEntryInput, InventorySnapshotInput, InventoryStore,
+};
 use serde::Serialize;
+use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
+use tauri::AppHandle;
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -36,6 +41,13 @@ struct Aggregate {
     locations: BTreeSet<String>,
 }
 
+struct ParsedInventory {
+    snapshot: InventorySnapshot,
+    entries: Vec<InventoryEntryInput>,
+    sections: Vec<String>,
+    fingerprint: String,
+}
+
 fn now_ms() -> u64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -61,11 +73,38 @@ fn normalize(value: &str) -> String {
         .join(" ")
 }
 
-fn parse_tsv(
-    text: &str,
-    source_path: String,
-    modified_ms: u64,
-) -> Result<InventorySnapshot, String> {
+fn normalize_item_name(value: &str) -> String {
+    let without_rank = regex::Regex::new(r"(?i)\s+\+\d+\s*$")
+        .expect("valid rank regex")
+        .replace(value.trim(), "");
+    let without_variant = regex::Regex::new(r"(?i)\s+\([^()]+\)\s*$")
+        .expect("valid variant regex")
+        .replace(&without_rank, "");
+    normalize(&without_variant)
+}
+
+fn storage_for(location: &str, keyring: bool) -> String {
+    if keyring {
+        return format!("keyring-{}", normalize(location).replace(' ', "-"));
+    }
+    let lower = location.to_ascii_lowercase();
+    if lower.starts_with("sharedbank") {
+        "shared-bank"
+    } else if lower.starts_with("bank") {
+        "bank"
+    } else if lower.starts_with("hoard") {
+        "hoard"
+    } else if lower.starts_with("personal-depot") {
+        "personal-depot"
+    } else if lower.starts_with("general") || lower.starts_with("cursor") {
+        "carried"
+    } else {
+        "equipped"
+    }
+    .into()
+}
+
+fn parse_tsv(text: &str, source_path: String, modified_ms: u64) -> Result<ParsedInventory, String> {
     let mut lines = text.lines();
     let header = lines.next().ok_or("inventory export is empty")?;
     let columns: Vec<String> = header
@@ -85,6 +124,9 @@ fn parse_tsv(
     let mut count_col = Some(column(&columns, "count")?);
 
     let mut grouped: BTreeMap<String, Aggregate> = BTreeMap::new();
+    let mut entries = Vec::new();
+    let mut sections = BTreeSet::new();
+    let mut keyring = false;
     let mut row_count = 0usize;
     let mut skipped_rows = 0usize;
     for line in lines {
@@ -102,6 +144,9 @@ fn parse_tsv(
             name_col = next_name;
             id_col = next_id;
             count_col = normalized_fields.iter().position(|value| value == "count");
+            keyring = normalized_fields
+                .first()
+                .is_some_and(|value| value == "keyring");
             continue;
         }
         row_count += 1;
@@ -113,6 +158,11 @@ fn parse_tsv(
         if fields.len() <= max_col {
             skipped_rows += 1;
             continue;
+        }
+        let location = fields[location_col].trim();
+        let storage = storage_for(location, keyring);
+        if !location.is_empty() {
+            sections.insert(storage.clone());
         }
         let name = fields[name_col].trim();
         let count = match count_col {
@@ -144,10 +194,26 @@ fn parse_tsv(
         }
         entry.names.insert(name.to_string());
         entry.quantity += count;
-        let location = fields[location_col].trim();
         if !location.is_empty() {
             entry.locations.insert(location.to_string());
         }
+        entries.push(InventoryEntryInput {
+            ordinal: entries.len() as i64,
+            location: location.to_string(),
+            storage,
+            item_id,
+            name: name.to_string(),
+            normalized_name: normalize_item_name(name),
+            quantity: count,
+            slots: columns
+                .iter()
+                .position(|value| value == "slots")
+                .and_then(|index| fields.get(index))
+                .and_then(|value| value.trim().parse::<i64>().ok())
+                .unwrap_or(0),
+            keyring,
+            exaltation: name.to_ascii_lowercase().contains("(exaltation)"),
+        });
     }
     let items = grouped
         .into_values()
@@ -159,17 +225,23 @@ fn parse_tsv(
             locations: entry.locations.into_iter().collect(),
         })
         .collect();
-    Ok(InventorySnapshot {
-        source_path,
-        source_modified_ms: modified_ms,
-        imported_at_ms: now_ms(),
-        row_count,
-        skipped_rows,
-        items,
+    let imported_at_ms = now_ms();
+    Ok(ParsedInventory {
+        snapshot: InventorySnapshot {
+            source_path,
+            source_modified_ms: modified_ms,
+            imported_at_ms,
+            row_count,
+            skipped_rows,
+            items,
+        },
+        entries,
+        sections: sections.into_iter().collect(),
+        fingerprint: String::new(),
     })
 }
 
-fn import_path(path: &Path) -> Result<InventorySnapshot, String> {
+fn import_path(path: &Path) -> Result<ParsedInventory, String> {
     let bytes = fs::read(path).map_err(|error| format!("read inventory export: {error}"))?;
     let text = String::from_utf8_lossy(&bytes);
     let modified_ms = fs::metadata(path)
@@ -178,16 +250,63 @@ fn import_path(path: &Path) -> Result<InventorySnapshot, String> {
         .and_then(|value| value.duration_since(UNIX_EPOCH).ok())
         .map(|value| value.as_millis() as u64)
         .unwrap_or(0);
-    parse_tsv(&text, path.display().to_string(), modified_ms)
+    let mut parsed = parse_tsv(&text, path.display().to_string(), modified_ms)?;
+    parsed.fingerprint = format!("{:x}", Sha256::digest(&bytes));
+    Ok(parsed)
+}
+
+fn store(app: &AppHandle) -> Result<InventoryStore, String> {
+    InventoryStore::open(crate::data_root::resolve(app).fights_db())
+        .map_err(|error| format!("open inventory database: {error}"))
+}
+
+fn persist(
+    app: &AppHandle,
+    parsed: &ParsedInventory,
+    character: &str,
+    server: &str,
+) -> Result<(), String> {
+    if character.trim().is_empty() {
+        return Ok(());
+    }
+    let mut store = store(app)?;
+    store
+        .import_snapshot(&InventorySnapshotInput {
+            character: character.trim().into(),
+            server: server.trim().into(),
+            source_path: parsed.snapshot.source_path.clone(),
+            source_modified_ms: parsed.snapshot.source_modified_ms,
+            imported_at_ms: parsed.snapshot.imported_at_ms,
+            fingerprint: parsed.fingerprint.clone(),
+            row_count: parsed.snapshot.row_count,
+            skipped_rows: parsed.snapshot.skipped_rows,
+            sections: parsed.sections.clone(),
+            entries: parsed.entries.clone(),
+        })
+        .map(|_| ())
+        .map_err(|error| format!("save inventory snapshot: {error}"))
 }
 
 #[tauri::command]
-pub fn inventory_import(path: String) -> Result<InventorySnapshot, String> {
-    import_path(Path::new(&path))
+pub fn inventory_import(
+    app: AppHandle,
+    path: String,
+    character: Option<String>,
+    server: Option<String>,
+) -> Result<InventorySnapshot, String> {
+    let parsed = import_path(Path::new(&path))?;
+    persist(
+        &app,
+        &parsed,
+        character.as_deref().unwrap_or_default(),
+        server.as_deref().unwrap_or_default(),
+    )?;
+    Ok(parsed.snapshot)
 }
 
 #[tauri::command]
 pub fn inventory_discover(
+    app: AppHandle,
     log_path: String,
     character: String,
     server: String,
@@ -225,9 +344,81 @@ pub fn inventory_discover(
         .collect();
     candidates.sort_by_key(|(server_match, modified, _)| (*server_match, *modified));
     match candidates.pop() {
-        Some((_, _, path)) => import_path(&path).map(Some),
+        Some((_, _, path)) => {
+            let parsed = import_path(&path)?;
+            persist(&app, &parsed, &character, &server)?;
+            Ok(Some(parsed.snapshot))
+        }
         None => Ok(None),
     }
+}
+
+#[tauri::command]
+pub fn inventory_database(
+    app: AppHandle,
+    character: String,
+    server: String,
+) -> Result<InventoryDatabase, String> {
+    store(&app)?
+        .database(&character, &server)
+        .map_err(|error| format!("read inventory database: {error}"))
+}
+
+#[tauri::command]
+pub fn inventory_set_currency(
+    app: AppHandle,
+    character: String,
+    server: String,
+    name: String,
+    quantity: i64,
+) -> Result<(), String> {
+    if name.trim().is_empty() {
+        return Err("currency name is required".into());
+    }
+    store(&app)?
+        .set_currency(&character, &server, name.trim(), quantity, now_ms())
+        .map_err(|error| format!("save currency: {error}"))
+}
+
+#[tauri::command]
+pub fn inventory_remove_currency(
+    app: AppHandle,
+    character: String,
+    server: String,
+    name: String,
+) -> Result<(), String> {
+    store(&app)?
+        .remove_currency(&character, &server, &name)
+        .map_err(|error| format!("remove currency: {error}"))
+}
+
+#[tauri::command]
+pub fn inventory_set_keep(
+    app: AppHandle,
+    character: String,
+    server: String,
+    item_key: String,
+    keep: bool,
+) -> Result<(), String> {
+    store(&app)?
+        .set_keep(&character, &server, &item_key, keep)
+        .map_err(|error| format!("save keep flag: {error}"))
+}
+
+#[tauri::command]
+pub fn inventory_set_quest_status(
+    app: AppHandle,
+    character: String,
+    server: String,
+    quest_id: String,
+    status: String,
+) -> Result<(), String> {
+    if !["unknown", "in-progress", "completed", "ignored"].contains(&status.as_str()) {
+        return Err("invalid quest status".into());
+    }
+    store(&app)?
+        .set_quest_status(&character, &server, &quest_id, &status, now_ms())
+        .map_err(|error| format!("save quest status: {error}"))
 }
 
 #[cfg(test)]
@@ -244,7 +435,8 @@ mod tests {
             "General3\tEmpty\t0\t0\t0\r\n",
             "bad row\r\n",
         );
-        let snapshot = parse_tsv(source, "inventory.txt".into(), 123).unwrap();
+        let parsed = parse_tsv(source, "inventory.txt".into(), 123).unwrap();
+        let snapshot = parsed.snapshot;
         assert_eq!(snapshot.row_count, 5);
         assert_eq!(snapshot.skipped_rows, 2);
         assert_eq!(snapshot.items.len(), 2);
@@ -266,7 +458,9 @@ mod tests {
 
     #[test]
     fn rejects_exports_without_required_columns() {
-        let error = parse_tsv("Name\tCount\nA\t1", "bad.txt".into(), 0).unwrap_err();
+        let error = parse_tsv("Name\tCount\nA\t1", "bad.txt".into(), 0)
+            .err()
+            .unwrap();
         assert!(error.contains("location"));
     }
 
@@ -280,7 +474,9 @@ mod tests {
             "Augmentation\tDiamond Rod (Exaltation)\t11570\t\r\n",
             "Equipment\tShroud of the Sky\t177763\t\r\n",
         );
-        let snapshot = parse_tsv(source, "inventory.txt".into(), 123).unwrap();
+        let parsed = parse_tsv(source, "inventory.txt".into(), 123).unwrap();
+        assert_eq!(parsed.entries[1].storage, "keyring-augmentation");
+        let snapshot = parsed.snapshot;
         assert_eq!(snapshot.row_count, 3);
         assert_eq!(snapshot.skipped_rows, 0);
         assert_eq!(snapshot.items.len(), 2);
@@ -292,5 +488,18 @@ mod tests {
         assert_eq!(rod.quantity, 2);
         assert_eq!(rod.locations, vec!["Augmentation", "General1"]);
         assert_eq!(rod.names.len(), 2);
+    }
+
+    #[test]
+    fn records_open_conditional_storage_even_when_empty() {
+        let source = concat!(
+            "Location\tName\tID\tCount\tSlots\r\n",
+            "Hoard1\tEmpty\t0\t0\t0\r\n",
+            "Personal-Depot1\tEmpty\t0\t0\t0\r\n",
+        );
+        let parsed = parse_tsv(source, "inventory.txt".into(), 123).unwrap();
+        assert!(parsed.sections.contains(&"hoard".into()));
+        assert!(parsed.sections.contains(&"personal-depot".into()));
+        assert!(parsed.entries.is_empty());
     }
 }

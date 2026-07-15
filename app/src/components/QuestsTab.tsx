@@ -126,7 +126,12 @@ export default function QuestsTab({
       if (forceBrowse) {
         const path = await pickInventoryFile();
         if (!path) return;
-        const snapshot = await inventoryImport(path);
+        const config = await getConfig();
+        const snapshot = await inventoryImport(
+          path,
+          character || config.characterName,
+          serverFromLogPath(config.logPath),
+        );
         rememberInventoryPath(character, path);
         rememberInventorySnapshot(character, snapshot);
         setInventory(snapshot);
@@ -135,7 +140,12 @@ export default function QuestsTab({
       const remembered = savedInventoryPath(character);
       if (remembered) {
         try {
-          const snapshot = await inventoryImport(remembered);
+          const config = await getConfig();
+          const snapshot = await inventoryImport(
+            remembered,
+            character || config.characterName,
+            serverFromLogPath(config.logPath),
+          );
           rememberInventorySnapshot(character, snapshot);
           setInventory(snapshot);
           return;

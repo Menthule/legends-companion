@@ -151,6 +151,16 @@ export function IconQuests({ size = 16 }: IconProps) {
   );
 }
 
+/** Inventory database: a compact pack with lid and front pocket. */
+export function IconInventory({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <path d="M4 5V4a4 4 0 0 1 8 0v1M2.5 5.5h11v8h-11z" />
+      <path d="M5 9.5h6v4H5zM5.2 5.5v2M10.8 5.5v2" />
+    </svg>
+  );
+}
+
 /** Macros: a hotbutton square with command lines. */
 export function IconMacros({ size = 16 }: IconProps) {
   return (

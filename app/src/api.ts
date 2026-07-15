@@ -37,6 +37,7 @@ import {
 import { buildShareString } from "./lib/share";
 import { formatParse, type ParseInput } from "./lib/parseText";
 import type { InventorySnapshot } from "./lib/quests";
+import type { InventoryDatabase, QuestProgressStatus } from "./lib/inventory";
 import type {
   ActiveTimerSnapshot,
   AppConfig,
@@ -807,9 +808,79 @@ export function inventoryDiscover(args: {
   return invoke<InventorySnapshot | null>("inventory_discover", args);
 }
 
-export function inventoryImport(path: string): Promise<InventorySnapshot> {
+export function inventoryImport(
+  path: string,
+  character?: string,
+  server?: string,
+): Promise<InventorySnapshot> {
   if (IS_MOCK) return Promise.reject(new Error("Inventory import needs the desktop app."));
-  return invoke<InventorySnapshot>("inventory_import", { path });
+  return invoke<InventorySnapshot>("inventory_import", { path, character, server });
+}
+
+function mockInventoryDatabase(): InventoryDatabase {
+  const importedAtMs = Date.now() - 4 * 60_000;
+  const entries = [
+    [0, "General4-Slot2", "carried", 1595, "Thick Caustic Fluid", 2],
+    [1, "Bank1-Slot8", "bank", 1595, "Thick Caustic Fluid", 1],
+    [2, "Hoard12", "hoard", 10028, "Peridot", 8],
+    [3, "Personal-Depot7", "personal-depot", 13783, "Ruined Cat Pelt", 2],
+    [4, "Equipment", "keyring-equipment", 177763, "Shroud of the Sky", 1],
+    [5, "Bank4-Slot1", "bank", null, "Pulsating Ruby", 1],
+  ].map(([ordinal, location, storage, itemId, name, quantity]) => ({
+    ordinal: ordinal as number, location: location as string, storage: storage as string,
+    itemId: itemId as number | null, name: name as string,
+    normalizedName: String(name).toLowerCase(), quantity: quantity as number,
+    slots: 10, keyring: String(storage).startsWith("keyring"), exaltation: false,
+  }));
+  const current = {
+    id: 2, sourcePath: "C:\\EverQuest Legends\\Nyasha_oggok-Inventory.txt",
+    sourceModifiedMs: importedAtMs - 10_000, importedAtMs, fingerprint: "mock-current",
+    rowCount: 697, skippedRows: 0,
+    sections: ["equipped", "carried", "bank", "shared-bank", "hoard", "personal-depot", "keyring-equipment"],
+  };
+  return {
+    current,
+    entries,
+    previousEntries: entries.slice(1),
+    history: [current, { ...current, id: 1, importedAtMs: importedAtMs - 86_400_000, fingerprint: "mock-previous", rowCount: 684 }],
+    currencies: [{ name: "Motes of Potential", quantity: 2, updatedAtMs: importedAtMs }],
+    keepKeys: [], questProgress: [],
+  };
+}
+
+export function inventoryDatabase(character: string, server: string): Promise<InventoryDatabase> {
+  if (IS_MOCK) return Promise.resolve(mockInventoryDatabase());
+  return invoke<InventoryDatabase>("inventory_database", { character, server });
+}
+
+export function inventorySetCurrency(character: string, server: string, name: string, quantity: number): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("inventory_set_currency", { character, server, name, quantity });
+}
+
+export function inventoryRemoveCurrency(character: string, server: string, name: string): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("inventory_remove_currency", { character, server, name });
+}
+
+export function inventorySetKeep(character: string, server: string, itemKey: string, keep: boolean): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("inventory_set_keep", { character, server, itemKey, keep });
+}
+
+export function inventorySetQuestStatus(
+  character: string,
+  server: string,
+  questId: string,
+  status: QuestProgressStatus,
+): Promise<void> {
+  if (IS_MOCK) return Promise.resolve();
+  return invoke("inventory_set_quest_status", { character, server, questId, status });
+}
+
+export function inventoryRecipeUsage(itemIds: number[]): Promise<Array<{ itemId: number; usedIn: number }>> {
+  if (IS_MOCK) return Promise.resolve(itemIds.map((itemId) => ({ itemId, usedIn: 0 })));
+  return invoke("refdb_inventory_recipe_usage", { itemIds });
 }
 
 /**

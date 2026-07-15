@@ -439,6 +439,13 @@ pub struct ItemRecipes {
     pub makes: Vec<RecipeRow>,
 }
 
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InventoryRecipeUsage {
+    pub item_id: i64,
+    pub used_in: i64,
+}
+
 fn recipe_rows(
     conn: &rusqlite::Connection,
     link_table: &str,
@@ -479,6 +486,30 @@ pub fn refdb_item_recipes(app: AppHandle, item_id: i64) -> Result<ItemRecipes, S
         used_in: recipe_rows(&conn, "recipe_components", item_id)?,
         makes: recipe_rows(&conn, "recipe_results", item_id)?,
     })
+}
+
+/// Batch recipe-component evidence for the inventory cleanup view. A zero is
+/// returned for every requested id not present in the component table.
+#[tauri::command]
+pub fn refdb_inventory_recipe_usage(
+    app: AppHandle,
+    item_ids: Vec<i64>,
+) -> Result<Vec<InventoryRecipeUsage>, String> {
+    let conn = dropdb::open(&app)?;
+    let mut stmt = conn
+        .prepare("SELECT COUNT(DISTINCT recipe_id) FROM recipe_components WHERE item_id = ?1")
+        .map_err(|error| error.to_string())?;
+    item_ids
+        .into_iter()
+        .collect::<std::collections::BTreeSet<_>>()
+        .into_iter()
+        .map(|item_id| {
+            let used_in = stmt
+                .query_row(rusqlite::params![item_id], |row| row.get(0))
+                .map_err(|error| error.to_string())?;
+            Ok(InventoryRecipeUsage { item_id, used_in })
+        })
+        .collect()
 }
 
 // ---------------------------------------------------------------------------

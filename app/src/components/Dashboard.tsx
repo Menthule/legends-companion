@@ -72,6 +72,7 @@ import GlobalSearchModal from "./GlobalSearchModal";
 import CoachTab from "./CoachTab";
 import DiagnosticsTab from "./DiagnosticsTab";
 import QuestsTab from "./QuestsTab";
+import InventoryTab from "./InventoryTab";
 import { loadQuestCatalog, questsForGiver, type QuestRecord } from "../lib/quests";
 import {
   IconEye,
@@ -79,6 +80,7 @@ import {
   IconFights,
   IconDiagnostics,
   IconInsights,
+  IconInventory,
   IconQuests,
   IconLive,
   IconLock,
@@ -110,6 +112,7 @@ type TabId =
   | "drops"
   | "mobs"
   | "quests"
+  | "inventory"
   | "recipes"
   | "spells"
   | "macros"
@@ -142,6 +145,7 @@ const NAV_GROUPS: { label: string | null; tabs: NavTab[] }[] = [
       { id: "drops", label: "Drops", icon: IconDrops },
       { id: "mobs", label: "Mobs", icon: IconMobs },
       { id: "quests", label: "Quests", icon: IconQuests },
+      { id: "inventory", label: "Inventory", icon: IconInventory },
       { id: "recipes", label: "Recipes", icon: IconRecipes },
       { id: "spells", label: "Spells", icon: IconSpells },
       { id: "macros", label: "Macros", icon: IconMacros },
@@ -1329,6 +1333,9 @@ export default function Dashboard() {
           </section>
           <section className={`page${tab === "quests" ? "" : " hidden"}`}>
             {visited.has("quests") && <QuestsTab character={character} searchRequest={questsRequest} />}
+          </section>
+          <section className={`page${tab === "inventory" ? "" : " hidden"}`}>
+            {visited.has("inventory") && <InventoryTab character={character} />}
           </section>
           <section className={`page${tab === "recipes" ? "" : " hidden"}`}>
             {visited.has("recipes") && (

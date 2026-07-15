@@ -8501,3 +8501,190 @@ button.drops-item.active {
   align-items: baseline;
   padding: 2px 0;
 }
+
+/* Inventory database ---------------------------------------------------- */
+.inventory-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.inventory-toolbar {
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 12px;
+}
+.inventory-search-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 150px 140px auto auto;
+  gap: 8px;
+  align-items: center;
+}
+.inventory-search-row input,
+.inventory-search-row select,
+.inventory-currency-form input {
+  width: 100%;
+}
+.inventory-source-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.inventory-source-row strong { color: var(--ink-2); }
+.inventory-warning { color: color-mix(in srgb, var(--warning) 80%, var(--ink)); }
+.inventory-history { margin-left: auto; position: relative; }
+.inventory-history summary { color: var(--accent); cursor: pointer; }
+.inventory-history > div { position: absolute; z-index: 5; right: 0; top: 22px; width: 290px; padding: 8px 10px; border: 1px solid var(--hairline); border-radius: 4px; background: var(--surface-raised); box-shadow: 0 8px 24px rgba(0, 0, 0, .32); }
+.inventory-history > div span { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px solid var(--hairline); }
+.inventory-history > div span:last-child { border-bottom: none; }
+.inventory-summary {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.inventory-summary > div {
+  min-width: 0;
+  padding: 9px 12px;
+  border-right: 1px solid var(--hairline);
+}
+.inventory-summary > div:last-child { border-right: none; }
+.inventory-summary strong {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.inventory-summary span {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.inventory-views {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--hairline);
+}
+.inventory-views button {
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-2);
+  padding: 7px 12px;
+}
+.inventory-views button.active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+.inventory-table {
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.inventory-table-head,
+.inventory-table-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) 54px minmax(140px, 1fr) minmax(130px, 1fr) 150px;
+  gap: 12px;
+  align-items: center;
+}
+.inventory-table-head {
+  padding: 7px 12px;
+  color: var(--ink-muted);
+  background: var(--surface-raised);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.inventory-table-item + .inventory-table-item { border-top: 1px solid var(--hairline); }
+.inventory-table-row {
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.inventory-table-row:hover,
+.inventory-table-item.open > .inventory-table-row { background: var(--surface-raised); }
+.inventory-table-row > span,
+.inventory-table-row > strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.inventory-name { display: flex; align-items: center; gap: 7px; color: var(--ink); }
+.inventory-name i { width: 10px; color: var(--ink-muted); font-style: normal; }
+.inventory-name small { color: var(--accent); font-size: 9px; text-transform: uppercase; }
+.inventory-status {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 6px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.inventory-status.needed,
+.inventory-status.keep,
+.inventory-status.watched { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, var(--hairline)); }
+.inventory-status.extra-quantity,
+.inventory-status.completed-quests-only { color: var(--warning); border-color: color-mix(in srgb, var(--warning) 45%, var(--hairline)); }
+.inventory-status.no-known-use { color: var(--ink-muted); }
+.inventory-detail {
+  display: grid;
+  grid-template-columns: minmax(180px, .8fr) minmax(280px, 1.6fr) minmax(180px, .8fr);
+  gap: 20px;
+  padding: 12px 28px 14px;
+  border-top: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--surface-raised) 48%, var(--surface));
+}
+.inventory-detail h4 { margin: 0 0 6px; color: var(--ink-muted); font-size: 10px; text-transform: uppercase; }
+.inventory-detail p { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+.inventory-detail p small,
+.inventory-detail p span,
+.inventory-detail-actions small { color: var(--ink-muted); font-size: 11px; }
+.inventory-detail p select { margin-left: auto; padding: 3px 6px; font-size: 11px; }
+.inventory-detail .text-button { padding: 0; border: none; background: none; color: var(--accent); text-align: left; }
+.inventory-detail-actions { display: flex; align-content: flex-start; flex-wrap: wrap; gap: 6px; }
+.inventory-detail-actions small { flex-basis: 100%; margin-top: 4px; }
+.inventory-currencies {
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 14px;
+}
+.inventory-currency-note { color: var(--ink-muted); margin-bottom: 12px; }
+.inventory-currency-form { display: grid; grid-template-columns: minmax(220px, 1fr) 120px auto; gap: 8px; max-width: 620px; }
+.inventory-currency-list { margin-top: 14px; border-top: 1px solid var(--hairline); }
+.inventory-currency-list > div { display: grid; grid-template-columns: minmax(240px, 1fr) 100px 160px auto; gap: 12px; align-items: center; min-height: 40px; border-bottom: 1px solid var(--hairline); }
+.inventory-currency-list > div > span { color: var(--ink); font-size: 16px; font-variant-numeric: tabular-nums; text-align: right; }
+.inventory-currency-list small { color: var(--ink-muted); }
+
+@media (max-width: 980px) {
+  .inventory-search-row { grid-template-columns: minmax(220px, 1fr) 140px 130px; }
+  .inventory-search-row button { width: 100%; }
+  .inventory-summary { grid-template-columns: repeat(3, 1fr); }
+  .inventory-summary > div:nth-child(3) { border-right: none; }
+  .inventory-summary > div:nth-child(-n+3) { border-bottom: 1px solid var(--hairline); }
+  .inventory-table-head,
+  .inventory-table-row { grid-template-columns: minmax(190px, 2fr) 44px minmax(110px, 1fr) 130px; }
+  .inventory-table-head > span:nth-child(4),
+  .inventory-table-row > span:nth-child(4) { display: none; }
+  .inventory-detail { grid-template-columns: 1fr 1.4fr; }
+  .inventory-detail-actions { grid-column: 1 / -1; }
+}

@@ -21,6 +21,7 @@
 
 pub mod career;
 mod import;
+pub mod inventory;
 mod schema;
 
 use std::path::Path;

@@ -1,9 +1,9 @@
 //! Shared schema versioning for the ONE store database.
 //!
-//! `fights` (v1) and the career tables (v2, docs/career-db-design.md §1) live
-//! in the same SQLite file. Both [`crate::FightStore`] and
-//! [`crate::career::CareerStore`] call [`migrate`] on open, so whichever
-//! opens the file first brings it fully up to date.
+//! `fights` (v1), career tables (v2, docs/career-db-design.md section 1), and
+//! inventory snapshots (v3) live in the same SQLite file. Every store calls
+//! [`migrate`] on open, so whichever opens the file first brings it fully up
+//! to date.
 
 use rusqlite::Connection;
 
@@ -11,7 +11,7 @@ use crate::StoreError;
 
 /// Schema version written to `PRAGMA user_version`. Bump when the schema
 /// changes and add a migration step in [`migrate`].
-pub(crate) const SCHEMA_VERSION: i64 = 2;
+pub(crate) const SCHEMA_VERSION: i64 = 3;
 
 /// Bring the schema up to [`SCHEMA_VERSION`]. Version 0 = fresh database.
 /// Opening a newer database than this crate understands is a hard error
@@ -136,6 +136,73 @@ pub(crate) fn migrate(conn: &Connection) -> Result<(), StoreError> {
                  server    TEXT NOT NULL,
                  max_ts    INTEGER NOT NULL,
                  PRIMARY KEY (character, server)
+             );
+             COMMIT;",
+        )?;
+    }
+    if found < 3 {
+        conn.execute_batch(
+            "BEGIN;
+             CREATE TABLE IF NOT EXISTS inventory_snapshots (
+                 id                 INTEGER PRIMARY KEY,
+                 character          TEXT NOT NULL,
+                 server             TEXT NOT NULL,
+                 source_path        TEXT NOT NULL,
+                 source_modified_ms INTEGER NOT NULL,
+                 imported_at_ms     INTEGER NOT NULL,
+                 fingerprint        TEXT NOT NULL,
+                 row_count          INTEGER NOT NULL,
+                 skipped_rows       INTEGER NOT NULL,
+                 sections_json      TEXT NOT NULL,
+                 UNIQUE(character, server, fingerprint)
+             );
+             CREATE INDEX IF NOT EXISTS inventory_snapshots_current
+                 ON inventory_snapshots(character COLLATE NOCASE,
+                                        server COLLATE NOCASE,
+                                        imported_at_ms DESC, id DESC);
+
+             CREATE TABLE IF NOT EXISTS inventory_entries (
+                 snapshot_id    INTEGER NOT NULL REFERENCES inventory_snapshots(id)
+                                    ON DELETE CASCADE,
+                 ordinal        INTEGER NOT NULL,
+                 location       TEXT NOT NULL,
+                 storage        TEXT NOT NULL,
+                 item_id        INTEGER,
+                 name           TEXT NOT NULL,
+                 normalized_name TEXT NOT NULL,
+                 quantity       INTEGER NOT NULL,
+                 slots          INTEGER NOT NULL,
+                 keyring        INTEGER NOT NULL,
+                 exaltation     INTEGER NOT NULL,
+                 PRIMARY KEY(snapshot_id, ordinal)
+             );
+             CREATE INDEX IF NOT EXISTS inventory_entries_item
+                 ON inventory_entries(snapshot_id, item_id, normalized_name);
+             CREATE INDEX IF NOT EXISTS inventory_entries_storage
+                 ON inventory_entries(snapshot_id, storage, location);
+
+             CREATE TABLE IF NOT EXISTS inventory_currencies (
+                 character     TEXT NOT NULL,
+                 server        TEXT NOT NULL,
+                 name          TEXT NOT NULL,
+                 quantity      INTEGER NOT NULL,
+                 updated_at_ms INTEGER NOT NULL,
+                 PRIMARY KEY(character, server, name)
+             );
+             CREATE TABLE IF NOT EXISTS inventory_keeps (
+                 character  TEXT NOT NULL,
+                 server     TEXT NOT NULL,
+                 item_key   TEXT NOT NULL,
+                 keep       INTEGER NOT NULL,
+                 PRIMARY KEY(character, server, item_key)
+             );
+             CREATE TABLE IF NOT EXISTS quest_progress (
+                 character   TEXT NOT NULL,
+                 server      TEXT NOT NULL,
+                 quest_id    TEXT NOT NULL,
+                 status      TEXT NOT NULL,
+                 updated_at_ms INTEGER NOT NULL,
+                 PRIMARY KEY(character, server, quest_id)
              );
              COMMIT;",
         )?;
