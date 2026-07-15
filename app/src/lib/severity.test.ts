@@ -32,6 +32,7 @@ describe("default trigger alert severity", () => {
     ["class/necromancer/fd/fd-over", "Feign death ended"],
     ["universal/survival/summoned", "Summoned"],
     ["universal/survival/you-died", "You died"],
+    ["universal/survival/invis-dropping", "Invisibility dropping"],
   ])("marks survival failure %s as loud", (id, name) => {
     expect(classifySeverity(id, name)).toBe("alarm");
   });

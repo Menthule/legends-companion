@@ -98,6 +98,46 @@ def fetch_pages(rows: list[dict]) -> list[dict]:
     return pages
 
 
+def fetch_linked_pages(titles: list[str]) -> dict[str, dict]:
+    """Fetch exact linked pages and retain redirect identity for each title."""
+    unique_titles = list(dict.fromkeys(title for title in titles if title))
+    pages_by_requested_title: dict[str, dict] = {}
+    for offset in range(0, len(unique_titles), 40):
+        batch = unique_titles[offset : offset + 40]
+        payload = api({
+            "action": "query",
+            "prop": "revisions|info|categories",
+            "rvprop": "ids|timestamp|content",
+            "rvslots": "main",
+            "inprop": "url",
+            "cllimit": "max",
+            "redirects": "1",
+            "titles": "|".join(batch),
+        })
+        query = payload["query"]
+        aliases = {
+            row["from"]: row["to"]
+            for group in (query.get("normalized", []), query.get("redirects", []))
+            for row in group
+        }
+        pages_by_title = {
+            page["title"]: page
+            for page in query["pages"].values()
+            if "missing" not in page
+        }
+        for requested_title in batch:
+            resolved_title = requested_title
+            visited: set[str] = set()
+            while resolved_title in aliases and resolved_title not in visited:
+                visited.add(resolved_title)
+                resolved_title = aliases[resolved_title]
+            page = pages_by_title.get(resolved_title)
+            if page:
+                pages_by_requested_title[requested_title] = page
+        time.sleep(0.08)
+    return pages_by_requested_title
+
+
 def linked_entries(text: str) -> list[tuple[str, str]]:
     """Return (display name, wiki page title) without losing link identity."""
     values: list[tuple[str, str]] = []
@@ -115,6 +155,84 @@ def linked_entries(text: str) -> list[tuple[str, str]]:
 
 def linked_values(text: str) -> list[str]:
     return [name for name, _ in linked_entries(text)]
+
+
+def page_wikitext(page: dict) -> str:
+    return page.get("revisions", [{}])[0].get("slots", {}).get("main", {}).get("*", "")
+
+
+def template_invocations(wikitext: str, names: set[str]) -> list[str]:
+    """Return matching template bodies while respecting nested braces."""
+    bodies: list[str] = []
+    starts: list[int] = []
+    cursor = 0
+    while cursor < len(wikitext) - 1:
+        pair = wikitext[cursor : cursor + 2]
+        if pair == "{{":
+            starts.append(cursor)
+            cursor += 2
+            continue
+        if pair == "}}" and starts:
+            start = starts.pop()
+            body = wikitext[start + 2 : cursor]
+            template_name = split_template_arguments(body)[0].strip().casefold()
+            if template_name in names:
+                bodies.append(body)
+            cursor += 2
+            continue
+        cursor += 1
+    return bodies
+
+
+def itempage_fields(wikitext: str, field_name: str) -> list[str]:
+    values: list[str] = []
+    for body in template_invocations(wikitext, {"itempage", "items"}):
+        for argument in split_template_arguments(body)[1:]:
+            name, separator, value = argument.partition("=")
+            if separator and name.strip().casefold() == field_name.casefold() and value.strip():
+                values.append(value.strip())
+    return values
+
+
+def is_item_page(page: dict) -> bool:
+    page_categories = {row["title"] for row in page.get("categories", [])}
+    return (
+        "Category:Items" in page_categories
+        and bool(template_invocations(page_wikitext(page), {"itempage", "items"}))
+    )
+
+
+def split_template_arguments(text: str) -> list[str]:
+    """Split template arguments without splitting pipes inside wiki links."""
+    parts: list[str] = []
+    start = 0
+    link_depth = 0
+    template_depth = 0
+    index = 0
+    while index < len(text):
+        pair = text[index : index + 2]
+        if pair == "[[":
+            link_depth += 1
+            index += 2
+            continue
+        if pair == "]]" and link_depth:
+            link_depth -= 1
+            index += 2
+            continue
+        if pair == "{{":
+            template_depth += 1
+            index += 2
+            continue
+        if pair == "}}" and template_depth:
+            template_depth -= 1
+            index += 2
+            continue
+        if text[index] == "|" and link_depth == 0 and template_depth == 0:
+            parts.append(text[start:index].strip())
+            start = index + 1
+        index += 1
+    parts.append(text[start:].strip())
+    return parts
 
 
 def acquisition_source(
@@ -140,6 +258,133 @@ def acquisition_source(
         "sourceRevisionAt": revision["timestamp"],
         "verification": "eql-wiki",
     }
+
+
+def item_page_source(
+    page: dict,
+    *,
+    kind: str,
+    npc_names: list[str],
+    zone: str,
+    location: str,
+    source_code: str,
+    chance: float | None = None,
+) -> dict:
+    revision = page["revisions"][0]
+    separator = "&" if "?" in page["fullurl"] else "?"
+    return {
+        "kind": kind,
+        "npcNames": npc_names,
+        "zone": zone,
+        "location": location,
+        "chance": chance,
+        "sourceCode": source_code,
+        "sourceLabel": "EverQuest Legends Wiki",
+        "sourceUrl": f"{page['fullurl']}{separator}oldid={revision['revid']}",
+        "sourcePageId": page["pageid"],
+        "sourceRevisionId": revision["revid"],
+        "sourceRevisionAt": revision["timestamp"],
+        "verification": "eql-wiki",
+        "authorityId": "eql-wiki",
+        "scope": "everquest-legends",
+        "completeness": "partial",
+    }
+
+
+def explicit_percent(text: str) -> float | None:
+    match = re.search(r"(?<!\d)(\d+(?:\.\d+)?)\s*%", text)
+    return float(match.group(1)) if match else None
+
+
+def item_page_acquisition_sources(page: dict) -> list[dict]:
+    """Parse only explicit acquisition fields from an authoritative item page."""
+    if not is_item_page(page):
+        return []
+    wikitext = page_wikitext(page)
+    sources: list[dict] = []
+
+    for drops_from in itempage_fields(wikitext, "dropsfrom"):
+        zone = ""
+        for line in drops_from.splitlines():
+            stripped = line.strip()
+            entries = linked_entries(stripped)
+            if not entries:
+                continue
+            if not stripped.startswith("*"):
+                if stripped.startswith("[["):
+                    zone = entries[0][0]
+                continue
+            if zone:
+                sources.append(item_page_source(
+                    page,
+                    kind="mob-drop",
+                    npc_names=[entries[0][0]],
+                    zone=zone,
+                    location="",
+                    chance=explicit_percent(stripped),
+                    source_code="item-page:dropsfrom",
+                ))
+
+    for sold_by in itempage_fields(wikitext, "soldby"):
+        for body in template_invocations(sold_by, {"itemwhererow", "itemwhererowvel"}):
+            parts = split_template_arguments(body)[1:]
+            if len(parts) < 2:
+                continue
+            zone_entries = linked_entries(parts[0])
+            npc_entries = linked_entries(parts[1])
+            if not zone_entries or not npc_entries:
+                continue
+            area = plain(parts[2]) if len(parts) > 2 else ""
+            coordinates = plain(parts[3]) if len(parts) > 3 else ""
+            sources.append(item_page_source(
+                page,
+                kind="vendor",
+                npc_names=[npc_entries[0][0]],
+                zone=zone_entries[0][0],
+                location=" · ".join(value for value in (area, coordinates) if value),
+                source_code="item-page:soldby",
+            ))
+
+    for player_crafted in itempage_fields(wikitext, "playercrafted"):
+        for line in player_crafted.splitlines():
+            stripped = line.strip()
+            if not re.match(r"^\*(?!\*)\s+", stripped):
+                continue
+            entries = linked_entries(stripped)
+            if not entries or "non-tradeskill" in stripped.casefold():
+                continue
+            sources.append(item_page_source(
+                page,
+                kind="crafted",
+                npc_names=[],
+                zone="",
+                location=plain(stripped.removeprefix("*")),
+                source_code="item-page:playercrafted",
+            ))
+
+    return dedupe_sources(sources)
+
+
+def dedupe_sources(sources: list[dict]) -> list[dict]:
+    unique: dict[tuple, dict] = {}
+    for source in sources:
+        npc_key = () if source["kind"] == "mob-drop" else tuple(source["npcNames"])
+        key = (
+            source["kind"],
+            npc_key,
+            source["zone"],
+            source["location"],
+            source["chance"],
+            source["sourceCode"],
+        )
+        if key not in unique:
+            unique[key] = source
+            continue
+        known_npcs = unique[key]["npcNames"]
+        for npc_name in source["npcNames"]:
+            if npc_name not in known_npcs:
+                known_npcs.append(npc_name)
+    return list(unique.values())
 
 
 def requirement(
@@ -437,6 +682,66 @@ def regular_quest(page: dict, wikitext: str) -> dict:
     }
 
 
+def enrich_requirement_sources(quests: list[dict]) -> dict:
+    requirements = [row for quest in quests for row in quest["requirements"]]
+    linked_titles = [
+        row["sourcePageTitle"]
+        for row in requirements
+        if row.get("sourcePageTitle")
+    ]
+    pages_by_title = fetch_linked_pages(linked_titles)
+    accepted_pages = {
+        page["pageid"]: page
+        for page in pages_by_title.values()
+        if is_item_page(page)
+    }
+    sources_by_page_id = {
+        page_id: item_page_acquisition_sources(page)
+        for page_id, page in accepted_pages.items()
+    }
+    preexisting_count = sum(bool(row["acquisitionSources"]) for row in requirements)
+    enriched_count = 0
+    for row in requirements:
+        if row["acquisitionSources"] or not row.get("sourcePageTitle"):
+            continue
+        page = pages_by_title.get(row["sourcePageTitle"])
+        if not page:
+            continue
+        sources = sources_by_page_id.get(page["pageid"], [])
+        if sources:
+            row["acquisitionSources"] = [dict(source) for source in sources]
+            enriched_count += 1
+
+    emitted_sources = [source for row in requirements for source in row["acquisitionSources"]]
+    source_kinds: dict[str, int] = {}
+    for source in emitted_sources:
+        source_kinds[source["kind"]] = source_kinds.get(source["kind"], 0) + 1
+    sourced_count = sum(bool(row["acquisitionSources"]) for row in requirements)
+    unique_requirement_names = {row["itemName"] for row in requirements}
+    sourced_requirement_names = {
+        row["itemName"] for row in requirements if row["acquisitionSources"]
+    }
+    return {
+        "requirementCount": len(requirements),
+        "uniqueRequirementNameCount": len(unique_requirement_names),
+        "linkedRequirementCount": len(linked_titles),
+        "uniqueLinkedPageTitleCount": len(set(linked_titles)),
+        "fetchedLinkedPageCount": len({page["pageid"] for page in pages_by_title.values()}),
+        "acceptedItemPageCount": len(accepted_pages),
+        "itemPagesWithAcquisitionSourcesCount": sum(bool(rows) for rows in sources_by_page_id.values()),
+        "preexistingSourcedRequirementCount": preexisting_count,
+        "enrichedRequirementCount": enriched_count,
+        "sourcedRequirementCount": sourced_count,
+        "unresolvedRequirementCount": len(requirements) - sourced_count,
+        "sourcedUniqueRequirementNameCount": len(sourced_requirement_names),
+        "unresolvedUniqueRequirementNameCount": (
+            len(unique_requirement_names) - len(sourced_requirement_names)
+        ),
+        "acquisitionSourceCount": len(emitted_sources),
+        "acquisitionSourceKinds": dict(sorted(source_kinds.items())),
+    }
+
+
 def build() -> dict:
     members = quest_pages()
     pages = fetch_pages(members)
@@ -455,6 +760,7 @@ def build() -> dict:
         revision = page.get("revisions", [{}])[0]
         wikitext = revision.get("slots", {}).get("main", {}).get("*", "")
         quests.append(regular_quest(page, wikitext))
+    catalog_audit = enrich_requirement_sources(quests)
     sky_rows = [quest for quest in quests if quest["zone"] == "Plane of Sky" and quest["id"].startswith("sky:")]
     sky_classes = sorted({quest["classes"][0] for quest in sky_rows})
     if len(sky_rows) < 90 or len(sky_classes) < 14:
@@ -484,6 +790,7 @@ def build() -> dict:
         "attribution": "Quest content adapted from EverQuest Legends Wiki (https://eqlwiki.com/).",
         "source": "https://eqlwiki.com/Category:Quests",
         "sourcePageCount": len(pages),
+        "catalogAudit": catalog_audit,
         "skyAudit": {
             "questCount": len(sky_rows),
             "classes": sky_classes,

@@ -2552,6 +2552,8 @@ button.coach-row.active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  max-width: calc(100% - 12px);
   gap: 0.4em;
   background: var(--pill-bg);
   backdrop-filter: blur(4px);
@@ -2584,6 +2586,11 @@ button.coach-row.active {
   line-height: 1;
 }
 .alert-pill .alert-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.alert-pill:has(.alert-value) .alert-label {
   white-space: nowrap;
 }
 .alert-pill .alert-value {

@@ -13,6 +13,25 @@ export interface QuestAcquisitionSource {
   sourceRevisionId?: number | null;
   sourceRevisionAt?: string | null;
   verification?: string | null;
+  authorityId?: string | null;
+  scope?: string | null;
+  completeness?: "partial" | "exhaustive" | null;
+}
+
+export type QuestSourceStatus =
+  | "corroborated"
+  | "documented"
+  | "classic-only"
+  | "scope-difference"
+  | "conflict"
+  | "unresolved";
+
+export interface QuestSourceValidation {
+  status: QuestSourceStatus;
+  label: string;
+  legendsAuthorityCount: number;
+  legendsDocumentCount: number;
+  classicSourceCount: number;
 }
 
 export interface QuestRequirement {
@@ -237,10 +256,141 @@ function acquisitionSourceSummary(source: QuestAcquisitionSource): string {
   return `${kindLabel}${details.join(" · ") || fallback}${chance}`;
 }
 
+interface ComparableSourceClaim {
+  authority: string;
+  scope: string;
+  kind: string;
+  exhaustive: boolean;
+  npcs: Set<string>;
+  zones: Set<string>;
+}
+
+function sourceToken(value: string): string {
+  return normalizeQuestName(value).replace(/^(?:a|an|the)\s+/, "");
+}
+
+function sourceAuthority(source: QuestAcquisitionSource): string {
+  if (source.authorityId?.trim()) return source.authorityId.trim().toLowerCase();
+  if (source.sourceLabel?.trim()) return source.sourceLabel.trim().toLowerCase();
+  if (source.sourceUrl) {
+    try {
+      return new URL(source.sourceUrl).hostname.toLowerCase();
+    } catch {
+      // A malformed provenance URL should not create a second authority.
+    }
+  }
+  return "legends-catalog";
+}
+
+function catalogClaim(source: QuestAcquisitionSource): ComparableSourceClaim {
+  const zone = source.zone === "Plane of Air" ? "Plane of Sky" : source.zone;
+  return {
+    authority: sourceAuthority(source),
+    scope: source.scope?.trim().toLowerCase() || "everquest-legends",
+    kind: source.kind.trim().toLowerCase(),
+    exhaustive: source.completeness === "exhaustive",
+    npcs: new Set(source.npcNames.map(sourceToken).filter(Boolean)),
+    zones: new Set(zone ? [sourceToken(zone)] : []),
+  };
+}
+
+function classicClaim(reference: QuestItemReference): ComparableSourceClaim {
+  return {
+    authority: "projecteq-classic-reference",
+    scope: "classic-reference",
+    kind: "mob-drop",
+    exhaustive: false,
+    npcs: new Set(reference.sources.map((source) => sourceToken(source.npc)).filter(Boolean)),
+    zones: new Set(reference.sources
+      .map((source) => source.zoneLong === "Plane of Air" ? "Plane of Sky" : source.zoneLong)
+      .filter((zone): zone is string => Boolean(zone))
+      .map(sourceToken)),
+  };
+}
+
+function intersects(left: Set<string>, right: Set<string>): boolean {
+  return [...left].some((value) => right.has(value));
+}
+
+function claimsAgree(left: ComparableSourceClaim, right: ComparableSourceClaim): boolean {
+  if (left.npcs.size > 0 && right.npcs.size > 0) return intersects(left.npcs, right.npcs);
+  return left.zones.size > 0 && right.zones.size > 0 && intersects(left.zones, right.zones);
+}
+
+export function questSourceValidation(
+  reference: QuestItemReference | undefined,
+  acquisitionSources: QuestAcquisitionSource[] = [],
+): QuestSourceValidation {
+  const catalogClaims = acquisitionSources.map(catalogClaim);
+  const authorityCount = new Set(catalogClaims.map((claim) => claim.authority)).size;
+  const classic = reference?.sources.length ? classicClaim(reference) : null;
+  let independentlyAgreed = false;
+  let conflict = false;
+
+  for (let leftIndex = 0; leftIndex < catalogClaims.length; leftIndex += 1) {
+    const left = catalogClaims[leftIndex];
+    if (
+      classic
+      && (left.kind === "mob-drop" || left.kind === "zone-drop")
+      && claimsAgree(left, classic)
+    ) independentlyAgreed = true;
+    for (let rightIndex = leftIndex + 1; rightIndex < catalogClaims.length; rightIndex += 1) {
+      const right = catalogClaims[rightIndex];
+      if (left.authority === right.authority) continue;
+      if (claimsAgree(left, right)) independentlyAgreed = true;
+      if (
+        left.scope === right.scope
+        && left.kind === right.kind
+        && left.exhaustive
+        && right.exhaustive
+        && left.npcs.size > 0
+        && right.npcs.size > 0
+        && !claimsAgree(left, right)
+      ) {
+        conflict = true;
+      }
+    }
+  }
+
+  const comparableCatalogClaims = catalogClaims.filter((claim) => claim.npcs.size > 0 || claim.zones.size > 0);
+  const scopeDifference = Boolean(
+    classic
+    && comparableCatalogClaims.length > 0
+    && comparableCatalogClaims.some((claim) => claim.kind === "mob-drop" || claim.kind === "zone-drop")
+    && !comparableCatalogClaims
+      .filter((claim) => claim.kind === "mob-drop" || claim.kind === "zone-drop")
+      .some((claim) => claimsAgree(claim, classic)),
+  );
+  let status: QuestSourceStatus;
+  if (conflict) status = "conflict";
+  else if (independentlyAgreed) status = "corroborated";
+  else if (scopeDifference) status = "scope-difference";
+  else if (catalogClaims.length > 0) status = "documented";
+  else if (classic) status = "classic-only";
+  else status = "unresolved";
+
+  const labels: Record<QuestSourceStatus, string> = {
+    corroborated: "Corroborated",
+    documented: "Legends documented",
+    "classic-only": "Classic reference only",
+    "scope-difference": "Legends/classic differ",
+    conflict: "Sources conflict",
+    unresolved: "No documented source",
+  };
+  return {
+    status,
+    label: labels[status],
+    legendsAuthorityCount: authorityCount,
+    legendsDocumentCount: acquisitionSources.length,
+    classicSourceCount: reference?.sources.length ?? 0,
+  };
+}
+
 export function questDropSourceSummary(
   reference: QuestItemReference | undefined,
   acquisitionSources: QuestAcquisitionSource[] = [],
 ): string {
+  let classicSummary = "";
   if (reference?.sources.length) {
     const shown = reference.sources.slice(0, 2).map((source) => {
       const chance = source.chance >= 1 ? `${Math.round(source.chance)}%` : `${source.chance.toFixed(1)}%`;
@@ -248,16 +398,20 @@ export function questDropSourceSummary(
       return `${source.npc} · ${zone ?? "unknown zone"} (${chance})`;
     });
     const remaining = reference.item ? reference.item.sources - shown.length : 0;
-    return `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
+    classicSummary = `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
   }
-  const catalogSources = acquisitionSources
+  const catalogSources = [...new Set(acquisitionSources
     .map(acquisitionSourceSummary)
-    .filter(Boolean);
-  if (catalogSources.length > 0) {
+    .filter(Boolean))];
+  let legendsSummary = "";
+  if (catalogSources.length) {
     const shown = catalogSources.slice(0, 2);
     const remaining = catalogSources.length - shown.length;
-    return `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
+    legendsSummary = `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
   }
+  if (legendsSummary && classicSummary) return `Legends: ${legendsSummary} | Classic: ${classicSummary}`;
+  if (legendsSummary) return `Legends: ${legendsSummary}`;
+  if (classicSummary) return `Classic: ${classicSummary}`;
   if (!reference?.item) return "No matching item in the classic reference database.";
   return "No known mob drop; may be quested, crafted, sold, or Legends-specific.";
 }

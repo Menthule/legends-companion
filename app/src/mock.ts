@@ -904,6 +904,10 @@ const FEED: [string, string][] = [
  *  "fired" it (ids derive from the mock user pack's category + name). */
 const ALERTS: { text: string; trigger: TriggerIdentity }[] = [
   {
+    text: "INVIS DROPPING",
+    trigger: { id: "universal/survival/invis-dropping", name: "Invisibility dropping" },
+  },
+  {
     text: "Resisted: Negation of Life",
     trigger: { id: "combat/offense/spell-resisted", name: "Spell resisted" },
   },

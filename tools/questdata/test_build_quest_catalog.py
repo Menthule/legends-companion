@@ -18,6 +18,81 @@ PAGE = {
 }
 
 
+def item_page(wikitext, *, categories=None):
+    return {
+        "pageid": 123,
+        "title": "Fixture Item",
+        "fullurl": "https://eqlwiki.com/Fixture_Item",
+        "categories": [{"title": value} for value in (categories or ["Category:Items"])],
+        "revisions": [{
+            "revid": 456,
+            "timestamp": "2026-07-14T12:00:00Z",
+            "slots": {"main": {"*": wikitext}},
+        }],
+    }
+
+
+class ItemPageParserTests(unittest.TestCase):
+    def test_parses_explicit_drop_vendor_and_crafted_fields(self):
+        page = item_page("""
+{{Itempage
+|itemname = Fixture Item
+|dropsfrom =
+[[Plane of Sky]]
+* [[Keeper of Souls]] (12.5%)
+* [[Gorgalosk]] (12.5%)
+[[Field of Bone]]
+* [[a bonebinder]]
+|soldby =
+{{ItemWhereTable|
+{{ItemWhereRowVel | [[Cabilis|West Cabilis]] | [[Klok Poklon]] | Near bank | (913, -85) }}
+}}
+|playercrafted =
+* [[Skill Blacksmithing|Blacksmithing]] (Trivial: 21)
+** '''Yield: Fixture Item''' x1
+:: {{SmIcon|1}} 1 x [[Metal Bits]]
+}}
+""")
+
+        sources = catalog.item_page_acquisition_sources(page)
+
+        self.assertEqual([source["kind"] for source in sources], [
+            "mob-drop", "mob-drop", "vendor", "crafted",
+        ])
+        self.assertEqual(sources[0]["npcNames"], ["Keeper of Souls", "Gorgalosk"])
+        self.assertEqual(sources[0]["zone"], "Plane of Sky")
+        self.assertEqual(sources[0]["chance"], 12.5)
+        self.assertEqual(sources[2]["zone"], "West Cabilis")
+        self.assertEqual(sources[2]["npcNames"], ["Klok Poklon"])
+        self.assertEqual(sources[2]["location"], "Near bank · (913, -85)")
+        self.assertEqual(sources[3]["location"], "Blacksmithing (Trivial: 21)")
+        self.assertTrue(all(source["sourceUrl"].endswith("?oldid=456") for source in sources))
+        self.assertTrue(all(source["authorityId"] == "eql-wiki" for source in sources))
+
+    def test_rejects_a_non_item_page_even_when_it_uses_the_template(self):
+        page = item_page(
+            "{{Itempage|dropsfrom=[[Plane of Sky]]\\n* [[Keeper of Souls]]}}",
+            categories=["Category:Quests"],
+        )
+        self.assertEqual(catalog.item_page_acquisition_sources(page), [])
+
+    def test_does_not_infer_a_lone_drop_link_as_a_zone_or_mob(self):
+        page = item_page("{{Itempage|dropsfrom=[[Isolde Winterveil]]}}")
+        self.assertEqual(catalog.item_page_acquisition_sources(page), [])
+
+    def test_uses_all_nonempty_duplicate_fields_and_item_variants(self):
+        page = item_page("""
+{{Itempage|itemname=Fixture Item|dropsfrom=}}
+{{Itempage|itemname=Fixture Item|dropsfrom=
+[[Plane of Sky]]
+* [[Keeper of Souls]]
+}}
+""")
+        sources = catalog.item_page_acquisition_sources(page)
+        self.assertEqual(len(sources), 1)
+        self.assertEqual(sources[0]["npcNames"], ["Keeper of Souls"])
+
+
 class SkyRequirementParserTests(unittest.TestCase):
     def test_expands_a_trailing_mob_source_code(self):
         rows = catalog.sky_requirement_values(
@@ -110,6 +185,28 @@ class GeneratedCatalogTests(unittest.TestCase):
         ]
         self.assertEqual(len(runes), 94)
         self.assertTrue(all(row["acquisitionSources"] for row in runes))
+
+    def test_catalog_enrichment_matches_the_generated_golden_counts(self):
+        audit = self.data["catalogAudit"]
+        self.assertEqual(audit["requirementCount"], 3569)
+        self.assertEqual(audit["uniqueRequirementNameCount"], 2498)
+        self.assertEqual(audit["acceptedItemPageCount"], 1388)
+        self.assertEqual(audit["enrichedRequirementCount"], 1177)
+        self.assertEqual(audit["sourcedRequirementCount"], 1396)
+        self.assertEqual(audit["sourcedUniqueRequirementNameCount"], 823)
+        self.assertEqual(
+            audit["sourcedRequirementCount"],
+            audit["preexistingSourcedRequirementCount"] + audit["enrichedRequirementCount"],
+        )
+
+    def test_known_regular_item_uses_revision_pinned_item_page_sources(self):
+        quest = self.quests["wiki:15218"]
+        bone_chips = next(row for row in quest["requirements"] if row["itemName"] == "Bone Chips")
+        source = bone_chips["acquisitionSources"][0]
+        self.assertEqual(source["kind"], "mob-drop")
+        self.assertEqual(source["zone"], "Najena")
+        self.assertIn("a skeleton", source["npcNames"])
+        self.assertIn("oldid=139150", source["sourceUrl"])
 
 
 if __name__ == "__main__":

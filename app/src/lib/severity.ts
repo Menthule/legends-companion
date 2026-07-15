@@ -14,6 +14,7 @@ export type Severity = "info" | "warn" | "alarm";
 const ALARM_ID_FRAGMENTS = [
   "universal/survival/summoned",
   "universal/survival/enraged",
+  "universal/survival/invis-dropping",
   "universal/survival/you-died",
   "universal/survival/slain-by",
   "class/monk/fd/",

@@ -7,6 +7,7 @@ import {
   normalizeInventoryItem,
   questDropSourceSummary,
   questItemDetailLines,
+  questSourceValidation,
   questsForGiver,
   questsRequiringItem,
   searchQuests,
@@ -143,7 +144,7 @@ describe("quest item references", () => {
   } satisfies QuestItemReference;
 
   it("summarizes bounded drop sources and missing reference data", () => {
-    expect(questDropSourceSummary(reference)).toBe("an azarack · Plane of Sky (13%); +2 more");
+    expect(questDropSourceSummary(reference)).toBe("Classic: an azarack · Plane of Sky (13%); +2 more");
     expect(questDropSourceSummary(undefined)).toContain("No matching item");
   });
 
@@ -163,14 +164,14 @@ describe("quest item references", () => {
     const unsourced = { ...reference, item: { ...item, sources: 0 }, sources: [] };
 
     expect(questDropSourceSummary(unsourced, acquisitionSources)).toBe(
-      "an azarack · Plane of Sky · Azarack island (13%)",
+      "Legends: an azarack · Plane of Sky · Azarack island (13%)",
     );
     expect(questDropSourceSummary(undefined, acquisitionSources)).toBe(
-      "an azarack · Plane of Sky · Azarack island (13%)",
+      "Legends: an azarack · Plane of Sky · Azarack island (13%)",
     );
   });
 
-  it("keeps classic mob drops authoritative and labels non-mob acquisition kinds", () => {
+  it("combines classic and Legends sources and labels non-mob acquisition kinds", () => {
     const catalogSources = [{
       kind: "quest",
       npcNames: [],
@@ -179,16 +180,69 @@ describe("quest item references", () => {
       sourceLabel: "EverQuest Legends Wiki",
     }];
     expect(questDropSourceSummary(reference, catalogSources)).toBe(
-      "an azarack · Plane of Sky (13%); +2 more",
+      "Legends: Quest: Plane of Sky · Test of Smash | Classic: an azarack · Plane of Sky (13%); +2 more",
     );
     expect(questDropSourceSummary(undefined, catalogSources)).toBe(
-      "Quest: Plane of Sky · Test of Smash",
+      "Legends: Quest: Plane of Sky · Test of Smash",
     );
     expect(questDropSourceSummary(undefined, [{
       ...catalogSources[0],
       kind: "zone-drop",
       location: "All islands",
-    }])).toBe("Zone drop: Plane of Sky · All islands");
+    }])).toBe("Legends: Zone drop: Plane of Sky · All islands");
+  });
+
+  it("derives honest cross-source validation without counting documents as authorities", () => {
+    const sameNpc = {
+      kind: "mob-drop",
+      npcNames: ["Azarack"],
+      zone: "Plane of Sky",
+      sourceLabel: "EverQuest Legends Wiki",
+    };
+    expect(questSourceValidation(reference, [sameNpc])).toMatchObject({
+      status: "corroborated",
+      legendsAuthorityCount: 1,
+      classicSourceCount: 1,
+    });
+    expect(questSourceValidation(undefined, [sameNpc, {
+      ...sameNpc,
+      sourceUrl: "https://eqlwiki.com/Azarack",
+    }])).toMatchObject({
+      status: "documented",
+      legendsAuthorityCount: 1,
+      legendsDocumentCount: 2,
+    });
+    expect(questSourceValidation(reference)).toMatchObject({ status: "classic-only" });
+    expect(questSourceValidation(undefined)).toMatchObject({ status: "unresolved" });
+  });
+
+  it("reports ruleset differences separately from same-scope exhaustive conflicts", () => {
+    const legendsSource = {
+      kind: "mob-drop",
+      npcNames: ["Keeper of Souls"],
+      zone: "Plane of Sky",
+      sourceLabel: "EverQuest Legends Wiki",
+    };
+    expect(questSourceValidation(reference, [legendsSource])).toMatchObject({
+      status: "scope-difference",
+      label: "Legends/classic differ",
+    });
+    expect(questSourceValidation(undefined, [
+      { ...legendsSource, authorityId: "guide-a", scope: "everquest-legends", completeness: "exhaustive" as const },
+      {
+        ...legendsSource,
+        npcNames: ["Eye of Veeshan"],
+        authorityId: "guide-b",
+        scope: "everquest-legends",
+        completeness: "exhaustive" as const,
+      },
+    ])).toMatchObject({ status: "conflict", legendsAuthorityCount: 2 });
+
+    expect(questSourceValidation(reference, [{
+      ...legendsSource,
+      kind: "vendor",
+      npcNames: ["Merchant Nluolian"],
+    }])).toMatchObject({ status: "documented" });
   });
 
   it("builds compact reward detail lines", () => {

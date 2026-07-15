@@ -31,6 +31,27 @@ sources; `sky_item_sources.json` carries revision-pinned EQL item-page sources
 for rows without an inline code. `skyAudit` records coverage and unresolved
 item names so future gaps fail the build rather than being guessed.
 
+After quest parsing, the builder batch-fetches each exact linked requirement
+page. It accepts acquisition data only when the destination is an EQL item
+page (`Itempage` plus `Category:Items`). Explicit `dropsfrom` zone and
+mob rows, `soldby` `ItemWhereRow` records, and first-level `playercrafted`
+methods become revision-pinned sources. It does not infer acquisition from
+prose, `relatedquests`, recipes that consume an item, ambiguous lone links, or
+similarly named pages. Existing curated Sky sources take precedence and are
+never overwritten by this enrichment pass.
+
+`catalogAudit` reports linked and accepted item-page counts, occurrence and
+unique-name coverage, unresolved requirements, and emitted source kinds.
+Item-page sources are marked partial because wiki acquisition lists may
+grow; mobs sharing an exact item, method, and zone are compacted into one
+source record's `npcNames` list without fuzzy matching.
+
+Run `python3 tools/questdata/audit_quest_sources.py` to cross-check exact item
+names and acquisition methods against the bundled classic reference database.
+The audit reports corroborated, Legends-documented, classic-only,
+scope-difference, and unresolved states. A classic disagreement is never
+promoted into a Legends conflict or silently merged into the catalog.
+
 Quest requirements intentionally use exact item names unless an identifier is
 available from a Legends-verified source. The app matches the numeric ID first
 when present and otherwise uses an exact normalized name, including the `+N`

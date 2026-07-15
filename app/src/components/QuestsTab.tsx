@@ -16,6 +16,7 @@ import {
   normalizeQuestName,
   questDropSourceSummary,
   questItemDetailLines,
+  questSourceValidation,
   searchQuests,
   type InventorySnapshot,
   type QuestCatalog,
@@ -590,6 +591,8 @@ function QuestRow({
             const grouped = groupedRequirements.find((candidate) =>
               normalizeQuestName(candidate.itemName) === normalizeQuestName(requirement.itemName)) ?? requirement;
             const watched = questGoal(grouped.itemName, quest.id) !== null;
+            const reference = itemReferences.get(normalizeQuestName(requirement.itemName));
+            const validation = questSourceValidation(reference, requirement.acquisitionSources);
             return (
             <div className={`quest-requirement-row${grouped.satisfied ? " complete" : ""}`} key={`${requirement.itemName}:${index}`}>
               <input type="checkbox" checked={grouped.satisfied} readOnly disabled />
@@ -612,9 +615,9 @@ function QuestRow({
               {requirement.locations.length > 0 && <small>Owned: {requirement.locations.join(", ")}</small>}
               <small className="quest-drop-source">
                 Sources: {questDropSourceSummary(
-                  itemReferences.get(normalizeQuestName(requirement.itemName)),
+                  reference,
                   requirement.acquisitionSources,
-                )}
+                )} · {validation.label}
               </small>
             </div>
             );
@@ -699,13 +702,16 @@ function QuestRow({
 
 function RewardItem({ name, reference }: { name: string; reference?: QuestItemReference }) {
   const lines = questItemDetailLines(reference?.item ?? null);
+  const validation = questSourceValidation(reference);
   return (
     <span className="quest-reward-item" tabIndex={0}>
       {name}
       <span className="quest-item-tip" role="tooltip">
         <strong>{reference?.item?.name ?? name}</strong>
         {lines.map((line) => <span key={line}>{line}</span>)}
-        <span className="quest-item-tip-source">Sources: {questDropSourceSummary(reference)}</span>
+        <span className="quest-item-tip-source">
+          Sources: {questDropSourceSummary(reference)} · {validation.label}
+        </span>
       </span>
     </span>
   );
