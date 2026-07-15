@@ -436,6 +436,9 @@ fn render(parsed: &ParsedLine, you: &str) -> Option<String> {
             let tag = if *rare { " [rare]" } else { "" };
             (BLUE, format!("con {target}{lvl}{tag}"))
         }
+        Event::Achievement { who, name } => {
+            (GREEN, format!("{} completed: {name}", entity(who, you)))
+        }
         Event::Loading => (DIM, "loading...".into()),
         Event::Stunned { active } => (
             RED,

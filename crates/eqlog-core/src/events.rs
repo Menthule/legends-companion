@@ -253,6 +253,10 @@ pub enum Event {
     /// leading sentence-capitalized article on `target` is left as-is; match
     /// case-insensitively downstream.
     Consider { target: String, rare: bool, level: Option<u32> },
+    /// `You have completed achievement: Hide Your Brains!` /
+    /// `Daer has completed achievement: Befallen Traveler` — the second form
+    /// covers any nearby player, not just groupmates.
+    Achievement { who: Entity, name: String },
     /// Recognized but uninteresting (e.g. "Auto attack is on.") — kept
     /// distinct from Unclassified so coverage stats stay honest.
     System,

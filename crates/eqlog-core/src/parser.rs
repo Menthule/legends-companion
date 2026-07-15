@@ -669,6 +669,31 @@ impl Parser {
             }
         }
 
+        // Achievement completions are intercepted BEFORE is_system(), whose
+        // "completed achievement:" flavor entry would otherwise swallow them
+        // (the entry stays in the list as the fallback for unrecognized
+        // shapes). Quoted chat can't reach here — chat is classified first.
+        // Verified in Legends log: `You have completed achievement: Hide
+        // Your Brains!` / `Daer has completed achievement: Befallen Traveler`.
+        if let Some((who, name)) = m.split_once(" completed achievement: ") {
+            if !name.is_empty() {
+                if who == "You have" {
+                    return Event::Achievement {
+                        who: Entity::You,
+                        name: name.to_string(),
+                    };
+                }
+                if let Some(n) = who.strip_suffix(" has") {
+                    if !n.is_empty() && !n.contains(' ') {
+                        return Event::Achievement {
+                            who: Entity::Named(n.to_string()),
+                            name: name.to_string(),
+                        };
+                    }
+                }
+            }
+        }
+
         // --- Consider ("con") lines carry a `(Lvl: N)` suffix. Intercept
         // them BEFORE is_system() swallows every `(Lvl: )` line, so the rare
         // tag survives. Non-con `(Lvl: )` lines return None here and fall

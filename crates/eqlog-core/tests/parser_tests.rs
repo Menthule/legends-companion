@@ -1000,6 +1000,51 @@ fn skill_up_lookalike_without_value_is_system() {
     );
 }
 
+#[test]
+fn achievement_you() {
+    assert_eq!(
+        parse("[Fri Jul 03 00:37:30 2026] You have completed achievement: Hide Your Brains!"),
+        Event::Achievement {
+            who: Entity::You,
+            name: "Hide Your Brains!".into(),
+        }
+    );
+    // Achievement names can be plain words, including "Level 20".
+    assert_eq!(
+        parse("[Fri Jul 03 09:31:24 2026] You have completed achievement: Level 20"),
+        Event::Achievement {
+            who: Entity::You,
+            name: "Level 20".into(),
+        }
+    );
+}
+
+#[test]
+fn achievement_other_player() {
+    assert_eq!(
+        parse("[Thu Jul 02 23:43:50 2026] Daer has completed achievement: Befallen Traveler"),
+        Event::Achievement {
+            who: Entity::Named("Daer".into()),
+            name: "Befallen Traveler".into(),
+        }
+    );
+}
+
+#[test]
+fn achievement_lookalikes_stay_system() {
+    // Empty achievement name — unrecognized shape falls back to the
+    // sys_flavor "completed achievement:" entry.
+    assert_eq!(
+        parse("[Fri Jul 03 00:37:30 2026] You have completed achievement: "),
+        Event::System
+    );
+    // Multi-word subject isn't a player name.
+    assert_eq!(
+        parse("[Fri Jul 03 00:37:30 2026] The whole raid has completed achievement: Teamwork"),
+        Event::System
+    );
+}
+
 // ---------------------------------------------------------------------------
 // Chat
 // ---------------------------------------------------------------------------

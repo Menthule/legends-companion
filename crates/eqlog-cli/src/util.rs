@@ -70,6 +70,7 @@ pub fn event_kind(event: &Event) -> &'static str {
         Event::Faction { .. } => "Faction",
         Event::ZoneEnter { .. } => "ZoneEnter",
         Event::Consider { .. } => "Consider",
+        Event::Achievement { .. } => "Achievement",
         Event::Loading => "Loading",
         Event::Stunned { .. } => "Stunned",
         Event::Location { .. } => "Location",

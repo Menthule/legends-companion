@@ -120,6 +120,66 @@
       ]
     },
     {
+      "id": "impact/achievement",
+      "name": "Achievement completed",
+      "pattern": "^You have completed achievement: (.+)$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact",
+      "comments": "Your achievement completions get a medal moment. Verified in Legends log: 'You have completed achievement: Hide Your Brains!' and 'You have completed achievement: Level 20'. ${1}=achievement name. Rare (~6 per career in the audit log), so default ON with sound — fatigue budget untouched.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "ACHIEVEMENT",
+              "big": "${1}",
+              "glyph": "★"
+            },
+            "config": {
+              "style": "medal",
+              "color": "#f2c14e",
+              "durationMs": 4000
+            }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "success.wav"
+          }
+        }
+      ]
+    },
+    {
+      "id": "impact/achievement-other",
+      "name": "Achievement completed (other player)",
+      "pattern": "^(\\S+) has completed achievement: (.+)$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Impact",
+      "comments": "A nearby player's achievement gets a quieter medal moment. Verified in Legends log: 'Daer has completed achievement: Befallen Traveler'. ${1}=player, ${2}=achievement name. The line fires for ANY player in range, not just groupmates, so this is default OFF — enable it when grouping to cheer friends' dings.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "ACHIEVEMENT",
+              "big": "${2}",
+              "sub": "${1}",
+              "glyph": "★"
+            },
+            "config": {
+              "style": "medal",
+              "color": "#c9d1d9",
+              "durationMs": 3000
+            }
+          }
+        }
+      ]
+    },
+    {
       "id": "impact/big-crit",
       "name": "Big crit",
       "pattern": "^You \\S+ (.+?) for (\\d{3,}) points? of damage\\. \\(Critical\\)$",
