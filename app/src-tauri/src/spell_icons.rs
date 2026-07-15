@@ -84,6 +84,20 @@ fn parse_icon_text(text: &str) -> HashMap<String, u16> {
 
 static ICON_MAP: OnceLock<Result<HashMap<String, u16>, String>> = OnceLock::new();
 
+fn icon_for_name(icons: &HashMap<String, u16>, name: &str) -> Option<u16> {
+    let trimmed = name.trim();
+    let normalized = trimmed.to_lowercase();
+    icons.get(&normalized).copied().or_else(|| {
+        let (base, rank) = trimmed.rsplit_once(' ')?;
+        (!rank.is_empty()
+            && rank
+                .chars()
+                .all(|ch| matches!(ch, 'I' | 'V' | 'X' | 'L' | 'C' | 'D' | 'M')))
+        .then(|| icons.get(&base.to_lowercase()).copied())
+        .flatten()
+    })
+}
+
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SpellIconMatch {
@@ -105,7 +119,7 @@ pub fn spell_icons_for_names(
         .into_iter()
         .take(100)
         .map(|name| SpellIconMatch {
-            icon_id: icons.get(&name.trim().to_lowercase()).copied(),
+            icon_id: icon_for_name(icons, &name),
             name,
         })
         .collect())
@@ -262,5 +276,13 @@ mod tests {
 
         let icons = parse_icon_text(&text);
         assert_eq!(icons.get("cessation of life"), Some(&877));
+    }
+
+    #[test]
+    fn ranked_spell_names_resolve_to_the_base_icon() {
+        let icons = HashMap::from([("odium".to_string(), 165)]);
+        assert_eq!(icon_for_name(&icons, "Odium VII"), Some(165));
+        assert_eq!(icon_for_name(&icons, "Odium"), Some(165));
+        assert_eq!(icon_for_name(&icons, "Odium rank seven"), None);
     }
 }

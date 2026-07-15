@@ -17,6 +17,20 @@ The importer expands those tables into individual quests, retains both the
 current representative and historical tester names for hail lookup, and emits
 an explicit `skyAudit` count, class list, and source-page list.
 
+Catalog schema v2 retains each requirement's linked wiki page title and an
+`acquisitionSources` array. For Plane of Sky, the importer expands the source
+codes written next to quest items (`3-Gorga`, `4-KoS`, `5-SL`, `6-BZ`,
+`7-SotS`, `8-EoV`, and related island-only forms) into verified mob/island
+locations. Wind Runes receive the page's documented zone-wide source: all
+Plane of Sky mobs. Source records keep the EQL page and revision provenance;
+drop chance remains null when the source does not publish one.
+
+The build fails on unknown Sky source codes, missing Wind Rune sources, or
+Sky source coverage below 100%. The main Plane of Sky table supplies most
+sources; `sky_item_sources.json` carries revision-pinned EQL item-page sources
+for rows without an inline code. `skyAudit` records coverage and unresolved
+item names so future gaps fail the build rather than being guessed.
+
 Quest requirements intentionally use exact item names unless an identifier is
 available from a Legends-verified source. The app matches the numeric ID first
 when present and otherwise uses an exact normalized name, including the `+N`

@@ -17,7 +17,10 @@ import {
   type TriggerOverlayPayload,
 } from "../types";
 import OverlayShell from "./OverlayShell";
-import SpellGemIcon, { spellIconId } from "../components/SpellGemIcon";
+import SpellGemIcon, {
+  spellIconId,
+  spellIconName,
+} from "../components/SpellGemIcon";
 
 /** Pull the active loadout's per-trigger severity overrides into a plain map. */
 function severityMapOf(profile: CharacterProfile | null): Record<string, Severity> {
@@ -211,7 +214,7 @@ export default function OverlayAlerts() {
             title={a.trigger ? `Trigger: ${a.trigger.name}` : undefined}
           >
             {a.icon &&
-              (spellIconId(a.icon) != null ? (
+              (spellIconId(a.icon) != null || spellIconName(a.icon) != null ? (
                 <SpellGemIcon icon={a.icon} size={25} label={`${a.text} spell icon`} />
               ) : (
                 <span className="alert-icon">{a.icon}</span>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { spellIconData } from "../api";
+import { spellIconData, spellIconsForNames } from "../api";
 
 const cache = new Map<number, Promise<string>>();
+const nameCache = new Map<string, Promise<number | null>>();
 
 export function spellIconId(value: string | null | undefined): number | null {
   const match = /^spell:(\d+)$/.exec(value?.trim() ?? "");
@@ -10,11 +11,27 @@ export function spellIconId(value: string | null | undefined): number | null {
   return Number.isInteger(id) && id >= 0 ? id : null;
 }
 
+/** A data-driven icon reference whose spell name may contain trigger captures. */
+export function spellIconName(value: string | null | undefined): string | null {
+  const match = /^spell-name:(.+)$/i.exec(value?.trim() ?? "");
+  return match?.[1].trim() || null;
+}
+
 function loadIcon(id: number): Promise<string> {
   let pending = cache.get(id);
   if (!pending) {
     pending = spellIconData(id);
     cache.set(id, pending);
+  }
+  return pending;
+}
+
+function resolveIconName(name: string): Promise<number | null> {
+  const key = name.toLowerCase();
+  let pending = nameCache.get(key);
+  if (!pending) {
+    pending = spellIconsForNames([name]).then(([match]) => match?.iconId ?? null);
+    nameCache.set(key, pending);
   }
   return pending;
 }
@@ -28,8 +45,23 @@ export default function SpellGemIcon({
   size?: number;
   label?: string;
 }) {
-  const id = spellIconId(icon);
+  const configuredId = spellIconId(icon);
+  const configuredName = spellIconName(icon);
+  const [id, setId] = useState<number | null>(configuredId);
   const [src, setSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    let stale = false;
+    setId(configuredId);
+    if (configuredId == null && configuredName) {
+      void resolveIconName(configuredName).then((value) => {
+        if (!stale) setId(value);
+      });
+    }
+    return () => {
+      stale = true;
+    };
+  }, [configuredId, configuredName]);
 
   useEffect(() => {
     let stale = false;

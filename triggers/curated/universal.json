@@ -364,7 +364,7 @@
       "cooldown_secs": 3,
       "source": "curated",
       "category": "Universal/Combat",
-      "comments": "Legends modern format: 'A willowisp resisted your Vampiric Embrace!' Speaks + overlay by default (TTS whitelist: resist). 3s refire cooldown keeps back-to-back resists from stacking speech.",
+      "comments": "Legends modern format: 'A willowisp resisted your Vampiric Embrace!' Presentation and timer cleanup are trigger-owned: the captured spell name resolves its client gem, while both the pending and target-bound timer names are cancelled. 3s refire cooldown keeps back-to-back resists from stacking speech.",
       "actions": [
         {
           "Speak": {
@@ -372,8 +372,25 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "Resisted: ${2}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Resisted: ${2}",
+              "icon": "spell-name:${2}"
+            },
+            "config": {
+              "severity": "info"
+            }
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "${2}"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "${2} — ${1}"
           }
         }
       ]

@@ -1,10 +1,27 @@
 import type { DropItemRow, QuestItemReference } from "../types";
 
+export interface QuestAcquisitionSource {
+  kind: string;
+  npcNames: string[];
+  zone?: string | null;
+  location?: string | null;
+  chance?: number | null;
+  sourceCode?: string | null;
+  sourceLabel?: string | null;
+  sourceUrl?: string | null;
+  sourcePageId?: number | null;
+  sourceRevisionId?: number | null;
+  sourceRevisionAt?: string | null;
+  verification?: string | null;
+}
+
 export interface QuestRequirement {
   itemName: string;
   itemId: number | null;
   quantity: number;
   choiceGroup: string | null;
+  sourcePageTitle?: string | null;
+  acquisitionSources?: QuestAcquisitionSource[];
 }
 
 export interface QuestRecord {
@@ -199,18 +216,50 @@ export function hasOwnedQuestReward(
   return quest.rewards.some((reward) => ownedNames.has(normalizeInventoryItem(reward)));
 }
 
-export function questDropSourceSummary(reference: QuestItemReference | undefined): string {
-  if (!reference?.item) return "No matching item in the classic reference database.";
-  if (reference.sources.length === 0) {
-    return "No known mob drop; may be quested, crafted, sold, or Legends-specific.";
+function acquisitionSourceSummary(source: QuestAcquisitionSource): string {
+  const npcNames = source.npcNames.map((name) => name.trim()).filter(Boolean);
+  const zone = source.zone?.trim() === "Plane of Air" ? "Plane of Sky" : source.zone?.trim();
+  const location = source.location?.trim();
+  const kind = source.kind.trim().toLowerCase();
+  const readableKind = kind.replace(/[-_]+/g, " ");
+  const kindLabel = kind && kind !== "mob" && kind !== "mob-drop"
+    ? `${readableKind.charAt(0).toUpperCase()}${readableKind.slice(1)}: `
+    : "";
+  const details = [
+    npcNames.join(", "),
+    zone,
+    location && location !== zone ? location : "",
+  ].filter(Boolean);
+  const fallback = source.sourceLabel?.trim() || "Legends source";
+  const chance = typeof source.chance === "number" && Number.isFinite(source.chance)
+    ? ` (${source.chance >= 1 ? Math.round(source.chance) : source.chance.toFixed(1)}%)`
+    : "";
+  return `${kindLabel}${details.join(" · ") || fallback}${chance}`;
+}
+
+export function questDropSourceSummary(
+  reference: QuestItemReference | undefined,
+  acquisitionSources: QuestAcquisitionSource[] = [],
+): string {
+  if (reference?.sources.length) {
+    const shown = reference.sources.slice(0, 2).map((source) => {
+      const chance = source.chance >= 1 ? `${Math.round(source.chance)}%` : `${source.chance.toFixed(1)}%`;
+      const zone = source.zoneLong === "Plane of Air" ? "Plane of Sky" : source.zoneLong;
+      return `${source.npc} · ${zone ?? "unknown zone"} (${chance})`;
+    });
+    const remaining = reference.item ? reference.item.sources - shown.length : 0;
+    return `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
   }
-  const shown = reference.sources.slice(0, 2).map((source) => {
-    const chance = source.chance >= 1 ? `${Math.round(source.chance)}%` : `${source.chance.toFixed(1)}%`;
-    const zone = source.zoneLong === "Plane of Air" ? "Plane of Sky" : source.zoneLong;
-    return `${source.npc} · ${zone ?? "unknown zone"} (${chance})`;
-  });
-  const remaining = reference.item.sources - shown.length;
-  return `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
+  const catalogSources = acquisitionSources
+    .map(acquisitionSourceSummary)
+    .filter(Boolean);
+  if (catalogSources.length > 0) {
+    const shown = catalogSources.slice(0, 2);
+    const remaining = catalogSources.length - shown.length;
+    return `${shown.join("; ")}${remaining > 0 ? `; +${remaining} more` : ""}`;
+  }
+  if (!reference?.item) return "No matching item in the classic reference database.";
+  return "No known mob drop; may be quested, crafted, sold, or Legends-specific.";
 }
 
 export function questItemDetailLines(item: DropItemRow | null): string[] {

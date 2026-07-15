@@ -2567,6 +2567,22 @@ button.coach-row.active {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   animation: alert-in 0.2s ease-out;
 }
+.alert-pill .spell-gem-icon,
+.alert-pill .alert-icon {
+  flex: 0 0 auto;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28),
+    0 2px 5px rgba(0, 0, 0, 0.7);
+}
+.alert-pill .alert-icon {
+  display: inline-grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 0.78em;
+  line-height: 1;
+}
 .alert-pill.leaving {
   opacity: 0;
   transition: opacity 0.3s ease-out;

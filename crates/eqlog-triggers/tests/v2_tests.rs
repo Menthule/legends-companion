@@ -31,6 +31,7 @@ impl ActionSink for RecordingSink {
     fn start_timer(
         &mut self,
         _name: &str,
+        _icon: Option<&str>,
         _duration_secs: u64,
         _warn_at_secs: Option<u64>,
         _lane: eqlog_triggers::TimerLane,

@@ -15,12 +15,29 @@
       ],
       "actions": [
         {
-          "DisplayText": {
-            "template": "Resisted: ${2}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "Resisted: ${2}",
+              "icon": "spell-name:${2}"
+            },
+            "config": {
+              "severity": "info"
+            }
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "${2}"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "${2} — ${1}"
           }
         }
       ],
-      "comments": "Legends modern resist format (verified in log). Class-tagged copy of the universal tier-2 resist alert, on by default for nukers."
+      "comments": "Legends modern resist format (verified in log). Class-tagged copy of the universal alert, including captured spell-gem presentation and timer cleanup."
     }
   ]
 }

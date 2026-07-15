@@ -4,6 +4,7 @@
     {
       "id": "skills/melee/kick",
       "name": "Kick",
+      "icon": "spell:203",
       "pattern": "^You kick .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -21,6 +22,7 @@
     {
       "id": "skills/melee/bash",
       "name": "Bash",
+      "icon": "spell:25",
       "pattern": "^You bash .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": false,
       "default_enabled": false,
@@ -38,6 +40,7 @@
     {
       "id": "skills/melee/slam",
       "name": "Slam",
+      "icon": "spell:25",
       "pattern": "^You slam .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": false,
       "default_enabled": false,
@@ -55,6 +58,7 @@
     {
       "id": "skills/melee/backstab",
       "name": "Backstab",
+      "icon": "spell:139",
       "pattern": "^You backstab .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -72,6 +76,7 @@
     {
       "id": "skills/melee/eagle-strike",
       "name": "Eagle Strike",
+      "icon": "spell:161",
       "pattern": "^You eagle strike .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -89,6 +94,7 @@
     {
       "id": "skills/melee/tiger-claw",
       "name": "Tiger Claw",
+      "icon": "spell:161",
       "pattern": "^You tiger claw .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -106,6 +112,7 @@
     {
       "id": "skills/melee/dragon-punch",
       "name": "Dragon Punch",
+      "icon": "spell:161",
       "pattern": "^You dragon punch .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -123,6 +130,7 @@
     {
       "id": "skills/melee/tail-rake",
       "name": "Tail Rake",
+      "icon": "spell:161",
       "pattern": "^You tail rake .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -140,6 +148,7 @@
     {
       "id": "skills/melee/flying-kick",
       "name": "Flying Kick",
+      "icon": "spell:203",
       "pattern": "^You flying kick .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -157,6 +166,7 @@
     {
       "id": "skills/melee/round-kick",
       "name": "Round Kick",
+      "icon": "spell:203",
       "pattern": "^You round kick .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -174,6 +184,7 @@
     {
       "id": "skills/melee/frenzy",
       "name": "Frenzy",
+      "icon": "spell:49",
       "pattern": "^You frenzy on .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -191,6 +202,7 @@
     {
       "id": "skills/melee/smite",
       "name": "Smite",
+      "icon": "spell:161",
       "pattern": "^You smite .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,
@@ -208,6 +220,7 @@
     {
       "id": "skills/melee/reave",
       "name": "Reave",
+      "icon": "spell:137",
       "pattern": "^You reave .+? for (\\d+) points? of damage\\.(?: \\(Critical\\))?$",
       "enabled": true,
       "default_enabled": true,

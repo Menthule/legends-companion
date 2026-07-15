@@ -277,6 +277,7 @@ enum BufferedAction {
     DisplayText(String),
     StartTimer {
         name: String,
+        icon: Option<String>,
         duration_secs: u64,
         warn_at_secs: Option<u64>,
         lane: TimerLane,
@@ -388,6 +389,7 @@ impl EmitSink {
             }
             BufferedAction::StartTimer {
                 name,
+                icon,
                 duration_secs,
                 warn_at_secs,
                 lane,
@@ -399,7 +401,7 @@ impl EmitSink {
                     "timer",
                     TimerPayload {
                         name: name.clone(),
-                        icon: trigger.as_ref().and_then(|value| value.icon.clone()),
+                        icon,
                         kind: "started",
                         duration_secs: Some(duration_secs),
                         warn_at_secs: Some(warn_at_secs),
@@ -502,6 +504,7 @@ impl ActionSink for EmitSink {
     fn start_timer(
         &mut self,
         name: &str,
+        icon: Option<&str>,
         duration_secs: u64,
         warn_at_secs: Option<u64>,
         lane: TimerLane,
@@ -509,6 +512,7 @@ impl ActionSink for EmitSink {
     ) {
         self.push(BufferedAction::StartTimer {
             name: name.to_string(),
+            icon: icon.map(str::to_string),
             duration_secs,
             warn_at_secs,
             lane,

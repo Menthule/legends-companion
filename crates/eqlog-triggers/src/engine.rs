@@ -27,8 +27,10 @@ pub trait ActionSink {
     fn speak(&mut self, text: &str);
     fn play_sound(&mut self, path: &str);
     fn display_text(&mut self, text: &str);
-    /// A countdown began. `lane` is the resolved overlay lane (the action's
-    /// explicit lane, else inferred from the trigger's category/id).
+    /// A countdown began. `icon` is explicit because internal timer rebinding
+    /// happens outside trigger scope and must retain the active timer's visual
+    /// identity. `lane` is the resolved overlay lane (the action's explicit
+    /// lane, else inferred from the trigger's category/id).
     /// `pending_secs` is the cast-time lead-in: the first `pending_secs`
     /// seconds of the countdown are a "casting…" phase (the effect does not
     /// exist yet); a [`TimerFireKind::Landed`] fire marks the flip to a real
@@ -36,6 +38,7 @@ pub trait ActionSink {
     fn start_timer(
         &mut self,
         name: &str,
+        icon: Option<&str>,
         duration_secs: u64,
         warn_at_secs: Option<u64>,
         lane: TimerLane,
@@ -767,7 +770,14 @@ fn execute_actions(
                 if mode == TimerStartMode::StartNewInstance && exists {
                     name = next_instance_name_among(timers.iter().chain(new_timers.iter()), &name);
                 }
-                sink.start_timer(&name, shown_duration, *warn_at_secs, lane, lead_in);
+                sink.start_timer(
+                    &name,
+                    trigger.icon.as_deref(),
+                    shown_duration,
+                    *warn_at_secs,
+                    lane,
+                    lead_in,
+                );
                 new_timers.push(ActiveTimer {
                     name,
                     icon: trigger.icon.clone(),
@@ -1068,11 +1078,12 @@ impl TriggerEngine {
                     .filter(|w| *w > now && !t.warned)
                     .map(|w| (t.expires_at - w).max(0) as u64);
                 let lane = t.lane;
+                let icon = t.icon.clone();
                 sink.cancel_timer(&old);
                 for name in replaced {
                     sink.cancel_timer(&name);
                 }
-                sink.start_timer(&new_name, remaining, warn_left, lane, 0);
+                sink.start_timer(&new_name, icon.as_deref(), remaining, warn_left, lane, 0);
             }
             Event::WornOff {
                 spell,
@@ -1211,11 +1222,19 @@ impl TriggerEngine {
                     .warn_at
                     .filter(|w| *w > now && !t.warned)
                     .map(|w| (t.expires_at - w).max(0) as u64);
+                let icon = t.icon.clone();
                 sink.cancel_timer(&old);
                 for name in replaced {
                     sink.cancel_timer(&name);
                 }
-                sink.start_timer(&base, remaining, warn_left, TimerLane::OnOthers, 0);
+                sink.start_timer(
+                    &base,
+                    icon.as_deref(),
+                    remaining,
+                    warn_left,
+                    TimerLane::OnOthers,
+                    0,
+                );
             }
             TimerLane::Enemy => {
                 // Enemy lane, land-line-bound debuffs: re-applying the same
@@ -1247,11 +1266,12 @@ impl TriggerEngine {
                     .filter(|w| *w > now && !t.warned)
                     .map(|w| (t.expires_at - w).max(0) as u64);
                 let lane = t.lane;
+                let icon = t.icon.clone();
                 sink.cancel_timer(&old);
                 for name in replaced {
                     sink.cancel_timer(&name);
                 }
-                sink.start_timer(&new_name, remaining, warn_left, lane, 0);
+                sink.start_timer(&new_name, icon.as_deref(), remaining, warn_left, lane, 0);
             }
             _ => {}
         }
@@ -1815,6 +1835,7 @@ mod tests {
         fn start_timer(
             &mut self,
             name: &str,
+            _icon: Option<&str>,
             duration_secs: u64,
             _warn_at_secs: Option<u64>,
             _lane: TimerLane,

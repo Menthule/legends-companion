@@ -21,6 +21,24 @@ API = "https://eqlwiki.com/api.php"
 USER_AGENT = "LegendsCompanionQuestBuilder/0.1 (https://github.com/Menthule/legends-companion)"
 REPO = Path(__file__).resolve().parents[2]
 DEFAULT_OUT = REPO / "app" / "src" / "data" / "quests.json"
+SKY_ITEM_SOURCES_PATH = Path(__file__).with_name("sky_item_sources.json")
+SKY_ITEM_SOURCES = json.loads(SKY_ITEM_SOURCES_PATH.read_text(encoding="utf-8"))
+
+# Source abbreviations used by the EQL-specific Plane of Sky class tables.
+# Keep this explicit: an unfamiliar code should stop the catalog build instead
+# of silently publishing a plausible but incorrect drop location.
+SKY_SOURCE_CODES = {
+    "2-PoS": ("mob-drop", ["Protector of Sky"], "Island 2"),
+    "3-Gorga": ("mob-drop", ["Gorgalosk"], "Island 3"),
+    "4-KoS": ("mob-drop", ["Keeper of Souls"], "Island 4"),
+    "5-SL": ("mob-drop", ["The Spiroc Lord"], "Island 5"),
+    "6-BZ": ("mob-drop", ["Bazzt Zzzt"], "Island 6"),
+    "7-SotS": ("mob-drop", ["Sister of the Spire"], "Island 7"),
+    "8-EoV": ("mob-drop", ["Eye of Veeshan"], "Island 8"),
+    "6": ("zone-drop", [], "Island 6"),
+    "7": ("zone-drop", [], "Island 7"),
+    "7-Trash": ("zone-drop", [], "Island 7 trash mobs"),
+}
 
 
 def api(params: dict[str, str]) -> dict:
@@ -80,17 +98,148 @@ def fetch_pages(rows: list[dict]) -> list[dict]:
     return pages
 
 
-def linked_values(text: str) -> list[str]:
-    values: list[str] = []
+def linked_entries(text: str) -> list[tuple[str, str]]:
+    """Return (display name, wiki page title) without losing link identity."""
+    values: list[tuple[str, str]] = []
     for target, label in re.findall(r"\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|([^\]]+))?\]\]", text):
-        value = (label or target).strip()
-        if value and value not in values:
-            values.append(value)
+        entry = ((label or target).strip(), target.strip())
+        if entry[0] and entry not in values:
+            values.append(entry)
     for value in re.findall(r"\{\{:\s*([^}|]+)", text):
         value = value.strip()
-        if value and value not in values:
-            values.append(value)
+        entry = (value, value)
+        if value and entry not in values:
+            values.append(entry)
     return values
+
+
+def linked_values(text: str) -> list[str]:
+    return [name for name, _ in linked_entries(text)]
+
+
+def acquisition_source(
+    page: dict,
+    *,
+    kind: str,
+    npc_names: list[str],
+    location: str,
+    source_code: str,
+) -> dict:
+    revision = page["revisions"][0]
+    return {
+        "kind": kind,
+        "npcNames": npc_names,
+        "zone": "Plane of Sky",
+        "location": location,
+        "chance": None,
+        "sourceCode": source_code,
+        "sourceLabel": "EverQuest Legends Wiki",
+        "sourceUrl": page["fullurl"],
+        "sourcePageId": page["pageid"],
+        "sourceRevisionId": revision["revid"],
+        "sourceRevisionAt": revision["timestamp"],
+        "verification": "eql-wiki",
+    }
+
+
+def requirement(
+    item_name: str,
+    source_page_title: str | None = None,
+    acquisition_sources: list[dict] | None = None,
+) -> dict:
+    return {
+        "itemName": item_name,
+        "itemId": None,
+        "quantity": 1,
+        "choiceGroup": None,
+        "sourcePageTitle": source_page_title,
+        "acquisitionSources": acquisition_sources or [],
+    }
+
+
+def sky_source(page: dict, source_code: str) -> dict:
+    try:
+        kind, npc_names, location = SKY_SOURCE_CODES[source_code]
+    except KeyError as error:
+        raise ValueError(f"Unknown Plane of Sky source code: {source_code}") from error
+    return acquisition_source(
+        page,
+        kind=kind,
+        npc_names=npc_names,
+        location=location,
+        source_code=source_code,
+    )
+
+
+def sky_item_sources(item_name: str) -> list[dict]:
+    """Return revision-pinned EQL item-page sources for unannotated rows."""
+    item = SKY_ITEM_SOURCES.get(item_name)
+    if not item:
+        return []
+    page_title = item_name.replace(" ", "_")
+    source_url = (
+        f"https://eqlwiki.com/index.php?title={urllib.parse.quote(page_title)}"
+        f"&oldid={item['revisionId']}"
+    )
+    return [
+        {
+            "kind": "mob-drop",
+            "npcNames": [npc_name],
+            "zone": "Plane of Sky",
+            "location": location,
+            "chance": None,
+            "sourceCode": "item-page",
+            "sourceLabel": "EverQuest Legends Wiki",
+            "sourceUrl": source_url,
+            "sourcePageId": None,
+            "sourceRevisionId": item["revisionId"],
+            "sourceRevisionAt": None,
+            "verification": "eql-wiki",
+        }
+        for npc_name, location in item["sources"]
+    ]
+
+
+def sky_requirement_values(text: str, page: dict, *, wind_runes: bool) -> list[dict]:
+    """Parse Sky checklist items and retain their trailing source codes."""
+    blocks = re.findall(r"<li[^>]*>(.*?)</li>", text, re.I | re.S) or [text]
+    rows: list[dict] = []
+    for block in blocks:
+        entries = linked_entries(block)
+        if not entries:
+            continue
+        source_match = re.search(r"\(([^()]+)\)", block)
+        source_code = plain(source_match.group(1)) if source_match else ""
+        sources: list[dict]
+        if wind_runes:
+            sources = [acquisition_source(
+                page,
+                kind="zone-drop",
+                npc_names=[],
+                location="All islands",
+                source_code="all-sky-mobs",
+            )]
+        elif source_code:
+            sources = [sky_source(page, source_code)]
+        else:
+            sources = sky_item_sources(entries[0][0])
+        for item_name, page_title in entries:
+            rows.append(requirement(item_name, page_title, sources))
+    return dedupe_requirements(rows)
+
+
+def dedupe_requirements(rows: list[dict]) -> list[dict]:
+    unique: dict[str, dict] = {}
+    for row in rows:
+        key = row["itemName"]
+        if key not in unique:
+            unique[key] = row
+            continue
+        known = unique[key]["acquisitionSources"]
+        for source in row["acquisitionSources"]:
+            if source not in known:
+                known.append(source)
+    return list(unique.values())
 
 
 def plain(text: str) -> str:
@@ -128,17 +277,17 @@ def giver_names(wikitext: str) -> list[str]:
 
 
 def requirement_values(wikitext: str) -> list[dict]:
-    values: list[str] = []
+    values: list[tuple[str, str]] = []
     for line in wikitext.splitlines():
         if not re.search(r"\b(bring|hand|give|return with|turn in)\b", line, re.I):
             continue
-        values.extend(linked_values(line))
+        values.extend(linked_entries(line))
     excluded = {"plane of sky", "reward", "quest", "hail"}
-    return [
-        {"itemName": value, "itemId": None, "quantity": 1, "choiceGroup": None}
-        for value in dict.fromkeys(values)
-        if value.lower() not in excluded
-    ]
+    return dedupe_requirements([
+        requirement(item_name, page_title)
+        for item_name, page_title in dict.fromkeys(values)
+        if item_name.lower() not in excluded
+    ])
 
 
 def reward_values(wikitext: str) -> list[str]:
@@ -201,7 +350,7 @@ def sky_quests(page: dict, wikitext: str) -> list[dict]:
             "givers": givers,
             "aliases": [],
             "requirements": [
-                {"itemName": value, "itemId": None, "quantity": 1, "choiceGroup": None}
+                requirement(value)
                 for value in dict.fromkeys(requirements)
             ],
             "rewards": list(dict.fromkeys(value for value in rewards if value)),
@@ -237,7 +386,10 @@ def sky_table_quests(page: dict, wikitext: str) -> list[dict]:
             quest_name = plain(cells[0])
             tester = plain(cells[1])
             trigger = plain(cells[2])
-            requirements = linked_values(cells[3]) + linked_values(cells[4])
+            requirements = dedupe_requirements([
+                *sky_requirement_values(cells[3], page, wind_runes=True),
+                *sky_requirement_values(cells[4], page, wind_runes=False),
+            ])
             rewards = linked_values(cells[5])
             if not quest_name or "test of" not in quest_name.lower():
                 continue
@@ -252,10 +404,7 @@ def sky_table_quests(page: dict, wikitext: str) -> list[dict]:
                 "minimumLevel": 46,
                 "givers": [representative],
                 "aliases": [tester] if tester and tester.lower() != representative.lower() else [],
-                "requirements": [
-                    {"itemName": value, "itemId": None, "quantity": 1, "choiceGroup": None}
-                    for value in dict.fromkeys(requirements)
-                ],
+                "requirements": requirements,
                 "rewards": list(dict.fromkeys(rewards)),
                 "repeatable": True,
                 "notes": "Current class representative is the hail target; historical tester is retained as an alias.",
@@ -312,8 +461,24 @@ def build() -> dict:
         raise RuntimeError(
             f"Plane of Sky completeness check failed: {len(sky_rows)} quests, {len(sky_classes)} classes"
         )
+    sky_requirements = [row for quest in sky_rows for row in quest["requirements"]]
+    sourced_sky_requirements = [row for row in sky_requirements if row["acquisitionSources"]]
+    wind_runes_without_sources = [
+        row["itemName"] for row in sky_requirements
+        if row["itemName"].startswith("Wind Rune ") and not row["acquisitionSources"]
+    ]
+    if wind_runes_without_sources:
+        raise RuntimeError(
+            "Plane of Sky source check failed for Wind Runes: "
+            + ", ".join(sorted(set(wind_runes_without_sources)))
+        )
+    if len(sourced_sky_requirements) != len(sky_requirements):
+        raise RuntimeError(
+            "Plane of Sky source coverage check failed: "
+            f"{len(sourced_sky_requirements)}/{len(sky_requirements)} requirements"
+        )
     return {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "generatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
         "license": "CC BY-SA 4.0",
         "attribution": "Quest content adapted from EverQuest Legends Wiki (https://eqlwiki.com/).",
@@ -323,6 +488,11 @@ def build() -> dict:
             "questCount": len(sky_rows),
             "classes": sky_classes,
             "sourcePages": sky_pages,
+            "requirementCount": len(sky_requirements),
+            "sourcedRequirementCount": len(sourced_sky_requirements),
+            "unresolvedRequirementNames": sorted({
+                row["itemName"] for row in sky_requirements if not row["acquisitionSources"]
+            }),
         },
         "quests": quests,
     }

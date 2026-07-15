@@ -147,6 +147,50 @@ describe("quest item references", () => {
     expect(questDropSourceSummary(undefined)).toContain("No matching item");
   });
 
+  it("falls back to Legends acquisition sources when classic drops are unavailable", () => {
+    const acquisitionSources = [{
+      kind: "mob-drop",
+      npcNames: ["an azarack"],
+      zone: "Plane of Sky",
+      location: "Azarack island",
+      chance: 12.5,
+      sourceLabel: "EverQuest Legends Wiki",
+      sourceUrl: "https://example.test/sky-item",
+      sourceRevisionId: 42,
+      sourceRevisionAt: "2026-07-14T00:00:00Z",
+      verification: "eql-wiki",
+    }];
+    const unsourced = { ...reference, item: { ...item, sources: 0 }, sources: [] };
+
+    expect(questDropSourceSummary(unsourced, acquisitionSources)).toBe(
+      "an azarack · Plane of Sky · Azarack island (13%)",
+    );
+    expect(questDropSourceSummary(undefined, acquisitionSources)).toBe(
+      "an azarack · Plane of Sky · Azarack island (13%)",
+    );
+  });
+
+  it("keeps classic mob drops authoritative and labels non-mob acquisition kinds", () => {
+    const catalogSources = [{
+      kind: "quest",
+      npcNames: [],
+      zone: "Plane of Sky",
+      location: "Test of Smash",
+      sourceLabel: "EverQuest Legends Wiki",
+    }];
+    expect(questDropSourceSummary(reference, catalogSources)).toBe(
+      "an azarack · Plane of Sky (13%); +2 more",
+    );
+    expect(questDropSourceSummary(undefined, catalogSources)).toBe(
+      "Quest: Plane of Sky · Test of Smash",
+    );
+    expect(questDropSourceSummary(undefined, [{
+      ...catalogSources[0],
+      kind: "zone-drop",
+      location: "All islands",
+    }])).toBe("Zone drop: Plane of Sky · All islands");
+  });
+
   it("builds compact reward detail lines", () => {
     expect(questItemDetailLines(item)).toEqual(["AC 5 · HP 10", "Required level 46", "NO DROP"]);
     expect(questItemDetailLines(null)).toHaveLength(1);

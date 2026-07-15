@@ -611,7 +611,10 @@ function QuestRow({
               </button>
               {requirement.locations.length > 0 && <small>Owned: {requirement.locations.join(", ")}</small>}
               <small className="quest-drop-source">
-                Drops: {questDropSourceSummary(itemReferences.get(normalizeQuestName(requirement.itemName)))}
+                Sources: {questDropSourceSummary(
+                  itemReferences.get(normalizeQuestName(requirement.itemName)),
+                  requirement.acquisitionSources,
+                )}
               </small>
             </div>
             );
@@ -702,7 +705,7 @@ function RewardItem({ name, reference }: { name: string; reference?: QuestItemRe
       <span className="quest-item-tip" role="tooltip">
         <strong>{reference?.item?.name ?? name}</strong>
         {lines.map((line) => <span key={line}>{line}</span>)}
-        <span className="quest-item-tip-source">Drops: {questDropSourceSummary(reference)}</span>
+        <span className="quest-item-tip-source">Sources: {questDropSourceSummary(reference)}</span>
       </span>
     </span>
   );

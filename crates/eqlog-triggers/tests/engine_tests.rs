@@ -23,6 +23,7 @@ struct RecordingSink {
     sounds: Vec<String>,
     displayed: Vec<String>,
     timers: Vec<(String, u64, Option<u64>, TimerLane)>,
+    timer_icons: Vec<(String, Option<String>)>,
     cancels: Vec<String>,
     webhooks: Vec<(Option<String>, String)>,
     overlays: Vec<RecordedOverlay>,
@@ -56,6 +57,7 @@ impl ActionSink for RecordingSink {
     fn start_timer(
         &mut self,
         name: &str,
+        icon: Option<&str>,
         duration_secs: u64,
         warn_at_secs: Option<u64>,
         lane: TimerLane,
@@ -63,6 +65,8 @@ impl ActionSink for RecordingSink {
     ) {
         self.timers
             .push((name.to_string(), duration_secs, warn_at_secs, lane));
+        self.timer_icons
+            .push((name.to_string(), icon.map(str::to_string)));
         self.attributed_calls
             .push(("timer".into(), self.current_trigger.clone()));
     }
@@ -1541,6 +1545,7 @@ fn failed_casts_cancel_their_dot_timers() {
         }],
     );
     t.category = Some("Class/Necromancer/DoTs".into());
+    t.icon = Some("spell:51".into());
     let mut engine = TriggerEngine::new(vec![t], "Nyasha");
     let mut sink = RecordingSink::default();
 
@@ -1654,6 +1659,62 @@ fn nested_enemy_casts_category_is_suppressed_for_pets() {
 }
 
 #[test]
+fn shipped_resist_trigger_clears_target_timer_and_resolves_spell_icon() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Necromancer".into()];
+    profile.level = 36;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(
+        &line(1000, "You begin casting Cascading Darkness."),
+        &mut sink,
+    );
+    engine.process(
+        &ParsedLine {
+            line: LogLine {
+                timestamp: 1004,
+                message:
+                    "Sister of the Spire has taken 20 damage from Cascading Darkness by Nyasha."
+                        .into(),
+            },
+            event: Event::SpellDamageTaken {
+                target: Entity::Named("Sister of the Spire".into()),
+                source: Entity::Named("Nyasha".into()),
+                spell: "Cascading Darkness".into(),
+                amount: 20,
+            },
+        },
+        &mut sink,
+    );
+    assert!(engine
+        .active_timers(1004)
+        .iter()
+        .any(|(name, _)| name == "Cascading Darkness — Sister of the Spire"));
+
+    engine.process(
+        &line(
+            1010,
+            "Sister of the Spire resisted your Cascading Darkness!",
+        ),
+        &mut sink,
+    );
+
+    assert!(
+        engine.active_timers(1010).is_empty(),
+        "the configured resist actions clear bare and target-bound timers"
+    );
+    let alert = sink
+        .overlays
+        .iter()
+        .find(|(overlay, fields, _)| {
+            overlay == "alerts" && fields.get("text").is_some_and(|v| v.contains("Resisted"))
+        })
+        .expect("resist alert");
+    assert_eq!(alert.1["icon"], "spell-name:Cascading Darkness");
+}
+
+#[test]
 fn dot_timers_bind_to_tick_target_and_die_with_it() {
     let mut t = Trigger::new(
         "Boil Blood timer",
@@ -1677,6 +1738,7 @@ fn dot_timers_bind_to_tick_target_and_die_with_it() {
         }],
     );
     t.category = Some("Class/Necromancer/DoTs".into());
+    t.icon = Some("spell:51".into());
     let mut engine = TriggerEngine::new(vec![t], "Nyasha");
     let mut sink = RecordingSink::default();
 
@@ -1719,6 +1781,10 @@ fn dot_timers_bind_to_tick_target_and_die_with_it() {
         .map(|(n, _)| n)
         .collect();
     assert_eq!(names, vec!["Boil Blood — A zol ghoul knight".to_string()]);
+    assert!(sink.timer_icons.contains(&(
+        "Boil Blood — A zol ghoul knight".to_string(),
+        Some("spell:51".to_string()),
+    )));
 
     // Target dies -> bar vanishes.
     engine.process(
@@ -2543,7 +2609,7 @@ fn channel_override_alert_off_removes_legacy_and_generic_alerts_only() {
 /// emit it. Its land-on-other suffix (" is surrounded by a brief lupine
 /// aura.") comes from the generated buff_lands table.
 fn sow_trigger() -> Trigger {
-    Trigger::new(
+    let mut trigger = Trigger::new(
         "SoW",
         r"^You begin casting Spirit of Wolf\.$",
         vec![Action::StartTimer {
@@ -2563,7 +2629,9 @@ fn sow_trigger() -> Trigger {
             expire_sound: None,
             lane: Some(TimerLane::Buff),
         }],
-    )
+    );
+    trigger.icon = Some("spell:10".into());
+    trigger
 }
 
 #[test]
@@ -2601,6 +2669,10 @@ fn buff_on_two_targets_makes_two_independent_bars() {
         .filter(|(_, _, _, lane)| *lane == TimerLane::OnOthers)
         .count();
     assert_eq!(on_others, 2, "{:?}", sink.timers);
+    assert!(sink.timer_icons.contains(&(
+        "Spirit of Wolf — Torvin".to_string(),
+        Some("spell:10".to_string()),
+    )));
 }
 
 #[test]
@@ -2631,6 +2703,7 @@ fn non_damaging_debuff_binds_on_land_line_and_dies_with_the_mob() {
         }],
     );
     t.category = Some("Class/Shaman/Debuffs".into());
+    t.icon = Some("spell:17".into());
     let mut engine = TriggerEngine::new(vec![t], "Nyasha");
     let mut sink = RecordingSink::default();
 
@@ -2655,6 +2728,10 @@ fn non_damaging_debuff_binds_on_land_line_and_dies_with_the_mob() {
         "bound bar stays in the enemy lane: {:?}",
         sink.timers
     );
+    assert!(sink.timer_icons.contains(&(
+        "Togor's Insects — A dar ghoul knight".to_string(),
+        Some("spell:17".to_string()),
+    )));
 
     // The mob dies -> the slow bar dies with it.
     engine.process(

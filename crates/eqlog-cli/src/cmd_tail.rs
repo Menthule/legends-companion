@@ -139,6 +139,7 @@ impl ActionSink for ConsoleSink {
     fn start_timer(
         &mut self,
         name: &str,
+        _icon: Option<&str>,
         duration_secs: u64,
         warn_at_secs: Option<u64>,
         lane: eqlog_triggers::TimerLane,
