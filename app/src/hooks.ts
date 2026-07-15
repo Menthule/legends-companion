@@ -191,6 +191,18 @@ export function useTimers(): TimerView[] {
     }
   });
 
+  // A trigger/profile update hot-swaps the backend engine. Keep active
+  // countdown timing intact while adopting icon metadata from the new active
+  // trigger set, including rows created before icons were added to a pack.
+  useTauriEvent<Record<string, string>>("timer-icons-updated", (icons) => {
+    setItems((prev) =>
+      prev.map((timer) => {
+        const icon = icons[timer.name];
+        return icon && icon !== timer.icon ? { ...timer, icon } : timer;
+      }),
+    );
+  });
+
   // Resync on mount (P3): a window reopened mid-session — or the whole app
   // after a restart — asks the backend for its running timers and seeds them,
   // so live buff/DoT/recast countdowns survive the reload instead of vanishing

@@ -1349,6 +1349,28 @@ impl TriggerEngine {
         self.compiled.len()
     }
 
+    /// Literal timer names and their configured icons from the active trigger
+    /// set. Hosts use this after a hot engine rebuild to refresh existing UI
+    /// rows without restarting their countdowns. Dynamic timer-name templates
+    /// are omitted because they cannot be matched safely without captures.
+    pub fn timer_icons(&self) -> BTreeMap<String, String> {
+        let mut icons = BTreeMap::new();
+        for compiled in &self.compiled {
+            let Some(icon) = &compiled.trigger.icon else {
+                continue;
+            };
+            for action in &compiled.trigger.actions {
+                let Action::StartTimer { name, .. } = action else {
+                    continue;
+                };
+                if !name.contains("${") {
+                    icons.entry(name.clone()).or_insert_with(|| icon.clone());
+                }
+            }
+        }
+        icons
+    }
+
     /// The current zone (lowercased) learned from the log, or `None` before any
     /// `You have entered …` line has been processed. Drives zone-scoped trigger
     /// gating; exposed for UI display and tests.

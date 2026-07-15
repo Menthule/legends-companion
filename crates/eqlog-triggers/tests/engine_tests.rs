@@ -3172,6 +3172,10 @@ fn trigger_icon_flows_to_overlays_and_timer_lifecycle() {
     let mut engine = TriggerEngine::new(vec![trigger], "Nyasha");
     let mut sink = RecordingSink::default();
 
+    assert_eq!(
+        engine.timer_icons().get("Root").map(String::as_str),
+        Some("spell:10")
+    );
     let fired = engine.process_traced(&line(100, "rooted"), &mut sink);
     assert_eq!(fired[0].icon.as_deref(), Some("spell:10"));
     assert_eq!(sink.overlays[0].1["icon"], "spell:10");

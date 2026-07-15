@@ -381,7 +381,9 @@ pub(crate) fn rebuild_if_tailing(
         let cfg = lock(&state.config, "config")?.clone();
         let build = build_engine(app, &cfg)?;
         announce_pack_warnings(app, &build.warnings);
+        let timer_icons = build.engine.timer_icons();
         session.swap_engine(build)?;
+        let _ = app.emit("timer-icons-updated", timer_icons);
     }
     Ok(())
 }
