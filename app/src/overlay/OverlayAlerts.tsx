@@ -45,6 +45,7 @@ const ALERT_FADE_MS = 300;
 interface AlertItem {
   id: number;
   text: string;
+  value?: string;
   trigger: TriggerIdentity | null;
   severity: Severity;
   icon?: string;
@@ -154,6 +155,7 @@ export default function OverlayAlerts() {
         {
           id,
           text: normalizedText,
+          value: presentation.value,
           trigger,
           severity,
           icon: presentation.icon ?? trigger?.icon ?? undefined,
@@ -219,7 +221,8 @@ export default function OverlayAlerts() {
               ) : (
                 <span className="alert-icon">{a.icon}</span>
               ))}
-            {a.text}
+            <span className="alert-label">{a.text}</span>
+            {a.value && <span className="alert-value">{a.value}</span>}
           </div>
         ))}
       </div>

@@ -99,6 +99,14 @@ const DEFINITIONS: readonly OverlayDefinition[] = [
         placeholder: "!",
         default: "",
       },
+      {
+        key: "value",
+        label: "Value",
+        type: "text",
+        description: "Optional result shown separately from the message.",
+        placeholder: "${1}",
+        default: "",
+      },
     ],
     config: [
       {
@@ -247,6 +255,7 @@ function boundedNumber(
 
 export interface AlertOverlayView {
   text: string;
+  value?: string;
   icon?: string;
   severity?: "info" | "warn" | "alarm";
   color?: string;
@@ -266,6 +275,7 @@ export function alertOverlayView(
   const severity = config.severity;
   return {
     text,
+    value: stringValue(payload.fields.value),
     icon: stringValue(payload.fields.icon),
     severity:
       severity === "info" || severity === "warn" || severity === "alarm"

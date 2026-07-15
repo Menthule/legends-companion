@@ -72,7 +72,7 @@ describe("overlay payload interpretation", () => {
       alertOverlayView(
         payload(
           "alerts",
-          { text: "  Root broke  ", icon: " ! " },
+          { text: "  Root broke  ", icon: " ! ", value: " 56 " },
           {
             severity: "alarm",
             color: " #ff0000 ",
@@ -83,6 +83,7 @@ describe("overlay payload interpretation", () => {
       ),
     ).toEqual({
       text: "Root broke",
+      value: "56",
       icon: "!",
       severity: "alarm",
       color: "#ff0000",

@@ -2583,6 +2583,21 @@ button.coach-row.active {
   font-size: 0.78em;
   line-height: 1;
 }
+.alert-pill .alert-label {
+  white-space: nowrap;
+}
+.alert-pill .alert-value {
+  min-width: 1.7em;
+  padding-left: 0.42em;
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffd166;
+  font-size: 1.08em;
+  font-variant-numeric: tabular-nums;
+  font-weight: 850;
+  line-height: 1;
+  text-align: right;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+}
 .alert-pill.leaving {
   opacity: 0;
   transition: opacity 0.3s ease-out;

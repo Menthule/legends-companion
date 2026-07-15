@@ -13,8 +13,10 @@
       "comments": "Verified in Legends log: 'You kick Asaka L`Rei for 22 points of damage.' + crit form '... (Critical)'. Default ON per user request — note this is high-frequency (fires every combat round, 1208x in the audit fixture); toggle off in the UI if it's too spammy. Replaces the old built-in Skill:Kick alert (skillSpellForVerb).",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Kick ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Kick", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -31,8 +33,10 @@
       "comments": "Shield bash (warrior/paladin/SK/cleric). Default OFF — frequent auto-attack-tier skill. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Bash ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Bash", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -49,8 +53,10 @@
       "comments": "Racial slam (ogre/etc.). Default OFF — frequent. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Slam ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Slam", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -67,8 +73,10 @@
       "comments": "Rogue backstab — notable discipline hit, low frequency. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Backstab ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Backstab", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -85,8 +93,10 @@
       "comments": "Monk special. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Eagle Strike ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Eagle Strike", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -103,8 +113,10 @@
       "comments": "Monk special. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Tiger Claw ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Tiger Claw", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -121,8 +133,10 @@
       "comments": "Monk special (a.k.a. Tail Rake for iksar). Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Dragon Punch ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Dragon Punch", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -139,8 +153,10 @@
       "comments": "Iksar-monk variant of Dragon Punch. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Tail Rake ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Tail Rake", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -157,8 +173,10 @@
       "comments": "Monk high-tier kick. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Flying Kick ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Flying Kick", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -175,8 +193,10 @@
       "comments": "Monk mid-tier kick. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Round Kick ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Round Kick", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -193,8 +213,10 @@
       "comments": "Berserker Frenzy. Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map ('frenzy on').",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Frenzy ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Frenzy", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -211,8 +233,10 @@
       "comments": "Line format modeled on the verified kick line; verb from the old built-in skillSpellForVerb map.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Smite ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Smite", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
@@ -229,8 +253,10 @@
       "comments": "Verified in Legends log: 'You reave a Teir`Dal ranger for 135 points of damage.' Default ON — preserves the prior built-in Skill:Reave behavior; toggle off in the UI per taste. Replaces the old hardcoded Skill:Reave alert in FightsTab.tsx.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "Reave ${1}"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": { "text": "Reave", "value": "${1}" },
+            "config": { "severity": "info" }
           }
         }
       ]
