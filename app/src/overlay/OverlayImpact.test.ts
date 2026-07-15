@@ -62,4 +62,27 @@ describe("Impact overlay presentation", () => {
     expect(markup).toContain("ov-rip-glyph\">RIP");
     expect(markup).toContain("Splitpaw assassin");
   });
+
+  it("renders the generated achievement seal with trigger-owned copy", () => {
+    const markup = renderToStaticMarkup(
+      createElement(ImpactPresentation, {
+        payload: {
+          id: 3,
+          style: "achievement-seal",
+          headline: "ACHIEVEMENT UNLOCKED",
+          big: "Hide Your Brains!",
+          sub: "Nyasha",
+          glyph: "★",
+        },
+      }),
+    );
+
+    expect(markup).toContain("impact-achievement-seal");
+    expect(markup).toContain("ov-achievement-seal");
+    expect(markup).toContain("achievement-seal-dormant.webp");
+    expect(markup).toContain("achievement-seal-awakened.webp");
+    expect(markup).toContain("ov-achievement-particles");
+    expect(markup).toContain("ACHIEVEMENT UNLOCKED");
+    expect(markup).toContain("Hide Your Brains!");
+  });
 });

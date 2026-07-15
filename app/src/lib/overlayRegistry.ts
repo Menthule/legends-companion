@@ -65,6 +65,7 @@ const IMPACT_STYLE_OPTIONS = [
   { value: "level", label: "Level" },
   { value: "badge", label: "Badge" },
   { value: "medal", label: "Medal" },
+  { value: "achievement-seal", label: "Achievement seal" },
   { value: "loot-chest", label: "Loot chest" },
   { value: "monster-rip", label: "Monster RIP" },
 ] as const;

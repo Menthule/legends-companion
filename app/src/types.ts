@@ -55,6 +55,12 @@ export interface RankTrainingResult {
   observedCastMinSecs: number | null;
   observedCastMaxSecs: number | null;
   suggestedCastTimeSecs: number | null;
+  configuredDurationSecs: number;
+  configuredCastTimeSecs: number;
+  durationDeltaSecs: number | null;
+  castTimeDeltaSecs: number | null;
+  status: "needs-update" | "matches" | "insufficient" | "inconsistent";
+  needsUpdate: boolean;
   confidence: "high" | "good" | "insufficient" | "inconsistent";
   reason: string;
   canApply: boolean;
@@ -72,6 +78,21 @@ export interface TimerTrainingReport {
   configuredDurationSecs: number;
   configuredCastTimeSecs: number;
   ranks: RankTrainingResult[];
+}
+
+export interface TimerTrainingCandidate {
+  triggerId: string;
+  triggerName: string;
+  timerName: string;
+  configuredDurationSecs: number;
+  configuredCastTimeSecs: number;
+  ranks: RankTrainingResult[];
+}
+
+export interface TimerTrainingCandidatesReport {
+  logPath: string;
+  linesScanned: number;
+  candidates: TimerTrainingCandidate[];
 }
 
 /** Extensible trigger overlay identifier. Known overlays get autocomplete,
@@ -149,7 +170,11 @@ export type TriggerAction =
 export type TriggerSource = "generated" | "curated" | "user" | "gina" | "shared";
 
 /** Structured trigger inputs emitted by the app after typed event handling. */
-export type TriggerEvent = "watched-loot" | "watched-kill";
+export type TriggerEvent =
+  | "watched-loot"
+  | "watched-kill"
+  | "achievement-self"
+  | "achievement-other";
 
 export interface WatchGoalSource {
   kind: "manual" | "quest";
@@ -408,6 +433,7 @@ export type ImpactStyle =
   | "level"
   | "badge"
   | "medal"
+  | "achievement-seal"
   | "loot-chest"
   | "monster-rip";
 

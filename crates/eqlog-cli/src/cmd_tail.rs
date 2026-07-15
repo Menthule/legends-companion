@@ -530,6 +530,11 @@ pub fn run(args: &[String]) -> anyhow::Result<()> {
                     println!("{line}");
                 }
                 engine.process(&parsed, &mut sink);
+                if let Some(signal) =
+                    eqlog_triggers::signal_from_event(&parsed.event, parsed.line.timestamp)
+                {
+                    engine.process_signal_traced(&signal, &mut sink);
+                }
                 last_line_ts = Some(parsed.line.timestamp);
                 last_line_at = Instant::now();
                 drain_due(&mut engine, parsed.line.timestamp);

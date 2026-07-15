@@ -111,16 +111,16 @@ fn gap_secs(cfg: &AppConfig) -> i64 {
 /// their own names); a non-canonical filename falls back to the active
 /// character so a renamed log still imports.
 fn import_options(cfg: &AppConfig, path: &str) -> ImportOptions {
-    let (character, server) =
-        if eqlog_triggers::storage::CharacterId::from_log_path(path).is_some() {
-            (None, None) // the importer parses the filename itself
-        } else {
-            match active_identity(cfg) {
-                Ok((c, s)) => (Some(c), Some(s)),
-                // Let the importer report "cannot determine character".
-                Err(_) => (None, None),
-            }
-        };
+    let (character, server) = if eqlog_triggers::storage::CharacterId::from_log_path(path).is_some()
+    {
+        (None, None) // the importer parses the filename itself
+    } else {
+        match active_identity(cfg) {
+            Ok((c, s)) => (Some(c), Some(s)),
+            // Let the importer report "cannot determine character".
+            Err(_) => (None, None),
+        }
+    };
     ImportOptions {
         character,
         server,
@@ -361,7 +361,9 @@ pub fn career_summary(
     let (character, server) = active_state_identity(state.inner())?;
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
-    store.summary(&character, &server).map_err(|e| e.to_string())
+    store
+        .summary(&character, &server)
+        .map_err(|e| e.to_string())
 }
 
 /// Paged career sessions, newest first.
@@ -411,7 +413,13 @@ pub fn career_loot(
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     let (total, rows) = store
-        .loot(&character, &server, search.trim(), limit.clamp(1, 500), offset)
+        .loot(
+            &character,
+            &server,
+            search.trim(),
+            limit.clamp(1, 500),
+            offset,
+        )
         .map_err(|e| e.to_string())?;
     Ok(CareerPage { total, rows })
 }
@@ -430,7 +438,13 @@ pub fn career_mob_kills(
     let guard = lock(&state.career, "career store")?;
     let store = guard.as_ref().ok_or(NO_CAREER)?;
     let (total, rows) = store
-        .mob_kills(&character, &server, search.trim(), limit.clamp(1, 500), offset)
+        .mob_kills(
+            &character,
+            &server,
+            search.trim(),
+            limit.clamp(1, 500),
+            offset,
+        )
         .map_err(|e| e.to_string())?;
     Ok(CareerPage { total, rows })
 }

@@ -122,25 +122,27 @@
     {
       "id": "impact/achievement",
       "name": "Achievement completed",
-      "pattern": "^You have completed achievement: (.+)$",
+      "event": "achievement-self",
+      "pattern": "",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
       "category": "Impact",
-      "comments": "Your achievement completions get a medal moment. Verified in Legends log: 'You have completed achievement: Hide Your Brains!' and 'You have completed achievement: Level 20'. ${1}=achievement name. Rare (~6 per career in the audit log), so default ON with sound — fatigue budget untouched.",
+      "comments": "Your typed achievement events get an animated seal moment. Available fields are ${achievement} and ${player}. Rare (~6 per career in the audit log), so default ON with sound.",
       "actions": [
         {
           "Overlay": {
             "overlay": "impact",
             "fields": {
-              "headline": "ACHIEVEMENT",
-              "big": "${1}",
+              "headline": "ACHIEVEMENT UNLOCKED",
+              "big": "${achievement}",
               "glyph": "★"
             },
             "config": {
-              "style": "medal",
+              "style": "achievement-seal",
               "color": "#f2c14e",
-              "durationMs": 4000
+              "intensity": "high",
+              "durationMs": 4500
             }
           }
         },
@@ -154,25 +156,27 @@
     {
       "id": "impact/achievement-other",
       "name": "Achievement completed (other player)",
-      "pattern": "^(\\S+) has completed achievement: (.+)$",
+      "event": "achievement-other",
+      "pattern": "",
       "enabled": true,
       "default_enabled": false,
       "source": "curated",
       "category": "Impact",
-      "comments": "A nearby player's achievement gets a quieter medal moment. Verified in Legends log: 'Daer has completed achievement: Befallen Traveler'. ${1}=player, ${2}=achievement name. The line fires for ANY player in range, not just groupmates, so this is default OFF — enable it when grouping to cheer friends' dings.",
+      "comments": "A nearby player's typed achievement event gets a quieter seal moment. Available fields are ${achievement} and ${player}. The event can represent ANY player in range, so this is default OFF.",
       "actions": [
         {
           "Overlay": {
             "overlay": "impact",
             "fields": {
               "headline": "ACHIEVEMENT",
-              "big": "${2}",
-              "sub": "${1}",
+              "big": "${achievement}",
+              "sub": "${player}",
               "glyph": "★"
             },
             "config": {
-              "style": "medal",
+              "style": "achievement-seal",
               "color": "#c9d1d9",
+              "intensity": "medium",
               "durationMs": 3000
             }
           }

@@ -195,6 +195,16 @@ pub fn run(args: &[String]) -> anyhow::Result<()> {
                 .entry(fire.category.unwrap_or_default())
                 .or_insert(0) += 1;
         }
+        if let Some(signal) = eqlog_triggers::signal_from_event(&parsed.event, ts) {
+            for fire in engine.process_signal_traced(&signal, &mut sink) {
+                total_fires += 1;
+                let entry = per_trigger.entry(fire.id).or_insert_with(|| (fire.name, 0));
+                entry.1 += 1;
+                *per_category
+                    .entry(fire.category.unwrap_or_default())
+                    .or_insert(0) += 1;
+            }
+        }
         for timer_fire in engine.due(ts) {
             match timer_fire.kind {
                 // Landed = the cast-time lead-in ended; a silent overlay

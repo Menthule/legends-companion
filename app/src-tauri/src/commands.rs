@@ -530,8 +530,7 @@ pub fn share_import(
             return Err("share string contains no triggers".into());
         }
         let categories = distinct_categories(&payload.triggers);
-        let external_ids: HashSet<String> =
-            lib.packs.iter().map(|t| t.effective_id()).collect();
+        let external_ids: HashSet<String> = lib.packs.iter().map(|t| t.effective_id()).collect();
         let mut user = lib.user;
         let outcome =
             eqlog_triggers::merge_update_user_pack(payload.triggers, &mut user, &external_ids);

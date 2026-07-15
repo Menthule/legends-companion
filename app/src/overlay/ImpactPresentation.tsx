@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import type { ImpactPayload } from "../types";
 import chestClosed from "../assets/loot-chest-closed.webp";
 import chestOpen from "../assets/loot-chest-open.webp";
+import sealDormant from "../assets/achievement-seal-dormant.webp";
+import sealAwakened from "../assets/achievement-seal-awakened.webp";
 
 /** Inline slab medal for badge/medal styles. */
 function Medal({ glyph }: { glyph: string }) {
@@ -28,6 +30,17 @@ const LOOT_PARTICLES = [
   { x: 92, y: -46, delay: 220, size: 4 },
 ] as const;
 
+const ACHIEVEMENT_PARTICLES = [
+  { x: -88, y: -72, delay: 0, size: 4 },
+  { x: -58, y: -116, delay: 90, size: 6 },
+  { x: -18, y: -132, delay: 180, size: 4 },
+  { x: 26, y: -126, delay: 40, size: 5 },
+  { x: 68, y: -104, delay: 140, size: 7 },
+  { x: 94, y: -62, delay: 220, size: 4 },
+  { x: -104, y: -28, delay: 260, size: 5 },
+  { x: 110, y: -20, delay: 300, size: 5 },
+] as const;
+
 /** Generated chest artwork used by trigger-owned loot moments. The optional
  * glyph is presentation data from the action, never parsed by the overlay. */
 export function LootChest({ glyph }: { glyph?: string }) {
@@ -52,6 +65,44 @@ export function LootChest({ glyph }: { glyph?: string }) {
         ))}
       </span>
       {glyph && <span className="ov-chest-glyph">{glyph}</span>}
+    </div>
+  );
+}
+
+/** Generated dormant/awakened seal selected by achievement triggers. */
+export function AchievementSeal({ glyph }: { glyph?: string }) {
+  return (
+    <div className="ov-achievement-seal" aria-hidden="true">
+      <span className="ov-achievement-aura" />
+      <span className="ov-achievement-ring ring-one" />
+      <span className="ov-achievement-ring ring-two" />
+      <img
+        className="ov-achievement-image seal-dormant"
+        src={sealDormant}
+        alt=""
+        draggable={false}
+      />
+      <img
+        className="ov-achievement-image seal-awakened"
+        src={sealAwakened}
+        alt=""
+        draggable={false}
+      />
+      <span className="ov-achievement-flash" />
+      <span className="ov-achievement-particles">
+        {ACHIEVEMENT_PARTICLES.map((particle, index) => (
+          <i
+            key={index}
+            style={{
+              "--achievement-x": `${particle.x}px`,
+              "--achievement-y": `${particle.y}px`,
+              "--achievement-delay": `${particle.delay}ms`,
+              "--achievement-size": `${particle.size}px`,
+            } as CSSProperties}
+          />
+        ))}
+      </span>
+      {glyph && <span className="ov-achievement-glyph">{glyph}</span>}
     </div>
   );
 }
@@ -119,6 +170,13 @@ export function ImpactPresentation({
         </>
       )}
 
+      {style === "achievement-seal" && (
+        <>
+          <AchievementSeal glyph={p.glyph} />
+          {p.big && <div className="ovi-name">{p.big}</div>}
+        </>
+      )}
+
       {style === "loot-chest" && (
         <>
           <LootChest glyph={p.glyph} />
@@ -139,6 +197,7 @@ export function ImpactPresentation({
         style !== "level" &&
         style !== "badge" &&
         style !== "medal" &&
+        style !== "achievement-seal" &&
         style !== "loot-chest" &&
         style !== "monster-rip" &&
         p.big && <div className="ovi-big">{p.big}</div>}

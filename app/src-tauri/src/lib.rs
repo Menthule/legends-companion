@@ -390,6 +390,7 @@ pub fn run() {
             datapack::trigger_update_check,
             datapack::trigger_update_install,
             datapack::trigger_version,
+            timer_training::timer_training_candidates,
             timer_training::timer_training_scan,
         ])
         .run(tauri::generate_context!())

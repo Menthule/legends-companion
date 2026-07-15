@@ -74,6 +74,7 @@ import type {
   TriggerTreeEntry,
   TriggerUpdateInfo,
   TimerTrainingReport,
+  TimerTrainingCandidatesReport,
   WatchList,
   QuestKillWatchInput,
   QuestWatchInput,
@@ -413,6 +414,12 @@ export function timerTrainingScan(triggerId: string): Promise<TimerTrainingRepor
         observedCastMinSecs: 0,
         observedCastMaxSecs: 1,
         suggestedCastTimeSecs: 1,
+        configuredDurationSecs: 30,
+        configuredCastTimeSecs: 3,
+        durationDeltaSecs: 18,
+        castTimeDeltaSecs: -2,
+        status: "needs-update",
+        needsUpdate: true,
         confidence: "good",
         reason: "15 consistent natural wear-offs; preview only until Apply.",
         canApply: true,
@@ -421,6 +428,25 @@ export function timerTrainingScan(triggerId: string): Promise<TimerTrainingRepor
     });
   }
   return invoke<TimerTrainingReport>("timer_training_scan", { triggerId });
+}
+
+/** Discover every effective ranked timer observed in the configured log. */
+export function timerTrainingCandidates(): Promise<TimerTrainingCandidatesReport> {
+  if (IS_MOCK) {
+    return timerTrainingScan("debuffs/shaman/cast/odium").then((report) => ({
+      logPath: report.logPath,
+      linesScanned: report.linesScanned,
+      candidates: [{
+        triggerId: report.triggerId,
+        triggerName: report.triggerName,
+        timerName: report.timerName,
+        configuredDurationSecs: report.configuredDurationSecs,
+        configuredCastTimeSecs: report.configuredCastTimeSecs,
+        ranks: report.ranks,
+      }],
+    }));
+  }
+  return invoke<TimerTrainingCandidatesReport>("timer_training_candidates");
 }
 
 /** Set (value true/false) or clear (value null) one enable override. */

@@ -126,7 +126,13 @@ export default function OverlayImpact() {
       { style: "slash", headline: "FINISHING BLOW", big: "1,204", sub: "You → Baron Telyx V`Zher" },
       { style: "big-number", headline: "CRITICAL", big: "947", sub: "Blast of Frost → a Teir`Dal ranger", color: "#ffb454" },
       { style: "level", headline: "LEVEL UP", big: "32", sub: "Ding!" },
-      { style: "badge", headline: "ACHIEVEMENT", big: "Dragon Slayer", sub: "Veeshan's Peak", glyph: "★" },
+      {
+        style: "achievement-seal",
+        headline: "ACHIEVEMENT UNLOCKED",
+        big: "Hide Your Brains!",
+        sub: "Nyasha",
+        glyph: "★",
+      },
       { style: "medal", headline: "AA PROC", big: "Divine Intervention", sub: "saved you from death", glyph: "✦" },
       {
         style: "loot-chest",

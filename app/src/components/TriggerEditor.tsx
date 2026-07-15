@@ -88,6 +88,11 @@ const WATCH_KILL_EVENT_FIELDS: CaptureChip[] = [
   { group: 0, label: "completed", token: "${completed}" },
 ];
 
+const ACHIEVEMENT_EVENT_FIELDS: CaptureChip[] = [
+  { group: 0, label: "achievement", token: "${achievement}" },
+  { group: 0, label: "player", token: "${player}" },
+];
+
 const WATCH_EVENT_PREVIEW: Record<string, string> = {
   item: "Large Sky Sapphire",
   quantity: "1",
@@ -97,6 +102,8 @@ const WATCH_EVENT_PREVIEW: Record<string, string> = {
   quests: "Test of Tone",
   completed: "false",
   mob: "Splitpaw assassin",
+  achievement: "Hide Your Brains!",
+  player: "Nyasha",
 };
 
 function expandWatchEventPreview(template: string): string {
@@ -902,6 +909,9 @@ export default function TriggerEditor({
   const chips: CaptureChip[] = useMemo(() => {
     if (signalEvent === "watched-loot") return WATCH_LOOT_EVENT_FIELDS;
     if (signalEvent === "watched-kill") return WATCH_KILL_EVENT_FIELDS;
+    if (signalEvent === "achievement-self" || signalEvent === "achievement-other") {
+      return ACHIEVEMENT_EVENT_FIELDS;
+    }
     if (template) return template.captures(params, variantIx);
     // Advanced mode: generic labels for however many groups the pattern has.
     const groups = (advPattern.match(/\((?!\?)/g) ?? []).length;
@@ -2140,6 +2150,18 @@ export default function TriggerEditor({
             <div className="hint">
               Available fields: ${"{mob}"}, ${"{remaining}"},
               ${"{quests}"}, and ${"{completed}"}.
+            </div>
+          </div>
+        ) : signalEvent === "achievement-self" || signalEvent === "achievement-other" ? (
+          <div className="ted-event-source">
+            <strong>
+              {signalEvent === "achievement-self"
+                ? "You complete an achievement"
+                : "Another player completes an achievement"}
+            </strong>
+            <span>Fires from the parser&apos;s structured achievement event.</span>
+            <div className="hint">
+              Available fields: ${"{achievement}"} and ${"{player}"}.
             </div>
           </div>
         ) : (

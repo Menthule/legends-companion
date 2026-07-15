@@ -721,7 +721,9 @@ fn observation_quantity(value: Option<&str>) -> Result<u32, String> {
         .parse::<u32>()
         .ok()
         .filter(|quantity| *quantity > 0)
-        .ok_or_else(|| format!("watch observation quantity must be a positive number, got {value:?}"))
+        .ok_or_else(|| {
+            format!("watch observation quantity must be a positive number, got {value:?}")
+        })
 }
 
 /// Apply one trigger-authored raw-line observation and produce the canonical
@@ -738,7 +740,8 @@ fn apply_watch_observation(
     let mut fields = observation.context;
     let event = match observation.kind {
         WatchObservationKind::Loot => {
-            let Some(matched) = store.apply_self_loot(character, &observation.name, quantity)? else {
+            let Some(matched) = store.apply_self_loot(character, &observation.name, quantity)?
+            else {
                 return Ok(None);
             };
             fields.insert("item".into(), matched.item);
@@ -747,10 +750,7 @@ fn apply_watch_observation(
                 "appliedQuantity".into(),
                 matched.applied_quantity.to_string(),
             );
-            fields.insert(
-                "remaining".into(),
-                matched.remaining_quantity.to_string(),
-            );
+            fields.insert("remaining".into(), matched.remaining_quantity.to_string());
             fields.insert("quests".into(), matched.quests.join(", "));
             fields.insert("completed".into(), matched.completed.to_string());
             TriggerEvent::WatchedLoot
@@ -770,10 +770,7 @@ fn apply_watch_observation(
                 "appliedQuantity".into(),
                 matched.applied_quantity.to_string(),
             );
-            fields.insert(
-                "remaining".into(),
-                matched.remaining_quantity.to_string(),
-            );
+            fields.insert("remaining".into(), matched.remaining_quantity.to_string());
             fields.insert("quests".into(), matched.quests.join(", "));
             fields.insert("completed".into(), matched.completed.to_string());
             TriggerEvent::WatchedKill
@@ -989,6 +986,11 @@ fn run_loop(
                         }
                     }
                 }
+                if let Some(signal) =
+                    eqlog_triggers::signal_from_event(&parsed.event, parsed.line.timestamp)
+                {
+                    let _ = engine.process_signal_traced(&signal, &mut sink);
+                }
                 sink.flush();
                 let _ = app.emit(
                     "log-line",
@@ -1153,6 +1155,7 @@ fn run_loop(
 #[cfg(test)]
 mod watch_tests {
     use super::*;
+    use eqlog_core::events::Entity;
     use std::time::{SystemTime, UNIX_EPOCH};
 
     fn watch_store() -> (WatchStore, PathBuf) {
@@ -1178,18 +1181,19 @@ mod watch_tests {
             context: [("source".into(), "alternate-format".into())].into(),
         };
 
-        let (signal, list) = apply_watch_observation(
-            &mut store,
-            &character,
-            100,
-            observation,
-        )
-        .unwrap()
-        .unwrap();
+        let (signal, list) = apply_watch_observation(&mut store, &character, 100, observation)
+            .unwrap()
+            .unwrap();
 
         assert_eq!(signal.event, TriggerEvent::WatchedLoot);
-        assert_eq!(signal.fields.get("item").map(String::as_str), Some("Large Sky Sapphire"));
-        assert_eq!(signal.fields.get("source").map(String::as_str), Some("alternate-format"));
+        assert_eq!(
+            signal.fields.get("item").map(String::as_str),
+            Some("Large Sky Sapphire")
+        );
+        assert_eq!(
+            signal.fields.get("source").map(String::as_str),
+            Some("alternate-format")
+        );
         assert_eq!(list.items[0].goals[0].remaining_quantity, 0);
         let _ = std::fs::remove_dir_all(root);
     }
@@ -1199,5 +1203,34 @@ mod watch_tests {
         assert_eq!(observation_quantity(None).unwrap(), 1);
         assert_eq!(observation_quantity(Some("")).unwrap(), 1);
         assert!(observation_quantity(Some("many")).is_err());
+    }
+
+    #[test]
+    fn achievement_facts_become_self_or_other_trigger_signals() {
+        let own = eqlog_triggers::signal_from_event(
+            &Event::Achievement {
+                who: Entity::You,
+                name: "Hide Your Brains!".into(),
+            },
+            100,
+        )
+        .unwrap();
+        assert_eq!(own.event, TriggerEvent::AchievementSelf);
+        assert_eq!(own.fields.get("player").map(String::as_str), Some("You"));
+        assert_eq!(
+            own.fields.get("achievement").map(String::as_str),
+            Some("Hide Your Brains!")
+        );
+
+        let other = eqlog_triggers::signal_from_event(
+            &Event::Achievement {
+                who: Entity::Named("Daer".into()),
+                name: "Befallen Traveler".into(),
+            },
+            101,
+        )
+        .unwrap();
+        assert_eq!(other.event, TriggerEvent::AchievementOther);
+        assert_eq!(other.fields.get("player").map(String::as_str), Some("Daer"));
     }
 }

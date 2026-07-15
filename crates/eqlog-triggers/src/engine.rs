@@ -191,6 +191,30 @@ impl TriggerSignal {
     }
 }
 
+/// Convert parser-owned facts that map directly to structured trigger events.
+/// This adapter contains no log grammar or presentation policy: the parser
+/// determines the fact and trigger data determines the resulting actions.
+pub fn signal_from_event(event: &Event, timestamp: i64) -> Option<TriggerSignal> {
+    match event {
+        Event::Achievement { who, name } => {
+            let (event, player) = match who {
+                Entity::You => (TriggerEvent::AchievementSelf, "You".to_string()),
+                Entity::Named(player) => (TriggerEvent::AchievementOther, player.clone()),
+            };
+            Some(TriggerSignal::new(
+                event,
+                timestamp,
+                [
+                    ("achievement".to_string(), name.clone()),
+                    ("player".to_string(), player),
+                ]
+                .into(),
+            ))
+        }
+        _ => None,
+    }
+}
+
 struct ActiveTimer {
     name: String,
     icon: Option<String>,
@@ -1992,5 +2016,28 @@ mod tests {
         let fires = engine.due(110);
         assert_eq!(fires.len(), 1);
         assert_eq!(fires[0].kind, TimerFireKind::Expire);
+    }
+
+    #[test]
+    fn parser_achievement_fact_maps_to_structured_signal() {
+        let signal = signal_from_event(
+            &Event::Achievement {
+                who: Entity::Named("Daer".into()),
+                name: "Befallen Traveler".into(),
+            },
+            123,
+        )
+        .unwrap();
+
+        assert_eq!(signal.event, TriggerEvent::AchievementOther);
+        assert_eq!(signal.timestamp, 123);
+        assert_eq!(
+            signal.fields.get("achievement").map(String::as_str),
+            Some("Befallen Traveler")
+        );
+        assert_eq!(
+            signal.fields.get("player").map(String::as_str),
+            Some("Daer")
+        );
     }
 }

@@ -2277,6 +2277,100 @@ button.coach-row.active {
 .timer-training-summary strong {
   color: var(--ink);
 }
+.timer-candidate-toolbar,
+.timer-training-meta,
+.timer-manual-editor,
+.timer-all-ranked {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.timer-candidate-toolbar {
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.timer-candidate-toolbar > input {
+  width: min(420px, 100%);
+}
+.timer-candidate-counts {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.timer-candidate-list {
+  border-top: 1px solid var(--hairline);
+}
+.timer-candidate-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.1fr) 82px 82px minmax(130px, 0.85fr) 104px auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 54px;
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--hairline);
+  border-left: 3px solid transparent;
+}
+.timer-candidate-row.drift {
+  border-left-color: var(--warning);
+  background: color-mix(in srgb, var(--warning) 5%, transparent);
+}
+.timer-candidate-row.inconsistent {
+  border-left-color: color-mix(in srgb, var(--warning) 60%, var(--hairline));
+}
+.timer-candidate-row.verified {
+  border-left-color: color-mix(in srgb, var(--good) 55%, var(--hairline));
+}
+.timer-candidate-row > span,
+.timer-candidate-name {
+  min-width: 0;
+}
+.timer-candidate-row span > strong,
+.timer-candidate-row span > small,
+.timer-candidate-name strong,
+.timer-candidate-name small {
+  display: block;
+}
+.timer-candidate-row small {
+  color: var(--ink-muted);
+  font-size: 10px;
+}
+.timer-candidate-name strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.timer-candidate-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.timer-training-meta {
+  justify-content: flex-end;
+  min-height: 38px;
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.timer-manual-editor {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--hairline));
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.timer-manual-editor > strong {
+  min-width: 170px;
+}
+.timer-manual-editor .field {
+  width: 150px;
+}
+.timer-all-ranked {
+  justify-content: flex-end;
+  margin: 8px 0 12px;
+}
+.timer-all-ranked select {
+  width: min(520px, 100%);
+}
 .timer-training-table {
   border-top: 1px solid var(--hairline);
 }
@@ -2351,7 +2445,10 @@ button.coach-row.active {
   .timer-training-toolbar,
   .timer-training-head,
   .timer-training-head > div,
-  .timer-training-summary {
+  .timer-training-summary,
+  .timer-candidate-toolbar,
+  .timer-manual-editor,
+  .timer-all-ranked {
     align-items: stretch;
     flex-direction: column;
   }
@@ -2359,11 +2456,16 @@ button.coach-row.active {
     white-space: normal;
   }
   .timer-training-row,
-  .timer-training-row.header {
+  .timer-training-row.header,
+  .timer-candidate-row {
     grid-template-columns: 1fr;
   }
   .timer-training-row.header {
     display: none;
+  }
+  .timer-candidate-actions,
+  .timer-candidate-counts {
+    justify-content: flex-start;
   }
   .coach-context-bar,
   .coach-context-picker,
@@ -2794,6 +2896,173 @@ button.coach-row.active {
   line-height: 1;
 }
 
+/* achievement-seal: a dormant relic rises, ignites, and settles into a glow. */
+.ov-impact.impact-achievement-seal {
+  gap: 4px;
+  animation: trophy-pop 0.52s cubic-bezier(0.16, 1.1, 0.3, 1) both;
+}
+.ov-impact.impact-achievement-seal .ovi-name {
+  max-width: 94%;
+  font-size: 23px;
+  color: #fff;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  animation: achievement-name-reveal 0.55s 0.65s ease-out both;
+}
+.ov-achievement-seal {
+  position: relative;
+  width: 150px;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  isolation: isolate;
+  animation: achievement-seal-arrive 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.ov-achievement-image {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.seal-dormant {
+  animation: achievement-dormant 0.72s ease-out both;
+}
+.seal-awakened {
+  opacity: 0;
+  animation:
+    achievement-awaken 0.7s 0.24s cubic-bezier(0.16, 1, 0.3, 1) both,
+    achievement-breathe 1.7s 1.05s ease-in-out infinite alternate;
+}
+.ov-achievement-aura,
+.ov-achievement-flash,
+.ov-achievement-ring,
+.ov-achievement-particles {
+  position: absolute;
+  pointer-events: none;
+}
+.ov-achievement-aura {
+  z-index: 0;
+  inset: 14%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--impact-accent) 68%, white) 0%,
+    color-mix(in srgb, var(--impact-accent) 34%, transparent) 42%,
+    transparent 72%
+  );
+  animation: achievement-aura 1s 0.22s ease-out both;
+}
+.ov-achievement-ring {
+  z-index: 1;
+  inset: 8%;
+  border: 2px solid color-mix(in srgb, var(--impact-accent) 78%, white);
+  border-radius: 50%;
+  opacity: 0;
+  animation: achievement-ring 0.9s 0.35s ease-out both;
+}
+.ov-achievement-ring.ring-two {
+  inset: 0;
+  border-width: 1px;
+  animation-delay: 0.48s;
+}
+.ov-achievement-flash {
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  width: 10%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 44px 20px var(--impact-accent);
+  transform: translate(-50%, -50%);
+  animation: achievement-flash 0.42s 0.3s ease-out both;
+}
+.ov-achievement-particles {
+  z-index: 5;
+  inset: 0;
+}
+.ov-achievement-particles i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--achievement-size);
+  height: var(--achievement-size);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--impact-accent) 62%, white);
+  box-shadow: 0 0 7px 1px var(--impact-accent);
+  opacity: 0;
+  animation: achievement-particle 1.05s calc(0.35s + var(--achievement-delay)) ease-out both;
+}
+.ov-achievement-glyph {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  color: #fff7cf;
+  font-size: 26px;
+  line-height: 1;
+  text-shadow: 0 0 12px var(--impact-accent), 0 2px 4px #000;
+  animation: achievement-glyph 0.56s 0.42s ease-out both;
+}
+@keyframes achievement-seal-arrive {
+  0% { opacity: 0; transform: translateY(18px) scale(0.62); }
+  65% { opacity: 1; transform: translateY(-3px) scale(1.06); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes achievement-dormant {
+  0%, 52% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.03); }
+}
+@keyframes achievement-awaken {
+  0% { opacity: 0; transform: scale(0.94); }
+  62% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes achievement-breathe {
+  from { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--impact-accent) 55%, transparent)); }
+  to { filter: drop-shadow(0 0 14px color-mix(in srgb, var(--impact-accent) 88%, transparent)); }
+}
+@keyframes achievement-aura {
+  0% { opacity: 0; transform: scale(0.25); }
+  55% { opacity: 0.9; transform: scale(1.2); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+@keyframes achievement-ring {
+  0% { opacity: 0; transform: scale(0.4); }
+  35% { opacity: 0.9; }
+  100% { opacity: 0; transform: scale(1.35); }
+}
+@keyframes achievement-flash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  38% { opacity: 0.95; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.4); }
+}
+@keyframes achievement-particle {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--achievement-x)), calc(-50% + var(--achievement-y))) scale(0.1); }
+}
+@keyframes achievement-glyph {
+  0% { opacity: 0; transform: translate(-50%, -48%) scale(0.25) rotate(-18deg); }
+  70% { opacity: 1; transform: translate(-50%, -48%) scale(1.18) rotate(4deg); }
+  100% { opacity: 1; transform: translate(-50%, -48%) scale(1); }
+}
+@keyframes achievement-name-reveal {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: none; }
+}
+.impact-intensity-medium .ov-achievement-particles i:nth-child(even),
+.impact-intensity-low .ov-achievement-particles,
+.impact-intensity-low .ov-achievement-ring.ring-two {
+  display: none;
+}
+.impact-intensity-low .ov-achievement-flash {
+  box-shadow: 0 0 20px 7px var(--impact-accent);
+}
+
 /* loot-chest: the lid lifts, light escapes, then the item settles beneath it. */
 .ov-impact.impact-loot-chest {
   gap: 3px;
@@ -3087,6 +3356,15 @@ button.coach-row.active {
   .ov-loot-chest {
     width: 230px;
   }
+  .ov-achievement-seal {
+    width: 210px;
+  }
+  .ov-achievement-glyph {
+    font-size: 42px;
+  }
+  .ov-impact.impact-achievement-seal .ovi-name {
+    font-size: 38px;
+  }
   .ov-monster-rip {
     width: 220px;
   }
@@ -3130,6 +3408,15 @@ button.coach-row.active {
   }
   .ov-loot-chest {
     width: 290px;
+  }
+  .ov-achievement-seal {
+    width: 270px;
+  }
+  .ov-achievement-glyph {
+    font-size: 56px;
+  }
+  .ov-impact.impact-achievement-seal .ovi-name {
+    font-size: 50px;
   }
   .ov-monster-rip {
     width: 280px;
@@ -3199,6 +3486,14 @@ button.coach-row.active {
   .ov-chest-flash,
   .ov-chest-particles i,
   .ov-chest-glyph,
+  .ov-achievement-seal,
+  .ov-achievement-image,
+  .ov-achievement-aura,
+  .ov-achievement-ring,
+  .ov-achievement-flash,
+  .ov-achievement-particles i,
+  .ov-achievement-glyph,
+  .ov-impact.impact-achievement-seal .ovi-name,
   .ov-impact.impact-loot-chest .ovi-name,
   .ov-monster-rip,
   .ov-impact.impact-monster-rip .ovi-name {
@@ -3212,6 +3507,15 @@ button.coach-row.active {
     display: none;
   }
   .ov-chest-open {
+    opacity: 1;
+  }
+  .seal-dormant,
+  .ov-achievement-flash,
+  .ov-achievement-ring,
+  .ov-achievement-particles {
+    display: none;
+  }
+  .seal-awakened {
     opacity: 1;
   }
   .ov-chest-aura {

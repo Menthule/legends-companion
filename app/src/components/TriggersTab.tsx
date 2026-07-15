@@ -1319,6 +1319,10 @@ export default function TriggersTab({
             ? "Watched item looted"
             : e.event === "watched-kill"
               ? "Watched mob killed"
+              : e.event === "achievement-self"
+                ? "You complete an achievement"
+                : e.event === "achievement-other"
+                  ? "Another player completes an achievement"
               : e.pattern}
         </span>
         <span className="tt-chan">

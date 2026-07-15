@@ -14,8 +14,8 @@ pub mod storage;
 
 pub use classdetect::{detect_classes, ClassDetection};
 pub use engine::{
-    apply_channel_override, ActionSink, OverlayFire, TimerFire, TimerFireKind, TriggerEngine,
-    TriggerFireInfo, TriggerSignal, WatchObservation,
+    apply_channel_override, signal_from_event, ActionSink, OverlayFire, TimerFire, TimerFireKind,
+    TriggerEngine, TriggerFireInfo, TriggerSignal, WatchObservation,
 };
 pub use gina::{import_gtp, GinaImport, GinaImportError};
 pub use model::{
