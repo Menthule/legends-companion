@@ -1,5 +1,31 @@
 # Patch Notes
 
+## 3.0.2 - Inventory, Ranked Timers & Achievement Moments
+
+### Inventory Workspace
+- Inventory is now a permanent character-and-server database built from `/output inventory`, covering carried items, equipment, bank, shared bank, key rings, hoard, and personal depot when those windows are included in the export.
+- Search, sort, and filter by storage area or evidence-based status, including Needed, Possible quest use, Watched, Recipe component, Extra quantity, and No known use.
+- Compare exports to see added, removed, moved, and quantity-changed items, with exported free-slot capacity for each observed storage area.
+- Add or remove item watches directly, mark items to Keep, Move, Sell, Trade, or Review, attach cleanup notes, and work through a persistent cleanup queue.
+- Expanded inventory rows now show locations, quest evidence, planned or in-progress quest status, item stats, drop sources, vendors, and recipe links without leaving Inventory.
+- Currency balances retain measurement history and estimate gains per hour after two samples.
+
+### Quests & Item Evidence
+- `Hide owned rewards` now checks the final rewarded item, including ranked and Exaltation name variants, even when the quest was opened directly from Global Search.
+- Only quests marked Planned or In progress reserve required materials; unclassified quest links remain visible as Possible quest use instead of incorrectly marking every related item Needed.
+- Quest-item source claims now distinguish corroborated data, documented Legends sources, classic-only references, ruleset differences, conflicts, and unresolved items.
+- Expanded source coverage and corrected links make more required items traceable from Quests into Drops and their detailed reference records.
+
+### Ranked Timers & Spell Icons
+- Diagnostics can scan the active log for ranked spells you actually cast, surface timers whose observed duration differs, and apply a clean observed value or a manual duration/cast-time override.
+- Ranked timer actions remain visible while reviewing evidence, with clear states for needs update, collecting, inconsistent, and current.
+- Spell-gem extraction and mapping now align with the Legends client; icons persist through trigger refreshes and update on active timer bars.
+- Buff, debuff, target, cast, skill-damage, resist, and failure alerts use clearer icon-backed presentation, and resisted spells are removed from the target timer lane.
+
+### Achievement Moments & Responsiveness
+- Achievement log events now flow through a typed, configurable trigger into Impact with an animated achievement seal; overlay, sound, text, color, duration, and speech remain trigger actions rather than hardcoded presentation.
+- Expensive search bars now debounce their filtering and database requests while keeping typed text immediate, reducing input lag across Triggers, Quests, Inventory, Macros, Live, Session, Diagnostics, database views, and autocomplete controls.
+
 ## 3.0.1 - Watched Kills
 
 ### Watch Goals
