@@ -8517,7 +8517,7 @@ button.drops-item.active {
 }
 .inventory-search-row {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) 150px 140px auto auto;
+  grid-template-columns: minmax(220px, 1fr) 140px 160px 130px auto auto;
   gap: 8px;
   align-items: center;
 }
@@ -8675,7 +8675,7 @@ button.drops-item.active {
 .inventory-currency-list > div > span { color: var(--ink); font-size: 16px; font-variant-numeric: tabular-nums; text-align: right; }
 .inventory-currency-list small { color: var(--ink-muted); }
 
-@media (max-width: 980px) {
+@media (max-width: 1200px) {
   .inventory-search-row { grid-template-columns: minmax(220px, 1fr) 140px 130px; }
   .inventory-search-row button { width: 100%; }
   .inventory-summary { grid-template-columns: repeat(3, 1fr); }

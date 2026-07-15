@@ -36,6 +36,17 @@ const CURRENCY_SUGGESTIONS = [
   "Motes of Minor Potential", "Motes of Potential",
 ];
 
+const INVENTORY_STATUSES: InventoryEvidence[] = [
+  "Needed",
+  "Extra quantity",
+  "Keep",
+  "Equipped",
+  "Watched",
+  "Recipe component",
+  "Completed quests only",
+  "No known use",
+];
+
 function serverFromLogPath(path: string): string {
   const filename = path.split(/[\\/]/).pop() ?? "";
   return /^eqlog_[^_]+_(.+)\.txt$/i.exec(filename)?.[1] ?? "";
@@ -62,6 +73,7 @@ export default function InventoryTab({ character }: { character: string }) {
   const [recipes, setRecipes] = useState<Map<number, number>>(new Map());
   const [query, setQuery] = useState("");
   const [storage, setStorage] = useState("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | InventoryEvidence>("all");
   const [view, setView] = useState<View>("all");
   const [sort, setSort] = useState<Sort>("name");
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -143,6 +155,7 @@ export default function InventoryTab({ character }: { character: string }) {
     const wanted = query.trim().toLowerCase();
     const filtered = analyzed
       .filter(({ row }) => storage === "all" || row.storages.includes(storage))
+      .filter(({ status }) => statusFilter === "all" || status === statusFilter)
       .filter(({ row, questUses }) => !wanted || [
         row.name, ...row.locations, ...questUses.map((use) => use.quest.name),
       ].some((value) => value.toLowerCase().includes(wanted)))
@@ -158,7 +171,7 @@ export default function InventoryTab({ character }: { character: string }) {
       if (sort === "status") return left.status.localeCompare(right.status) || left.row.name.localeCompare(right.row.name);
       return left.row.name.localeCompare(right.row.name);
     });
-  }, [analyzed, query, sort, storage, view]);
+  }, [analyzed, query, sort, statusFilter, storage, view]);
   const delta = inventoryDelta(database?.entries ?? [], database?.previousEntries ?? []);
   const totalQuantity = rows.reduce((sum, row) => sum + row.quantity, 0);
   const stale = database?.current != null && Date.now() - database.current.sourceModifiedMs > 24 * 60 * 60 * 1000;
@@ -193,6 +206,10 @@ export default function InventoryTab({ character }: { character: string }) {
           <select value={storage} onChange={(event) => setStorage(event.target.value)} aria-label="Storage area">
             <option value="all">All storage</option>
             {storages.map((value) => <option key={value} value={value}>{value.replaceAll("-", " ")}</option>)}
+          </select>
+          <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as "all" | InventoryEvidence)} aria-label="Inventory status">
+            <option value="all">All statuses</option>
+            {INVENTORY_STATUSES.map((value) => <option key={value} value={value}>{value}</option>)}
           </select>
           <select value={sort} onChange={(event) => setSort(event.target.value as Sort)} aria-label="Sort inventory">
             <option value="name">Sort: item</option><option value="quantity">Sort: quantity</option>
