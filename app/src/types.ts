@@ -34,6 +34,46 @@ export interface TimerTiming {
   cast_time_secs?: number | null;
 }
 
+export interface TimerTrainingSample {
+  castAt: number;
+  landedAt: number;
+  wornOffAt: number;
+  target: string;
+  durationSecs: number;
+  castTimeSecs: number;
+}
+
+export interface RankTrainingResult {
+  rank: string;
+  castsSeen: number;
+  cleanSamples: number;
+  rejectedSamples: number;
+  observedMinSecs: number | null;
+  observedMaxSecs: number | null;
+  suggestedDurationSecs: number | null;
+  castSamples: number;
+  observedCastMinSecs: number | null;
+  observedCastMaxSecs: number | null;
+  suggestedCastTimeSecs: number | null;
+  confidence: "high" | "good" | "insufficient" | "inconsistent";
+  reason: string;
+  canApply: boolean;
+  samples: TimerTrainingSample[];
+}
+
+export interface TimerTrainingReport {
+  triggerId: string;
+  triggerName: string;
+  timerName: string;
+  logPath: string;
+  linesScanned: number;
+  rankedCasts: number;
+  rejectedSamples: number;
+  configuredDurationSecs: number;
+  configuredCastTimeSecs: number;
+  ranks: RankTrainingResult[];
+}
+
 /** Extensible trigger overlay identifier. Known overlays get autocomplete,
  * while plugins/future builds can introduce another string id. */
 export type OverlayId = "alerts" | "impact" | (string & {});

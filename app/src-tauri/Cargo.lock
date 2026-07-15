@@ -1230,6 +1230,7 @@ dependencies = [
  "eqlog-store",
  "eqlog-triggers",
  "png 0.17.16",
+ "regex",
  "rodio",
  "rusqlite",
  "serde",

@@ -2250,6 +2250,81 @@ button.coach-row.active {
   justify-content: flex-end;
   gap: 6px;
 }
+.timer-training-head > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.timer-training-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.timer-training-toolbar .field {
+  width: min(520px, 100%);
+}
+.timer-training-summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.timer-training-summary strong {
+  color: var(--ink);
+}
+.timer-training-table {
+  border-top: 1px solid var(--hairline);
+}
+.timer-training-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1.2fr) minmax(120px, 0.9fr) minmax(100px, 0.75fr) minmax(90px, 0.65fr) 92px 72px;
+  gap: 12px;
+  align-items: center;
+  min-height: 42px;
+  border-bottom: 1px solid var(--hairline);
+  padding: 6px 0;
+}
+.timer-training-row.header {
+  min-height: 30px;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.timer-training-row > span {
+  min-width: 0;
+}
+.timer-training-row span > strong,
+.timer-training-row span > small {
+  display: block;
+}
+.timer-training-row small {
+  margin-top: 2px;
+  color: var(--ink-muted);
+  font-size: 10px;
+}
+.training-confidence {
+  width: fit-content;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.training-confidence.high,
+.training-confidence.good {
+  border-color: color-mix(in srgb, var(--good) 55%, var(--hairline));
+  color: var(--good);
+}
+.training-confidence.inconsistent {
+  border-color: color-mix(in srgb, var(--warning) 55%, var(--hairline));
+  color: var(--warning);
+}
 .coach-row > * {
   min-width: 0;
   overflow: hidden;
@@ -2272,6 +2347,23 @@ button.coach-row.active {
   .coach-row.compact,
   .coach-row.diag-line {
     grid-template-columns: 1fr;
+  }
+  .timer-training-toolbar,
+  .timer-training-head,
+  .timer-training-head > div,
+  .timer-training-summary {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .timer-training-summary {
+    white-space: normal;
+  }
+  .timer-training-row,
+  .timer-training-row.header {
+    grid-template-columns: 1fr;
+  }
+  .timer-training-row.header {
+    display: none;
   }
   .coach-context-bar,
   .coach-context-picker,

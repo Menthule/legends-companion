@@ -20,6 +20,7 @@ mod spell_icons;
 mod spelldb;
 mod store;
 mod tailing;
+mod timer_training;
 mod update;
 mod watches;
 
@@ -389,6 +390,7 @@ pub fn run() {
             datapack::trigger_update_check,
             datapack::trigger_update_install,
             datapack::trigger_version,
+            timer_training::timer_training_scan,
         ])
         .run(tauri::generate_context!())
         .expect("error while running Legends Companion");

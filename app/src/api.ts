@@ -73,6 +73,7 @@ import type {
   Trigger,
   TriggerTreeEntry,
   TriggerUpdateInfo,
+  TimerTrainingReport,
   WatchList,
   QuestKillWatchInput,
   QuestWatchInput,
@@ -385,6 +386,41 @@ export async function setActiveCharacter(server: string, character: string): Pro
 export function getTriggerTree(): Promise<TriggerTreeEntry[]> {
   if (IS_MOCK) return Promise.resolve(mockGetTriggerTree());
   return invoke<TriggerTreeEntry[]>("get_trigger_tree");
+}
+
+/** Read-only historical analysis for one exact rank-aware timer trigger. */
+export function timerTrainingScan(triggerId: string): Promise<TimerTrainingReport> {
+  if (IS_MOCK) {
+    return Promise.resolve({
+      triggerId,
+      triggerName: "Enemy timer: Odium",
+      timerName: "Odium",
+      logPath: "mock/eqlog_Nyasha_oggok.txt",
+      linesScanned: 184_220,
+      rankedCasts: 18,
+      rejectedSamples: 3,
+      configuredDurationSecs: 30,
+      configuredCastTimeSecs: 3,
+      ranks: [{
+        rank: "VI",
+        castsSeen: 18,
+        cleanSamples: 15,
+        rejectedSamples: 3,
+        observedMinSecs: 42,
+        observedMaxSecs: 48,
+        suggestedDurationSecs: 48,
+        castSamples: 15,
+        observedCastMinSecs: 0,
+        observedCastMaxSecs: 1,
+        suggestedCastTimeSecs: 1,
+        confidence: "good",
+        reason: "15 consistent natural wear-offs; preview only until Apply.",
+        canApply: true,
+        samples: [],
+      }],
+    });
+  }
+  return invoke<TimerTrainingReport>("timer_training_scan", { triggerId });
 }
 
 /** Set (value true/false) or clear (value null) one enable override. */

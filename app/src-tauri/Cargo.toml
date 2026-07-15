@@ -42,6 +42,7 @@ sha2 = "0.10"
 zip = "2"
 base64 = "0.22"
 png = "0.17"
+regex = "1"
 
 [target.'cfg(windows)'.dependencies]
 tts = "0.26"

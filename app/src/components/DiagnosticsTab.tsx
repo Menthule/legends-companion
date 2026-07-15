@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { discoverLogs, getConfig } from "../api";
+import {
+  discoverLogs,
+  getConfig,
+  getProfile,
+  getTriggerTree,
+  setProfile,
+  timerTrainingScan,
+} from "../api";
 import { fmtClock, useTauriEvent } from "../hooks";
+import { activeLoadout, withTimingOverride } from "../resolution";
 import {
   eventKind,
   type AppConfig,
@@ -8,6 +16,9 @@ import {
   type LogLinePayload,
   type EffectObservedPayload,
   type TailStatsPayload,
+  type RankTrainingResult,
+  type TimerTrainingReport,
+  type TriggerTreeEntry,
 } from "../types";
 import Empty from "./Empty";
 import QuickTriggerModal from "./QuickTriggerModal";
@@ -37,11 +48,26 @@ export default function DiagnosticsTab() {
   const [lines, setLines] = useState<DebugLine[]>([]);
   const [effects, setEffects] = useState<EffectDebug[]>([]);
   const [quickLine, setQuickLine] = useState<string | null>(null);
+  const [rankedTimers, setRankedTimers] = useState<TriggerTreeEntry[]>([]);
+  const [trainingTriggerId, setTrainingTriggerId] = useState("");
+  const [trainingReport, setTrainingReport] = useState<TimerTrainingReport | null>(null);
+  const [trainingBusy, setTrainingBusy] = useState(false);
+  const [trainingError, setTrainingError] = useState<string | null>(null);
+  const [appliedRanks, setAppliedRanks] = useState<Set<string>>(new Set());
   const [toastNode, showToast] = useToast();
 
   useEffect(() => {
     getConfig().then(setConfig).catch(() => setConfig(null));
     discoverLogs().then(setLogs).catch(() => setLogs([]));
+    getTriggerTree()
+      .then((tree) => {
+        const timers = tree
+          .filter((entry) => entry.timer && entry.pattern.includes("rank"))
+          .sort((a, b) => a.name.localeCompare(b.name));
+        setRankedTimers(timers);
+        setTrainingTriggerId((current) => current || timers[0]?.id || "");
+      })
+      .catch(() => setRankedTimers([]));
   }, []);
 
   useTauriEvent<TailStatsPayload>("tail-stats", setStats);
@@ -99,6 +125,58 @@ export default function DiagnosticsTab() {
     ].join("\n");
   }
 
+  async function runTimerTraining() {
+    if (!trainingTriggerId) return;
+    setTrainingBusy(true);
+    setTrainingError(null);
+    setTrainingReport(null);
+    setAppliedRanks(new Set());
+    try {
+      setTrainingReport(await timerTrainingScan(trainingTriggerId));
+    } catch (error) {
+      setTrainingError(String(error));
+    } finally {
+      setTrainingBusy(false);
+    }
+  }
+
+  async function applyTimerTraining(result: RankTrainingResult) {
+    if (!trainingReport || !result.canApply) return;
+    try {
+      const profile = await getProfile();
+      const loadout = activeLoadout(profile);
+      const rank = result.rank.trim().toUpperCase();
+      const existing = loadout.timing_overrides?.[trainingReport.triggerId]?.[rank] ?? {};
+      const timing = {
+        ...existing,
+        ...(result.suggestedDurationSecs != null
+          ? { duration_secs: result.suggestedDurationSecs }
+          : {}),
+        ...(result.suggestedCastTimeSecs != null
+          ? { cast_time_secs: result.suggestedCastTimeSecs }
+          : {}),
+      };
+      await setProfile(
+        withTimingOverride(profile, trainingReport.triggerId, rank, timing),
+      );
+      setAppliedRanks((current) => new Set(current).add(rank));
+      showToast(`Applied ${trainingReport.timerName} ${rank} timing to ${loadout.name}.`);
+    } catch (error) {
+      setTrainingError(`Could not apply timing: ${String(error)}`);
+    }
+  }
+
+  function formatDuration(seconds: number | null): string {
+    if (seconds == null) return "—";
+    if (seconds < 60) return `${seconds}s`;
+    return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+  }
+
+  function formatRange(min: number | null, max: number | null): string {
+    if (min == null || max == null) return "—";
+    return min === max ? formatDuration(min) : `${formatDuration(min)}–${formatDuration(max)}`;
+  }
+
   return (
     <div className="diag-grid">
       <section className="card">
@@ -141,6 +219,100 @@ export default function DiagnosticsTab() {
           <span>Confidence</span>
           <strong>{newest && active && newest.path !== active.path ? "Mismatch possible" : "Aligned"}</strong>
         </div>
+      </section>
+
+      <section className="card diag-span">
+        <div className="card-head timer-training-head">
+          <div>
+            <span className="section-title">Ranked timer training</span>
+            <span className="tmr-badge timing">Read-only test run</span>
+          </div>
+          <button
+            className="primary small"
+            disabled={!trainingTriggerId || trainingBusy}
+            onClick={() => void runTimerTraining()}
+          >
+            {trainingBusy ? "Scanning history…" : "Test run"}
+          </button>
+        </div>
+        <div className="timer-training-toolbar">
+          <label className="field">
+            <span>Ranked ability</span>
+            <select
+              value={trainingTriggerId}
+              disabled={trainingBusy || rankedTimers.length === 0}
+              onChange={(event) => {
+                setTrainingTriggerId(event.target.value);
+                setTrainingReport(null);
+                setTrainingError(null);
+                setAppliedRanks(new Set());
+              }}
+            >
+              {rankedTimers.length === 0 && <option value="">No rank-aware timers found</option>}
+              {rankedTimers.map((timer) => (
+                <option value={timer.id} key={timer.id}>{timer.name}</option>
+              ))}
+            </select>
+          </label>
+          {trainingReport && (
+            <div className="timer-training-summary">
+              <strong>{trainingReport.rankedCasts.toLocaleString()}</strong> ranked casts
+              <span>·</span>
+              <strong>{trainingReport.linesScanned.toLocaleString()}</strong> lines scanned
+              <span>·</span>
+              <strong>{trainingReport.rejectedSamples.toLocaleString()}</strong> rejected
+            </div>
+          )}
+        </div>
+        {trainingError && <div className="error-banner">{trainingError}</div>}
+        {trainingReport && (
+          <div className="timer-training-table">
+            <div className="timer-training-row header" aria-hidden="true">
+              <span>Rank</span>
+              <span>Evidence</span>
+              <span>Duration</span>
+              <span>Cast</span>
+              <span>Confidence</span>
+              <span />
+            </div>
+            {trainingReport.ranks.length === 0 ? (
+              <Empty
+                title="No ranked history found"
+                body={`No ${trainingReport.timerName} rank casts could be trained from this log.`}
+              />
+            ) : (
+              trainingReport.ranks.map((result) => {
+                const applied = appliedRanks.has(result.rank);
+                return (
+                  <div className="timer-training-row" key={result.rank}>
+                    <strong>{trainingReport.timerName} {result.rank}</strong>
+                    <span title={`${result.castsSeen} casts seen; ${result.rejectedSamples} rejected`}>
+                      {result.cleanSamples} clean / {result.castsSeen} casts
+                    </span>
+                    <span>
+                      <strong>{formatDuration(result.suggestedDurationSecs)}</strong>
+                      <small>{formatRange(result.observedMinSecs, result.observedMaxSecs)}</small>
+                    </span>
+                    <span>
+                      <strong>{formatDuration(result.suggestedCastTimeSecs)}</strong>
+                      <small>{formatRange(result.observedCastMinSecs, result.observedCastMaxSecs)}</small>
+                    </span>
+                    <span className={`training-confidence ${result.confidence}`} title={result.reason}>
+                      {result.confidence}
+                    </span>
+                    <button
+                      className={applied ? "ghost small" : "primary small"}
+                      disabled={!result.canApply || applied}
+                      onClick={() => void applyTimerTraining(result)}
+                    >
+                      {applied ? "Applied" : "Apply"}
+                    </button>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
       </section>
 
       <section className="card diag-span">
