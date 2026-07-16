@@ -26,7 +26,7 @@ PEAK_DBFS = -3.0                      # default normalization target
 PEAK_OVERRIDES_DBFS = {
     # Slay Undead can fire repeatedly in combat. Keep its sustained harmonic
     # cue comfortably below short UI transients so it feels expansive, not loud.
-    "holy-strike.wav": -7.0,
+    "holy-strike.wav": -16.0,
 }
 ATTACK_S = 0.005                      # 5 ms fade-in on every event (anti-click)
 TAIL_FADE_S = 0.010                   # 10 ms fade-out at end of file (anti-click)
@@ -102,12 +102,12 @@ def add_sweep(buf, start_s, hi_freq, lo_freq, dur_s, decay_s, gain=1.0):
         shimmer = math.sin(phase) + 0.28 * math.sin(phase * 2.01)
         buf[start + i] += gain * env * shimmer
 
-def add_choir_voice(buf, start_s, freq, dur_s, gain=1.0, phase_offset=0.0):
-    """Mix a soft synthetic "ah" voice using a harmonic source and formants.
+def add_angelic_voice(buf, start_s, freq, dur_s, gain=1.0, phase_offset=0.0):
+    """Mix one sparse, slowly swelling voice for the Slay Undead halo.
 
-    The open vowel bands are deliberately broad and the upper singing-formant
-    region is restrained. A tiny, slow vibrato prevents an organ-like static
-    tone without introducing the fast beating perceived as roughness.
+    Dense formant partials made the first choir attempt read as a horn. This
+    voice is intentionally close to a sine wave: a soft fundamental, a trace
+    of octave air, and independent low-rate movement.
     """
     start = int(start_s * SAMPLE_RATE)
     n = int(dur_s * SAMPLE_RATE)
@@ -115,25 +115,9 @@ def add_choir_voice(buf, start_s, freq, dur_s, gain=1.0, phase_offset=0.0):
     if need > len(buf):
         buf.extend([0.0] * (need - len(buf)))
 
-    # Approximate /ah/ resonances. The third band provides air while staying
-    # quiet enough that the cue does not become piercing over game audio.
-    formants = ((800.0, 150.0, 1.00),
-                (1150.0, 190.0, 0.70),
-                (2850.0, 380.0, 0.08))
-    partials = []
-    for harmonic in range(1, 15):
-        partial_freq = freq * harmonic
-        if partial_freq >= SAMPLE_RATE / 2.0:
-            break
-        resonance = 0.12
-        for center, width, amount in formants:
-            distance = (partial_freq - center) / width
-            resonance += amount * math.exp(-0.5 * distance * distance)
-        partials.append((harmonic, resonance / (harmonic ** 1.22)))
-
-    phases = [phase_offset * harmonic for harmonic, _ in partials]
-    attack_s = 0.160
-    release_s = 0.620
+    phases = [phase_offset, phase_offset * 1.71]
+    attack_s = 0.280
+    release_s = 0.840
     release_start = max(attack_s, dur_s - release_s)
     two_pi = 2.0 * math.pi
     for i in range(n):
@@ -145,18 +129,37 @@ def add_choir_voice(buf, start_s, freq, dur_s, gain=1.0, phase_offset=0.0):
         else:
             progress = (t - release_start) / max(0.001, release_s)
             env = 0.5 + 0.5 * math.cos(math.pi * min(1.0, progress))
-        env *= 0.97 + 0.03 * math.sin(two_pi * 0.72 * t + phase_offset)
+        env *= 0.975 + 0.025 * math.sin(two_pi * 0.57 * t + phase_offset)
 
-        # 0.11% at 4.6 Hz is enough motion to read as a living voice while
-        # remaining far below an operatic or synthetic-siren vibrato.
-        vibrato = 1.0 + 0.0011 * math.sin(two_pi * 4.6 * t + phase_offset)
-        sample = 0.0
-        for p, (harmonic, partial_gain) in enumerate(partials):
-            phases[p] += two_pi * freq * harmonic * vibrato / SAMPLE_RATE
-            sample += partial_gain * math.sin(phases[p])
+        vibrato = 1.0 + 0.00065 * math.sin(two_pi * 4.15 * t + phase_offset)
+        phases[0] += two_pi * freq * vibrato / SAMPLE_RATE
+        phases[1] += two_pi * freq * 2.0 * vibrato / SAMPLE_RATE
+        sample = math.sin(phases[0]) + 0.035 * math.sin(phases[1])
         buf[start + i] += gain * env * sample
 
-def add_halo(buf, delays=((0.083, 0.17), (0.149, 0.11), (0.257, 0.065))):
+def add_breath(buf, start_s, dur_s, gain=0.012):
+    """Add a deterministic, softly band-limited breath beneath the voices."""
+    start = int(start_s * SAMPLE_RATE)
+    n = int(dur_s * SAMPLE_RATE)
+    need = start + n
+    if need > len(buf):
+        buf.extend([0.0] * (need - len(buf)))
+    state = 0x51A7
+    slow = 0.0
+    fast = 0.0
+    for i in range(n):
+        state = (1664525 * state + 1013904223) & 0xFFFFFFFF
+        white = ((state / 0xFFFFFFFF) * 2.0) - 1.0
+        slow += 0.025 * (white - slow)
+        fast += 0.110 * (white - fast)
+        breath = fast - slow
+        t = i / SAMPLE_RATE
+        attack = min(1.0, t / 0.36)
+        release = min(1.0, max(0.0, (dur_s - t) / 0.72))
+        env = math.sin(math.pi * 0.5 * attack) * math.sin(math.pi * 0.5 * release)
+        buf[start + i] += gain * env * breath
+
+def add_halo(buf, delays=((0.117, 0.12), (0.231, 0.075), (0.373, 0.04))):
     """Add quiet, irregular reflections for a diffuse chapel-like tail."""
     dry = list(buf)
     for delay_s, gain in delays:
@@ -273,17 +276,19 @@ def s_gong():
     return buf
 
 def s_holy_strike():
-    """Angelic D-major choir bloom with no percussive strike."""
+    """Very soft upper-register vocal halo with no percussive strike."""
     buf = []
-    root = note("D4")
-    # Pure ratios share partials more cleanly than independently tempered
-    # pitches: root, major third, perfect fifth, and octave (4:5:6:8).
-    chord = ((1.00, 0.00, 0.54, 0.1),
-             (1.25, 0.06, 0.25, 1.7),
-             (1.50, 0.025, 0.40, 3.0),
-             (2.00, 0.09, 0.24, 4.4))
+    root = note("D5")
+    # Open D6/9 voicing (D-A-B-E) avoids the declarative major third that made
+    # the previous version sound brassy. The fifth carries the cue, while the
+    # root remains deliberately understated.
+    chord = ((1.00, 0.00, 0.20, 0.1),
+             (1.50, 0.05, 0.34, 1.7),
+             (5.0 / 3.0, 0.12, 0.27, 3.0),
+             (2.25, 0.19, 0.12, 4.4))
     for ratio, start, gain, phase in chord:
-        add_choir_voice(buf, start, root * ratio, 1.12, gain, phase)
+        add_angelic_voice(buf, start, root * ratio, 1.46, gain, phase)
+    add_breath(buf, 0.03, 1.52)
     add_halo(buf)
     return buf
 
@@ -317,7 +322,7 @@ SOUNDS = [
      "Deep struck gong on A2 with inharmonic partials and a long decay.",
      "Raid-scale events: enrage, boss spawn, raid-wide calls."),
     ("holy-strike.wav", s_holy_strike, "Holy strike",
-     "Soft D-major ah-choir bloom with pure-ratio harmony and a diffuse halo.",
+     "Very quiet upper-register D6/9 vocal halo with a breathy, diffuse tail.",
      "Divine damage moments such as Slay Undead."),
     ("chime2.wav", s_chime2, "Chime 2",
      "Alternate ascending chime, higher pitch (G5 to C6).",

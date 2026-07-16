@@ -65,8 +65,8 @@
   {
     "file": "holy-strike.wav",
     "label": "Holy strike",
-    "description": "Soft D-major ah-choir bloom with pure-ratio harmony and a diffuse halo.",
-    "duration_ms": 1467,
+    "description": "Very quiet upper-register D6/9 vocal halo with a breathy, diffuse tail.",
+    "duration_ms": 2023,
     "intended_use": "Divine damage moments such as Slay Undead."
   },
   {
