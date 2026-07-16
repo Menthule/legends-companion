@@ -22,8 +22,12 @@ import sys
 import wave
 
 SAMPLE_RATE = 44100
-PEAK_DBFS = -3.0                      # normalization target
-PEAK = 10.0 ** (PEAK_DBFS / 20.0)     # ~0.7079 of full scale
+PEAK_DBFS = -3.0                      # default normalization target
+PEAK_OVERRIDES_DBFS = {
+    # Slay Undead can fire repeatedly in combat. Keep its sustained harmonic
+    # cue comfortably below short UI transients so it feels expansive, not loud.
+    "holy-strike.wav": -7.0,
+}
 ATTACK_S = 0.005                      # 5 ms fade-in on every event (anti-click)
 TAIL_FADE_S = 0.010                   # 10 ms fade-out at end of file (anti-click)
 
@@ -98,14 +102,77 @@ def add_sweep(buf, start_s, hi_freq, lo_freq, dur_s, decay_s, gain=1.0):
         shimmer = math.sin(phase) + 0.28 * math.sin(phase * 2.01)
         buf[start + i] += gain * env * shimmer
 
-def finalize(buf):
-    """Tail fade-out, then normalize to PEAK (-3 dBFS)."""
+def add_choir_voice(buf, start_s, freq, dur_s, gain=1.0, phase_offset=0.0):
+    """Mix a soft synthetic "ah" voice using a harmonic source and formants.
+
+    The open vowel bands are deliberately broad and the upper singing-formant
+    region is restrained. A tiny, slow vibrato prevents an organ-like static
+    tone without introducing the fast beating perceived as roughness.
+    """
+    start = int(start_s * SAMPLE_RATE)
+    n = int(dur_s * SAMPLE_RATE)
+    need = start + n
+    if need > len(buf):
+        buf.extend([0.0] * (need - len(buf)))
+
+    # Approximate /ah/ resonances. The third band provides air while staying
+    # quiet enough that the cue does not become piercing over game audio.
+    formants = ((800.0, 150.0, 1.00),
+                (1150.0, 190.0, 0.70),
+                (2850.0, 380.0, 0.08))
+    partials = []
+    for harmonic in range(1, 15):
+        partial_freq = freq * harmonic
+        if partial_freq >= SAMPLE_RATE / 2.0:
+            break
+        resonance = 0.12
+        for center, width, amount in formants:
+            distance = (partial_freq - center) / width
+            resonance += amount * math.exp(-0.5 * distance * distance)
+        partials.append((harmonic, resonance / (harmonic ** 1.22)))
+
+    phases = [phase_offset * harmonic for harmonic, _ in partials]
+    attack_s = 0.160
+    release_s = 0.620
+    release_start = max(attack_s, dur_s - release_s)
+    two_pi = 2.0 * math.pi
+    for i in range(n):
+        t = i / SAMPLE_RATE
+        if t < attack_s:
+            env = 0.5 - 0.5 * math.cos(math.pi * t / attack_s)
+        elif t < release_start:
+            env = 1.0
+        else:
+            progress = (t - release_start) / max(0.001, release_s)
+            env = 0.5 + 0.5 * math.cos(math.pi * min(1.0, progress))
+        env *= 0.97 + 0.03 * math.sin(two_pi * 0.72 * t + phase_offset)
+
+        # 0.11% at 4.6 Hz is enough motion to read as a living voice while
+        # remaining far below an operatic or synthetic-siren vibrato.
+        vibrato = 1.0 + 0.0011 * math.sin(two_pi * 4.6 * t + phase_offset)
+        sample = 0.0
+        for p, (harmonic, partial_gain) in enumerate(partials):
+            phases[p] += two_pi * freq * harmonic * vibrato / SAMPLE_RATE
+            sample += partial_gain * math.sin(phases[p])
+        buf[start + i] += gain * env * sample
+
+def add_halo(buf, delays=((0.083, 0.17), (0.149, 0.11), (0.257, 0.065))):
+    """Add quiet, irregular reflections for a diffuse chapel-like tail."""
+    dry = list(buf)
+    for delay_s, gain in delays:
+        delay = int(delay_s * SAMPLE_RATE)
+        buf.extend([0.0] * max(0, len(dry) + delay - len(buf)))
+        for i, sample in enumerate(dry):
+            buf[i + delay] += sample * gain
+
+def finalize(buf, peak_dbfs=PEAK_DBFS):
+    """Tail fade-out, then normalize to the requested peak level."""
     nfade = int(TAIL_FADE_S * SAMPLE_RATE)
     total = len(buf)
     for i in range(max(0, total - nfade), total):
         buf[i] *= (total - 1 - i) / max(1, nfade - 1)
     peak = max(abs(s) for s in buf) or 1.0
-    scale = PEAK / peak
+    scale = (10.0 ** (peak_dbfs / 20.0)) / peak
     return [s * scale for s in buf]
 
 def write_wav(path, samples):
@@ -206,22 +273,18 @@ def s_gong():
     return buf
 
 def s_holy_strike():
-    """Restrained low temple impact resolving into a warm D-major chord."""
+    """Angelic D-major choir bloom with no percussive strike."""
     buf = []
-    # A short downward arrival gives the beam motion without the piercing
-    # upper-register shimmer of the original version.
-    add_sweep(buf, 0.000, note("D5"), note("A3"), 0.18, 0.12, gain=0.18)
-    # The impact lives below 400 Hz: low fundamental, open fifth, then a
-    # restrained major third. It remains recognizably holy without competing
-    # with speech or repeated combat sounds.
-    add_tone(buf, 0.075, note("D3"), 0.58, 0.24, gain=0.86,
-             partials=SOFT_PARTIALS, attack_s=0.009)
-    add_tone(buf, 0.085, note("A3"), 0.54, 0.22, gain=0.56,
-             partials=SOFT_PARTIALS, attack_s=0.012)
-    add_tone(buf, 0.100, note("D4"), 0.50, 0.20, gain=0.38,
-             partials=SOFT_PARTIALS, attack_s=0.014)
-    add_tone(buf, 0.120, note("F#4"), 0.46, 0.18, gain=0.22,
-             partials=SOFT_PARTIALS, attack_s=0.016)
+    root = note("D4")
+    # Pure ratios share partials more cleanly than independently tempered
+    # pitches: root, major third, perfect fifth, and octave (4:5:6:8).
+    chord = ((1.00, 0.00, 0.54, 0.1),
+             (1.25, 0.06, 0.25, 1.7),
+             (1.50, 0.025, 0.40, 3.0),
+             (2.00, 0.09, 0.24, 4.4))
+    for ratio, start, gain, phase in chord:
+        add_choir_voice(buf, start, root * ratio, 1.12, gain, phase)
+    add_halo(buf)
     return buf
 
 SOUNDS = [
@@ -254,7 +317,7 @@ SOUNDS = [
      "Deep struck gong on A2 with inharmonic partials and a long decay.",
      "Raid-scale events: enrage, boss spawn, raid-wide calls."),
     ("holy-strike.wav", s_holy_strike, "Holy strike",
-     "Low temple impact resolving into a restrained warm D-major chord.",
+     "Soft D-major ah-choir bloom with pure-ratio harmony and a diffuse halo.",
      "Divine damage moments such as Slay Undead."),
     ("chime2.wav", s_chime2, "Chime 2",
      "Alternate ascending chime, higher pitch (G5 to C6).",
@@ -284,8 +347,9 @@ def verify(paths):
         peak = max(abs(s) for s in samples)
         peak_db = 20.0 * math.log10(peak / 32767.0) if peak else float("-inf")
         first = abs(samples[0]) / 32767.0
+        expected_peak_db = PEAK_OVERRIDES_DBFS.get(name, PEAK_DBFS)
         ok = (sr == SAMPLE_RATE
-              and abs(peak_db - PEAK_DBFS) <= 1.0
+              and abs(peak_db - expected_peak_db) <= 1.0
               and first < 0.01)          # no first-sample discontinuity
         ok_all &= ok
         rows.append((name, sr, dur_ms, peak, peak_db, first, "OK" if ok else "FAIL"))
@@ -308,7 +372,7 @@ def main():
     if not verify_only:
         manifest = []
         for fname, builder, label, desc, use in SOUNDS:
-            samples = finalize(builder())
+            samples = finalize(builder(), PEAK_OVERRIDES_DBFS.get(fname, PEAK_DBFS))
             path = os.path.join(OUT_DIR, fname)
             write_wav(path, samples)
             manifest.append({
