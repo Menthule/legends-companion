@@ -64,6 +64,7 @@ export interface ResolvableTrigger {
   category: string | null;
   classes: string[];
   defaultEnabled: boolean;
+  trackWhenObserved?: boolean;
 }
 
 /**
@@ -167,7 +168,7 @@ export function withTimingOverride(
 /**
  * Loadout-level enablement (mirrors Rust `effective_enabled_in_loadout`):
  * exact-id override > longest prefix override (vs category path AND id, ties
- * to the alphabetically-first key) > defaultEnabled && class intersection.
+ * to the alphabetically-first key) > defaultEnabled && observed/class match.
  * Does NOT consult the pack-level `enabled` switch — callers combine.
  */
 export function effectiveEnabledInLoadout(
@@ -194,7 +195,8 @@ export function effectiveEnabledInLoadout(
 
   return (
     t.defaultEnabled &&
-    (t.classes.length === 0 ||
+    (t.trackWhenObserved === true ||
+      t.classes.length === 0 ||
       t.classes.some((c) =>
         loadout.classes.some((p) => p.toLowerCase() === c.toLowerCase()),
       ))

@@ -25,7 +25,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 54. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:159"
     },
     {
@@ -52,7 +53,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); CC; the engine rescales to the profile's level; Ranger level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); CC; the engine rescales to the profile's level; Ranger level 51. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -79,7 +81,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 45. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -106,7 +109,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Ranger level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Ranger level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -133,7 +137,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 55. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:159"
     },
     {
@@ -160,7 +165,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 3. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:51"
     },
     {
@@ -187,7 +193,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Ranger level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Ranger level 15. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -214,7 +221,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Ranger level 44. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:51"
     },
     {
@@ -241,7 +249,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 8, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 16. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:165"
     },
     {
@@ -268,7 +277,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); CC; the engine rescales to the profile's level; Ranger level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); CC; the engine rescales to the profile's level; Ranger level 6. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -295,7 +305,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m54s at level 50 (formula 1, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 25. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:159"
     },
     {
@@ -322,7 +333,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 40. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:159"
     },
     {
@@ -349,7 +361,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Ranger level 51. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -376,7 +389,8 @@
       "classes": [
         "Ranger"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); CC; the engine rescales to the profile's level; Ranger level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); CC; the engine rescales to the profile's level; Ranger level 5. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -409,6 +423,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:159"
     },
@@ -442,6 +457,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -475,6 +491,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -508,6 +525,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -540,6 +558,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:159"
     },
@@ -573,6 +592,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:51"
     },
@@ -606,6 +626,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -639,6 +660,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:51"
     },
@@ -672,6 +694,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:165"
     },
@@ -705,6 +728,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -738,6 +762,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:159"
     },
@@ -770,6 +795,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:159"
     },
@@ -803,6 +829,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -836,6 +863,7 @@
         "Ranger",
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     }

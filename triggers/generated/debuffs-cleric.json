@@ -25,7 +25,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 34. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:23"
     },
     {
@@ -52,7 +53,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -79,7 +81,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 59. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -106,7 +109,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 51. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:164"
     },
     {
@@ -133,7 +137,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 52. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:153"
     },
     {
@@ -160,7 +165,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 6. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -187,7 +193,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:23"
     },
     {
@@ -214,7 +221,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Cleric level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Cleric level 46. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -241,7 +249,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 1, cap 5 ticks); CC; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m30s at level 50 (formula 1, cap 5 ticks); CC; the engine rescales to the profile's level; Cleric level 21. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -268,7 +277,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Cleric level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Cleric level 27. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -295,7 +305,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Cleric level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Cleric level 36. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -322,7 +333,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~3m30s at level 50 (formula 8, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m30s at level 50 (formula 8, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:156"
     },
     {
@@ -349,7 +361,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 54. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:158"
     },
     {
@@ -376,7 +389,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Cleric level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; Cleric level 26. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:164"
     },
     {
@@ -403,7 +417,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Cleric level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Cleric level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -430,7 +445,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Cleric level 7. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 2, cap 8 ticks); CC; the engine rescales to the profile's level; Cleric level 7. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -457,7 +473,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 25. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:153"
     },
     {
@@ -484,7 +501,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:164"
     },
     {
@@ -511,7 +529,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -538,7 +557,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m30s at level 50 (formula 3, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; Cleric level 37. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:153"
     },
     {
@@ -565,7 +585,8 @@
       "classes": [
         "Cleric"
       ],
-      "comments": "~0m18s at level 50 (formula 1, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 21. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 1, cap 3 ticks); CC; the engine rescales to the profile's level; Cleric level 21. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -598,6 +619,7 @@
         "Cleric",
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:23"
     },
@@ -630,6 +652,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -662,6 +685,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -695,6 +719,7 @@
         "Cleric",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:164"
     },
@@ -727,6 +752,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:153"
     },
@@ -762,6 +788,7 @@
         "Necromancer",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -797,6 +824,7 @@
         "Shaman",
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:23"
     },
@@ -833,6 +861,7 @@
         "Wizard",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -865,6 +894,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -902,6 +932,7 @@
         "Wizard",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -937,6 +968,7 @@
         "Necromancer",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -969,6 +1001,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:156"
     },
@@ -1001,6 +1034,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:158"
     },
@@ -1035,6 +1069,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:164"
     },
@@ -1071,6 +1106,7 @@
         "Wizard",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -1106,6 +1142,7 @@
         "Shaman",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     },
@@ -1138,6 +1175,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:153"
     },
@@ -1173,6 +1211,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:164"
     },
@@ -1207,6 +1246,7 @@
         "Necromancer",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -1239,6 +1279,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:153"
     },
@@ -1271,6 +1312,7 @@
       "classes": [
         "Cleric"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     }

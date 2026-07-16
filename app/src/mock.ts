@@ -482,6 +482,7 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
       category: t.category ?? null,
       classes: t.classes ?? [],
       defaultEnabled: t.default_enabled ?? true,
+      trackWhenObserved: t.track_when_observed ?? false,
     };
     return {
       id,
@@ -490,6 +491,7 @@ export function mockGetTriggerTree(): TriggerTreeEntry[] {
       classes: t.classes ?? [],
       zones: t.zones ?? [],
       defaultEnabled: t.default_enabled ?? true,
+      trackWhenObserved: t.track_when_observed ?? false,
       effectiveEnabled: t.enabled && effectiveEnabled(resolvable, mockProfile),
       enabled: t.enabled,
       source: t.source ?? "user",

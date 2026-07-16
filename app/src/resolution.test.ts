@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { cloneLoadout, withTimingOverride, zoneScopeFor } from "./resolution";
+import {
+  cloneLoadout,
+  effectiveEnabledInLoadout,
+  withTimingOverride,
+  zoneScopeFor,
+} from "./resolution";
 import type { CharacterProfile, Loadout } from "./types";
 
 describe("cloneLoadout", () => {
@@ -27,6 +32,34 @@ describe("cloneLoadout", () => {
     expect(source.channel_overrides!["cc/root"].speak).toBe(false);
     expect(source.zone_scopes!["cc/root"]).toEqual(["Kael", "Growth"]);
     expect(source.timing_overrides!["cc/root"].IV.duration_secs).toBe(96);
+  });
+});
+
+describe("observed trigger resolution", () => {
+  const trigger = {
+    id: "debuffs/enchanter/cast/mesmerization",
+    category: "Debuffs/Enchanter/Timers",
+    classes: ["Enchanter"],
+    defaultEnabled: true,
+    trackWhenObserved: true,
+  };
+  const stale: Loadout = {
+    name: "Nyasha",
+    classes: ["Necromancer", "Shaman", "Monk"],
+    overrides: {},
+  };
+
+  it("tracks exact observed casts outside stale selected classes", () => {
+    expect(effectiveEnabledInLoadout(trigger, stale)).toBe(true);
+  });
+
+  it("still honors an explicit disable", () => {
+    expect(
+      effectiveEnabledInLoadout(trigger, {
+        ...stale,
+        overrides: { [trigger.id]: false },
+      }),
+    ).toBe(false);
   });
 });
 

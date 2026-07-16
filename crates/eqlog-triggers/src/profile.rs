@@ -8,8 +8,8 @@
 //!    `"Class/Enchanter"` itself, but never `"Class/EnchanterX"`. Prefixes are
 //!    tried against both the trigger's category path and its effective id, so
 //!    group toggles work with either addressing scheme.
-//! 3. Trigger defaults: `default_enabled` AND (trigger has no class
-//!    restriction OR it intersects the profile's classes).
+//! 3. Trigger defaults: `default_enabled` AND (`track_when_observed`, no class
+//!    restriction, or it intersects the profile's classes).
 //!
 //! All key/name comparisons are ASCII-case-insensitive so hand-edited profile
 //! JSON doesn't silently miss (`"class/enchanter"` vs `"Class/Enchanter"`).
@@ -71,10 +71,12 @@ pub fn effective_enabled_in_loadout(trigger: &Trigger, loadout: &Loadout) -> boo
         return value;
     }
 
-    // 3. Defaults: default_enabled AND class intersection (empty trigger
-    //    classes = applies to everyone).
+    // 3. Defaults: observed trackers are compiled even outside the selected
+    //    classes because their exact input is definitive. Empty classes still
+    //    apply to everyone. Explicit overrides above remain authoritative.
     trigger.default_enabled
-        && (trigger.classes.is_empty()
+        && (trigger.track_when_observed
+            || trigger.classes.is_empty()
             || trigger
                 .classes
                 .iter()

@@ -251,6 +251,9 @@ fn changed_fields(a: &Trigger, b: &Trigger) -> Vec<&'static str> {
     if a.default_enabled != b.default_enabled {
         out.push("default_enabled");
     }
+    if a.track_when_observed != b.track_when_observed {
+        out.push("track_when_observed");
+    }
     if a.cooldown_secs != b.cooldown_secs {
         out.push("cooldown_secs");
     }

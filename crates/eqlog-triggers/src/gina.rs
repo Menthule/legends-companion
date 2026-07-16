@@ -341,6 +341,7 @@ fn build_trigger(
             id: None,
             classes: Vec::new(),
             default_enabled: true,
+            track_when_observed: false,
             source: crate::model::TriggerSource::Gina,
             cooldown_secs: None,
             priority: 0,

@@ -86,6 +86,12 @@ pub struct Trigger {
     /// (default true). Distinct from `enabled`, the pack-level hard switch.
     #[serde(default = "default_true")]
     pub default_enabled: bool,
+    /// Track this trigger after observing its exact input even when its class
+    /// is not in the selected loadout. Explicit loadout overrides still win.
+    /// Intended for cast-start timers: the cast itself is stronger evidence
+    /// than a stale manually-selected loadout.
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub track_when_observed: bool,
     /// Provenance of the definition (default `"user"`).
     #[serde(default, skip_serializing_if = "is_user_source")]
     pub source: TriggerSource,
@@ -132,6 +138,7 @@ impl Trigger {
             id: None,
             classes: Vec::new(),
             default_enabled: true,
+            track_when_observed: false,
             source: TriggerSource::User,
             cooldown_secs: None,
             priority: 0,
@@ -760,6 +767,7 @@ mod tests {
                     id: Some("combat/defense/stunned".into()),
                     classes: vec!["Warrior".into(), "Monk".into()],
                     default_enabled: false,
+                    track_when_observed: false,
                     source: TriggerSource::Curated,
                     cooldown_secs: Some(5),
                     priority: 0,

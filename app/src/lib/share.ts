@@ -241,6 +241,9 @@ export function changedTriggerFields(a: Trigger, b: Trigger): string[] {
   if ((a.default_enabled ?? true) !== (b.default_enabled ?? true)) {
     out.push("default_enabled");
   }
+  if ((a.track_when_observed ?? false) !== (b.track_when_observed ?? false)) {
+    out.push("track_when_observed");
+  }
   if ((a.cooldown_secs ?? null) !== (b.cooldown_secs ?? null)) {
     out.push("cooldown_secs");
   }

@@ -24,7 +24,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 52. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:47"
     },
     {
@@ -50,7 +51,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:47"
     },
     {
@@ -76,7 +78,8 @@
       "classes": [
         "Warrior"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Warrior level 20. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:47"
     },
     {
@@ -108,6 +111,7 @@
       "classes": [
         "Warrior"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:47"
     },
@@ -140,6 +144,7 @@
       "classes": [
         "Warrior"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:47"
     },
@@ -172,6 +177,7 @@
       "classes": [
         "Warrior"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:47"
     }

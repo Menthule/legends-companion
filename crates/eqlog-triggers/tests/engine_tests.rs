@@ -2981,6 +2981,48 @@ fn generated_insect_slow_casts_accept_backtick_possessives() {
 }
 
 #[test]
+fn observed_area_mez_tracks_every_target_outside_selected_classes() {
+    // The game can retain/rank abilities outside the app's manually selected
+    // loadout. An exact player cast is definitive, and one area cast emits a
+    // separate landing line for each affected mob.
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes =
+        vec!["Necromancer".into(), "Shaman".into(), "Monk".into()];
+    profile.level = 50;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    assert!(engine.warnings().is_empty(), "{:?}", engine.warnings());
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(1000, "You begin casting Mesmerization."), &mut sink);
+    engine.process(&line(1001, "a ghoul has been mesmerized."), &mut sink);
+    engine.process(
+        &line(1001, "a lurking mummy has been mesmerized."),
+        &mut sink,
+    );
+    engine.process(
+        &line(1001, "a dark boned skeleton has been mesmerized."),
+        &mut sink,
+    );
+
+    let names: Vec<String> = engine
+        .active_timers(1001)
+        .into_iter()
+        .map(|(name, _)| name)
+        .collect();
+    assert_eq!(
+        names,
+        vec![
+            "Mesmerization — a ghoul".to_string(),
+            "Mesmerization — a lurking mummy".to_string(),
+            "Mesmerization — a dark boned skeleton".to_string(),
+        ]
+    );
+    assert!(sink.timer_icons.iter().all(|(name, icon)| {
+        !name.starts_with("Mesmerization — ") || icon.as_deref() == Some("spell:35")
+    }));
+}
+
+#[test]
 fn reapplying_land_bound_enemy_debuff_replaces_same_visible_target() {
     let mut t = Trigger::new(
         "Togor's Insects timer",

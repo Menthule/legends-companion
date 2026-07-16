@@ -25,7 +25,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 52. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -52,7 +53,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:41"
     },
     {
@@ -79,7 +81,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 41. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:63"
     },
     {
@@ -106,7 +109,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 1, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 53. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:51"
     },
     {
@@ -133,7 +137,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 18. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:877"
     },
     {
@@ -160,7 +165,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m36s at level 50 (formula 1, cap 16 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 59. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:160"
     },
     {
@@ -187,7 +193,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 11. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:160"
     },
     {
@@ -214,7 +221,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 9. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:3"
     },
     {
@@ -241,7 +249,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 5. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:41"
     },
     {
@@ -268,7 +277,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 44. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 44. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:160"
     },
     {
@@ -295,7 +305,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 7, cap 10 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 20. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:160"
     },
     {
@@ -322,7 +333,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 12. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 12. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -349,7 +361,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 36. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 36. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:41"
     },
     {
@@ -376,7 +389,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); class-defining DoT; the engine rescales to the profile's level; ShadowKnight level 28. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:51"
     },
     {
@@ -403,7 +417,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 43. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 43. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -430,7 +445,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 31. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m30s at level 50 (formula 1, cap 15 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 31. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:877"
     },
     {
@@ -457,7 +473,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); CC; the engine rescales to the profile's level; ShadowKnight level 54. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:164"
     },
     {
@@ -484,7 +501,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 15. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:3"
     },
     {
@@ -511,7 +529,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 23. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:1"
     },
     {
@@ -538,7 +557,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -565,7 +585,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 37. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:1"
     },
     {
@@ -592,7 +613,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 35. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:3"
     },
     {
@@ -619,7 +641,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 50. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:1"
     },
     {
@@ -646,7 +669,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 6. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 6. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -673,7 +697,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -700,7 +725,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 20. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:164"
     },
     {
@@ -727,7 +753,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 58. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:29"
     },
     {
@@ -754,7 +781,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 54. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:3"
     },
     {
@@ -781,7 +809,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:1"
     },
     {
@@ -808,7 +837,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m54s at level 50 (formula 2, cap 9 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:140"
     },
     {
@@ -835,7 +865,8 @@
       "classes": [
         "ShadowKnight"
       ],
-      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~4m00s at level 50 (formula 8, cap 40 ticks); DoT/debuff; the engine rescales to the profile's level; ShadowKnight level 27. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -867,6 +898,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -900,6 +932,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:41"
     },
@@ -932,6 +965,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:63"
     },
@@ -965,6 +999,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:51"
     },
@@ -998,6 +1033,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:877"
     },
@@ -1031,6 +1067,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:160"
     },
@@ -1064,6 +1101,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:160"
     },
@@ -1096,6 +1134,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:3"
     },
@@ -1129,6 +1168,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:41"
     },
@@ -1162,6 +1202,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:160"
     },
@@ -1195,6 +1236,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:160"
     },
@@ -1228,6 +1270,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:41"
     },
@@ -1261,6 +1304,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:51"
     },
@@ -1294,6 +1338,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:877"
     },
@@ -1326,6 +1371,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:3"
     },
@@ -1358,6 +1404,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:1"
     },
@@ -1390,6 +1437,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -1423,6 +1471,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:1"
     },
@@ -1455,6 +1504,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:3"
     },
@@ -1487,6 +1537,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:1"
     },
@@ -1520,6 +1571,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -1552,6 +1604,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -1584,6 +1637,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:29"
     },
@@ -1616,6 +1670,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:3"
     },
@@ -1648,6 +1703,7 @@
       "classes": [
         "ShadowKnight"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:1"
     },
@@ -1681,6 +1737,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:140"
     },
@@ -1714,6 +1771,7 @@
         "ShadowKnight",
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     }

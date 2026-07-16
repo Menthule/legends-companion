@@ -34,12 +34,12 @@ extract_spells.py — run that first if the file is missing) and writes:
       buff packs — plus ONE wear-off companion per spell wired to the
       Legends "Your <Spell> spell has worn off of <target>." line:
       CancelTimer (drops the countdown early on mez break / mob death) and
-      an Alerts-overlay re-announce with explicit severity. Cast-start lines carry no target, so v1
-      keys enemy timers by spell name only (two mobs mezzed with the same
-      spell share one bar; the first wear-off cancels it). ALL enemy timers
-      default-ON: a bar only starts when YOU cast that exact spell, and
-      triggers are class/loadout-gated, so enabling them creates no clutter
-      and is exactly what a DoT/debuff tracker is for. Worn-off companions
+      an Alerts-overlay re-announce with explicit severity. Cast-start lines
+      carry no target; the generic engine binds the bar on the spell's landing
+      or damage line and fans area effects out to one bar per mob. ALL enemy
+      timers default-ON and set track_when_observed: a bar only starts when
+      YOU cast that exact spell, even if the manually selected loadout is
+      stale. Worn-off companions
       are always on too (harmless when the cast is off) and a structural
       check asserts every cast timer has one, so a started bar always clears.
       (class, spell) pairs already covered by curated cast timers (enchanter
@@ -344,7 +344,7 @@ def alternation(names) -> str:
 
 
 def trigger(tid, name, pattern, actions, category, classes=(), default_enabled=True,
-            comments=None, icon_id=None):
+            comments=None, icon_id=None, track_when_observed=False):
     t = {
         "id": tid,
         "name": name,
@@ -357,6 +357,8 @@ def trigger(tid, name, pattern, actions, category, classes=(), default_enabled=T
     }
     if classes:
         t["classes"] = list(classes)
+    if track_when_observed:
+        t["track_when_observed"] = True
     if comments:
         t["comments"] = comments
     if icon_id is not None:
@@ -669,10 +671,9 @@ def build_debuff_packs(spells):
         kind = "CC" if name in CC_SPELLS else (
             "class-defining DoT" if name in DEFAULT_ON_DOTS.get(cls, ())
             else "DoT/debuff")
-        # Every enemy timer is default-ON. A bar only starts when YOU cast
-        # that exact spell, and triggers are class/loadout-gated, so a necro
-        # only ever sees necro spells — enabling them all creates no clutter
-        # and is precisely what a DoT/debuff tracker is for.
+        # Every enemy timer is default-ON and observed outside stale class
+        # selections. A bar only starts when YOU cast that exact spell, so
+        # enabling them creates no idle clutter.
         per_class_triggers[cls].append(trigger(
             tid,
             f"Enemy timer: {name}",
@@ -684,13 +685,14 @@ def build_debuff_packs(spells):
             f"Debuffs/{CLASS_NAME[cls]}/Timers",
             classes=[CLASS_NAME[cls]],
             default_enabled=True,
+            track_when_observed=True,
             comments=f"~{dur // 60}m{dur % 60:02d}s at level 50 "
                      f"(formula {s['duration_formula']}, "
                      f"cap {s['duration_cap_ticks']} ticks); {kind}; the "
                      f"engine rescales to the profile's level; "
-                     f"{CLASS_NAME[cls]} level {s['classes'][cls]}. v1 keys "
-                     f"enemy timers by spell name only — two mobs under the "
-                     f"same spell share one bar.",
+                     f"{CLASS_NAME[cls]} level {s['classes'][cls]}. Landing "
+                     f"or damage lines bind the bar to its mob; area effects "
+                     f"fan out to one target-bound bar per landing.",
             icon_id=s.get("icon_id"),
         ))
         worn_classes[name].add(cls)
@@ -728,6 +730,7 @@ def build_debuff_packs(spells):
             "Debuffs/Wear-off",
             classes=[CLASS_NAME[c] for c in union],
             default_enabled=True,
+            track_when_observed=True,
             comments="Cancels the cast-start countdown early (mez break, "
                      "mob death) and re-announces on the overlay. Overlay "
                      "text only — curated packs own the spoken wear-offs.",

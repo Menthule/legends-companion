@@ -154,6 +154,27 @@ fn default_enabled_and_class_intersection() {
 }
 
 #[test]
+fn observed_tracker_bypasses_stale_classes_but_not_overrides() {
+    let mut t = trig(
+        "Mesmerization timer",
+        Some("Debuffs/Enchanter/Timers"),
+        &["Enchanter"],
+        true,
+    );
+    t.id = Some("debuffs/enchanter/cast/mesmerization".into());
+    t.track_when_observed = true;
+
+    let stale = profile(&["Necromancer", "Shaman", "Monk"], &[]);
+    assert!(effective_enabled(&t, &stale));
+
+    let disabled = profile(
+        &["Necromancer", "Shaman", "Monk"],
+        &[("debuffs/enchanter/cast/mesmerization", false)],
+    );
+    assert!(!effective_enabled(&t, &disabled));
+}
+
+#[test]
 fn exact_id_override_beats_prefix_and_default() {
     let mut t = trig(
         "Mez broken",

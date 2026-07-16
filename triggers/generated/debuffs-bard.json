@@ -25,7 +25,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m24s at level 50 (formula 7, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m24s at level 50 (formula 7, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -52,7 +53,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 26. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -79,7 +81,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:153"
     },
     {
@@ -106,7 +109,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:24"
     },
     {
@@ -132,7 +136,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:139"
     },
     {
@@ -158,7 +163,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:51"
     },
     {
@@ -184,7 +190,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:56"
     },
     {
@@ -210,7 +217,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:161"
     },
     {
@@ -236,7 +244,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:41"
     },
     {
@@ -262,7 +271,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:42"
     },
     {
@@ -289,7 +299,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 2. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:143"
     },
     {
@@ -316,7 +327,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 28. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -343,7 +355,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 59. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:42"
     },
     {
@@ -370,7 +383,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 18. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:161"
     },
     {
@@ -397,7 +411,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 58. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -424,7 +439,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 30. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 30. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:161"
     },
     {
@@ -451,7 +467,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:161"
     },
     {
@@ -478,7 +495,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 3. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:9"
     },
     {
@@ -505,7 +523,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 15. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 15. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -532,7 +551,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 51. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -559,7 +579,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 20. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 20. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:17"
     },
     {
@@ -586,7 +607,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 55. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:148"
     },
     {
@@ -613,7 +635,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 54. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -640,7 +663,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 7, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 7, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 48. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:143"
     },
     {
@@ -667,7 +691,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 23. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -694,7 +719,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 40. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -721,7 +747,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 39. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:27"
     },
     {
@@ -748,7 +775,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 6, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 27. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:27"
     },
     {
@@ -775,7 +803,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -802,7 +831,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 53. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -829,7 +859,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 42. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:41"
     },
     {
@@ -856,7 +887,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 38. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:51"
     },
     {
@@ -883,7 +915,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 46. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:56"
     },
     {
@@ -910,7 +943,8 @@
       "classes": [
         "Bard"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 50. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Bard level 50. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:42"
     },
     {
@@ -942,6 +976,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -974,6 +1009,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -1006,6 +1042,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:153"
     },
@@ -1038,6 +1075,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:24"
     },
@@ -1070,6 +1108,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:139"
     },
@@ -1102,6 +1141,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:51"
     },
@@ -1134,6 +1174,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:56"
     },
@@ -1166,6 +1207,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:161"
     },
@@ -1198,6 +1240,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:41"
     },
@@ -1230,6 +1273,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:42"
     },
@@ -1262,6 +1306,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:143"
     },
@@ -1294,6 +1339,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1326,6 +1372,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:42"
     },
@@ -1358,6 +1405,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:161"
     },
@@ -1390,6 +1438,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1422,6 +1471,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:161"
     },
@@ -1454,6 +1504,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:161"
     },
@@ -1486,6 +1537,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:9"
     },
@@ -1518,6 +1570,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1550,6 +1603,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -1582,6 +1636,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:17"
     },
@@ -1614,6 +1669,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:148"
     },
@@ -1646,6 +1702,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -1678,6 +1735,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:143"
     },
@@ -1710,6 +1768,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -1742,6 +1801,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1774,6 +1834,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:27"
     },
@@ -1806,6 +1867,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:27"
     },
@@ -1838,6 +1900,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -1870,6 +1933,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1902,6 +1966,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:41"
     },
@@ -1934,6 +1999,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:51"
     },
@@ -1966,6 +2032,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:56"
     },
@@ -1998,6 +2065,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:42"
     }

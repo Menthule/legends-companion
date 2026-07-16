@@ -25,7 +25,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 46. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 46. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -52,7 +53,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -79,7 +81,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 59. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:137"
     },
     {
@@ -106,7 +109,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 23. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -133,7 +137,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); CC; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); CC; the engine rescales to the profile's level; Enchanter level 53. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -160,7 +165,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 37. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 37. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -187,7 +193,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); CC; the engine rescales to the profile's level; Enchanter level 11. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -214,7 +221,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 2, cap 6 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:28"
     },
     {
@@ -241,7 +249,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 11. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 11. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:137"
     },
     {
@@ -268,7 +277,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 53. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:50"
     },
     {
@@ -295,7 +305,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 90 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 90 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 26. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:12"
     },
     {
@@ -322,7 +333,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m36s at level 50 (formula 10, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m36s at level 50 (formula 10, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 47. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -349,7 +361,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); CC; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); CC; the engine rescales to the profile's level; Enchanter level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -376,7 +389,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 16. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:50"
     },
     {
@@ -403,7 +417,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m12s at level 50 (formula 1, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 28. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 1, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 28. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:85"
     },
     {
@@ -430,7 +445,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -457,7 +473,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 4. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -484,7 +501,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 5. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 2, cap 3 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 5. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:23"
     },
     {
@@ -511,7 +529,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 1, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -538,7 +557,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Enchanter level 3. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m18s at level 50 (formula 7, cap 3 ticks); CC; the engine rescales to the profile's level; Enchanter level 3. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -565,7 +585,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 19. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 19. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -592,7 +613,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 58. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -619,7 +641,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:17"
     },
     {
@@ -646,7 +669,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 47. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 47. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:137"
     },
     {
@@ -673,7 +697,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m54s at level 50 (formula 7, cap 9 ticks); CC; the engine rescales to the profile's level; Enchanter level 54. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m54s at level 50 (formula 7, cap 9 ticks); CC; the engine rescales to the profile's level; Enchanter level 54. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -700,7 +725,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Enchanter level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Enchanter level 39. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -727,7 +753,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 40. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 40. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:50"
     },
     {
@@ -754,7 +781,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 34. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 34. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -781,7 +809,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Enchanter level 25. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -808,7 +837,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 35. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -835,7 +865,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 9. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:17"
     },
     {
@@ -862,7 +893,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 25. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 25. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:50"
     },
     {
@@ -889,7 +921,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m24s at level 50 (formula 1, cap 4 ticks); CC; the engine rescales to the profile's level; Enchanter level 16. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -916,7 +949,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 10, cap 8 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:26"
     },
     {
@@ -943,7 +977,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 45. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Enchanter level 45. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -970,7 +1005,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -997,7 +1033,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 59. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 7, cap 7 ticks); CC; the engine rescales to the profile's level; Enchanter level 59. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:35"
     },
     {
@@ -1024,7 +1061,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 52. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:40"
     },
     {
@@ -1051,7 +1089,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m12s at level 50 (formula 5, cap 2 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:137"
     },
     {
@@ -1078,7 +1117,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:17"
     },
     {
@@ -1105,7 +1145,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 26. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 26. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:137"
     },
     {
@@ -1132,7 +1173,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m42s at level 50 (formula 9, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 4. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m42s at level 50 (formula 9, cap 7 ticks); class-defining DoT; the engine rescales to the profile's level; Enchanter level 4. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:137"
     },
     {
@@ -1159,7 +1201,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 18. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 18. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:72"
     },
     {
@@ -1186,7 +1229,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 41. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:72"
     },
     {
@@ -1213,7 +1257,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 57. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:72"
     },
     {
@@ -1240,7 +1285,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 2. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 2. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:72"
     },
     {
@@ -1267,7 +1313,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m30s at level 50 (formula 6, cap 35 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 23. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:17"
     },
     {
@@ -1294,7 +1341,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m00s at level 50 (formula 7, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:25"
     },
     {
@@ -1321,7 +1369,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m36s at level 50 (formula 7, cap 6 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 56. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:154"
     },
     {
@@ -1348,7 +1397,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~2m00s at level 50 (formula 3, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 38. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m00s at level 50 (formula 3, cap 20 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 38. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:40"
     },
     {
@@ -1375,7 +1425,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~6m00s at level 50 (formula 8, cap 60 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 1. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -1402,7 +1453,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 42. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 2, cap 39 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 42. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:7"
     },
     {
@@ -1429,7 +1481,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 55. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 55. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:72"
     },
     {
@@ -1456,7 +1509,8 @@
       "classes": [
         "Enchanter"
       ],
-      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); DoT/debuff; the engine rescales to the profile's level; Enchanter level 60. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:72"
     },
     {
@@ -1488,6 +1542,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -1520,6 +1575,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1552,6 +1608,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:137"
     },
@@ -1584,6 +1641,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -1616,6 +1674,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -1648,6 +1707,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -1680,6 +1740,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -1712,6 +1773,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:28"
     },
@@ -1744,6 +1806,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:137"
     },
@@ -1776,6 +1839,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:12"
     },
@@ -1808,6 +1872,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -1840,6 +1905,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -1872,6 +1938,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:85"
     },
@@ -1904,6 +1971,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -1936,6 +2004,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -1968,6 +2037,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:23"
     },
@@ -2000,6 +2070,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -2032,6 +2103,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -2064,6 +2136,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:17"
     },
@@ -2096,6 +2169,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:137"
     },
@@ -2128,6 +2202,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -2160,6 +2235,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -2193,6 +2269,7 @@
         "Enchanter",
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:17"
     },
@@ -2225,6 +2302,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -2257,6 +2335,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:26"
     },
@@ -2289,6 +2368,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:154"
     },
@@ -2321,6 +2401,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:35"
     },
@@ -2353,6 +2434,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:40"
     },
@@ -2385,6 +2467,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:137"
     },
@@ -2417,6 +2500,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:17"
     },
@@ -2449,6 +2533,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:137"
     },
@@ -2481,6 +2566,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:137"
     },
@@ -2513,6 +2599,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:72"
     },
@@ -2545,6 +2632,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:72"
     },
@@ -2577,6 +2665,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:72"
     },
@@ -2609,6 +2698,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:72"
     },
@@ -2641,6 +2731,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:17"
     },
@@ -2673,6 +2764,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:25"
     },
@@ -2705,6 +2797,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:40"
     },
@@ -2737,6 +2830,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -2769,6 +2863,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:7"
     },
@@ -2801,6 +2896,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:72"
     },
@@ -2833,6 +2929,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:72"
     }

@@ -692,6 +692,7 @@ export default function TriggersTab({
       category: e.category,
       classes: e.classes,
       default_enabled: e.defaultEnabled,
+      track_when_observed: e.trackWhenObserved,
       id: e.id,
       source: e.source,
       actions: [{ Speak: { template: e.name.toLowerCase() } }],

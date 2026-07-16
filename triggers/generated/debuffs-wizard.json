@@ -25,7 +25,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~2m30s at level 50 (formula 1, cap 25 ticks); CC; the engine rescales to the profile's level; Wizard level 51. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m30s at level 50 (formula 1, cap 25 ticks); CC; the engine rescales to the profile's level; Wizard level 51. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -52,7 +53,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~2m00s at level 50 (formula 1, cap 20 ticks); CC; the engine rescales to the profile's level; Wizard level 27. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~2m00s at level 50 (formula 1, cap 20 ticks); CC; the engine rescales to the profile's level; Wizard level 27. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:5"
     },
     {
@@ -79,7 +81,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~0m24s at level 50 (formula 6, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Wizard level 35. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~0m24s at level 50 (formula 6, cap 4 ticks); DoT/debuff; the engine rescales to the profile's level; Wizard level 35. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:163"
     },
     {
@@ -106,7 +109,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Wizard level 58. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 2, cap 30 ticks); CC; the engine rescales to the profile's level; Wizard level 58. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -133,7 +137,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Wizard level 39. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m00s at level 50 (formula 8, cap 10 ticks); CC; the engine rescales to the profile's level; Wizard level 39. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -160,7 +165,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Wizard level 17. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~1m36s at level 50 (formula 2, cap 16 ticks); CC; the engine rescales to the profile's level; Wizard level 17. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -187,7 +193,8 @@
       "classes": [
         "Wizard"
       ],
-      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Wizard level 48. v1 keys enemy timers by spell name only — two mobs under the same spell share one bar.",
+      "track_when_observed": true,
+      "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); CC; the engine rescales to the profile's level; Wizard level 48. Landing or damage lines bind the bar to its mob; area effects fan out to one target-bound bar per landing.",
       "icon": "spell:117"
     },
     {
@@ -219,6 +226,7 @@
       "classes": [
         "Wizard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -251,6 +259,7 @@
       "classes": [
         "Wizard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:5"
     },
@@ -283,6 +292,7 @@
       "classes": [
         "Wizard"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:163"
     },
@@ -316,6 +326,7 @@
         "Wizard",
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
       "icon": "spell:117"
     }

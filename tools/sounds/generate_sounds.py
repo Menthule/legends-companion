@@ -206,20 +206,22 @@ def s_gong():
     return buf
 
 def s_holy_strike():
-    """Descending celestial shimmer resolving into a radiant D-major chord."""
+    """Restrained low temple impact resolving into a warm D-major chord."""
     buf = []
-    add_sweep(buf, 0.000, note("D7"), note("D5"), 0.30, 0.20, gain=0.46)
-    add_sweep(buf, 0.035, note("A6"), note("A4"), 0.32, 0.22, gain=0.30)
-    # The beam lands into an open fifth and major third: bright, consonant,
-    # and sustained enough to feel divine without masking combat audio.
-    add_tone(buf, 0.155, note("D5"), 0.78, 0.34, gain=0.74,
+    # A short downward arrival gives the beam motion without the piercing
+    # upper-register shimmer of the original version.
+    add_sweep(buf, 0.000, note("D5"), note("A3"), 0.18, 0.12, gain=0.18)
+    # The impact lives below 400 Hz: low fundamental, open fifth, then a
+    # restrained major third. It remains recognizably holy without competing
+    # with speech or repeated combat sounds.
+    add_tone(buf, 0.075, note("D3"), 0.58, 0.24, gain=0.86,
+             partials=SOFT_PARTIALS, attack_s=0.009)
+    add_tone(buf, 0.085, note("A3"), 0.54, 0.22, gain=0.56,
              partials=SOFT_PARTIALS, attack_s=0.012)
-    add_tone(buf, 0.155, note("A5"), 0.76, 0.31, gain=0.62,
-             partials=SOFT_PARTIALS, attack_s=0.012)
-    add_tone(buf, 0.155, note("F#6"), 0.72, 0.28, gain=0.42,
-             partials=GLASS_PARTIALS, attack_s=0.008)
-    add_tone(buf, 0.205, note("D7"), 0.70, 0.30, gain=0.34,
-             partials=GLASS_PARTIALS, attack_s=0.004)
+    add_tone(buf, 0.100, note("D4"), 0.50, 0.20, gain=0.38,
+             partials=SOFT_PARTIALS, attack_s=0.014)
+    add_tone(buf, 0.120, note("F#4"), 0.46, 0.18, gain=0.22,
+             partials=SOFT_PARTIALS, attack_s=0.016)
     return buf
 
 SOUNDS = [
@@ -252,7 +254,7 @@ SOUNDS = [
      "Deep struck gong on A2 with inharmonic partials and a long decay.",
      "Raid-scale events: enrage, boss spawn, raid-wide calls."),
     ("holy-strike.wav", s_holy_strike, "Holy strike",
-     "Descending celestial shimmer resolving into a radiant D-major chord.",
+     "Low temple impact resolving into a restrained warm D-major chord.",
      "Divine damage moments such as Slay Undead."),
     ("chime2.wav", s_chime2, "Chime 2",
      "Alternate ascending chime, higher pitch (G5 to C6).",

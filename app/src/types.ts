@@ -256,6 +256,9 @@ export interface Trigger {
   classes?: string[];
   /** On by default before profile overrides (default true). */
   default_enabled?: boolean;
+  /** Track an exact observed event even when the selected loadout's classes
+   * are stale. Explicit enable/disable overrides still win. */
+  track_when_observed?: boolean;
   /** Provenance (default "user"; serde omits it for user triggers). */
   source?: TriggerSource;
   /** Refire cooldown in seconds — after firing, matching lines stay silent
@@ -323,6 +326,8 @@ export interface TriggerTreeEntry {
    *  compatibility with backends that predate the field. */
   zones?: string[];
   defaultEnabled: boolean;
+  /** Exact observed casts track even outside stale selected classes. */
+  trackWhenObserved?: boolean;
   /** Profile resolution AND the pack-level enabled switch. */
   effectiveEnabled: boolean;
   enabled: boolean;

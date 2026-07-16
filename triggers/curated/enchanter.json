@@ -1,298 +1,302 @@
 {
- "name": "Curated class pack — Enchanter",
- "triggers": [
-  {
-   "id": "class/enchanter/cc/mez-landed",
+  "name": "Curated class pack — Enchanter",
+  "triggers": [
+    {
+      "id": "class/enchanter/cc/mez-landed",
       "name": "Mez landed",
       "icon": "spell:35",
-   "pattern": "^(.+) has been mesmerized\\.$",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter",
-    "Bard"
-   ],
-   "actions": [
+      "pattern": "^(.+) has been mesmerized\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter",
+        "Bard"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} mezzed"
+          }
+        }
+      ],
+      "comments": "Verified in Legends log: 'Torvin has been mesmerized.'"
+    },
     {
-     "DisplayText": {
-      "template": "${1} mezzed"
-     }
-    }
-   ],
-   "comments": "Verified in Legends log: 'Torvin has been mesmerized.'"
-  },
-  {
-   "id": "class/enchanter/cc/mesmerize-timer",
+      "id": "class/enchanter/cc/mesmerize-timer",
       "name": "Mesmerize duration",
       "icon": "spell:35",
-   "pattern": "^You begin casting Mesmerize(?: (?P<rank>[IVXLCDM]+))?\\.$",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^You begin casting Mesmerize(?: (?P<rank>[IVXLCDM]+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "track_when_observed": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Mesmerize",
+            "duration_secs": 24,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 7,
+            "duration_cap_ticks": 4,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "comments": "~24 s effect plus the 3 s cast lead-in (formula 7, cap 4 ticks). Ranked casts use the captured Roman suffix and can be corrected per loadout with observed timing. Dazzle shares the landing message, so time from your own cast."
+    },
     {
-     "StartTimer": {
-      "name": "Mesmerize",
-      "duration_secs": 24,
-      "warn_at_secs": 6,
-      "cast_time_secs": 3,
-      "duration_formula": 7,
-      "duration_cap_ticks": 4,
-      "lane": "enemy"
-     }
-    }
-   ],
-   "comments": "~24 s effect plus the 3 s cast lead-in (formula 7, cap 4 ticks). Ranked casts use the captured Roman suffix and can be corrected per loadout with observed timing. Dazzle shares the landing message, so time from your own cast."
-  },
-  {
-   "id": "class/enchanter/cc/enthrall-timer",
+      "id": "class/enchanter/cc/enthrall-timer",
       "name": "Enthrall duration",
       "icon": "spell:35",
-   "pattern": "^You begin casting Enthrall(?: (?P<rank>[IVXLCDM]+))?\\.$",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^You begin casting Enthrall(?: (?P<rank>[IVXLCDM]+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "track_when_observed": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Enthrall",
+            "duration_secs": 48,
+            "warn_at_secs": 6,
+            "cast_time_secs": 3,
+            "duration_formula": 8,
+            "duration_cap_ticks": 8,
+            "lane": "enemy"
+          }
+        }
+      ]
+    },
     {
-     "StartTimer": {
-      "name": "Enthrall",
-      "duration_secs": 48,
-      "warn_at_secs": 6,
-      "cast_time_secs": 3,
-      "duration_formula": 8,
-      "duration_cap_ticks": 8,
-      "lane": "enemy"
-     }
-    }
-   ]
-  },
-  {
-   "id": "class/enchanter/cc/entrance-timer",
+      "id": "class/enchanter/cc/entrance-timer",
       "name": "Entrance duration",
       "icon": "spell:35",
-   "pattern": "^You begin casting Entrance(?: (?P<rank>[IVXLCDM]+))?\\.$",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^You begin casting Entrance(?: (?P<rank>[IVXLCDM]+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "track_when_observed": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "StartTimer": {
+            "name": "Entrance",
+            "duration_secs": 72,
+            "warn_at_secs": 10,
+            "cast_time_secs": 3,
+            "duration_formula": 9,
+            "duration_cap_ticks": 12,
+            "lane": "enemy"
+          }
+        }
+      ]
+    },
     {
-     "StartTimer": {
-      "name": "Entrance",
-      "duration_secs": 72,
-      "warn_at_secs": 10,
-      "cast_time_secs": 3,
-      "duration_formula": 9,
-      "duration_cap_ticks": 12,
-      "lane": "enemy"
-     }
-    }
-   ]
-  },
-  {
-   "id": "class/enchanter/cc/mez-worn-target",
+      "id": "class/enchanter/cc/mez-worn-target",
       "name": "Mez worn off target",
       "icon": "spell:35",
-   "pattern": "^Your (?P<spell>Mesmerize|Enthrall|Entrance)(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter",
-    "Bard"
-   ],
-   "actions": [
-    {
-     "Speak": {
-      "template": "mez off"
-     }
+      "pattern": "^Your (?P<spell>Mesmerize|Enthrall|Entrance)(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "track_when_observed": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter",
+        "Bard"
+      ],
+      "actions": [
+        {
+          "Speak": {
+            "template": "mez off"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "mez off ${target}"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "${spell}"
+          }
+        }
+      ],
+      "comments": "Legends wear-off includes the target: 'Your Mesmerize spell has worn off of Baron Telyx V`Zher.' Also matches bare and Roman-ranked forms. Generated triggers own Dazzle and later mez spells; Walking Sleep is shaman-only. Cancelling the base spell name also clears its target-bound countdown."
     },
     {
-     "DisplayText": {
-      "template": "mez off ${target}"
-     }
-    },
-    {
-     "CancelTimer": {
-      "name": "${spell}"
-     }
-    }
-   ],
-   "comments": "Legends wear-off includes the target: 'Your Mesmerize spell has worn off of Baron Telyx V`Zher.' Also matches bare and Roman-ranked forms. Generated triggers own Dazzle and later mez spells; Walking Sleep is shaman-only. Cancelling the base spell name also clears its target-bound countdown."
-  },
-  {
-   "id": "class/enchanter/cc/charm-broken",
+      "id": "class/enchanter/cc/charm-broken",
       "name": "Charm broke",
       "icon": "spell:26",
-   "pattern": "^Your charm spell has worn off\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter",
-    "Bard",
-    "Druid",
-    "Necromancer"
-   ],
-   "actions": [
-    {
-     "Speak": {
-      "template": "charm broke"
-     }
+      "pattern": "^Your charm spell has worn off\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter",
+        "Bard",
+        "Druid",
+        "Necromancer"
+      ],
+      "actions": [
+        {
+          "Speak": {
+            "template": "charm broke"
+          }
+        },
+        {
+          "DisplayText": {
+            "template": "charm broke"
+          }
+        }
+      ]
     },
     {
-     "DisplayText": {
-      "template": "charm broke"
-     }
-    }
-   ]
-  },
-  {
-   "id": "class/enchanter/cc/root-landed",
+      "id": "class/enchanter/cc/root-landed",
       "name": "Root landed",
       "icon": "spell:117",
-   "pattern": "^(.+)'s feet adhere to the ground\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Crowd Control",
-   "classes": [
-    "Enchanter",
-    "Wizard"
-   ],
-   "actions": [
-    {
-     "DisplayText": {
-      "template": "${1} rooted"
-     }
+      "pattern": "^(.+)'s feet adhere to the ground\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Crowd Control",
+      "classes": [
+        "Enchanter",
+        "Wizard"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} rooted"
+          }
+        },
+        {
+          "StartTimer": {
+            "name": "Root — ${1}",
+            "duration_secs": 48,
+            "warn_at_secs": 10,
+            "lane": "enemy"
+          }
+        }
+      ],
+      "comments": "Verified 15x in Legends log. Base Root runs ~48 s at cap; higher-rank roots last longer — damage breaks are silent, so the countdown matters. Timer name carries the target ('Root — <mob>') so the target overlay groups it under the mob."
     },
     {
-     "StartTimer": {
-      "name": "Root — ${1}",
-      "duration_secs": 48,
-      "warn_at_secs": 10,
-      "lane": "enemy"
-     }
-    }
-   ],
-   "comments": "Verified 15x in Legends log. Base Root runs ~48 s at cap; higher-rank roots last longer — damage breaks are silent, so the countdown matters. Timer name carries the target ('Root — <mob>') so the target overlay groups it under the mob."
-  },
-  {
-   "id": "class/enchanter/debuffs/tash-landed",
+      "id": "class/enchanter/debuffs/tash-landed",
       "name": "Tash landed",
       "icon": "spell:72",
-   "pattern": "^(.+) glances nervously about\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Debuffs",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^(.+) glances nervously about\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Debuffs",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} tashed"
+          }
+        }
+      ],
+      "comments": "Verified in Legends log."
+    },
     {
-     "DisplayText": {
-      "template": "${1} tashed"
-     }
-    }
-   ],
-   "comments": "Verified in Legends log."
-  },
-  {
-   "id": "class/enchanter/buffs/clarity-on",
+      "id": "class/enchanter/buffs/clarity-on",
       "name": "Clarity on you",
       "icon": "spell:21",
-   "pattern": "^A soft breeze slips through your mind\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Buffs",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^A soft breeze slips through your mind\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Buffs",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "clarity on"
+          }
+        }
+      ]
+    },
     {
-     "DisplayText": {
-      "template": "clarity on"
-     }
-    }
-   ]
-  },
-  {
-   "id": "class/enchanter/buffs/clarity-fading",
+      "id": "class/enchanter/buffs/clarity-fading",
       "name": "Clarity fading",
       "icon": "spell:21",
-   "pattern": "^The soft breeze fades\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Buffs",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^The soft breeze fades\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Buffs",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "Speak": {
+            "template": "clarity fading"
+          }
+        }
+      ]
+    },
     {
-     "Speak": {
-      "template": "clarity fading"
-     }
-    }
-   ]
-  },
-  {
-   "id": "class/enchanter/buffs/rune-fading",
+      "id": "class/enchanter/buffs/rune-fading",
       "name": "Rune gone",
       "icon": "spell:77",
-   "pattern": "^Your shielding fades\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Buffs",
-   "classes": [
-    "Enchanter"
-   ],
-   "actions": [
+      "pattern": "^Your shielding fades\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Buffs",
+      "classes": [
+        "Enchanter"
+      ],
+      "actions": [
+        {
+          "Speak": {
+            "template": "rune down"
+          }
+        }
+      ]
+    },
     {
-     "Speak": {
-      "template": "rune down"
-     }
-    }
-   ]
-  },
-  {
-   "id": "class/enchanter/buffs/haste-landed",
+      "id": "class/enchanter/buffs/haste-landed",
       "name": "Haste landed",
       "icon": "spell:16",
-   "pattern": "^(.+) begins to move with wonderous rapidity\\.",
-   "enabled": true,
-   "default_enabled": true,
-   "source": "curated",
-   "category": "Class/Enchanter/Buffs",
-   "classes": [
-    "Enchanter",
-    "Shaman"
-   ],
-   "actions": [
-    {
-     "DisplayText": {
-      "template": "${1} hasted"
-     }
+      "pattern": "^(.+) begins to move with wonderous rapidity\\.",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Enchanter/Buffs",
+      "classes": [
+        "Enchanter",
+        "Shaman"
+      ],
+      "actions": [
+        {
+          "DisplayText": {
+            "template": "${1} hasted"
+          }
+        }
+      ]
     }
-   ]
-  }
- ]
+  ]
 }

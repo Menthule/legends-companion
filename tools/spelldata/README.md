@@ -69,15 +69,14 @@ Each step reads the previous step's output from its default location;
   buff packs, plus ONE wear-off companion per spell wired to the Legends
   "`Your <Spell> spell has worn off of <target>.`" line: CancelTimer +
   DisplayText re-announce (no Speak — curated packs own wear-off TTS).
-  Default ON only for CC (mez/root/snare, `CC_SPELLS`) and class-defining
-  DoTs (`DEFAULT_ON_DOTS`); ending warnings (`warn_at_secs`) are emitted
-  for CC only, since the app speaks them. (class, spell) pairs the
+  Enemy cast and wear-off trackers set `track_when_observed`, so an exact
+  spell the character actually casts is tracked even if the manually chosen
+  loadout is stale; explicit trigger overrides still win. Landing or damage
+  lines bind bars to their mobs, including one bar per area-effect landing.
+  Ending warnings (`warn_at_secs`) are emitted for CC only. (class, spell) pairs the
   curated packs already time (`CURATED_COVERED`: enchanter mez trio +
   base Root, shaman Walking Sleep, wizard Root) are skipped so one cast
-  never starts two bars. v1 keys enemy timers by spell name only — two
-  mobs under the same spell share one bar, and the first wear-off cancels
-  it (documented gap; per-target names use the `<Spell> — <target>`
-  convention the frontend groups by).
+  never starts two bars.
 
 ## What is hand-curated (NOT regenerated — edit the JSON directly)
 

@@ -622,6 +622,7 @@ pub struct TriggerTreeEntry {
     /// top of this for display.
     pub zones: Vec<String>,
     pub default_enabled: bool,
+    pub track_when_observed: bool,
     pub effective_enabled: bool,
     pub enabled: bool,
     pub source: &'static str,
@@ -705,6 +706,7 @@ fn tree_entry(
         classes: t.classes.clone(),
         zones: t.zones.clone(),
         default_enabled: t.default_enabled,
+        track_when_observed: t.track_when_observed,
         effective_enabled: t.enabled && effective_enabled(t, profile),
         enabled: t.enabled,
         source: match t.source {

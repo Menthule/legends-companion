@@ -215,6 +215,7 @@ pub fn signal_from_event(event: &Event, timestamp: i64) -> Option<TriggerSignal>
     }
 }
 
+#[derive(Clone)]
 struct ActiveTimer {
     name: String,
     icon: Option<String>,
@@ -1231,8 +1232,62 @@ impl TriggerEngine {
                 hit = Some((idx, target.to_string()));
             }
         }
-        let Some((idx, target)) = hit else { return };
         let now = parsed.line.timestamp;
+        let Some((idx, target)) = hit else {
+            // Area effects emit one landing line per target after a single
+            // cast. The first line consumes the bare timer above; subsequent
+            // lines clone that recently-bound timer. Correlation remains
+            // entirely data-driven by the spell's configured landing suffix,
+            // and ambiguity between two different recent spells is rejected.
+            let mut recent: Option<(String, usize, String)> = None;
+            for (idx, timer) in self.timers.iter().enumerate() {
+                if timer.lane != TimerLane::Enemy {
+                    continue;
+                }
+                let family = instance_base(&timer.name);
+                let Some((spell, _bound_target)) = family.split_once(" — ") else {
+                    continue;
+                };
+                let Some(&suffix) = debuff_land_map().get(spell) else {
+                    continue;
+                };
+                let Some(prefix) = msg.strip_suffix(suffix) else {
+                    continue;
+                };
+                let target = prefix.trim();
+                if target.is_empty() {
+                    continue;
+                }
+                let started_at = timer.expires_at - timer.duration_secs as i64;
+                if now < started_at || now - started_at > 10 {
+                    continue;
+                }
+                match &recent {
+                    Some((candidate, _, _)) if candidate != spell => return,
+                    Some(_) => {}
+                    None => recent = Some((spell.to_string(), idx, target.to_string())),
+                }
+            }
+            let Some((spell, idx, target)) = recent else {
+                return;
+            };
+            let target = self.canonical_target(&target);
+            let base = format!("{spell} — {target}");
+            let new_name = next_instance_name_among(&self.timers, &base);
+            let mut timer = self.timers[idx].clone();
+            timer.name = new_name.clone();
+            timer.lands_at = None;
+            let remaining = (timer.expires_at - now).max(1) as u64;
+            let warn_left = timer
+                .warn_at
+                .filter(|w| *w > now && !timer.warned)
+                .map(|w| (timer.expires_at - w).max(0) as u64);
+            let icon = timer.icon.clone();
+            let lane = timer.lane;
+            self.timers.push(timer);
+            sink.start_timer(&new_name, icon.as_deref(), remaining, warn_left, lane, 0);
+            return;
+        };
         let target = self.canonical_target(&target);
         let spell = self.timers[idx].name.clone();
         let base = format!("{spell} — {target}");
