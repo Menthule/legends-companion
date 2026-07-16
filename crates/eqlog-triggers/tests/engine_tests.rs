@@ -1715,6 +1715,66 @@ fn shipped_resist_trigger_clears_target_timer_and_resolves_spell_icon() {
 }
 
 #[test]
+fn ranked_resist_clears_base_timer_without_cancelling_an_earlier_target() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Shaman".into()];
+    profile.level = 60;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    // Preserve a successfully landed Odium on another target.
+    engine.process(&line(1000, "You begin casting Odium."), &mut sink);
+    engine.process(
+        &ParsedLine {
+            line: LogLine {
+                timestamp: 1004,
+                message: "A frost giant has taken 20 damage from Odium by Nyasha.".into(),
+            },
+            event: Event::SpellDamageTaken {
+                target: Entity::Named("A frost giant".into()),
+                source: Entity::Named("Nyasha".into()),
+                spell: "Odium".into(),
+                amount: 20,
+            },
+        },
+        &mut sink,
+    );
+
+    // Ranked casts still use the trigger's base display name for their timer.
+    engine.process(&line(1010, "You begin casting Odium VI."), &mut sink);
+    let names: Vec<String> = engine
+        .active_timers(1010)
+        .into_iter()
+        .map(|(name, _)| name)
+        .collect();
+    assert!(names.contains(&"Odium".to_string()));
+    assert!(names.contains(&"Odium — A frost giant".to_string()));
+
+    engine.process(
+        &ParsedLine {
+            line: LogLine {
+                timestamp: 1014,
+                message: "Bzzzt resisted your Odium VI!".into(),
+            },
+            event: Event::Resisted {
+                target: Entity::Named("Bzzzt".into()),
+                caster: Entity::You,
+                spell: "Odium VI".into(),
+            },
+        },
+        &mut sink,
+    );
+
+    let names: Vec<String> = engine
+        .active_timers(1014)
+        .into_iter()
+        .map(|(name, _)| name)
+        .collect();
+    assert_eq!(names, vec!["Odium — A frost giant".to_string()]);
+    assert!(sink.cancels.contains(&"Odium".to_string()));
+}
+
+#[test]
 fn dot_timers_bind_to_tick_target_and_die_with_it() {
     let mut t = Trigger::new(
         "Boil Blood timer",

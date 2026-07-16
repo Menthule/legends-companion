@@ -655,6 +655,23 @@ fn normalize_rank(rank: &str) -> String {
     rank.trim().to_ascii_uppercase()
 }
 
+fn spell_base_name(spell: &str) -> &str {
+    let spell = spell.trim();
+    let Some((base, rank)) = spell.rsplit_once(' ') else {
+        return spell;
+    };
+    if !base.is_empty()
+        && !rank.is_empty()
+        && rank
+            .bytes()
+            .all(|byte| matches!(byte, b'I' | b'V' | b'X' | b'L' | b'C' | b'D' | b'M'))
+    {
+        base
+    } else {
+        spell
+    }
+}
+
 /// Merge per-loadout manual timings into the action's library rank table.
 /// Manual values win field-by-field, so changing only cast time continues to
 /// inherit the library duration.
@@ -995,9 +1012,10 @@ impl TriggerEngine {
             _ => None,
         };
         let Some(spell) = spell else { return };
+        let base_spell = spell_base_name(spell);
         let mut cancelled: Vec<String> = Vec::new();
         self.timers.retain(|t| {
-            if t.name == spell {
+            if t.name == spell || t.name == base_spell {
                 cancelled.push(t.name.clone());
                 false
             } else {
