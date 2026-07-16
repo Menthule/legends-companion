@@ -101,7 +101,7 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Impact",
-      "comments": "Your Slay Undead proc gets a radiant purification moment. Verified Legends format: 'You slash a ghoul for 213 points of damage. (Slay Undead)'. ${1}=target, ${2}=damage. Presentation stays entirely trigger-owned: edit or disable this trigger to change the copy, style, color, duration, or sound.",
+      "comments": "Your Slay Undead proc gets a divine strike from the heavens. Verified Legends format: 'You slash a ghoul for 213 points of damage. (Slay Undead)'. ${1}=target, ${2}=damage. Presentation stays entirely trigger-owned: edit or disable this trigger to change the copy, style, color, duration, or sound.",
       "actions": [
         {
           "Overlay": {
@@ -121,7 +121,7 @@
         },
         {
           "PlaySound": {
-            "path": "gong.wav"
+            "path": "holy-strike.wav"
           }
         }
       ]

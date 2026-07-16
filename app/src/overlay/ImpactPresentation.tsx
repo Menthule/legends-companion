@@ -4,8 +4,7 @@ import chestClosed from "../assets/loot-chest-closed.webp";
 import chestOpen from "../assets/loot-chest-open.webp";
 import sealDormant from "../assets/achievement-seal-dormant.webp";
 import sealAwakened from "../assets/achievement-seal-awakened.webp";
-import slayDormant from "../assets/slay-undead-dormant.webp";
-import slayPurified from "../assets/slay-undead-purified.webp";
+import slayDivine from "../assets/slay-undead-divine.webp";
 
 /** Inline slab medal for badge/medal styles. */
 function Medal({ glyph }: { glyph: string }) {
@@ -41,18 +40,6 @@ const ACHIEVEMENT_PARTICLES = [
   { x: 94, y: -62, delay: 220, size: 4 },
   { x: -104, y: -28, delay: 260, size: 5 },
   { x: 110, y: -20, delay: 300, size: 5 },
-] as const;
-
-const SLAY_PARTICLES = [
-  { x: -102, y: -84, delay: 0, size: 5 },
-  { x: -76, y: -126, delay: 55, size: 7 },
-  { x: -38, y: -108, delay: 115, size: 4 },
-  { x: 4, y: -142, delay: 30, size: 6 },
-  { x: 42, y: -112, delay: 145, size: 5 },
-  { x: 84, y: -128, delay: 80, size: 7 },
-  { x: 112, y: -78, delay: 190, size: 4 },
-  { x: -118, y: -42, delay: 225, size: 4 },
-  { x: 124, y: -34, delay: 260, size: 5 },
 ] as const;
 
 /** Generated chest artwork used by trigger-owned loot moments. The optional
@@ -136,39 +123,21 @@ export function MonsterRip({ glyph }: { glyph?: string }) {
   );
 }
 
-/** Paired generated artwork for the holy strike style. Trigger data supplies
- * all copy; this component only owns the reusable visual treatment. */
+/** Generated divine-strike artwork. Trigger data supplies all copy; this
+ * component only owns the reusable visual treatment. */
 export function SlayUndead() {
   return (
     <div className="ov-slay-undead" aria-hidden="true">
-      <span className="ov-slay-aura" />
+      <span className="ov-slay-skywash" />
       <img
-        className="ov-slay-image ov-slay-dormant"
-        src={slayDormant}
+        className="ov-slay-divine"
+        src={slayDivine}
         alt=""
         draggable={false}
       />
-      <img
-        className="ov-slay-image ov-slay-purified"
-        src={slayPurified}
-        alt=""
-        draggable={false}
-      />
-      <span className="ov-slay-blade" />
-      <span className="ov-slay-flash" />
-      <span className="ov-slay-particles">
-        {SLAY_PARTICLES.map((particle, index) => (
-          <i
-            key={index}
-            style={{
-              "--slay-x": `${particle.x}px`,
-              "--slay-y": `${particle.y}px`,
-              "--slay-delay": `${particle.delay}ms`,
-              "--slay-size": `${particle.size}px`,
-            } as CSSProperties}
-          />
-        ))}
-      </span>
+      <span className="ov-slay-descent" />
+      <span className="ov-slay-impact-flash" />
+      <span className="ov-slay-shockwave" />
     </div>
   );
 }

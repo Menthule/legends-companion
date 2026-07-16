@@ -3329,33 +3329,35 @@ button.coach-row.active {
   100% { opacity: 1; transform: scaleX(1); }
 }
 
-/* slay-undead: generated skull art is purified by a trigger-selected holy hit. */
+/* slay-undead: a trigger-selected divine strike descends from above. */
 .ov-impact.impact-slay-undead {
-  gap: 1px;
-  animation: slay-impact-arrive 0.46s cubic-bezier(0.16, 1.05, 0.3, 1) both;
+  gap: 0;
+  animation: slay-impact-arrive 0.38s cubic-bezier(0.16, 1.05, 0.3, 1) both;
 }
 .ov-impact.impact-slay-undead .ovi-headline {
   color: #fff3bc;
   text-shadow:
     0 2px 3px #000,
     0 0 16px color-mix(in srgb, var(--impact-accent) 72%, transparent);
-  animation: slay-headline-in 0.42s 0.28s ease-out both;
+  animation: slay-headline-in 0.38s 0.36s ease-out both;
 }
 .ov-impact.impact-slay-undead .ovi-sub {
   max-width: 92%;
   color: #fff;
   overflow-wrap: anywhere;
-  animation: slay-copy-in 0.38s 0.48s ease-out both;
+  animation: slay-copy-in 0.34s 0.58s ease-out both;
 }
 .ov-slay-undead {
   position: relative;
-  width: 174px;
+  width: 190px;
   aspect-ratio: 1;
   isolation: isolate;
-  filter: drop-shadow(0 9px 15px rgba(0, 0, 0, 0.72));
-  animation: slay-skull-arrive 0.5s cubic-bezier(0.18, 1, 0.3, 1) both;
+  margin-block: -6px -12px;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--impact-accent) 72%, transparent));
 }
-.ov-slay-image {
+.ov-slay-divine {
   position: absolute;
   z-index: 2;
   inset: 0;
@@ -3365,79 +3367,71 @@ button.coach-row.active {
   object-fit: contain;
   pointer-events: none;
   user-select: none;
+  transform-origin: 50% 0;
+  animation: slay-beam-descend 0.68s cubic-bezier(0.18, 0.7, 0.2, 1) both;
 }
-.ov-slay-dormant {
-  animation: slay-dormant-state 0.72s ease-out both;
-}
-.ov-slay-purified {
-  opacity: 0;
-  animation: slay-purified-state 0.72s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.ov-slay-aura,
-.ov-slay-flash,
-.ov-slay-blade {
+.ov-slay-skywash,
+.ov-slay-descent,
+.ov-slay-impact-flash,
+.ov-slay-shockwave {
   position: absolute;
   left: 50%;
-  top: 50%;
   pointer-events: none;
 }
-.ov-slay-aura {
+.ov-slay-skywash {
   z-index: 0;
-  width: 112%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--impact-accent) 80%, white) 0%,
-    color-mix(in srgb, var(--impact-accent) 44%, transparent) 36%,
-    transparent 72%
+  top: -8%;
+  width: 168%;
+  height: 118%;
+  transform: translateX(-50%);
+  background: conic-gradient(
+    from 164deg at 50% 0%,
+    transparent 0 42%,
+    color-mix(in srgb, var(--impact-accent) 26%, transparent) 47%,
+    rgba(255, 255, 255, 0.38) 50%,
+    color-mix(in srgb, var(--impact-accent) 26%, transparent) 53%,
+    transparent 58% 100%
   );
-  filter: blur(9px);
+  filter: blur(7px);
   opacity: 0;
-  animation: slay-aura-burst 1s 0.22s ease-out both;
+  animation: slay-sky-open 1.05s 0.05s ease-out both;
 }
-.ov-slay-flash {
-  z-index: 5;
-  width: 45%;
+.ov-slay-descent {
+  z-index: 3;
+  top: -6%;
+  width: 6%;
+  height: 94%;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: 50% 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, white, #fff8cd 78%, transparent);
+  box-shadow:
+    0 0 8px 3px white,
+    0 0 25px 9px var(--impact-accent);
+  animation: slay-core-descend 0.5s 0.08s ease-in both;
+}
+.ov-slay-impact-flash {
+  z-index: 4;
+  top: 82%;
+  width: 26%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: white;
   box-shadow:
-    0 0 24px 10px white,
-    0 0 68px 32px var(--impact-accent);
+    0 0 18px 9px white,
+    0 0 56px 28px var(--impact-accent);
   opacity: 0;
-  animation: slay-holy-flash 0.5s 0.2s ease-out both;
+  animation: slay-ground-flash 0.72s 0.4s ease-out both;
 }
-.ov-slay-blade {
-  z-index: 6;
-  width: 160%;
-  height: 9px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent 0%, #fff8cf 20%, white 52%, #fff8cf 82%, transparent 100%);
-  box-shadow:
-    0 0 8px 2px white,
-    0 0 22px 8px var(--impact-accent);
-  opacity: 0;
-  transform-origin: center;
-  animation: slay-blade-sweep 0.48s 0.1s cubic-bezier(0.2, 0.72, 0.25, 1) both;
-}
-.ov-slay-particles {
-  position: absolute;
-  z-index: 7;
-  inset: 0;
-  pointer-events: none;
-}
-.ov-slay-particles i {
-  position: absolute;
-  left: 50%;
-  top: 58%;
-  width: var(--slay-size);
-  height: var(--slay-size);
+.ov-slay-shockwave {
+  z-index: 5;
+  top: 88%;
+  width: 34%;
+  height: 10%;
+  border: 3px solid color-mix(in srgb, var(--impact-accent) 64%, white);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--impact-accent) 58%, white);
-  box-shadow: 0 0 9px 3px var(--impact-accent);
   opacity: 0;
-  animation: slay-particle-rise 1.15s calc(0.32s + var(--slay-delay)) ease-out both;
+  animation: slay-shockwave 0.82s 0.44s ease-out both;
 }
 .ov-slay-damage {
   display: flex;
@@ -3447,7 +3441,7 @@ button.coach-row.active {
   text-shadow:
     0 3px 4px #000,
     0 0 18px color-mix(in srgb, var(--impact-accent) 58%, transparent);
-  animation: slay-damage-in 0.42s 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: slay-damage-in 0.42s 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .ov-slay-damage strong {
   font-size: 54px;
@@ -3462,49 +3456,36 @@ button.coach-row.active {
   letter-spacing: 0;
 }
 @keyframes slay-impact-arrive {
-  0% { opacity: 0; transform: scale(0.78); }
-  70% { opacity: 1; transform: scale(1.03); }
+  0% { opacity: 0; transform: scale(0.92); }
+  70% { opacity: 1; transform: scale(1.02); }
   100% { opacity: 1; transform: none; }
 }
-@keyframes slay-skull-arrive {
-  0% { opacity: 0; transform: translateY(12px) scale(0.72); }
-  70% { opacity: 1; transform: translateY(-2px) scale(1.05); }
-  100% { opacity: 1; transform: none; }
+@keyframes slay-beam-descend {
+  0% { opacity: 0; clip-path: inset(0 0 96% 0); transform: scaleY(0.72); }
+  42% { opacity: 1; }
+  68% { clip-path: inset(0); transform: scaleY(1.04); filter: brightness(1.7); }
+  100% { opacity: 1; clip-path: inset(0); transform: none; filter: brightness(1.08); }
 }
-@keyframes slay-dormant-state {
-  0%, 42% { opacity: 1; filter: brightness(1); }
-  58% { opacity: 1; filter: brightness(1.8); }
-  76%, 100% { opacity: 0; filter: brightness(2.2); }
+@keyframes slay-core-descend {
+  0% { opacity: 0; transform: translateX(-50%) scaleY(0); }
+  25% { opacity: 1; }
+  78% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+  100% { opacity: 0; transform: translateX(-50%) scaleY(1); }
 }
-@keyframes slay-purified-state {
-  0%, 18% { opacity: 0; transform: scale(0.96); filter: brightness(2.1); }
-  42% { opacity: 1; transform: scale(1.08); filter: brightness(1.55); }
-  100% { opacity: 1; transform: none; filter: brightness(1); }
+@keyframes slay-sky-open {
+  0% { opacity: 0; transform: translateX(-50%) scaleX(0.2); }
+  42% { opacity: 0.9; transform: translateX(-50%) scaleX(1.08); }
+  100% { opacity: 0.28; transform: translateX(-50%) scaleX(1); }
 }
-@keyframes slay-holy-flash {
-  0%, 15% { opacity: 0; transform: translate(-50%, -50%) scale(0.18); }
-  44% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
+@keyframes slay-ground-flash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.12); }
+  28% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.2); }
 }
-@keyframes slay-aura-burst {
+@keyframes slay-shockwave {
   0% { opacity: 0; transform: translate(-50%, -50%) scale(0.25); }
-  50% { opacity: 0.88; transform: translate(-50%, -50%) scale(1.12); }
-  100% { opacity: 0.36; transform: translate(-50%, -50%) scale(1); }
-}
-@keyframes slay-blade-sweep {
-  0% { opacity: 0; transform: translate(-105%, -500%) rotate(47deg) scaleX(0.55); }
-  18% { opacity: 1; }
-  58% { opacity: 1; transform: translate(-50%, -50%) rotate(47deg) scaleX(1); }
-  100% { opacity: 0; transform: translate(5%, 400%) rotate(47deg) scaleX(0.75); }
-}
-@keyframes slay-particle-rise {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.15); }
-  20% { opacity: 1; }
-  78% { opacity: 0.85; }
-  100% {
-    opacity: 0;
-    transform: translate(calc(-50% + var(--slay-x)), calc(-50% + var(--slay-y))) scale(0.6);
-  }
+  25% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.5); }
 }
 @keyframes slay-headline-in {
   from { opacity: 0; transform: translateY(-8px); }
@@ -3709,11 +3690,11 @@ button.coach-row.active {
   .ov-achievement-particles i,
   .ov-achievement-glyph,
   .ov-slay-undead,
-  .ov-slay-image,
-  .ov-slay-aura,
-  .ov-slay-flash,
-  .ov-slay-blade,
-  .ov-slay-particles i,
+  .ov-slay-divine,
+  .ov-slay-skywash,
+  .ov-slay-descent,
+  .ov-slay-impact-flash,
+  .ov-slay-shockwave,
   .ov-slay-damage,
   .ov-impact.impact-achievement-seal .ovi-name,
   .ov-impact.impact-loot-chest .ovi-name,
@@ -3740,14 +3721,15 @@ button.coach-row.active {
   .seal-awakened {
     opacity: 1;
   }
-  .ov-slay-dormant,
-  .ov-slay-flash,
-  .ov-slay-blade,
-  .ov-slay-particles {
+  .ov-slay-descent,
+  .ov-slay-impact-flash,
+  .ov-slay-shockwave {
     display: none;
   }
-  .ov-slay-purified {
+  .ov-slay-divine {
     opacity: 1;
+    clip-path: inset(0);
+    transform: none;
   }
   .ov-chest-aura {
     opacity: 0.35;

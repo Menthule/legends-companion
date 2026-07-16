@@ -1149,7 +1149,7 @@ fn shipped_slay_undead_trigger_captures_target_damage_and_presentation() {
     );
     assert_eq!(config.get("style"), Some(&serde_json::json!("slay-undead")));
     assert_eq!(config.get("durationMs"), Some(&serde_json::json!(3200)));
-    assert!(sink.sounds.contains(&"gong.wav".to_string()));
+    assert!(sink.sounds.contains(&"holy-strike.wav".to_string()));
 }
 
 #[test]

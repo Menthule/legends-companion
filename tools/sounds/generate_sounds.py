@@ -79,6 +79,25 @@ def add_tone(buf, start_s, freq, dur_s, decay_s, gain=1.0,
             env *= math.exp(-t / tau)
             buf[start + i] += gain * pgain * env * math.sin(w * i)
 
+def add_sweep(buf, start_s, hi_freq, lo_freq, dur_s, decay_s, gain=1.0):
+    """Mix a glassy exponential pitch fall, used for descending spell light."""
+    start = int(start_s * SAMPLE_RATE)
+    n = int(dur_s * SAMPLE_RATE)
+    need = start + n
+    if need > len(buf):
+        buf.extend([0.0] * (need - len(buf)))
+    phase = 0.0
+    ratio = lo_freq / hi_freq
+    for i in range(n):
+        t = i / SAMPLE_RATE
+        progress = i / max(1, n - 1)
+        freq = hi_freq * (ratio ** progress)
+        phase += 2.0 * math.pi * freq / SAMPLE_RATE
+        env = (t / ATTACK_S) if t < ATTACK_S else 1.0
+        env *= math.exp(-t / decay_s)
+        shimmer = math.sin(phase) + 0.28 * math.sin(phase * 2.01)
+        buf[start + i] += gain * env * shimmer
+
 def finalize(buf):
     """Tail fade-out, then normalize to PEAK (-3 dBFS)."""
     nfade = int(TAIL_FADE_S * SAMPLE_RATE)
@@ -186,6 +205,23 @@ def s_gong():
     add_tone(buf, 0.0, f0, 0.60, 0.28, gain=1.0, partials=gong_partials)
     return buf
 
+def s_holy_strike():
+    """Descending celestial shimmer resolving into a radiant D-major chord."""
+    buf = []
+    add_sweep(buf, 0.000, note("D7"), note("D5"), 0.30, 0.20, gain=0.46)
+    add_sweep(buf, 0.035, note("A6"), note("A4"), 0.32, 0.22, gain=0.30)
+    # The beam lands into an open fifth and major third: bright, consonant,
+    # and sustained enough to feel divine without masking combat audio.
+    add_tone(buf, 0.155, note("D5"), 0.78, 0.34, gain=0.74,
+             partials=SOFT_PARTIALS, attack_s=0.012)
+    add_tone(buf, 0.155, note("A5"), 0.76, 0.31, gain=0.62,
+             partials=SOFT_PARTIALS, attack_s=0.012)
+    add_tone(buf, 0.155, note("F#6"), 0.72, 0.28, gain=0.42,
+             partials=GLASS_PARTIALS, attack_s=0.008)
+    add_tone(buf, 0.205, note("D7"), 0.70, 0.30, gain=0.34,
+             partials=GLASS_PARTIALS, attack_s=0.004)
+    return buf
+
 SOUNDS = [
     # (filename, builder, label, description, intended_use)
     ("alert.wav", s_alert, "Alert",
@@ -215,6 +251,9 @@ SOUNDS = [
     ("gong.wav", s_gong, "Gong",
      "Deep struck gong on A2 with inharmonic partials and a long decay.",
      "Raid-scale events: enrage, boss spawn, raid-wide calls."),
+    ("holy-strike.wav", s_holy_strike, "Holy strike",
+     "Descending celestial shimmer resolving into a radiant D-major chord.",
+     "Divine damage moments such as Slay Undead."),
     ("chime2.wav", s_chime2, "Chime 2",
      "Alternate ascending chime, higher pitch (G5 to C6).",
      "Alternate alert pitch so users can tell triggers apart by ear."),

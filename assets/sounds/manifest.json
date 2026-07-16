@@ -63,6 +63,13 @@
     "intended_use": "Raid-scale events: enrage, boss spawn, raid-wide calls."
   },
   {
+    "file": "holy-strike.wav",
+    "label": "Holy strike",
+    "description": "Descending celestial shimmer resolving into a radiant D-major chord.",
+    "duration_ms": 935,
+    "intended_use": "Divine damage moments such as Slay Undead."
+  },
+  {
     "file": "chime2.wav",
     "label": "Chime 2",
     "description": "Alternate ascending chime, higher pitch (G5 to C6).",
