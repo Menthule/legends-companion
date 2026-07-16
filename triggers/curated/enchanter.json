@@ -27,7 +27,7 @@
    "id": "class/enchanter/cc/mesmerize-timer",
       "name": "Mesmerize duration",
       "icon": "spell:35",
-   "pattern": "^You begin casting Mesmerize\\.",
+   "pattern": "^You begin casting Mesmerize(?: (?P<rank>[IVXLCDM]+))?\\.$",
    "enabled": true,
    "default_enabled": true,
    "source": "curated",
@@ -38,20 +38,23 @@
    "actions": [
     {
      "StartTimer": {
-      "name": "Mez (Mesmerize)",
+      "name": "Mesmerize",
       "duration_secs": 24,
       "warn_at_secs": 6,
+      "cast_time_secs": 3,
+      "duration_formula": 7,
+      "duration_cap_ticks": 4,
       "lane": "enemy"
      }
     }
    ],
-   "comments": "~24 s. Dazzle shares the landing message, so time from your own cast."
+   "comments": "~24 s effect plus the 3 s cast lead-in (formula 7, cap 4 ticks). Ranked casts use the captured Roman suffix and can be corrected per loadout with observed timing. Dazzle shares the landing message, so time from your own cast."
   },
   {
    "id": "class/enchanter/cc/enthrall-timer",
       "name": "Enthrall duration",
       "icon": "spell:35",
-   "pattern": "^You begin casting Enthrall\\.",
+   "pattern": "^You begin casting Enthrall(?: (?P<rank>[IVXLCDM]+))?\\.$",
    "enabled": true,
    "default_enabled": true,
    "source": "curated",
@@ -62,9 +65,12 @@
    "actions": [
     {
      "StartTimer": {
-      "name": "Mez (Enthrall)",
+      "name": "Enthrall",
       "duration_secs": 48,
       "warn_at_secs": 6,
+      "cast_time_secs": 3,
+      "duration_formula": 8,
+      "duration_cap_ticks": 8,
       "lane": "enemy"
      }
     }
@@ -74,7 +80,7 @@
    "id": "class/enchanter/cc/entrance-timer",
       "name": "Entrance duration",
       "icon": "spell:35",
-   "pattern": "^You begin casting Entrance\\.",
+   "pattern": "^You begin casting Entrance(?: (?P<rank>[IVXLCDM]+))?\\.$",
    "enabled": true,
    "default_enabled": true,
    "source": "curated",
@@ -85,9 +91,12 @@
    "actions": [
     {
      "StartTimer": {
-      "name": "Mez (Entrance)",
-      "duration_secs": 74,
+      "name": "Entrance",
+      "duration_secs": 72,
       "warn_at_secs": 10,
+      "cast_time_secs": 3,
+      "duration_formula": 9,
+      "duration_cap_ticks": 12,
       "lane": "enemy"
      }
     }
@@ -97,7 +106,7 @@
    "id": "class/enchanter/cc/mez-worn-target",
       "name": "Mez worn off target",
       "icon": "spell:35",
-   "pattern": "^Your (Mesmerize|Enthrall|Entrance|Dazzle) spell has worn off(?: of (.+))?\\.",
+   "pattern": "^Your (?P<spell>Mesmerize|Enthrall|Entrance)(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
    "enabled": true,
    "default_enabled": true,
    "source": "curated",
@@ -114,16 +123,16 @@
     },
     {
      "DisplayText": {
-      "template": "mez off ${2}"
+      "template": "mez off ${target}"
      }
     },
     {
      "CancelTimer": {
-      "name": "Mez (${1})"
+      "name": "${spell}"
      }
     }
    ],
-   "comments": "Legends wear-off includes the target: 'Your Mesmerize spell has worn off of Baron Telyx V`Zher.' Also matches the bare form. Walking Sleep is shaman-only and lives in class/shaman/cc/walking-sleep-worn. Also cancels the 'Mez (<Spell>)' countdown started by the curated cast timers."
+   "comments": "Legends wear-off includes the target: 'Your Mesmerize spell has worn off of Baron Telyx V`Zher.' Also matches bare and Roman-ranked forms. Generated triggers own Dazzle and later mez spells; Walking Sleep is shaman-only. Cancelling the base spell name also clears its target-bound countdown."
   },
   {
    "id": "class/enchanter/cc/charm-broken",

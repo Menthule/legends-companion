@@ -85,4 +85,28 @@ describe("Impact overlay presentation", () => {
     expect(markup).toContain("ACHIEVEMENT UNLOCKED");
     expect(markup).toContain("Hide Your Brains!");
   });
+
+  it("renders the generated Slay Undead transformation with captured copy", () => {
+    const markup = renderToStaticMarkup(
+      createElement(ImpactPresentation, {
+        payload: {
+          id: 4,
+          style: "slay-undead",
+          headline: "SLAY UNDEAD",
+          big: "213",
+          sub: "Purged: a ghoul",
+        },
+      }),
+    );
+
+    expect(markup).toContain("impact-slay-undead");
+    expect(markup).toContain("ov-slay-undead");
+    expect(markup).toContain("slay-undead-dormant.webp");
+    expect(markup).toContain("slay-undead-purified.webp");
+    expect(markup).toContain("ov-slay-blade");
+    expect(markup).toContain("ov-slay-particles");
+    expect(markup).toContain("SLAY UNDEAD");
+    expect(markup).toContain("213");
+    expect(markup).toContain("Purged: a ghoul");
+  });
 });

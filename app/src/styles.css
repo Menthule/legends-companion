@@ -3329,6 +3329,196 @@ button.coach-row.active {
   100% { opacity: 1; transform: scaleX(1); }
 }
 
+/* slay-undead: generated skull art is purified by a trigger-selected holy hit. */
+.ov-impact.impact-slay-undead {
+  gap: 1px;
+  animation: slay-impact-arrive 0.46s cubic-bezier(0.16, 1.05, 0.3, 1) both;
+}
+.ov-impact.impact-slay-undead .ovi-headline {
+  color: #fff3bc;
+  text-shadow:
+    0 2px 3px #000,
+    0 0 16px color-mix(in srgb, var(--impact-accent) 72%, transparent);
+  animation: slay-headline-in 0.42s 0.28s ease-out both;
+}
+.ov-impact.impact-slay-undead .ovi-sub {
+  max-width: 92%;
+  color: #fff;
+  overflow-wrap: anywhere;
+  animation: slay-copy-in 0.38s 0.48s ease-out both;
+}
+.ov-slay-undead {
+  position: relative;
+  width: 174px;
+  aspect-ratio: 1;
+  isolation: isolate;
+  filter: drop-shadow(0 9px 15px rgba(0, 0, 0, 0.72));
+  animation: slay-skull-arrive 0.5s cubic-bezier(0.18, 1, 0.3, 1) both;
+}
+.ov-slay-image {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+.ov-slay-dormant {
+  animation: slay-dormant-state 0.72s ease-out both;
+}
+.ov-slay-purified {
+  opacity: 0;
+  animation: slay-purified-state 0.72s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.ov-slay-aura,
+.ov-slay-flash,
+.ov-slay-blade {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+}
+.ov-slay-aura {
+  z-index: 0;
+  width: 112%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--impact-accent) 80%, white) 0%,
+    color-mix(in srgb, var(--impact-accent) 44%, transparent) 36%,
+    transparent 72%
+  );
+  filter: blur(9px);
+  opacity: 0;
+  animation: slay-aura-burst 1s 0.22s ease-out both;
+}
+.ov-slay-flash {
+  z-index: 5;
+  width: 45%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: white;
+  box-shadow:
+    0 0 24px 10px white,
+    0 0 68px 32px var(--impact-accent);
+  opacity: 0;
+  animation: slay-holy-flash 0.5s 0.2s ease-out both;
+}
+.ov-slay-blade {
+  z-index: 6;
+  width: 160%;
+  height: 9px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, #fff8cf 20%, white 52%, #fff8cf 82%, transparent 100%);
+  box-shadow:
+    0 0 8px 2px white,
+    0 0 22px 8px var(--impact-accent);
+  opacity: 0;
+  transform-origin: center;
+  animation: slay-blade-sweep 0.48s 0.1s cubic-bezier(0.2, 0.72, 0.25, 1) both;
+}
+.ov-slay-particles {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  pointer-events: none;
+}
+.ov-slay-particles i {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: var(--slay-size);
+  height: var(--slay-size);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--impact-accent) 58%, white);
+  box-shadow: 0 0 9px 3px var(--impact-accent);
+  opacity: 0;
+  animation: slay-particle-rise 1.15s calc(0.32s + var(--slay-delay)) ease-out both;
+}
+.ov-slay-damage {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: #fff;
+  text-shadow:
+    0 3px 4px #000,
+    0 0 18px color-mix(in srgb, var(--impact-accent) 58%, transparent);
+  animation: slay-damage-in 0.42s 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.ov-slay-damage strong {
+  font-size: 54px;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.ov-slay-damage span {
+  color: color-mix(in srgb, var(--impact-accent) 76%, white);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+@keyframes slay-impact-arrive {
+  0% { opacity: 0; transform: scale(0.78); }
+  70% { opacity: 1; transform: scale(1.03); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes slay-skull-arrive {
+  0% { opacity: 0; transform: translateY(12px) scale(0.72); }
+  70% { opacity: 1; transform: translateY(-2px) scale(1.05); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes slay-dormant-state {
+  0%, 42% { opacity: 1; filter: brightness(1); }
+  58% { opacity: 1; filter: brightness(1.8); }
+  76%, 100% { opacity: 0; filter: brightness(2.2); }
+}
+@keyframes slay-purified-state {
+  0%, 18% { opacity: 0; transform: scale(0.96); filter: brightness(2.1); }
+  42% { opacity: 1; transform: scale(1.08); filter: brightness(1.55); }
+  100% { opacity: 1; transform: none; filter: brightness(1); }
+}
+@keyframes slay-holy-flash {
+  0%, 15% { opacity: 0; transform: translate(-50%, -50%) scale(0.18); }
+  44% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
+}
+@keyframes slay-aura-burst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.25); }
+  50% { opacity: 0.88; transform: translate(-50%, -50%) scale(1.12); }
+  100% { opacity: 0.36; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes slay-blade-sweep {
+  0% { opacity: 0; transform: translate(-105%, -500%) rotate(47deg) scaleX(0.55); }
+  18% { opacity: 1; }
+  58% { opacity: 1; transform: translate(-50%, -50%) rotate(47deg) scaleX(1); }
+  100% { opacity: 0; transform: translate(5%, 400%) rotate(47deg) scaleX(0.75); }
+}
+@keyframes slay-particle-rise {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.15); }
+  20% { opacity: 1; }
+  78% { opacity: 0.85; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--slay-x)), calc(-50% + var(--slay-y))) scale(0.6);
+  }
+}
+@keyframes slay-headline-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slay-damage-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.8); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slay-copy-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: none; }
+}
+
 @container impact (min-width: 650px) and (min-height: 360px) {
   .ov-impact {
     gap: 10px;
@@ -3374,6 +3564,15 @@ button.coach-row.active {
   }
   .ov-monster-rip {
     width: 220px;
+  }
+  .ov-slay-undead {
+    width: 250px;
+  }
+  .ov-slay-damage strong {
+    font-size: 78px;
+  }
+  .ov-slay-damage span {
+    font-size: 14px;
   }
   .ov-chest-glyph {
     font-size: 52px;
@@ -3427,6 +3626,15 @@ button.coach-row.active {
   }
   .ov-monster-rip {
     width: 280px;
+  }
+  .ov-slay-undead {
+    width: 320px;
+  }
+  .ov-slay-damage strong {
+    font-size: 104px;
+  }
+  .ov-slay-damage span {
+    font-size: 17px;
   }
   .ov-chest-glyph {
     font-size: 66px;
@@ -3500,6 +3708,13 @@ button.coach-row.active {
   .ov-achievement-flash,
   .ov-achievement-particles i,
   .ov-achievement-glyph,
+  .ov-slay-undead,
+  .ov-slay-image,
+  .ov-slay-aura,
+  .ov-slay-flash,
+  .ov-slay-blade,
+  .ov-slay-particles i,
+  .ov-slay-damage,
   .ov-impact.impact-achievement-seal .ovi-name,
   .ov-impact.impact-loot-chest .ovi-name,
   .ov-monster-rip,
@@ -3523,6 +3738,15 @@ button.coach-row.active {
     display: none;
   }
   .seal-awakened {
+    opacity: 1;
+  }
+  .ov-slay-dormant,
+  .ov-slay-flash,
+  .ov-slay-blade,
+  .ov-slay-particles {
+    display: none;
+  }
+  .ov-slay-purified {
     opacity: 1;
   }
   .ov-chest-aura {

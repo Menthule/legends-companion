@@ -1121,6 +1121,147 @@ fn library_packs_parse_and_all_patterns_compile() {
 }
 
 #[test]
+fn shipped_slay_undead_trigger_captures_target_damage_and_presentation() {
+    let profile = CharacterProfile::new("Nyasha");
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(
+        &line(
+            1000,
+            "You slash a ghoul for 213 points of damage. (Slay Undead)",
+        ),
+        &mut sink,
+    );
+
+    let (overlay, fields, config) = sink
+        .overlays
+        .iter()
+        .find(|(overlay, fields, _)| {
+            overlay == "impact" && fields.get("headline").map(String::as_str) == Some("SLAY UNDEAD")
+        })
+        .expect("Slay Undead should emit its configured Impact action");
+    assert_eq!(overlay, "impact");
+    assert_eq!(fields.get("big").map(String::as_str), Some("213"));
+    assert_eq!(
+        fields.get("sub").map(String::as_str),
+        Some("Purged: a ghoul")
+    );
+    assert_eq!(config.get("style"), Some(&serde_json::json!("slay-undead")));
+    assert_eq!(config.get("durationMs"), Some(&serde_json::json!(3200)));
+    assert!(sink.sounds.contains(&"gong.wav".to_string()));
+}
+
+#[test]
+fn shipped_enchanter_mez_and_slow_timers_accept_ranked_casts() {
+    let triggers = load_library();
+
+    for (id, expected_formula, expected_cap) in [
+        ("class/enchanter/cc/mesmerize-timer", 7, 4),
+        ("class/enchanter/cc/enthrall-timer", 8, 8),
+        ("class/enchanter/cc/entrance-timer", 9, 12),
+    ] {
+        let trigger = triggers
+            .iter()
+            .find(|trigger| trigger.effective_id() == id)
+            .unwrap_or_else(|| panic!("missing shipped timer {id}"));
+        let action = trigger
+            .actions
+            .iter()
+            .find_map(|action| match action {
+                Action::StartTimer {
+                    duration_formula,
+                    duration_cap_ticks,
+                    cast_time_secs,
+                    lane,
+                    ..
+                } => Some((
+                    *duration_formula,
+                    *duration_cap_ticks,
+                    *cast_time_secs,
+                    *lane,
+                )),
+                _ => None,
+            })
+            .expect("Enchanter control trigger should own a timer action");
+        assert_eq!(
+            action,
+            (
+                Some(expected_formula),
+                Some(expected_cap),
+                Some(3),
+                Some(TimerLane::Enemy),
+            ),
+            "{id} must expose rank-trainable timing metadata"
+        );
+    }
+
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Enchanter".into()];
+    let mut engine = TriggerEngine::new_with_profile(triggers, "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    for (ts, message) in [
+        (1000, "You begin casting Mesmerize VII."),
+        (1001, "You begin casting Enthrall VI."),
+        (1002, "You begin casting Entrance VII."),
+        (1003, "You begin casting Tepid Deeds VII."),
+        (1004, "You begin casting Dazzle VII."),
+    ] {
+        engine.process(&line(ts, message), &mut sink);
+    }
+
+    for expected in [
+        ("Mesmerize", 27),
+        ("Enthrall", 51),
+        ("Entrance", 75),
+        ("Tepid Deeds", 154),
+        ("Dazzle", 99),
+    ] {
+        assert!(
+            sink.timers
+                .iter()
+                .any(|(name, duration, _, lane)| name == expected.0
+                    && *duration == expected.1
+                    && *lane == TimerLane::Enemy),
+            "ranked Enchanter timer missing for {expected:?}: {:?}",
+            sink.timers
+        );
+    }
+}
+
+#[test]
+fn shipped_ranked_mez_wear_off_clears_the_spell_timer() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Enchanter".into()];
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(1000, "You begin casting Enthrall VII."), &mut sink);
+    assert!(engine
+        .active_timers(1001)
+        .iter()
+        .any(|(name, _)| name == "Enthrall"));
+
+    engine.process(
+        &line(
+            1002,
+            "Your Enthrall VII spell has worn off of a ghoul wizard.",
+        ),
+        &mut sink,
+    );
+
+    assert!(sink.cancels.contains(&"Enthrall".to_string()));
+    assert!(sink
+        .displayed
+        .contains(&"mez off a ghoul wizard".to_string()));
+    assert!(!engine
+        .active_timers(1002)
+        .iter()
+        .any(|(name, _)| name.starts_with("Enthrall")));
+}
+
+#[test]
 fn debuff_packs_carry_enemy_lanes_and_cancel_companions() {
     // Lint over the generated debuffs-<class>.json family: every cast-start
     // timer is lane "enemy", every timer has a wear-off CancelTimer

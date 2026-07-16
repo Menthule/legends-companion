@@ -435,7 +435,8 @@ export type ImpactStyle =
   | "medal"
   | "achievement-seal"
   | "loot-chest"
-  | "monster-rip";
+  | "monster-rip"
+  | "slay-undead";
 
 /** A trigger-driven Impact moment — the payload of the `impact` event. Every
  *  field is filled by the trigger's Impact action (template-expanded from the

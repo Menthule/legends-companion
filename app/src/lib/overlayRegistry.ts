@@ -68,6 +68,7 @@ const IMPACT_STYLE_OPTIONS = [
   { value: "achievement-seal", label: "Achievement seal" },
   { value: "loot-chest", label: "Loot chest" },
   { value: "monster-rip", label: "Monster RIP" },
+  { value: "slay-undead", label: "Slay Undead" },
 ] as const;
 
 const IMPACT_INTENSITY_OPTIONS = [

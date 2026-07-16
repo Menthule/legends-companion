@@ -444,7 +444,7 @@ export const MOCK_PACK_TRIGGERS: MockPackTrigger[] = [
   {
     "id": "class/enchanter/cc/mesmerize-timer",
     "name": "Mesmerize duration",
-    "pattern": "^You begin casting Mesmerize\\.",
+    "pattern": "^You begin casting Mesmerize(?: (?P<rank>[IVXLCDM]+))?\\.$",
     "category": "Class/Enchanter/Crowd Control",
     "classes": [
       "Enchanter"
@@ -455,7 +455,7 @@ export const MOCK_PACK_TRIGGERS: MockPackTrigger[] = [
   {
     "id": "class/enchanter/cc/enthrall-timer",
     "name": "Enthrall duration",
-    "pattern": "^You begin casting Enthrall\\.",
+    "pattern": "^You begin casting Enthrall(?: (?P<rank>[IVXLCDM]+))?\\.$",
     "category": "Class/Enchanter/Crowd Control",
     "classes": [
       "Enchanter"
@@ -466,7 +466,7 @@ export const MOCK_PACK_TRIGGERS: MockPackTrigger[] = [
   {
     "id": "class/enchanter/cc/entrance-timer",
     "name": "Entrance duration",
-    "pattern": "^You begin casting Entrance\\.",
+    "pattern": "^You begin casting Entrance(?: (?P<rank>[IVXLCDM]+))?\\.$",
     "category": "Class/Enchanter/Crowd Control",
     "classes": [
       "Enchanter"
@@ -477,7 +477,7 @@ export const MOCK_PACK_TRIGGERS: MockPackTrigger[] = [
   {
     "id": "class/enchanter/cc/mez-worn-target",
     "name": "Mez worn off target",
-    "pattern": "^Your (Mesmerize|Enthrall|Entrance|Dazzle|Walking Sleep) spell has worn off(?: of (.+))?\\.",
+    "pattern": "^Your (?P<spell>Mesmerize|Enthrall|Entrance)(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
     "category": "Class/Enchanter/Crowd Control",
     "classes": [
       "Enchanter",

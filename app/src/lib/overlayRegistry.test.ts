@@ -63,6 +63,10 @@ describe("overlay registry", () => {
       value: "loot-chest",
       label: "Loot chest",
     });
+    expect(style?.options).toContainEqual({
+      value: "slay-undead",
+      label: "Slay Undead",
+    });
   });
 });
 

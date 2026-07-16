@@ -94,6 +94,39 @@
       ]
     },
     {
+      "id": "impact/slay-undead",
+      "name": "Slay Undead",
+      "pattern": "^You \\S+ (.+?) for (\\d+) points? of damage\\. \\(Slay Undead\\)$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact",
+      "comments": "Your Slay Undead proc gets a radiant purification moment. Verified Legends format: 'You slash a ghoul for 213 points of damage. (Slay Undead)'. ${1}=target, ${2}=damage. Presentation stays entirely trigger-owned: edit or disable this trigger to change the copy, style, color, duration, or sound.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "SLAY UNDEAD",
+              "big": "${2}",
+              "sub": "Purged: ${1}"
+            },
+            "config": {
+              "style": "slay-undead",
+              "color": "#ffe08a",
+              "intensity": "high",
+              "durationMs": 3200
+            }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "gong.wav"
+          }
+        }
+      ]
+    },
+    {
       "id": "impact/level-up",
       "name": "Level up",
       "pattern": "^You have gained a level! Welcome to level (\\d+)!$",
