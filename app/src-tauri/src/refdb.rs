@@ -11,7 +11,7 @@
 //! subqueries are fine — the db is small.
 
 use rusqlite::OptionalExtension;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use tauri::AppHandle;
 
 use crate::dropdb;
@@ -446,6 +446,33 @@ pub struct InventoryRecipeUsage {
     pub used_in: i64,
 }
 
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InventoryItemMetadataRequest {
+    pub key: String,
+    pub item_id: Option<i64>,
+    pub name: String,
+}
+
+/// Lean item-reference row used to filter an inventory snapshot. `key` is
+/// supplied by the frontend so name-only exports can be joined without
+/// depending on an item id being present in the export.
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InventoryItemMetadata {
+    pub key: String,
+    pub item_id: i64,
+    pub itemtype: i64,
+    pub slots: i64,
+    pub classes: i64,
+    pub races: i64,
+    pub reqlevel: i64,
+    pub magic: i64,
+    pub no_drop: i64,
+    pub no_rent: i64,
+    pub loregroup: i64,
+}
+
 fn recipe_rows(
     conn: &rusqlite::Connection,
     link_table: &str,
@@ -508,6 +535,54 @@ pub fn refdb_inventory_recipe_usage(
                 .query_row(rusqlite::params![item_id], |row| row.get(0))
                 .map_err(|error| error.to_string())?;
             Ok(InventoryRecipeUsage { item_id, used_in })
+        })
+        .collect()
+}
+
+/// Batch item metadata for inventory filtering. Prefer the exported item id,
+/// then fall back to an exact normalized name for legacy/name-only exports.
+#[tauri::command]
+pub fn refdb_inventory_item_metadata(
+    app: AppHandle,
+    items: Vec<InventoryItemMetadataRequest>,
+) -> Result<Vec<InventoryItemMetadata>, String> {
+    let conn = dropdb::open(&app)?;
+    let mut stmt = conn
+        .prepare(
+            "SELECT id, itemtype, slots, classes, races, reqlevel, magic, \
+                    no_drop, no_rent, loregroup \
+             FROM items \
+             WHERE (?1 IS NOT NULL AND id = ?1) OR name_lc = ?2 \
+             ORDER BY CASE WHEN id = ?1 THEN 0 ELSE 1 END \
+             LIMIT 1",
+        )
+        .map_err(|error| error.to_string())?;
+    items
+        .into_iter()
+        .filter_map(|item| {
+            let name = item.name.trim().to_lowercase();
+            let result = stmt
+                .query_row(rusqlite::params![item.item_id, name], |row| {
+                    Ok(InventoryItemMetadata {
+                        key: item.key,
+                        item_id: row.get(0)?,
+                        itemtype: row.get(1)?,
+                        slots: row.get(2)?,
+                        classes: row.get(3)?,
+                        races: row.get(4)?,
+                        reqlevel: row.get(5)?,
+                        magic: row.get(6)?,
+                        no_drop: row.get(7)?,
+                        no_rent: row.get(8)?,
+                        loregroup: row.get(9)?,
+                    })
+                })
+                .optional();
+            match result {
+                Ok(Some(metadata)) => Some(Ok(metadata)),
+                Ok(None) => None,
+                Err(error) => Some(Err(error.to_string())),
+            }
         })
         .collect()
 }

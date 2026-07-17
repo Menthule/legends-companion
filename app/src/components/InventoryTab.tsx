@@ -7,6 +7,7 @@ import {
   inventoryDatabase,
   inventoryDiscover,
   inventoryImport,
+  inventoryItemMetadata,
   inventoryRecipeUsage,
   inventoryRemoveCurrency,
   inventorySetCurrency,
@@ -32,6 +33,16 @@ import {
   type InventoryRow,
   type QuestProgressStatus,
 } from "../lib/inventory";
+import {
+  filterInventoryRows,
+  type InventoryPropertyFilter,
+  type InventoryQuestFilter,
+} from "../lib/inventoryFilters";
+import {
+  ITEM_RACE_FILTERS,
+  ITEM_SLOT_FILTERS,
+  itemTypeLabel,
+} from "../lib/itemReference";
 import { openDrops, openQuests } from "../lib/deepLinks";
 import { loadQuestCatalog, type QuestRecord } from "../lib/quests";
 import {
@@ -43,12 +54,13 @@ import {
   watchRemainingQuantity,
 } from "../lib/wishlist";
 import { rememberInventoryPath, rememberInventorySnapshot } from "../lib/inventoryStore";
-import { useEraMax } from "../lib/refFilters";
-import type { DropItemRow, DropSource, ItemRecipes, ItemVendor } from "../types";
+import { useClassLoadoutFollow, useClassMask, useEraMax } from "../lib/refFilters";
+import type { DropItemRow, DropSource, InventoryItemMetadata, ItemRecipes, ItemVendor } from "../types";
+import { ClassFilterButton } from "./RefFilters";
 import Empty from "./Empty";
 
 type View = "all" | "changes" | "quest" | "duplicates" | "cleanup" | "currencies";
-type Sort = "name" | "quantity" | "storage" | "status";
+type Sort = "name" | "quantity" | "storage" | "status" | "type" | "level";
 
 const CURRENCY_SUGGESTIONS = [
   "Jaka Wind Runes", "Kala Wind Runes", "Lena Wind Runes",
@@ -189,14 +201,25 @@ function InventoryReferenceDetail({ row, eraMax }: { row: InventoryRow; eraMax: 
 
 export default function InventoryTab({ character }: { character: string }) {
   const [eraMax] = useEraMax();
+  const [classMask, setClassMask] = useClassMask();
+  const [, setFollowingLoadout] = useClassLoadoutFollow();
   const [database, setDatabase] = useState<InventoryDatabase | null>(null);
   const [server, setServer] = useState("");
   const [quests, setQuests] = useState<QuestRecord[]>([]);
   const [recipes, setRecipes] = useState<Map<number, number>>(new Map());
+  const [itemMetadata, setItemMetadata] = useState<Map<string, InventoryItemMetadata>>(new Map());
   const [query, setQuery] = useState("");
   const searchQuery = useDebouncedValue(query);
   const [storage, setStorage] = useState("all");
   const [statusFilter, setStatusFilter] = useState<"all" | InventoryEvidence>("all");
+  const [raceBit, setRaceBit] = useState(0);
+  const [itemtype, setItemtype] = useState<number | null>(null);
+  const [slotMask, setSlotMask] = useState(0);
+  const [minLevel, setMinLevel] = useState("");
+  const [maxLevel, setMaxLevel] = useState("");
+  const [minQuantity, setMinQuantity] = useState("1");
+  const [questFilter, setQuestFilter] = useState<InventoryQuestFilter>("all");
+  const [propertyFilter, setPropertyFilter] = useState<InventoryPropertyFilter>("all");
   const [view, setView] = useState<View>("all");
   const [sort, setSort] = useState<Sort>("name");
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -218,9 +241,14 @@ export default function InventoryTab({ character }: { character: string }) {
       });
       if (discovered) next = await inventoryDatabase(nextCharacter, nextServer);
     }
-    const ids = [...new Set(next.entries.flatMap((entry) => entry.itemId == null ? [] : [entry.itemId]))];
-    const usage = await inventoryRecipeUsage(ids);
+    const nextRows = aggregateInventory(next.entries);
+    const ids = [...new Set(nextRows.flatMap((row) => row.itemId == null ? [] : [row.itemId]))];
+    const [usage, metadata] = await Promise.all([
+      inventoryRecipeUsage(ids),
+      inventoryItemMetadata(nextRows.map((row) => ({ key: row.key, itemId: row.itemId, name: row.name }))),
+    ]);
     setRecipes(new Map(usage.map((row) => [row.itemId, row.usedIn])));
+    setItemMetadata(new Map(metadata.map((row) => [row.key, row])));
     setDatabase(next);
   }, [character]);
 
@@ -275,14 +303,29 @@ export default function InventoryTab({ character }: { character: string }) {
       keep: (database?.keepKeys.includes(row.key) ?? false) || dispositionByKey.get(row.key)?.action === "keep",
       watched: isWishlisted(row.name),
     });
-    return { row, questUses, recipeUses, status };
-  }), [database?.keepKeys, dispositionByKey, progress, quests, recipes, rows, watchRevision]);
+    return { row, questUses, recipeUses, status, metadata: itemMetadata.get(row.key) ?? null };
+  }), [database?.keepKeys, dispositionByKey, itemMetadata, progress, quests, recipes, rows, watchRevision]);
   const storages = useMemo(() => [...new Set(rows.flatMap((row) => row.storages))].sort(), [rows]);
+  const itemtypes = useMemo(
+    () => [...new Set([...itemMetadata.values()].map((item) => item.itemtype))]
+      .sort((left, right) => itemTypeLabel(left).localeCompare(itemTypeLabel(right))),
+    [itemMetadata],
+  );
   const visible = useMemo(() => {
     const wanted = searchQuery.trim().toLowerCase();
-    const filtered = analyzed
-      .filter(({ row }) => storage === "all" || row.storages.includes(storage))
-      .filter(({ status }) => statusFilter === "all" || status === statusFilter)
+    const filtered = filterInventoryRows(analyzed, {
+      storage,
+      status: statusFilter,
+      classMask,
+      raceBit,
+      itemtype,
+      slotMask,
+      minLevel: Math.max(0, Number.parseInt(minLevel, 10) || 0),
+      maxLevel: Math.max(0, Number.parseInt(maxLevel, 10) || 0),
+      minQuantity: Math.max(1, Number.parseInt(minQuantity, 10) || 1),
+      quest: questFilter,
+      property: propertyFilter,
+    })
       .filter(({ row, questUses }) => !wanted || [
         row.name, ...row.locations, ...questUses.map((use) => use.quest.name),
       ].some((value) => value.toLowerCase().includes(wanted)))
@@ -296,9 +339,11 @@ export default function InventoryTab({ character }: { character: string }) {
       if (sort === "quantity") return right.row.quantity - left.row.quantity || left.row.name.localeCompare(right.row.name);
       if (sort === "storage") return left.row.storages.join().localeCompare(right.row.storages.join()) || left.row.name.localeCompare(right.row.name);
       if (sort === "status") return left.status.localeCompare(right.status) || left.row.name.localeCompare(right.row.name);
+      if (sort === "type") return itemTypeLabel(left.metadata?.itemtype ?? -1).localeCompare(itemTypeLabel(right.metadata?.itemtype ?? -1)) || left.row.name.localeCompare(right.row.name);
+      if (sort === "level") return (left.metadata?.reqlevel ?? 0) - (right.metadata?.reqlevel ?? 0) || left.row.name.localeCompare(right.row.name);
       return left.row.name.localeCompare(right.row.name);
     });
-  }, [analyzed, dispositionByKey, searchQuery, sort, statusFilter, storage, view]);
+  }, [analyzed, classMask, dispositionByKey, itemtype, maxLevel, minLevel, minQuantity, propertyFilter, questFilter, raceBit, searchQuery, slotMask, sort, statusFilter, storage, view]);
   const delta = inventoryDelta(database?.entries ?? [], database?.previousEntries ?? []);
   const changes = useMemo(
     () => inventoryChanges(database?.entries ?? [], database?.previousEntries ?? []),
@@ -312,6 +357,36 @@ export default function InventoryTab({ character }: { character: string }) {
   const totalQuantity = rows.reduce((sum, row) => sum + row.quantity, 0);
   const stale = database?.current != null && Date.now() - database.current.sourceModifiedMs > 24 * 60 * 60 * 1000;
   const missingConditional = ["hoard", "personal-depot"].filter((name) => !database?.current?.sections.includes(name));
+  const activeFilterCount = [
+    query.trim() !== "",
+    classMask !== 0,
+    storage !== "all",
+    statusFilter !== "all",
+    raceBit !== 0,
+    itemtype != null,
+    slotMask !== 0,
+    minLevel !== "",
+    maxLevel !== "",
+    minQuantity !== "1" && minQuantity !== "",
+    questFilter !== "all",
+    propertyFilter !== "all",
+  ].filter(Boolean).length;
+
+  const clearFilters = () => {
+    setQuery("");
+    setClassMask(0);
+    setFollowingLoadout(false);
+    setStorage("all");
+    setStatusFilter("all");
+    setRaceBit(0);
+    setItemtype(null);
+    setSlotMask(0);
+    setMinLevel("");
+    setMaxLevel("");
+    setMinQuantity("1");
+    setQuestFilter("all");
+    setPropertyFilter("all");
+  };
 
   const toggleKeep = async (row: InventoryRow) => {
     const next = !(database?.keepKeys.includes(row.key) ?? false);
@@ -350,6 +425,7 @@ export default function InventoryTab({ character }: { character: string }) {
       <header className="inventory-toolbar">
         <div className="inventory-search-row">
           <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find an item, location, or quest" aria-label="Search inventory" />
+          <ClassFilterButton />
           <select value={storage} onChange={(event) => setStorage(event.target.value)} aria-label="Storage area">
             <option value="all">All storage</option>
             {storages.map((value) => <option key={value} value={value}>{value.replaceAll("-", " ")}</option>)}
@@ -361,10 +437,50 @@ export default function InventoryTab({ character }: { character: string }) {
           <select value={sort} onChange={(event) => setSort(event.target.value as Sort)} aria-label="Sort inventory">
             <option value="name">Sort: item</option><option value="quantity">Sort: quantity</option>
             <option value="storage">Sort: storage</option><option value="status">Sort: status</option>
+            <option value="type">Sort: type</option><option value="level">Sort: required level</option>
           </select>
           <button className="ghost" onClick={() => void refresh(false)} disabled={loading}>{loading ? "Refreshing..." : "Refresh"}</button>
           <button className="ghost" onClick={() => void refresh(true)} disabled={loading}>Browse</button>
         </div>
+        <details className="inventory-more-filters">
+          <summary>More filters{activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ""}</summary>
+          <div className="inventory-filter-grid">
+            <select value={itemtype ?? ""} onChange={(event) => setItemtype(event.target.value === "" ? null : Number(event.target.value))} aria-label="Item type">
+              <option value="">All item types</option>
+              {itemtypes.map((value) => <option key={value} value={value}>{itemTypeLabel(value)}</option>)}
+            </select>
+            <select value={raceBit} onChange={(event) => setRaceBit(Number(event.target.value))} aria-label="Usable race">
+              <option value="0">All races</option>
+              {ITEM_RACE_FILTERS.map((option) => <option key={option.bit} value={option.bit}>{option.label}</option>)}
+            </select>
+            <select value={slotMask} onChange={(event) => setSlotMask(Number(event.target.value))} aria-label="Equipment slot">
+              <option value="0">All equipment slots</option>
+              {ITEM_SLOT_FILTERS.map((option) => <option key={option.mask} value={option.mask}>{option.label}</option>)}
+            </select>
+            <select value={questFilter} onChange={(event) => setQuestFilter(event.target.value as InventoryQuestFilter)} aria-label="Quest relevance">
+              <option value="all">All quest relevance</option>
+              <option value="any">Used by any quest</option>
+              <option value="active">Active quest use</option>
+              <option value="completed">Completed quest use</option>
+              <option value="none">No known quest use</option>
+            </select>
+            <select value={propertyFilter} onChange={(event) => setPropertyFilter(event.target.value as InventoryPropertyFilter)} aria-label="Item property">
+              <option value="all">All properties</option>
+              <option value="magic">Magic</option>
+              <option value="lore">Lore</option>
+              <option value="no-drop">No Drop</option>
+              <option value="no-rent">No Rent</option>
+              <option value="exaltation">Exaltation</option>
+              <option value="missing-reference">Missing item data</option>
+            </select>
+            <label><span>Required level</span><span className="inventory-range-inputs"><input type="number" min="0" value={minLevel} onChange={(event) => setMinLevel(event.target.value)} placeholder="Min" aria-label="Minimum required level" /><i>to</i><input type="number" min="0" value={maxLevel} onChange={(event) => setMaxLevel(event.target.value)} placeholder="Max" aria-label="Maximum required level" /></span></label>
+            <label><span>Minimum quantity</span><input type="number" min="1" value={minQuantity} onChange={(event) => setMinQuantity(event.target.value)} aria-label="Minimum quantity" /></label>
+            <div className="inventory-filter-actions">
+              <span>{visible.length} of {analyzed.length} items</span>
+              <button className="ghost small" onClick={clearFilters} disabled={activeFilterCount === 0}>Clear filters</button>
+            </div>
+          </div>
+        </details>
         <div className="inventory-source-row">
           <span><strong>{character || "Character"}</strong> - {database?.current ? `${relativeTime(database.current.sourceModifiedMs)} - ${database.current.rowCount} exported rows` : "No saved inventory"}</span>
           {stale && <span className="inventory-warning">Snapshot is over 24 hours old</span>}

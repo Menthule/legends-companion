@@ -7,7 +7,8 @@
 
 import { useEffect, useState } from "react";
 import { CLASS_FULL, CLASS_NAME_TO_BIT } from "./classes";
-import type { DropZone } from "../types";
+import { activeLoadout } from "../resolution";
+import type { CharacterProfile, DropZone } from "../types";
 
 // The class roster itself lives in lib/classes.ts (the single source);
 // re-exported here for the filter-UI consumers that already import it.
@@ -15,6 +16,7 @@ export { CLASS_ABBR, CLASS_FULL, CLASS_NAME_TO_BIT } from "./classes";
 
 const ERA_KEY = "eqlogs.ref.eraMax";
 const CLASS_KEY = "eqlogs.ref.classMask";
+const CLASS_LOADOUT_FOLLOW_KEY = "eqlogs.ref.classLoadoutFollow";
 const LIVE_ZONE_KEY = "eqlogs.ref.liveZone";
 const LIVE_ZONE_ENABLED_KEY = "eqlogs.ref.liveZone.enabled";
 const EVENT = "eqlogs-ref-filters-changed";
@@ -169,6 +171,50 @@ export function useLiveZoneName(): [string, (n: StringUpdater) => void] {
 
 export function useLiveZoneEnabled(): [boolean, (n: BoolUpdater) => void] {
   return useGlobalBool(LIVE_ZONE_ENABLED_KEY, false);
+}
+
+/** Whether the shared class filter should track the active trigger loadout.
+ * Manual checkbox edits turn this off; choosing the My loadout preset turns
+ * it on. Persisted so changing Database tabs does not lose the intent. */
+export function useClassLoadoutFollow(): [boolean, (n: BoolUpdater) => void] {
+  return useGlobalBool(CLASS_LOADOUT_FOLLOW_KEY, false);
+}
+
+export interface LoadoutClassPreset {
+  label: string;
+  mask: number;
+}
+
+/** Current active-loadout classes as the database filter's preset. Unknown
+ * class names are ignored rather than accidentally mapping to Warrior. */
+export function loadoutClassPreset(
+  profile: CharacterProfile,
+): LoadoutClassPreset | null {
+  const classes = activeLoadout(profile).classes.filter(
+    (name) => CLASS_NAME_TO_BIT[name] != null,
+  );
+  const mask = classes.reduce(
+    (value, name) => value | (1 << CLASS_NAME_TO_BIT[name]),
+    0,
+  );
+  return mask ? { label: `My loadout (${classes.join(", ")})`, mask } : null;
+}
+
+/** Reconcile a persisted filter when the profile's active loadout changes.
+ * A legacy selection equal to the previous preset is promoted into follow
+ * mode; unrelated manual selections remain untouched. */
+export function reconcileLoadoutClassFilter(
+  classMask: number,
+  previousPresetMask: number,
+  nextPresetMask: number,
+  followingLoadout: boolean,
+): { classMask: number; followingLoadout: boolean } {
+  const follows =
+    followingLoadout ||
+    (previousPresetMask !== 0 && classMask === previousPresetMask);
+  return follows
+    ? { classMask: nextPresetMask, followingLoadout: true }
+    : { classMask, followingLoadout: false };
 }
 
 function norm(value: string): string {

@@ -911,6 +911,13 @@ export function inventoryRecipeUsage(itemIds: number[]): Promise<Array<{ itemId:
   return invoke("refdb_inventory_recipe_usage", { itemIds });
 }
 
+export function inventoryItemMetadata(
+  items: Array<{ key: string; itemId: number | null; name: string }>,
+): Promise<import("./types").InventoryItemMetadata[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke("refdb_inventory_item_metadata", { items });
+}
+
 /**
  * Paste-parse text for a fight. Persisted fights ask the backend
  * (paste_parse command); the live fight — and any fallback — formats

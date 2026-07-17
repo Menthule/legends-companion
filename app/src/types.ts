@@ -747,6 +747,21 @@ export interface DropSearchResult {
   rows: DropItemRow[];
 }
 
+/** Item-reference fields joined onto an exported inventory row for filters. */
+export interface InventoryItemMetadata {
+  key: string;
+  itemId: number;
+  itemtype: number;
+  slots: number;
+  classes: number;
+  races: number;
+  reqlevel: number;
+  magic: number;
+  noDrop: number;
+  noRent: number;
+  loregroup: number;
+}
+
 export interface DropEffect {
   name: string;
   /** "proc" | "click" | "worn" | "focus" */

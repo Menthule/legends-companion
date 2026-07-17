@@ -5,16 +5,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getProfile } from "../api";
-import { useDismissOnOutsidePointer } from "../hooks";
+import { useDismissOnOutsidePointer, useTauriEvent } from "../hooks";
 import {
   CLASS_FULL,
   CLASS_NAME_TO_BIT,
   classMaskFullNames,
+  loadoutClassPreset,
+  reconcileLoadoutClassFilter,
+  useClassLoadoutFollow,
   useClassMask,
   useEraMax,
   useLiveZoneEnabled,
   useLiveZoneName,
 } from "../lib/refFilters";
+import type { CharacterProfile } from "../types";
 
 const ERAS = [
   { value: 0, label: "Classic" },
@@ -48,28 +52,36 @@ export function EraSelect() {
  */
 export function ClassFilterButton() {
   const [classMask, setClassMask] = useClassMask();
+  const [followingLoadout, setFollowingLoadout] = useClassLoadoutFollow();
   const [open, setOpen] = useState(false);
   const [loadout, setLoadout] = useState<{ label: string; mask: number } | null>(
     null,
   );
   const ref = useRef<HTMLDivElement>(null);
 
+  const applyProfile = (profile: CharacterProfile) => {
+    const next = loadoutClassPreset(profile);
+    const reconciled = reconcileLoadoutClassFilter(
+      classMask,
+      loadout?.mask ?? 0,
+      next?.mask ?? 0,
+      followingLoadout,
+    );
+    setLoadout(next);
+    if (reconciled.classMask !== classMask) {
+      setClassMask(reconciled.classMask);
+    }
+    if (reconciled.followingLoadout !== followingLoadout) {
+      setFollowingLoadout(reconciled.followingLoadout);
+    }
+  };
+
   useEffect(() => {
-    getProfile()
-      .then((p) => {
-        const active =
-          p.loadouts.find((l) => l.name === p.active_loadout) ?? p.loadouts[0];
-        const classes = active?.classes ?? [];
-        const mask = classes.reduce(
-          (m, name) => m | (1 << (CLASS_NAME_TO_BIT[name] ?? 0)),
-          0,
-        );
-        if (mask) {
-          setLoadout({ label: `My loadout (${classes.join(", ")})`, mask });
-        }
-      })
-      .catch(() => {});
+    getProfile().then(applyProfile).catch(() => {});
+    // Initial profile fetch only. The event listener below owns later changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useTauriEvent<CharacterProfile>("profile-changed", applyProfile);
 
   useDismissOnOutsidePointer([ref], open, () => setOpen(false));
 
@@ -99,11 +111,13 @@ export function ClassFilterButton() {
           {loadout && (
             <button
               className="ghost small"
-              onClick={() =>
-                setClassMask(classMask === loadout.mask ? 0 : loadout.mask)
-              }
+              onClick={() => {
+                const selected = followingLoadout && classMask === loadout.mask;
+                setClassMask(selected ? 0 : loadout.mask);
+                setFollowingLoadout(!selected);
+              }}
             >
-              {classMask === loadout.mask ? "✓ " : ""}
+              {followingLoadout && classMask === loadout.mask ? "✓ " : ""}
               {loadout.label}
             </button>
           )}
@@ -115,7 +129,10 @@ export function ClassFilterButton() {
                   <input
                     type="checkbox"
                     checked={(classMask & bit) !== 0}
-                    onChange={() => setClassMask(classMask ^ bit)}
+                    onChange={() => {
+                      setFollowingLoadout(false);
+                      setClassMask(classMask ^ bit);
+                    }}
                   />
                   {full}
                 </label>
@@ -126,6 +143,7 @@ export function ClassFilterButton() {
             className="ghost small drops-filter-reset"
             disabled={classMask === 0}
             onClick={() => {
+              setFollowingLoadout(false);
               setClassMask(0);
               setOpen(false);
             }}

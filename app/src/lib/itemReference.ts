@@ -1,0 +1,66 @@
+export const ITEM_RACE_FILTERS: Array<{ bit: number; label: string }> = [
+  { bit: 1 << 0, label: "Human" },
+  { bit: 1 << 1, label: "Barbarian" },
+  { bit: 1 << 2, label: "Erudite" },
+  { bit: 1 << 3, label: "Wood Elf" },
+  { bit: 1 << 4, label: "High Elf" },
+  { bit: 1 << 5, label: "Dark Elf" },
+  { bit: 1 << 6, label: "Half Elf" },
+  { bit: 1 << 7, label: "Dwarf" },
+  { bit: 1 << 8, label: "Troll" },
+  { bit: 1 << 9, label: "Ogre" },
+  { bit: 1 << 10, label: "Halfling" },
+  { bit: 1 << 11, label: "Gnome" },
+  { bit: 1 << 12, label: "Iksar" },
+  { bit: 1 << 13, label: "Vah Shir" },
+];
+
+export const ITEM_SLOT_FILTERS: Array<{ mask: number; label: string }> = [
+  { mask: 1, label: "Charm" },
+  { mask: 2 | 16, label: "Ear" },
+  { mask: 4, label: "Head" },
+  { mask: 8, label: "Face" },
+  { mask: 32, label: "Neck" },
+  { mask: 64, label: "Shoulders" },
+  { mask: 128, label: "Arms" },
+  { mask: 256, label: "Back" },
+  { mask: 512 | 1024, label: "Wrist" },
+  { mask: 2048, label: "Range" },
+  { mask: 4096, label: "Hands" },
+  { mask: 8192, label: "Primary" },
+  { mask: 16384, label: "Secondary" },
+  { mask: 32768 | 65536, label: "Fingers" },
+  { mask: 131072, label: "Chest" },
+  { mask: 262144, label: "Legs" },
+  { mask: 524288, label: "Feet" },
+  { mask: 1048576, label: "Waist" },
+  { mask: 2097152, label: "Ammo" },
+];
+
+export const ITEM_TYPE_LABELS: Record<number, string> = {
+  0: "1H Slashing",
+  1: "2H Slashing",
+  2: "Piercing",
+  3: "1H Blunt",
+  4: "2H Blunt",
+  5: "Bow",
+  7: "Throwing",
+  8: "Shield",
+  10: "Armor",
+  14: "Food",
+  15: "Drink",
+  17: "Light",
+  20: "Scroll",
+  21: "Potion",
+  23: "Wind Instrument",
+  24: "Stringed Instrument",
+  25: "Brass Instrument",
+  26: "Percussion",
+  27: "Arrow",
+  29: "Jewelry",
+  35: "Note",
+};
+
+export function itemTypeLabel(itemtype: number): string {
+  return ITEM_TYPE_LABELS[itemtype] ?? `Type ${itemtype}`;
+}

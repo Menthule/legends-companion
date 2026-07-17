@@ -337,6 +337,7 @@ pub fn run() {
             refdb::refdb_spell_scrolls,
             refdb::refdb_item_recipes,
             refdb::refdb_inventory_recipe_usage,
+            refdb::refdb_inventory_item_metadata,
             refdb::refdb_recipe_detail,
             refdb::refdb_recipe_search,
             refdb::refdb_zone_info,
