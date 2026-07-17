@@ -2690,7 +2690,7 @@ button.coach-row.active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
   text-align: center;
 }
@@ -2700,15 +2700,15 @@ button.coach-row.active {
   justify-content: center;
   box-sizing: border-box;
   max-width: calc(100% - 12px);
-  gap: 0.4em;
+  gap: 0.34em;
   background: var(--pill-bg);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border-radius: 8px;
-  padding: 0.35em 0.7em;
+  border-radius: 6px;
+  padding: 0.28em 0.58em;
   color: #ffffff;
   /* Size flows from the stack's inline font-size (Settings: alert text
-     size); 21px is only the no-JS fallback. */
+     size); severity tiers scale from that shared base. */
   font-size: inherit;
   font-weight: 700;
   line-height: 1.15;
@@ -2724,8 +2724,8 @@ button.coach-row.active {
 }
 .alert-pill .alert-icon {
   display: inline-grid;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   place-items: center;
   background: rgba(0, 0, 0, 0.4);
   font-size: 0.78em;
@@ -5960,24 +5960,23 @@ textarea.share-str:focus {
 /* Overlay alert pills, per severity tier. Each tier is a visually DISTINCT
    box — its own size multiplier, text color, background, border and weight —
    so a routine info line and a Death Touch alarm can never be confused. Every
-   knob is a CSS variable defaulted here and overridable per-tier from
-   Settings → Appearance (the overlay sets them inline on .ov-alert-stack).
-   Sizes are relative (em) so they compose with the user's base alert-size. */
+   knob is a CSS variable defaulted here. Sizes are relative (em) so they
+   compose with the user's base alert-size. */
 .ov-alert-stack {
   /* info tier defaults */
-  --alert-info-scale: 0.92;
+  --alert-info-scale: 0.82;
   --alert-info-color: #e8e8ea;
   --alert-info-bg: rgba(13, 13, 13, 0.66);
   --alert-info-border: transparent;
   --alert-info-weight: 600;
   /* warn tier defaults */
-  --alert-warn-scale: 1.12;
+  --alert-warn-scale: 1;
   --alert-warn-color: #ffffff;
   --alert-warn-bg: color-mix(in srgb, var(--warning) 22%, rgba(13, 13, 13, 0.78));
   --alert-warn-border: var(--warning);
   --alert-warn-weight: 700;
   /* alarm tier defaults */
-  --alert-alarm-scale: 1.42;
+  --alert-alarm-scale: 1.18;
   --alert-alarm-color: #fff;
   --alert-alarm-bg: color-mix(in srgb, var(--critical) 34%, rgba(13, 13, 13, 0.82));
   --alert-alarm-border: var(--critical);
@@ -5995,7 +5994,7 @@ textarea.share-str:focus {
   color: var(--alert-warn-color);
   background: var(--alert-warn-bg);
   border: 1px solid var(--alert-warn-border);
-  border-left-width: 4px;
+  border-left-width: 3px;
   font-weight: var(--alert-warn-weight);
 }
 .alert-pill.alert-alarm {
@@ -6003,10 +6002,9 @@ textarea.share-str:focus {
   color: var(--alert-alarm-color);
   background: var(--alert-alarm-bg);
   border: 1.5px solid var(--alert-alarm-border);
-  border-left-width: 5px;
+  border-left-width: 4px;
   font-weight: var(--alert-alarm-weight);
-  padding: 10px 18px;
-  letter-spacing: 0.02em;
+  padding: 0.32em 0.68em;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--critical) 40%, transparent),
     0 6px 20px rgba(0, 0, 0, 0.5);
   animation: alert-in 0.2s ease-out, alarm-pulse 1.1s ease-in-out infinite;

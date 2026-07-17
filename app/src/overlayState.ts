@@ -145,7 +145,7 @@ export function saveBuffThresholdMins(mins: number): void {
 // ---------------------------------------------------------------------------
 
 export const ALERT_SIZE_KEY = "eqlogs.overlay.alertSizePx";
-export const DEFAULT_ALERT_SIZE_PX = 26;
+export const DEFAULT_ALERT_SIZE_PX = 20;
 
 export function loadAlertSizePx(): number {
   try {

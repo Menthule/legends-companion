@@ -217,7 +217,7 @@ export default function OverlayAlerts() {
           >
             {a.icon &&
               (spellIconId(a.icon) != null || spellIconName(a.icon) != null ? (
-                <SpellGemIcon icon={a.icon} size={25} label={`${a.text} spell icon`} />
+                <SpellGemIcon icon={a.icon} size={20} label={`${a.text} spell icon`} />
               ) : (
                 <span className="alert-icon">{a.icon}</span>
               ))}
