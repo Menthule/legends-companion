@@ -1153,6 +1153,66 @@ fn shipped_slay_undead_trigger_captures_target_damage_and_presentation() {
 }
 
 #[test]
+fn shipped_damage_skills_each_emit_one_named_alert_with_damage() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Rogue".into(), "Monk".into(), "Warrior".into()];
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    let cases = [
+        ("Kick", "kick", "11", ""),
+        ("Bash", "bash", "12", ""),
+        ("Slam", "slam", "13", ""),
+        ("Cleave", "cleave", "14", ""),
+        ("Backstab", "backstab", "49", ""),
+        ("Eagle Strike", "eagle strike", "16", ""),
+        ("Tiger Claw", "tiger claw", "17", ""),
+        ("Dragon Punch", "dragon punch", "18", ""),
+        ("Tail Rake", "tail rake", "19", ""),
+        ("Flying Kick", "flying kick", "20", ""),
+        ("Round Kick", "round kick", "21", ""),
+        ("Frenzy", "frenzy on", "22", " (Critical)"),
+        ("Smite", "smite", "23", " (Finishing Blow)"),
+        ("Reave", "reave", "24", " (Slay Undead)"),
+    ];
+
+    for (name, verb, damage, rider) in cases {
+        let before = sink
+            .overlays
+            .iter()
+            .filter(|(overlay, _, _)| overlay == "alerts")
+            .count();
+        engine.process(
+            &line(
+                1000,
+                &format!("You {verb} a training dummy for {damage} points of damage.{rider}"),
+            ),
+            &mut sink,
+        );
+        let skill_alerts: Vec<_> = sink
+            .overlays
+            .iter()
+            .filter(|(overlay, _, _)| overlay == "alerts")
+            .collect();
+        assert_eq!(
+            skill_alerts.len(),
+            before + 1,
+            "{name} must add exactly one damage alert"
+        );
+        let (_, fields, config) = skill_alerts.last().expect("new skill alert");
+        assert_eq!(fields.get("text").map(String::as_str), Some(name));
+        assert_eq!(fields.get("value").map(String::as_str), Some(damage));
+        assert_eq!(config.get("severity"), Some(&serde_json::json!("info")));
+    }
+
+    assert!(
+        sink.displayed.is_empty(),
+        "legacy class-specific skill alerts must not duplicate the shared overlay: {:?}",
+        sink.displayed
+    );
+}
+
+#[test]
 fn shipped_enchanter_mez_and_slow_timers_accept_ranked_casts() {
     let triggers = load_library();
 

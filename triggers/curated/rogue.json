@@ -2,25 +2,6 @@
   "name": "Curated class pack — Rogue",
   "triggers": [
     {
-      "id": "class/rogue/melee/backstab",
-      "name": "Backstab",
-      "pattern": "^You backstab (.+) for (\\d+) points of damage\\.",
-      "enabled": true,
-      "default_enabled": true,
-      "source": "curated",
-      "category": "Class/Rogue/Melee",
-      "classes": [
-        "Rogue"
-      ],
-      "actions": [
-        {
-          "DisplayText": {
-            "template": "BS ${2}"
-          }
-        }
-      ]
-    },
-    {
       "id": "class/rogue/melee/backstab-miss",
       "name": "Backstab missed",
       "pattern": "^You try to backstab (.+), but miss!",
