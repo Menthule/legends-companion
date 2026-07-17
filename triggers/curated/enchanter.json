@@ -145,6 +145,7 @@
       "pattern": "^Your charm spell has worn off\\.",
       "enabled": true,
       "default_enabled": true,
+      "case_insensitive": false,
       "source": "curated",
       "category": "Class/Enchanter/Crowd Control",
       "classes": [
@@ -160,11 +161,28 @@
           }
         },
         {
-          "DisplayText": {
-            "template": "charm broke"
+          "Overlay": {
+            "overlay": "alerts",
+            "fields": {
+              "text": "CHARM BROKE"
+            },
+            "config": {
+              "severity": "alarm"
+            }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
+          }
+        },
+        {
+          "CancelTimer": {
+            "name": "Charm"
           }
         }
-      ]
+      ],
+      "comments": "Case-sensitive generic Legends charm-loss fallback. Capitalized named and ranked charm spells use generated wear-off companions with the same loud alert and warning sound."
     },
     {
       "id": "class/enchanter/cc/root-landed",

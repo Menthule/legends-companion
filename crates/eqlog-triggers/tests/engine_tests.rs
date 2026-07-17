@@ -1086,8 +1086,41 @@ fn invis_early_warning_is_large_loud_and_enabled_by_default() {
     assert_eq!(overlay, "alerts");
     assert_eq!(fields.get("icon").map(String::as_str), Some("!"));
     assert_eq!(config.get("severity"), Some(&serde_json::json!("alarm")));
-    assert_eq!(config.get("fontSize"), Some(&serde_json::json!(64)));
+    assert_eq!(config.get("fontSize"), Some(&serde_json::json!(30)));
     assert_eq!(config.get("durationMs"), Some(&serde_json::json!(8000)));
+}
+
+#[test]
+fn shipped_charm_breaks_are_loud_and_play_warning_sound() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Enchanter".into()];
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(
+        &line(1000, "Your Charm VII spell has worn off of a ghoul wizard."),
+        &mut sink,
+    );
+
+    assert!(sink.cancels.contains(&"Charm".to_string()));
+    assert_eq!(sink.sounds, vec!["warning.wav"]);
+    let (overlay, _fields, config) = sink
+        .overlays
+        .iter()
+        .find(|(_, fields, _)| {
+            fields.get("text").map(String::as_str) == Some("CHARM BROKE a ghoul wizard")
+        })
+        .expect("ranked charm wear-off should emit a targeted alert");
+    assert_eq!(overlay, "alerts");
+    assert_eq!(config.get("severity"), Some(&serde_json::json!("alarm")));
+
+    engine.process(&line(1001, "Your charm spell has worn off."), &mut sink);
+    assert_eq!(sink.sounds, vec!["warning.wav", "warning.wav"]);
+    assert!(sink.spoken.contains(&"charm broke".to_string()));
+    assert!(sink.overlays.iter().any(|(_, fields, config)| {
+        fields.get("text").map(String::as_str) == Some("CHARM BROKE")
+            && config.get("severity") == Some(&serde_json::json!("alarm"))
+    }));
 }
 
 // --- real-fixture pass with the shipped trigger library ----------------------

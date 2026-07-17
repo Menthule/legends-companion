@@ -235,6 +235,12 @@ CC_SPELLS = {
 # fear, and stun are CC too even though the original timer list only covered
 # mez/root/snare.
 CC_ENEMY_CAST_SLUGS = {"fear", "charm", "mesmerize", "root-snare", "stun"}
+CHARM_SPELLS = {
+    spell
+    for slug, _leaf, spells in (*TIER1_GROUPS, *TIER2_GROUPS)
+    if slug == "charm"
+    for spell in spells
+}
 CC_SPELLS |= {
     spell
     for slug, _leaf, spells in (*TIER1_GROUPS, *TIER2_GROUPS)
@@ -344,7 +350,8 @@ def alternation(names) -> str:
 
 
 def trigger(tid, name, pattern, actions, category, classes=(), default_enabled=True,
-            comments=None, icon_id=None, track_when_observed=False):
+            comments=None, icon_id=None, track_when_observed=False,
+            case_insensitive=None):
     t = {
         "id": tid,
         "name": name,
@@ -359,6 +366,8 @@ def trigger(tid, name, pattern, actions, category, classes=(), default_enabled=T
         t["classes"] = list(classes)
     if track_when_observed:
         t["track_when_observed"] = True
+    if case_insensitive is not None:
+        t["case_insensitive"] = case_insensitive
     if comments:
         t["comments"] = comments
     if icon_id is not None:
@@ -381,6 +390,10 @@ def alert(template, severity="info"):
             "config": {"severity": severity},
         }
     }
+
+
+def play_sound(path):
+    return {"PlaySound": {"path": path}}
 
 
 def start_timer(name, duration_secs, warn_at_secs,
@@ -716,25 +729,42 @@ def build_debuff_packs(spells):
         while tid in used_ids:
             tid, n = f"{base}-{n}", n + 1
         used_ids.add(tid)
+        charm_break = name in CHARM_SPELLS
+        worn_pattern = (
+            rf"^Your {spell_rx(name)} spell has worn off"
+            rf"(?: of (?P<target>.+))?\.$"
+            if charm_break else
+            rf"^Your {spell_rx(name)} spell has worn off(?: of (.+))?\.$"
+        )
+        worn_actions = [
+            cancel_timer(name),
+            alert(
+                f"CHARM BROKE ${{target}}" if charm_break else
+                f"{name} off ${{1}}",
+                "alarm" if charm_break else (
+                    "warn" if name in CC_SPELLS else "info"
+                ),
+            ),
+        ]
+        if charm_break:
+            worn_actions.append(play_sound("warning.wav"))
         per_class_triggers[home].append(trigger(
             tid,
             f"Enemy timer cleared: {name}",
-            rf"^Your {spell_rx(name)} spell has worn off(?: of (.+))?\.$",
-            [
-                cancel_timer(name),
-                alert(
-                    f"{name} off ${{1}}",
-                    "warn" if name in CC_SPELLS else "info",
-                ),
-            ],
+            worn_pattern,
+            worn_actions,
             "Debuffs/Wear-off",
             classes=[CLASS_NAME[c] for c in union],
             default_enabled=True,
             track_when_observed=True,
-            comments="Cancels the cast-start countdown early (mez break, "
-                     "mob death) and re-announces on the overlay. Overlay "
-                     "text only — curated packs own the spoken wear-offs.",
+            comments=("Cancels the cast-start countdown early and raises a "
+                      "loud alert with a short warning sound when charm "
+                      "breaks." if charm_break else
+                      "Cancels the cast-start countdown early (mez break, "
+                      "mob death) and re-announces on the overlay. Overlay "
+                      "text only — curated packs own the spoken wear-offs."),
             icon_id=icon_by_name.get(name),
+            case_insensitive=False if charm_break else None,
         ))
         n_worn += 1
 

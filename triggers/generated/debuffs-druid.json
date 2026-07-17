@@ -1191,7 +1191,7 @@
     {
       "id": "debuffs/worn/beguile-animals",
       "name": "Enemy timer cleared: Beguile Animals",
-      "pattern": "^Your Beguile Animals(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Beguile Animals(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1206,11 +1206,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Beguile Animals off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -1218,7 +1223,8 @@
         "Druid"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:72"
     },
     {
@@ -1323,7 +1329,7 @@
     {
       "id": "debuffs/worn/call-of-karana",
       "name": "Enemy timer cleared: Call of Karana",
-      "pattern": "^Your Call of Karana(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Call of Karana(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1338,11 +1344,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Call of Karana off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -1350,13 +1361,14 @@
         "Druid"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:72"
     },
     {
       "id": "debuffs/worn/charm-animals",
       "name": "Enemy timer cleared: Charm Animals",
-      "pattern": "^Your Charm Animals(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Charm Animals(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1371,11 +1383,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Charm Animals off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -1384,7 +1401,8 @@
         "Shaman"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:72"
     },
     {

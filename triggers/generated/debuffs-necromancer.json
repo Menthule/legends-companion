@@ -1969,7 +1969,7 @@
     {
       "id": "debuffs/worn/beguile-undead",
       "name": "Enemy timer cleared: Beguile Undead",
-      "pattern": "^Your Beguile Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Beguile Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -1984,11 +1984,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Beguile Undead off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -1996,7 +2001,8 @@
         "Necromancer"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:27"
     },
     {
@@ -2035,7 +2041,7 @@
     {
       "id": "debuffs/worn/cajole-undead",
       "name": "Enemy timer cleared: Cajole Undead",
-      "pattern": "^Your Cajole Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Cajole Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2050,11 +2056,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Cajole Undead off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -2062,7 +2073,8 @@
         "Necromancer"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:27"
     },
     {
@@ -2332,7 +2344,7 @@
     {
       "id": "debuffs/worn/dominate-undead",
       "name": "Enemy timer cleared: Dominate Undead",
-      "pattern": "^Your Dominate Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Dominate Undead(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2347,11 +2359,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Dominate Undead off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -2359,7 +2376,8 @@
         "Necromancer"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:27"
     },
     {
@@ -2398,7 +2416,7 @@
     {
       "id": "debuffs/worn/enslave-death",
       "name": "Enemy timer cleared: Enslave Death",
-      "pattern": "^Your Enslave Death(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Enslave Death(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -2413,11 +2431,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Enslave Death off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -2425,7 +2448,8 @@
         "Necromancer"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:27"
     },
     {
@@ -3091,7 +3115,7 @@
     {
       "id": "debuffs/worn/thrall-of-bones",
       "name": "Enemy timer cleared: Thrall of Bones",
-      "pattern": "^Your Thrall of Bones(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (.+))?\\.$",
+      "pattern": "^Your Thrall of Bones(?: (?P<rank>[IVXLCDM]+))? spell has worn off(?: of (?P<target>.+))?\\.$",
       "enabled": true,
       "default_enabled": true,
       "source": "generated",
@@ -3106,11 +3130,16 @@
           "Overlay": {
             "overlay": "alerts",
             "fields": {
-              "text": "Thrall of Bones off ${1}"
+              "text": "CHARM BROKE ${target}"
             },
             "config": {
-              "severity": "warn"
+              "severity": "alarm"
             }
+          }
+        },
+        {
+          "PlaySound": {
+            "path": "warning.wav"
           }
         }
       ],
@@ -3118,7 +3147,8 @@
         "Necromancer"
       ],
       "track_when_observed": true,
-      "comments": "Cancels the cast-start countdown early (mez break, mob death) and re-announces on the overlay. Overlay text only — curated packs own the spoken wear-offs.",
+      "case_insensitive": false,
+      "comments": "Cancels the cast-start countdown early and raises a loud alert with a short warning sound when charm breaks.",
       "icon": "spell:27"
     },
     {
