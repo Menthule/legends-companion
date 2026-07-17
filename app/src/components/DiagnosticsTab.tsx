@@ -532,7 +532,10 @@ export default function DiagnosticsTab() {
         )}
         {manualEditor && (
           <div className="timer-manual-editor">
-            <strong>{manualEditor.report.timerName} {manualEditor.rank.rank}</strong>
+            <div className="timer-manual-title">
+              <strong>{manualEditor.report.timerName}</strong>
+              <span>Rank {manualEditor.rank.rank}</span>
+            </div>
             <label className="field">
               <span>Duration</span>
               <input
@@ -543,6 +546,7 @@ export default function DiagnosticsTab() {
                   )
                 }
                 placeholder="1:42"
+                inputMode="decimal"
                 autoFocus
               />
             </label>
@@ -556,14 +560,17 @@ export default function DiagnosticsTab() {
                   )
                 }
                 placeholder="2"
+                inputMode="decimal"
               />
             </label>
-            <button className="primary small" onClick={() => void saveManualTiming()}>
-              Save timing
-            </button>
-            <button className="ghost small" onClick={() => setManualEditor(null)}>
-              Cancel
-            </button>
+            <div className="timer-manual-actions">
+              <button className="primary small" onClick={() => void saveManualTiming()}>
+                Save timing
+              </button>
+              <button className="ghost small" onClick={() => setManualEditor(null)}>
+                Cancel
+              </button>
+            </div>
           </div>
         )}
         {showAllRanked && (

@@ -2353,16 +2353,45 @@ button.coach-row.active {
   font-size: 11px;
 }
 .timer-manual-editor {
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) minmax(120px, 150px) minmax(130px, 160px) auto;
+  align-items: end;
+  gap: 12px;
   margin: 10px 0;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--hairline));
   background: color-mix(in srgb, var(--accent) 5%, transparent);
 }
-.timer-manual-editor > strong {
-  min-width: 170px;
+.timer-manual-title {
+  align-self: center;
+  min-width: 0;
 }
-.timer-manual-editor .field {
-  width: 150px;
+.timer-manual-title strong,
+.timer-manual-title span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.timer-manual-title span {
+  margin-top: 2px;
+  color: var(--ink-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.timer-manual-editor .field { min-width: 0; }
+.timer-manual-editor .field > span { white-space: nowrap; }
+.timer-manual-editor .field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+.timer-manual-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 31px;
 }
 .timer-all-ranked {
   justify-content: flex-end;
@@ -2447,10 +2476,12 @@ button.coach-row.active {
   .timer-training-head > div,
   .timer-training-summary,
   .timer-candidate-toolbar,
-  .timer-manual-editor,
   .timer-all-ranked {
     align-items: stretch;
     flex-direction: column;
+  }
+  .timer-manual-editor {
+    grid-template-columns: minmax(150px, 1fr) minmax(110px, 140px) minmax(120px, 150px) auto;
   }
   .timer-training-summary {
     white-space: normal;
@@ -2499,6 +2530,12 @@ button.coach-row.active {
   .comparison-controls select {
     width: 100%;
   }
+}
+@media (max-width: 680px) {
+  .timer-manual-editor { grid-template-columns: 1fr 1fr; }
+  .timer-manual-title,
+  .timer-manual-actions { grid-column: 1 / -1; }
+  .timer-manual-actions { justify-content: flex-start; }
 }
 
 @media (max-width: 620px) {
