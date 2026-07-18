@@ -25,6 +25,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Beastlord level 60.",
       "icon": "spell:16"
     },
@@ -51,6 +52,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Beastlord level 60.",
       "icon": "spell:6"
     },
@@ -78,6 +80,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 52.",
       "icon": "spell:134"
     },
@@ -105,6 +108,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 55.",
       "icon": "spell:118"
     },
@@ -132,6 +136,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 53.",
       "icon": "spell:8"
     },
@@ -159,6 +164,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57.",
       "icon": "spell:8"
     },
@@ -186,6 +192,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 3.",
       "icon": "spell:57"
     },
@@ -213,6 +220,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 22.",
       "icon": "spell:65"
     },
@@ -240,6 +248,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 9.",
       "icon": "spell:52"
     },
@@ -267,6 +276,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 34.",
       "icon": "spell:69"
     },
@@ -294,6 +304,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 18.",
       "icon": "spell:61"
     },
@@ -321,6 +332,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 25.",
       "icon": "spell:20"
     },
@@ -347,6 +359,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Beastlord level 54.",
       "icon": "spell:154"
     },
@@ -374,6 +387,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 54.",
       "icon": "spell:6"
     },
@@ -401,6 +415,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 58.",
       "icon": "spell:46"
     },
@@ -428,6 +443,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Beastlord level 52.",
       "icon": "spell:10"
     },
@@ -455,6 +471,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 7.",
       "icon": "spell:130"
     },
@@ -482,6 +499,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Beastlord level 43. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -509,6 +527,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Beastlord level 32.",
       "icon": "spell:80"
     },
@@ -536,6 +555,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 55.",
       "icon": "spell:134"
     },
@@ -563,6 +583,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 44.",
       "icon": "spell:4"
     },
@@ -590,6 +611,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 48.",
       "icon": "spell:151"
     },
@@ -617,6 +639,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41.",
       "icon": "spell:6"
     },
@@ -644,6 +667,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51.",
       "icon": "spell:65"
     },
@@ -671,6 +695,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 54.",
       "icon": "spell:61"
     },
@@ -697,6 +722,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Beastlord level 51.",
       "icon": "spell:78"
     },
@@ -724,6 +750,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Beastlord level 60.",
       "icon": "spell:81"
     },
@@ -751,6 +778,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 10.",
       "icon": "spell:151"
     },
@@ -778,6 +806,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 16.",
       "icon": "spell:86"
     },
@@ -805,6 +834,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 59.",
       "icon": "spell:134"
     },
@@ -832,6 +862,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 56.",
       "icon": "spell:151"
     },
@@ -859,6 +890,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 29.",
       "icon": "spell:19"
     },
@@ -886,6 +918,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 28.",
       "icon": "spell:6"
     },
@@ -913,6 +946,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 17.",
       "icon": "spell:10"
     },
@@ -940,6 +974,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 56.",
       "icon": "spell:2001"
     },
@@ -967,6 +1002,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~44m00s at level 50 (formula 3, cap 440 ticks); the engine rescales to the profile's level; Beastlord level 28.",
       "icon": "spell:2001"
     },
@@ -994,6 +1030,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Beastlord level 13.",
       "icon": "spell:2001"
     },
@@ -1021,6 +1058,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 38.",
       "icon": "spell:8"
     },
@@ -1048,6 +1086,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 37.",
       "icon": "spell:10"
     },
@@ -1075,6 +1114,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 54.",
       "icon": "spell:2001"
     },
@@ -1102,6 +1142,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 46.",
       "icon": "spell:2001"
     },
@@ -1129,6 +1170,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 51.",
       "icon": "spell:2001"
     },
@@ -1156,6 +1198,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 24.",
       "icon": "spell:4"
     },
@@ -1183,6 +1226,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~42m00s at level 50 (formula 3, cap 420 ticks); the engine rescales to the profile's level; Beastlord level 18.",
       "icon": "spell:2001"
     },
@@ -1210,6 +1254,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Beastlord level 38.",
       "icon": "spell:2001"
     },
@@ -1237,6 +1282,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 39.",
       "icon": "spell:4"
     },
@@ -1264,6 +1310,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~48m00s at level 50 (formula 3, cap 480 ticks); the engine rescales to the profile's level; Beastlord level 53.",
       "icon": "spell:2001"
     },
@@ -1291,6 +1338,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 42.",
       "icon": "spell:1"
     },
@@ -1318,6 +1366,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 11, cap 450 ticks); the engine rescales to the profile's level; Beastlord level 41.",
       "icon": "spell:72"
     },
@@ -1345,6 +1394,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 59.",
       "icon": "spell:72"
     },
@@ -1372,6 +1422,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 11, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 52.",
       "icon": "spell:72"
     },
@@ -1399,6 +1450,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 60.",
       "icon": "spell:1"
     },
@@ -1426,6 +1478,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Beastlord level 57.",
       "icon": "spell:10"
     },
@@ -1453,6 +1506,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Beastlord level 14.",
       "icon": "spell:6"
     },
@@ -1480,6 +1534,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 58.",
       "icon": "spell:130"
     },
@@ -1507,6 +1562,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Beastlord level 53.",
       "icon": "spell:130"
     },
@@ -1534,6 +1590,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 26.",
       "icon": "spell:151"
     },
@@ -1561,6 +1618,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 51.",
       "icon": "spell:87"
     },
@@ -1588,6 +1646,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Beastlord level 49.",
       "icon": "spell:46"
     },
@@ -1615,6 +1674,7 @@
       "classes": [
         "Beastlord"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Beastlord level 37.",
       "icon": "spell:134"
     },

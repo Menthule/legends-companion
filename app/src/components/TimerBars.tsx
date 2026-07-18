@@ -10,6 +10,10 @@ export function timerIconKind(icon: string | null | undefined): TimerIconKind {
   return spellIconId(configured) != null ? "spell" : "glyph";
 }
 
+export function timerDisplayName(t: Pick<TimerView, "lane" | "name">): string {
+  return t.lane === "buff" ? t.name.replace(/ — You$/i, "") : t.name;
+}
+
 function TimerIcon({ t, overlay }: { t: TimerView; overlay: boolean }) {
   const configured = t.icon?.trim() ?? "";
   const kind = timerIconKind(configured);
@@ -34,6 +38,10 @@ function TimerIcon({ t, overlay }: { t: TimerView; overlay: boolean }) {
 }
 
 function TimerText({ t }: { t: TimerView }) {
+  // Self landing messages can be target-bound internally so the same buff
+  // also runs independently on a pet. Keep that implementation identity out
+  // of the player-facing self-buff label.
+  const name = timerDisplayName(t);
   return (
     <>
       <span className="timer-name">
@@ -42,7 +50,7 @@ function TimerText({ t }: { t: TimerView }) {
             <IconWarn />
           </span>
         )}
-        {t.name}
+        {name}
       </span>
       {/* Pending (item 12): the cast is in flight — no countdown numerals. */}
       <span className="timer-left">

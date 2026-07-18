@@ -25,6 +25,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 11, cap 630 ticks); the engine rescales to the profile's level; Shaman level 56.",
       "icon": "spell:138"
     },
@@ -52,6 +53,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 11, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58.",
       "icon": "spell:138"
     },
@@ -79,6 +81,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 41.",
       "icon": "spell:9"
     },
@@ -106,6 +109,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Shaman level 42.",
       "icon": "spell:16"
     },
@@ -133,6 +137,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 28.",
       "icon": "spell:15"
     },
@@ -160,6 +165,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Shaman level 60.",
       "icon": "spell:2"
     },
@@ -187,6 +193,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Shaman level 36.",
       "icon": "spell:88"
     },
@@ -214,6 +221,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Shaman level 60.",
       "icon": "spell:2"
     },
@@ -241,6 +249,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Shaman level 56.",
       "icon": "spell:16"
     },
@@ -268,6 +277,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 47.",
       "icon": "spell:15"
     },
@@ -295,6 +305,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 39.",
       "icon": "spell:118"
     },
@@ -322,6 +333,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 1, cap 10 ticks); the engine rescales to the profile's level; Shaman level 20.",
       "icon": "spell:106"
     },
@@ -349,6 +361,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 39.",
       "icon": "spell:8"
     },
@@ -376,6 +389,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 53.",
       "icon": "spell:9"
     },
@@ -403,6 +417,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 48.",
       "icon": "spell:8"
     },
@@ -430,6 +445,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
       "icon": "spell:8"
     },
@@ -457,6 +473,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
       "icon": "spell:57"
     },
@@ -484,6 +501,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 8.",
       "icon": "spell:65"
     },
@@ -511,6 +529,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 5.",
       "icon": "spell:52"
     },
@@ -538,6 +557,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 19.",
       "icon": "spell:69"
     },
@@ -565,6 +585,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 11.",
       "icon": "spell:61"
     },
@@ -592,6 +613,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 12.",
       "icon": "spell:20"
     },
@@ -619,6 +641,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 51.",
       "icon": "spell:20"
     },
@@ -646,6 +669,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 11, cap 360 ticks); the engine rescales to the profile's level; Shaman level 3.",
       "icon": "spell:9"
     },
@@ -673,6 +697,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Shaman level 60.",
       "icon": "spell:130"
     },
@@ -700,6 +725,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 25.",
       "icon": "spell:163"
     },
@@ -727,6 +753,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 55.",
       "icon": "spell:163"
     },
@@ -754,6 +781,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 39.",
       "icon": "spell:6"
     },
@@ -781,6 +809,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 37.",
       "icon": "spell:15"
     },
@@ -808,6 +837,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 42.",
       "icon": "spell:151"
     },
@@ -835,6 +865,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 46.",
       "icon": "spell:130"
     },
@@ -862,6 +893,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 30.",
       "icon": "spell:10"
     },
@@ -889,6 +921,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 49.",
       "icon": "spell:130"
     },
@@ -916,6 +949,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
       "icon": "spell:130"
     },
@@ -943,6 +977,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Shaman level 27. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -970,6 +1005,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:34"
     },
@@ -997,6 +1033,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Shaman level 60.",
       "icon": "spell:130"
     },
@@ -1024,6 +1061,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 10.",
       "icon": "spell:80"
     },
@@ -1051,6 +1089,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 51.",
       "icon": "spell:80"
     },
@@ -1078,6 +1117,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Shaman level 57.",
       "icon": "spell:6"
     },
@@ -1105,6 +1145,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 58.",
       "icon": "spell:8"
     },
@@ -1132,6 +1173,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Shaman level 31.",
       "icon": "spell:9"
     },
@@ -1159,6 +1201,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 34.",
       "icon": "spell:4"
     },
@@ -1186,6 +1229,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Shaman level 60.",
       "icon": "spell:2"
     },
@@ -1213,6 +1257,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 52.",
       "icon": "spell:49"
     },
@@ -1240,6 +1285,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 20.",
       "icon": "spell:151"
     },
@@ -1267,6 +1313,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Shaman level 26.",
       "icon": "spell:16"
     },
@@ -1294,6 +1341,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 28.",
       "icon": "spell:6"
     },
@@ -1321,6 +1369,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 23.",
       "icon": "spell:118"
     },
@@ -1348,6 +1397,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 52.",
       "icon": "spell:118"
     },
@@ -1375,6 +1425,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 56.",
       "icon": "spell:118"
     },
@@ -1402,6 +1453,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 24.",
       "icon": "spell:57"
     },
@@ -1429,6 +1481,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 30.",
       "icon": "spell:65"
     },
@@ -1456,6 +1509,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 27.",
       "icon": "spell:52"
     },
@@ -1483,6 +1537,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 43.",
       "icon": "spell:69"
     },
@@ -1510,6 +1565,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 35.",
       "icon": "spell:61"
     },
@@ -1537,6 +1593,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 54.",
       "icon": "spell:10"
     },
@@ -1564,6 +1621,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 25.",
       "icon": "spell:8"
     },
@@ -1591,6 +1649,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 3.",
       "icon": "spell:151"
     },
@@ -1618,6 +1677,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 22.",
       "icon": "spell:112"
     },
@@ -1645,6 +1705,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Shaman level 6.",
       "icon": "spell:86"
     },
@@ -1672,6 +1733,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 31.",
       "icon": "spell:151"
     },
@@ -1699,6 +1761,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 54.",
       "icon": "spell:151"
     },
@@ -1726,6 +1789,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Shaman level 50.",
       "icon": "spell:16"
     },
@@ -1753,6 +1817,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 7.",
       "icon": "spell:19"
     },
@@ -1780,6 +1845,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 18.",
       "icon": "spell:6"
     },
@@ -1807,6 +1873,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 6.",
       "icon": "spell:10"
     },
@@ -1834,6 +1901,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 36.",
       "icon": "spell:4"
     },
@@ -1861,6 +1929,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 18.",
       "icon": "spell:9"
     },
@@ -1888,6 +1957,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Shaman level 21.",
       "icon": "spell:4"
     },
@@ -1915,6 +1985,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 21.",
       "icon": "spell:8"
     },
@@ -1942,6 +2013,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Shaman level 21.",
       "icon": "spell:10"
     },
@@ -1969,6 +2041,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 52.",
       "icon": "spell:112"
     },
@@ -1996,6 +2069,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 10.",
       "icon": "spell:15"
     },
@@ -2023,6 +2097,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 9.",
       "icon": "spell:4"
     },
@@ -2050,6 +2125,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Shaman level 57.",
       "icon": "spell:2"
     },
@@ -2077,6 +2153,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Shaman level 50.",
       "icon": "spell:2"
     },
@@ -2104,6 +2181,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 29.",
       "icon": "spell:4"
     },
@@ -2131,6 +2209,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 43.",
       "icon": "spell:10"
     },
@@ -2158,6 +2237,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 46.",
       "icon": "spell:6"
     },
@@ -2185,6 +2265,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 1.",
       "icon": "spell:6"
     },
@@ -2212,6 +2293,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 40.",
       "icon": "spell:130"
     },
@@ -2239,6 +2321,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Shaman level 58.",
       "icon": "spell:68"
     },
@@ -2266,6 +2349,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 50.",
       "icon": "spell:68"
     },
@@ -2293,6 +2377,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 55.",
       "icon": "spell:130"
     },
@@ -2320,6 +2405,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 53.",
       "icon": "spell:64"
     },
@@ -2347,6 +2433,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 32.",
       "icon": "spell:130"
     },
@@ -2374,6 +2461,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Shaman level 8.",
       "icon": "spell:6"
     },
@@ -2401,6 +2489,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 57.",
       "icon": "spell:10"
     },
@@ -2428,6 +2517,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 57.",
       "icon": "spell:9"
     },
@@ -2455,6 +2545,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 59.",
       "icon": "spell:8"
     },
@@ -2482,6 +2573,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58.",
       "icon": "spell:6"
     },
@@ -2509,6 +2601,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~63m00s at level 50 (formula 3, cap 630 ticks); the engine rescales to the profile's level; Shaman level 58.",
       "icon": "spell:15"
     },
@@ -2536,6 +2629,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~46m00s at level 50 (formula 3, cap 460 ticks); the engine rescales to the profile's level; Shaman level 35.",
       "icon": "spell:6"
     },
@@ -2563,6 +2657,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 11.",
       "icon": "spell:151"
     },
@@ -2590,6 +2685,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Shaman level 26.",
       "icon": "spell:87"
     },
@@ -2617,6 +2713,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Shaman level 59.",
       "icon": "spell:15"
     },
@@ -2644,6 +2741,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Shaman level 17.",
       "icon": "spell:88"
     },
@@ -2671,6 +2769,7 @@
       "classes": [
         "Shaman"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Shaman level 59.",
       "icon": "spell:49"
     },

@@ -53,7 +53,9 @@ Each step reads the previous step's output from its default location;
   per class that gets it (duration estimated at level 50, capped; warning
   at min(10 s, 15%); `duration_formula`/`duration_cap_ticks` are emitted
   on the action so the engine rescales the duration to the profile's
-  level, and `lane: "buff"` routes the bar to the buffs overlay), plus
+  level, and `lane: "buff"` routes the bar to the buffs overlay).
+  Cast timers set `track_when_observed`, so an exact player cast is tracked
+  even when the selected loadout is stale. The packs also include
   deduplicated wear-off Speak triggers — ONE per distinct
   wear-off message, named after the alphabetically-first colliding
   castable spell (unless `WEAR_OFF_LIKELY` overrides the announced name,

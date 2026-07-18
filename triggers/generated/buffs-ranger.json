@@ -25,6 +25,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Ranger level 17.",
       "icon": "spell:44"
     },
@@ -52,6 +53,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 48.",
       "icon": "spell:158"
     },
@@ -79,6 +81,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Ranger level 55.",
       "icon": "spell:104"
     },
@@ -106,6 +109,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~10m00s at level 50 (formula 10, cap 100 ticks); the engine rescales to the profile's level; Ranger level 58.",
       "icon": "spell:104"
     },
@@ -133,6 +137,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Ranger level 60.",
       "icon": "spell:123"
     },
@@ -160,6 +165,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Ranger level 31.",
       "icon": "spell:39"
     },
@@ -187,6 +193,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Ranger level 14. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -214,6 +221,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Ranger level 55.",
       "icon": "spell:118"
     },
@@ -241,6 +249,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~70m00s at level 50 (formula 11, cap 700 ticks); the engine rescales to the profile's level; Ranger level 58.",
       "icon": "spell:127"
     },
@@ -268,6 +277,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 18.",
       "icon": "spell:57"
     },
@@ -295,6 +305,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 9.",
       "icon": "spell:52"
     },
@@ -322,6 +333,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 20.",
       "icon": "spell:20"
     },
@@ -349,6 +361,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~70m00s at level 50 (formula 11, cap 700 ticks); the engine rescales to the profile's level; Ranger level 52.",
       "icon": "spell:127"
     },
@@ -375,6 +388,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Ranger level 54.",
       "icon": "spell:154"
     },
@@ -402,6 +416,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 11, cap 360 ticks); the engine rescales to the profile's level; Ranger level 12.",
       "icon": "spell:9"
     },
@@ -429,6 +444,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Ranger level 22.",
       "icon": "spell:39"
     },
@@ -456,6 +472,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Ranger level 39.",
       "icon": "spell:39"
     },
@@ -483,6 +500,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Ranger level 54.",
       "icon": "spell:104"
     },
@@ -510,6 +528,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Ranger level 35.",
       "icon": "spell:80"
     },
@@ -537,6 +556,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Ranger level 4.",
       "icon": "spell:39"
     },
@@ -564,6 +584,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Ranger level 56.",
       "icon": "spell:123"
     },
@@ -591,6 +612,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 49.",
       "icon": "spell:4"
     },
@@ -618,6 +640,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 55.",
       "icon": "spell:57"
     },
@@ -645,6 +668,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 46.",
       "icon": "spell:52"
     },
@@ -671,6 +695,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Ranger level 51.",
       "icon": "spell:78"
     },
@@ -698,6 +723,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 29.",
       "icon": "spell:158"
     },
@@ -725,6 +751,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Ranger level 32.",
       "icon": "spell:19"
     },
@@ -752,6 +779,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 43.",
       "icon": "spell:155"
     },
@@ -779,6 +807,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 58.",
       "icon": "spell:155"
     },
@@ -806,6 +835,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Ranger level 24.",
       "icon": "spell:155"
     },
@@ -833,6 +863,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Ranger level 54.",
       "icon": "spell:131"
     },
@@ -860,6 +891,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Ranger level 59.",
       "icon": "spell:131"
     },
@@ -887,6 +919,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 21.",
       "icon": "spell:131"
     },
@@ -914,6 +947,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 38.",
       "icon": "spell:131"
     },
@@ -941,6 +975,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Ranger level 7.",
       "icon": "spell:131"
     },
@@ -968,6 +1003,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 28.",
       "icon": "spell:4"
     },
@@ -995,6 +1031,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Ranger level 41.",
       "icon": "spell:4"
     },
@@ -1022,6 +1059,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Ranger level 53.",
       "icon": "spell:6"
     },
@@ -1049,6 +1087,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Ranger level 26.",
       "icon": "spell:6"
     },
@@ -1076,6 +1115,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Ranger level 51.",
       "icon": "spell:123"
     },
@@ -1103,6 +1143,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Ranger level 47. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:34"
     },
@@ -1129,6 +1170,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 11, cap 20 ticks); the engine rescales to the profile's level; Ranger level 55.",
       "icon": "spell:127"
     },
@@ -1156,6 +1198,7 @@
       "classes": [
         "Ranger"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Ranger level 60.",
       "icon": "spell:158"
     },

@@ -25,6 +25,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Enchanter level 53.",
       "icon": "spell:16"
     },
@@ -52,6 +53,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 46.",
       "icon": "spell:15"
     },
@@ -79,6 +81,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Enchanter level 21.",
       "icon": "spell:16"
     },
@@ -106,6 +109,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 56.",
       "icon": "spell:134"
     },
@@ -133,6 +137,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 28.",
       "icon": "spell:134"
     },
@@ -160,6 +165,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~6m00s at level 50 (formula 8, cap 75 ticks); the engine rescales to the profile's level; Enchanter level 58.",
       "icon": "spell:6"
     },
@@ -187,6 +193,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 50 ticks); the engine rescales to the profile's level; Enchanter level 47.",
       "icon": "spell:6"
     },
@@ -214,6 +221,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~3m00s at level 50 (formula 7, cap 30 ticks); the engine rescales to the profile's level; Enchanter level 19.",
       "icon": "spell:6"
     },
@@ -241,6 +249,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Enchanter level 8.",
       "icon": "spell:44"
     },
@@ -268,6 +277,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 42.",
       "icon": "spell:21"
     },
@@ -295,6 +305,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 0 ticks); the engine rescales to the profile's level; Enchanter level 40.",
       "icon": "spell:163"
     },
@@ -322,6 +333,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 14.",
       "icon": "spell:21"
     },
@@ -349,6 +361,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Enchanter level 41.",
       "icon": "spell:11"
     },
@@ -376,6 +389,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Enchanter level 18.",
       "icon": "spell:39"
     },
@@ -403,6 +417,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 36.",
       "icon": "spell:15"
     },
@@ -430,6 +445,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Enchanter level 32.",
       "icon": "spell:93"
     },
@@ -457,6 +473,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Enchanter level 39.",
       "icon": "spell:16"
     },
@@ -484,6 +501,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 26.",
       "icon": "spell:21"
     },
@@ -511,6 +529,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~35m00s at level 50 (formula 3, cap 350 ticks); the engine rescales to the profile's level; Enchanter level 52.",
       "icon": "spell:21"
     },
@@ -538,6 +557,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 17.",
       "icon": "spell:152"
     },
@@ -565,6 +585,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 17.",
       "icon": "spell:69"
     },
@@ -592,6 +613,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 12.",
       "icon": "spell:20"
     },
@@ -619,6 +641,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 57.",
       "icon": "spell:11"
     },
@@ -646,6 +669,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 51.",
       "icon": "spell:20"
     },
@@ -673,6 +697,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Enchanter level 25.",
       "icon": "spell:162"
     },
@@ -700,6 +725,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Enchanter level 60.",
       "icon": "spell:115"
     },
@@ -727,6 +753,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~75m00s at level 50 (formula 3, cap 750 ticks); the engine rescales to the profile's level; Enchanter level 55.",
       "icon": "spell:115"
     },
@@ -754,6 +781,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 34.",
       "icon": "spell:115"
     },
@@ -781,6 +809,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~33m00s at level 50 (formula 3, cap 330 ticks); the engine rescales to the profile's level; Enchanter level 56.",
       "icon": "spell:21"
     },
@@ -808,6 +837,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 58.",
       "icon": "spell:15"
     },
@@ -835,6 +865,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 48.",
       "icon": "spell:69"
     },
@@ -862,6 +893,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 44.",
       "icon": "spell:98"
     },
@@ -889,6 +921,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 26.",
       "icon": "spell:154"
     },
@@ -916,6 +949,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 3.",
       "icon": "spell:152"
     },
@@ -943,6 +977,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m36s at level 50 (formula 6, cap 6 ticks); the engine rescales to the profile's level; Enchanter level 56.",
       "icon": "spell:154"
     },
@@ -970,6 +1005,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 29.",
       "icon": "spell:163"
     },
@@ -997,6 +1033,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1024,6 +1061,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1051,6 +1089,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1078,6 +1117,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1105,6 +1145,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1132,6 +1173,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1159,6 +1201,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1186,6 +1229,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1213,6 +1257,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1240,6 +1285,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 15.",
       "icon": "spell:163"
     },
@@ -1267,6 +1313,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1294,6 +1341,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1321,6 +1369,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1348,6 +1397,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1375,6 +1425,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1402,6 +1453,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1429,6 +1481,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1456,6 +1509,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1483,6 +1537,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1510,6 +1565,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1537,6 +1593,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1564,6 +1621,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1591,6 +1649,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1618,6 +1677,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:163"
     },
@@ -1645,6 +1705,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1672,6 +1733,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1699,6 +1761,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1726,6 +1789,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1753,6 +1817,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1780,6 +1845,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1807,6 +1873,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1834,6 +1901,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1861,6 +1929,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1888,6 +1957,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1915,6 +1985,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1942,6 +2013,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -1969,6 +2041,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:163"
     },
@@ -1996,6 +2069,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2023,6 +2097,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2050,6 +2125,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2077,6 +2153,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2104,6 +2181,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2131,6 +2209,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2158,6 +2237,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 30.",
       "icon": "spell:163"
     },
@@ -2185,6 +2265,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 30.",
       "icon": "spell:163"
     },
@@ -2212,6 +2293,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 30.",
       "icon": "spell:163"
     },
@@ -2239,6 +2321,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2266,6 +2349,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 37.",
       "icon": "spell:163"
     },
@@ -2293,6 +2377,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2320,6 +2405,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 13.",
       "icon": "spell:163"
     },
@@ -2347,6 +2433,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2374,6 +2461,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2401,6 +2489,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 21.",
       "icon": "spell:163"
     },
@@ -2428,6 +2517,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2455,6 +2545,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2482,6 +2573,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2509,6 +2601,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 12.",
       "icon": "spell:163"
     },
@@ -2536,6 +2629,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2563,6 +2657,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2590,6 +2685,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2617,6 +2713,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2644,6 +2741,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2671,6 +2769,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2698,6 +2797,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2725,6 +2825,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 33.",
       "icon": "spell:163"
     },
@@ -2752,6 +2853,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2779,6 +2881,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2806,6 +2909,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2833,6 +2937,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2860,6 +2965,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 55.",
       "icon": "spell:163"
     },
@@ -2887,6 +2993,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2914,6 +3021,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2941,6 +3049,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2968,6 +3077,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -2995,6 +3105,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3022,6 +3133,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3049,6 +3161,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3076,6 +3189,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3103,6 +3217,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 8.",
       "icon": "spell:163"
     },
@@ -3130,6 +3245,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3157,6 +3273,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3184,6 +3301,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3211,6 +3329,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3238,6 +3357,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 52.",
       "icon": "spell:163"
     },
@@ -3265,6 +3385,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3292,6 +3413,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 3.",
       "icon": "spell:163"
     },
@@ -3319,6 +3441,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 12.",
       "icon": "spell:163"
     },
@@ -3346,6 +3469,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3373,6 +3497,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3400,6 +3525,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 11.",
       "icon": "spell:163"
     },
@@ -3427,6 +3553,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3454,6 +3581,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3481,6 +3609,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 2.",
       "icon": "spell:163"
     },
@@ -3508,6 +3637,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3535,6 +3665,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3562,6 +3693,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3589,6 +3721,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3616,6 +3749,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 20.",
       "icon": "spell:163"
     },
@@ -3643,6 +3777,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3670,6 +3805,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 45.",
       "icon": "spell:163"
     },
@@ -3697,6 +3833,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3724,6 +3861,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3751,6 +3889,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3778,6 +3917,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:163"
     },
@@ -3805,6 +3945,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3832,6 +3973,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3859,6 +4001,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3886,6 +4029,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3913,6 +4057,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3940,6 +4085,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3967,6 +4113,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -3994,6 +4141,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4021,6 +4169,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 17.",
       "icon": "spell:163"
     },
@@ -4048,6 +4197,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4075,6 +4225,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 54.",
       "icon": "spell:163"
     },
@@ -4102,6 +4253,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4129,6 +4281,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4156,6 +4309,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4183,6 +4337,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4210,6 +4365,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4237,6 +4393,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4264,6 +4421,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4291,6 +4449,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4318,6 +4477,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4345,6 +4505,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4372,6 +4533,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4399,6 +4561,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4426,6 +4589,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4453,6 +4617,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4480,6 +4645,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4507,6 +4673,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 3600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4534,6 +4701,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4561,6 +4729,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4588,6 +4757,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4615,6 +4785,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4642,6 +4813,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4669,6 +4841,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4696,6 +4869,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4723,6 +4897,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4750,6 +4925,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 44.",
       "icon": "spell:81"
     },
@@ -4777,6 +4953,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4804,6 +4981,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4831,6 +5009,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4858,6 +5037,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4885,6 +5065,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4912,6 +5093,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4939,6 +5121,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4966,6 +5149,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -4993,6 +5177,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:163"
     },
@@ -5020,6 +5205,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5047,6 +5233,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5074,6 +5261,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5101,6 +5289,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 24.",
       "icon": "spell:163"
     },
@@ -5128,6 +5317,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5155,6 +5345,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5182,6 +5373,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5209,6 +5401,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 38.",
       "icon": "spell:163"
     },
@@ -5236,6 +5429,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5263,6 +5457,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:163"
     },
@@ -5290,6 +5485,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5317,6 +5513,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5344,6 +5541,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5371,6 +5569,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5398,6 +5597,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 15.",
       "icon": "spell:163"
     },
@@ -5425,6 +5625,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 18.",
       "icon": "spell:163"
     },
@@ -5452,6 +5653,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5479,6 +5681,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5506,6 +5709,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5533,6 +5737,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5560,6 +5765,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 54.",
       "icon": "spell:163"
     },
@@ -5587,6 +5793,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5614,6 +5821,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5641,6 +5849,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5668,6 +5877,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5695,6 +5905,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5722,6 +5933,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5749,6 +5961,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5776,6 +5989,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -5803,6 +6017,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 28.",
       "icon": "spell:163"
     },
@@ -5830,6 +6045,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 42.",
       "icon": "spell:163"
     },
@@ -5857,6 +6073,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 5.",
       "icon": "spell:163"
     },
@@ -5884,6 +6101,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Enchanter level 50. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -5911,6 +6129,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~40m00s at level 50 (formula 3, cap 400 ticks); the engine rescales to the profile's level; Enchanter level 35.",
       "icon": "spell:13"
     },
@@ -5938,6 +6157,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 11.",
       "icon": "spell:141"
     },
@@ -5965,6 +6185,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 17.",
       "icon": "spell:141"
     },
@@ -5992,6 +6213,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Enchanter level 4. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -6019,6 +6241,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 14. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:33"
     },
@@ -6046,6 +6269,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Enchanter level 60.",
       "icon": "spell:21"
     },
@@ -6073,6 +6297,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 44.",
       "icon": "spell:19"
     },
@@ -6100,6 +6325,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 15.",
       "icon": "spell:80"
     },
@@ -6127,6 +6353,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 51.",
       "icon": "spell:80"
     },
@@ -6154,6 +6381,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:39"
     },
@@ -6181,6 +6409,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -6208,6 +6437,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:152"
     },
@@ -6235,6 +6465,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Enchanter level 27.",
       "icon": "spell:152"
     },
@@ -6262,6 +6493,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Enchanter level 56.",
       "icon": "spell:15"
     },
@@ -6289,6 +6521,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Enchanter level 35.",
       "icon": "spell:39"
     },
@@ -6316,6 +6549,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 55.",
       "icon": "spell:98"
     },
@@ -6343,6 +6577,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 110 ticks); the engine rescales to the profile's level; Enchanter level 15.",
       "icon": "spell:16"
     },
@@ -6370,6 +6605,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 31.",
       "icon": "spell:15"
     },
@@ -6397,6 +6633,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Enchanter level 38.",
       "icon": "spell:6"
     },
@@ -6424,6 +6661,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 37.",
       "icon": "spell:69"
     },
@@ -6451,6 +6689,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 13.",
       "icon": "spell:77"
     },
@@ -6478,6 +6717,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Enchanter level 22.",
       "icon": "spell:77"
     },
@@ -6505,6 +6745,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 33.",
       "icon": "spell:77"
     },
@@ -6532,6 +6773,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Enchanter level 40.",
       "icon": "spell:77"
     },
@@ -6559,6 +6801,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~110m00s at level 50 (formula 3, cap 1100 ticks); the engine rescales to the profile's level; Enchanter level 52.",
       "icon": "spell:77"
     },
@@ -6586,6 +6829,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 6.",
       "icon": "spell:19"
     },
@@ -6613,6 +6857,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 10.",
       "icon": "spell:86"
     },
@@ -6640,6 +6885,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Enchanter level 37.",
       "icon": "spell:152"
     },
@@ -6667,6 +6913,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Enchanter level 48.",
       "icon": "spell:152"
     },
@@ -6694,6 +6941,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Enchanter level 54.",
       "icon": "spell:133"
     },
@@ -6721,6 +6969,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 20.",
       "icon": "spell:93"
     },
@@ -6748,6 +6997,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~2m30s at level 50 (formula 8, cap 25 ticks); the engine rescales to the profile's level; Enchanter level 6.",
       "icon": "spell:39"
     },
@@ -6775,6 +7025,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~30m00s at level 50 (formula 3, cap 300 ticks); the engine rescales to the profile's level; Enchanter level 60.",
       "icon": "spell:134"
     },
@@ -6802,6 +7053,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -6829,6 +7081,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -6856,6 +7109,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -6883,6 +7137,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3600, cap 600 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:163"
     },
@@ -6910,6 +7165,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Enchanter level 1.",
       "icon": "spell:6"
     },
@@ -6937,6 +7193,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~16m00s at level 50 (formula 10, cap 160 ticks); the engine rescales to the profile's level; Enchanter level 47.",
       "icon": "spell:16"
     },
@@ -6964,6 +7221,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 18.",
       "icon": "spell:15"
     },
@@ -6991,6 +7249,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 7, cap 65 ticks); the engine rescales to the profile's level; Enchanter level 52.",
       "icon": "spell:163"
     },
@@ -7018,6 +7277,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 27.",
       "icon": "spell:87"
     },
@@ -7045,6 +7305,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~99m00s at level 50 (formula 3, cap 990 ticks); the engine rescales to the profile's level; Enchanter level 57.",
       "icon": "spell:152"
     },
@@ -7072,6 +7333,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~42m00s at level 50 (formula 11, cap 420 ticks); the engine rescales to the profile's level; Enchanter level 60.",
       "icon": "spell:134"
     },
@@ -7099,6 +7361,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Enchanter level 51.",
       "icon": "spell:39"
     },
@@ -7126,6 +7389,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Enchanter level 29.",
       "icon": "spell:98"
     },
@@ -7153,6 +7417,7 @@
       "classes": [
         "Enchanter"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Enchanter level 58.",
       "icon": "spell:16"
     },

@@ -25,6 +25,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 60.",
       "icon": "spell:155"
     },
@@ -52,6 +53,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 56.",
       "icon": "spell:155"
     },
@@ -79,6 +81,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 8, cap 7 ticks); the engine rescales to the profile's level; Druid level 15.",
       "icon": "spell:39"
     },
@@ -106,6 +109,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 4. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -133,6 +137,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 42.",
       "icon": "spell:118"
     },
@@ -160,6 +165,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1500 ticks); the engine rescales to the profile's level; Druid level 58.",
       "icon": "spell:148"
     },
@@ -187,6 +193,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 52.",
       "icon": "spell:57"
     },
@@ -214,6 +221,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 51.",
       "icon": "spell:52"
     },
@@ -241,6 +249,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 9.",
       "icon": "spell:57"
     },
@@ -268,6 +277,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19.",
       "icon": "spell:65"
     },
@@ -295,6 +305,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 1.",
       "icon": "spell:52"
     },
@@ -322,6 +333,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 34.",
       "icon": "spell:69"
     },
@@ -349,6 +361,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19.",
       "icon": "spell:61"
     },
@@ -376,6 +389,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 6.",
       "icon": "spell:20"
     },
@@ -403,6 +417,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 50.",
       "icon": "spell:20"
     },
@@ -430,6 +445,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 52.",
       "icon": "spell:81"
     },
@@ -457,6 +473,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 18.",
       "icon": "spell:144"
     },
@@ -484,6 +501,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Druid level 52.",
       "icon": "spell:18"
     },
@@ -511,6 +529,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~144m00s at level 50 (formula 3, cap 1440 ticks); the engine rescales to the profile's level; Druid level 54.",
       "icon": "spell:81"
     },
@@ -538,6 +557,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60.",
       "icon": "spell:81"
     },
@@ -565,6 +585,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 55.",
       "icon": "spell:6"
     },
@@ -592,6 +613,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 2, cap 20 ticks); the engine rescales to the profile's level; Druid level 5.",
       "icon": "spell:39"
     },
@@ -619,6 +641,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~0m42s at level 50 (formula 2, cap 7 ticks); the engine rescales to the profile's level; Druid level 29.",
       "icon": "spell:39"
     },
@@ -646,6 +669,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Druid level 48. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -673,6 +697,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 8. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:34"
     },
@@ -700,6 +725,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 49.",
       "icon": "spell:155"
     },
@@ -727,6 +753,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 59.",
       "icon": "spell:155"
     },
@@ -754,6 +781,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 14.",
       "icon": "spell:80"
     },
@@ -781,6 +809,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 50.",
       "icon": "spell:80"
     },
@@ -808,6 +837,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 9, cap 20 ticks); the engine rescales to the profile's level; Druid level 1.",
       "icon": "spell:39"
     },
@@ -835,6 +865,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60.",
       "icon": "spell:21"
     },
@@ -862,6 +893,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~150m00s at level 50 (formula 3, cap 1950 ticks); the engine rescales to the profile's level; Druid level 60.",
       "icon": "spell:21"
     },
@@ -889,6 +921,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~3m00s at level 50 (formula 4, cap 30 ticks); the engine rescales to the profile's level; Druid level 60.",
       "icon": "spell:118"
     },
@@ -916,6 +949,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~81m00s at level 50 (formula 3, cap 810 ticks); the engine rescales to the profile's level; Druid level 57.",
       "icon": "spell:131"
     },
@@ -943,6 +977,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 45.",
       "icon": "spell:118"
     },
@@ -970,6 +1005,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~11m00s at level 50 (formula 9, cap 140 ticks); the engine rescales to the profile's level; Druid level 39.",
       "icon": "spell:118"
     },
@@ -997,6 +1033,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35.",
       "icon": "spell:4"
     },
@@ -1024,6 +1061,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 35.",
       "icon": "spell:4"
     },
@@ -1051,6 +1089,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 39.",
       "icon": "spell:131"
     },
@@ -1078,6 +1117,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 49.",
       "icon": "spell:131"
     },
@@ -1105,6 +1145,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 19.",
       "icon": "spell:131"
     },
@@ -1132,6 +1173,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 27.",
       "icon": "spell:131"
     },
@@ -1159,6 +1201,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 9.",
       "icon": "spell:131"
     },
@@ -1186,6 +1229,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 59.",
       "icon": "spell:131"
     },
@@ -1213,6 +1257,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~100m00s at level 50 (formula 3, cap 1000 ticks); the engine rescales to the profile's level; Druid level 60.",
       "icon": "spell:131"
     },
@@ -1240,6 +1285,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 34.",
       "icon": "spell:118"
     },
@@ -1267,6 +1313,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 54.",
       "icon": "spell:118"
     },
@@ -1294,6 +1341,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~20m30s at level 50 (formula 10, cap 205 ticks); the engine rescales to the profile's level; Druid level 58.",
       "icon": "spell:118"
     },
@@ -1321,6 +1369,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30.",
       "icon": "spell:57"
     },
@@ -1348,6 +1397,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44.",
       "icon": "spell:65"
     },
@@ -1375,6 +1425,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 20.",
       "icon": "spell:52"
     },
@@ -1402,6 +1453,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 49.",
       "icon": "spell:69"
     },
@@ -1429,6 +1481,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 44.",
       "icon": "spell:61"
     },
@@ -1456,6 +1509,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Druid level 41.",
       "icon": "spell:144"
     },
@@ -1483,6 +1537,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~45m00s at level 50 (formula 3, cap 450 ticks); the engine rescales to the profile's level; Druid level 26.",
       "icon": "spell:112"
     },
@@ -1510,6 +1565,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 13.",
       "icon": "spell:19"
     },
@@ -1537,6 +1593,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~360m00s at level 50 (formula 3600, cap 3600 ticks); the engine rescales to the profile's level; Druid level 45.",
       "icon": "spell:81"
     },
@@ -1564,6 +1621,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 17.",
       "icon": "spell:155"
     },
@@ -1591,6 +1649,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 58.",
       "icon": "spell:155"
     },
@@ -1618,6 +1677,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 27.",
       "icon": "spell:155"
     },
@@ -1645,6 +1705,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 37.",
       "icon": "spell:155"
     },
@@ -1672,6 +1733,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 7.",
       "icon": "spell:155"
     },
@@ -1699,6 +1761,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~15m00s at level 50 (formula 10, cap 150 ticks); the engine rescales to the profile's level; Druid level 47.",
       "icon": "spell:155"
     },
@@ -1726,6 +1789,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 36.",
       "icon": "spell:131"
     },
@@ -1753,6 +1817,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 46.",
       "icon": "spell:131"
     },
@@ -1780,6 +1845,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 14.",
       "icon": "spell:131"
     },
@@ -1807,6 +1873,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 24.",
       "icon": "spell:131"
     },
@@ -1834,6 +1901,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 11, cap 270 ticks); the engine rescales to the profile's level; Druid level 1.",
       "icon": "spell:131"
     },
@@ -1861,6 +1929,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 36.",
       "icon": "spell:163"
     },
@@ -1888,6 +1957,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~0m48s at level 50 (formula 1, cap 8 ticks); the engine rescales to the profile's level; Druid level 21.",
       "icon": "spell:4"
     },
@@ -1915,6 +1985,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Druid level 54.",
       "icon": "spell:4"
     },
@@ -1942,6 +2013,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 59.",
       "icon": "spell:163"
     },
@@ -1969,6 +2041,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Druid level 53.",
       "icon": "spell:112"
     },
@@ -1996,6 +2069,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 10.",
       "icon": "spell:4"
     },
@@ -2023,6 +2097,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 30.",
       "icon": "spell:4"
     },
@@ -2050,6 +2125,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Druid level 44.",
       "icon": "spell:6"
     },
@@ -2077,6 +2153,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Druid level 7.",
       "icon": "spell:6"
     },
@@ -2104,6 +2181,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 34.",
       "icon": "spell:6"
     },
@@ -2131,6 +2209,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~24m00s at level 50 (formula 3, cap 240 ticks); the engine rescales to the profile's level; Druid level 18. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:34"
     },
@@ -2158,6 +2237,7 @@
       "classes": [
         "Druid"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Druid level 6.",
       "icon": "spell:163"
     },

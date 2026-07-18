@@ -11,11 +11,10 @@ CASTEDOTHERTXT message, e.g.
 There is no spell name on that line, and the cast line ("You begin casting
 Spirit of Wolf.") carries no target — so the engine binds the two together:
 a pending bare buff-lane timer (proof I cast it, and the exact spell name)
-plus a land line whose suffix matches that spell's CASTEDOTHERTXT gives the
-target. This script emits the spell-name -> land-suffix table the engine
-needs, derived straight from spell_summary.json (same source the buff/debuff
-packs are generated from). Self-casts print CASTEDMETXT ("You feel the spirit
-of wolf enter you.") instead, so they never match here and stay self-lane.
+plus a landing message gives the target. This script emits both the
+spell-name -> CASTEDOTHERTXT suffix table and the spell-name -> CASTEDMETXT
+self-message table, derived straight from spell_summary.json. Distinct self
+and other identities let the same buff run on the player and their pet.
 
 Output: crates/eqlog-triggers/src/buff_lands.rs (checked in; regenerate when
 the spell data changes). Run:  python3 tools/spelldata/generate_buff_lands.py
@@ -68,6 +67,17 @@ def land_map(spells):
     return by_name
 
 
+def self_land_map(spells):
+    """name -> exact self landing message (dedup by spell name)."""
+    by_name = {}
+    for s in spells:
+        msg = (s.get("cast_on_you_message") or "").rstrip("\r\n")
+        if not msg:
+            continue
+        by_name.setdefault(s["name"], msg)
+    return by_name
+
+
 def table_lines(static_name, doc, by_name):
     rows = sorted(by_name.items(), key=lambda kv: kv[0].lower())
     lines = [f"/// {doc}", f"pub static {static_name}: &[(&str, &str)] = &["]
@@ -82,6 +92,7 @@ def main() -> int:
         spells = json.load(f)["spells"]
 
     buffs = land_map(eligible_buffs(spells))
+    self_buffs = self_land_map(eligible_buffs(spells))
     debuffs = land_map(eligible_debuffs(spells))
 
     # Coverage stats for the report/comment.
@@ -99,7 +110,8 @@ def main() -> int:
         "//! `Torvin is surrounded by a brief lupine aura.` (Spirit of Wolf) or",
         "//! `A dar ghoul knight yawns.` (Togor's Insects). The engine matches a",
         "//! suffix only for a spell it has a pending bare timer for, so the",
-        "//! spell name is always exact and self-casts never match.",
+        "//! spell name is always exact. Self landing messages come from the",
+        "//! same client data and keep simultaneous self/pet copies distinct.",
         "//!",
         f"//! Coverage: {len(buffs)} of {total_buffs} eligible buffs carry a land",
         f"//! message ({space_form} space-form, rest possessive-form); {shared}",
@@ -113,6 +125,12 @@ def main() -> int:
         "BUFF_LAND_SUFFIXES",
         "`(buff spell name, land-on-other suffix)`, sorted by name.",
         buffs,
+    )
+    lines += [""]
+    lines += table_lines(
+        "BUFF_SELF_LAND_MESSAGES",
+        "`(buff spell name, exact land-on-self message)`, sorted by name.",
+        self_buffs,
     )
     lines.append("")
     lines += table_lines(

@@ -458,6 +458,18 @@ fn buff_land_map() -> &'static HashMap<&'static str, &'static str> {
     })
 }
 
+/// Beneficial spell name -> exact self landing message (CASTEDMETXT). Some
+/// buffs need this correlation so a self copy and a pet copy can coexist.
+fn self_buff_land_map() -> &'static HashMap<&'static str, &'static str> {
+    static MAP: OnceLock<HashMap<&'static str, &'static str>> = OnceLock::new();
+    MAP.get_or_init(|| {
+        crate::buff_lands::BUFF_SELF_LAND_MESSAGES
+            .iter()
+            .copied()
+            .collect()
+    })
+}
+
 /// Same lookup for detrimental spells (their CASTEDOTHERTXT, e.g.
 /// `A dar ghoul knight yawns.` for Togor's Insects). Binds bare enemy-lane
 /// timers — slows/malos have no damage tick to bind on.
@@ -1213,16 +1225,25 @@ impl TriggerEngine {
             if t.name.contains(" — ") {
                 continue;
             }
+            let spell = instance_base(&t.name);
             let map = match t.lane {
                 TimerLane::Buff => buff_land_map(),
                 TimerLane::Enemy => debuff_land_map(),
                 _ => continue,
             };
-            let Some(&suffix) = map.get(t.name.as_str()) else {
+            let Some(&suffix) = map.get(spell) else {
                 continue;
             };
-            if let Some(prefix) = msg.strip_suffix(suffix) {
-                let target = prefix.trim();
+            let target = if t.lane == TimerLane::Buff
+                && self_buff_land_map()
+                    .get(spell)
+                    .is_some_and(|self_msg| *self_msg == msg)
+            {
+                Some("You")
+            } else {
+                msg.strip_suffix(suffix).map(str::trim)
+            };
+            if let Some(target) = target {
                 if target.is_empty() {
                     continue;
                 }
@@ -1289,10 +1310,18 @@ impl TriggerEngine {
             return;
         };
         let target = self.canonical_target(&target);
-        let spell = self.timers[idx].name.clone();
+        let spell = instance_base(&self.timers[idx].name).to_string();
         let base = format!("{spell} — {target}");
         match self.timers[idx].lane {
             TimerLane::Buff => {
+                // Some buffs reuse CASTEDOTHERTXT for self casts. Keep those
+                // target-bound (so a simultaneous pet copy has a distinct
+                // identity), but route "— You" to the self-buff lane.
+                let bound_lane = if target.eq_ignore_ascii_case("you") {
+                    TimerLane::Buff
+                } else {
+                    TimerLane::OnOthers
+                };
                 // Re-buffing the same target REPLACES the running buff (a
                 // buff never stacks with itself on one person), so drop any
                 // bar already bound to this (spell, target) instead of
@@ -1312,7 +1341,7 @@ impl TriggerEngine {
                 }
                 let t = &mut self.timers[idx];
                 let old = std::mem::replace(&mut t.name, base.clone());
-                t.lane = TimerLane::OnOthers;
+                t.lane = bound_lane;
                 t.lands_at = None;
                 let remaining = (t.expires_at - now).max(1) as u64;
                 let warn_left = t
@@ -1324,14 +1353,7 @@ impl TriggerEngine {
                 for name in replaced {
                     sink.cancel_timer(&name);
                 }
-                sink.start_timer(
-                    &base,
-                    icon.as_deref(),
-                    remaining,
-                    warn_left,
-                    TimerLane::OnOthers,
-                    0,
-                );
+                sink.start_timer(&base, icon.as_deref(), remaining, warn_left, bound_lane, 0);
             }
             TimerLane::Enemy => {
                 // Enemy lane, land-line-bound debuffs: re-applying the same

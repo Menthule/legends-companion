@@ -25,6 +25,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 6, cap 5 ticks); the engine rescales to the profile's level; Bard level 30.",
       "icon": "spell:95"
     },
@@ -51,6 +52,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Bard level 54.",
       "icon": "spell:154"
     },
@@ -78,6 +80,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 7, cap 5 ticks); the engine rescales to the profile's level; Bard level 8.",
       "icon": "spell:40"
     },
@@ -104,6 +107,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~4m00s at level 50 (formula 11, cap 40 ticks); the engine rescales to the profile's level; Bard level 60.",
       "icon": "spell:116"
     },
@@ -130,6 +134,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Bard level 51.",
       "icon": "spell:78"
     },
@@ -157,6 +162,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~2m30s at level 50 (formula 4, cap 25 ticks); the engine rescales to the profile's level; Bard level 49.",
       "icon": "spell:4"
     },
@@ -184,6 +190,7 @@
       "classes": [
         "Bard"
       ],
+      "track_when_observed": true,
       "comments": "~1m30s at level 50 (formula 6, cap 15 ticks); the engine rescales to the profile's level; Bard level 15.",
       "icon": "spell:9"
     },

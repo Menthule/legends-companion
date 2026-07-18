@@ -25,6 +25,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60.",
       "icon": "spell:164"
     },
@@ -52,6 +53,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 60.",
       "icon": "spell:164"
     },
@@ -79,6 +81,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 35.",
       "icon": "spell:74"
     },
@@ -106,6 +109,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 55.",
       "icon": "spell:74"
     },
@@ -133,6 +137,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 41.",
       "icon": "spell:137"
     },
@@ -160,6 +165,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 45.",
       "icon": "spell:137"
     },
@@ -187,6 +193,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 3, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 56.",
       "icon": "spell:164"
     },
@@ -214,6 +221,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 43.",
       "icon": "spell:77"
     },
@@ -241,6 +249,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 3.",
       "icon": "spell:57"
     },
@@ -268,6 +277,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 11.",
       "icon": "spell:65"
     },
@@ -295,6 +305,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 11.",
       "icon": "spell:74"
     },
@@ -322,6 +333,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 44.",
       "icon": "spell:163"
     },
@@ -349,6 +361,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 16.",
       "icon": "spell:163"
     },
@@ -376,6 +389,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 56.",
       "icon": "spell:163"
     },
@@ -403,6 +417,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~20m00s at level 50 (formula 3, cap 200 ticks); the engine rescales to the profile's level; Necromancer level 7. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:18"
     },
@@ -430,6 +445,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 58.",
       "icon": "spell:46"
     },
@@ -457,6 +473,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~6m00s at level 50 (formula 3, cap 60 ticks); the engine rescales to the profile's level; Necromancer level 8.",
       "icon": "spell:7"
     },
@@ -484,6 +501,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~10m00s at level 50 (formula 3, cap 100 ticks); the engine rescales to the profile's level; Necromancer level 50. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:33"
     },
@@ -511,6 +529,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~60m00s at level 50 (formula 11, cap 600 ticks); the engine rescales to the profile's level; Necromancer level 23.",
       "icon": "spell:74"
     },
@@ -538,6 +557,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 1. Shares the 'Invisibility' timer (all invis is random-duration); the bar clears on the appear / wear-off line, not on this countdown.",
       "icon": "spell:33"
     },
@@ -565,6 +585,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~54m00s at level 50 (formula 3, cap 540 ticks); the engine rescales to the profile's level; Necromancer level 22.",
       "icon": "spell:77"
     },
@@ -592,6 +613,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~120m00s at level 50 (formula 3, cap 1200 ticks); the engine rescales to the profile's level; Necromancer level 52.",
       "icon": "spell:78"
     },
@@ -619,6 +641,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~2m00s at level 50 (formula 8, cap 20 ticks); the engine rescales to the profile's level; Necromancer level 2.",
       "icon": "spell:40"
     },
@@ -646,6 +669,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 24.",
       "icon": "spell:57"
     },
@@ -673,6 +697,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 31.",
       "icon": "spell:65"
     },
@@ -700,6 +725,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~3m00s at level 50 (formula 8, cap 30 ticks); the engine rescales to the profile's level; Necromancer level 23.",
       "icon": "spell:40"
     },
@@ -727,6 +753,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~90m00s at level 50 (formula 3, cap 900 ticks); the engine rescales to the profile's level; Necromancer level 54.",
       "icon": "spell:133"
     },
@@ -754,6 +781,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 14.",
       "icon": "spell:77"
     },
@@ -781,6 +809,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 9.",
       "icon": "spell:93"
     },
@@ -808,6 +837,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 10, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 55.",
       "icon": "spell:18"
     },
@@ -835,6 +865,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 16.",
       "icon": "spell:151"
     },
@@ -862,6 +893,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~72m00s at level 50 (formula 3, cap 720 ticks); the engine rescales to the profile's level; Necromancer level 32.",
       "icon": "spell:77"
     },
@@ -889,6 +921,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~27m00s at level 50 (formula 3, cap 270 ticks); the engine rescales to the profile's level; Necromancer level 15.",
       "icon": "spell:95"
     },
@@ -916,6 +949,7 @@
       "classes": [
         "Necromancer"
       ],
+      "track_when_observed": true,
       "comments": "~36m00s at level 50 (formula 3, cap 360 ticks); the engine rescales to the profile's level; Necromancer level 49.",
       "icon": "spell:46"
     },

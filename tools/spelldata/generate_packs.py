@@ -20,7 +20,9 @@ extract_spells.py — run that first if the file is missing) and writes:
       min(10 s, 15%). Each StartTimer carries duration_formula +
       duration_cap_ticks so the engine can rescale the duration to the
       profile's level, and lane "buff" so the bar lands on the buffs
-      overlay. Plus deduplicated wear-off Speak triggers — ONE
+      overlay. Cast timers default-ON and set track_when_observed so an
+      exact player cast is tracked even when the selected loadout is stale.
+      Plus deduplicated wear-off Speak triggers — ONE
       per distinct wear-off message, named after the alphabetically-first
       colliding castable spell (unless WEAR_OFF_LIKELY overrides the
       name), placed in the file of that trigger's first class, default
@@ -534,6 +536,7 @@ def build_buff_packs(spells):
             f"Buffs/{CLASS_NAME[cls]}/Timers",
             classes=[CLASS_NAME[cls]],
             default_enabled=True,
+            track_when_observed=True,
             comments=comments,
             icon_id=s.get("icon_id"),
         ))

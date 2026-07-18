@@ -24,6 +24,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 58.",
       "icon": "spell:6"
     },
@@ -50,6 +51,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 54.",
       "icon": "spell:28"
     },
@@ -76,6 +78,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 59.",
       "icon": "spell:6"
     },
@@ -102,6 +105,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Rogue level 40.",
       "icon": "spell:154"
     },
@@ -128,6 +132,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Rogue level 10.",
       "icon": "spell:0"
     },
@@ -154,6 +159,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Rogue level 57.",
       "icon": "spell:6"
     },
@@ -180,6 +186,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Rogue level 30.",
       "icon": "spell:78"
     },
@@ -206,6 +213,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 2, cap 5 ticks); the engine rescales to the profile's level; Rogue level 20.",
       "icon": "spell:208"
     },
@@ -232,6 +240,7 @@
       "classes": [
         "Rogue"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 2, cap 5 ticks); the engine rescales to the profile's level; Rogue level 52.",
       "icon": "spell:208"
     },

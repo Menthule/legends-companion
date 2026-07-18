@@ -3266,8 +3266,8 @@ fn self_buff_stays_in_buff_lane_not_on_others() {
         .collect();
     assert_eq!(
         names,
-        vec!["Spirit of Wolf".to_string()],
-        "stays bare in the buff lane"
+        vec!["Spirit of Wolf — You".to_string()],
+        "self target stays in the buff lane"
     );
     assert!(!sink
         .timers
@@ -3276,7 +3276,80 @@ fn self_buff_stays_in_buff_lane_not_on_others() {
     assert!(sink
         .timers
         .iter()
-        .any(|(n, _, _, lane)| n == "Spirit of Wolf" && *lane == TimerLane::Buff));
+        .any(|(n, _, _, lane)| n == "Spirit of Wolf — You" && *lane == TimerLane::Buff));
+}
+
+#[test]
+fn damage_shield_self_and_pet_land_in_their_correct_buff_lanes() {
+    let mut shield = Trigger::new(
+        "Shield of Fire",
+        r"^You begin casting Shield of Fire\.$",
+        vec![Action::StartTimer {
+            name: "Shield of Fire".into(),
+            duration_secs: 900,
+            warn_at_secs: Some(10),
+            duration_formula: None,
+            duration_cap_ticks: None,
+            cast_time_secs: Some(2),
+            rank_variants: Default::default(),
+            mode: None,
+            repeat_secs: None,
+            stopwatch: false,
+            warn_text: None,
+            expire_text: None,
+            warn_sound: None,
+            expire_sound: None,
+            lane: Some(TimerLane::Buff),
+        }],
+    );
+    shield.icon = Some("spell:157".into());
+
+    let mut engine = TriggerEngine::new(vec![shield], "Nyasha");
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(0, "You begin casting Shield of Fire."), &mut sink);
+    engine.process(&line(1, "You are enveloped by flame."), &mut sink);
+    let self_timers = engine.timer_snapshots(1);
+    assert!(
+        self_timers.iter().any(|timer| {
+            timer.name == "Shield of Fire — You" && timer.lane == TimerLane::Buff
+        }),
+        "self damage shield should stay in buffs: {self_timers:?}"
+    );
+    assert!(!self_timers
+        .iter()
+        .any(|timer| timer.lane == TimerLane::OnOthers));
+
+    engine.process(&line(3, "You begin casting Shield of Fire."), &mut sink);
+    engine.process(&line(4, "Gasn is enveloped by flame."), &mut sink);
+    let timers = engine.timer_snapshots(4);
+    assert!(
+        timers.iter().any(|timer| {
+            timer.name == "Shield of Fire — You" && timer.lane == TimerLane::Buff
+        }),
+        "self damage shield should remain: {timers:?}"
+    );
+    assert!(
+        timers.iter().any(|timer| {
+            timer.name == "Shield of Fire — Gasn" && timer.lane == TimerLane::OnOthers
+        }),
+        "pet damage shield should be bound in buffs on others: {timers:?}"
+    );
+}
+
+#[test]
+fn observed_damage_shield_tracks_outside_the_selected_class_pack() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes = vec!["Paladin".into()];
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    engine.process(&line(0, "You begin casting Shield of Fire."), &mut sink);
+
+    assert!(engine
+        .timer_snapshots(0)
+        .iter()
+        .any(|timer| { timer.name == "Shield of Fire" && timer.lane == TimerLane::Buff }));
 }
 
 #[test]

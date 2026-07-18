@@ -24,6 +24,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 30.",
       "icon": "spell:211"
     },
@@ -50,6 +51,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 57.",
       "icon": "spell:211"
     },
@@ -76,6 +78,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 58.",
       "icon": "spell:6"
     },
@@ -102,6 +105,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 60.",
       "icon": "spell:6"
     },
@@ -128,6 +132,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 54.",
       "icon": "spell:6"
     },
@@ -154,6 +159,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 40.",
       "icon": "spell:154"
     },
@@ -180,6 +186,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 57.",
       "icon": "spell:8"
     },
@@ -206,6 +213,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 11, cap 10 ticks); the engine rescales to the profile's level; Berserker level 10.",
       "icon": "spell:0"
     },
@@ -232,6 +240,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~0m30s at level 50 (formula 11, cap 5 ticks); the engine rescales to the profile's level; Berserker level 53.",
       "icon": "spell:8"
     },
@@ -258,6 +267,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~5m00s at level 50 (formula 11, cap 50 ticks); the engine rescales to the profile's level; Berserker level 30.",
       "icon": "spell:78"
     },
@@ -284,6 +294,7 @@
       "classes": [
         "Berserker"
       ],
+      "track_when_observed": true,
       "comments": "~1m00s at level 50 (formula 3, cap 10 ticks); the engine rescales to the profile's level; Berserker level 50.",
       "icon": "spell:211"
     },
