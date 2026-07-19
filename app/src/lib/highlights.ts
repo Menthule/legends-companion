@@ -8,7 +8,15 @@ export interface HighlightCandidate {
   icon?: string;
   color?: string;
   important?: boolean;
+  /** Override the normal burst window. Periodic damage uses the EQ tick
+   * cadence so one card can accumulate for the life of the DoT. */
+  aggregateMs?: number;
+  /** Keep periodic cards alive long enough for the next server tick. */
+  ttlMs?: number;
+  periodic?: boolean;
 }
+
+export const DOT_AGGREGATE_MS = 7_500;
 
 const SKILL_VERBS = new Set([
   "kick",
@@ -29,6 +37,14 @@ const SKILL_VERBS = new Set([
 
 function entityIsYou(value: unknown): boolean {
   return value === "You";
+}
+
+function entityName(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (value && typeof value === "object" && "Named" in value) {
+    return String((value as { Named: unknown }).Named);
+  }
+  return "";
 }
 
 function data(event: EqEvent, kind: string): Record<string, unknown> | null {
@@ -65,6 +81,19 @@ function specialFlag(flags: Record<string, unknown>): string | null {
 /** Stateful, presentation-neutral selector for the default Notable feed. */
 export class HighlightEvaluator {
   private best = new Map<string, number>();
+  private owners = new Set(["you"]);
+
+  setOwners(characterName: string, pets: readonly string[] = []): void {
+    this.owners = new Set(
+      ["You", characterName, ...pets]
+        .map((name) => name.trim().toLowerCase())
+        .filter(Boolean),
+    );
+  }
+
+  private isOwned(value: unknown): boolean {
+    return this.owners.has(entityName(value).trim().toLowerCase());
+  }
 
   evaluate(line: LogLinePayload): HighlightCandidate[] {
     const out: HighlightCandidate[] = [];
@@ -102,7 +131,7 @@ export class HighlightEvaluator {
     }
 
     const spell = data(line.event, "SpellDamage");
-    if (spell && entityIsYou(spell.caster)) {
+    if (spell && this.isOwned(spell.caster)) {
       const name = String(spell.spell ?? "Spell damage").trim() || "Spell damage";
       const amount = Number(spell.amount ?? 0);
       const flags = flagsOf(spell.flags);
@@ -121,7 +150,48 @@ export class HighlightEvaluator {
               : undefined,
         icon: `spell-name:${name}`,
         color: flags.critical === true ? "#ffb454" : "#8bd5ff",
+        // The first direct hit of a DoT normally precedes its first six-second
+        // tick. Keeping the card through that cadence lets the tick join the
+        // original hit instead of starting a second total.
+        ttlMs: DOT_AGGREGATE_MS,
       });
+    }
+
+    const dot = data(line.event, "SpellDamageTaken");
+    if (dot && this.isOwned(dot.source) && !entityIsYou(dot.target)) {
+      const name = String(dot.spell ?? "Damage over time").trim() || "Damage over time";
+      const amount = Number(dot.amount ?? 0);
+      if (amount > 0) {
+        out.push({
+          key: `spell:${name.toLowerCase()}`,
+          text: name,
+          amount,
+          detail: "DoT tick",
+          icon: `spell-name:${name}`,
+          color: "#b7a4ff",
+          aggregateMs: DOT_AGGREGATE_MS,
+          ttlMs: DOT_AGGREGATE_MS,
+          periodic: true,
+        });
+      }
+    }
+
+    const periodic = data(line.event, "NonMeleeDamage");
+    if (periodic && this.isOwned(periodic.source) && !entityIsYou(periodic.target)) {
+      const name = String(periodic.effect ?? "Periodic damage").trim() || "Periodic damage";
+      const amount = Number(periodic.amount ?? 0);
+      if (amount > 0) {
+        out.push({
+          key: `effect:${name.toLowerCase()}`,
+          text: title(name),
+          amount,
+          detail: "Periodic tick",
+          color: "#b7a4ff",
+          aggregateMs: DOT_AGGREGATE_MS,
+          ttlMs: DOT_AGGREGATE_MS,
+          periodic: true,
+        });
+      }
     }
 
     const heal = data(line.event, "Heal");

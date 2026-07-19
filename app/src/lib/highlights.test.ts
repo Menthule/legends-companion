@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { HighlightEvaluator } from "./highlights";
+import { DOT_AGGREGATE_MS, HighlightEvaluator } from "./highlights";
 import type { LogLinePayload } from "../types";
 
 function line(event: LogLinePayload["event"], message = ""): LogLinePayload {
@@ -29,6 +29,52 @@ describe("HighlightEvaluator", () => {
         detail: "Critical",
       }),
     ]);
+  });
+
+  it("emits every owned DoT tick with one long-lived aggregation key", () => {
+    const evaluator = new HighlightEvaluator();
+    const tick = (amount: number) =>
+      line({
+        SpellDamageTaken: {
+          source: "You",
+          target: { Named: "a skeleton" },
+          amount,
+          spell: "Engulfing Darkness",
+        },
+      });
+
+    expect(evaluator.evaluate(tick(18))[0]).toEqual(
+      expect.objectContaining({
+        key: "spell:engulfing darkness",
+        amount: 18,
+        periodic: true,
+        aggregateMs: DOT_AGGREGATE_MS,
+        ttlMs: DOT_AGGREGATE_MS,
+      }),
+    );
+    expect(evaluator.evaluate(tick(21))[0]).toEqual(
+      expect.objectContaining({ key: "spell:engulfing darkness", amount: 21 }),
+    );
+  });
+
+  it("accepts configured character and pet periodic damage but rejects enemies", () => {
+    const evaluator = new HighlightEvaluator();
+    evaluator.setOwners("Nyasha", ["Zumaik"]);
+    const periodic = (source: unknown) =>
+      line({
+        NonMeleeDamage: {
+          source,
+          target: { Named: "a skeleton" },
+          amount: 9,
+          effect: "frost",
+        },
+      });
+
+    expect(evaluator.evaluate(periodic({ Named: "Nyasha" }))[0]).toEqual(
+      expect.objectContaining({ key: "effect:frost", amount: 9, periodic: true }),
+    );
+    expect(evaluator.evaluate(periodic({ Named: "Zumaik" }))).toHaveLength(1);
+    expect(evaluator.evaluate(periodic({ Named: "a Teir`Dal necromancer" }))).toEqual([]);
   });
 
   it("seeds a skill record silently and emits later improvements", () => {

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { getConfig } from "../api";
 import { useTauriEvent } from "../hooks";
 import { HighlightEvaluator, type HighlightCandidate } from "../lib/highlights";
 import { highlightOverlayView } from "../lib/overlayRegistry";
 import { IS_MOCK } from "../mock";
 import {
   OVERLAY_HIGHLIGHTS,
+  type AppConfig,
   type CatchUpPayload,
   type LogLinePayload,
   type TriggerOverlayPayload,
@@ -43,13 +45,17 @@ export default function OverlayHighlights() {
   const catchingUp = useRef(false);
   const lastSeen = useRef(new Map<string, number>());
 
-  const push = (candidate: HighlightCandidate, durationMs = DEFAULT_TTL_MS) => {
+  const push = (
+    candidate: HighlightCandidate,
+    durationMs = candidate.ttlMs ?? DEFAULT_TTL_MS,
+  ) => {
     const now = Date.now();
     const amount = candidate.amount ?? 0;
     const last = lastSeen.current.get(candidate.key) ?? 0;
+    const aggregateMs = candidate.aggregateMs ?? AGGREGATE_MS;
     lastSeen.current.set(candidate.key, now);
     setRows((current) => {
-      if (!candidate.important && now - last <= AGGREGATE_MS) {
+      if (!candidate.important && now - last <= aggregateMs) {
         const index = current.findIndex((row) => row.key === candidate.key);
         if (index >= 0) {
           const copy = [...current];
@@ -62,6 +68,7 @@ export default function OverlayHighlights() {
             crits:
               existing.crits + (candidate.detail?.toLowerCase().includes("critical") ? 1 : 0),
             max: Math.max(existing.max, amount),
+            periodic: existing.periodic || candidate.periodic,
             expiresAt: now + durationMs,
             leaving: false,
           };
@@ -110,8 +117,16 @@ export default function OverlayHighlights() {
   useTauriEvent<{ tailing: boolean }>("tailing-changed", (payload) => {
     if (!payload.tailing) setRows([]);
   });
+  useTauriEvent<AppConfig>("config-changed", (config) => {
+    evaluator.current.setOwners(config.characterName, config.pets);
+  });
 
   useEffect(() => {
+    if (!IS_MOCK) {
+      void getConfig().then((config) =>
+        evaluator.current.setOwners(config.characterName, config.pets),
+      ).catch(() => undefined);
+    }
     const interval = window.setInterval(() => {
       const now = Date.now();
       setRows((current) =>
@@ -164,7 +179,7 @@ export default function OverlayHighlights() {
               {(row.detail || row.hits > 1) && (
                 <small>
                   {row.hits > 1
-                    ? `${row.hits} hits${row.crits ? ` · ${row.crits} crit` : ""} · max ${row.max.toLocaleString()}`
+                    ? `${row.hits} hits${row.periodic ? " · DoT" : ""}${row.crits ? ` · ${row.crits} crit` : ""} · max ${row.max.toLocaleString()}`
                     : row.detail}
                 </small>
               )}
