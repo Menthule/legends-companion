@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 use eqlog_triggers::engine::TriggerEngine;
-use eqlog_triggers::model::{CharacterProfile, Trigger, TriggerEvent, TriggerSource};
+use eqlog_triggers::model::{Action, CharacterProfile, Trigger, TriggerEvent, TriggerSource};
 use eqlog_triggers::packs::load_packs;
 use eqlog_triggers::profile::effective_enabled;
 use eqlog_triggers::storage::{self, CharacterId, CharacterOverrides};
@@ -93,6 +93,57 @@ fn hydrate_missing_bundled_icons(packs: &mut [Trigger], bundled: &[Trigger]) -> 
     hydrated
 }
 
+/// New overlay destinations are an executable/UI contract, not merely data.
+/// A downloaded trigger library can legitimately predate the app version that
+/// introduced Conditions or Highlights. In that case, letting its older
+/// Alerts action win recreates alert spam (and can leave paired condition
+/// pills) even though the current UI has dedicated destinations.
+fn uses_current_overlay_contract(trigger: &Trigger) -> bool {
+    trigger.actions.iter().any(|action| {
+        matches!(
+            action,
+            Action::Overlay { overlay, .. }
+                if overlay == "conditions" || overlay == "highlights"
+        )
+    })
+}
+
+/// Reconcile an installed, possibly older update with the definitions shipped
+/// by this executable. Missing bundled ids are appended so new trigger types
+/// work immediately. Existing downloaded definitions remain authoritative
+/// except when the bundled definition uses a UI destination the old update
+/// could not know about; those definitions are replaced as a unit so their
+/// capture grammar and actions cannot drift apart.
+fn reconcile_bundled_contracts(
+    packs: &mut Vec<Trigger>,
+    bundled: Vec<Trigger>,
+) -> (usize, usize) {
+    let mut positions: HashMap<String, usize> = packs
+        .iter()
+        .enumerate()
+        .map(|(index, trigger)| (trigger.effective_id(), index))
+        .collect();
+    let mut replaced = 0;
+    let mut appended = 0;
+
+    for trigger in bundled {
+        let id = trigger.effective_id();
+        match positions.get(&id).copied() {
+            Some(index) if uses_current_overlay_contract(&trigger) => {
+                packs[index] = trigger;
+                replaced += 1;
+            }
+            Some(_) => {}
+            None => {
+                positions.insert(id, packs.len());
+                packs.push(trigger);
+                appended += 1;
+            }
+        }
+    }
+    (replaced, appended)
+}
+
 pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String> {
     let mut warnings = Vec::new();
     let dir = packs_dir(app);
@@ -116,10 +167,9 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
         }
     };
     // A previously downloaded library intentionally shadows ordinary bundled
-    // regex packs, but it may predate a structured event introduced by a
-    // newer app build. Keep bundled typed-event triggers as a compatibility
-    // floor unless the downloaded library already supplies the same id. This
-    // is generic for future host signals and avoids hardcoded action fallbacks.
+    // regex packs, but it may predate trigger types or overlay destinations
+    // introduced by a newer app build. Reconcile it with this executable's
+    // compatibility floor without mutating the installed update on disk.
     let updated_dir = crate::data_root::resolve(app)
         .refdata_update_dir()
         .join("triggers");
@@ -136,14 +186,12 @@ pub fn load_library(app: &AppHandle, cfg: &AppConfig) -> Result<Library, String>
                             "trigger packs inherited {hydrated} missing icon(s) from bundled definitions"
                         ));
                     }
-                    for trigger in bundled.triggers {
-                        if trigger.event.is_some()
-                            && !packs
-                                .iter()
-                                .any(|current| current.effective_id() == trigger.effective_id())
-                        {
-                            packs.push(trigger);
-                        }
+                    let (replaced, appended) =
+                        reconcile_bundled_contracts(&mut packs, bundled.triggers);
+                    if replaced > 0 || appended > 0 {
+                        logging::info(&format!(
+                            "trigger packs reconciled with app contracts: {replaced} replaced, {appended} appended"
+                        ));
                     }
                 }
                 Err(error) => warnings.push(format!(
@@ -208,6 +256,45 @@ mod tests {
 
         assert_eq!(hydrate_missing_bundled_icons(&mut downloaded, &bundled), 0);
         assert_eq!(downloaded[0].icon, None);
+    }
+
+    #[test]
+    fn current_highlight_contract_replaces_legacy_alert_definition() {
+        let mut legacy = trigger("skills/melee/kick", None);
+        legacy.actions = vec![Action::Overlay {
+            overlay: "alerts".into(),
+            fields: Default::default(),
+            config: Default::default(),
+        }];
+        let mut current = trigger("skills/melee/kick", Some("spell:203"));
+        current.pattern = "^You kick current grammar$".into();
+        current.actions = vec![Action::Overlay {
+            overlay: "highlights".into(),
+            fields: Default::default(),
+            config: Default::default(),
+        }];
+
+        let mut downloaded = vec![legacy];
+        assert_eq!(
+            reconcile_bundled_contracts(&mut downloaded, vec![current]),
+            (1, 0)
+        );
+        assert_eq!(downloaded[0].pattern, "^You kick current grammar$");
+        assert!(uses_current_overlay_contract(&downloaded[0]));
+    }
+
+    #[test]
+    fn missing_bundled_trigger_is_appended_without_replacing_unrelated_update() {
+        let legacy = trigger("timers/odium", Some("spell:9"));
+        let missing = trigger("impact/rare-kill", Some("spell:10"));
+        let mut downloaded = vec![legacy.clone()];
+
+        assert_eq!(
+            reconcile_bundled_contracts(&mut downloaded, vec![missing]),
+            (0, 1)
+        );
+        assert_eq!(downloaded[0].icon, legacy.icon);
+        assert_eq!(downloaded[1].effective_id(), "impact/rare-kill");
     }
 }
 

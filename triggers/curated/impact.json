@@ -69,25 +69,58 @@
       ]
     },
     {
+      "id": "impact/rare-kill",
+      "name": "Confirmed rare creature killed",
+      "event": "rare-kill",
+      "pattern": "",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact/Kills",
+      "comments": "Fires only when the parser first observed the game's authoritative rare-creature Consider marker for this mob. Available fields: ${mob}, ${killer}.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "RARE DEFEATED",
+              "big": "${mob}",
+              "sub": "Killing blow: ${killer}",
+              "glyph": "★"
+            },
+            "config": {
+              "style": "monster-rip",
+              "color": "#c9a7ff",
+              "intensity": "high",
+              "durationMs": 4500
+            }
+          }
+        },
+        {
+          "PlaySound": { "path": "success.wav" }
+        }
+      ]
+    },
+    {
       "id": "impact/finishing-blow",
       "name": "Finishing Blow",
       "pattern": "^You \\S+ (.+?) for (\\d+)(?: points? of damage)?\\.? \\(Finishing Blow\\)",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
-      "category": "Impact",
-      "comments": "The Finishing Blow AA proc — YOUR big kill moment on the Impact overlay (blade slash cutting the damage number). Verified Legends formats (both accepted): 'You slash Soldier of V`Zher for 111 (Finishing Blow)' and 'You reave a Teir`Dal ranger for 135 points of damage. (Finishing Blow)'. ${1}=victim, ${2}=damage. Groupmates' Finishing Blows are counted on the Scoreboard but only YOURS pop here; copy this trigger with a name pattern to celebrate a groupmate's.",
+      "category": "Highlights/Special Hits",
+      "comments": "Frequent signature proc routed to the compact Highlights feed; named/record moments retain the large Impact channel.",
       "actions": [
         {
           "Overlay": {
-            "overlay": "impact",
+            "overlay": "highlights",
             "fields": {
-              "headline": "FINISHING BLOW",
-              "big": "${2}",
-              "sub": "You → ${1}"
+              "text": "Finishing Blow",
+              "value": "${2}",
+              "detail": "${1}"
             },
             "config": {
-              "style": "slash"
+              "color": "#ffd166"
             }
           }
         }
@@ -100,28 +133,48 @@
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
+      "category": "Highlights/Special Hits",
+      "comments": "Frequent signature proc routed to Highlights; this stays trigger-owned and configurable.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "highlights",
+            "fields": {
+              "text": "Slay Undead",
+              "value": "${2}",
+              "detail": "${1}"
+            },
+            "config": {
+              "color": "#ffe08a"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "impact/crippling-blow",
+      "name": "Crippling Blow",
+      "pattern": "^You \\S+ (.+?) for (\\d+) points? of damage\\. \\(Crippling Blow\\)$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
       "category": "Impact",
-      "comments": "Your Slay Undead proc gets a divine strike from the heavens. Verified Legends format: 'You slash a ghoul for 213 points of damage. (Slay Undead)'. ${1}=target, ${2}=damage. Presentation stays entirely trigger-owned: edit or disable this trigger to change the copy, style, color, duration, or sound.",
+      "comments": "Rare signature hit (about once per two combat hours in the reference log), so it earns the full Impact treatment.",
       "actions": [
         {
           "Overlay": {
             "overlay": "impact",
             "fields": {
-              "headline": "SLAY UNDEAD",
+              "headline": "CRIPPLING BLOW",
               "big": "${2}",
-              "sub": "Purged: ${1}"
+              "sub": "${1}",
+              "glyph": "✦"
             },
             "config": {
-              "style": "slay-undead",
-              "color": "#ffe08a",
-              "intensity": "high",
-              "durationMs": 3200
+              "style": "medal",
+              "color": "#ff8d8d",
+              "intensity": "high"
             }
-          }
-        },
-        {
-          "PlaySound": {
-            "path": "holy-strike.wav"
           }
         }
       ]
@@ -147,6 +200,34 @@
             "config": {
               "style": "level",
               "color": "#7ac74f"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "impact/aa-ability-unlocked",
+      "name": "AA ability unlocked",
+      "pattern": "^You have (?:gained the ability \\\"(.+?)\\\"|improved (.+?)) at a cost of (\\d+) ability points?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Impact/Progress",
+      "comments": "An ability purchase is a durable build milestone; ordinary AA point gains stay in Highlights.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "impact",
+            "fields": {
+              "headline": "ABILITY UNLOCKED",
+              "big": "${1}${2}",
+              "sub": "${3} ability points",
+              "glyph": "✦"
+            },
+            "config": {
+              "style": "medal",
+              "color": "#c9a7ff",
+              "intensity": "high"
             }
           }
         }
@@ -223,19 +304,18 @@
       "enabled": false,
       "default_enabled": false,
       "source": "curated",
-      "category": "Impact",
-      "comments": "A big critical melee hit bursts onto the Impact overlay. Verified crit format: 'You crush Asaka L`Rei for 45 points of damage. (Critical)'. The \\d{3,} makes 'big' mean 100+ damage (a regex threshold, since triggers can't compare to a running max — raise to \\d{4,} for 1000+). ${1}=victim, ${2}=damage. Default OFF: crits are frequent — enable and tune the threshold to taste.",
+      "category": "Highlights/Optional",
+      "comments": "Optional fixed-threshold critical card. Session-record highlights are smarter by default; enable this only if a numeric threshold is useful for your level.",
       "actions": [
         {
           "Overlay": {
-            "overlay": "impact",
+            "overlay": "highlights",
             "fields": {
-              "headline": "CRITICAL",
-              "big": "${2}",
-              "sub": "${1}"
+              "text": "Critical",
+              "value": "${2}",
+              "detail": "${1}"
             },
             "config": {
-              "style": "big-number",
               "color": "#ffb454"
             }
           }

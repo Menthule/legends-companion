@@ -1321,6 +1321,8 @@ export default function TriggersTab({
             ? "Watched item looted"
             : e.event === "watched-kill"
               ? "Watched mob killed"
+              : e.event === "rare-kill"
+                ? "Confirmed rare creature killed"
               : e.event === "achievement-self"
                 ? "You complete an achievement"
                 : e.event === "achievement-other"

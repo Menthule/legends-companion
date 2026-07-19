@@ -1154,7 +1154,7 @@ fn library_packs_parse_and_all_patterns_compile() {
 }
 
 #[test]
-fn shipped_slay_undead_trigger_captures_target_damage_and_presentation() {
+fn shipped_slay_undead_trigger_captures_target_damage_highlight() {
     let profile = CharacterProfile::new("Nyasha");
     let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
     let mut sink = RecordingSink::default();
@@ -1171,22 +1171,18 @@ fn shipped_slay_undead_trigger_captures_target_damage_and_presentation() {
         .overlays
         .iter()
         .find(|(overlay, fields, _)| {
-            overlay == "impact" && fields.get("headline").map(String::as_str) == Some("SLAY UNDEAD")
+            overlay == "highlights" && fields.get("text").map(String::as_str) == Some("Slay Undead")
         })
-        .expect("Slay Undead should emit its configured Impact action");
-    assert_eq!(overlay, "impact");
-    assert_eq!(fields.get("big").map(String::as_str), Some("213"));
-    assert_eq!(
-        fields.get("sub").map(String::as_str),
-        Some("Purged: a ghoul")
-    );
-    assert_eq!(config.get("style"), Some(&serde_json::json!("slay-undead")));
-    assert_eq!(config.get("durationMs"), Some(&serde_json::json!(3200)));
-    assert!(sink.sounds.contains(&"holy-strike.wav".to_string()));
+        .expect("Slay Undead should emit its configured Highlight action");
+    assert_eq!(overlay, "highlights");
+    assert_eq!(fields.get("value").map(String::as_str), Some("213"));
+    assert_eq!(fields.get("detail").map(String::as_str), Some("a ghoul"));
+    assert_eq!(config.get("color"), Some(&serde_json::json!("#ffe08a")));
+    assert!(sink.sounds.is_empty());
 }
 
 #[test]
-fn shipped_damage_skills_each_emit_one_named_alert_with_damage() {
+fn shipped_damage_skills_each_emit_one_named_highlight_with_damage() {
     let mut profile = CharacterProfile::new("Nyasha");
     profile.active_loadout_mut().classes = vec!["Rogue".into(), "Monk".into(), "Warrior".into()];
     let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
@@ -1213,7 +1209,9 @@ fn shipped_damage_skills_each_emit_one_named_alert_with_damage() {
         let before = sink
             .overlays
             .iter()
-            .filter(|(overlay, _, _)| overlay == "alerts")
+            .filter(|(overlay, fields, _)| {
+                overlay == "highlights" && fields.get("text").map(String::as_str) == Some(name)
+            })
             .count();
         engine.process(
             &line(
@@ -1225,17 +1223,23 @@ fn shipped_damage_skills_each_emit_one_named_alert_with_damage() {
         let skill_alerts: Vec<_> = sink
             .overlays
             .iter()
-            .filter(|(overlay, _, _)| overlay == "alerts")
+            .filter(|(overlay, fields, _)| {
+                overlay == "highlights" && fields.get("text").map(String::as_str) == Some(name)
+            })
             .collect();
         assert_eq!(
             skill_alerts.len(),
             before + 1,
-            "{name} must add exactly one damage alert"
+            "{name} must add exactly one damage highlight"
         );
-        let (_, fields, config) = skill_alerts.last().expect("new skill alert");
+        let (_, fields, config) = skill_alerts.last().expect("new skill highlight");
         assert_eq!(fields.get("text").map(String::as_str), Some(name));
         assert_eq!(fields.get("value").map(String::as_str), Some(damage));
-        assert_eq!(config.get("severity"), Some(&serde_json::json!("info")));
+        assert_eq!(
+            fields.get("detail").map(String::as_str),
+            Some(rider.trim().trim_start_matches('(').trim_end_matches(')'))
+        );
+        assert_eq!(config.get("severity"), None);
     }
 
     assert!(
@@ -1430,19 +1434,19 @@ fn library_fires_on_real_fixture_lines_for_a_profile() {
         }
         engine.process(&line(i as i64, &raw[27..]), &mut sink);
     }
-    // Default TTS policy: buff-ending, resist, enemy-cast dangers, and CC
-    // on YOU (root/snare/mez/fear/charm, throttled by cooldowns) speak.
-    // Stuns stay overlay-only regardless of source: melee bash stuns are far
-    // too frequent to speak (152 fires in this fixture even with a 10 s
-    // cooldown), and SPELL stuns fire 97 times here too — speaking them would
-    // push spoken alerts from ~19 to ~34/hour, over the alert-fatigue budget.
-    // Other survival/progress lines (encumbered, level-up "ding") also stay
-    // overlay-only.
-    assert!(sink.displayed.contains(&"stunned".to_string()));
+    // Persistent impairments route to Conditions instead of transient
+    // DisplayText On/Off alerts. Starts/clears remain silent by default.
+    assert!(sink.overlays.iter().any(|(overlay, fields, _)| {
+        overlay == "conditions"
+            && fields.get("key").map(String::as_str) == Some("stun")
+            && fields.get("active").map(String::as_str) == Some("true")
+    }));
     assert!(!sink.spoken.contains(&"stunned".to_string()));
-    assert!(sink.displayed.contains(&"SPELL STUNNED".to_string()));
+    assert!(!sink.displayed.contains(&"stunned".to_string()));
     assert!(!sink.spoken.contains(&"spell stunned".to_string()));
-    assert!(sink.displayed.contains(&"encumbered".to_string()));
+    assert!(sink.overlays.iter().any(|(overlay, fields, _)| {
+        overlay == "conditions" && fields.get("key").map(String::as_str) == Some("encumbered")
+    }));
     assert!(!sink.spoken.contains(&"encumbered".to_string()));
     assert!(sink.displayed.contains(&"ding".to_string()));
     assert!(!sink.spoken.contains(&"ding".to_string()));

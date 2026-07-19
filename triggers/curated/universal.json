@@ -223,8 +223,29 @@
       "comments": "eqstr 12392. Verified in Legends log.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "encumbered"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "encumbered", "label": "Encumbered", "active": "true" },
+            "config": { "priority": 20 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/survival/encumbered-free",
+      "name": "No longer encumbered",
+      "pattern": "^You are no longer encumbered\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Survival",
+      "comments": "Verified in Legends log.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "encumbered", "label": "Encumbered", "active": "false" },
+            "config": { "priority": 20 }
           }
         }
       ]
@@ -241,8 +262,10 @@
       "comments": "Melee bash/kick stuns are constant (152 fires in 6.3 active hours even with a 10 s cooldown), so this stays overlay-only. Spell stuns (universal/cc/spell-stunned) are likewise overlay-only for the same alert-budget reason. Turn the TTS chip on here if you want spoken melee stuns anyway.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "stunned"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "stun", "label": "Stunned", "active": "true" },
+            "config": { "priority": 100 }
           }
         }
       ]
@@ -259,8 +282,10 @@
       "comments": "On by default, overlay-only: a 2-6 s stun is over before TTS could say so.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "stun over"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "stun", "label": "Stunned", "active": "false" },
+            "config": { "priority": 100 }
           }
         }
       ]
@@ -694,13 +719,10 @@
       "comments": "Cast-on-you texts of the root family per spell data — Legends verified 'Your feet sink into the ground.' live (2026-07-05); the adhere/entwined/shackle/mist variants cover the rest of the classic root lines.",
       "actions": [
         {
-          "Speak": {
-            "template": "rooted"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "ROOTED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "root", "label": "Rooted", "active": "true" },
+            "config": { "priority": 90 }
           }
         }
       ]
@@ -709,7 +731,7 @@
       "id": "universal/cc/root-free",
       "name": "Root wore off you",
       "icon": "spell:117",
-      "pattern": "^Your feet come free\\.$",
+      "pattern": "^(?:Your feet come free|The roots fall from your feet)\\.$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 3,
@@ -718,13 +740,10 @@
       "comments": "Wear-off text of the root family.",
       "actions": [
         {
-          "Speak": {
-            "template": "root off"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "root off"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "root", "label": "Rooted", "active": "false" },
+            "config": { "priority": 90 }
           }
         }
       ]
@@ -742,13 +761,10 @@
       "comments": "Movement-snare cast-on-you texts (spoken). The bare 'You slow down.' is mostly ATTACK-slow debuffs (74 fires in the reference log) and lives in universal/cc/slowed as overlay-only.",
       "actions": [
         {
-          "Speak": {
-            "template": "snared"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "SNARED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "snare", "label": "Snared", "active": "true" },
+            "config": { "priority": 55 }
           }
         }
       ]
@@ -757,7 +773,7 @@
       "id": "universal/cc/snare-free",
       "name": "Snare wore off you",
       "icon": "spell:5",
-      "pattern": "^You are no longer ensnared\\.$",
+      "pattern": "^(?:You are no longer ensnared|The tangling weeds wither away|You are freed from the grasping weeds)\\.$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 3,
@@ -765,13 +781,10 @@
       "category": "Universal/Crowd Control",
       "actions": [
         {
-          "Speak": {
-            "template": "snare off"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "snare off"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "snare", "label": "Snared", "active": "false" },
+            "config": { "priority": 55 }
           }
         }
       ]
@@ -789,13 +802,10 @@
       "comments": "Cast-on-you texts of the mez family (Mesmerize/Dazzle/Enthrall/Entrance/Glamour of Kintaz) per spell data.",
       "actions": [
         {
-          "Speak": {
-            "template": "mezzed"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "MEZZED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "mez", "label": "Mezzed", "active": "true" },
+            "config": { "priority": 95 }
           }
         }
       ]
@@ -812,13 +822,10 @@
       "category": "Universal/Crowd Control",
       "actions": [
         {
-          "Speak": {
-            "template": "mez off"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "mez off"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "mez", "label": "Mezzed", "active": "false" },
+            "config": { "priority": 95 }
           }
         }
       ]
@@ -827,7 +834,7 @@
       "id": "universal/cc/feared",
       "name": "You are feared",
       "icon": "spell:154",
-      "pattern": "^Your mind fills with fear\\.$",
+      "pattern": "^(?:Your mind fills with fear|You lose control of yourself|You flee in panic)\\.?$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 3,
@@ -836,13 +843,10 @@
       "comments": "Cast-on-you text of the fear family (Fear, Invoke Fear, Wave of Fear, Inspire Fear) per spell data.",
       "actions": [
         {
-          "Speak": {
-            "template": "feared"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "FEARED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "fear", "label": "Feared", "active": "true" },
+            "config": { "priority": 85 }
           }
         }
       ]
@@ -851,7 +855,7 @@
       "id": "universal/cc/fear-free",
       "name": "Fear wore off you",
       "icon": "spell:154",
-      "pattern": "^You are no longer afraid\\.$",
+      "pattern": "^(?:You are no longer afraid|You have control of yourself again|You regain control of yourself)\\.$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 3,
@@ -859,13 +863,10 @@
       "category": "Universal/Crowd Control",
       "actions": [
         {
-          "Speak": {
-            "template": "fear over"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "fear over"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "fear", "label": "Feared", "active": "false" },
+            "config": { "priority": 85 }
           }
         }
       ]
@@ -883,13 +884,10 @@
       "comments": "Cast-on-you text of the charm family (Charm, Beguile, Allure, Cajoling Whispers) per spell data.",
       "actions": [
         {
-          "Speak": {
-            "template": "charmed"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "CHARMED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "charm", "label": "Charmed", "active": "true" },
+            "config": { "priority": 98 }
           }
         }
       ]
@@ -906,13 +904,10 @@
       "category": "Universal/Crowd Control",
       "actions": [
         {
-          "Speak": {
-            "template": "charm over"
-          }
-        },
-        {
-          "DisplayText": {
-            "template": "charm over"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "charm", "label": "Charmed", "active": "false" },
+            "config": { "priority": 98 }
           }
         }
       ]
@@ -930,8 +925,10 @@
       "comments": "Cast-on-you text of the caster stun family, both the sudden-force and sudden-burst-of-force variants seen in Legends logs. Overlay-only: audit shows 97 fires in 6.3 active hours of the reference log, so speaking it would push spoken alerts from ~19 to ~34/active hour — turn the TTS chip on if your content makes spell stuns rare.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "SPELL STUNNED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "stun", "label": "Stunned", "active": "true" },
+            "config": { "priority": 100 }
           }
         }
       ]
@@ -968,8 +965,225 @@
       "comments": "Generic slow cast-on-you texts (movement or attack speed — the log can't tell). Overlay-only: fires constantly from mob shamans.",
       "actions": [
         {
-          "DisplayText": {
-            "template": "SLOWED"
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "slow", "label": "Slowed", "active": "true" },
+            "config": { "priority": 50 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/slow-free",
+      "name": "Slow wore off you",
+      "icon": "spell:17",
+      "pattern": "^(?:Your speed returns(?: to normal)?|Your arms recover their speed)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Shared client wear-off family. The log cannot always distinguish movement and attack slow, so the user-facing family is intentionally generic.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "slow", "label": "Slowed", "active": "false" },
+            "config": { "priority": 50 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/spinning",
+      "name": "You are spinning",
+      "icon": "spell:25",
+      "pattern": "^(?:You begin to spin|Your body spins uncontrollably|The world spins chaotically around you|The turmoil of ancient monsters spins you around!)\\.?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Tracked separately from stun because its clear can arrive several seconds later.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "spin", "label": "Spinning", "active": "true" },
+            "config": { "priority": 97 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/spinning-free",
+      "name": "Spinning wore off you",
+      "icon": "spell:25",
+      "pattern": "^(?:You feel dizzy|You stop spinning|The world stops spinning)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "spin", "label": "Spinning", "active": "false" },
+            "config": { "priority": 97 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/blinded",
+      "name": "You are blinded",
+      "icon": "spell:20",
+      "pattern": "^(?:You are (?:partially |briefly )?blinded(?: by .+)?|Your sight is blinded)\\.?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Client-data-derived family; rare in the current live verification log.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "blind", "label": "Blinded", "active": "true" },
+            "config": { "priority": 80 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/blind-free",
+      "name": "Blind wore off you",
+      "icon": "spell:20",
+      "pattern": "^Your sight returns(?: and you regain your wits)?\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "blind", "label": "Blinded", "active": "false" },
+            "config": { "priority": 80 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/silenced",
+      "name": "You are silenced",
+      "icon": "spell:114",
+      "pattern": "^(?:Shhhhhh!|You (?:have been |are )(?:silenced|unable to speak)(?: by .+)?|Blinding light has left you unable to speak)\\.?$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Client-data-derived family; enabled because silence is catastrophic even though the current live log has no occurrence.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "silence", "label": "Silenced", "active": "true" },
+            "config": { "priority": 88 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/silence-free",
+      "name": "Silence wore off you",
+      "icon": "spell:114",
+      "pattern": "^You are able to speak again\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "silence", "label": "Silenced", "active": "false" },
+            "config": { "priority": 88 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/detriment/poisoned",
+      "name": "You are poisoned",
+      "icon": "spell:6",
+      "pattern": "^You have been poisoned(?:\\..*)?$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Detriments",
+      "comments": "Optional: poison families can reapply and stack without balanced generic clears.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "poison", "label": "Poisoned", "active": "true" },
+            "config": { "priority": 35 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/detriment/poison-free",
+      "name": "Poison wore off you",
+      "icon": "spell:6",
+      "pattern": "^You are no longer poisoned\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Detriments",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "poison", "label": "Poisoned", "active": "false" },
+            "config": { "priority": 35 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/detriment/diseased",
+      "name": "You are diseased",
+      "icon": "spell:9",
+      "pattern": "^You have been diseased\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Detriments",
+      "comments": "Optional: disease families can reapply and stack without balanced generic clears.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "disease", "label": "Diseased", "active": "true" },
+            "config": { "priority": 35 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/detriment/disease-free",
+      "name": "Disease wore off you",
+      "icon": "spell:9",
+      "pattern": "^You are no longer diseased\\.$",
+      "enabled": true,
+      "default_enabled": false,
+      "source": "curated",
+      "category": "Universal/Detriments",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "disease", "label": "Diseased", "active": "false" },
+            "config": { "priority": 35 }
           }
         }
       ]

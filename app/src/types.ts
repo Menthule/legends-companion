@@ -97,7 +97,12 @@ export interface TimerTrainingCandidatesReport {
 
 /** Extensible trigger overlay identifier. Known overlays get autocomplete,
  * while plugins/future builds can introduce another string id. */
-export type OverlayId = "alerts" | "impact" | (string & {});
+export type OverlayId =
+  | "alerts"
+  | "conditions"
+  | "highlights"
+  | "impact"
+  | (string & {});
 
 /** Template fields and presentation config are overlay-defined. The engine
  * expands every field template before emitting `trigger-overlay`; config is
@@ -174,7 +179,8 @@ export type TriggerEvent =
   | "watched-loot"
   | "watched-kill"
   | "achievement-self"
-  | "achievement-other";
+  | "achievement-other"
+  | "rare-kill";
 
 export interface WatchGoalSource {
   kind: "manual" | "quest";
@@ -508,6 +514,14 @@ export interface ActiveTimerSnapshot {
   pendingSecs: number;
 }
 
+/** One current player impairment inferred from trigger-authored log grammar. */
+export interface ActiveConditionSnapshot {
+  key: string;
+  label: string;
+  icon?: string | null;
+  priority: number;
+}
+
 /** One damage source under a meter row (item 15): melee verb, spell name,
  *  or "<effect> (damage shield)"; pet sources carry a "(pet)" suffix. */
 export interface MeterSourceRow {
@@ -652,6 +666,8 @@ export interface OverlayLockPayload {
 }
 
 export const OVERLAY_ALERTS = "overlay-alerts";
+export const OVERLAY_CONDITIONS = "overlay-conditions";
+export const OVERLAY_HIGHLIGHTS = "overlay-highlights";
 export const OVERLAY_BUFFS = "overlay-buffs";
 export const OVERLAY_TARGET = "overlay-target";
 export const OVERLAY_METER = "overlay-meter";
@@ -666,6 +682,8 @@ export const OVERLAY_SCOREBOARD = "overlay-scoreboard";
 /** All overlay window labels, in top-bar/Settings display order. */
 export const OVERLAY_LABELS = [
   OVERLAY_ALERTS,
+  OVERLAY_CONDITIONS,
+  OVERLAY_HIGHLIGHTS,
   OVERLAY_BUFFS,
   OVERLAY_ONOTHERS,
   OVERLAY_TARGET,

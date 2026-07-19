@@ -7,6 +7,8 @@ import {
 import {
   OVERLAY_ALERTS,
   OVERLAY_BUFFS,
+  OVERLAY_CONDITIONS,
+  OVERLAY_HIGHLIGHTS,
   OVERLAY_IMPACT,
   OVERLAY_METER,
   OVERLAY_ONOTHERS,
@@ -53,6 +55,24 @@ export const OVERLAY_MODULES: readonly OverlayModule[] = [
     description: "stacked text alerts",
     component: lazy(() => import("./OverlayAlerts")),
     triggerActionDefinition: triggerDefinition("alerts"),
+  },
+  {
+    id: "conditions",
+    route: "conditions",
+    windowLabel: OVERLAY_CONDITIONS,
+    displayName: "Conditions",
+    description: "your active control and impairment states",
+    component: lazy(() => import("./OverlayConditions")),
+    triggerActionDefinition: triggerDefinition("conditions"),
+  },
+  {
+    id: "highlights",
+    route: "highlights",
+    windowLabel: OVERLAY_HIGHLIGHTS,
+    displayName: "Highlights",
+    description: "skills, spell damage, special hits, and records",
+    component: lazy(() => import("./OverlayHighlights")),
+    triggerActionDefinition: triggerDefinition("highlights"),
   },
   {
     id: "buffs",

@@ -5,6 +5,8 @@
   "windows": [
     "main",
     "overlay-alerts",
+    "overlay-conditions",
+    "overlay-highlights",
     "overlay-buffs",
     "overlay-onothers",
     "overlay-target",

@@ -44,6 +44,7 @@ import type {
 } from "./lib/inventory";
 import type {
   ActiveTimerSnapshot,
+  ActiveConditionSnapshot,
   AppConfig,
   CareerImportReport,
   CareerLevelUp,
@@ -306,6 +307,12 @@ export function watchImportLegacyNames(names: string[]): Promise<WatchList> {
 export function getActiveTimers(): Promise<ActiveTimerSnapshot[]> {
   if (IS_MOCK) return Promise.resolve([]);
   return invoke<ActiveTimerSnapshot[]>("get_active_timers").catch(() => []);
+}
+
+/** Current persistent player conditions for overlay reload/resync. */
+export function getActiveConditions(): Promise<ActiveConditionSnapshot[]> {
+  if (IS_MOCK) return Promise.resolve([]);
+  return invoke<ActiveConditionSnapshot[]>("get_active_conditions").catch(() => []);
 }
 
 // Trigger-pack change notifications, so views that hold trigger state (the

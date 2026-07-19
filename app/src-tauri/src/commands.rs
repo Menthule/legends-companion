@@ -38,6 +38,16 @@ pub const OVERLAYS: &[OverlayDescriptor] = &[
         route: "index.html?overlay=alerts",
     },
     OverlayDescriptor {
+        id: "conditions",
+        window_label: "overlay-conditions",
+        route: "index.html?overlay=conditions",
+    },
+    OverlayDescriptor {
+        id: "highlights",
+        window_label: "overlay-highlights",
+        route: "index.html?overlay=highlights",
+    },
+    OverlayDescriptor {
         id: "buffs",
         window_label: "overlay-buffs",
         route: "index.html?overlay=buffs",
@@ -204,6 +214,19 @@ pub fn get_active_timers(
     Ok(session
         .as_ref()
         .map(|s| s.active_timers())
+        .unwrap_or_default())
+}
+
+/// Snapshot of the player conditions inferred by condition-destination
+/// triggers. Empty when no session is running.
+#[tauri::command]
+pub fn get_active_conditions(
+    state: State<'_, AppState>,
+) -> Result<Vec<crate::tailing::ActiveConditionPayload>, String> {
+    let session = lock(&state.session, "session")?;
+    Ok(session
+        .as_ref()
+        .map(|s| s.active_conditions())
         .unwrap_or_default())
 }
 
@@ -674,6 +697,10 @@ pub fn stop_tailing(app: AppHandle, state: State<'_, AppState>) -> Result<(), St
                 let _ = audio.silence();
             }
             remember_tailing(&app, &state, false);
+            let _ = app.emit(
+                "conditions-changed",
+                Vec::<crate::tailing::ActiveConditionPayload>::new(),
+            );
             let _ = app.emit("tailing-changed", serde_json::json!({ "tailing": false }));
             Ok(())
         }

@@ -38,8 +38,10 @@
       ],
       "actions": [
         {
-          "DisplayText": {
-            "template": "taunted ${1}"
+          "Overlay": {
+            "overlay": "highlights",
+            "fields": { "text": "Taunt landed", "detail": "${1}" },
+            "config": { "color": "#7ee787" }
           }
         }
       ],

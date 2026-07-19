@@ -58,8 +58,10 @@
       ],
       "actions": [
         {
-          "DisplayText": {
-            "template": "mended"
+          "Overlay": {
+            "overlay": "highlights",
+            "fields": { "text": "Mend", "detail": "Success" },
+            "config": { "color": "#7ee787" }
           }
         },
         {

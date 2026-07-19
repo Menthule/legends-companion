@@ -56,45 +56,11 @@ interface AlertItem {
 
 let nextAlertId = 0;
 
-function titleCaseWords(text: string): string {
-  return text
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
-}
-
 function normalizeAlertText(text: string): string {
-  const raw = text.trim().replace(/\s+/g, " ");
-  const lower = raw.toLowerCase();
-  const known: Record<string, string> = {
-    rooted: "Root: On",
-    "root off": "Root: Off",
-    "root broke": "Root: Broke",
-    stunned: "Stun: On",
-    "stun over": "Stun: Off",
-    snared: "Snare: On",
-    "snare off": "Snare: Off",
-    slowed: "Slow: On",
-    "slow off": "Slow: Off",
-    mezzed: "Mez: On",
-    "mez off": "Mez: Off",
-    charmed: "Charm: On You",
-    "charm over": "Charm: Off You",
-    "charm broke": "Charm: Broke",
-  };
-  if (known[lower]) return known[lower];
-
-  const rootedTarget = /^(.+) rooted$/i.exec(raw);
-  if (rootedTarget) return `Root: ${rootedTarget[1]}`;
-
-  const offTarget = /^(.+?) off(?: (.+))?$/i.exec(raw);
-  if (offTarget) {
-    const effect = titleCaseWords(offTarget[1]);
-    return offTarget[2] ? `${effect}: Off ${offTarget[2]}` : `${effect}: Off`;
-  }
-
-  return raw;
+  // Trigger-authored Alerts copy is authoritative. Condition On/Off rewriting
+  // lived here before the persistent Conditions channel existed and could
+  // also mangle unrelated user triggers containing the word "off".
+  return text.trim().replace(/\s+/g, " ");
 }
 
 /** Text alerts only (trigger DisplayText, deaths, …) — timer bars live on

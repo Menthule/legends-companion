@@ -39,8 +39,11 @@ export default function OverlayImpact() {
   const fadeTimer = useRef<number | undefined>(undefined);
   const dropTimer = useRef<number | undefined>(undefined);
   const nextId = useRef(0);
+  const active = useRef(false);
+  const queue = useRef<{ payload: ImpactPayload; durationMs: number }[]>([]);
 
-  const fire = (payload: ImpactPayload, durationMs = IMPACT_TTL_MS) => {
+  const show = (payload: ImpactPayload, durationMs: number) => {
+    active.current = true;
     window.clearTimeout(fadeTimer.current);
     window.clearTimeout(dropTimer.current);
     setShown({ payload, leaving: false });
@@ -48,10 +51,22 @@ export default function OverlayImpact() {
       () => setShown((s) => (s ? { ...s, leaving: true } : s)),
       durationMs,
     );
-    dropTimer.current = window.setTimeout(
-      () => setShown(null),
-      durationMs + IMPACT_FADE_MS,
-    );
+    dropTimer.current = window.setTimeout(() => {
+      setShown(null);
+      active.current = false;
+      const next = queue.current.shift();
+      if (next) window.setTimeout(() => show(next.payload, next.durationMs), 80);
+    }, durationMs + IMPACT_FADE_MS);
+  };
+
+  const fire = (payload: ImpactPayload, durationMs = IMPACT_TTL_MS) => {
+    if (active.current) {
+      // Preserve exceptional moments instead of letting a same-second level,
+      // unlock, achievement, or rare kill replace the one already animating.
+      queue.current = [...queue.current, { payload, durationMs }].slice(-5);
+      return;
+    }
+    show(payload, durationMs);
   };
 
   useTauriEvent<ImpactEvent>("impact", (p) => {

@@ -40,6 +40,38 @@
         "visible": true
       },
       {
+        "label": "overlay-conditions",
+        "title": "Legends Companion Conditions",
+        "url": "index.html?overlay=conditions",
+        "width": 420,
+        "height": 110,
+        "x": 1280,
+        "y": 80,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": false,
+        "resizable": true,
+        "visible": true
+      },
+      {
+        "label": "overlay-highlights",
+        "title": "Legends Companion Highlights",
+        "url": "index.html?overlay=highlights",
+        "width": 380,
+        "height": 260,
+        "x": 1280,
+        "y": 210,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": false,
+        "resizable": true,
+        "visible": true
+      },
+      {
         "label": "overlay-buffs",
         "title": "Legends Companion Buffs",
         "url": "index.html?overlay=buffs",

@@ -94,6 +94,11 @@ const ACHIEVEMENT_EVENT_FIELDS: CaptureChip[] = [
   { group: 0, label: "player", token: "${player}" },
 ];
 
+const RARE_KILL_EVENT_FIELDS: CaptureChip[] = [
+  { group: 0, label: "mob", token: "${mob}" },
+  { group: 0, label: "killer", token: "${killer}" },
+];
+
 const WATCH_EVENT_PREVIEW: Record<string, string> = {
   item: "Large Sky Sapphire",
   quantity: "1",
@@ -911,6 +916,7 @@ export default function TriggerEditor({
   const chips: CaptureChip[] = useMemo(() => {
     if (signalEvent === "watched-loot") return WATCH_LOOT_EVENT_FIELDS;
     if (signalEvent === "watched-kill") return WATCH_KILL_EVENT_FIELDS;
+    if (signalEvent === "rare-kill") return RARE_KILL_EVENT_FIELDS;
     if (signalEvent === "achievement-self" || signalEvent === "achievement-other") {
       return ACHIEVEMENT_EVENT_FIELDS;
     }

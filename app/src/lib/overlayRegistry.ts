@@ -1,5 +1,7 @@
 import {
   OVERLAY_ALERTS,
+  OVERLAY_CONDITIONS,
+  OVERLAY_HIGHLIGHTS,
   OVERLAY_IMPACT,
   type ImpactEvent,
   type OverlayId,
@@ -77,6 +79,11 @@ const IMPACT_INTENSITY_OPTIONS = [
   { value: "high", label: "High" },
 ] as const;
 
+const BOOLEAN_STATE_OPTIONS = [
+  { value: "true", label: "Active" },
+  { value: "false", label: "Cleared" },
+] as const;
+
 const DEFINITIONS: readonly OverlayDefinition[] = [
   {
     id: "alerts",
@@ -144,6 +151,111 @@ const DEFINITIONS: readonly OverlayDefinition[] = [
         step: 100,
         inputScale: 1000,
         default: "",
+      },
+    ],
+  },
+  {
+    id: "conditions",
+    label: "Conditions",
+    description: "Persistent icons for impairments that are true right now.",
+    windowLabel: OVERLAY_CONDITIONS,
+    fields: [
+      {
+        key: "key",
+        label: "Condition key",
+        type: "text",
+        description: "Stable family id shared by its start and clear rules.",
+        placeholder: "stun",
+        required: true,
+        default: "",
+      },
+      {
+        key: "label",
+        label: "Label",
+        type: "text",
+        placeholder: "Stunned",
+        default: "",
+      },
+      {
+        key: "active",
+        label: "State",
+        type: "select",
+        options: BOOLEAN_STATE_OPTIONS,
+        required: true,
+        default: "true",
+      },
+      {
+        key: "icon",
+        label: "Icon",
+        type: "icon",
+        description: "Optional spell gem or glyph; trigger icon is the fallback.",
+        default: "",
+      },
+    ],
+    config: [
+      {
+        key: "priority",
+        label: "Priority",
+        type: "number",
+        description: "Higher-priority conditions stay first.",
+        min: 0,
+        max: 100,
+        step: 1,
+        default: 50,
+      },
+    ],
+  },
+  {
+    id: "highlights",
+    label: "Highlights",
+    description: "A compact, silent feed for satisfying combat results.",
+    windowLabel: OVERLAY_HIGHLIGHTS,
+    fields: [
+      {
+        key: "text",
+        label: "Name",
+        type: "text",
+        placeholder: "Kick",
+        required: true,
+        default: "",
+      },
+      {
+        key: "value",
+        label: "Value",
+        type: "text",
+        placeholder: "${amount}",
+        default: "",
+      },
+      {
+        key: "detail",
+        label: "Detail",
+        type: "text",
+        placeholder: "Critical",
+        default: "",
+      },
+      {
+        key: "icon",
+        label: "Icon",
+        type: "icon",
+        default: "",
+      },
+    ],
+    config: [
+      {
+        key: "color",
+        label: "Accent color",
+        type: "color",
+        default: "",
+      },
+      {
+        key: "durationMs",
+        label: "Visible time (seconds)",
+        type: "number",
+        min: 1000,
+        max: 20_000,
+        step: 100,
+        inputScale: 1000,
+        default: 5500,
       },
     ],
   },
@@ -292,6 +404,31 @@ export function alertOverlayView(
 export interface ImpactOverlayView {
   event: ImpactEvent;
   durationMs: number;
+}
+
+export interface HighlightOverlayView {
+  text: string;
+  value?: string;
+  detail?: string;
+  icon?: string;
+  color?: string;
+  durationMs: number;
+}
+
+export function highlightOverlayView(
+  payload: TriggerOverlayPayload,
+): HighlightOverlayView | null {
+  if (payload.overlay !== "highlights") return null;
+  const text = stringValue(payload.fields.text);
+  if (!text) return null;
+  return {
+    text,
+    value: stringValue(payload.fields.value),
+    detail: stringValue(payload.fields.detail),
+    icon: stringValue(payload.fields.icon) ?? payload.trigger?.icon ?? undefined,
+    color: stringValue(payload.config?.color),
+    durationMs: boundedNumber(payload.config?.durationMs, 1000, 20_000) ?? 5500,
+  };
 }
 
 export function impactOverlayView(

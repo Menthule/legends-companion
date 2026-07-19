@@ -383,6 +383,7 @@ pub fn run() {
             commands::stop_tailing,
             commands::is_tailing,
             commands::get_active_timers,
+            commands::get_active_conditions,
             commands::silence_audio,
             commands::speak_text,
             commands::list_tts_voices,

@@ -5,18 +5,18 @@
       "id": "skills/melee/kick",
       "name": "Kick",
       "icon": "spell:203",
-      "pattern": "^You kick .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You kick .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
       "category": "Skills/Melee",
-      "comments": "Verified in Legends log: 'You kick Asaka L`Rei for 22 points of damage.' + crit form '... (Critical)'. Default ON per user request — note this is high-frequency (fires every combat round, 1208x in the audit fixture); toggle off in the UI if it's too spammy. Replaces the old built-in Skill:Kick alert (skillSpellForVerb).",
+      "comments": "Verified in Legends log, including critical annotations. Default ON in the compact, coalesced Highlights feed; replaces the old built-in Skill:Kick alert.",
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Kick", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Kick", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -25,18 +25,18 @@
       "id": "skills/melee/bash",
       "name": "Bash",
       "icon": "spell:25",
-      "pattern": "^You bash .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You bash .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
       "category": "Skills/Melee",
-      "comments": "Shield bash (warrior/paladin/SK/cleric). Default ON so every damaging combat skill reports its damage through the same Alerts overlay contract.",
+      "comments": "Shield bash (warrior/paladin/SK/cleric). Default ON through the shared Highlights contract.",
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Bash", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Bash", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -45,18 +45,18 @@
       "id": "skills/melee/slam",
       "name": "Slam",
       "icon": "spell:25",
-      "pattern": "^You slam .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You slam .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
       "category": "Skills/Melee",
-      "comments": "Racial slam (ogre/etc.). Default ON so every damaging combat skill reports its damage through the same Alerts overlay contract.",
+      "comments": "Racial slam (ogre/etc.). Default ON through the shared Highlights contract.",
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Slam", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Slam", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -65,7 +65,7 @@
       "id": "skills/melee/cleave",
       "name": "Cleave",
       "icon": "spell:137",
-      "pattern": "^You cleave .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You cleave .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -74,9 +74,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Cleave", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Cleave", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -85,7 +85,7 @@
       "id": "skills/melee/backstab",
       "name": "Backstab",
       "icon": "spell:139",
-      "pattern": "^You backstab .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You backstab .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -94,9 +94,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Backstab", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Backstab", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -105,7 +105,7 @@
       "id": "skills/melee/eagle-strike",
       "name": "Eagle Strike",
       "icon": "spell:161",
-      "pattern": "^You eagle strike .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You eagle strike .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -114,9 +114,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Eagle Strike", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Eagle Strike", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -125,7 +125,7 @@
       "id": "skills/melee/tiger-claw",
       "name": "Tiger Claw",
       "icon": "spell:161",
-      "pattern": "^You tiger claw .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You tiger claw .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -134,9 +134,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Tiger Claw", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Tiger Claw", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -145,7 +145,7 @@
       "id": "skills/melee/dragon-punch",
       "name": "Dragon Punch",
       "icon": "spell:161",
-      "pattern": "^You dragon punch .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You dragon punch .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -154,9 +154,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Dragon Punch", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Dragon Punch", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -165,7 +165,7 @@
       "id": "skills/melee/tail-rake",
       "name": "Tail Rake",
       "icon": "spell:161",
-      "pattern": "^You tail rake .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You tail rake .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -174,9 +174,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Tail Rake", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Tail Rake", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -185,7 +185,7 @@
       "id": "skills/melee/flying-kick",
       "name": "Flying Kick",
       "icon": "spell:203",
-      "pattern": "^You flying kick .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You flying kick .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -194,9 +194,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Flying Kick", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Flying Kick", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -205,7 +205,7 @@
       "id": "skills/melee/round-kick",
       "name": "Round Kick",
       "icon": "spell:203",
-      "pattern": "^You round kick .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You round kick .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -214,9 +214,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Round Kick", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Round Kick", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -225,7 +225,7 @@
       "id": "skills/melee/frenzy",
       "name": "Frenzy",
       "icon": "spell:49",
-      "pattern": "^You frenzy on .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You frenzy on .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -234,9 +234,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Frenzy", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Frenzy", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -245,7 +245,7 @@
       "id": "skills/melee/smite",
       "name": "Smite",
       "icon": "spell:161",
-      "pattern": "^You smite .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You smite .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
@@ -254,9 +254,9 @@
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Smite", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Smite", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]
@@ -265,18 +265,18 @@
       "id": "skills/melee/reave",
       "name": "Reave",
       "icon": "spell:137",
-      "pattern": "^You reave .+? for (\\d+) points? of damage\\.(?: \\([^)]+\\))?$",
+      "pattern": "^You reave .+? for (\\d+) points? of damage\\.(?: \\(([^)]+)\\))?$",
       "enabled": true,
       "default_enabled": true,
       "source": "curated",
       "category": "Skills/Melee",
-      "comments": "Verified in Legends log: 'You reave a Teir`Dal ranger for 135 points of damage.' Default ON — preserves the prior built-in Skill:Reave behavior; toggle off in the UI per taste. Replaces the old hardcoded Skill:Reave alert in FightsTab.tsx.",
+      "comments": "Verified in Legends log. Default ON through Highlights; replaces the old hardcoded Skill:Reave alert in FightsTab.tsx.",
       "actions": [
         {
           "Overlay": {
-            "overlay": "alerts",
-            "fields": { "text": "Reave", "value": "${1}" },
-            "config": { "severity": "info" }
+            "overlay": "highlights",
+            "fields": { "text": "Reave", "value": "${1}", "detail": "${2}" },
+            "config": {}
           }
         }
       ]

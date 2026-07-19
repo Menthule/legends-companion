@@ -3,6 +3,7 @@ import type { TriggerOverlayPayload } from "../types";
 import {
   alertOverlayView,
   getOverlayDefinition,
+  highlightOverlayView,
   impactOverlayView,
   listOverlayDefinitions,
   overlayDefaults,
@@ -21,6 +22,8 @@ describe("overlay registry", () => {
     const definitions = listOverlayDefinitions();
     expect(definitions.map((definition) => definition.id)).toEqual([
       "alerts",
+      "conditions",
+      "highlights",
       "impact",
     ]);
     expect(new Set(definitions.map((definition) => definition.id)).size).toBe(
@@ -135,5 +138,25 @@ describe("overlay payload interpretation", () => {
       },
       durationMs: 2600,
     });
+  });
+
+  it("maps compact Highlight fields and defaults", () => {
+    expect(
+      highlightOverlayView(
+        payload(
+          "highlights",
+          { text: " Kick ", value: " 184 ", detail: " Critical " },
+          { color: "#ffd166", durationMs: 700 },
+        ),
+      ),
+    ).toEqual({
+      text: "Kick",
+      value: "184",
+      detail: "Critical",
+      icon: undefined,
+      color: "#ffd166",
+      durationMs: 1000,
+    });
+    expect(highlightOverlayView(payload("alerts", { text: "Kick" }))).toBeNull();
   });
 });

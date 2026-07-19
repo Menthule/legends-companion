@@ -38,6 +38,7 @@ pub enum TriggerEvent {
     WatchedKill,
     AchievementSelf,
     AchievementOther,
+    RareKill,
 }
 
 fn is_user_source(source: &TriggerSource) -> bool {
@@ -847,6 +848,12 @@ mod tests {
         assert_eq!(typed_json["event"], "achievement-self");
         let decoded: Trigger = serde_json::from_value(typed_json).unwrap();
         assert_eq!(decoded.event, Some(TriggerEvent::AchievementSelf));
+
+        typed.event = Some(TriggerEvent::RareKill);
+        let typed_json = serde_json::to_value(&typed).unwrap();
+        assert_eq!(typed_json["event"], "rare-kill");
+        let decoded: Trigger = serde_json::from_value(typed_json).unwrap();
+        assert_eq!(decoded.event, Some(TriggerEvent::RareKill));
     }
 
     #[test]

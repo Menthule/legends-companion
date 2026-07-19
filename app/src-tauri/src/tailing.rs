@@ -3,7 +3,7 @@
 //! audio thread. One session thread does everything; `recv_timeout(250ms)`
 //! doubles as the timer/fight-update tick.
 
-use std::collections::{BTreeMap, VecDeque};
+use std::collections::{BTreeMap, HashSet, VecDeque};
 use std::panic::AssertUnwindSafe;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -152,6 +152,19 @@ struct TriggerFiredPayload {
     /// carry their trigger.
     trigger: Option<TriggerRef>,
     action: ActionPayload,
+}
+
+/// One player condition currently inferred from the log. Conditions are
+/// trigger-authored, but state is host-owned so an overlay reload can recover
+/// the truth without waiting for another begin/end line.
+#[derive(Debug, Serialize, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct ActiveConditionPayload {
+    pub key: String,
+    pub label: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon: Option<String>,
+    pub priority: i64,
 }
 
 #[derive(Serialize, Clone)]
@@ -314,6 +327,55 @@ struct EmitSink {
     /// PlaySound, DisplayText, StartTimer) are dropped at flush; timer
     /// cancels still go through so overlays never keep stale bars.
     suppress: bool,
+    /// Canonical active-condition snapshot shared with the command layer.
+    conditions: Arc<Mutex<BTreeMap<String, ActiveConditionPayload>>>,
+}
+
+fn apply_condition_transition(
+    conditions: &mut BTreeMap<String, ActiveConditionPayload>,
+    fields: &BTreeMap<String, String>,
+    config: &BTreeMap<String, serde_json::Value>,
+    trigger_icon: Option<&str>,
+) -> Option<(String, bool)> {
+    let key = fields.get("key").map(|value| value.trim()).unwrap_or("");
+    if key.is_empty() {
+        return None;
+    }
+    let active = fields
+        .get("active")
+        .map(|value| {
+            matches!(
+                value.trim().to_ascii_lowercase().as_str(),
+                "true" | "1" | "on"
+            )
+        })
+        .unwrap_or(true);
+    if !active {
+        return conditions.remove(key).map(|_| (key.to_string(), false));
+    }
+
+    let next = ActiveConditionPayload {
+        key: key.to_string(),
+        label: fields
+            .get("label")
+            .filter(|value| !value.trim().is_empty())
+            .cloned()
+            .unwrap_or_else(|| key.to_string()),
+        icon: fields
+            .get("icon")
+            .filter(|value| !value.trim().is_empty())
+            .cloned()
+            .or_else(|| trigger_icon.map(str::to_string)),
+        priority: config
+            .get("priority")
+            .and_then(serde_json::Value::as_i64)
+            .unwrap_or(0),
+    };
+    if conditions.get(key) == Some(&next) {
+        return None;
+    }
+    conditions.insert(key.to_string(), next);
+    Some((key.to_string(), true))
 }
 
 impl EmitSink {
@@ -335,8 +397,18 @@ impl EmitSink {
             // already dropped those timers — overlays must follow).
             let buffer = std::mem::take(&mut self.buffer);
             for entry in buffer {
-                if let BufferedAction::CancelTimer(name) = entry.action {
-                    self.emit_action(BufferedAction::CancelTimer(name), entry.trigger);
+                match entry.action {
+                    BufferedAction::CancelTimer(name) => {
+                        self.emit_action(BufferedAction::CancelTimer(name), entry.trigger)
+                    }
+                    BufferedAction::Overlay {
+                        overlay,
+                        fields,
+                        config,
+                    } if overlay == "conditions" => {
+                        self.apply_condition(fields, config, entry.trigger, false)
+                    }
+                    _ => {}
                 }
             }
             return;
@@ -441,6 +513,10 @@ impl EmitSink {
                 fields,
                 config,
             } => {
+                if overlay == "conditions" {
+                    self.apply_condition(fields, config, trigger, true);
+                    return;
+                }
                 let label = fields
                     .get("text")
                     .or_else(|| fields.get("headline"))
@@ -461,6 +537,62 @@ impl EmitSink {
             BufferedAction::ObserveWatch(_) => {
                 unreachable!("watch observations are drained before normal action flush")
             }
+        }
+    }
+
+    fn condition_snapshot(&self) -> Vec<ActiveConditionPayload> {
+        let mut values = self
+            .conditions
+            .lock()
+            .map(|conditions| conditions.values().cloned().collect::<Vec<_>>())
+            .unwrap_or_default();
+        values.sort_by(|a, b| {
+            b.priority
+                .cmp(&a.priority)
+                .then_with(|| a.label.cmp(&b.label))
+        });
+        values
+    }
+
+    fn emit_conditions_snapshot(&self) {
+        let _ = self.app.emit("conditions-changed", self.condition_snapshot());
+    }
+
+    fn clear_conditions(&mut self, emit: bool) {
+        if let Ok(mut conditions) = self.conditions.lock() {
+            if conditions.is_empty() {
+                return;
+            }
+            conditions.clear();
+        }
+        if emit {
+            self.emit_conditions_snapshot();
+        }
+    }
+
+    fn apply_condition(
+        &mut self,
+        fields: BTreeMap<String, String>,
+        config: BTreeMap<String, serde_json::Value>,
+        trigger: Option<TriggerRef>,
+        emit: bool,
+    ) {
+        let transition = self.conditions.lock().ok().and_then(|mut conditions| {
+            apply_condition_transition(
+                &mut conditions,
+                &fields,
+                &config,
+                trigger.as_ref().and_then(|owner| owner.icon.as_deref()),
+            )
+        });
+        if emit && transition.is_some() {
+            self.emit_conditions_snapshot();
+            let (key, active) = transition.expect("checked above");
+            self.fired(
+                "overlay",
+                format!("{} {}", key, if active { "on" } else { "off" }),
+                trigger,
+            );
         }
     }
 
@@ -558,6 +690,7 @@ pub struct TailSession {
     /// Live timer snapshot, refreshed each tick by the loop; read by the
     /// `get_active_timers` command so a reloaded window can rehydrate (P3).
     snapshots: Arc<Mutex<Vec<ActiveTimerPayload>>>,
+    conditions: Arc<Mutex<BTreeMap<String, ActiveConditionPayload>>>,
 }
 
 impl TailSession {
@@ -572,6 +705,20 @@ impl TailSession {
     /// Empty if the snapshot lock is poisoned rather than propagating panic.
     pub fn active_timers(&self) -> Vec<ActiveTimerPayload> {
         self.snapshots.lock().map(|s| s.clone()).unwrap_or_default()
+    }
+
+    pub fn active_conditions(&self) -> Vec<ActiveConditionPayload> {
+        let mut values = self
+            .conditions
+            .lock()
+            .map(|conditions| conditions.values().cloned().collect::<Vec<_>>())
+            .unwrap_or_default();
+        values.sort_by(|a, b| {
+            b.priority
+                .cmp(&a.priority)
+                .then_with(|| a.label.cmp(&b.label))
+        });
+        values
     }
 
     /// Replace the live trigger engine (profile/override change while
@@ -610,6 +757,7 @@ pub fn start(
         msg
     })?;
 
+    let conditions = Arc::new(Mutex::new(BTreeMap::new()));
     let sink = EmitSink {
         app: app.clone(),
         audio,
@@ -617,6 +765,7 @@ pub fn start(
         current_trigger: None,
         buffer: Vec::new(),
         suppress: false,
+        conditions: conditions.clone(),
     };
     let stop = Arc::new(AtomicBool::new(false));
     let stop_flag = stop.clone();
@@ -672,6 +821,7 @@ pub fn start(
         handle: Some(handle),
         engine_tx,
         snapshots,
+        conditions,
     })
 }
 
@@ -830,6 +980,9 @@ fn run_loop(
     // Set when the session dies on its own (tailer disconnect); the loop
     // then falls through to the final persist instead of returning early.
     let mut end_reason: Option<String> = None;
+    // Targets for which the game emitted its authoritative rare-creature con
+    // marker. The name stays armed until that mob dies or the zone changes.
+    let mut rare_targets: HashSet<String> = HashSet::new();
 
     /// Live wall clock in the log-timestamp domain (Unix seconds).
     fn wall_now() -> i64 {
@@ -947,13 +1100,58 @@ fn run_loop(
                 // run: an entering line is already suppressed; the exiting
                 // (live) line goes through normally.
                 let transition = catchup.observe_line(parsed.line.timestamp, wall_now());
+                let catchup_exited = matches!(transition, CatchUpTransition::Exited { .. });
                 announce_catchup(&app, transition);
                 sink.suppress = catchup.is_active();
+                if catchup_exited {
+                    sink.emit_conditions_snapshot();
+                }
                 clock.observe(parsed.line.timestamp);
                 persist_learned_pet(&app, &config.character_name, &parsed);
                 fights.ingest(&parsed);
                 casts.ingest(&parsed);
                 fights_dirty = true;
+                let rare_kill_signal = match &parsed.event {
+                    Event::Consider { target, rare: true, .. } => {
+                        rare_targets.insert(target.to_ascii_lowercase());
+                        None
+                    }
+                    Event::Slain {
+                        victim: eqlog_core::events::Entity::Named(victim),
+                        killer,
+                    } if rare_targets.remove(&victim.to_ascii_lowercase()) => Some(
+                        TriggerSignal::new(
+                            TriggerEvent::RareKill,
+                            parsed.line.timestamp,
+                            BTreeMap::from([
+                                ("mob".to_string(), victim.clone()),
+                                (
+                                    "killer".to_string(),
+                                    killer
+                                        .as_ref()
+                                        .map(|entity| entity.name(&config.character_name).to_string())
+                                        .unwrap_or_else(|| "Unknown".to_string()),
+                                ),
+                            ]),
+                        ),
+                    ),
+                    Event::Loading | Event::ZoneEnter { .. } => {
+                        rare_targets.clear();
+                        None
+                    }
+                    _ => None,
+                };
+                if matches!(
+                    &parsed.event,
+                    Event::Loading
+                        | Event::ZoneEnter { .. }
+                        | Event::Slain {
+                            victim: eqlog_core::events::Entity::You,
+                            ..
+                        }
+                ) {
+                    sink.clear_conditions(!catchup.is_active());
+                }
                 let _fires = engine.process_traced(&parsed, &mut sink);
                 // Observation actions are produced only by raw-line triggers.
                 // Drain them after raw processing, apply watch progress, then
@@ -989,6 +1187,9 @@ fn run_loop(
                 if let Some(signal) =
                     eqlog_triggers::signal_from_event(&parsed.event, parsed.line.timestamp)
                 {
+                    let _ = engine.process_signal_traced(&signal, &mut sink);
+                }
+                if let Some(signal) = rare_kill_signal {
                     let _ = engine.process_signal_traced(&signal, &mut sink);
                 }
                 sink.flush();
@@ -1232,5 +1433,39 @@ mod watch_tests {
         .unwrap();
         assert_eq!(other.event, TriggerEvent::AchievementOther);
         assert_eq!(other.fields.get("player").map(String::as_str), Some("Daer"));
+    }
+
+    #[test]
+    fn condition_transitions_are_idempotent_and_unmatched_clears_are_noops() {
+        let mut active = BTreeMap::new();
+        let start = BTreeMap::from([
+            ("key".into(), "root".into()),
+            ("label".into(), "Rooted".into()),
+        ]);
+        let config = BTreeMap::from([("priority".into(), serde_json::json!(90))]);
+
+        assert_eq!(
+            apply_condition_transition(&mut active, &start, &config, Some("spell:99")),
+            Some(("root".into(), true))
+        );
+        assert_eq!(
+            apply_condition_transition(&mut active, &start, &config, Some("spell:99")),
+            None
+        );
+        assert_eq!(active.len(), 1);
+
+        let clear = BTreeMap::from([
+            ("key".into(), "root".into()),
+            ("active".into(), "false".into()),
+        ]);
+        assert_eq!(
+            apply_condition_transition(&mut active, &clear, &BTreeMap::new(), None),
+            Some(("root".into(), false))
+        );
+        assert_eq!(
+            apply_condition_transition(&mut active, &clear, &BTreeMap::new(), None),
+            None
+        );
+        assert!(active.is_empty());
     }
 }

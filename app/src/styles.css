@@ -2766,6 +2766,137 @@ button.coach-row.active {
   }
 }
 
+/* Persistent player conditions: fixed severity order, compact enough to sit
+   beside the EQ HUD. Only active states exist here; clears remove an icon. */
+.conditions-shell {
+  align-items: center;
+  justify-content: center;
+}
+.ov-condition-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 6px;
+}
+.condition-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 5px 9px 5px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(12, 14, 18, 0.82);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 1px 3px #000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.42);
+  animation: condition-in 180ms ease-out;
+}
+.condition-chip.condition-hard {
+  border-color: rgba(255, 92, 92, 0.78);
+  background: linear-gradient(135deg, rgba(94, 18, 26, 0.92), rgba(17, 14, 19, 0.88));
+  box-shadow: 0 0 0 1px rgba(255, 92, 92, 0.18), 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+.condition-chip.condition-soft {
+  color: #e8e8ea;
+  border-color: rgba(242, 193, 78, 0.5);
+}
+.condition-glyph {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ff8d8d;
+  font-size: 16px;
+}
+@keyframes condition-in {
+  from { opacity: 0; transform: scale(0.84); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Highlights are intentionally quieter than Alerts: one aligned value feed,
+   no audio and no severity pulse. */
+.highlights-shell {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.ov-highlight-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  width: 100%;
+  padding: 8px;
+}
+.highlight-card {
+  --highlight-accent: #8bd5ff;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 6px 9px 6px 6px;
+  border: 1px solid color-mix(in srgb, var(--highlight-accent) 45%, transparent);
+  border-left: 3px solid var(--highlight-accent);
+  border-radius: 7px;
+  background: rgba(11, 13, 17, 0.78);
+  color: #fff;
+  text-shadow: 0 1px 3px #000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  animation: highlight-in 180ms ease-out;
+}
+.highlight-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+.highlight-copy strong,
+.highlight-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.highlight-copy strong { font-size: 13px; line-height: 1.05; }
+.highlight-copy small { color: rgba(255, 255, 255, 0.64); font-size: 10px; }
+.highlight-value {
+  justify-self: end;
+  min-width: 4ch;
+  color: var(--highlight-accent);
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  text-align: right;
+}
+.highlight-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+}
+.highlight-icon.empty {
+  visibility: hidden;
+}
+.highlight-glyph {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  color: var(--highlight-accent);
+}
+.highlight-card.leaving { opacity: 0; transition: opacity 350ms ease-out; }
+@keyframes highlight-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: none; }
+}
+
 /* finishing-blow flash: one big killing-blow number + who got the kill. The
    pill self-centers in the overlay window; the pop animation restarts on each
    new kill (React keys it by id). */
