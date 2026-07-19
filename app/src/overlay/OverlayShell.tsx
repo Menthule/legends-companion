@@ -1,7 +1,8 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useOverlayEnabled } from "../hooks";
 import { IS_MOCK } from "../mock";
+import { shouldShowOverlayWindow } from "../overlayState";
 import OverlayEditChrome from "./OverlayEditChrome";
 import useOverlayLock from "./useOverlayLock";
 
@@ -27,6 +28,21 @@ export default function OverlayShell({
 }) {
   const [unlocked, setUnlocked] = useOverlayLock(label);
   const enabled = useOverlayEnabled(label);
+
+  // Tauri creates every configured window before the dashboard can apply its
+  // saved visibility pass. Enforce the preference in each overlay too, so a
+  // hidden window stays hidden after restart even if another overlay command
+  // fails or the dashboard is still mounting. Arrange deliberately reveals it.
+  useEffect(() => {
+    if (IS_MOCK) return;
+    const window = getCurrentWindow();
+    const operation = shouldShowOverlayWindow(enabled, unlocked)
+      ? window.show()
+      : window.hide();
+    void operation.catch((error) =>
+      console.error(`restore overlay visibility (${label}) failed`, error),
+    );
+  }, [enabled, label, unlocked]);
 
   return (
     <div

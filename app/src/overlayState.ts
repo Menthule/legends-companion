@@ -40,6 +40,16 @@ export function isOverlayEnabled(label: string): boolean {
   return loadOverlayVisibility()[label] !== false;
 }
 
+/** The window itself enforces this decision on mount and whenever arrange or
+ * visibility changes. Arrange always reveals every overlay so a hidden one
+ * can be moved/re-enabled; locked overlays honor their persisted switch. */
+export function shouldShowOverlayWindow(
+  enabled: boolean,
+  arranging: boolean,
+): boolean {
+  return arranging || enabled;
+}
+
 /** Flip one overlay's enabled flag and persist. Returns the new value. */
 export function toggleOverlayEnabled(label: string): boolean {
   const vis = loadOverlayVisibility();

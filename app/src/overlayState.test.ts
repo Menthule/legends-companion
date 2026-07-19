@@ -2,9 +2,21 @@ import { describe, expect, it } from "vitest";
 import {
   computeLevelEta,
   computeXpStats,
+  shouldShowOverlayWindow,
   type SharedXpRow,
   type XpSession,
 } from "./overlayState";
+
+describe("overlay window visibility", () => {
+  it("keeps disabled overlays hidden while locked", () => {
+    expect(shouldShowOverlayWindow(false, false)).toBe(false);
+  });
+
+  it("shows enabled overlays and reveals disabled overlays while arranging", () => {
+    expect(shouldShowOverlayWindow(true, false)).toBe(true);
+    expect(shouldShowOverlayWindow(false, true)).toBe(true);
+  });
+});
 
 // Rows are stored newest-first. `ts` is log-domain seconds; `at` is wall-clock
 // ms used only as the "time since last gain" anchor.

@@ -640,6 +640,11 @@ export default function SettingsTab({
 
   async function toggleOverlay(label: string, show: boolean) {
     setError(null);
+    // Save first: native window realization is best-effort, while this is the
+    // durable user choice that must survive restart.
+    const next = { ...loadOverlayVisibility(), [label]: show };
+    setShown(next);
+    saveOverlayVisibility(next);
     try {
       if (show) {
         await overlayShow(label);
@@ -647,11 +652,6 @@ export default function SettingsTab({
       } else {
         await overlayHide(label);
       }
-      setShown((s) => {
-        const next = { ...s, [label]: show };
-        saveOverlayVisibility(next);
-        return next;
-      });
     } catch (e) {
       setError(String(e));
     }

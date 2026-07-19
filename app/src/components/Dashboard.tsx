@@ -868,6 +868,11 @@ export default function Dashboard() {
     const next = !overlaysOn;
     setOverlaysOn(next);
     setError(null);
+    // Persist intent before touching native windows. A single transient
+    // show/hide failure must not make a hidden overlay reappear next launch.
+    saveOverlayVisibility(
+      Object.fromEntries(OVERLAYS.map((label) => [label, next])),
+    );
     try {
       // Hiding while arranging is a lock: clear the backend arrange latch
       // FIRST (see overlaySetArranging) so it can't linger and fight the
@@ -886,9 +891,6 @@ export default function Dashboard() {
       if (!next && !overlaysLocked) {
         saveOverlayArrange(false);
       }
-      saveOverlayVisibility(
-        Object.fromEntries(OVERLAYS.map((label) => [label, next])),
-      );
     } catch (e) {
       setError(String(e));
     }

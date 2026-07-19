@@ -37,7 +37,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-conditions",
@@ -53,7 +53,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-highlights",
@@ -69,7 +69,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-buffs",
@@ -85,7 +85,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-onothers",
@@ -101,7 +101,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-target",
@@ -117,7 +117,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-stance",
@@ -133,7 +133,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-meter",
@@ -149,7 +149,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-xp",
@@ -165,7 +165,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-pace",
@@ -181,7 +181,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-respawn",
@@ -197,7 +197,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-impact",
@@ -213,7 +213,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       },
       {
         "label": "overlay-scoreboard",
@@ -229,7 +229,7 @@
         "skipTaskbar": true,
         "shadow": false,
         "resizable": true,
-        "visible": true
+        "visible": false
       }
     ]
   },
