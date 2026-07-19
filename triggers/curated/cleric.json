@@ -44,6 +44,159 @@
         }
       ],
       "comments": "Legends names other players' casts ('Boza begins casting Invisibility.'), so CH chains are log-driven."
+    },
+    {
+      "id": "class/cleric/buffs/healing-echo-self",
+      "name": "Healing Echo on you",
+      "icon": "spell:99",
+      "pattern": "^You are embraced by a spirit of healing\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{
+        "StartTimer": {
+          "name": "Healing Echo",
+          "duration_secs": 6,
+          "warn_at_secs": null,
+          "duration_formula": 1,
+          "duration_cap_ticks": 1,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Incoming Echo of Health, Renewing Echo, or Celestial Echo. Their recipient text and six-second duration are identical, so one class-agnostic Buff timer represents the family. Verified in the Nyasha log."
+    },
+    {
+      "id": "class/cleric/buffs/healing-echo-finished",
+      "name": "Healing Echo finished",
+      "icon": "spell:99",
+      "pattern": "^The echo of healing fades away\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{ "CancelTimer": { "name": "Healing Echo" } }],
+      "comments": "Class-agnostic recipient wear-off for the Cleric healing-echo family."
+    },
+    {
+      "id": "class/cleric/buffs/celestial-healing-self",
+      "name": "Celestial Healing on you",
+      "icon": "spell:118",
+      "pattern": "^Celestial light pumps through your body\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{
+        "StartTimer": {
+          "name": "Celestial Healing",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 3,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Incoming Celestial Remedy, Celestial Health, or Celestial Healing. Their recipient text and 24-second duration are identical, so one class-agnostic Buff timer represents the family. Verified in the Nyasha log."
+    },
+    {
+      "id": "class/cleric/buffs/celestial-healing-finished",
+      "name": "Celestial Healing finished",
+      "icon": "spell:118",
+      "pattern": "^The celestial light fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{ "CancelTimer": { "name": "Celestial Healing" } }],
+      "comments": "Class-agnostic recipient wear-off for the Cleric celestial-healing family."
+    },
+    {
+      "id": "class/cleric/buffs/celestial-elixir-self",
+      "name": "Celestial Elixir on you",
+      "icon": "spell:118",
+      "pattern": "^Celestial Elixir pumps through your body\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{
+        "StartTimer": {
+          "name": "Celestial Elixir",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 4,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Incoming Cleric HoT. Class-agnostic recipient text; spell formula 4 capped at 4 ticks (24 s)."
+    },
+    {
+      "id": "class/cleric/buffs/celestial-elixir-finished",
+      "name": "Celestial Elixir finished",
+      "icon": "spell:118",
+      "pattern": "^The Celestial Elixir fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{ "CancelTimer": { "name": "Celestial Elixir" } }],
+      "comments": "Class-agnostic recipient wear-off for Celestial Elixir."
+    },
+    {
+      "id": "class/cleric/buffs/ethereal-elixir-self",
+      "name": "Ethereal Elixir on you",
+      "icon": "spell:118",
+      "pattern": "^Ethereal Elixir pumps through your body\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{
+        "StartTimer": {
+          "name": "Ethereal Elixir",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 4,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Incoming Cleric HoT. Class-agnostic recipient text; spell formula 4 capped at 4 ticks (24 s)."
+    },
+    {
+      "id": "class/cleric/buffs/ethereal-elixir-finished",
+      "name": "Ethereal Elixir finished",
+      "icon": "spell:118",
+      "pattern": "^The Ethereal Elixir fades\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Healing over time",
+      "actions": [{ "CancelTimer": { "name": "Ethereal Elixir" } }],
+      "comments": "Class-agnostic recipient wear-off for Ethereal Elixir."
+    },
+    {
+      "id": "class/cleric/buffs/promised-renewal-self",
+      "name": "Promised Renewal on you",
+      "icon": "spell:99",
+      "pattern": "^You are promised a divine renewal\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Cleric/Buffs/Delayed healing",
+      "actions": [{
+        "StartTimer": {
+          "name": "Promised Renewal",
+          "duration_secs": 12,
+          "warn_at_secs": 3,
+          "duration_formula": 5,
+          "duration_cap_ticks": 3,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Incoming Cleric delayed heal. It has no wear-off text in spell data, so its class-agnostic Buff timer completes naturally after 12 seconds."
     }
   ]
 }

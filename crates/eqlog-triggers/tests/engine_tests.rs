@@ -1162,6 +1162,19 @@ fn ghoul_root_live_grammar_routes_to_the_conditions_overlay() {
     let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
     let mut sink = RecordingSink::default();
 
+    engine.process(
+        &line(
+            1_721_409_360,
+            "You resist a shin ghoul knight's Ghoul Root!",
+        ),
+        &mut sink,
+    );
+    assert!(sink.overlays.iter().all(|(overlay, fields, _)| {
+        overlay != "conditions"
+            || fields.get("key").map(String::as_str) != Some("root")
+            || fields.get("active").map(String::as_str) != Some("true")
+    }));
+
     let fires = engine.process_traced(
         &line(1_721_409_365, "Your feet adhere to the ground."),
         &mut sink,
@@ -1212,10 +1225,11 @@ fn ambiguous_speed_wearoff_does_not_activate_the_slowed_condition() {
 }
 
 #[test]
-fn shipped_druid_growing_heals_start_and_finish_buff_timers() {
+fn incoming_druid_growing_heals_start_and_finish_buff_timers_for_non_druids() {
     let mut profile = CharacterProfile::new("Sliq");
-    profile.active_loadout_mut().classes = vec!["Druid".into()];
-    profile.level = 48;
+    profile.active_loadout_mut().classes =
+        vec!["Paladin".into(), "Monk".into(), "Enchanter".into()];
+    profile.level = 50;
     let mut engine = TriggerEngine::new_with_profile(load_library(), "Sliq", &profile);
     let mut sink = RecordingSink::default();
     let variants = [
@@ -1265,6 +1279,142 @@ fn shipped_druid_growing_heals_start_and_finish_buff_timers() {
     }
     engine.process(&line(2_101, "The heal within you effloresces."), &mut sink);
     assert!(sink.cancels.contains(&"Efflorescing Heal".to_string()));
+    assert!(sink.overlays.is_empty(), "HoTs belong in Buff Timers only");
+}
+
+#[test]
+fn incoming_shaman_and_cleric_heals_use_the_buff_timer_lane_for_non_healers() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes =
+        vec!["Paladin".into(), "Monk".into(), "Enchanter".into()];
+    profile.level = 50;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+    let starts = [
+        (
+            "You being to feel healed by the snail.",
+            "Snails Healing",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "You being to feel healed by the tortoise.",
+            "Tortoises Healing",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "You being to feel healed by the slug.",
+            "Slugs Healing",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "You being to feel healed by the sloth.",
+            "Sloths Healing",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "You are embraced by a spirit of healing.",
+            "Healing Echo",
+            6,
+            None,
+            "spell:99",
+        ),
+        (
+            "Celestial light pumps through your body.",
+            "Celestial Healing",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "Celestial Elixir pumps through your body.",
+            "Celestial Elixir",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "Ethereal Elixir pumps through your body.",
+            "Ethereal Elixir",
+            24,
+            Some(3),
+            "spell:118",
+        ),
+        (
+            "You are promised a divine renewal.",
+            "Promised Renewal",
+            12,
+            Some(1),
+            "spell:99",
+        ),
+    ];
+
+    for (index, (message, name, duration, warning, icon)) in starts.iter().enumerate() {
+        let fires = engine.process_traced(&line(3_000 + index as i64, message), &mut sink);
+        assert_eq!(fires.len(), 1, "{name} should have one trigger owner");
+        assert!(
+            sink.timers
+                .contains(&(name.to_string(), *duration, *warning, TimerLane::Buff)),
+            "missing {name} Buff timer: {:?}",
+            sink.timers
+        );
+        assert!(sink
+            .timer_icons
+            .contains(&(name.to_string(), Some(icon.to_string()))));
+    }
+
+    // A recast uses the same timer key, allowing the host to refresh one bar
+    // instead of creating a second, unrelated timer.
+    engine.process(
+        &line(3_020, "You being to feel healed by the slug."),
+        &mut sink,
+    );
+    assert_eq!(
+        sink.timers
+            .iter()
+            .filter(|(name, _, _, _)| name == "Slugs Healing")
+            .count(),
+        2
+    );
+
+    for message in [
+        "You feel the snail spirit depart.",
+        "You feel the tortoise spirit depart.",
+        "You feel the slug spirit depart.",
+        "You feel the sloth spirit depart.",
+        "The echo of healing fades away.",
+        "The celestial light fades.",
+        "The Celestial Elixir fades.",
+        "The Ethereal Elixir fades.",
+    ] {
+        engine.process(&line(3_100, message), &mut sink);
+    }
+    for name in [
+        "Snails Healing",
+        "Tortoises Healing",
+        "Slugs Healing",
+        "Sloths Healing",
+        "Healing Echo",
+        "Celestial Healing",
+        "Celestial Elixir",
+        "Ethereal Elixir",
+    ] {
+        assert!(
+            sink.cancels.contains(&name.to_string()),
+            "missing cancellation for {name}"
+        );
+    }
+    assert!(
+        sink.overlays.is_empty(),
+        "heals must not route to overlay actions"
+    );
 }
 
 #[test]

@@ -80,6 +80,107 @@
     }
    ],
    "comments": "Matches both the bare form and 'worn off of <target>.'. Walking Sleep is shaman-only per spell data, so it is deliberately absent from the enchanter mez-worn-target alternation (no double-fire for Ench+Shm characters). Also cancels the 'Mez (Walking Sleep)' countdown started by the curated cast timer."
+  },
+  {
+   "id": "class/shaman/buffs/snails-healing-self",
+   "name": "Snails Healing on you",
+   "icon": "spell:118",
+   "pattern": "^You being to feel healed by the snail\\.$",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Buffs/Healing over time",
+   "actions": [{
+    "StartTimer": {
+     "name": "Snails Healing",
+     "duration_secs": 24,
+     "warn_at_secs": 3,
+     "duration_formula": 10,
+     "duration_cap_ticks": 4,
+     "lane": "buff"
+    }
+   }],
+   "comments": "Incoming Shaman HoT. Class-agnostic recipient text, including the game's observed 'being' typo; spell formula 10 capped at 4 ticks (24 s)."
+  },
+  {
+   "id": "class/shaman/buffs/tortoises-healing-self",
+   "name": "Tortoises Healing on you",
+   "icon": "spell:118",
+   "pattern": "^You being to feel healed by the tortoise\\.$",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Buffs/Healing over time",
+   "actions": [{
+    "StartTimer": {
+     "name": "Tortoises Healing",
+     "duration_secs": 24,
+     "warn_at_secs": 3,
+     "duration_formula": 10,
+     "duration_cap_ticks": 4,
+     "lane": "buff"
+    }
+   }],
+   "comments": "Incoming Shaman HoT. Class-agnostic recipient text, including the game's observed 'being' typo; spell formula 10 capped at 4 ticks (24 s)."
+  },
+  {
+   "id": "class/shaman/buffs/slugs-healing-self",
+   "name": "Slugs Healing on you",
+   "icon": "spell:118",
+   "pattern": "^You being to feel healed by the slug\\.$",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Buffs/Healing over time",
+   "actions": [{
+    "StartTimer": {
+     "name": "Slugs Healing",
+     "duration_secs": 24,
+     "warn_at_secs": 3,
+     "duration_formula": 10,
+     "duration_cap_ticks": 4,
+     "lane": "buff"
+    }
+   }],
+   "comments": "Incoming Shaman HoT. Class-agnostic recipient text verified in the Nyasha log, including the game's 'being' typo; spell formula 10 capped at 4 ticks (24 s)."
+  },
+  {
+   "id": "class/shaman/buffs/sloths-healing-self",
+   "name": "Sloths Healing on you",
+   "icon": "spell:118",
+   "pattern": "^You being to feel healed by the sloth\\.$",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Buffs/Healing over time",
+   "actions": [{
+    "StartTimer": {
+     "name": "Sloths Healing",
+     "duration_secs": 24,
+     "warn_at_secs": 3,
+     "duration_formula": 10,
+     "duration_cap_ticks": 4,
+     "lane": "buff"
+    }
+   }],
+   "comments": "Incoming Shaman HoT. Class-agnostic recipient text, including the game's observed 'being' typo; spell formula 10 capped at 4 ticks (24 s)."
+  },
+  {
+   "id": "class/shaman/buffs/animal-healing-finished",
+   "name": "Animal Healing finished",
+   "icon": "spell:118",
+   "pattern": "^You feel the (snail|tortoise|slug|sloth) spirit depart\\.$",
+   "enabled": true,
+   "default_enabled": true,
+   "source": "curated",
+   "category": "Class/Shaman/Buffs/Healing over time",
+   "actions": [
+    { "CancelTimer": { "name": "Snails Healing" } },
+    { "CancelTimer": { "name": "Tortoises Healing" } },
+    { "CancelTimer": { "name": "Slugs Healing" } },
+    { "CancelTimer": { "name": "Sloths Healing" } }
+   ],
+   "comments": "Class-agnostic recipient wear-off text for the Shaman animal-healing family. The matched rank is not exposed to actions, so cancelling all four names is safe and prevents stale bars."
   }
  ]
 }

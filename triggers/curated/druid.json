@@ -56,7 +56,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{
         "StartTimer": {
           "name": "Budding Heal",
@@ -67,7 +66,7 @@
           "lane": "buff"
         }
       }],
-      "comments": "Druid HoT rank at level 4. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+      "comments": "Incoming Druid HoT rank at level 4. Class-agnostic because this is the recipient's self-land message. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
     },
     {
       "id": "class/druid/buffs/sprouting-heal-self",
@@ -78,7 +77,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{
         "StartTimer": {
           "name": "Sprouting Heal",
@@ -89,7 +87,7 @@
           "lane": "buff"
         }
       }],
-      "comments": "Druid HoT rank at level 10. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+      "comments": "Incoming Druid HoT rank at level 10. Class-agnostic because this is the recipient's self-land message. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
     },
     {
       "id": "class/druid/buffs/flowering-heal-self",
@@ -100,7 +98,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{
         "StartTimer": {
           "name": "Flowering Heal",
@@ -111,7 +108,7 @@
           "lane": "buff"
         }
       }],
-      "comments": "Druid HoT rank at level 20. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+      "comments": "Incoming Druid HoT rank at level 20. Class-agnostic because this is the recipient's self-land message. Verified in the Nyasha log and spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
     },
     {
       "id": "class/druid/buffs/blooming-heal-self",
@@ -122,7 +119,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{
         "StartTimer": {
           "name": "Blooming Heal",
@@ -133,7 +129,7 @@
           "lane": "buff"
         }
       }],
-      "comments": "Druid HoT rank at level 30. Screenshot-verified self-land text plus spell-data formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+      "comments": "Incoming Druid HoT rank at level 30. Class-agnostic because this is the recipient's self-land message. Screenshot-verified self-land text plus spell-data formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
     },
     {
       "id": "class/druid/buffs/blossoming-heal-self",
@@ -144,7 +140,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{
         "StartTimer": {
           "name": "Blossoming Heal",
@@ -155,7 +150,7 @@
           "lane": "buff"
         }
       }],
-      "comments": "Druid HoT rank at level 40. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+      "comments": "Incoming Druid HoT rank at level 40. Class-agnostic because this is the recipient's self-land message. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
     },
     {
       "id": "class/druid/buffs/efflorescing-heal-self",
@@ -166,7 +161,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{
         "StartTimer": {
           "name": "Efflorescing Heal",
@@ -177,7 +171,7 @@
           "lane": "buff"
         }
       }],
-      "comments": "Druid HoT rank at level 48. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+      "comments": "Incoming Druid HoT rank at level 48. Class-agnostic because this is the recipient's self-land message. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
     },
     {
       "id": "class/druid/buffs/growing-heal-finished",
@@ -188,7 +182,6 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [
         { "CancelTimer": { "name": "Budding Heal" } },
         { "CancelTimer": { "name": "Sprouting Heal" } },
@@ -196,7 +189,7 @@
         { "CancelTimer": { "name": "Blooming Heal" } },
         { "CancelTimer": { "name": "Blossoming Heal" } }
       ],
-      "comments": "Shared final-trigger message for the first five Druid growing-heal ranks. Cancelling every possible family timer is safe: missing timers are host no-ops."
+      "comments": "Class-agnostic recipient message shared by the first five Druid growing-heal ranks. Cancelling every possible family timer is safe: missing timers are host no-ops."
     },
     {
       "id": "class/druid/buffs/efflorescing-heal-finished",
@@ -207,9 +200,8 @@
       "default_enabled": true,
       "source": "curated",
       "category": "Class/Druid/Buffs/Healing over time",
-      "classes": ["Druid"],
       "actions": [{ "CancelTimer": { "name": "Efflorescing Heal" } }],
-      "comments": "Final-trigger message for the level-48 Druid HoT rank."
+      "comments": "Class-agnostic recipient final-trigger message for the level-48 Druid HoT rank."
     }
   ]
 }
