@@ -125,6 +125,23 @@ describe("HighlightEvaluator", () => {
     ).toEqual(expect.objectContaining({ text: "Double Bow Shot", amount: 91 }));
   });
 
+  it("leaves trigger-owned finishing moments to their single curated card", () => {
+    const evaluator = new HighlightEvaluator();
+    const event = (flag: string) =>
+      line({
+        MeleeHit: {
+          attacker: "You",
+          target: { Named: "a skeleton" },
+          verb: "pierce",
+          amount: 61,
+          flags: { other: [flag] },
+        },
+      });
+
+    expect(evaluator.evaluate(event("Finishing Blow"))).toEqual([]);
+    expect(evaluator.evaluate(event("Slay Undead"))).toEqual([]);
+  });
+
   it("emits progression milestones without every skill-up", () => {
     const evaluator = new HighlightEvaluator();
     expect(evaluator.evaluate(line({ SkillUp: { skill: "Mend", value: 24 } }))).toEqual([]);

@@ -2838,11 +2838,11 @@ button.coach-row.active {
 .highlight-card {
   --highlight-accent: #8bd5ff;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 8px;
   min-height: 42px;
-  padding: 6px 9px 6px 6px;
+  padding: 6px 9px 6px 10px;
   border: 1px solid color-mix(in srgb, var(--highlight-accent) 45%, transparent);
   border-left: 3px solid var(--highlight-accent);
   border-radius: 7px;
@@ -2851,6 +2851,10 @@ button.coach-row.active {
   text-shadow: 0 1px 3px #000;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   animation: highlight-in 180ms ease-out;
+}
+.highlight-card.has-icon {
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  padding-left: 6px;
 }
 .highlight-copy {
   display: flex;
@@ -2880,9 +2884,6 @@ button.coach-row.active {
   width: 28px;
   height: 28px;
   place-items: center;
-}
-.highlight-icon.empty {
-  visibility: hidden;
 }
 .highlight-glyph {
   display: grid;

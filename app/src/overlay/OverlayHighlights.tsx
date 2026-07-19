@@ -163,17 +163,18 @@ export default function OverlayHighlights() {
         {rows.map((row) => (
           <div
             key={row.id}
-            className={`highlight-card${row.leaving ? " leaving" : ""}`}
+            className={`highlight-card ${row.icon ? "has-icon" : "no-icon"}${row.leaving ? " leaving" : ""}`}
             style={{ "--highlight-accent": row.color } as CSSProperties}
           >
-            <span className={`highlight-icon${row.icon ? "" : " empty"}`}>
-              {row.icon &&
-                (spellIconId(row.icon) != null || spellIconName(row.icon) != null ? (
+            {row.icon && (
+              <span className="highlight-icon">
+                {spellIconId(row.icon) != null || spellIconName(row.icon) != null ? (
                   <SpellGemIcon icon={row.icon} size={28} label={`${row.text} icon`} />
                 ) : (
                   <span className="highlight-glyph">✦</span>
-                ))}
-            </span>
+                )}
+              </span>
+            )}
             <span className="highlight-copy">
               <strong>{row.text}</strong>
               {(row.detail || row.hits > 1) && (

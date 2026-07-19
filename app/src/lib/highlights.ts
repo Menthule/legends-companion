@@ -17,6 +17,11 @@ export interface HighlightCandidate {
 }
 
 export const DOT_AGGREGATE_MS = 7_500;
+const TRIGGER_OWNED_FLAGS = new Set([
+  "finishing blow",
+  "slay undead",
+  "crippling blow",
+]);
 
 const SKILL_VERBS = new Set([
   "kick",
@@ -75,7 +80,9 @@ function specialFlag(flags: Record<string, unknown>): string | null {
   if (flags.rampage === true) return "Rampage";
   if (flags.strikethrough === true) return "Strikethrough";
   if (flags.riposte === true && flags.critical === true) return "Riposte Critical";
-  return other[0] ?? null;
+  return (
+    other.find((value) => !TRIGGER_OWNED_FLAGS.has(value.trim().toLowerCase())) ?? null
+  );
 }
 
 /** Stateful, presentation-neutral selector for the default Notable feed. */
