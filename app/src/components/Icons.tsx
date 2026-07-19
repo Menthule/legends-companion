@@ -99,6 +99,16 @@ export function IconSettings({ size = 16 }: IconProps) {
   );
 }
 
+/** Feedback: a speech bubble with a short message line. */
+export function IconFeedback({ size = 16 }: IconProps) {
+  return (
+    <svg {...svgProps(size)}>
+      <path d="M2.2 2.8h11.6v8H7l-3.8 2.5v-2.5h-1z" />
+      <path d="M5 6h6M5 8.5h4" />
+    </svg>
+  );
+}
+
 /** Drops research: a cut gem — loot. */
 export function IconDrops({ size = 16 }: IconProps) {
   return (

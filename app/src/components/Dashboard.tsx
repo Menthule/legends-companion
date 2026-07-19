@@ -66,6 +66,7 @@ import TimersTab from "./TimersTab";
 import MacrosTab from "./MacrosTab";
 import TriggersTab from "./TriggersTab";
 import SettingsTab from "./SettingsTab";
+import FeedbackModal from "./FeedbackModal";
 import WelcomeCard from "./WelcomeCard";
 import WelcomeBack from "./WelcomeBack";
 import GlobalSearchModal from "./GlobalSearchModal";
@@ -98,6 +99,7 @@ import {
   IconDrops,
   IconUnlock,
   IconWarn,
+  IconFeedback,
 } from "./Icons";
 
 const OVERLAYS = overlayWindowLabels();
@@ -412,6 +414,7 @@ export default function Dashboard() {
   /** Newer release found on GitHub (slim banner); null = up to date/unknown. */
   const [update, setUpdate] = useState<UpdateInfo | null>(null);
   const [installing, setInstalling] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   useEffect(() => {
     if (character.trim()) void setWishlistCharacter(character, activeLogPath);
@@ -947,7 +950,13 @@ export default function Dashboard() {
             </div>
           ))}
         </nav>
-        <div className="sidebar-foot">v{APP_VERSION}</div>
+        <div className="sidebar-foot">
+          <button onClick={() => setFeedbackOpen(true)} title="Send feedback">
+            <IconFeedback />
+            Feedback
+          </button>
+          <span>v{APP_VERSION}</span>
+        </div>
       </aside>
 
       <div className="main">
@@ -1381,6 +1390,12 @@ export default function Dashboard() {
           }
           onClose={() => setGlobalSearch(null)}
           onAction={handleGlobalSearchAction}
+        />
+      )}
+      {feedbackOpen && (
+        <FeedbackModal
+          version={APP_VERSION}
+          onClose={() => setFeedbackOpen(false)}
         />
       )}
     </div>

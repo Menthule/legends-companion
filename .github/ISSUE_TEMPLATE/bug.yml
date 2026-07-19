@@ -1,0 +1,52 @@
+name: Report a bug
+description: Tell us what broke or behaved unexpectedly in Legends Companion.
+title: "[Bug] "
+labels: ["feedback", "bug", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Legends Companion. Reports are public, so remove character names, private paths, or unrelated log text before submitting.
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Paste text or screenshots here with Ctrl+V. You can also drag and drop files into this box.
+      placeholder: Tell us what you saw and what you expected instead. Paste screenshots anywhere in this box.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we reproduce it?
+      description: A few short steps are enough. Include the tab or overlay involved.
+      placeholder: |
+        1. Opened ...
+        2. Did ...
+        3. Saw ...
+  - type: upload
+    id: attachments
+    attributes:
+      label: Screenshots, video, or files
+      description: Optional. Browse for files here, or paste/drag them into the description above.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Prefilled when you open this form from the app.
+      placeholder: v3.0.3
+  - type: input
+    id: os
+    attributes:
+      label: Platform
+      description: Prefilled when you open this form from the app.
+      placeholder: Windows
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I reviewed the report and removed anything I do not want posted publicly.
+          required: true
