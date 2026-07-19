@@ -707,16 +707,37 @@
       ]
     },
     {
-      "id": "universal/cc/rooted",
-      "name": "You are rooted",
+      "id": "universal/cc/ghoul-rooted",
+      "name": "Ghoul Root on you",
       "icon": "spell:117",
-      "pattern": "^(Your feet (adhere to|sink into) the ground|Your feet become entwined|You are unable to move|(Spectral shackles|Tendrilmists|Bonds of force|Etherroots|Nethermists|Murkmists|Shademists) bind your feet to the ground)\\.$",
+      "pattern": "^Your feet adhere to the ground\\.$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 3,
       "source": "curated",
       "category": "Universal/Crowd Control",
-      "comments": "Cast-on-you texts of the root family per spell data — Legends verified 'Your feet sink into the ground.' live (2026-07-05); the adhere/entwined/shackle/mist variants cover the rest of the classic root lines.",
+      "comments": "Verified Ghoul Root cast-on-you text in the live Nyasha Legends log (2026-07-19). Kept as a first-class trigger so older downloaded root-family definitions cannot shadow this observed grammar.",
+      "actions": [
+        {
+          "Overlay": {
+            "overlay": "conditions",
+            "fields": { "key": "root", "label": "Rooted", "active": "true" },
+            "config": { "priority": 90 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "universal/cc/rooted",
+      "name": "You are rooted",
+      "icon": "spell:117",
+      "pattern": "^(Your feet sink into the ground|Your feet become entwined|You are unable to move|(Spectral shackles|Tendrilmists|Bonds of force|Etherroots|Nethermists|Murkmists|Shademists) bind your feet to the ground)\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "cooldown_secs": 3,
+      "source": "curated",
+      "category": "Universal/Crowd Control",
+      "comments": "Other cast-on-you texts of the root family per spell data — Legends verified 'Your feet sink into the ground.' live (2026-07-05); Ghoul Root's observed adhere text has its own first-class trigger.",
       "actions": [
         {
           "Overlay": {

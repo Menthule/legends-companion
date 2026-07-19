@@ -585,6 +585,16 @@ impl EmitSink {
                 trigger.as_ref().and_then(|owner| owner.icon.as_deref()),
             )
         });
+        if let Some((key, active)) = transition.as_ref() {
+            let owner = trigger
+                .as_ref()
+                .map(|owner| owner.id.as_str())
+                .unwrap_or("<unknown>");
+            logging::info(&format!(
+                "condition {key} {} via {owner}",
+                if *active { "on" } else { "off" }
+            ));
+        }
         if emit && transition.is_some() {
             self.emit_conditions_snapshot();
             let (key, active) = transition.expect("checked above");

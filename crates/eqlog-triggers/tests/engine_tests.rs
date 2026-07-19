@@ -1154,6 +1154,41 @@ fn library_packs_parse_and_all_patterns_compile() {
 }
 
 #[test]
+fn ghoul_root_live_grammar_routes_to_the_conditions_overlay() {
+    let mut profile = CharacterProfile::new("Nyasha");
+    profile.active_loadout_mut().classes =
+        vec!["Paladin".into(), "Monk".into(), "Enchanter".into()];
+    profile.level = 26;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
+    let mut sink = RecordingSink::default();
+
+    let fires = engine.process_traced(
+        &line(1_721_409_365, "Your feet adhere to the ground."),
+        &mut sink,
+    );
+    assert_eq!(
+        fires
+            .iter()
+            .map(|fire| fire.id.as_str())
+            .collect::<Vec<_>>(),
+        vec!["universal/cc/ghoul-rooted"]
+    );
+    assert!(sink.overlays.iter().any(|(overlay, fields, config)| {
+        overlay == "conditions"
+            && fields.get("key").map(String::as_str) == Some("root")
+            && fields.get("active").map(String::as_str) == Some("true")
+            && config.get("priority") == Some(&serde_json::json!(90))
+    }));
+
+    engine.process(&line(1_721_409_386, "Your feet come free."), &mut sink);
+    assert!(sink.overlays.iter().any(|(overlay, fields, _)| {
+        overlay == "conditions"
+            && fields.get("key").map(String::as_str) == Some("root")
+            && fields.get("active").map(String::as_str) == Some("false")
+    }));
+}
+
+#[test]
 fn shipped_slay_undead_trigger_captures_target_damage_highlight() {
     let profile = CharacterProfile::new("Nyasha");
     let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);
