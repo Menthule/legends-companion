@@ -1189,6 +1189,62 @@ fn ghoul_root_live_grammar_routes_to_the_conditions_overlay() {
 }
 
 #[test]
+fn shipped_druid_growing_heals_start_and_finish_buff_timers() {
+    let mut profile = CharacterProfile::new("Sliq");
+    profile.active_loadout_mut().classes = vec!["Druid".into()];
+    profile.level = 48;
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Sliq", &profile);
+    let mut sink = RecordingSink::default();
+    let variants = [
+        ("budding", "Budding Heal", "spell:632"),
+        ("sprouting", "Sprouting Heal", "spell:633"),
+        ("flowering", "Flowering Heal", "spell:634"),
+        ("blooming", "Blooming Heal", "spell:635"),
+        ("blossoming", "Blossoming Heal", "spell:636"),
+        ("efflorescing", "Efflorescing Heal", "spell:631"),
+    ];
+
+    for (index, (word, name, icon)) in variants.iter().enumerate() {
+        let fires = engine.process_traced(
+            &line(
+                2_000 + index as i64,
+                &format!("You feel a heal {word} within you."),
+            ),
+            &mut sink,
+        );
+        assert_eq!(fires.len(), 1, "{name} should have one trigger owner");
+        assert!(sink
+            .timers
+            .contains(&(name.to_string(), 24, Some(3), TimerLane::Buff)));
+        assert!(sink
+            .timer_icons
+            .contains(&(name.to_string(), Some(icon.to_string()))));
+    }
+    assert_eq!(
+        sink.attributed_calls
+            .iter()
+            .find(|(kind, owner)| {
+                kind == "timer" && owner.as_deref() == Some("class/druid/buffs/blooming-heal-self")
+            })
+            .and_then(|(_, owner)| owner.as_deref()),
+        Some("class/druid/buffs/blooming-heal-self")
+    );
+
+    engine.process(&line(2_100, "The heal within you blooms."), &mut sink);
+    for name in [
+        "Budding Heal",
+        "Sprouting Heal",
+        "Flowering Heal",
+        "Blooming Heal",
+        "Blossoming Heal",
+    ] {
+        assert!(sink.cancels.contains(&name.to_string()));
+    }
+    engine.process(&line(2_101, "The heal within you effloresces."), &mut sink);
+    assert!(sink.cancels.contains(&"Efflorescing Heal".to_string()));
+}
+
+#[test]
 fn shipped_slay_undead_trigger_captures_target_damage_highlight() {
     let profile = CharacterProfile::new("Nyasha");
     let mut engine = TriggerEngine::new_with_profile(load_library(), "Nyasha", &profile);

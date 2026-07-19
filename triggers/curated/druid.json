@@ -46,6 +46,170 @@
         }
       ],
       "comments": "spells_us_str 278; verified in Legends log. (NOT 'You feel yourself slow down' — that line was ruled out.) Pattern is byte-identical to generated buffs/wear-off/spirit-of-wolf so the engine's fire-dedupe collapses the pair to one spoken alert — keep them in sync."
+    },
+    {
+      "id": "class/druid/buffs/budding-heal-self",
+      "name": "Budding Heal on you",
+      "icon": "spell:632",
+      "pattern": "^You feel a heal budding within you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{
+        "StartTimer": {
+          "name": "Budding Heal",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 7,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Druid HoT rank at level 4. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+    },
+    {
+      "id": "class/druid/buffs/sprouting-heal-self",
+      "name": "Sprouting Heal on you",
+      "icon": "spell:633",
+      "pattern": "^You feel a heal sprouting within you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{
+        "StartTimer": {
+          "name": "Sprouting Heal",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 7,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Druid HoT rank at level 10. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+    },
+    {
+      "id": "class/druid/buffs/flowering-heal-self",
+      "name": "Flowering Heal on you",
+      "icon": "spell:634",
+      "pattern": "^You feel a heal flowering within you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{
+        "StartTimer": {
+          "name": "Flowering Heal",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 7,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Druid HoT rank at level 20. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+    },
+    {
+      "id": "class/druid/buffs/blooming-heal-self",
+      "name": "Blooming Heal on you",
+      "icon": "spell:635",
+      "pattern": "^You feel a heal blooming within you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{
+        "StartTimer": {
+          "name": "Blooming Heal",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 7,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Druid HoT rank at level 30. Screenshot-verified self-land text plus spell-data formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+    },
+    {
+      "id": "class/druid/buffs/blossoming-heal-self",
+      "name": "Blossoming Heal on you",
+      "icon": "spell:636",
+      "pattern": "^You feel a heal blossoming within you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{
+        "StartTimer": {
+          "name": "Blossoming Heal",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 7,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Druid HoT rank at level 40. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+    },
+    {
+      "id": "class/druid/buffs/efflorescing-heal-self",
+      "name": "Efflorescing Heal on you",
+      "icon": "spell:631",
+      "pattern": "^You feel a heal efflorescing within you\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{
+        "StartTimer": {
+          "name": "Efflorescing Heal",
+          "duration_secs": 24,
+          "warn_at_secs": 3,
+          "duration_formula": 7,
+          "duration_cap_ticks": 4,
+          "lane": "buff"
+        }
+      }],
+      "comments": "Druid HoT rank at level 48. Verified spell data: CASTEDMETXT, formula 7 capped at 4 ticks (24 s). Curated because the generated buff packs skip its song-flagged spell record."
+    },
+    {
+      "id": "class/druid/buffs/growing-heal-finished",
+      "name": "Growing Heal finished",
+      "icon": "spell:635",
+      "pattern": "^The heal within you blooms\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [
+        { "CancelTimer": { "name": "Budding Heal" } },
+        { "CancelTimer": { "name": "Sprouting Heal" } },
+        { "CancelTimer": { "name": "Flowering Heal" } },
+        { "CancelTimer": { "name": "Blooming Heal" } },
+        { "CancelTimer": { "name": "Blossoming Heal" } }
+      ],
+      "comments": "Shared final-trigger message for the first five Druid growing-heal ranks. Cancelling every possible family timer is safe: missing timers are host no-ops."
+    },
+    {
+      "id": "class/druid/buffs/efflorescing-heal-finished",
+      "name": "Efflorescing Heal finished",
+      "icon": "spell:631",
+      "pattern": "^The heal within you effloresces\\.$",
+      "enabled": true,
+      "default_enabled": true,
+      "source": "curated",
+      "category": "Class/Druid/Buffs/Healing over time",
+      "classes": ["Druid"],
+      "actions": [{ "CancelTimer": { "name": "Efflorescing Heal" } }],
+      "comments": "Final-trigger message for the level-48 Druid HoT rank."
     }
   ]
 }
