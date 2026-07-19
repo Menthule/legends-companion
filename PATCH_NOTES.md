@@ -1,5 +1,23 @@
 # Patch Notes
 
+## 3.0.3 - Conditions & Combat Highlights
+
+### Focused Overlay Channels
+- Alerts are now reserved for information that needs action. Routine skill damage and persistent condition On/Off messages no longer compete with urgent warnings.
+- The new Conditions overlay keeps a compact, persistent icon strip for active stun, spin, root, mez, charm, fear, snare, slow, blind, silence, and encumbrance states. Poison and disease tracking are available as optional defaults.
+- Conditions restore when their overlay reloads, ignore duplicate starts and unmatched clears, and reset safely on zoning, loading, death, log changes, and tail restarts.
+- The new Highlights overlay provides a silent rolling feed for satisfying combat results, with stable right-aligned damage values, a four-row cap, and burst aggregation to prevent multihit and area spells from flooding the screen.
+
+### Skills, Spells & Major Moments
+- All 14 curated melee skills—including Kick, Bash, Backstab, Flying Kick, Frenzy, and class attacks—now appear in Highlights instead of Alerts.
+- Highlights cover owned direct spell damage, critical spells and heals, Riposte Critical, Flurry, Rampage, Double Bow Shot, skill milestones, ability points, new ability unlocks, and per-ability session bests. Ordinary autoattack criticals, damage-shield ticks, misses, and routine heals remain quiet.
+- Finishing Blow and Slay Undead use the compact Highlights feed, while Crippling Blows, confirmed rare kills, watched targets, achievements, level-ups, and new AA abilities retain full Impact treatment.
+- Impact moments now queue instead of replacing one another when several exceptional events happen together.
+
+### Trigger Compatibility
+- Older downloaded trigger libraries are reconciled with the app's current overlay contracts at startup. This fixes legacy definitions that could still send Kick or condition messages to Alerts after updating the app.
+- Expanded root, snare, fear, spin, blind, silence, poison, and disease begin/clear grammar improves state accuracy across observed Legends log variants.
+
 ## 3.0.2 - Inventory, Ranked Timers & Achievement Moments
 
 ### Inventory Workspace
