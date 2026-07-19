@@ -779,7 +779,7 @@
       "cooldown_secs": 3,
       "source": "curated",
       "category": "Universal/Crowd Control",
-      "comments": "Movement-snare cast-on-you texts (spoken). The bare 'You slow down.' is mostly ATTACK-slow debuffs (74 fires in the reference log) and lives in universal/cc/slowed as overlay-only.",
+      "comments": "Unambiguous movement-snare cast-on-you texts. Bare 'You slow down.' is excluded from condition state because Legends reuses it for both detrimental movement slows and beneficial run-speed effects wearing off.",
       "actions": [
         {
           "Overlay": {
@@ -977,13 +977,13 @@
       "id": "universal/cc/slowed",
       "name": "You are slowed",
       "icon": "spell:17",
-      "pattern": "^(You slow down|Your arms slow down)\\.$",
+      "pattern": "^Your arms slow down\\.$",
       "enabled": true,
       "default_enabled": true,
       "cooldown_secs": 5,
       "source": "curated",
       "category": "Universal/Crowd Control",
-      "comments": "Generic slow cast-on-you texts (movement or attack speed — the log can't tell). Overlay-only: fires constantly from mob shamans.",
+      "comments": "Unambiguous attack-speed slow cast-on-you text. Bare 'You slow down.' is deliberately excluded: Legends spell data uses it both for detrimental movement slows and for beneficial run-speed effects wearing off, and live logs show the latter after Wolf Form/speed effects. Treating that shared line as slow-on leaves a false condition chip.",
       "actions": [
         {
           "Overlay": {

@@ -165,6 +165,11 @@ pub struct ActiveConditionPayload {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub icon: Option<String>,
     pub priority: i64,
+    /// Host-owned safety deadline. The log normally supplies an explicit
+    /// clear, but zoning/form/client quirks can drop it; never serialize this
+    /// implementation detail to the overlay.
+    #[serde(skip)]
+    expires_at: Instant,
 }
 
 #[derive(Serialize, Clone)]
@@ -336,6 +341,7 @@ fn apply_condition_transition(
     fields: &BTreeMap<String, String>,
     config: &BTreeMap<String, serde_json::Value>,
     trigger_icon: Option<&str>,
+    now: Instant,
 ) -> Option<(String, bool)> {
     let key = fields.get("key").map(|value| value.trim()).unwrap_or("");
     if key.is_empty() {
@@ -354,6 +360,12 @@ fn apply_condition_transition(
         return conditions.remove(key).map(|_| (key.to_string(), false));
     }
 
+    let ttl_secs = config
+        .get("max_age_secs")
+        .and_then(serde_json::Value::as_u64)
+        .filter(|seconds| *seconds > 0)
+        .unwrap_or_else(|| default_condition_max_age_secs(key))
+        .min(86_400);
     let next = ActiveConditionPayload {
         key: key.to_string(),
         label: fields
@@ -370,12 +382,54 @@ fn apply_condition_transition(
             .get("priority")
             .and_then(serde_json::Value::as_i64)
             .unwrap_or(0),
+        expires_at: now + Duration::from_secs(ttl_secs),
     };
-    if conditions.get(key) == Some(&next) {
-        return None;
+    if let Some(current) = conditions.get_mut(key) {
+        if current.key == next.key
+            && current.label == next.label
+            && current.icon == next.icon
+            && current.priority == next.priority
+        {
+            // Repeated evidence refreshes the safety deadline without
+            // needlessly animating or re-emitting an unchanged condition.
+            current.expires_at = next.expires_at;
+            return None;
+        }
     }
     conditions.insert(key.to_string(), next);
     Some((key.to_string(), true))
+}
+
+/// Conservative upper bounds for inferred state. Explicit off messages still
+/// clear immediately; these deadlines only prevent a missing line from
+/// leaving a chip on screen forever. Trigger authors may override with
+/// `config.max_age_secs` for a condition with known timing.
+fn default_condition_max_age_secs(key: &str) -> u64 {
+    match key {
+        "stun" => 15,
+        "spin" => 45,
+        "fear" => 90,
+        "mez" => 180,
+        "root" | "silence" | "blind" => 300,
+        "charm" | "slow" | "snare" => 900,
+        "poison" | "disease" | "encumbered" => 1_800,
+        _ => 900,
+    }
+}
+
+fn expire_condition_transitions(
+    conditions: &mut BTreeMap<String, ActiveConditionPayload>,
+    now: Instant,
+) -> Vec<String> {
+    let expired = conditions
+        .iter()
+        .filter(|(_, condition)| condition.expires_at <= now)
+        .map(|(key, _)| key.clone())
+        .collect::<Vec<_>>();
+    for key in &expired {
+        conditions.remove(key);
+    }
+    expired
 }
 
 impl EmitSink {
@@ -583,6 +637,7 @@ impl EmitSink {
                 &fields,
                 &config,
                 trigger.as_ref().and_then(|owner| owner.icon.as_deref()),
+                Instant::now(),
             )
         });
         if let Some((key, active)) = transition.as_ref() {
@@ -603,6 +658,23 @@ impl EmitSink {
                 format!("{} {}", key, if active { "on" } else { "off" }),
                 trigger,
             );
+        }
+    }
+
+    fn expire_conditions(&mut self, now: Instant, emit: bool) {
+        let expired = self
+            .conditions
+            .lock()
+            .map(|mut conditions| expire_condition_transitions(&mut conditions, now))
+            .unwrap_or_default();
+        if expired.is_empty() {
+            return;
+        }
+        for key in &expired {
+            logging::info(&format!("condition {key} off via safety-expiry"));
+        }
+        if emit {
+            self.emit_conditions_snapshot();
         }
     }
 
@@ -1086,6 +1158,7 @@ fn run_loop(
         while let Ok(next) = engine_rx.try_recv() {
             engine = next.engine;
         }
+        sink.expire_conditions(Instant::now(), !catchup.is_active());
 
         match tailer.lines.recv_timeout(Duration::from_millis(TICK_MS)) {
             Ok(raw) => {
@@ -1448,6 +1521,7 @@ mod watch_tests {
     #[test]
     fn condition_transitions_are_idempotent_and_unmatched_clears_are_noops() {
         let mut active = BTreeMap::new();
+        let started = Instant::now();
         let start = BTreeMap::from([
             ("key".into(), "root".into()),
             ("label".into(), "Rooted".into()),
@@ -1455,11 +1529,23 @@ mod watch_tests {
         let config = BTreeMap::from([("priority".into(), serde_json::json!(90))]);
 
         assert_eq!(
-            apply_condition_transition(&mut active, &start, &config, Some("spell:99")),
+            apply_condition_transition(
+                &mut active,
+                &start,
+                &config,
+                Some("spell:99"),
+                started,
+            ),
             Some(("root".into(), true))
         );
         assert_eq!(
-            apply_condition_transition(&mut active, &start, &config, Some("spell:99")),
+            apply_condition_transition(
+                &mut active,
+                &start,
+                &config,
+                Some("spell:99"),
+                started + Duration::from_secs(1),
+            ),
             None
         );
         assert_eq!(active.len(), 1);
@@ -1469,13 +1555,82 @@ mod watch_tests {
             ("active".into(), "false".into()),
         ]);
         assert_eq!(
-            apply_condition_transition(&mut active, &clear, &BTreeMap::new(), None),
+            apply_condition_transition(
+                &mut active,
+                &clear,
+                &BTreeMap::new(),
+                None,
+                started,
+            ),
             Some(("root".into(), false))
         );
         assert_eq!(
-            apply_condition_transition(&mut active, &clear, &BTreeMap::new(), None),
+            apply_condition_transition(
+                &mut active,
+                &clear,
+                &BTreeMap::new(),
+                None,
+                started,
+            ),
             None
         );
         assert!(active.is_empty());
+    }
+
+    #[test]
+    fn condition_safety_expiry_is_bounded_and_repeated_evidence_refreshes_it() {
+        let mut active = BTreeMap::new();
+        let started = Instant::now();
+        let fields = BTreeMap::from([
+            ("key".into(), "slow".into()),
+            ("label".into(), "Slowed".into()),
+        ]);
+        let config = BTreeMap::from([("max_age_secs".into(), serde_json::json!(10))]);
+
+        assert_eq!(
+            apply_condition_transition(&mut active, &fields, &config, None, started),
+            Some(("slow".into(), true))
+        );
+        assert_eq!(
+            apply_condition_transition(
+                &mut active,
+                &fields,
+                &config,
+                None,
+                started + Duration::from_secs(8),
+            ),
+            None
+        );
+        assert!(expire_condition_transitions(
+            &mut active,
+            started + Duration::from_secs(11)
+        )
+        .is_empty());
+        assert_eq!(
+            expire_condition_transitions(&mut active, started + Duration::from_secs(19)),
+            vec!["slow"]
+        );
+        assert!(active.is_empty());
+    }
+
+    #[test]
+    fn every_shipped_condition_kind_has_a_finite_safety_age() {
+        for key in [
+            "blind",
+            "charm",
+            "disease",
+            "encumbered",
+            "fear",
+            "mez",
+            "poison",
+            "root",
+            "silence",
+            "slow",
+            "snare",
+            "spin",
+            "stun",
+        ] {
+            assert!(default_condition_max_age_secs(key) <= 1_800, "{key}");
+        }
     }
 }

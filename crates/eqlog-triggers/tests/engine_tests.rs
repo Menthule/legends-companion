@@ -1189,6 +1189,29 @@ fn ghoul_root_live_grammar_routes_to_the_conditions_overlay() {
 }
 
 #[test]
+fn ambiguous_speed_wearoff_does_not_activate_the_slowed_condition() {
+    let profile = CharacterProfile::new("Sliq");
+    let mut engine = TriggerEngine::new_with_profile(load_library(), "Sliq", &profile);
+    let mut sink = RecordingSink::default();
+
+    let fires = engine.process_traced(&line(1, "You slow down."), &mut sink);
+    assert!(
+        fires.iter().all(|fire| fire.id != "universal/cc/slowed"),
+        "shared beneficial-speed wear-off text must not turn Slowed on"
+    );
+    assert!(sink.overlays.iter().all(|(overlay, fields, _)| {
+        overlay != "conditions" || fields.get("key").map(String::as_str) != Some("slow")
+    }));
+
+    engine.process(&line(2, "Your arms slow down."), &mut sink);
+    assert!(sink.overlays.iter().any(|(overlay, fields, _)| {
+        overlay == "conditions"
+            && fields.get("key").map(String::as_str) == Some("slow")
+            && fields.get("active").map(String::as_str) == Some("true")
+    }));
+}
+
+#[test]
 fn shipped_druid_growing_heals_start_and_finish_buff_timers() {
     let mut profile = CharacterProfile::new("Sliq");
     profile.active_loadout_mut().classes = vec!["Druid".into()];
